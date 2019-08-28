@@ -1,0 +1,1515 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "app",
+    "model": "tag"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "app",
+    "model": "category"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "app",
+    "model": "item"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "app",
+    "model": "subcategory"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gaegai190w1cs3v8ayq4poezp55vaktc",
+  "fields": {
+    "session_data": "MGQzZWI1ZWM5NjgyNTYyOWYwZTVhYThkODRmODgxOTQ2MDZjNmI0OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzOWNjYzEzMDk3NDU2NDJkOGY3MDM0ZDAzNGJmMjI4ODlmZjRlNDRiIn0=",
+    "expire_date": "2019-09-10T10:42:59.964Z"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Family"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Work"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Food"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 4,
+  "fields": {
+    "name": "Fun"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 5,
+  "fields": {
+    "name": "Dance"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 6,
+  "fields": {
+    "name": "People"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 1,
+  "fields": {
+    "f_fk": 5,
+    "f_o2o": 6,
+    "f_fk1": 4,
+    "f_fk2": 1,
+    "f_fk3": 4,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 9,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Gold",
+    "f_slug": "",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 1,
+    "f_tags": [
+      3,
+      2
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      1,
+      3
+    ],
+    "f_tags3": [
+      3,
+      4,
+      2
+    ],
+    "f_tags4": [
+      5,
+      3
+    ],
+    "f_tags5": [
+      3,
+      6
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 2,
+  "fields": {
+    "f_fk": 3,
+    "f_o2o": 3,
+    "f_fk1": 3,
+    "f_fk2": 2,
+    "f_fk3": null,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 844,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 75658,
+    "f_bigint": 678756,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": "2019-08-22",
+    "f_date2": "2021-06-02",
+    "f_time": "16:55:00",
+    "f_datetime": "1988-07-17T22:30:00Z",
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Robot",
+    "f_slug": "robot-75658",
+    "f_email": "test@mail.com",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 4,
+    "f_tags": [
+      1,
+      4,
+      2
+    ],
+    "f_tags1": [
+      5,
+      4,
+      2
+    ],
+    "f_tags2": [
+      4,
+      6
+    ],
+    "f_tags3": [
+      1,
+      2
+    ],
+    "f_tags4": [
+      3,
+      6
+    ],
+    "f_tags5": [
+      1
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 3,
+  "fields": {
+    "f_fk": 6,
+    "f_o2o": 1,
+    "f_fk1": 4,
+    "f_fk2": 4,
+    "f_fk3": 4,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 663,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Gary Oldman",
+    "f_slug": "gary-oldman-663",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "/home/jon/Python/www/paper-admin/tests/settings.py",
+    "f_file": "category/Aurora_Borealis_Atmosphere.jpg",
+    "f_image": "category/Beautiful_Lighthouse.jpg",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 2,
+    "f_tags": [
+      1
+    ],
+    "f_tags1": [
+      5,
+      3,
+      4
+    ],
+    "f_tags2": [
+      2
+    ],
+    "f_tags3": [
+      6
+    ],
+    "f_tags4": [
+      3,
+      6
+    ],
+    "f_tags5": [
+      1
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 4,
+  "fields": {
+    "f_fk": 3,
+    "f_o2o": null,
+    "f_fk1": null,
+    "f_fk2": null,
+    "f_fk3": null,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Matt's birthday",
+    "f_slug": "matts-birthday-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 3,
+    "f_tags": [
+      3
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      3
+    ],
+    "f_tags3": [
+      6
+    ],
+    "f_tags4": [
+      4
+    ],
+    "f_tags5": [
+      3
+    ]
+  }
+},
+{
+  "model": "app.item",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Billy",
+    "slug": "billy",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 2,
+  "fields": {
+    "category": 1,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Jonny",
+    "slug": "jonny",
+    "url": "",
+    "text": "",
+    "order": 1
+  }
+},
+{
+  "model": "app.item",
+  "pk": 3,
+  "fields": {
+    "category": 1,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Sam",
+    "slug": "sam",
+    "url": "",
+    "text": "",
+    "order": 2
+  }
+},
+{
+  "model": "app.item",
+  "pk": 4,
+  "fields": {
+    "category": 1,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Corey",
+    "slug": "corey",
+    "url": "",
+    "text": "",
+    "order": 3
+  }
+},
+{
+  "model": "app.item",
+  "pk": 5,
+  "fields": {
+    "category": 2,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "John",
+    "slug": "john",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 6,
+  "fields": {
+    "category": 2,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Sam",
+    "slug": "sam",
+    "url": "",
+    "text": "",
+    "order": 3
+  }
+},
+{
+  "model": "app.item",
+  "pk": 7,
+  "fields": {
+    "category": 2,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Stan",
+    "slug": "stan",
+    "url": "",
+    "text": "",
+    "order": 2
+  }
+},
+{
+  "model": "app.item",
+  "pk": 8,
+  "fields": {
+    "category": 2,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Kyle",
+    "slug": "kyle",
+    "url": "",
+    "text": "",
+    "order": 1
+  }
+},
+{
+  "model": "app.item",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Dan",
+    "slug": "dan",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 10,
+  "fields": {
+    "category": 4,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Kenny",
+    "slug": "kenny",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.subcategory",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "parent": null,
+    "name": "Adam",
+    "number": 7,
+    "order": 2,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "app.subcategory",
+  "pk": 2,
+  "fields": {
+    "category": 1,
+    "parent": null,
+    "name": "Eve",
+    "number": 2,
+    "order": 1,
+    "lft": 1,
+    "rght": 8,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "app.subcategory",
+  "pk": 3,
+  "fields": {
+    "category": 1,
+    "parent": 2,
+    "name": "Isaak",
+    "number": 2,
+    "order": 3,
+    "lft": 2,
+    "rght": 5,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "app.subcategory",
+  "pk": 4,
+  "fields": {
+    "category": 1,
+    "parent": 3,
+    "name": "Yakov",
+    "number": 3,
+    "order": 4,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "app.subcategory",
+  "pk": 5,
+  "fields": {
+    "category": 1,
+    "parent": 2,
+    "name": "Ilia",
+    "number": 54,
+    "order": 5,
+    "lft": 6,
+    "rght": 7,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add tag",
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "codename": "add_tag"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change tag",
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "codename": "change_tag"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete tag",
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "codename": "delete_tag"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view tag",
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "codename": "view_tag"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add category",
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "codename": "add_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change category",
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "codename": "change_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete category",
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "codename": "delete_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view category",
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "codename": "view_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add item",
+    "content_type": [
+      "app",
+      "item"
+    ],
+    "codename": "add_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change item",
+    "content_type": [
+      "app",
+      "item"
+    ],
+    "codename": "change_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete item",
+    "content_type": [
+      "app",
+      "item"
+    ],
+    "codename": "delete_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view item",
+    "content_type": [
+      "app",
+      "item"
+    ],
+    "codename": "view_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add subcategory",
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "codename": "add_subcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change subcategory",
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "codename": "change_subcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete subcategory",
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "codename": "delete_subcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view subcategory",
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "codename": "view_subcategory"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$S5NUxpeLpcuu$Zztw9OD0563zla7jwpD8MpMGQ1JTE6DMvot47H8SvFI=",
+    "last_login": "2019-08-27T10:42:59.863Z",
+    "is_superuser": true,
+    "username": "root",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-08-27T08:52:33.327Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$ItWolZqSW8SA$dyG07X7cOXOsYKw7u+qvgiHTVgVh3dqXtM4q+V6X8uE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-08-28T04:55:21.979Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2019-08-27T10:45:45.375Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "1",
+    "object_repr": "Family",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2019-08-27T10:45:49.350Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "2",
+    "object_repr": "Work",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2019-08-27T10:45:53.112Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "3",
+    "object_repr": "Food",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2019-08-27T10:46:03.715Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "4",
+    "object_repr": "Fun",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2019-08-27T10:46:13.504Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "5",
+    "object_repr": "Dance",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2019-08-27T10:51:26.344Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "6",
+    "object_repr": "People",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2019-08-27T10:56:55.527Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Gold",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Billy\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Jonny\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2019-08-27T12:52:35.393Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "object_id": "1",
+    "object_repr": "Adam",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2019-08-27T12:52:42.631Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "object_id": "2",
+    "object_repr": "Eve",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2019-08-27T12:53:03.660Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "object_id": "3",
+    "object_repr": "Isaak",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2019-08-27T12:53:13.963Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "object_id": "4",
+    "object_repr": "Yakov",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2019-08-27T12:53:28.734Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "subcategory"
+    ],
+    "object_id": "5",
+    "object_repr": "Ilia",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2019-08-28T04:55:22.106Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "test",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2019-08-28T10:44:10.160Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Gold",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"item\", \"object\": \"Sam\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Corey\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2019-08-28T10:44:20.699Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Gold",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"item\", \"object\": \"Corey\", \"fields\": [\"order\"]}}, {\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2019-08-28T10:47:38.433Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Robot",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"John\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Sam\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2019-08-28T10:48:27.677Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Robot",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"item\", \"object\": \"Stan\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Kyle\"}}, {\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2019-08-28T10:49:01.051Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Robot",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}, {\"changed\": {\"name\": \"item\", \"object\": \"Stan\", \"fields\": [\"order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2019-08-28T12:52:36.761Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Gary Oldman",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Dan\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2019-08-28T12:55:31.049Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Sam's birthday",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Kenny\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2019-08-28T12:55:56.079Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Matt's birthday",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_char\", \"f_slug\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2019-08-28T12:56:00.421Z",
+    "user": [
+      "root"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Matt's birthday",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_slug\"]}}]"
+  }
+}
+]
