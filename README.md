@@ -1,7 +1,8 @@
 # paper_admin
 
-!(http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/00584b8abc.png)
-!(http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/72f0b476ae.png)
+![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/00584b8abc.png)
+
+![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/72f0b476ae.png)
 
 ## Installation
 Add `paper_admin` **before** `django.contrib.admin`.
@@ -101,6 +102,8 @@ class PageAdmin(admin.ModelAdmin):
         return classes
 ```
 
+![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/5cc83f8e98.png)
+
 ## Menu
 Меню в сайдбаре настраивается путем заполнения списка 
 `PAPER_MENU` в `settings.py`.
@@ -134,24 +137,26 @@ PAPER_MENU = [
 * словарь
 * строка-разделитель ("-")
 
-Доступные параметры для формирования пунтка меню через словарь:
-* `label`: str      - заголовок пункта меню
-* `url`: str        - ссылка или именованый URL
-* `icon`: str       - классы иконки
-* `classes`: str    - классы пункта меню
-* `perms`: str/list - права, необходимые для отображения пункта (либо строка "superuser")
-* `app`: str        - имя приложения. Добавляется к именам моделей в models
-* `models`: list    - дочерние пукнты меню. Может содержать имена моделей.
+
+Доступные ключи для формирования пунтка меню с помощью словаря:
+* `label`: `str`      - заголовок пункта меню
+* `url`: `str`        - ссылка или именованный URL
+* `icon`: `str`       - классы иконки
+* `classes`: `str`    - классы пункта меню
+* `perms`: `str/list` - права, необходимые для отображения пункта (либо строка "superuser")
+* `app`: `str`        - имя приложения. Добавляется к именам моделей в models
+* `models`: `list`    - дочерние пункты меню. Может содержать имена моделей или вложенные словари.
 
 
 ## Settings
-
-| `PAPER_SITE_TITLE`        | Базовая часть тэга <title>      |
-| `PAPER_SITE_HEADER`       | Заголовок в сайдбаре            |
-| `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения |
-| `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения |
-| `PAPER_SUPPORT_PHONE`     | Контактный телефон в подвале  |
-| `PAPER_SUPPORT_EMAIL`     | Контактный email в подвале    |
-| `PAPER_SUPPORT_COMPANY`   | Название компании в подвале   |
-| `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале      |
-| `PAPER_MENU`              | Меню в сайдбаре |
+| Option | Description | Example value |
+| --- | --- | --- |
+| `PAPER_SITE_TITLE`        | Базовая часть тэга <title>            | 'Django site admin'   |
+| `PAPER_SITE_HEADER`       | Заголовок в сайдбаре                  | 'Apple pie shop'      |
+| `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения    | 'development'         |
+| `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения   | '#FFFF00'             |
+| `PAPER_SUPPORT_PHONE`     | Контактный телефон в подвале          | '+1 234 567 8900'     |
+| `PAPER_SUPPORT_EMAIL`     | Контактный email в подвале            | 'office@example.com'  |
+| `PAPER_SUPPORT_COMPANY`   | Название компании в подвале           | 'Web Studio Inc.'     |
+| `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале     | 'https://webstudio.com/' |
+| `PAPER_MENU`              | Меню в сайдбаре                       | |
