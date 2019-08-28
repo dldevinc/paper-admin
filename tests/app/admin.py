@@ -127,7 +127,6 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         ('tab3', _('File Fields')),
         ('tab4', _('Inlines')),
     ]
-    ordering = ['f_char']
     form = CategoryForm
     list_per_page = 15
     list_max_show_all = 500
@@ -156,6 +155,14 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     def m2m_field(self, obj):
         return ', '.join(str(_) for _ in obj.f_tags.all())
     m2m_field.short_description = _('M2M Field')
+
+    def get_row_classes(self, request, obj=None):
+        classes = super().get_row_classes(request, obj)
+        if obj.f_char.startswith('G'):
+            classes.append('table-success')
+        elif obj.f_char.startswith('R'):
+            classes.append('table-info')
+        return classes
 
 
 @admin.register(SubCategory)

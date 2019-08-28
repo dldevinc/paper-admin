@@ -33,4 +33,3 @@ def paper_mptt_result_list(cl):
             'result_headers': headers,
             'num_sorted_fields': num_sorted_fields,
             'results': list(mptt_results(cl))}
-

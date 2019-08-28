@@ -256,7 +256,7 @@ class PaperModelAdmin:
         """
         return list(self.tabs)
 
-    def get_row_classes(self, request, obj=None):
+    def get_row_classes(self, request, obj):
         """
         Позволяет назначить CSS-классы для ряда таблицы changelist.
 

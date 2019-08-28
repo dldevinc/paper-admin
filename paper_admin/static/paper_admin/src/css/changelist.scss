@@ -92,7 +92,12 @@
 .table-column-header {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
   vertical-align: bottom;
+}
+
+.table-column-header-title {
+  white-space: normal;
 }
 
 .sortoptions-btn {

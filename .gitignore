@@ -110,3 +110,6 @@ venv.bak/
 /node_modules
 /cache
 /package-lock.json
+
+# data
+/category

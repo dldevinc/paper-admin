@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   {% block preload %}
-    <link rel="preload" href="{% static 'paper_admin/dist/app.bundle.js' %}" as="script">
     <link rel="preload" href="{% static 'paper_admin/dist/app.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'paper_admin/dist/app.bundle.js' %}" as="script">
   {% endblock %}
 
   <title>{% block title %}{% endblock %}</title>

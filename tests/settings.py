@@ -114,6 +114,9 @@ PAPER_SUPPORT_EMAIL = 'office@directlinedev.com'
 PAPER_SUPPORT_COMPANY = 'Direct Line Development'
 PAPER_SUPPORT_WEBSITE = 'https://directlinedev.com/'
 
+PAPER_ENVIRONMENT_NAME = 'development'
+PAPER_ENVIRONMENT_COLOR = '#FFFF00'
+
 PAPER_MENU = [
     dict(
         label=_('Dashboard'),

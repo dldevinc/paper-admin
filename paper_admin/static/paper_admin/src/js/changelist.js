@@ -5,9 +5,6 @@ import SortableTable from "./components/sortable_table/SortableTable";
 import "./components/actions";
 import "./components/RelatedObjectLookups";
 
-// CSS
-import "../css/changelist.scss";
-
 
 // Ctrl + Arrows navigation
 window.addEventListener('keydown', function(event) {

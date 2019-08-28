@@ -21,6 +21,8 @@ import "../css/dashboard.scss";
 import "../css/app_index.scss";
 import "../css/login.scss";
 import "../css/delete.scss";
+import "../css/changelist.scss";
+import "../css/changeform.scss";
 
 // Images
 import "../img/favicon.png";

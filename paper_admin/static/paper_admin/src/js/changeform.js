@@ -15,9 +15,6 @@ import "./widgets/multiselect";
 import "./widgets/password";
 import "./widgets/url";
 
-// CSS
-import "../css/changeform.scss";
-
 
 whenDomReady(function() {
     // предупреждение при закрытии формы
