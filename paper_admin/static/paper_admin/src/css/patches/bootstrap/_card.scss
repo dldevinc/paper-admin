@@ -1,0 +1,11 @@
+.card {
+  background: none;   // fix background bleed
+}
+
+.card-header-thin {
+  padding: #{$card-spacer-y / 2} $card-spacer-x;
+}
+
+.card-body {
+  background: $card-bg;
+}

@@ -1,0 +1,70 @@
+{% load i18n %}
+{% load paper_paginator %}
+
+
+{% if pagination_required %}
+  <nav class="paper-pagination" aria-label="Search results pages">
+    <div class="d-inline-block mr-3">
+      <ul class="pagination pagination-sm mb-0">
+        {% if cl.page_num == 0 %}
+          <li class="page-item disabled">
+          <span class="page-link" aria-label="Previous">
+            <i class="fa fa-fw fa-caret-left"></i>
+            <span class="sr-only">{% trans 'Previous' %}</span>
+          </span>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="{% page_url cl cl.page_num|add:-1 %}" aria-label="Previous">
+              <i class="fa fa-fw fa-caret-left"></i>
+              <span class="sr-only">{% trans 'Previous' %}</span>
+            </a>
+          </li>
+        {% endif %}
+
+
+        {% for i in page_range %}
+          {% if i == '.' %}
+            <li class="page-item">
+              <span class="page-link">...</span>
+            </li>
+          {% elif i == cl.page_num %}
+            <li class="page-item active">
+              <span class="page-link">{{ i|add:1 }} <span class="sr-only">(current)</span></span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{% page_url cl i %}">{{ i|add:1 }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+
+        {% if cl.page_num == cl.paginator.num_pages|add:-1 %}
+          <li class="page-item disabled">
+          <span class="page-link" aria-label="Next">
+            <i class="fa fa-fw fa-caret-right"></i>
+            <span class="sr-only">{% trans 'Next' %}</span>
+          </span>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="{% page_url cl cl.page_num|add:1 %}" aria-label="Next">
+              <i class="fa fa-fw fa-caret-right"></i>
+              <span class="sr-only">{% trans 'Next' %}</span>
+            </a>
+          </li>
+        {% endif %}
+
+        {% if show_all_url %}
+          <li class="page-item">
+            <a class="showall page-link" href="{{ show_all_url }}" aria-label="Show all" title="View all">
+              <i class="fa fa-fw fa-list-ul"></i>
+              <span class="sr-only">{% trans 'All' %}</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+{% endif %}

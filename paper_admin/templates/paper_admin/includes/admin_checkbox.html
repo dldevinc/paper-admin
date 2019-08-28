@@ -1,0 +1,40 @@
+{% extends 'paper_admin/includes/admin_field.html' %}
+
+{% block label %}
+  <div class="form-label col-form-label col-md-3 col-xl-2 d-none d-md-block">
+    {% spaceless %}
+      <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+
+      {% if field.help_text %}
+        <i class="fa fa-question-circle vHelpIcon"
+           data-toggle="popover" data-placement="top" data-trigger="manual"
+           data-html="true" data-content="{{ field.help_text }}"></i>
+      {% endif %}
+    {% endspaceless %}
+  </div>
+{% endblock %}
+
+{% block widget %}
+  <div class="form-widget col-md-9 col-xl-10">
+    {{ field }}
+    <div class="form-label d-md-none">
+      {% spaceless %}
+        <label for="{{ field.id_for_label }}" class="form-check-label">{{ field.label|capfirst }}</label>
+
+        {% if field.help_text %}
+          <i class="fa fa-question-circle vHelpIcon"
+             data-toggle="popover" data-placement="top" data-trigger="manual"
+             data-html="true" data-content="{{ field.help_text }}"></i>
+        {% endif %}
+      {% endspaceless %}
+    </div>
+
+    <div class="invalid-feedback">
+      <ul class="list-unstyled mb-0">
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

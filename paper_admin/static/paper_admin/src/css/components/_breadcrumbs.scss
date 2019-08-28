@@ -1,0 +1,14 @@
+@import "../app";
+
+
+.breadcrumb {
+  padding-left: $breadcrumb-padding-x / 2;
+  padding-right: $breadcrumb-padding-x / 2;
+  font-size: 0.8rem;
+  border-radius: 0;
+  border-bottom: $hr-border-width solid $hr-border-color;
+  @include media-breakpoint-up(sm) {
+    padding-left: $breadcrumb-padding-x;
+    padding-right: $breadcrumb-padding-x;
+  }
+}

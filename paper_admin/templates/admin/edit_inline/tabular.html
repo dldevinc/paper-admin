@@ -1,0 +1,144 @@
+{% load i18n admin_urls static %}
+
+
+<div class="inline-group tabular {{ inline_admin_formset.classes }}{% if inline_admin_formset.opts.sortable %} sortable-inline-group{% endif %}"
+     id="{{ inline_admin_formset.formset.prefix }}-group"
+     data-inline-type="tabular"
+     data-inline-prefix="{{ inline_admin_formset.formset.prefix }}">
+
+  <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
+  {{ inline_admin_formset.formset.management_form }}
+
+  <ul class="formset-errors messages list-group">{% spaceless %}
+    {% for error in inline_admin_formset.formset.non_form_errors %}
+      <li class="list-group-item list-group-item-danger">
+        {{ error }}
+      </li>
+    {% endfor %}
+
+    {% for error in inline_admin_formset.non_field_errors %}
+      <li class="list-group-item list-group-item-danger">
+        {{ error }}
+      </li>
+    {% endfor %}
+  {% endspaceless %}</ul>
+
+  <fieldset class="card">
+    <div class="card-body">
+      <div class="paper-table-wrapper">
+        <table class="table table-hover table-middle table-striped table-responsive-md small mb-0">
+          <thead>
+          <tr>
+            {% for field in inline_admin_formset.fields %}
+              {% if not field.widget.is_hidden %}
+                <th class="{% if field.required %}required{% endif %}">
+                  <div class="form-label">
+                    {% spaceless %}
+                      <label>{{ field.label|capfirst }}</label>
+
+                      {% if field.help_text %}
+                        <i class="fa fa-question-circle vHelpIcon"
+                           data-toggle="popover" data-placement="top" data-trigger="manual"
+                           data-html="true" data-content="{{ field.help_text }}"></i>
+                      {% endif %}
+                    {% endspaceless %}
+                  </div>
+                </th>
+              {% endif %}
+            {% endfor %}
+
+            <th class="tools-header"></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for inline_admin_form in inline_admin_formset %}
+            <tr class="inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.non_field_errors %} table-danger{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+                id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+              {% for fieldset in inline_admin_form %}
+                {% for fld in fieldset %}
+                  {% with is_readonly=fld.is_readonly field=fld.field %}
+                    {% if not field.is_hidden %}
+                      <td class="{% if field.name %}field-{{ field.name }}{% endif %}{% if field.errors %} invalid{% endif %}">
+                        {% if is_readonly %}
+                          <div class="readonly-content">{{ field.contents }}</div>
+                        {% else %}
+                          {{ field }}
+
+                          <div class="invalid-feedback">
+                            <ul class="list-unstyled mb-0">
+                              {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        {% endif %}
+                      </td>
+                    {% endif %}
+                  {% endwith %}
+                {% endfor %}
+              {% endfor %}
+
+              <td class="tools-cell">
+                {% if inline_admin_form.needs_explicit_pk_field %}
+                  {{ inline_admin_form.pk_field.field }}
+                {% endif %}
+
+                {{ inline_admin_form.fk_field.field }}
+
+                {% for fieldset in inline_admin_form %}
+                  {% for fld in fieldset %}
+                    {% if fld.field.is_hidden %}
+                      {{ fld.field }}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+
+                <div class="tool-items">
+                  {% if inline_admin_formset.opts.sortable %}
+                    <button type="button" class="sortable-move-up tool-item text-info"
+                       data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                       data-html="true" title="{% trans 'Move up' %}">
+                      <i class="fa fa-fw fa-chevron-up"></i>
+                    </button>
+
+                    <button type="button" class="sortable-move-down tool-item text-info"
+                       data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                       data-html="true" title="{% trans 'Move down' %}">
+                      <i class="fa fa-fw fa-chevron-down"></i>
+                    </button>
+                  {% endif %}
+
+                  {% if inline_admin_form.show_url %}
+                    <a href="{{ inline_admin_form.absolute_url }}" class="tool-item">
+                      <i class="fa fa-fw fa-eye"></i>
+                    </a>
+                  {% endif %}
+
+                  <button type="button" class="delete-row tool-item text-danger"
+                     data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                     data-html="true" title="{% trans 'Remove' %}" hidden>
+                    <i class="fa fa-fw fa-trash"></i>
+                  </button>
+
+                  {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
+                    <label for="{{ inline_admin_form.deletion_field.field.id_for_label }}" class="delete-inline tool-item">
+                      {{ inline_admin_form.deletion_field.field }}
+                      <span class="delete-inline-text"> {{ inline_admin_form.deletion_field.field.label }}</span>
+                    </label>
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="add-row" hidden>
+          <button type="button" class="btn btn-sm btn-info">
+            {% blocktrans with verbose_name=inline_admin_formset.opts.verbose_name|capfirst %}Add another {{ verbose_name }}{% endblocktrans %}
+          </button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>

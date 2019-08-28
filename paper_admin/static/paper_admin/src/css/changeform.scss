@@ -1,0 +1,113 @@
+@import "app";
+@import "./components/autosize";
+@import "./components/tabs";
+
+
+.inline-group {
+  &:not(:first-child) {
+    margin-top: #{1.5 * $grid-gutter-width};
+  }
+}
+
+.inline-related {
+  .delete-inline {
+    .vCustomCheckbox {
+      vertical-align: top;
+    }
+
+    .indicator {
+      margin-top: 0;
+    }
+  }
+
+  .delete-inline-text {
+    line-height: 1;
+  }
+
+  &.empty-form {
+    display: none;
+  }
+}
+
+.stacked {
+  .card-header-tools {
+    margin-top: -4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .card-title {
+      margin-top: 4px;
+      padding-right: 1.6rem;
+    }
+
+    .tool-items {
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+  }
+
+  .formset-errors:empty {
+    display: none;
+  }
+
+  .formset-form-errors {
+    padding: 0.5rem;
+
+    &:empty {
+      display: none;
+    }
+
+    .list-group-item:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.tabular {
+  .table {
+    position: relative;
+  }
+
+  tbody {
+    background-color: $card-bg;
+  }
+
+  thead > tr > th {
+    padding-top: 0;
+    padding-bottom: 0.5rem;
+    min-width: 100px;
+  }
+
+  .form-label {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    label {
+      color: inherit;
+    }
+  }
+
+  > .card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .tools-header {
+    width: 0.001%;
+  }
+
+  .tools-cell {
+    white-space: nowrap;
+  }
+
+  .formset-errors:empty {
+    display: none;
+  }
+
+  .add-row {
+    margin-top: 1rem;
+    padding-left: 1rem;
+  }
+}

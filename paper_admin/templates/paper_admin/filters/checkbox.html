@@ -1,0 +1,20 @@
+<div class="paper-filter form-group">
+  <label class="paper-filter-header mb-0">{{ title|capfirst }}</label>
+
+  <ul class="{{ classes }} list-unstyled mb-0">
+    {% for choice in choices %}
+      <li>
+        <label class="vCustomCheckbox">
+          <input type="checkbox"
+                 value="{{ choice.value }}"
+                 name="{{ spec.field_path }}"
+                 {{ choice.selected|yesno:"checked," }}>
+          <div class="d-flex">
+            <div class="indicator"></div>
+            <div class="label">{{ choice.display }}</div>
+          </div>
+        </label>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

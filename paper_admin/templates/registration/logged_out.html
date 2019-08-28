@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+
+{% block before_content %}
+  <h1 class="paper-title">
+    {% trans 'You are now logged out' %}
+  </h1>
+{% endblock %}
+
+
+{% block content %}
+  <p>
+    {% trans "Thanks for spending some quality time with the Web site today." %}
+  </p>
+
+  <p>
+    <a href="{% url 'admin:index' %}" class="btn btn-sm btn-outline-info">
+      {% trans 'Log in again' %}
+    </a>
+  </p>
+{% endblock %}

@@ -1,0 +1,12 @@
+<ul class="list-unstyled mb-0">
+  {% for group, options, index in widget.optgroups %}
+    <li>
+      {% if group %}{{ group }}{% endif %}
+      {% for option in options %}
+        {% with widget=option %}
+          {% include option.template_name %}
+        {% endwith %}
+      {% endfor %}
+    </li>
+  {% endfor %}
+</ul>

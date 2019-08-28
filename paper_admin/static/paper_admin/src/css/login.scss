@@ -1,0 +1,52 @@
+@import "app";
+
+
+@keyframes form_appear {
+  0% {
+    top: -5vh;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+
+.login-page {
+  background: url(../img/login_bg.jpg) center bottom;
+  background-size: cover;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: rgba(0,0,0,0.5);
+  }
+}
+
+
+#paper-main {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+
+.login-card {
+  position: relative;
+  overflow: hidden;
+  max-width: 18rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 0 0 1px theme-color-level('dark', -2);
+  animation: form_appear 0.8s backwards 0.4s;
+}
+
+
+.password-reset-link {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}

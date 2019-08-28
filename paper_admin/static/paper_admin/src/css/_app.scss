@@ -1,0 +1,25 @@
+/**
+ * Только переменные, функции и миксины!
+ */
+
+// vendors
+@import
+  "abstracts/variables/bootstrap",
+  "abstracts/variables/font_awesome";
+
+@import
+  "vendor/bootstrap/functions",
+  "vendor/bootstrap/variables",
+  "vendor/bootstrap/mixins",
+  "vendor/font-awesome/variables";
+
+@import
+  "abstracts/mixins";
+
+// patches
+@import
+  "patches/font_awesome/variables";
+
+// core & components
+@import
+  "abstracts/variables";

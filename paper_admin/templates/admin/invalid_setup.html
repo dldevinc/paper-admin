@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+
+{% block message_items %}
+  {{ block.super }}
+
+  <li class="list-group-item list-group-item-danger">
+    {% trans "Something's wrong with your database installation. Make sure the appropriate database tables have been created, and make sure the database is readable by the appropriate user." %}
+  </li>
+{% endblock %}

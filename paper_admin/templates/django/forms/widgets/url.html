@@ -1,0 +1,15 @@
+<div class="input-group">
+  {% with input_class='vURLInput form-control' %}
+    {% include "django/forms/widgets/input.html" %}
+  {% endwith %}
+
+  <div class="input-group-append">
+    <a class="input-group-text {% if widget.value %}text-info{% endif %}"
+       {% if widget.value %}href="{{ widget.value }}"{% endif %}
+       target="_blank" rel="noopener" tabindex="-1"
+       data-toggle="tooltip" data-placement="top" data-trigger="hover"
+       data-html="true" title="{{ _('Visit') }}">
+      <i class="fa fa-fw fa-globe"></i>
+    </a>
+  </div>
+</div>

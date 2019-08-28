@@ -1,0 +1,40 @@
+@import "../app";
+
+
+.paper-filters-card {
+  .card-body {
+    padding: 0;
+  }
+
+  .card-row {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: $hr-border-width solid $hr-border-color;
+    @include card-padding-x;
+
+    &:last-child {
+      border-width: 0;
+    }
+
+    .col-auto {
+      flex-shrink: 1;
+    }
+  }
+
+  .results-counter {
+    display: inline-block;
+    margin: 0.375rem 0;
+    vertical-align: middle;
+  }
+}
+
+.paper-hierarchy-filter {
+  margin-bottom: 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.paper-filter-header {
+  font-size: 15px;
+}

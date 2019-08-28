@@ -1,0 +1,118 @@
+{% load i18n admin_urls static %}
+
+
+<div class="inline-group stacked {{ inline_admin_formset.classes }}{% if inline_admin_formset.opts.sortable %} sortable-inline-group{% endif %}"
+     id="{{ inline_admin_formset.formset.prefix }}-group"
+     data-inline-type="stacked"
+     data-inline-prefix="{{ inline_admin_formset.formset.prefix }}">
+
+  <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
+  {{ inline_admin_formset.formset.management_form }}
+
+  <ul class="formset-errors messages list-group">{% spaceless %}
+    {% for error in inline_admin_formset.formset.non_form_errors %}
+      <li class="list-group-item list-group-item-danger">
+        {{ error }}
+      </li>
+    {% endfor %}
+  {% endspaceless %}</ul>
+
+  {% for inline_admin_form in inline_admin_formset %}
+    <fieldset class="paper-form-card card inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} card-danger{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+              id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+      <div class="card-header">
+        <div class="card-header-tools">
+          <h4 class="card-title inline-label">
+            {% if inline_admin_form.original %}
+              {{ inline_admin_form.original }}
+            {% else %}
+              {{ inline_admin_formset.opts.verbose_name|capfirst }} #{{ forloop.counter }}
+            {% endif %}
+          </h4>
+
+          <div class="tool-items">
+            {% if inline_admin_formset.opts.sortable %}
+              <button type="button" class="sortable-move-up tool-item text-info"
+                 data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                 data-html="true" title="{% trans 'Move up' %}">
+                <i class="fa fa-fw fa-chevron-up"></i>
+              </button>
+
+              <button type="button" class="sortable-move-down tool-item text-info"
+                 data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                 data-html="true" title="{% trans 'Move down' %}">
+                <i class="fa fa-fw fa-chevron-down"></i>
+              </button>
+            {% endif %}
+
+            {% if inline_admin_form.show_url %}
+              <a href="{{ inline_admin_form.absolute_url }}" class="tool-item text-info"
+                 data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                 data-html="true" title="{% trans 'View on site' %}"
+                 target="_blank" rel="noopener">
+                <i class="fa fa-fw fa-eye"></i>
+              </a>
+            {% endif %}
+
+            <button type="button" class="delete-row tool-item text-danger"
+               data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+               data-html="true" title="{% trans 'Remove' %}" hidden>
+              <i class="fa fa-fw fa-trash"></i>
+            </button>
+
+            {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
+              <label for="{{ inline_admin_form.deletion_field.field.id_for_label }}" class="delete-inline tool-item">
+                {{ inline_admin_form.deletion_field.field }}
+                <span class="delete-inline-text"> {{ inline_admin_form.deletion_field.field.label }}</span>
+              </label>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <ul class="formset-form-errors messages list-group">{% spaceless %}
+          {% for error in inline_admin_form.form.non_field_errors %}
+            <li class="list-group-item list-group-item-danger">
+              {{ error }}
+            </li>
+          {% endfor %}
+        {% endspaceless %}</ul>
+
+        {% if inline_admin_form.needs_explicit_pk_field %}
+          {{ inline_admin_form.pk_field.field }}
+        {% endif %}
+
+        {{ inline_admin_form.fk_field.field }}
+
+        {% for fieldset in inline_admin_form %}
+          {% for fld in fieldset %}
+            {% if fld.field.is_hidden %}
+              {{ fld.field }}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        {% for fieldset in inline_admin_form %}
+          {% for fld in fieldset %}
+            {% if not fld.field.is_hidden %}
+              {% with is_readonly=fld.is_readonly field=fld.field %}
+                {% if fld.is_checkbox %}
+                  {% include 'paper_admin/includes/admin_checkbox.html' %}
+                {% else %}
+                  {% include 'paper_admin/includes/admin_field.html' %}
+                {% endif %}
+              {% endwith %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </fieldset>
+  {% endfor %}
+
+  <div class="add-row" hidden>
+    <button type="button" class="btn btn-sm btn-info">
+      {% blocktrans with verbose_name=inline_admin_formset.opts.verbose_name|capfirst %}Add another {{ verbose_name }}{% endblocktrans %}
+    </button>
+  </div>
+</div>

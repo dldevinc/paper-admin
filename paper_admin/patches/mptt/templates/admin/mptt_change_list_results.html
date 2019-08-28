@@ -1,0 +1,10 @@
+{% extends 'admin/change_list_results.html' %}
+
+
+{% block table_classes %}{{ block.super }} table-mptt{% endblock %}
+
+{% block result_header %}
+  <th scope="col" {{ header.class_attrib }}>
+    <span class="table-column-header">{{ header.text|capfirst }}</span>
+  </th>
+{% endblock %}

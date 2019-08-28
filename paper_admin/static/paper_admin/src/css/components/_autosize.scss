@@ -1,0 +1,6 @@
+textarea[autosize] {
+  max-height: 200px;
+  @include media-breakpoint-up(md) {
+    max-height: 400px;
+  }
+}

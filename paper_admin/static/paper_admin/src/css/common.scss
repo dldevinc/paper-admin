@@ -1,0 +1,38 @@
+@import "app";
+
+// vendors
+@import
+  "vendor/bootstrap/bootstrap",
+  "vendor/perfect-scrollbar",
+  "vendor/font-awesome/font-awesome";
+
+@import
+  "patches/bootstrap/card",
+  "patches/bootstrap/custom_forms",
+  "patches/bootstrap/input_group",
+  "patches/bootstrap/pagination",
+  "patches/font_awesome/fixed_width",
+  "patches/font_awesome/larger",
+  "patches/select2";
+
+// core
+@import
+  "base/base";
+
+// components
+@import
+  "components/tool_item",   // must be above 'components/forms'
+  "components/breadcrumbs",
+  "components/buttons",
+  "components/card",
+  "components/environment",
+  "components/footer",
+  "components/forms",
+  "components/form_card",
+  "components/header",
+  "components/messages",
+  "components/modal",
+  "components/scroll_top_button",
+  "components/sidebar",
+  "components/tables",
+  "components/table_card";

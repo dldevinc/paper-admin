@@ -1,0 +1,43 @@
+{% for item in items %}
+  {% if item.divider %}
+    <li class="divider"></li>
+  {% elif item.childs %}
+    <li class="nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
+      <a href="#submenu-{{ item.uid }}"
+         class="nav-link has-subs"
+         data-toggle="collapse"
+         data-parent="{{ parent }}"
+         aria-expanded="{{ item.is_active|yesno:"true,false" }}"
+         aria-controls="submenu-{{ item.uid }}">
+        {% if item.icon %}
+          <i class="{{ item.icon }}"></i>
+        {% else %}
+          {% if level == 1 %}
+            <i class="fa fa-fw fa-lg {{ item.is_active|yesno:"fa-folder-open-o,fa-folder-o" }} paper-icon-default"></i>
+          {% endif %}
+        {% endif %}
+        <span>{{ item.label }}</span>
+      </a>
+
+      <ul class="collapse list-unstyled {{ item.is_active|yesno:"show," }}"
+          id="submenu-{{ item.uid }}">
+        {% with uid=item.uid|stringformat:"s" %}
+          {% include 'paper_admin/_menu.html' with items=item.childs parent="#submenu-"|add:uid level=level|add:1 %}
+        {% endwith %}
+      </ul>
+    </li>
+  {% else %}
+    <li class="nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
+      <a href="{{ item.url }}" class="nav-link">
+        {% if item.icon %}
+          <i class="{{ item.icon }}"></i>
+        {% else %}
+          {% if level == 1 %}
+            <i class="fa fa-fw fa-lg fa-file-o"></i>
+          {% endif %}
+        {% endif %}
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  {% endif %}
+{% endfor %}
