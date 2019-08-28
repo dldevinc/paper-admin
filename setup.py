@@ -22,13 +22,12 @@ VERSION = '0.0.1'
 # What packages are required for this module to be executed?
 REQUIRED = [
     'django>2.0,<3.0',
-    'django-solo>1.1,<2.0',
-    'django-mptt>1.9,<2.0',
 ]
 
 # What packages are optional?
 EXTRAS = {
-
+    'solo': 'django-solo>1.1,<2.0',
+    'mptt': 'django-mptt>1.9,<2.0',
 }
 
 KEYWORDS = [
@@ -108,13 +107,31 @@ setup(
     author_email=EMAIL,
     url=URL,
     license='BSD',
-    packages=['paper_admin'],
-    package_data={'paper_admin': [
-        'static/paper_admin/*/*',
-        'static/paper_admin/*/*/*',
-        'templates/paper_admin/*',
-        'templates/paper_admin/*/*',
-    ]},
+    packages=[
+        'paper_admin',
+        'paper_admin.admin',
+        'paper_admin.patches.django_solo',
+        'paper_admin.patches.mptt',
+        'paper_admin.patches.mptt.templatetags',
+    ],
+    package_data={
+        'paper_admin': [
+            'static/admin/*/*',
+            'static/paper_admin/dist/*',
+            'static/paper_admin/dist/*/*',
+            'static/paper_admin/dist/*/*/*',
+            'templates/*',
+            'templates/*/*',
+            'templates/*/*/*',
+            'templates/*/*/*/*',
+        ],
+        'paper_admin.patches.django_solo': [
+            'templates/admin/*/*',
+        ],
+        'paper_admin.patches.mptt': [
+            'templates/admin/*',
+        ],
+    },
     # If your package is a single module, use this instead of 'packages':
     # py_modules=['mypackage'],
 
@@ -129,7 +146,7 @@ setup(
     keywords=KEYWORDS,
     include_package_data=True,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
