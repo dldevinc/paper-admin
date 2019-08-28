@@ -1,0 +1,56 @@
+{% load i18n admin_urls %}
+
+{% if show_save %}
+  <button type="submit" name="_save" form="changeform" class="btn btn-lg btn-block btn-success">
+    <i class="fa fa-fw fa-save"></i>
+    <span>{% trans 'Save' %}</span>
+  </button>
+{% endif %}
+
+{% if show_save_and_continue %}
+  <button type="submit" name="_continue" form="changeform" class="btn btn-block btn-info">
+    {% if can_change %}
+      <span>{% trans 'Save and continue editing' %}</span>
+    {% else %}
+      {% trans 'Save and view' %}
+      <span>{% trans 'Save and view' %}</span>
+    {% endif %}
+  </button>
+{% endif %}
+
+{% if show_save_and_add_another %}
+  <button type="submit" name="_addanother" form="changeform" class="btn btn-block btn-info">
+    <span>{% trans 'Save and add another' %}</span>
+  </button>
+{% endif %}
+
+{% if show_save_as_new %}
+  <button type="submit" name="_saveasnew" form="changeform" class="btn btn-block btn-info">
+    <span>{% trans 'Save as new' %}</span>
+  </button>
+{% endif %}
+
+{% if not is_popup %}
+  {% if has_absolute_url %}
+    <a href="{{ absolute_url }}" class="btn btn-block btn-outline-info" target="_blank" rel="noopener">
+      <i class="fa fa-fw fa-eye"></i>
+      <span>{% trans 'View on site' %}</span>
+    </a>
+  {% endif %}
+
+  {% if change %}
+    {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+    <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-info">
+      <i class="fa fa-fw fa-history"></i>
+      <span>{% trans 'History' %}</span>
+    </a>
+  {% endif %}
+{% endif %}
+
+{% if show_delete_link %}
+  {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+  <a href="{% add_preserved_filters delete_url %}" class="btn btn-block btn-outline-danger">
+    <i class="fa fa-fw fa-trash"></i>
+    <span>{% trans 'Delete' %}</span>
+  </a>
+{% endif %}

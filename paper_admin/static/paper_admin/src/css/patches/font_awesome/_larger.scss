@@ -1,0 +1,8 @@
+@import "../../vendor/font-awesome/variables";
+
+
+.#{$fa-css-prefix}-lg {
+  font-size: $fa-fonts-size-lg;
+  line-height: $fa-line-height-lg;
+  vertical-align: -10%;
+}

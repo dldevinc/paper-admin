@@ -1,0 +1,78 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+
+{% block breadcrumb_items %}
+  {% for app in app_list %}
+    <li class="breadcrumb-item active" aria-current="page">
+      <span>{{ app.name }}</span>
+    </li>
+  {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+  {% for app in app_list %}
+    <div class="card" id="appindex">
+      <div class="card-header">
+        <h1 class="card-title h3">{{ app.name }}</h1>
+      </div>
+
+      <div class="card-body">
+        <div class="paper-table-wrapper">
+          <table class="table table-middle small">
+            <thead>
+            <tr>
+              <th scope="col">{% trans 'Model' %}</th>
+              <th scope="col">{% trans 'Add' %}</th>
+              <th scope="col">{% trans 'Change' %}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for model in app.models %}
+              <tr>
+                {% if model.admin_url %}
+                  <td>
+                    <a href="{{ model.admin_url }}">
+                      {{ model.name }}
+                    </a>
+                  </td>
+                {% else %}
+                  <td>
+                    {{ model.name }}
+                  </td>
+                {% endif %}
+
+                {% if model.add_url %}
+                  <td>
+                    <a href="{{ model.add_url }}" class="btn btn-sm btn-success">
+                      {% trans 'Add' %}
+                    </a>
+                  </td>
+                {% else %}
+                  <td>
+                    <small class="text-muted">{% trans 'Not allowed' %}</small>
+                  </td>
+                {% endif %}
+
+                {% if model.admin_url %}
+                  <td>
+                    <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
+                      {% trans 'Change' %}
+                    </a>
+                  </td>
+                {% else %}
+                  <td>
+                    <small class="text-muted">{% trans 'Not allowed' %}</small>
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

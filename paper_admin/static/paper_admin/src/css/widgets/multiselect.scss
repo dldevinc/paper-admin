@@ -1,0 +1,84 @@
+.ms-container {
+  display: flex;
+  @media (min-width: 600px) {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+  @media (max-width: 599px) {
+    flex-flow: column nowrap;
+  }
+
+  .ms-selectable,
+  .ms-selection {
+    color: #555555;
+    flex: 1 0 0;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    order: 5;
+    flex: 0 0 32px;
+    background: transparent url('../../img/switch.png') no-repeat 50% 50%;
+  }
+
+  .ms-selection {
+    order: 10;
+  }
+
+  .ms-list {
+    list-style-type: none;
+    position: relative;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    height: 160px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    @media (max-width: 599px) {
+      height: 140px;
+    }
+
+    &.ms-focus {
+      outline: 0;
+      outline: thin dotted \9;
+      border-color: rgba(82, 168, 236, 0.8);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    }
+  }
+
+  .ms-optgroup-container {
+    width: 100%;
+  }
+
+  .ms-optgroup-label {
+    padding: 5px 0 0 5px;
+    margin: 0;
+    cursor: pointer;
+    color: #999;
+  }
+
+  .ms-elem-selectable,
+  .ms-elem-selection {
+    padding: 2px 8px;
+    color: #555;
+    font-size: 12px;
+    border-bottom: 1px #eee solid;
+  }
+
+  .ms-hover {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    background-color: #08c;
+  }
+
+  li.disabled {
+    color: #aaa;
+    cursor: text;
+    background-color: #eee;
+  }
+}

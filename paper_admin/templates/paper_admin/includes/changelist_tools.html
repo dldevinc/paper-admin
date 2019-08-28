@@ -1,0 +1,35 @@
+{% load i18n admin_urls %}
+
+
+<div class="paper-changelist-tools">
+  {% block tools %}
+    {% with absolute_url=result.obj.get_absolute_url %}
+      {% if not cl.is_popup and cl.model_admin.view_on_site and absolute_url %}
+        <a href="{{ absolute_url }}" class="tool-item text-info"
+           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-html="true" title="{% trans 'View on site' %}"
+           target="_blank" rel="noopener">
+          <i class="fa fa-fw fa-eye"></i>
+        </a>
+      {% endif %}
+    {% endwith %}
+
+    {% if not cl.is_popup and result.has_view_permission %}
+      {% url cl.opts|admin_urlname:'history' result.obj.pk|admin_urlquote as history_url %}
+      <a href="{{ history_url }}" class="tool-item text-info"
+         data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+         data-html="true" title="{% trans 'History' %}">
+        <i class="fa fa-fw fa-history"></i>
+      </a>
+    {% endif %}
+
+    {% if result.has_delete_permission %}
+      {% url cl.opts|admin_urlname:'delete' result.obj.pk|admin_urlquote as delete_url %}
+      <a href="{{ delete_url }}" class="tool-item text-danger"
+         data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+         data-html="true" title="{% trans 'Delete' %}">
+        <i class="fa fa-fw fa-trash"></i>
+      </a>
+    {% endif %}
+  {% endblock %}
+</div>

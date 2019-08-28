@@ -1,0 +1,13 @@
+<div class="vDateField input-group">
+  {% with input_class='form-control vDateInput vDatePicker' %}
+    {% include "django/forms/widgets/input.html" %}
+  {% endwith %}
+
+  <div class="input-group-append">
+    <button type="button" class="input-group-text vDateFieldTrigger text-info" tabindex="-1"
+            data-toggle="tooltip" data-placement="top" data-trigger="hover"
+            data-html="true" title="{{ _('Select date') }}">
+      <i class="fa fa-fw fa-calendar"></i>
+    </button>
+  </div>
+</div>

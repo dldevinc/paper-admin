@@ -1,0 +1,210 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+{% load paper_menu %}
+
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block sidebar %}
+  <aside id="paper-sidebar" class="bg-dark">
+    <div class="sidebar-hook"></div>
+    <div class="sidebar-scroll" style="background-image: url({% static 'paper_admin/dist/image/menu_bg.jpg' %})">
+      <nav class="navbar navbar-dark flex-column align-items-stretch p-0">
+        {% block branding %}
+          {% if site_url %}
+            <div class="navbar-brand">
+              <a href="{% url 'admin:index' %}">{{ site_header }}</a>
+            </div>
+          {% endif %}
+        {% endblock %}
+
+        {% include 'paper_admin/environment.html' %}
+
+        {% block menu %}
+          <ul id="sidebar-menu" class="paper-sidebar-nav navbar-nav">
+            {% paper_menu %}
+          </ul>
+        {% endblock %}
+      </nav>
+    </div>
+  </aside>
+{% endblock %}
+
+
+{% block header %}
+  <header class="paper-header sticky-top">
+    <nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        {% block header_brand %}
+          <div class="navbar-brand d-none d-lg-block{% if not is_popup %} d-xl-none{% endif %}">
+            {% if is_popup %}
+              {{ site_header }}
+            {% else %}
+              <a href="{% url 'admin:index' %}" class="text-dark">{{ site_header }}</a>
+            {% endif %}
+          </div>
+        {% endblock %}
+
+        {% if has_permission %}
+          {% block header_navbar %}
+            <ul class="navbar-nav ml-auto">
+              {% spaceless %}
+                {% block header_buttons %}{% endblock %}
+              {% endspaceless %}
+
+              {% block header_navbar_items %}
+                {% if not is_popup %}
+                  <li class="nav-item divider"></li>
+
+                  <li class="nav-item dropdown">
+                    <a href="#" id="userProfileMenu"
+                       class="nav-link dropdown-toggle"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="d-none d-sm-inline">{% firstof user.get_short_name user.get_username %}</span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right position-absolute"
+                        role="menu" aria-labelledby="userProfileMenu">
+                      {% if user.has_usable_password %}
+                        <li role="presentation">
+                          <a href="{% url 'admin:password_change' %}" class="dropdown-item" role="menuitem">
+                            <i class="fa fa-fw fa-key"></i>
+                            <span>{% trans 'Change password' %}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+
+                      <li role="presentation">
+                        <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
+                          <i class="fa fa-fw fa-sign-out"></i>
+                          <span>{% trans 'Sign out' %}</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item d-xl-none">
+                    <a href="#" class="sidebar-toggle nav-link">
+                      <i class="fa fa-bars"></i>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endblock %}
+            </ul>
+          {% endblock %}
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+{% endblock %}
+
+
+{% block breadcrumbs %}
+  <nav aria-label="breadcrumb" class="d-none d-sm-block">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'admin:index' %}">
+          <i class="fa fa-fw fa-home mr-1"></i>
+          <span>{% trans 'Dashboard' %}</span>
+        </a>
+      </li>
+
+      {% block breadcrumb_items %}
+        {% if title %}
+          <li class="breadcrumb-item active" aria-current="page">
+            <span>{{ title }}</span>
+          </li>
+        {% endif %}
+      {% endblock breadcrumb_items %}
+    </ol>
+  </nav>
+{% endblock %}
+
+
+{% block messages %}
+  <ul class="form-messages messages container-fluid list-group">
+    {% block message_items %}
+      {% for message in messages %}
+        <li class="list-group-item {% if message.level_tag %}list-group-item-{% firstof message.level_tag 'info' %}{% endif %}">
+          {{ message|capfirst }}
+        </li>
+      {% endfor %}
+    {% endblock %}
+  </ul>
+{% endblock %}
+
+
+{% block content_wrapper %}
+  <div class="container-fluid">
+    {% block before_content %}{% endblock %}
+
+    <div class="row">
+      <div class="paper-content-left col">
+        {% block content %}{% endblock %}
+      </div>
+
+      {% spaceless %}
+        <div class="paper-content-right col">
+          {% block toolbar %}{% endblock %}
+        </div>
+      {% endspaceless %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block footer %}
+  <footer class="paper-footer">
+    <div class="container-fluid">
+      <div class="row">
+        {% block support %}
+          {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
+            <div class="col-auto">
+              <span class="paper-support-text">
+                {% trans 'Please contact us if you have any problems' %}
+              </span>
+
+              <span class="paper-support-links">
+                {% if paper.SUPPORT_PHONE %}
+                  <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="paper-support-phone">
+                    <i class="fa fa-lg fa-phone"></i>
+                    <span>{{ paper.SUPPORT_PHONE }}</span>
+                  </a>
+                {% endif %}
+
+                {% if paper.SUPPORT_EMAIL %}
+                  <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="paper-support-email">
+                    <i class="fa fa-lg fa-envelope-o"></i>
+                    <span>{{ paper.SUPPORT_EMAIL }}</span>
+                  </a>
+                {% endif %}
+              </span>
+            </div>
+          {% endif %}
+        {% endblock %}
+
+        {% block copyright %}
+          <div class="paper-copyright col-lg-auto ml-lg-auto">
+            &copy; {% now 'Y' %}
+            {% if paper.SUPPORT_COMPANY %}
+              {% if paper.SUPPORT_WEBSITE %}
+                <a href="{{ paper.SUPPORT_WEBSITE }}" title="{{ paper.SUPPORT_COMPANY }}">
+              {% endif %}
+
+              {{ paper.SUPPORT_COMPANY }}
+
+              {% if paper.SUPPORT_WEBSITE %}
+                </a>
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endblock %}
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+

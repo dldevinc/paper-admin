@@ -1,0 +1,21 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+  <head><title>{% trans 'Popup closing...' %}</title></head>
+  <body>
+    <script>
+      const initData = {{ popup_response_data|safe }};
+      switch(initData.action) {
+          case 'change':
+              opener.dismissChangeRelatedObjectPopup(window, initData.value, initData.obj, initData.new_value);
+              break;
+          case 'delete':
+              opener.dismissDeleteRelatedObjectPopup(window, initData.value);
+              break;
+          default:
+              opener.dismissAddRelatedObjectPopup(window, initData.value, initData.obj);
+              break;
+      }
+    </script>
+  </body>
+</html>

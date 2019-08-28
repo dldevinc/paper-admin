@@ -1,0 +1,23 @@
+@import "../app";
+
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal {
+  animation: fade-in 0.2s;
+
+  &.preloader {
+    z-index: #{$zindex-modal + 20};
+
+    + .modal-backdrop {
+      z-index: #{$zindex-modal-backdrop + 20};
+    }
+  }
+}

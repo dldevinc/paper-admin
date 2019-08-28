@@ -1,0 +1,7 @@
+<div class="vSmallField custom-file">
+  {% with input_class='custom-file-input' %}
+    {% include "django/forms/widgets/input.html" %}
+  {% endwith %}
+
+  <label for="{{ widget.attrs.id }}" class="custom-file-label">{{ _('Choose file') }}</label>
+</div>

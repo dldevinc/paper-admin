@@ -1,0 +1,268 @@
+@import "../app";
+
+
+.nav-open body {
+  overflow: hidden;
+}
+
+
+#paper-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $sidebar-width;
+  height: 100vh;
+  will-change: transform;
+  z-index: $sidebar-zindex;
+  box-shadow: 0 0 5px rgba($black, 0.66);
+  transform: translate(#{-$sidebar-width}, 0);
+  @include transition(transform $sidebar-transition-duration);
+  @include media-breakpoint-up(xl) {
+    position: relative;
+    transform: none;
+    will-change: auto;    // fix бага position: fixed на длинных страницах
+  }
+  @at-root .nav-open & {
+    transform: translate(0, 0);
+  }
+
+  .sidebar-hook {
+    position: absolute;
+    margin-top: 2.625rem;
+    top: 0;
+    left: 100%;
+    bottom: 0;
+    width: $grid-gutter-width;
+    user-select: none;
+    touch-action: pan-y;
+    @include media-breakpoint-up(lg) {
+      margin-top: 2.875rem;
+    }
+    @include media-breakpoint-up(xl) {
+      display: none;
+    }
+
+    // FIX: в мобильном Chrome почему-то прерывается pan, если фон полностью прозрачный
+    background-color: rgba(white, 0.01);
+
+    @at-root .nav-open & {
+      width: 100vw;
+    }
+  }
+
+  .sidebar-scroll {
+    position: relative;
+    overflow: auto;
+    width: inherit;
+    height: 100%;
+    z-index: 1;
+    background: no-repeat center / cover;
+    backface-visibility: hidden;  // force layer to prevent repaint
+    @include media-breakpoint-up(lg) {
+      position: fixed;
+    }
+
+    @at-root .js &:not(.ps) {
+      overflow: hidden;
+    }
+  }
+
+  .navbar-brand {
+    padding: $sidebar-brand-padding-y $sidebar-brand-padding-x;
+    margin-right: 0;
+    min-height: $sidebar-brand-min-height;
+    white-space: normal;
+    border-bottom: 1px solid $sidebar-brand-border-color;
+
+    a {
+      display: inline-block;
+      color: $sidebar-brand-color;
+      word-break: break-word;
+      vertical-align: top;
+    }
+  }
+}
+
+
+// Тень
+.sidebar-shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: #{$sidebar-zindex - 1};
+  background: rgba($black, 0.33);
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  @at-root .nav-open & {
+    @include media-breakpoint-down(lg) {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s, visibility 0s 0s;
+    }
+  }
+}
+
+
+// Меню
+.paper-sidebar-nav {
+  padding-bottom: 1.5rem;
+
+  .nav-item {
+    position: relative;
+
+    &.show > .nav-link,
+    &.active > .nav-link {
+      background-color: $sidebar-link-active-bg-color;
+    }
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: flex-start;
+    padding: $sidebar-link-padding-y $sidebar-link-padding-x;
+    text-shadow: 1px 1px 2px rgba($gray-600, 0.75);
+    word-break: break-word;
+    @include transition();
+
+    // иконка
+    & > i {
+      margin-top: 1px;
+      margin-right: $sidebar-link-icon-margin-right;
+      flex: 0 0 auto;
+    }
+
+    // подменю
+    & + ul {
+      background-color: $sidebar-submenu-bg-color;
+    }
+
+    &:hover {
+      background-color: $sidebar-link-hover-bg-color;
+    }
+
+    &.show,
+    &.active {
+      background-color: $sidebar-link-active-bg-color;
+    }
+
+    // открытый пункт
+    &[aria-expanded="true"] {
+      color: $sidebar-link-active-color;
+      background-color: $sidebar-link-active-bg-color;
+    }
+  }
+
+  .divider {
+    height: 1px;
+    background: $sidebar-divider-color;
+  }
+
+  // пункт с подменю
+  .has-subs {
+    position: relative;
+    padding-right: ($sidebar-link-padding-x * 2 + $sidebar-link-caret-size);
+
+    // стрелка
+    &:after {
+      content: $fa-var-chevron-down;
+      position: absolute;
+      top: calc(50% - 0.375rem);
+      right: $sidebar-link-padding-x + ($sidebar-link-caret-size / 2);
+      font: $sidebar-link-caret-size/1 'FontAwesome';
+      transform: rotate(-90deg);
+      @include transition();
+    }
+
+    &[aria-expanded="true"] {
+      &:after {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  // первый уровень
+  & > .nav-item {
+    & > .nav-link:hover {
+      background-color: $sidebar-first-hover-bg-color;
+    }
+
+    &.active > .nav-link,
+    & > .nav-link[aria-expanded="true"] {
+      background-color: $sidebar-first-link-active-bg-color;
+
+      & + ul {
+        position: relative;
+        border-bottom: 1px solid $sidebar-divider-color;
+
+        // вертикальная черта
+        &:before {
+          content: '';
+          position: absolute;
+          top:  0;
+          left: $sidebar-link-padding-x + $sidebar-icon-lg-width / 2;
+          width: 1px;
+          height: 100%;
+          z-index: 1;
+          background-color: $sidebar-divider-color;
+        }
+
+        // точки на линии
+        & > .nav-item {
+          & > .nav-link {
+            &:before {
+              content: '';
+              position: absolute;
+              left: $sidebar-link-padding-x + $sidebar-icon-lg-width / 2;
+              top: $sidebar-link-padding-y + ($font-size-base * $line-height-base / 2);
+              width: 7px;
+              height: 7px;
+              z-index: 1;
+              border-radius: 50%;
+              border: 1px solid $sidebar-divider-color;
+              background-color: $sidebar-submenu-bg-color;
+              transform: translate(-3px, -4px);
+              @include transition();
+            }
+
+            &:hover:before {
+              background-color: rgba($sidebar-link-active-color, 0.5);
+            }
+          }
+
+          &.active > .nav-link:before {
+            border-color: transparent;
+            background-color: $sidebar-link-active-color;
+          }
+        }
+      }
+    }
+  }
+
+  // второй уровень
+  & > li > ul > li > .nav-link {
+    padding-left: $sidebar-l2-padding-left;
+  }
+  & > li > ul > .divider {
+    margin-left: $sidebar-link-padding-x + $sidebar-icon-lg-width / 2;
+  }
+
+
+  // третий уровень
+  & > li > ul > li > ul > li > .nav-link {
+    padding-left: $sidebar-l2-padding-left + 1.125rem;
+  }
+  & > li > ul > li > ul > .divider {
+    margin-left: ($sidebar-link-padding-x + $sidebar-icon-lg-width / 2) + 1.125rem;
+  }
+
+  // четвертый уровень
+  & > li > ul > li > ul > li > ul > li >.nav-link {
+    padding-left: $sidebar-l2-padding-left + 1.125rem * 2;
+  }
+  & > li > ul > li > ul > li > ul > .divider {
+    margin-left: ($sidebar-link-padding-x + $sidebar-icon-lg-width / 2) + 1.125rem * 2;
+  }
+}

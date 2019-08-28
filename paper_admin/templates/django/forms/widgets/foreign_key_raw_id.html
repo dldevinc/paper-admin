@@ -1,0 +1,28 @@
+<div class="vSmallField input-group">
+  {% if related_url %}
+    <div class="input-group-prepend">
+      {% if related_url %}
+        <a href="{{ related_url }}" class="related-lookup input-group-text"
+           id="lookup_id_{{ widget.name }}" tabindex="-1"
+           data-toggle="tooltip" data-placement="top" data-trigger="hover"
+           data-html="true" title="{{ link_title }}">
+          <i class="fa fa-fw fa-search"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% with input_class='form-control' %}
+    {% include "django/forms/widgets/input.html" %}
+  {% endwith %}
+
+  {% if link_label %}
+    <div class="input-group-append">
+      <a href="{{ link_url }}" class="input-group-text" target="_blank" tabindex="-1"
+         data-toggle="tooltip" data-placement="top" data-trigger="hover"
+         data-html="true" title="{{ link_label }}">
+        <i class="fa fa-fw fa-eye"></i>
+      </a>
+    </div>
+  {% endif %}
+</div>

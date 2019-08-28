@@ -1,0 +1,10 @@
+<label class="vCustomCheckbox">
+  {% include "django/forms/widgets/input.html" %}
+
+  <div class="d-flex">
+    <div class="indicator"></div>
+    {% if widget.label %}
+      <div class="label">{{ widget.label }}</div>
+    {% endif %}
+  </div>
+</label>

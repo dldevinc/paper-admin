@@ -1,0 +1,5 @@
+{% load load_paper %}
+
+{% if paper.ENVIRONMENT_NAME %}
+  <div class="environment" style="background-color: {{ paper.ENVIRONMENT_COLOR }}">{{ paper.ENVIRONMENT_NAME }}</div>
+{% endif %}

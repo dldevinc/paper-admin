@@ -1,0 +1,116 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+
+{% block styles %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  {{ form.media.js }}
+{% endblock %}
+
+
+{% block bodyclass %} login-page{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block header %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+
+{% block message_items %}
+  {{ block.super }}
+
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+      <li class="list-group-item list-group-item-danger">
+        {{ error }}
+      </li>
+    {% endfor %}
+  {% elif form.errors %}
+    {% if form.errors.items|length == 1 %}
+      {% trans "Please correct the error below." %}
+    {% else %}
+      {% trans "Please correct the errors below." %}
+    {% endif %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <li class="list-group-item list-group-item-danger">
+      {% blocktrans trimmed %}
+        You are authenticated as {{ user }}, but are not authorized to
+        access this page. Would you like to login to a different account?
+      {% endblocktrans %}
+    </li>
+  {% endif %}
+{% endblock %}
+
+
+{% block content_wrapper %}
+  <div class="container-fluid m-auto">
+    <div class="login-card card card-dark m-auto">
+      <div class="card-header">
+        <div class="card-title h5">{{ site_header }}</div>
+      </div>
+
+      <div class="card-body">
+        <form action="{{ app_path }}" method="post" id="login-form">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}" />
+
+          <div class="form-group">
+            <div class="form-label">
+              <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            </div>
+            <div class="form-widget">
+              <input type="text" name="{{ form.username.name }}"
+                     value="{{ form.username.value|default:"" }}" id="{{ form.username.id_for_label }}"
+                     class="form-control {{ form.username.errors|yesno:'is-invalid,' }}">
+              <div class="invalid-feedback">
+                <ul class="list-unstyled mb-0">
+                  {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            </div>
+            <div class="form-widget">
+              <input type="password" name="{{ form.password.name }}"
+                     id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:"" }}"
+                     class="form-control {{ form.password.errors|yesno:'is-invalid,' }}">
+              <div class="invalid-feedback">
+                <ul class="list-unstyled mb-0">
+                  {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {% url 'admin_password_reset' as password_reset_url %}
+          {% if password_reset_url %}
+            <div class="password-reset-link">
+              <a href="{{ password_reset_url }}">
+                {% trans 'Forgotten your password or username?' %}
+              </a>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-block btn-dark" form="login-form">
+          {% trans 'Sign in' %}
+        </button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

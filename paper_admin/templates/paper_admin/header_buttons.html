@@ -1,0 +1,55 @@
+{% load i18n admin_urls %}
+
+{% if show_save %}
+  <li class="nav-item d-lg-none">
+    <button type="submit" name="_save" form="changeform" class="btn btn-sm btn-success"
+            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+            data-html="true" title="{% trans 'Save' %}">
+      <i class="fa fa-fw fa-save"></i>
+      <span>{% trans 'Save' %}</span>
+    </button>
+  </li>
+{% endif %}
+
+{% if not is_popup %}
+  {% block tools %}
+    {% if has_absolute_url %}
+      <li class="nav-item d-lg-none">
+        <a href="{{ absolute_url }}" class="tool-item text-info"
+           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-html="true" title="{% trans 'View on site' %}">
+          <i class="fa fa-fw fa-eye"></i>
+        </a>
+      </li>
+    {% endif %}
+
+    {% if change %}
+      <li class="nav-item d-lg-none">
+        {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+        <a href="{% add_preserved_filters history_url %}" class="tool-item text-info"
+           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-html="true" title="{% trans 'History' %}">
+          <i class="fa fa-fw fa-history"></i>
+        </a>
+      </li>
+    {% endif %}
+
+    {% if show_delete_link %}
+      <li class="nav-item d-lg-none">
+        {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+        <a href="{% add_preserved_filters delete_url %}" class="tool-item text-danger"
+           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-html="true" title="{% trans 'Delete' %}">
+          <i class="fa fa-fw fa-trash"></i>
+        </a>
+      </li>
+    {% endif %}
+  {% endblock %}
+{% else %}
+  <li class="nav-item ml-auto">
+    <button type="button" class="btn btn-sm btn-light cancel-link">
+      <i class="fa fa-fw fa-close"></i>
+      <span>{% trans 'Close' %}</span>
+    </button>
+  </li>
+{% endif %}

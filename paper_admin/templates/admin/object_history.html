@@ -1,0 +1,79 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item">
+    <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+  </li>
+
+  <li class="breadcrumb-item">
+    <a href="{% url opts|admin_urlname:'changelist' %}">{{ module_name }}</a>
+  </li>
+
+  <li class="breadcrumb-item">
+    <a href="{% url opts|admin_urlname:'change' object.pk|admin_urlquote %}">{{ object|truncatewords:"18" }}</a>
+  </li>
+
+  <li class="breadcrumb-item active" aria-current="page">
+    <span>{% trans 'History' %}</span>
+  </li>
+{% endblock breadcrumb_items %}
+
+
+{% block before_content %}
+  <h1 class="paper-title">
+    {% trans 'History' %}: <span class="text-muted">{{ object|truncatewords:"18" }}</span>
+  </h1>
+{% endblock %}
+
+
+{% block content %}
+  {% if action_list %}
+    <div class="card">
+      <div class="card-body">
+        <div class="paper-table-wrapper">
+          <table class="table table-middle table-striped table-responsive-sm small">
+            <thead>
+            <tr>
+              <th scope="col">{% trans 'Date/time' %}</th>
+              <th scope="col">{% trans 'User' %}</th>
+              <th scope="col">{% trans 'Action' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for action in action_list %}
+              <tr>
+                <th scope="row">
+                  {% if has_log_change_permission %}
+                    <a href="{% url log_opts|admin_urlname:'change' action.pk|admin_urlquote %}">
+                  {% endif %}
+                  {{ action.action_time|date:"DATETIME_FORMAT" }}
+                  {% if has_log_change_permission %}
+                    </a>
+                  {% endif %}
+                </th>
+                <td>
+                  {% if has_user_change_permission %}
+                    <a href="{% url user_opts|admin_urlname:'change' action.user.pk|admin_urlquote %}">
+                  {% endif %}
+                  {{ action.user.get_username }}
+                  {% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}
+                  {% if has_user_change_permission %}
+                    </a>
+                  {% endif %}
+                </td>
+                <td>{{ action.get_change_message }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning mb-0">
+      {% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}
+    </div>
+  {% endif %}
+{% endblock content %}

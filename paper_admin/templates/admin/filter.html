@@ -1,0 +1,16 @@
+{% load i18n %}
+
+
+<h4 class="paper-filter-header">
+  {% blocktrans with filter_title=title %}By {{ filter_title }}{% endblocktrans %}
+</h4>
+
+<ul class="paper-filter-list list-unstyled">
+  {% for choice in choices %}
+    <li{% if choice.selected %} class="active"{% endif %}>
+      <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
+        {{ choice.display }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

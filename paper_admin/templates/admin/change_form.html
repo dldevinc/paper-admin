@@ -1,0 +1,146 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+{% load paper_modify %}
+
+{% block styles %}
+  {{ block.super }}
+  {{ media.css }}
+{% endblock %}
+
+{% block scripts %}
+  {# JavaScript for prepopulated fields #}
+  {% prepopulated_fields_js %}
+
+  {{ block.super }}
+  {{ media.js }}
+  <script src="{% url 'admin:jsi18n' %}"></script>
+{% endblock %}
+
+
+{% block header_buttons %}
+  {% include 'paper_admin/header_buttons.html' %}
+{% endblock %}
+
+
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item">
+    <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+  </li>
+
+  <li class="breadcrumb-item">
+    {% if has_view_permission %}
+      <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    {% else %}
+      <span>{{ opts.verbose_name_plural|capfirst }}</span>
+    {% endif %}
+  </li>
+
+  <li class="breadcrumb-item active" aria-current="page">
+    {% if add %}
+      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+    {% else %}
+      <span>{{ original|truncatewords:"18" }}</span>
+    {% endif %}
+  </li>
+{% endblock breadcrumb_items %}
+
+
+{% block message_items %}
+  {{ block.super }}
+
+  {% if errors %}
+    <li class="list-group-item list-group-item-danger">
+      {% if errors|length == 1 %}
+        {% trans "Please correct the error below." %}
+      {% else %}
+        {% trans "Please correct the errors below." %}
+      {% endif %}
+    </li>
+
+    {% for error in adminform.form.non_field_errors %}
+      <li class="list-group-item list-group-item-danger">
+        {{ error }}
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+
+{% block toolbar %}
+  <div class="card sticky-top">
+    <div class="card-header">
+      <h3 class="card-title">{% trans 'Toolbar' %}</h3>
+    </div>
+    <div class="card-body">
+      {% include 'paper_admin/toolbar_buttons.html' %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block before_content %}
+  <h1 class="paper-title">
+    {% if add %}
+      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+    {% else %}
+      {% with object_name=original|capfirst %}
+        {{ opts.verbose_name|capfirst }}{% if object_name %}: <span class="text-muted">{{ object_name|truncatewords:"18" }}</span>{% endif %}
+      {% endwith %}
+    {% endif %}
+  </h1>
+
+  {% if tabs %}
+    <ul id="paper-tabs" class="nav nav-tabs mt-3 mb-3" role="tablist">
+      {% for tab in tabs %}
+        <li class="nav-item">
+          <a class="nav-link{{ tab.active|yesno:" active," }}{{ tab.invalid|yesno:" tab-invalid," }}"
+             id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
+             aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
+            {{ tab.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <form id="changeform" method="post" action="{{ form_url }}" {% if has_file_field %}enctype="multipart/form-data"{% endif %} novalidate>
+    {% csrf_token %}
+
+    {% block form_top %}{% endblock %}
+
+    {% if is_popup %}
+      <input type="hidden" name="{{ is_popup_var }}" value="1" />
+    {% endif %}
+    {% if to_field %}
+      <input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />
+    {% endif %}
+
+    {% if tabs %}
+      <div class="tab-content">
+        {% for tab in tabs %}
+          <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
+               role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
+            {% for fieldset in tab.fieldsets %}
+              {% include "admin/includes/fieldset.html" %}
+            {% endfor %}
+
+            {% for inline_admin_formset in tab.inline_formsets %}
+              {% include inline_admin_formset.opts.template %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+      {% endfor %}
+
+      {% for inline_admin_formset in inline_admin_formsets %}
+        {% include inline_admin_formset.opts.template %}
+      {% endfor %}
+    {% endif %}
+  </form>
+{% endblock %}

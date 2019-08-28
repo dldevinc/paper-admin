@@ -1,0 +1,85 @@
+{% load i18n admin_urls %}
+
+{% block result_hidden_fields %}
+  {% if result_hidden_fields %}
+    {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+  {% endif %}
+{% endblock %}
+
+
+{% if results %}
+  <div class="paper-table-wrapper">
+    <table id="result_list"
+           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }} small{% endblock %}"
+           {% if cl.sortable %}data-order-url="{% url cl.opts|admin_urlname:'sort' %}"{% endif %}>
+      <thead>
+      <tr>
+        {% for header in result_headers %}
+          {% block result_header %}
+            <th scope="col" {{ header.class_attrib }}>
+              {% if header.sortable %}
+                {% spaceless %}
+                  <span class="table-column-header dropdown">
+                    <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>
+                    {% if header.sort_priority > 0 %}
+                      <span class="sortoptions-btn btn{% if num_sorted_fields > 1 %} has-prior{% endif %}"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa {% if header.ascending %}fa-sort-asc{% else %}fa-sort-desc{% endif %}"></i>
+                        {% if num_sorted_fields > 1 %}
+                          <span class="sortpriority" title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
+                        {% endif %}
+                      </span>
+                      <span class="dropdown-menu">
+                        <a href="{{ header.url_toggle }}" class="dropdown-item">
+                          <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
+                          {% trans 'Toggle sorting' %}
+                        </a>
+                        <a href="{{ header.url_remove }}" class="dropdown-item">
+                          <i class="fa fa-fw fa-remove"></i>
+                          {% trans "Remove from sorting" %}
+                        </a>
+                      </span>
+                    {% endif %}
+                  </span>
+                {% endspaceless %}
+              {% else %}
+                <span class="table-column-header">{{ header.text|capfirst }}</span>
+              {% endif %}
+            </th>
+          {% endblock %}
+        {% endfor %}
+
+        {% if cl.model_admin.changelist_tools %}
+          <th class="paper-changelist-tools-header"></th>
+        {% endif %}
+      </tr>
+      </thead>
+
+      <tbody>
+        {% for result in results %}
+          {% if result.form.non_field_errors %}
+            <tr class="table-danger">
+              <td colspan="{{ result|length }}">
+                {{ result.form.non_field_errors }}
+              </td>
+            </tr>
+          {% endif %}
+
+          <tr class="{% block row_classes %}{{ result.row_classes }}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.row_attrs }}>
+            {% for item in result %}
+              {{ item }}
+            {% endfor %}
+
+            {% if cl.model_admin.changelist_tools %}
+              <td class="paper-changelist-tools-cell">
+                {% spaceless %}
+                  {% include cl.model_admin.changelist_tools_template %}
+                {% endspaceless %}
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
