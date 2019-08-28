@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'Roboto';
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+	src: url('../fonts/RobotoLight/RobotoLight.woff2') format('woff2'),
+		 url('../fonts/RobotoLight/RobotoLight.woff') format('woff');
+}
