@@ -133,7 +133,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     autocomplete_fields = ['f_fk1', 'f_tags5']
     list_display = ['f_char', 'f_fk', 'f_int', 'm2m_field', 'f_date', 'f_bool']
     list_editable = ['f_int', 'f_bool']
-    list_filter = ['f_bool', 'f_nullbool', 'f_int_choices2', 'f_date', 'f_fk1', 'f_tags', 'f_int']
+    list_filter = ['f_bool', 'f_nullbool', 'f_int_choices2', 'f_date', 'f_fk', 'f_tags', 'f_int']
     list_select_related = ['f_fk']
     date_hierarchy = 'f_date'
     search_fields = ['f_char']
