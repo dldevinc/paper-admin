@@ -1,4 +1,4 @@
-# paper_admin
+# paper-admin
 
 ![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/00584b8abc.png)
 
