@@ -4,8 +4,12 @@
 
 ![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/72f0b476ae.png)
 
+## Requirements
+* Python (3.5, 3.6, 3.7)
+* Django (2.1, 2.2)
+
 ## Installation
-Add `paper_admin` **before** `django.contrib.admin`.
+Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admin`.
 ```python
 INSTALLED_APPS = [
     'paper_admin',
@@ -138,11 +142,11 @@ PAPER_MENU = [
 * строка-разделитель ("-")
 
 
-Доступные ключи для формирования пунтка меню с помощью словаря:
+Доступные ключи для формирования пункта меню с помощью словаря:
 * `label`: `str`      - заголовок пункта меню
 * `url`: `str`        - ссылка или именованный URL
-* `icon`: `str`       - классы иконки
-* `classes`: `str`    - классы пункта меню
+* `icon`: `str`       - CSS-классы иконки
+* `classes`: `str`    - CSS-классы пункта меню
 * `perms`: `str/list` - права, необходимые для отображения пункта (либо строка "superuser")
 * `app`: `str`        - имя приложения. Добавляется к именам моделей в models
 * `models`: `list`    - дочерние пункты меню. Может содержать имена моделей или вложенные словари.
