@@ -1,4 +1,5 @@
 import datetime
+import operator
 from django.db import models
 from django.utils import timezone
 from django.contrib.admin import filters
@@ -187,11 +188,21 @@ class RelatedFieldListFilter(FieldListFilter):
         return len(self.lookup_choices) + extra > 1
 
     def field_choices(self, field, request, model_admin):
-        ordering = ()
-        related_admin = model_admin.admin_site._registry.get(field.remote_field.model)
-        if related_admin is not None:
-            ordering = related_admin.get_ordering(request)
-        return field.get_choices(include_blank=False, ordering=ordering)
+        rel_model = field.remote_field.model
+        choice_func = operator.attrgetter(
+            field.remote_field.get_related_field().attname
+            if hasattr(field.remote_field, 'get_related_field')
+            else 'pk'
+        )
+
+        queryset = rel_model._default_manager.all()
+        is_ordered = bool(queryset.query.order_by or rel_model._meta.ordering)
+        if not is_ordered:
+            related_admin = model_admin.admin_site._registry.get(field.remote_field.model)
+            if related_admin is not None:
+                admin_ordering = related_admin.get_ordering(request)
+                queryset = queryset.order_by(*admin_ordering)
+        return [(choice_func(x), str(x)) for x in queryset]
 
     def choices(self, changelist):
         yield {
