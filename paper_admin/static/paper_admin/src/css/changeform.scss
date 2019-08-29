@@ -30,6 +30,8 @@
 }
 
 .stacked {
+  transform-style: preserve-3d;
+
   .card-header-tools {
     margin-top: -4px;
     display: flex;
@@ -71,6 +73,7 @@
   }
 
   tbody {
+    transform-style: preserve-3d;
     background-color: $card-bg;
   }
 

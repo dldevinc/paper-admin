@@ -100,7 +100,7 @@ SortButtons.prototype._findNextSince = function(elem) {
 SortButtons.prototype.moveDown = function(item) {
     const next = this._findNextSince(item.nextElementSibling);
     if (next) {
-        this._swap(next, item);
+        this._swap(item, next);
     }
 };
 
@@ -124,7 +124,7 @@ SortButtons.prototype._findPreviousSince = function(elem) {
 SortButtons.prototype.moveUp = function(item) {
     const prev = this._findPreviousSince(item.previousElementSibling);
     if (prev) {
-        this._swap(item, prev);
+        this._swap(prev, item, true);
     }
 };
 
@@ -151,100 +151,48 @@ SortButtons.prototype._getPosition = function(elem) {
 };
 
 /**
- * Перемещение элемента elem1 перед elem2 и обмен значений сортировки в input-полях.
- * @param {HTMLElement} elem1
- * @param {HTMLElement} elem2
+ * Меняет местами два соседних элемента elem1 и elem2 с анимацией.
+ * @param {Element} elem1
+ * @param {Element} elem2
+ * @param {boolean} highlightSecond
  * @private
  */
-SortButtons.prototype._swap = function(elem1, elem2) {
+SortButtons.prototype._swap = function(elem1, elem2, highlightSecond=false) {
+    //   Initial state:
+    //
+    //  |-------------|
+    //  |    elem1    |
+    //  |             |
+    //  |-------------|
+    //
+    //  |-------------|
+    //  |    elem2    |
+    //  |-------------|
+    //
+
     const rect1 = this._getPosition(elem1);
     const rect2 = this._getPosition(elem2);
-    const style1 = window.getComputedStyle(elem1);
-    const style2 = window.getComputedStyle(elem2);
-    const cssText1 = elem1.style.cssText;
-    const cssText2 = elem2.style.cssText;
+    const initialCSSText1 = elem1.style.cssText;
+    const initialCSSText2 = elem2.style.cssText;
 
-    // замеситель 1
-    const holder1 = document.createElement(elem1.tagName);
-    holder1.classList.add('sortable-placeholder');
-    holder1.style.marginTop = style1.marginTop;
-    holder1.style.marginBottom = style1.marginBottom;
-    holder1.style.width = rect1.width + 'px';
-    holder1.style.height = rect1.height + 'px';
-
-    // замеситель 2
-    const holder2 = document.createElement(elem2.tagName);
-    holder2.classList.add('sortable-placeholder');
-    holder2.style.marginTop = style2.marginTop;
-    holder2.style.marginBottom = style2.marginBottom;
-    holder2.style.width = rect2.width + 'px';
-    holder2.style.height = rect2.height + 'px';
-
-    // swap
-    elem1.after(elem2);
-
-    if (elem1.tagName === 'TR') {
-        const td = document.createElement('TD');
-        td.colSpan = elem1.cells.length;
-        holder1.appendChild(td);
-
-        // freeze <td> width
-        Array.from(elem1.children).forEach(function(child) {
-            child.style.width = child.offsetWidth + 'px';
-        });
-    }
-
-    if (elem2.tagName === 'TR') {
-        const td = document.createElement('TD');
-        td.colSpan = elem2.cells.length;
-        holder2.appendChild(td);
-
-        // freeze <td> width
-        Array.from(elem2.children).forEach(function(child) {
-            child.style.width = child.offsetWidth + 'px';
-        });
-    }
-
-    elem1.before(holder2);
-    elem1.style.position = 'absolute';
-    elem1.style.left = rect1.left + 'px';
-    elem1.style.top = rect1.top + 'px';
-    elem1.style.width = rect1.width + 'px';
-    elem1.style.height = rect1.height + 'px';
-
-    elem2.before(holder1);
-    elem2.style.position = 'absolute';
-    elem2.style.left = rect2.left + 'px';
-    elem2.style.top = rect2.top + 'px';
-    elem2.style.width = rect2.width + 'px';
-    elem2.style.height = rect2.height + 'px';
-
-    // разница высот влияет на положение нижнего элемента
-    const diff_y = rect1.height - rect2.height;
     this.disableItemButtons(elem1);
     this.disableItemButtons(elem2);
+    elem2.after(elem1);
 
-    const _this = this;
-    const tl = new TimelineLite({
+    // имитация начального расположения
+    const spaceY = rect2.top - rect1.top - rect1.height;
+    elem1.style.transform = `translate3d(0, ${-rect2.height - spaceY}px, ${highlightSecond ? 0 : 1}px)`;
+    elem2.style.transform = `translate3d(0, ${rect2.top - rect1.top}px, ${highlightSecond ? 1 : 0}px)`;
+
+    new TimelineLite({
         onComplete: function() {
-            elem1.style.cssText = cssText1;
-            elem2.style.cssText = cssText2;
-
-            Array.from(elem1.children).forEach(function(child) {
-                child.style.width = '';
-            });
-
-            Array.from(elem2.children).forEach(function(child) {
-                child.style.width = '';
-            });
-
-            holder1.remove();
-            holder2.remove();
-            _this.updateBounds();
-        }
-    });
-    tl.to(elem1, this.opts.speed, {top: rect2.top});
-    tl.to(elem2, this.opts.speed, {top: rect1.top + diff_y}, 0);
+            elem1.style.cssText = initialCSSText1;
+            elem2.style.cssText = initialCSSText2;
+            this.updateBounds();
+        }.bind(this)
+    })
+    .to(elem1, this.opts.speed, {y: 0, clearProps: 'all'})
+    .to(elem2, this.opts.speed, {y: 0, clearProps: 'all'}, 0);
 
     // callback
     if (typeof this.opts.onChange === 'function') {

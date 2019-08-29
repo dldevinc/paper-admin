@@ -7,7 +7,7 @@ whenDomReady(function() {
     const inlineGroups = document.querySelectorAll('.sortable-inline-group');
     inlineGroups.forEach(function(inlineGroup) {
         new SortButtons(inlineGroup, {
-            speed: inlineGroup.dataset.inlineType === 'tabular' ? 0.25 : 0.75,
+            speed: inlineGroup.dataset.inlineType === 'tabular' ? 0.25 : 0.5,
             items: '.sortable-item',
             moveUpBtn: '.sortable-move-up',
             moveDownBtn: '.sortable-move-down',
