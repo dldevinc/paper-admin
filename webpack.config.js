@@ -18,8 +18,8 @@ module.exports = {
     output: {
         path: path.resolve(`${DIST_DIR}`),
         publicPath: '/static/paper_admin/dist/',
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].chunk.js'
+        filename: '[name].bundle.min.js',
+        chunkFilename: '[name].chunk.min.js'
     },
     module: {
         rules: [

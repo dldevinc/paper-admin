@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   {% block preload %}
     <link rel="preload" href="{% static 'paper_admin/dist/app.min.css' %}" as="style">
-    <link rel="preload" href="{% static 'paper_admin/dist/app.bundle.js' %}" as="script">
+    <link rel="preload" href="{% static 'paper_admin/dist/app.bundle.min.js' %}" as="script">
   {% endblock %}
 
   <title>{% block title %}{% endblock %}</title>
@@ -65,7 +65,7 @@
   </div>
 
   {% block scripts %}
-    <script src="{% static 'paper_admin/dist/app.bundle.js' %}"></script>
+    <script src="{% static 'paper_admin/dist/app.bundle.min.js' %}"></script>
   {% endblock %}
 </body>
 </html>
