@@ -21,7 +21,7 @@ VERSION = '0.0.1'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'django>2.0,<3.0',
+    'django>2.1,<3.0',
 ]
 
 # What packages are optional?
