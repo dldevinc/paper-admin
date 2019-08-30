@@ -11,6 +11,7 @@ const DIST_DIR = 'paper_admin/static/paper_admin/dist';
 
 
 module.exports = {
+    devtool: 'source-map',
     mode: 'production',
     entry: {
         app: path.resolve(`${SOURCE_DIR}/js/app.js`),
@@ -120,6 +121,7 @@ module.exports = {
             new TerserPlugin({
                 parallel: true,
                 cache: 'cache',
+                sourceMap: true,
                 extractComments: true,
             }),
             new OptimizeCSSAssetsPlugin({
