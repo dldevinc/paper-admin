@@ -11,6 +11,7 @@ const DIST_DIR = 'paper_admin/static/paper_admin/dist';
 
 
 module.exports = {
+    devtool: 'source-map',
     mode: 'production',
     entry: {
         app: path.resolve(`${SOURCE_DIR}/js/app.js`),
@@ -18,8 +19,8 @@ module.exports = {
     output: {
         path: path.resolve(`${DIST_DIR}`),
         publicPath: '/static/paper_admin/dist/',
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].chunk.js'
+        filename: '[name].bundle.min.js',
+        chunkFilename: '[name].chunk.min.js'
     },
     module: {
         rules: [
@@ -120,6 +121,7 @@ module.exports = {
             new TerserPlugin({
                 parallel: true,
                 cache: 'cache',
+                sourceMap: true,
                 extractComments: true,
             }),
             new OptimizeCSSAssetsPlugin({
