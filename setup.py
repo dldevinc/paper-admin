@@ -110,6 +110,7 @@ setup(
     packages=[
         'paper_admin',
         'paper_admin.admin',
+        'paper_admin.templatetags',
         'paper_admin.patches.django_solo',
         'paper_admin.patches.mptt',
         'paper_admin.patches.mptt.templatetags',
