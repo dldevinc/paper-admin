@@ -17,7 +17,7 @@ DESCRIPTION = 'A django app that provides suggestions while you type into the fi
 URL = 'https://github.com/dldevinc/paper-admin'
 EMAIL = 'x896321475@gmail.com'
 AUTHOR = 'Mihail Mishakin'
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -110,6 +110,7 @@ setup(
     packages=[
         'paper_admin',
         'paper_admin.admin',
+        'paper_admin.templatetags',
         'paper_admin.patches.django_solo',
         'paper_admin.patches.mptt',
         'paper_admin.patches.mptt.templatetags',
