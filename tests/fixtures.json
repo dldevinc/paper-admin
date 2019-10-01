@@ -88,6 +88,14 @@
   }
 },
 {
+  "model": "sessions.session",
+  "pk": "xom7abc85dbz6jrc6wwgvlmgguwovkxh",
+  "fields": {
+    "session_data": "NDFjZjU3MTY5OWQwYzFlYTMyOTIyODYxMDE4YTU0MTZhZTM3ZWY5Mjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3NjM4YjdhZWY0MTY1NmFjZmZhMDNjZDM5NTc4ZWFmODlmZGMzYmViIn0=",
+    "expire_date": "2019-10-15T06:35:26.475Z"
+  }
+},
+{
   "model": "app.tag",
   "pk": 1,
   "fields": {
@@ -195,197 +203,6 @@
   }
 },
 {
-  "model": "app.category",
-  "pk": 2,
-  "fields": {
-    "f_fk": 3,
-    "f_o2o": 3,
-    "f_fk1": 3,
-    "f_fk2": 2,
-    "f_fk3": null,
-    "f_bool": false,
-    "f_nullbool": null,
-    "f_small_int": 844,
-    "f_int_choices": 1,
-    "f_int_choices2": 1,
-    "f_int": 75658,
-    "f_bigint": 678756,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": "2019-08-22",
-    "f_date2": "2021-06-02",
-    "f_time": "16:55:00",
-    "f_datetime": "1988-07-17T22:30:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "Robot",
-    "f_slug": "robot-75658",
-    "f_email": "test@mail.com",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "order": 4,
-    "f_tags": [
-      1,
-      4,
-      2
-    ],
-    "f_tags1": [
-      5,
-      4,
-      2
-    ],
-    "f_tags2": [
-      4,
-      6
-    ],
-    "f_tags3": [
-      1,
-      2
-    ],
-    "f_tags4": [
-      3,
-      6
-    ],
-    "f_tags5": [
-      1
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 3,
-  "fields": {
-    "f_fk": 6,
-    "f_o2o": 1,
-    "f_fk1": 4,
-    "f_fk2": 4,
-    "f_fk3": 4,
-    "f_bool": false,
-    "f_nullbool": null,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 1,
-    "f_int": 663,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "Gary Oldman",
-    "f_slug": "gary-oldman-663",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "/home/jon/Python/www/paper-admin/tests/settings.py",
-    "f_file": "category/Aurora_Borealis_Atmosphere.jpg",
-    "f_image": "category/Beautiful_Lighthouse.jpg",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "order": 2,
-    "f_tags": [
-      1
-    ],
-    "f_tags1": [
-      5,
-      3,
-      4
-    ],
-    "f_tags2": [
-      2
-    ],
-    "f_tags3": [
-      6
-    ],
-    "f_tags4": [
-      3,
-      6
-    ],
-    "f_tags5": [
-      1
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 4,
-  "fields": {
-    "f_fk": 3,
-    "f_o2o": null,
-    "f_fk1": null,
-    "f_fk2": null,
-    "f_fk3": null,
-    "f_bool": false,
-    "f_nullbool": null,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 1,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "Matt's birthday",
-    "f_slug": "matts-birthday-0",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "order": 3,
-    "f_tags": [
-      3
-    ],
-    "f_tags1": [],
-    "f_tags2": [
-      3
-    ],
-    "f_tags3": [
-      6
-    ],
-    "f_tags4": [
-      4
-    ],
-    "f_tags5": [
-      3
-    ]
-  }
-},
-{
   "model": "app.item",
   "pk": 1,
   "fields": {
@@ -411,118 +228,6 @@
     "url": "",
     "text": "",
     "order": 1
-  }
-},
-{
-  "model": "app.item",
-  "pk": 3,
-  "fields": {
-    "category": 1,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Sam",
-    "slug": "sam",
-    "url": "",
-    "text": "",
-    "order": 2
-  }
-},
-{
-  "model": "app.item",
-  "pk": 4,
-  "fields": {
-    "category": 1,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Corey",
-    "slug": "corey",
-    "url": "",
-    "text": "",
-    "order": 3
-  }
-},
-{
-  "model": "app.item",
-  "pk": 5,
-  "fields": {
-    "category": 2,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "John",
-    "slug": "john",
-    "url": "",
-    "text": "",
-    "order": 0
-  }
-},
-{
-  "model": "app.item",
-  "pk": 6,
-  "fields": {
-    "category": 2,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Sam",
-    "slug": "sam",
-    "url": "",
-    "text": "",
-    "order": 3
-  }
-},
-{
-  "model": "app.item",
-  "pk": 7,
-  "fields": {
-    "category": 2,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Stan",
-    "slug": "stan",
-    "url": "",
-    "text": "",
-    "order": 2
-  }
-},
-{
-  "model": "app.item",
-  "pk": 8,
-  "fields": {
-    "category": 2,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Kyle",
-    "slug": "kyle",
-    "url": "",
-    "text": "",
-    "order": 1
-  }
-},
-{
-  "model": "app.item",
-  "pk": 9,
-  "fields": {
-    "category": 3,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Dan",
-    "slug": "dan",
-    "url": "",
-    "text": "",
-    "order": 0
-  }
-},
-{
-  "model": "app.item",
-  "pk": 10,
-  "fields": {
-    "category": 4,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Kenny",
-    "slug": "kenny",
-    "url": "",
-    "text": "",
-    "order": 0
   }
 },
 {
@@ -1084,34 +789,16 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$S5NUxpeLpcuu$Zztw9OD0563zla7jwpD8MpMGQ1JTE6DMvot47H8SvFI=",
-    "last_login": "2019-08-27T10:42:59.863Z",
+    "password": "pbkdf2_sha256$150000$IHwKcITC0ftw$ihnwazgCCUjyjd1YGKUrE3HmGBQ7/f+ZKxWW9Vr+8vk=",
+    "last_login": "2019-10-01T06:35:00Z",
     "is_superuser": true,
-    "username": "root",
+    "username": "admin",
     "first_name": "",
     "last_name": "",
     "email": "",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2019-08-27T08:52:33.327Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 2,
-  "fields": {
-    "password": "pbkdf2_sha256$150000$ItWolZqSW8SA$dyG07X7cOXOsYKw7u+qvgiHTVgVh3dqXtM4q+V6X8uE=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "test",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2019-08-28T04:55:21.979Z",
+    "date_joined": "2019-08-27T08:52:00Z",
     "groups": [],
     "user_permissions": []
   }
@@ -1122,7 +809,7 @@
   "fields": {
     "action_time": "2019-08-27T10:45:45.375Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1140,7 +827,7 @@
   "fields": {
     "action_time": "2019-08-27T10:45:49.350Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1158,7 +845,7 @@
   "fields": {
     "action_time": "2019-08-27T10:45:53.112Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1176,7 +863,7 @@
   "fields": {
     "action_time": "2019-08-27T10:46:03.715Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1194,7 +881,7 @@
   "fields": {
     "action_time": "2019-08-27T10:46:13.504Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1212,7 +899,7 @@
   "fields": {
     "action_time": "2019-08-27T10:51:26.344Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1230,7 +917,7 @@
   "fields": {
     "action_time": "2019-08-27T10:56:55.527Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1248,7 +935,7 @@
   "fields": {
     "action_time": "2019-08-27T12:52:35.393Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1266,7 +953,7 @@
   "fields": {
     "action_time": "2019-08-27T12:52:42.631Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1284,7 +971,7 @@
   "fields": {
     "action_time": "2019-08-27T12:53:03.660Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1302,7 +989,7 @@
   "fields": {
     "action_time": "2019-08-27T12:53:13.963Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1320,7 +1007,7 @@
   "fields": {
     "action_time": "2019-08-27T12:53:28.734Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "app",
@@ -1336,180 +1023,36 @@
   "model": "admin.logentry",
   "pk": 13,
   "fields": {
-    "action_time": "2019-08-28T04:55:22.106Z",
+    "action_time": "2019-10-01T06:35:20.865Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
       "auth",
       "user"
     ],
-    "object_id": "2",
-    "object_repr": "test",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
+    "object_id": "1",
+    "object_repr": "admin",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"username\", \"last_login\", \"date_joined\"]}}]"
   }
 },
 {
   "model": "admin.logentry",
   "pk": 14,
   "fields": {
-    "action_time": "2019-08-28T10:44:10.160Z",
+    "action_time": "2019-10-01T06:35:26.257Z",
     "user": [
-      "root"
+      "admin"
     ],
     "content_type": [
-      "app",
-      "category"
+      "auth",
+      "user"
     ],
     "object_id": "1",
-    "object_repr": "Gold",
+    "object_repr": "admin",
     "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"item\", \"object\": \"Sam\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Corey\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 15,
-  "fields": {
-    "action_time": "2019-08-28T10:44:20.699Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "1",
-    "object_repr": "Gold",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"item\", \"object\": \"Corey\", \"fields\": [\"order\"]}}, {\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 16,
-  "fields": {
-    "action_time": "2019-08-28T10:47:38.433Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "2",
-    "object_repr": "Robot",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"John\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Sam\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 17,
-  "fields": {
-    "action_time": "2019-08-28T10:48:27.677Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "2",
-    "object_repr": "Robot",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"item\", \"object\": \"Stan\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Kyle\"}}, {\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 18,
-  "fields": {
-    "action_time": "2019-08-28T10:49:01.051Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "2",
-    "object_repr": "Robot",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"item\", \"object\": \"Sam\", \"fields\": [\"order\"]}}, {\"changed\": {\"name\": \"item\", \"object\": \"Stan\", \"fields\": [\"order\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 19,
-  "fields": {
-    "action_time": "2019-08-28T12:52:36.761Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "3",
-    "object_repr": "Gary Oldman",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Dan\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 20,
-  "fields": {
-    "action_time": "2019-08-28T12:55:31.049Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "4",
-    "object_repr": "Sam's birthday",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Kenny\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 21,
-  "fields": {
-    "action_time": "2019-08-28T12:55:56.079Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "4",
-    "object_repr": "Matt's birthday",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_char\", \"f_slug\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 22,
-  "fields": {
-    "action_time": "2019-08-28T12:56:00.421Z",
-    "user": [
-      "root"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "4",
-    "object_repr": "Matt's birthday",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_slug\"]}}]"
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
   }
 }
 ]
