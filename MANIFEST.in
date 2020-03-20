@@ -1,0 +1,6 @@
+include LICENSE
+include README.md
+
+recursive-include paper_admin *.html
+recursive-include paper_admin/static/ *.svg *.css *.js *.map
+recursive-exclude tests *
