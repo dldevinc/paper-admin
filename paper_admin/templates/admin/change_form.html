@@ -16,6 +16,8 @@
   <script src="{% url 'admin:jsi18n' %}"></script>
 {% endblock %}
 
+{% block bodyclass %}{{ block.super }} changeform-page{% endblock %}
+
 
 {% block header_buttons %}
   {% include 'paper_admin/header_buttons.html' %}
