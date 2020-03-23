@@ -1,5 +1,5 @@
 /*
-  Этот файл подключаются до bootstrap, чтобы сразу переопределить переменные,
+  Этот файл подключается до bootstrap, чтобы сразу переопределить переменные,
   которые передаются во множество других bootstrap-переменных, где их трудно переопределить
   на более поздних этапах.
  */
@@ -123,6 +123,7 @@ $table-accent-bg: #fcfcfc;
 $table-hover-bg: #f5f5f5;
 $table-border-color: #f0f0f0;
 $table-head-color: #9a9a9a;
+$table-border-level: -8;
 
 // pagination
 $pagination-line-height: 1;
