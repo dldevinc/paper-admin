@@ -4,6 +4,7 @@ import whenDomReady from "when-dom-ready";
 import SortableTable from "./components/sortable_table/SortableTable";
 import "./components/actions";
 import "./components/RelatedObjectLookups";
+import "./components/search";
 
 
 // Ctrl + Arrows navigation
