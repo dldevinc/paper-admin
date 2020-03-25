@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mptt',
     'tests.app',
+    'logentry_admin',
 ]
 
 MIDDLEWARE = [
@@ -134,4 +135,11 @@ PAPER_MENU = [
     ),
     '-',
     'auth',
+    dict(
+        label=_('Logs'),
+        icon='fa fa-fw fa-lg fa-history',
+        models=[
+            'admin.LogEntry',
+        ]
+    ),
 ]
