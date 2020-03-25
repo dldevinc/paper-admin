@@ -228,7 +228,7 @@
             }
 
             &:hover:before {
-              background-color: rgba($sidebar-link-active-color, 0.5);
+              background-color: darken($sidebar-link-active-color, 50%);
             }
           }
 
