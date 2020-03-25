@@ -4,6 +4,7 @@ from .sortable import (
     SortableTabularInline, SortableGenericTabularInline,
 )
 from ..patches.mptt.admin import SortableMPTTModelAdmin
+from . import logentry
 from . import filters
 
 

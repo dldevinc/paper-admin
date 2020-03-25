@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mptt',
     'tests.app',
-    'logentry_admin',
 ]
 
 MIDDLEWARE = [
