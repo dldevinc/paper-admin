@@ -4,6 +4,7 @@ import whenDomReady from "when-dom-ready";
 
 const TOGGLE_ALL_ID = 'action-toggle';
 const CHECKBOX_CLASS = 'action-select';
+const CHECKBOX_LABEL_SELECTOR = '.action-checkbox .vCustomCheckbox';
 const COUNTER_CLASS = 'action-counter';
 const QUESTION_CLASS= 'action-question';
 const ALL_CLASS = 'action-all';
@@ -25,59 +26,59 @@ function initActions(inputs) {
     const allToggleInput = document.getElementById(TOGGLE_ALL_ID);
 
     // клик на чекбокс "выбрать все"
-    allToggleInput.addEventListener('click', function() {
-        toggleInputs(inputs, this.checked);
+    allToggleInput.addEventListener('change', function() {
+        const rows = inputs.map(input => input.closest('tr'));
+        toggleRows(rows, this.checked);
         updateCounter(inputs);
     });
 
-    // изменение состояния чекбокса
-    table.addEventListener('change', function(event) {
+    // пользовательское событие выделения ряда таблицы
+    table.addEventListener('select', function(event) {
         const target = event.target;
-        if (target.classList.contains(CHECKBOX_CLASS)) {
-            const row = target.closest('tr');
-            row && row.classList.toggle('selected', target.checked);
+        if ((target.tagName !== 'TR') || (target.closest('table') !== table)) {
+            return
         }
+
+        const state = Boolean(event.detail.state);
+        const checkbox = target.querySelector(`.${CHECKBOX_CLASS}`);
+        checkbox.checked = state;
+        target.classList.toggle('selected', state);
 
         // все ли чекбоксы выделены
         allToggleInput.checked = inputs.find(input => !input.checked) == null;
     });
 
     table.addEventListener('click', function(event) {
-        // получаем чекбокс
-        let target_state;
-        let checkbox = event.target.closest(`.${CHECKBOX_CLASS}`);
-        if (!checkbox) {
-            // если клик на сам элемент, то выделение работает только в случае,
-            // когда была зажата клавиша Ctrl (или Shift для массового выделения)
-            if (!event.ctrlKey && !event.shiftKey) {
-                return
-            }
+        const target = event.target;
+        const row = target.closest('tr');
+        const label_clicked = target.closest(CHECKBOX_LABEL_SELECTOR);
+        const checkbox_label = row && row.querySelector(CHECKBOX_LABEL_SELECTOR);
+        const checkbox = checkbox_label && checkbox_label.querySelector(`.${CHECKBOX_CLASS}`);
 
-            checkbox = event.target.closest('tr').querySelector(`.${CHECKBOX_CLASS}`);
-            if (!checkbox) {
-                return
-            }
-            target_state = !checkbox.checked;
-        } else {
-            // при клике на чекбокс целевое состяние уже достигнуто
-            target_state = checkbox.checked;
+        // клик вне строк таблицы
+        if (!row) {
+            return
         }
 
-        if (lastChecked && event.shiftKey && (lastChecked !== checkbox)) {
+        // отмена выделения чекбокса при клике на <label>
+        if (label_clicked) {
+            event.preventDefault();
+        }
+
+        if (event.shiftKey && lastChecked && (lastChecked !== checkbox)) {
             // массовое выделение (через Shift)
             const lastIndex = inputs.indexOf(lastChecked);
             const targetIndex = inputs.indexOf(checkbox);
             const startIndex = Math.min(lastIndex, targetIndex);
             const endIndex = Math.max(lastIndex, targetIndex);
             const input_slice = inputs.slice(startIndex, endIndex + 1);
-            toggleInputs(input_slice, target_state);
-        } else if (event.target !== checkbox) {
-            // если клик на ячейку - выделяем чекбокс вручную
-            toggleInputs([checkbox], target_state);
+            const rows = input_slice.map(input => input.closest('tr'));
+            toggleRows(rows, lastChecked.checked);
+        } else if (label_clicked || (event.ctrlKey && !event.shiftKey)) {
+            // клик на чекбокс или на строку через Ctrl
+            lastChecked = checkbox;
+            toggleRows([row], !checkbox.checked);
         }
-
-        lastChecked = checkbox;
-        updateCounter(inputs);
     });
 
     // отмена выделения текста при клике с удержанным Shift
@@ -103,7 +104,8 @@ function initActions(inputs) {
         if ((target.tagName === 'A') && target.closest(`.${CLEAR_CLASS}`)) {
             event.preventDefault();
             allToggleInput.checked = false;
-            toggleInputs(inputs, false);
+            const rows = inputs.map(input => input.closest('tr'));
+            toggleRows(rows, false);
             clearAcross(inputs);
             updateCounter(inputs);
         }
@@ -113,7 +115,7 @@ function initActions(inputs) {
 }
 
 /**
- * Требование подтверждения выполнения дествия, если в форме были изменения.
+ * Требование подтверждения выполнения действия, если в форме были изменения.
  */
 function protectEditForm() {
     let list_editable_changed = false;
@@ -162,16 +164,20 @@ function protectEditForm() {
 
 /**
  * Установка/сброс галочки в чекбоксах.
- * @param {HTMLInputElement[]} inputs
+ * @param {HTMLTableRowElement[]} rows
  * @param {Boolean} checked
  */
-function toggleInputs(inputs, checked) {
-    inputs.forEach(function(input) {
-        input.checked = Boolean(checked);
-        input.dispatchEvent(new Event('change', {
-            bubbles: true,
-            cancelable: true
-        }));
+function toggleRows(rows, checked) {
+    rows.forEach(function(row) {
+        if (row && row.tagName === 'TR') {
+            row.dispatchEvent(new CustomEvent('select', {
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                    state: checked
+                }
+            }));
+        }
     });
 }
 
