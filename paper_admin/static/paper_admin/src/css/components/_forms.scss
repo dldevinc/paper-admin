@@ -275,6 +275,10 @@
     opacity: 0.25;
   }
 
+  input:focus + .d-flex .indicator {
+    box-shadow: 0 0 0 0.1rem $input-btn-focus-color;
+  }
+
   input:checked + .d-flex .indicator {
     border-color: $primary;
 
@@ -328,12 +332,6 @@
       transform: translate(-50%, -50%) scale(0);
       transition: transform 0.15s;
       will-change: transform;
-    }
-  }
-
-  input:checked + .flex .indicator {
-    &:after {
-      transform: translate(-50%, -50%) scale(1);
     }
   }
 }
