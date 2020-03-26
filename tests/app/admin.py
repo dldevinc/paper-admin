@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
-from paper_admin.widgets import CustomCheckboxSelectMultiple
+from paper_admin.widgets import CustomCheckboxSelectMultiple, SwitchInput
 from paper_admin.admin import SortableAdminMixin, SortableMPTTModelAdmin, SortableTabularInline, SortableStackedInline
 from .models import Tag, Category, Item, SubCategory
 
@@ -66,6 +66,7 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = forms.ALL_FIELDS
         widgets = {
+            'f_bool': SwitchInput,
             'f_tags1': CustomCheckboxSelectMultiple,
             'f_date2': forms.SelectDateWidget,
             'f_hidden1': forms.HiddenInput,
@@ -93,7 +94,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
                 'f_tags', 'f_tags1', 'f_tags2', 'f_tags3', 'f_tags4', 'f_tags5',
             ),
         }),
-        (_('Standart Fields'), {
+        (_('Standard Fields'), {
             'tab': 'tab2',
             'fields': (
                 'f_bool', 'f_nullbool', 'f_small_int', ('f_int_choices', 'f_int_choices2', 'f_int'),

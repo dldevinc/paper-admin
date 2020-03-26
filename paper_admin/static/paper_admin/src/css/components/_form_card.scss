@@ -49,7 +49,8 @@
       }
     }
 
-    .form-widget > .vCustomCheckbox {
+    .form-widget > .vCustomCheckbox,
+    .form-widget > .vSwitch {
       @include media-breakpoint-up(md) {
         margin-top: calc(#{$input-padding-y} - 1px);
       }
