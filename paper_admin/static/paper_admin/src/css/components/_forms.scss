@@ -260,7 +260,7 @@
       opacity: 0;
       background-color: $primary;
       background-clip: content-box;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       border-radius: inherit;
       transition: opacity 0.15s;
       will-change: opacity;
@@ -342,6 +342,8 @@
 
 .vCustomRadio {
   .indicator {
+    width: 0.875rem;
+    height: 0.875rem;
     border-radius: 50%;
   }
 }
