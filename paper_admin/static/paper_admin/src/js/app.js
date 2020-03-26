@@ -51,17 +51,17 @@ whenDomReady(function() {
     }
 
     // changelist page
-    if (document.getElementById('changelist_form')) {
+    if (document.body.classList.contains('changelist-page')) {
         import(/* webpackChunkName: "changelist" */ './changelist');
     }
 
     // changeform page
-    if (document.getElementById('changeform')) {
+    if (document.body.classList.contains('changeform-page')) {
         import(/* webpackChunkName: "changeform" */ './changeform');
     }
 
     // passwordform page
-    if (document.getElementById('passwordform')) {
+    if (document.body.classList.contains('passwordform-page')) {
         import(/* webpackChunkName: "passwordform" */ './passwordform');
     }
 });

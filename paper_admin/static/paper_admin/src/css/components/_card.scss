@@ -21,7 +21,7 @@
     } @else {
       @include card-variant(
           theme-color-level($color, -9),
-          theme-color-level($color, 6),
+          theme-color-level($color, 8),
           darken(theme-color-level($color, -9), 7%)
       );
     }

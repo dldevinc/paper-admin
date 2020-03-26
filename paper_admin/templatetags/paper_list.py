@@ -1,8 +1,11 @@
+from urllib.parse import urlencode
 from django.template import Library
 from django.forms.utils import flatatt
 from django.template.loader import get_template
 from django.contrib.admin.templatetags import admin_list
+from django.contrib.admin.views.main import ALL_VAR, ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR
 
+FILTER_KEEP_PARAMS = {ALL_VAR, ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR}
 register = Library()
 
 
@@ -62,3 +65,16 @@ def paper_filter(cl, spec):
         'choices': list(spec.choices(cl)),
         'spec': spec,
     })
+
+
+@register.simple_tag(takes_context=True)
+def get_filter_keep_params(context):
+    request = context.get('request')
+    if request is None:
+        return ''
+
+    params = {}
+    for key in FILTER_KEEP_PARAMS:
+        if key in request.GET:
+            params[key] = request.GET.get(key)
+    return params.items()

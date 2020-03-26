@@ -73,6 +73,11 @@
   }
 }
 
+
+.action-checkbox {
+  line-height: 1;
+}
+
 .action-checkbox-column {
   width: 0.01%;
 }
@@ -97,6 +102,7 @@
 }
 
 .table-column-header-title {
+  display: inline-block;
   white-space: normal;
 }
 

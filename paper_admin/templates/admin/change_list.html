@@ -15,6 +15,8 @@
   {% endif %}
 {% endblock %}
 
+{% block bodyclass %}{{ block.super }} changelist-page{% endblock %}
+
 
 {% block header_buttons %}
   {% if has_add_permission %}
@@ -74,6 +76,11 @@
               {% paper_filter cl spec %}
             {% endfor %}
 
+            {% get_filter_keep_params as filter_keep_params %}
+            {% for name, value in filter_keep_params %}
+              <input type="hidden" name="{{ name }}" value="{{ value }}">
+            {% endfor %}
+          
             <button type="submit" class="btn btn-info btn-block">
               {% trans 'Apply' %}
             </button>
