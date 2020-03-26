@@ -4,7 +4,7 @@
   на более поздних этапах.
  */
 
-$body-bg: #f4f4f4;
+$body-bg: #f4f6f9;
 $body-color: #1d1d1d;
 $link-color: #337ac7;
 $hr-border-color: #e0e0e0;
@@ -91,7 +91,9 @@ $list-group-item-padding-y: 0.5rem;
 $list-group-item-padding-x: 1rem;
 
 // nav
+$nav-link-padding-y: .25rem;
 $nav-tabs-border-color: #e0e0e0;
+$nav-tabs-link-active-border-color: #a3dae3;
 $nav-tabs-link-hover-border-color: $nav-tabs-border-color;
 
 // navbar
