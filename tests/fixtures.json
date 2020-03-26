@@ -1,16 +1,61 @@
 [
 {
-  "model": "app.tag",
+  "model": "auth.user",
   "pk": 1,
   "fields": {
-    "name": "Family"
+    "password": "pbkdf2_sha256$150000$lQDkZTEf4X9i$2ZkiTq7OTzR/A17rv1GZVyWqEI7e8EU0WzAodqdzTfQ=",
+    "last_login": "2020-03-26T07:21:32.418Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-08-27T08:52:00Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$JeXtsrdrLT6w$k4MiSVC7I7PIX8SeI6169JneEq/BT2IapO/F+O4WChQ=",
+    "last_login": "2020-03-25T06:39:01.957Z",
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-03-25T06:37:00Z",
+    "groups": [],
+    "user_permissions": [
+      [
+        "add_tag",
+        "app",
+        "tag"
+      ],
+      [
+        "change_tag",
+        "app",
+        "tag"
+      ],
+      [
+        "view_tag",
+        "app",
+        "tag"
+      ]
+    ]
   }
 },
 {
   "model": "app.tag",
-  "pk": 2,
+  "pk": 1,
   "fields": {
-    "name": "Work"
+    "name": "Family"
   }
 },
 {
@@ -36,9 +81,23 @@
 },
 {
   "model": "app.tag",
-  "pk": 6,
+  "pk": 7,
   "fields": {
-    "name": "People"
+    "name": "Red"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 8,
+  "fields": {
+    "name": "Blue"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 9,
+  "fields": {
+    "name": "Green"
   }
 },
 {
@@ -46,7 +105,7 @@
   "pk": 1,
   "fields": {
     "f_fk": 5,
-    "f_o2o": 6,
+    "f_o2o": null,
     "f_fk1": 4,
     "f_fk2": 1,
     "f_fk3": 4,
@@ -68,7 +127,130 @@
     "f_hidden2": "",
     "f_hidden3": "",
     "f_char": "Gold",
-    "f_slug": "",
+    "f_slug": "gold-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 2,
+    "f_tags": [
+      3
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      1,
+      3
+    ],
+    "f_tags3": [
+      3,
+      4
+    ],
+    "f_tags4": [
+      5,
+      3
+    ],
+    "f_tags5": [
+      3
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 2,
+  "fields": {
+    "f_fk": 1,
+    "f_o2o": null,
+    "f_fk1": null,
+    "f_fk2": null,
+    "f_fk3": null,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Milk",
+    "f_slug": "milk-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 3,
+    "f_tags": [
+      3
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      4
+    ],
+    "f_tags3": [
+      3,
+      4
+    ],
+    "f_tags4": [
+      3
+    ],
+    "f_tags5": [
+      5,
+      4
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 3,
+  "fields": {
+    "f_fk": 4,
+    "f_o2o": null,
+    "f_fk1": null,
+    "f_fk2": null,
+    "f_fk3": null,
+    "f_bool": false,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Redis",
+    "f_slug": "redis-0",
     "f_email": "",
     "f_pass": "",
     "f_ip": null,
@@ -83,26 +265,85 @@
     "f_text_ro": "",
     "order": 1,
     "f_tags": [
-      3,
-      2
+      8,
+      1,
+      7
     ],
     "f_tags1": [],
     "f_tags2": [
+      5
+    ],
+    "f_tags3": [
       1,
       3
     ],
-    "f_tags3": [
-      3,
-      4,
-      2
-    ],
     "f_tags4": [
-      5,
-      3
+      1,
+      4,
+      7
     ],
     "f_tags5": [
-      3,
-      6
+      5,
+      4
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 4,
+  "fields": {
+    "f_fk": 5,
+    "f_o2o": null,
+    "f_fk1": null,
+    "f_fk2": null,
+    "f_fk3": null,
+    "f_bool": true,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": null,
+    "f_date2": null,
+    "f_time": null,
+    "f_datetime": null,
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "Valve",
+    "f_slug": "valve-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "order": 4,
+    "f_tags": [
+      1
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      9
+    ],
+    "f_tags3": [
+      1
+    ],
+    "f_tags4": [
+      7
+    ],
+    "f_tags5": [
+      4
     ]
   }
 },
@@ -132,6 +373,48 @@
     "url": "",
     "text": "",
     "order": 1
+  }
+},
+{
+  "model": "app.item",
+  "pk": 3,
+  "fields": {
+    "category": 2,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "one",
+    "slug": "one",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 4,
+  "fields": {
+    "category": 3,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Sunny",
+    "slug": "sunny",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 5,
+  "fields": {
+    "category": 4,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "One",
+    "slug": "one",
+    "url": "",
+    "text": "",
+    "order": 0
   }
 },
 {
@@ -207,24 +490,6 @@
     "rght": 7,
     "tree_id": 1,
     "level": 1
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$150000$IHwKcITC0ftw$ihnwazgCCUjyjd1YGKUrE3HmGBQ7/f+ZKxWW9Vr+8vk=",
-    "last_login": "2019-10-01T06:35:00Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2019-08-27T08:52:00Z",
-    "groups": [],
-    "user_permissions": []
   }
 },
 {
@@ -477,6 +742,798 @@
     "object_repr": "admin",
     "action_flag": 2,
     "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2020-03-20T13:30:28.880Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Gold",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_slug\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2020-03-20T13:32:51.043Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Milk",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"one\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2020-03-20T13:33:49.135Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Redis",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Sunny\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2020-03-23T06:15:07.839Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Valve",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"One\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2020-03-23T13:18:19.009Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Redis",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2020-03-24T10:58:52.272Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "5",
+    "object_repr": "Dance",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2020-03-24T11:02:01.389Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "5",
+    "object_repr": "Dance",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2020-03-24T11:02:02.825Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "5",
+    "object_repr": "Dance",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2020-03-24T11:02:44.539Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "2",
+    "object_repr": "Work",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2020-03-24T11:02:53.374Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "6",
+    "object_repr": "People",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2020-03-24T12:19:15.257Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "7",
+    "object_repr": "Red",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2020-03-24T12:19:18.681Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "8",
+    "object_repr": "Blue",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2020-03-24T12:19:21.969Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "9",
+    "object_repr": "Green",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2020-03-25T06:37:46.260Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "test",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2020-03-25T06:37:58.669Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "object_id": "2",
+    "object_repr": "test",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"is_staff\", \"user_permissions\", \"date_joined\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.348Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "34",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.421Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "33",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.479Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "32",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.546Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "31",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.613Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "30",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.679Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "29",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.746Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "28",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.813Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "27",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.871Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "26",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2020-03-25T12:01:32.937Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "25",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.004Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "24",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.070Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "23",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.138Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "22",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.196Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "21",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.254Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "20",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.313Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "19",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.371Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "18",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.445Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "17",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.504Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "16",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.587Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "15",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.654Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "14",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.712Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "13",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.779Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "12",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.846Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "11",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2020-03-25T12:01:33.936Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "tag"
+    ],
+    "object_id": "10",
+    "object_repr": "DelMe",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2020-03-26T08:43:21.897Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Valve",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_fk\", \"f_tags\", \"f_tags2\", \"f_tags3\", \"f_tags4\", \"f_tags5\", \"f_bool\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2020-03-26T08:43:34.780Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Milk",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_tags5\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2020-03-26T08:43:38.971Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Gold",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2020-03-26T08:43:57.078Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Redis",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"f_tags\", \"f_tags2\", \"f_tags3\", \"f_tags4\", \"f_tags5\"]}}]"
   }
 }
 ]
