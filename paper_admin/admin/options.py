@@ -9,9 +9,9 @@ from django.contrib.admin import ACTION_CHECKBOX_NAME
 from django.contrib.auth import get_user_model, get_permission_codename
 from .changelist import RequestChangeListMixin
 from ..renderer import PaperFormRenderer
-from ..forms import SplitDateTimeField
+from ..forms.fields import SplitDateTimeField
+from ..forms import widgets
 from .. import conf
-from .. import widgets
 from . import helpers
 
 
@@ -271,7 +271,7 @@ class BasePaperInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         from django.forms.fields import BooleanField
         from django.forms.formsets import DELETION_FIELD_NAME
-        from ..widgets import CustomCheckboxInput
+        from ..forms.widgets import CustomCheckboxInput
         super().add_fields(form, index)
         if self.can_delete:
             form.fields[DELETION_FIELD_NAME] = BooleanField(

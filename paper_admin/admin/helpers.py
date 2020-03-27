@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.admin import helpers
 from django.contrib.admin.utils import label_for_field, help_text_for_field, flatten_fieldsets
 from django.utils.functional import cached_property
-from ..widgets import CustomCheckboxInput
+from ..forms.widgets import CustomCheckboxInput
 
 
 class ActionForm(helpers.ActionForm):

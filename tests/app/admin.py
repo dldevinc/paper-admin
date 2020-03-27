@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
-from paper_admin.widgets import CustomCheckboxSelectMultiple, SwitchInput
+from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
 from paper_admin.admin import SortableAdminMixin, SortableMPTTModelAdmin, SortableTabularInline, SortableStackedInline
 from .models import Tag, Category, Item, SubCategory
 
