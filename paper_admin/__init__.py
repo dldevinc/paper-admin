@@ -107,4 +107,4 @@
 
 """
 default_app_config = 'paper_admin.apps.Config'
-__version__ = "0.0.7"
+__version__ = "0.0.8"
