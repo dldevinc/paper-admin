@@ -1,4 +1,3 @@
-from urllib.parse import urlencode
 from django.template import Library
 from django.forms.utils import flatatt
 from django.template.loader import get_template

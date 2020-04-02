@@ -33,11 +33,10 @@ INSTALLED_APPS = [
 
 * `paper_admin.patches.mptt`
     Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
-    Предоставляет `paper_admin.patches.mptt.admin.SortableMPTTModelAdmin`
-    для оформления сортируемого дерева.
+    Предоставляет класс `SortableMPTTModelAdmin` для оформления сортируемого дерева.
 
-**Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS`
-**раньше**, чем библиотеки, которые они исправляют.
+**Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
+которые они исправляют.
 
 ## Sortable admin objects
 
@@ -107,6 +106,12 @@ class PageAdmin(admin.ModelAdmin):
 ```
 
 ![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/5cc83f8e98.png)
+
+## Additional widgets
+### SwitchInput
+Стилизованый чекбокс.
+
+![](http://joxi.net/ZrJJgW9iMDbQ5r.png)
 
 ## Menu
 Меню в сайдбаре настраивается путем заполнения списка 

@@ -90,6 +90,18 @@ class AutosizeTextarea(forms.Textarea):
         super().__init__(default_attrs)
 
 
+class SwitchInput(forms.CheckboxInput):
+    template_name = 'django/forms/widgets/switch.html'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        classes = context['widget']['attrs'].get('class', '')
+        classes += ' custom-control-input'
+        context['widget']['attrs']['class'] = classes
+        context['widget']['id_for_label'] = self.id_for_label(attrs.get('id', ''))
+        return context
+
+
 class CustomCheckboxInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/checkbox_custom.html'
 
