@@ -2,8 +2,6 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 
-SITE_TITLE = getattr(settings, 'PAPER_SITE_TITLE', _('Django site admin'))
-SITE_HEADER = getattr(settings, 'PAPER_SITE_HEADER', _('Django administration'))
 ENVIRONMENT_NAME = getattr(settings, 'PAPER_ENVIRONMENT_NAME', '')
 ENVIRONMENT_COLOR = getattr(settings, 'PAPER_ENVIRONMENT_COLOR', '')
 

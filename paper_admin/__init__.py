@@ -15,16 +15,6 @@
 
     Настройки
     ---------
-    PAPER_SITE_TITLE
-        type            str
-        default         _('Django site admin')
-        description     Содержимое <title> админки
-
-    PAPER_SITE_HEADER
-        type            str
-        default         _('Django administration')
-        description     Заголовок админки
-
     PAPER_ENVIRONMENT_NAME
     PAPER_ENVIRONMENT_COLOR
         type            str
