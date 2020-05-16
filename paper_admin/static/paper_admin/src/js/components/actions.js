@@ -123,7 +123,19 @@ function protectEditForm() {
 
     form.addEventListener('change', function(event) {
         const target = event.target;
-        if ((target.tagName === 'INPUT') && !target.closest(`.${CHECKBOX_CLASS}`)) {
+        if (target.tagName === 'INPUT') {
+            if (target.closest(`.${CHECKBOX_CLASS}`) || (target.id === TOGGLE_ALL_ID)) {
+                // nothing
+            } else {
+                list_editable_changed = true;
+            }
+        } else if (target.tagName === 'SELECT') {
+            if (target.closest(`.action-action`)) {
+                // nothing
+            } else {
+                list_editable_changed = true;
+            }
+        } else {
             list_editable_changed = true;
         }
     });
