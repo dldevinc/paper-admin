@@ -160,8 +160,6 @@ PAPER_MENU = [
 ## Settings
 | Option | Description | Example value |
 | --- | --- | --- |
-| `PAPER_SITE_TITLE`        | Базовая часть тэга <title>            | 'Django site admin'   |
-| `PAPER_SITE_HEADER`       | Заголовок в сайдбаре                  | 'Apple pie shop'      |
 | `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения    | 'development'         |
 | `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения   | '#FFFF00'             |
 | `PAPER_SUPPORT_PHONE`     | Контактный телефон в подвале          | '+1 234 567 8900'     |
