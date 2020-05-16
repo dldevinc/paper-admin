@@ -2,5 +2,6 @@ include LICENSE
 include README.md
 
 recursive-include paper_admin *.html
+recursive-include paper_admin/static/admin *
 recursive-include paper_admin/static/paper_admin/dist *
 recursive-exclude tests *
