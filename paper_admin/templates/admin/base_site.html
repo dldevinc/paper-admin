@@ -78,6 +78,16 @@
                         </li>
                       {% endif %}
 
+                      <!-- django-impersonate support -->
+                      {% if user.is_impersonate %}
+                        <li role="presentation">
+                          <a href="{% url 'impersonate-stop' %}" class="dropdown-item" role="menuitem">
+                            <i class="fa fa-fw fa-sign-out"></i>
+                            <span>{% trans 'Stop impersonation' %}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+
                       <li role="presentation">
                         <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
                           <i class="fa fa-fw fa-sign-out"></i>
