@@ -1,7 +1,7 @@
 from collections import Iterable
 from django import forms
 from django.contrib.admin import helpers
-from django.contrib.admin.utils import label_for_field, help_text_for_field, flatten_fieldsets
+from django.contrib.admin.utils import flatten_fieldsets
 from django.utils.functional import cached_property
 from ..forms.widgets import CustomCheckboxInput
 
@@ -56,7 +56,7 @@ class AdminForm(AdminFormOriginal):
 
 class Fieldset(helpers.Fieldset):
     def __init__(self, form, name=None, readonly_fields=(), fields=(), classes=(),
-            tab=None, description=None, model_admin=None):
+                 tab=None, description=None, model_admin=None):
         super().__init__(form, name, readonly_fields, fields, classes, description, model_admin)
         self._tab = tab
         self.has_visible_field = not all(
@@ -112,36 +112,14 @@ class AdminField:
 
 class AdminReadonlyField(helpers.AdminReadonlyField):
     def __init__(self, form, field, model_admin=None):
-        if callable(field):
-            class_name = field.__name__ if field.__name__ != '<lambda>' else ''
-        else:
-            class_name = field
-
-        if form._meta.labels and class_name in form._meta.labels:
-            label = form._meta.labels[class_name]
-        else:
-            label = label_for_field(field, form._meta.model, model_admin)
-
-        if form._meta.help_texts and class_name in form._meta.help_texts:
-            help_text = form._meta.help_texts[class_name]
-        else:
-            help_text = help_text_for_field(class_name, form._meta.model)
-
-        self.field = {
-            'name': class_name,
-            'label': label,
-            'help_text': help_text,
-            'field': field,
-        }
-        self.form = form
-        self.model_admin = model_admin
-        self.is_checkbox = False
-        self.is_readonly = True
-        self.empty_value_display = model_admin.get_empty_value_display()
+        super().__init__(form, field, is_first=False, model_admin=model_admin)
         self.field['contents'] = self.contents()
 
 
 class InlineAdminForm(helpers.InlineAdminForm):
+    """
+    Use custom InlineFieldset and AdminField
+    """
     def __iter__(self):
         for name, options in self.fieldsets:
             yield InlineFieldset(
