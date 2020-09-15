@@ -5,7 +5,7 @@ from django.forms import BaseInlineFormSet
 from django.contrib.admin.models import LogEntry
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.contrib.admin import ACTION_CHECKBOX_NAME
+from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.auth import get_user_model, get_permission_codename
 from .changelist import RequestChangeListMixin
 from ..renderer import PaperFormRenderer
