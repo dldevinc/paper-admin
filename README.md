@@ -1,12 +1,12 @@
 # paper-admin
+Custom Django admin interface.
 
-![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/00584b8abc.png)
-
-![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/72f0b476ae.png)
+[![PyPI](https://img.shields.io/pypi/v/paper-admin.svg)](https://pypi.org/project/paper-admin/)
+[![Build Status](https://travis-ci.org/dldevinc/paper-admin.svg?branch=master)](https://travis-ci.org/dldevinc/paper-admin)
 
 ## Requirements
-* Python (3.5, 3.6, 3.7)
-* Django (2.1, 2.2)
+* Python >= 3.6
+* Django >= 2.1
 
 ## Installation
 Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admin`.
@@ -105,8 +105,6 @@ class PageAdmin(admin.ModelAdmin):
         return classes
 ```
 
-![](http://dl3.joxi.net/drive/2019/08/28/0025/1750/1701590/90/5cc83f8e98.png)
-
 ## Additional widgets
 ### SwitchInput
 Стилизованый чекбокс.
@@ -167,3 +165,14 @@ PAPER_MENU = [
 | `PAPER_SUPPORT_COMPANY`   | Название компании в подвале           | 'Web Studio Inc.'     |
 | `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале     | 'https://webstudio.com/' |
 | `PAPER_MENU`              | Меню в сайдбаре                       | |
+
+
+## Development and Testing
+After cloning the Git repository, you should install this
+in a virtualenv and set up for development:
+```shell script
+virtualenv .venv
+source .venv/bin/activate
+pip install -r ./requirements_dev.txt
+pre-commit install
+```

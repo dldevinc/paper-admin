@@ -77,7 +77,7 @@ class Category(models.Model):
     f_text = models.TextField(_('text'), blank=True, max_length=512, help_text=HELP_TEXT)
     f_url = models.URLField(_('URL'), blank=True, help_text=HELP_TEXT)
     f_uuid = models.UUIDField(_('UUID'), blank=True, null=True, help_text=HELP_TEXT)
-    f_filepath = models.FilePathField(_('filepath'), blank=True, path=os.path.join(settings.BASE_DIR, 'tests'), help_text=HELP_TEXT)
+    f_filepath = models.FilePathField(_('filepath'), blank=True, path=os.path.join(settings.BASE_DIR, 'app'), help_text=HELP_TEXT)
     f_file = models.FileField(_('file'), blank=True, help_text=HELP_TEXT, upload_to='category')
     f_image = models.ImageField(_('image'), blank=True, help_text=HELP_TEXT, upload_to='category')
 
