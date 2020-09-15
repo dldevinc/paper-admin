@@ -15,6 +15,7 @@
     "autoprefixer": "^9.7.4",
     "autosize": "^4.0.2",
     "babel-loader": "^8.1.0",
+    "bootbox": "^5.4.0",
     "bootstrap": "^4.4.1",
     "expose-loader": "^1.0.0",
     "fast-async": "^6.3.8",

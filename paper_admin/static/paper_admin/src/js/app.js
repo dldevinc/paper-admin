@@ -2,7 +2,7 @@
 
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
-import bootbox from "./vendor/bootbox";
+import bootbox from "bootbox";
 import whenDomReady from "when-dom-ready";
 import Sidebar from "./components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";

@@ -14,7 +14,7 @@
  */
 
 import Sortable from "sortablejs";
-import bootbox from "../../vendor/bootbox";
+import bootbox from "bootbox";
 import ListTree from "./ListTree";
 import StaggerHighlight from "./StaggerHighlight";
 
