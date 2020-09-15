@@ -2,9 +2,10 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
+from solo.admin import SingletonModelAdmin
 from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
 from paper_admin.admin import SortableAdminMixin, SortableMPTTModelAdmin, SortableTabularInline, SortableStackedInline
-from .models import Tag, Category, Item, SubCategory
+from .models import Tag, Category, Item, SubCategory, SigletonExample
 
 
 @admin.register(Tag)
@@ -172,6 +173,17 @@ class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
         (None, {
             'fields': (
                 'parent', 'category', 'name', 'number',
+            ),
+        }),
+    )
+
+
+@admin.register(SigletonExample)
+class CategoryAdmin(SingletonModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
             ),
         }),
     )
