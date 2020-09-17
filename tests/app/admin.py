@@ -98,7 +98,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         (_('Standard Fields'), {
             'tab': 'tab2',
             'fields': (
-                'f_bool', 'f_nullbool', 'f_small_int', ('f_int_choices', 'f_int_choices2', 'f_int'),
+                'f_bool', 'f_bool2', 'f_nullbool', 'f_small_int', ('f_int_choices', 'f_int_choices2', 'f_int'),
                 'f_bigint', 'f_float', 'f_decimal',
                 'f_duration', 'f_date', 'f_date2', 'f_time', 'f_datetime',
                 'f_char', 'f_slug', 'f_email', 'f_pass', 'f_ip', 'f_text', 'f_uuid', 'f_url',
