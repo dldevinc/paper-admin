@@ -173,7 +173,9 @@ class PaperModelAdmin:
         return self.get_changelist_formset__overridden(request, **kwargs)  # noqa: F821
 
     def action_checkbox(self, obj):
-        return helpers.checkbox.render(ACTION_CHECKBOX_NAME, str(obj.pk))
+        return helpers.checkbox.render(ACTION_CHECKBOX_NAME, str(obj.pk), {
+            'id': '{}-{}'.format(ACTION_CHECKBOX_NAME, obj.pk)
+        })
     action_checkbox.short_description = mark_safe(helpers.checkbox_toggle.render('', ''))
 
     def history_view(self, request, object_id, extra_context=None):
