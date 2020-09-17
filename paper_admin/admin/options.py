@@ -129,6 +129,7 @@ class PaperModelAdmin:
     list_max_show_all = 50
     changelist_tools = True
     changelist_tools_template = 'paper_admin/includes/changelist_tools.html'
+    changelist_widget_overrides = {}
     tabs = [
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
     ]
@@ -159,6 +160,17 @@ class PaperModelAdmin:
         ChangeList = self.get_changelist__overridden(request, **kwargs)  # noqa: F821
         RequestChangeList = type('RequestChangeList', (RequestChangeListMixin, ChangeList), {})
         return RequestChangeList
+
+    def get_changelist_formset(self, request, **kwargs):
+        """
+        Замена виджетов редактируемых полей на странице changelist.
+        """
+        widget_overrides = {}
+        for db_field in self.model._meta.get_fields():
+            if db_field.__class__ in self.changelist_widget_overrides:
+                widget_overrides[db_field.name] = self.changelist_widget_overrides[db_field.__class__]
+        kwargs['widgets'] = widget_overrides
+        return self.get_changelist_formset__overridden(request, **kwargs)  # noqa: F821
 
     def action_checkbox(self, obj):
         return helpers.checkbox.render(ACTION_CHECKBOX_NAME, str(obj.pk))
