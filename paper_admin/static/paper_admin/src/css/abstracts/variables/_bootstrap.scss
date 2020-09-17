@@ -34,7 +34,8 @@ $line-height-lg: $line-height-base;
 $line-height-sm: 1.33334;     // 16/12
 
 // headers
-$headings-font-weight: 300;
+$headings-color: #4A4A4A;
+$headings-font-weight: 400;
 $h1-font-size: $font-size-base * 2;
 $h2-font-size: $font-size-base * 1.75;
 $h3-font-size: $font-size-base * 1.5;
@@ -66,7 +67,7 @@ $input-color: #000000;
 $input-focus-color: #333;
 $input-placeholder-color: #c3c3c3;
 $input-disabled-bg: #f0f0f0;
-$input-group-addon-color: #404040;
+$input-group-addon-color: #6c757d;
 
 $custom-control-indicator-size: 1.125rem;
 $custom-control-gutter: 0.25rem;
@@ -111,7 +112,7 @@ $navbar-dark-active-color: #ffffff;
 $card-cap-bg: #ffffff;
 $card-spacer-x: 1rem;
 $card-spacer-x-sm: 0.75rem;
-$card-spacer-y: 0.5rem;
+$card-spacer-y: 0.75rem;
 $card-spacer-y-md: 0.75rem;
 $card-border-radius: 2px;
 $card-inner-border-radius: 2px;

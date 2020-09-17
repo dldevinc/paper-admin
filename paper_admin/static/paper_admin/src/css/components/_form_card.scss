@@ -11,10 +11,6 @@
     padding-bottom: 0.75rem;
     border-bottom: 1px solid $table-border-color;
     @include card-padding-x;
-    @include media-breakpoint-up(md) {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-    }
 
     &:last-child {
       border-bottom: 0;

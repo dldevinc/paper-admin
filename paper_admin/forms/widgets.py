@@ -15,6 +15,7 @@ class UUIDInput(forms.TextInput):
 
 
 class DateInput(forms.DateInput):
+    input_type = 'text'
     template_name = 'django/forms/widgets/date.html'
 
 
@@ -84,7 +85,7 @@ class ManyToManyRawIdWidget(DefaultManyToManyRawIdWidget):
 
 class AutosizeTextarea(forms.Textarea):
     def __init__(self, attrs=None):
-        default_attrs = {'rows': '2', 'autosize': True}
+        default_attrs = {'rows': '3', 'autosize': True}
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)

@@ -27,7 +27,7 @@
   font-size: $font-size-base;
   font-weight: $form-label-font-weight;
   @include media-breakpoint-up(md) {
-    margin-top: 0;
+    margin-top: .125rem;
     margin-bottom: 0;
   }
 
@@ -41,6 +41,7 @@
       margin-left: .125em;
       top: -0.2em;
       color: $danger;
+      font-weight: bold;
     }
 
     &.form-check-label {
@@ -105,13 +106,13 @@
     text-decoration: none;
   }
 
-  button.input-group-text:hover,
-  a.input-group-text:hover {
-    color: $primary;
+  a[href].input-group-text {
+    color: $info;
   }
 
-  a:not([href]).input-group-text {
-    color: $input-group-addon-color;
+  button.input-group-text:hover,
+  a[href].input-group-text:hover {
+    color: $primary;
   }
 }
 
@@ -132,14 +133,14 @@
 
 .vSmallField {
   max-width: 100%;
-  @media (min-width: 400px) {
+  @media (min-width: 420px) {
     width: $form-field-width;
   }
 }
 
 .vSelect {
   max-width: 100%;
-  @media (min-width: 400px) {
+  @media (min-width: 420px) {
     width: auto;
     min-width: $form-field-width;
   }

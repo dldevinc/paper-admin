@@ -4,10 +4,9 @@
 // Select2 styles
 .select2-container {
   min-width: $form-field-width;
-  @media (max-width: 399px) {
+  @media (max-width: 419px) {
     width: 100% !important;
     min-width: 0 !important;
-    max-width: $form-field-width;
   }
 
   .select2-selection {
