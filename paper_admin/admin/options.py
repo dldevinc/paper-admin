@@ -6,6 +6,7 @@ from django.contrib.admin.models import LogEntry
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
+from django.forms.formsets import DELETION_FIELD_NAME
 from django.contrib.auth import get_user_model, get_permission_codename
 from .changelist import RequestChangeListMixin
 from ..renderer import PaperFormRenderer
@@ -129,7 +130,9 @@ class PaperModelAdmin:
     list_max_show_all = 50
     changelist_tools = True
     changelist_tools_template = 'paper_admin/includes/changelist_tools.html'
-    changelist_widget_overrides = {}
+    changelist_widget_overrides = {
+        models.BooleanField: widgets.CustomCheckboxInput
+    }
     tabs = [
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
     ]
@@ -175,8 +178,10 @@ class PaperModelAdmin:
     def action_checkbox(self, obj):
         return helpers.checkbox.render(ACTION_CHECKBOX_NAME, str(obj.pk), {
             'id': '{}-{}'.format(ACTION_CHECKBOX_NAME, obj.pk)
-        })
-    action_checkbox.short_description = mark_safe(helpers.checkbox_toggle.render('', ''))
+        }, renderer=PaperFormRenderer())
+    action_checkbox.short_description = mark_safe(
+        helpers.checkbox_toggle.render('action-toggle', '', renderer=PaperFormRenderer())
+    )
 
     def history_view(self, request, object_id, extra_context=None):
         log_opts = LogEntry._meta
@@ -283,16 +288,13 @@ class PaperModelAdmin:
 
 class BasePaperInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
-        from django.forms.fields import BooleanField
-        from django.forms.formsets import DELETION_FIELD_NAME
-        from ..forms.widgets import CustomCheckboxInput
         super().add_fields(form, index)
         if self.can_delete:
-            form.fields[DELETION_FIELD_NAME] = BooleanField(
+            form.fields[DELETION_FIELD_NAME] = forms.BooleanField(
                 label=_('Delete'),
                 required=False,
-                widget=CustomCheckboxInput(attrs={
-                    'class': 'danger'
+                widget=widgets.CustomCheckboxInput(attrs={
+                    'class': 'danger custom-control-input'
                 })
             )
 

@@ -30,7 +30,7 @@ class ActionForm(helpers.ActionForm):
         return value
 
 
-checkbox = CustomCheckboxInput({'class': 'action-select'}, lambda value: False)
+checkbox = CustomCheckboxInput({'class': 'action-select custom-control-input'}, lambda value: False)
 checkbox_toggle = CustomCheckboxInput({'id': 'action-toggle'}, lambda value: False)
 
 

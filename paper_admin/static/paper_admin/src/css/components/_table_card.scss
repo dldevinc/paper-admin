@@ -36,12 +36,6 @@
     @include border-radius($input-border-radius-sm);
   }
 
-  .vCustomCheckbox {
-    .indicator {
-      margin-top: 0;
-    }
-  }
-
   .custom-select {
     min-width: 160px;
 

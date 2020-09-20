@@ -91,19 +91,7 @@ class AutosizeTextarea(forms.Textarea):
         super().__init__(default_attrs)
 
 
-class CustomControlMixin(forms.CheckboxInput):
-    def get_context(self, name, value, attrs):
-        attrs = attrs or {}
-        context = super().get_context(name, value, attrs)
-        id_ = context['widget']['attrs'].get('id', '')
-        classes = context['widget']['attrs'].get('class', '')
-        classes += ' custom-control-input'
-        context['widget']['attrs']['class'] = classes
-        context['widget']['id_for_label'] = self.id_for_label(id_)
-        return context
-
-
-class SwitchInput(CustomControlMixin, forms.CheckboxInput):
+class SwitchInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/switch.html'
 
 
@@ -111,14 +99,14 @@ class CustomCheckboxInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/checkbox_custom.html'
 
 
-class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    template_name = 'django/forms/widgets/checkbox_select.html'
-    option_template_name = 'django/forms/widgets/checkbox_custom.html'
-
-
 class CustomRadioSelect(forms.RadioSelect):
     template_name = 'django/forms/widgets/radio_custom.html'
     option_template_name = 'django/forms/widgets/radio_option_custom.html'
+
+
+class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = 'django/forms/widgets/checkbox_select.html'
+    option_template_name = 'django/forms/widgets/checkbox_custom.html'
 
 
 class FilteredSelectMultiple(forms.SelectMultiple):
