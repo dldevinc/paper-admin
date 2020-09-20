@@ -18,7 +18,7 @@ class ActionForm(helpers.ActionForm):
         label='',
         required=False,
         widget=forms.Select(attrs={
-            'class': 'custom-select custom-select-sm',
+            'class': 'custom-select',
         })
     )
 
@@ -30,8 +30,12 @@ class ActionForm(helpers.ActionForm):
         return value
 
 
-checkbox = CustomCheckboxInput({'class': 'action-select custom-control-input'}, lambda value: False)
-checkbox_toggle = CustomCheckboxInput({'id': 'action-toggle'}, lambda value: False)
+checkbox = CustomCheckboxInput({
+    'class': 'action-select custom-control-input'
+}, lambda value: False)
+checkbox_toggle = CustomCheckboxInput({
+    'id': 'action-toggle'
+}, lambda value: False)
 
 
 AdminFormOriginal = helpers.AdminForm

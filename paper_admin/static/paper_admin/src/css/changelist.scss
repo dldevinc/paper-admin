@@ -53,7 +53,7 @@
 
   .paper-action-notes {
     padding-right: 1rem;
-    margin: 0 -0.3rem 0 0.2rem;
+    margin: 0 -0.3rem 0 0.375rem;
     flex: 1 0 auto;
     @media screen and (max-width: 499px) {
       margin: 6px 0;
@@ -69,17 +69,14 @@
   .action-all,
   .action-question,
   .action-clear {
-    margin: 0 .3rem;
+    margin: 0 .5rem;
   }
 }
 
-
-.action-checkbox {
-  line-height: 1;
-}
-
 .action-checkbox-column {
+  min-width: $custom-checkbox-size-lg;
   width: 0.01%;
+  box-sizing: content-box;
 }
 
 #action-toggle {

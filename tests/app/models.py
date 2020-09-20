@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from solo.models import SingletonModel
 from mptt.models import MPTTModel, TreeForeignKey
 
-
 HELP_TEXT = 'Lorem ipsum <b>dolor</b> sit amet, consetetur sadipscing elitr, ' \
             'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ' \
             'aliquyam erat, sed diam voluptua'

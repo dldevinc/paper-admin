@@ -19,6 +19,7 @@ import "../css/fonts.scss";
 import "../css/common.scss";
 import "../css/dashboard.scss";
 import "../css/app_index.scss";
+import "../css/history.scss";
 import "../css/login.scss";
 import "../css/delete.scss";
 import "../css/changelist.scss";

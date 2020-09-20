@@ -10,7 +10,7 @@
 {% if results %}
   <div class="paper-table-wrapper">
     <table id="result_list"
-           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }} small{% endblock %}"
+           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }}{% endblock %}"
            {% if cl.sortable %}data-order-url="{% url cl.opts|admin_urlname:'sort' %}"{% endif %}>
       <thead>
       <tr>

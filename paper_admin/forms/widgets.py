@@ -98,6 +98,12 @@ class SwitchInput(forms.CheckboxInput):
 class CustomCheckboxInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/checkbox_custom.html'
 
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        widget_class = context['widget']['attrs'].pop('widget_class', '')
+        context['widget_class'] = widget_class
+        return context
+
 
 class CustomRadioSelect(forms.RadioSelect):
     template_name = 'django/forms/widgets/radio_custom.html'

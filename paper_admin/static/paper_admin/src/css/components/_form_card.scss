@@ -41,14 +41,14 @@
 
     .readonly-content {
       @include media-breakpoint-up(md) {
-        margin-top: calc(#{$input-padding-y} - 1px);
+        margin-top: add($input-padding-y-lg, $input-border-width);
       }
     }
 
     .form-widget > .vCustomCheckbox,
     .form-widget > .vSwitch {
       @include media-breakpoint-up(md) {
-        margin-top: calc(#{$input-padding-y} - 1px);
+        margin-top: add($input-padding-y-lg, $input-border-width);
       }
       @include media-breakpoint-down(sm) {
         float: left;

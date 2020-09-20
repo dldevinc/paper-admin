@@ -3,19 +3,19 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete.select2-container {
-    min-height: 30px;
+    min-height: 40px;
 }
 
 .select2-container--admin-autocomplete .select2-selection--single,
 .select2-container--admin-autocomplete .select2-selection--multiple {
-    min-height: 30px;
     padding: 0;
+    min-height: 40px;
 }
 
 .select2-container--admin-autocomplete.select2-container--focus .select2-selection,
 .select2-container--admin-autocomplete.select2-container--open .select2-selection {
+    min-height: 40px;
     border-color: #999;
-    min-height: 30px;
 }
 
 .select2-container--admin-autocomplete.select2-container--focus .select2-selection.select2-selection--single,
@@ -35,14 +35,19 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered {
+    padding-right: 22px;
     color: #444;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 38px;
 }
 
 .select2-container--admin-autocomplete .select2-selection--single .select2-selection__clear {
-    cursor: pointer;
     float: right;
+    min-width: 16px;
+    cursor: pointer;
+    color: #333A40;
     font-weight: bold;
+    text-align: center;
 }
 
 .select2-container--admin-autocomplete .select2-selection--single .select2-selection__placeholder {
@@ -58,7 +63,7 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow b {
-    border-color: #888 transparent transparent transparent;
+    border-color: #333A40 transparent transparent transparent;
     border-style: solid;
     border-width: 5px 4px 0 4px;
     height: 0;
@@ -89,7 +94,7 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete.select2-container--open .select2-selection--single .select2-selection__arrow b {
-    border-color: transparent transparent #888 transparent;
+    border-color: transparent transparent #333A40 transparent;
     border-width: 0 4px 5px 4px;
 }
 
@@ -101,15 +106,22 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__rendered {
-    box-sizing: border-box;
-    list-style: none;
-    margin: 0;
-    padding: 0 5px;
+    padding: 5px;
+    margin: 0 0 -5px;
     width: 100%;
+    list-style: none;
+    vertical-align: top;
+    box-sizing: border-box;
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__rendered li {
     list-style: none;
+}
+
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+    color: #555;
+    background-color: #eeeeee;
+    border-color: #d0d0d0;
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__placeholder {
@@ -126,29 +138,31 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice {
+    float: left;
+    overflow: hidden;
+    padding: 2px 8px 2px 2px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    max-width: 100%;
+    cursor: default;
+    font-size: 16px;
     background-color: #e4e4e4;
     border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: default;
-    float: left;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 0 5px;
-    max-width: 100%;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice__remove {
-    color: #999;
-    cursor: pointer;
     display: inline-block;
-    font-weight: bold;
     margin-right: 2px;
+    min-width: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
 }
 
 .select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice__remove:hover {
-    color: #333;
+    color: #000;
 }
 
 .select2-container--admin-autocomplete[dir="rtl"] .select2-selection--multiple .select2-selection__choice, .select2-container--admin-autocomplete[dir="rtl"] .select2-selection--multiple .select2-selection__placeholder, .select2-container--admin-autocomplete[dir="rtl"] .select2-selection--multiple .select2-search--inline {
@@ -190,20 +204,32 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-search--dropdown .select2-search__field {
+    padding: 6px;
+    outline-offset: 0;
+    font-size: 16px;
     border: 1px solid #ccc;
 }
 
+.select2-container--admin-autocomplete .select2-search--inline {
+    margin-bottom: 5px;
+}
+
 .select2-container--admin-autocomplete .select2-search--inline .select2-search__field {
-    background: transparent;
-    border: none;
+    padding: 3px 4px;
+    margin-top: 0;
+    min-width: 1em;
     outline: 0;
+    font-size: 16px;
+    border: none;
     box-shadow: none;
+    background: transparent;
     -webkit-appearance: textfield;
 }
 
 .select2-container--admin-autocomplete .select2-results > .select2-results__options {
-    max-height: 200px;
+    max-height: 225px;
     overflow-y: auto;
+    font-size: 16px;
 }
 
 .select2-container--admin-autocomplete .select2-results__option[role=group] {

@@ -22,7 +22,7 @@
 
 
 .form-label {
-  margin-top: -0.375rem;
+  margin-top: -0.25rem;
   margin-bottom: 0.375rem;
   font-size: $font-size-base;
   font-weight: $form-label-font-weight;
@@ -74,6 +74,7 @@
 
 .readonly-content {
   word-break: break-word;
+  font-size: $font-size-lg;
 }
 
 .vHelpIcon {
@@ -102,6 +103,8 @@
   }
 
   .input-group-text {
+    font-size: $font-size-lg;
+    line-height: $line-height-lg;
     color: $input-group-addon-color;
     text-decoration: none;
   }
@@ -198,8 +201,8 @@
 
     i {
       position: absolute;
-      top: 0.375rem;
-      left: $btn-padding-x-sm;
+      top: 0.675rem;
+      left: $btn-padding-x;
     }
 
     span {
@@ -293,35 +296,6 @@
   .custom-control-label {
     &:before {
       border-radius: 50%;
-    }
-  }
-}
-
-
-.vCustomCheckbox-lg {
-  .custom-control-input {
-    top: round(($font-size-lg * $line-height-lg - $custom-checkbox-size-lg) / 2rem * 16px);
-    width: $custom-checkbox-size-lg;
-    height: $custom-checkbox-size-lg;
-  }
-
-  .custom-control-label {
-    &:not(:empty) {
-      padding-left: add($custom-checkbox-size, $custom-checkbox-margin-y-lg);
-    }
-
-    &:before,
-    &:after {
-      top: round(($font-size-lg * $line-height-lg - $custom-checkbox-size-lg) / 2rem * 16px);
-      width: $custom-checkbox-size-lg;
-      height: $custom-checkbox-size-lg;
-    }
-  }
-
-  .custom-control-input:checked + .custom-control-label {
-    &:before {
-      font-size: 20px;
-      line-height: 26px;
     }
   }
 }

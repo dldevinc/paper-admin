@@ -1,21 +1,26 @@
 <div class="vClearableFileField">
   {% if widget.is_initial %}
-    <p class="mb-1">
+    <div class="mb-2">
       {{ widget.initial_text }}:
       <a href="{{ widget.value.url }}" class="current-value" target="_blank">{{ widget.value }}</a>
 
       {% if not widget.required %}
-        <span class="form-check">
-          <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" class="form-check-input" />
-          <label for="{{ widget.checkbox_id }}" class="form-check-label text-muted">{{ widget.clear_checkbox_label }}</label>
-        </span>
+        <div class="custom-control user-select-none vCustomCheckbox d-inline-block">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 id="{{ widget.checkbox_id }}"
+                 name="{{ widget.checkbox_name }}">
+          <label class="custom-control-label" for="{{ widget.checkbox_id }}">
+            {{ widget.clear_checkbox_label }}
+          </label>
+        </div>
       {% endif %}
-    </p>
+    </div>
   {% endif %}
 
   {% include "django/forms/widgets/input.html" %}
 
-  <label for="{{ widget.attrs.id }}" class="btn btn-sm btn-info">
+  <label for="{{ widget.attrs.id }}" class="btn btn-info btn-lg">
     <i class="fa fa-fw fa-upload"></i><span data-initial-text="{{ widget.input_text }}">{{ widget.input_text }}</span>
   </label>
 </div>

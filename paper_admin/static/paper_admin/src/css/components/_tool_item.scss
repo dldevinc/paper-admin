@@ -12,8 +12,8 @@
   display: inline-block;
   padding: .25rem 0.25rem;
   margin: $tool-item-margin-x $tool-item-margin-y;
-  font-size: $font-size-sm;
-  line-height: $line-height-sm;
+  font-size: $font-size-lg;
+  line-height: $line-height-lg;
   text-decoration: none;
   vertical-align: middle;
   border: none;
@@ -38,6 +38,6 @@
 
   i {
     font-size: 1.125em;
-    width: #{(32/27)}em;
+    width: 22px;
   }
 }

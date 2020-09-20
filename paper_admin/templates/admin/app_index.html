@@ -10,17 +10,21 @@
   {% endfor %}
 {% endblock %}
 
+{% block before_content %}
+  <h1 class="paper-title">
+    {% for app in app_list %}
+      <span class="text-muted">{{ app.name }}</span>
+    {% endfor %}
+  </h1>
+{% endblock %}
+
 
 {% block content %}
   {% for app in app_list %}
     <div class="card" id="appindex">
-      <div class="card-header">
-        <h1 class="card-title h3">{{ app.name }}</h1>
-      </div>
-
       <div class="card-body">
         <div class="paper-table-wrapper">
-          <table class="table table-middle small">
+          <table class="table table-middle">
             <thead>
             <tr>
               <th scope="col">{% trans 'Model' %}</th>
@@ -52,7 +56,7 @@
                   </td>
                 {% else %}
                   <td>
-                    <small class="text-muted">{% trans 'Not allowed' %}</small>
+                    <span class="text-muted">{% trans 'Not allowed' %}</span>
                   </td>
                 {% endif %}
 
@@ -64,7 +68,7 @@
                   </td>
                 {% else %}
                   <td>
-                    <small class="text-muted">{% trans 'Not allowed' %}</small>
+                    <span class="text-muted">{% trans 'Not allowed' %}</span>
                   </td>
                 {% endif %}
               </tr>

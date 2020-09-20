@@ -79,6 +79,8 @@ function initActions(inputs) {
             lastChecked = checkbox;
             toggleRows([row], !checkbox.checked);
         }
+
+        updateCounter(inputs);
     });
 
     // отмена выделения текста при клике с удержанным Shift

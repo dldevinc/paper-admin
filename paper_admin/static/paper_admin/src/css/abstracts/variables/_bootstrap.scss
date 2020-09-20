@@ -29,9 +29,8 @@ $font-size-lg: 1rem;
 $font-size-sm: 0.75rem;
 $small-font-size: 0.75rem;
 
-$line-height-base: 1.42858;   // 20/14
+$line-height-base: 1.375;
 $line-height-lg: $line-height-base;
-$line-height-sm: 1.33334;     // 16/12
 
 // headers
 $headings-color: #4A4A4A;
@@ -100,7 +99,7 @@ $list-group-item-padding-y: 0.5rem;
 $list-group-item-padding-x: 1rem;
 
 // nav
-$nav-link-padding-y: .25rem;
+$nav-link-padding-y: .375rem;
 $nav-tabs-border-color: #e0e0e0;
 $nav-tabs-link-active-border-color: #a3dae3;
 $nav-tabs-link-hover-border-color: $nav-tabs-border-color;
@@ -129,8 +128,12 @@ $modal-header-padding-y: 0.75rem;
 $modal-header-padding-x: 1rem;
 $modal-inner-padding: 0.75rem;
 
+// popover
+$popover-font-size: 14px;
+$popover-max-width: 320px;
+
 // table
-$table-cell-padding: 0.25rem 0.375rem;
+$table-cell-padding: 1rem 0.5rem;
 $table-accent-bg: #fcfcfc;
 $table-hover-bg: #f0f0f0;
 $table-border-color: #f0f0f0;
