@@ -57,6 +57,7 @@ function Formset(root, options) {
     }, options);
 
     this.root = root;
+    this.root._inline_formset = this;
     this.mgmt = new ManagementForm(root);
 
     this.addButton = this.root.querySelector(this.opts.addButtonSelector);
