@@ -1,5 +1,6 @@
-import "gsap/ScrollToPlugin";
-import {TweenLite} from "gsap";
+import gsap from "gsap";
+import {ScrollToPlugin} from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollToPlugin);
 
 
 function ScrollTopButton(options) {
@@ -17,7 +18,9 @@ function ScrollTopButton(options) {
     this.button.id = this.opts.buttonId;
     this.button.appendChild(icon);
     this.button.addEventListener('click', function() {
-        TweenLite.to(window, 0.5, {scrollTo: 0});
+        gsap.to(window, {duration: 0.5, scrollTo: {
+            y: 0
+        }});
     });
 
     document.body.appendChild(this.button);
