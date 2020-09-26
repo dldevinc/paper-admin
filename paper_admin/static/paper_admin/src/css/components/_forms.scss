@@ -131,7 +131,8 @@
 }
 
 .vTimePicker {
-  width: $form-time-width;
+  min-width: 72px;
+  max-width: $form-time-width;
 }
 
 .vSmallField {
@@ -230,11 +231,14 @@
   }
 }
 
-
 .vMultipleInput {
   li:not(:last-child) {
     margin-bottom: 6px;
   }
+}
+
+.vSplitDateTime {
+  display: flex;
 }
 
 
