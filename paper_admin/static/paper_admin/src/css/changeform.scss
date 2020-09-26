@@ -11,6 +11,9 @@
 
 .inline-related {
   .delete-inline {
+    padding-left: 0.25rem;
+    padding-right: 0.5rem;
+
     .vCustomCheckbox {
       display: inline-block;
     }
@@ -99,6 +102,7 @@
 
   .tools-cell {
     white-space: nowrap;
+    text-align: right;
   }
 
   .formset-errors:empty {

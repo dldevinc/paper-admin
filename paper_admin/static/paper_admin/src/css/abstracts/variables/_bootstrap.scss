@@ -6,7 +6,7 @@
 
 $body-bg: #f4f6f9;
 $body-color: #1d1d1d;
-$link-color: #337ac7;
+$link-color: #006fe1;
 $hr-border-color: #e0e0e0;
 
 // gutters
@@ -16,10 +16,11 @@ $grid-gutter-width: 1rem;
 $btn-padding-x: 1rem;
 $btn-padding-x-sm: 0.75rem;
 $btn-padding-x-lg: 1.25rem;
-$btn-focus-width: 0;
 
 // colors
-$red: #ff4040;
+$red: #ea4040;
+$green: #20b040;
+$cyan: #149ebf;
 $yellow: #daca00;
 $dark: #1d1d1d;
 
@@ -138,6 +139,7 @@ $table-accent-bg: #fcfcfc;
 $table-hover-bg: #f0f0f0;
 $table-border-color: #f0f0f0;
 $table-head-color: #9a9a9a;
+$table-bg-level: -10;
 $table-border-level: -8;
 
 // pagination

@@ -5,3 +5,21 @@
 .card-body {
   background: $card-bg;
 }
+
+@each $color, $value in $theme-colors {
+  &.card-#{$color} {
+    @if $color == 'dark' {
+      @include card-variant(
+          theme-color-level($color, -2),
+          color-yiq(theme-color($color)),
+          theme-color-level($color, -2)
+      );
+    } @else {
+      @include card-variant(
+          darken(theme-color-level($color, -10), 4%),
+          theme-color-level($color, 8),
+          darken(theme-color-level($color, -9), 7%)
+      );
+    }
+  }
+}

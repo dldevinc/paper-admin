@@ -20,8 +20,8 @@
               {% if header.sortable %}
                 {% spaceless %}
                   <span class="table-column-header dropdown">
-                    <a href="{{ header.url_primary }}">
-                      <span class="table-column-header-title">{{ header.text|capfirst }}</span>
+                    <a href="{{ header.url_primary }}" class="table-column-header-title">
+                      {{ header.text|capfirst }}
                     </a>
                     {% if header.sort_priority > 0 %}
                       <span class="sortoptions-btn btn{% if num_sorted_fields > 1 %} has-prior{% endif %}"

@@ -1,0 +1,4 @@
+@each $color, $value in $theme-colors {
+  $bg: darken(theme-color-level($color, $table-bg-level), 4%);
+  @include table-row-variant($color, $bg, theme-color-level($color, $table-border-level));
+}
