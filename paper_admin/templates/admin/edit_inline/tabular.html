@@ -94,6 +94,29 @@
                 {% endfor %}
 
                 <div class="tool-items">
+                  {% if inline_admin_form.show_url %}
+                    <a href="{{ inline_admin_form.absolute_url }}" class="tool-item text-info"
+                       data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                       data-html="true" title="{% trans 'View on site' %}"
+                       target="_blank" rel="noopener">
+                      <i class="fa fa-fw fa-eye"></i>
+                    </a>
+                  {% endif %}
+
+                  {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
+                    <label for="{{ inline_admin_form.deletion_field.field.id_for_label }}"
+                           class="delete-inline tool-item">
+                      {{ inline_admin_form.deletion_field.field }}
+                      <span class="delete-inline-text"> {{ inline_admin_form.deletion_field.field.label }}</span>
+                    </label>
+                  {% endif %}
+
+                  <button type="button" class="delete-row tool-item text-danger"
+                          data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                          data-html="true" title="{% trans 'Remove' %}" hidden>
+                    <i class="fa fa-fw fa-trash"></i>
+                  </button>
+
                   {% if inline_admin_formset.opts.sortable %}
                     <button type="button" class="sortable-move-up tool-item text-info"
                        data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
@@ -106,25 +129,6 @@
                        data-html="true" title="{% trans 'Move down' %}">
                       <i class="fa fa-fw fa-chevron-down"></i>
                     </button>
-                  {% endif %}
-
-                  {% if inline_admin_form.show_url %}
-                    <a href="{{ inline_admin_form.absolute_url }}" class="tool-item">
-                      <i class="fa fa-fw fa-eye"></i>
-                    </a>
-                  {% endif %}
-
-                  <button type="button" class="delete-row tool-item text-danger"
-                     data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-                     data-html="true" title="{% trans 'Remove' %}" hidden>
-                    <i class="fa fa-fw fa-trash"></i>
-                  </button>
-
-                  {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
-                    <label for="{{ inline_admin_form.deletion_field.field.id_for_label }}" class="delete-inline tool-item">
-                      {{ inline_admin_form.deletion_field.field }}
-                      <span class="delete-inline-text"> {{ inline_admin_form.deletion_field.field.label }}</span>
-                    </label>
                   {% endif %}
                 </div>
               </td>
