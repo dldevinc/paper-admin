@@ -122,6 +122,9 @@ Formset.prototype.addRow = function() {
     if (this.opts.onAdded) {
         this.opts.onAdded.call(this, row, this.opts.prefix, totalForms);
     }
+    this.root.dispatchEvent(new CustomEvent('row-added', {
+        detail: [row, this.opts.prefix]
+    }));
     emitters.dom.trigger('mutate', [row]);
     emitters.inlines.trigger('added', [row, this.opts.prefix]);
 
@@ -155,6 +158,9 @@ Formset.prototype.deleteRow = function(row) {
 
     // event
     emitters.inlines.trigger('removed', [row, this.opts.prefix]);
+    this.root.dispatchEvent(new CustomEvent('row-removed', {
+        detail: [row, this.opts.prefix]
+    }));
 
     // Django compatible
     $(document).trigger('formset:removed', [$(row), this.opts.prefix]);
