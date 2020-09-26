@@ -29,6 +29,7 @@ class SortableAdminBaseMixin:
 class SortableInlineBaseMixin(SortableAdminBaseMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.ordering = [self.sortable]
         self.fields = self.fields or []
         if self.fields and self.sortable not in self.fields:
             self.fields = list(self.fields) + [self.sortable]
