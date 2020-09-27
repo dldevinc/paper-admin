@@ -284,7 +284,7 @@ function showErrors(errors, options) {
             }
         }]
     }, options);
-    return createModal(opts);
+    return createModal(opts).show();
 }
 
 
@@ -304,7 +304,7 @@ function showPreloader(options) {
               <div class="preloader__text">Loading</div>
             </div>`
     }, options);
-    return createModal(opts);
+    return createModal(opts).show();
 }
 
 
