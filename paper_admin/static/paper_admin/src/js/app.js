@@ -11,7 +11,7 @@ import "./components/cancel";
 import "./components/filedrag";
 import "./components/form_utils";
 import "./components/menu";
-import "./components/preloader";
+import "./components/modals";
 
 // CSS
 import "../css/fonts.scss";
