@@ -38,6 +38,16 @@
   }
 
 
+  // FadeIn
+  &.fade-in .modal-dialog {
+    opacity: 0;
+    transition: opacity .4s cubic-bezier(1, 0, 1, 1);
+  }
+  &.show .modal-dialog {
+    opacity: 1;
+  }
+
+
   // Preloader
   &--preloader {
     .preloader {

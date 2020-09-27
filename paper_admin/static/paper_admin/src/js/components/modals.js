@@ -310,7 +310,7 @@ function showPreloader(options) {
         size: 'sm',
         onEscape: false,
         closeButton: false,
-        className: 'paper-modal--preloader',
+        className: 'paper-modal--preloader fade-in',
         message: `
             <div class="preloader">
               <div class="preloader__text">Loading</div>
