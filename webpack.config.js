@@ -12,7 +12,7 @@ const DIST_DIR = 'paper_admin/static/paper_admin/dist';
 
 module.exports = {
     devtool: 'source-map',
-    mode: 'development',
+    mode: 'production',
     entry: {
         app: path.resolve(`${SOURCE_DIR}/js/app.js`),
     },
