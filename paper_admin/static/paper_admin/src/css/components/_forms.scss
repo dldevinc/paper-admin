@@ -27,6 +27,7 @@
   font-weight: $form-label-font-weight;
   @include media-breakpoint-up(md) {
     margin-top: .125rem;
+    margin-bottom: 0.25rem;
   }
 
   &.col-form-label {
