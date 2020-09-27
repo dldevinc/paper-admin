@@ -2,7 +2,6 @@
 
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
-import bootbox from "bootbox";
 import whenDomReady from "when-dom-ready";
 import Sidebar from "./components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
@@ -35,10 +34,6 @@ window.django = {};
 window.django.jQuery = jQuery;
 
 whenDomReady(function() {
-    bootbox.setDefaults({
-        animate: false
-    });
-
     // кнопка скролла к вверху страницы
     new ScrollTopButton();
 
@@ -73,7 +68,6 @@ window.paperAdmin = window.paperAdmin || {};
 Object.assign(window.paperAdmin, {
     whenDomReady,
     bootstrap,
-    bootbox,
     Sortable,
     PerfectScrollbar,
 });
