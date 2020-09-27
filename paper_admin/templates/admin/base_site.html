@@ -4,7 +4,9 @@
 
 {% block scripts %}
   {{ block.super }}
-  <script src="{% url 'admin:jsi18n' %}"></script>
+  {% if user.is_authenticated %}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+  {% endif %}
 {% endblock %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
