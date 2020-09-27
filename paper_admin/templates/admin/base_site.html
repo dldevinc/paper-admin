@@ -2,6 +2,10 @@
 {% load i18n static %}
 {% load paper_menu %}
 
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% url 'admin:jsi18n' %}"></script>
+{% endblock %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 

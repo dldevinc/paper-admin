@@ -10,9 +10,6 @@
 {% block scripts %}
   {{ block.super }}
   {{ media.js }}
-  {% if cl.formset or action_form %}
-    <script src="{% url 'admin:jsi18n' %}"></script>
-  {% endif %}
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} changelist-page{% endblock %}
