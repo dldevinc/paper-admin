@@ -73,6 +73,17 @@ PaperModal.prototype.hide = function() {
 }
 
 /**
+ * Скрытие окна
+ * @returns {PaperModal}
+ */
+PaperModal.prototype.forcedHide = function() {
+    this._autohidden = false;
+    this._isTransitioning = false;  // force
+    Modal.prototype.hide.apply(this, arguments);
+    return this;
+}
+
+/**
  * Уничтожение окна. Если предыдущее окно в стеке было скрыто
  * автоматически, то оно будет вновь показано.
  */
@@ -99,7 +110,8 @@ PaperModal.prototype.destroy = function() {
             }
         }
     });
-    Modal.prototype.hide.apply(this, arguments);
+
+    this.forcedHide();
 }
 
 
