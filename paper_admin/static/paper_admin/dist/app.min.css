@@ -11735,7 +11735,9 @@ textarea {
   font-weight: 300; }
   @media (min-width: 768px) {
     .form-label {
-      margin-top: .125rem;
+      margin-top: .125rem; } }
+  @media (min-width: 768px) {
+    .form-label.col-form-label {
       margin-bottom: 0; } }
   .form-label label {
     cursor: pointer;
@@ -12027,10 +12029,6 @@ textarea {
   .paper-form-card .form-group .col-form-label {
     padding-top: 0;
     padding-bottom: 0; } }
-
-@media (min-width: 768px) {
-  .paper-form-card .form-group .form-label {
-    margin-bottom: 0; } }
 
 @media (min-width: 768px) {
   .paper-form-card .form-group .readonly-content {
@@ -12762,9 +12760,6 @@ textarea {
           animation: form_appear 0.8s backwards 0.4s; }
   .login-card .card-title {
     color: #fff; }
-  @media (min-width: 768px) {
-    .login-card .form-label {
-      margin-bottom: 0.25rem; } }
   .login-card .form-group:last-child {
     margin-bottom: 0; }
 
@@ -13235,8 +13230,6 @@ textarea[autosize] {
 .tabular .form-label {
   margin-top: 0;
   margin-bottom: 0; }
-  .tabular .form-label label {
-    color: inherit; }
 
 .tabular > .card-body {
   padding-top: 0;

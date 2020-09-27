@@ -33,12 +33,6 @@
       }
     }
 
-    .form-label {
-      @include media-breakpoint-up(md) {
-        margin-bottom: 0;
-      }
-    }
-
     .readonly-content {
       @include media-breakpoint-up(md) {
         margin-top: add($input-padding-y-lg, $input-border-width);
