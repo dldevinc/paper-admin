@@ -48,6 +48,12 @@
     color: $white;
   }
 
+  .form-label {
+    @include media-breakpoint-up(md) {
+      margin-bottom: 0.25rem;
+    }
+  }
+
   .form-group:last-child {
     margin-bottom: 0;
   }
