@@ -183,6 +183,14 @@ function createModal(options) {
                 btn.classList.add.apply(btn.classList, config.className.split(/\s+/));
             }
 
+            if (config.autofocus) {
+                $dialog.one('shown.bs.modal', function() {
+                    setTimeout(function() {
+                        btn.focus();
+                    })
+                })
+            }
+
             btn.addEventListener('click', function(event) {
                 let preventClose = false;
                 if (config.callback && (typeof config.callback === 'function')) {
@@ -268,6 +276,7 @@ function showErrors(errors, options) {
     const opts = Object.assign({
         message: message,
         buttons: [{
+            autofocus: true,
             label: gettext('OK'),
             className: 'btn-success',
             callback: function() {
