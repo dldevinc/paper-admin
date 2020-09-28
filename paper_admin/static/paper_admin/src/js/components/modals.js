@@ -115,6 +115,11 @@ PaperModal.prototype.destroy = function() {
 }
 
 
+/**
+ * Создание модального окна.
+ * @param {Object?} options
+ * @returns {PaperModal}
+ */
 function createModal(options) {
     const opts = Object.assign({
         size: null,
@@ -261,12 +266,12 @@ function createModal(options) {
 
 /**
  * Специализированное окно для показа ошибок формы.
- * @param errors
- * @param options
+ * @param {String|String[]} errors
+ * @param {Object?} options
  * @returns {PaperModal}
  */
 function showErrors(errors, options) {
-    let message = '';
+    let message;
     if (Array.isArray(errors)) {
         if (errors.length === 1) {
             message = errors[0]
@@ -301,9 +306,8 @@ function showErrors(errors, options) {
 
 
 /**
- * /**
  * Специализированное окно для показа прелоадера.
- * @param options
+ * @param {Object?} options
  */
 function showPreloader(options) {
     const opts = Object.assign({
@@ -320,11 +324,76 @@ function showPreloader(options) {
 }
 
 
+/**
+ * Показывает прелоадер пока указанный промис не завершится.
+ *
+ * Если промис разрешится ранее, чем через WAITING_TIME, прелоадер
+ * показан не будет. Это предотвратит показ прелоадера для
+ * очень быстрых промисов.
+ *
+ * Если промис будет выполняться дольше, чем WAITING_TIME, то
+ * будет показан прелоадер и он закроется не ранее, чем через
+ * PRELOADER_MIN_SHOWING_TIME. Это предотвратит мелькание
+ * прелоадера для промисов, которые выполняются лишь немного
+ * дольше, чем WAITING_TIME.
+ *
+ * @param {Promise} promise
+ * @param {Object?} options
+ * @returns {Promise}
+ */
+function softPreloaderPromise(promise, options) {
+    const WAITING_TIME = 160;
+    const PRELOADER_MIN_SHOWING_TIME = 600;
+    const WAITING_TIME_PASSED = Symbol('waiting');
+
+    // ожидаем в течение короткого времени
+    return Promise.race([
+        promise,
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(WAITING_TIME_PASSED);
+            }, WAITING_TIME);
+        }),
+    ]).then(function(result) {
+        if (result === WAITING_TIME_PASSED) {
+            // Ожидание завершено, а целевой промис ещё не разрешился.
+            // Показываем прелоадер и ждем дальше.
+            const preloader = showPreloader(options);
+            return Promise.all([
+                promise,
+                new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, PRELOADER_MIN_SHOWING_TIME);
+                })
+            ]).then(function(results) {
+                // Целевой промис и прелоадер завершились.
+                // Возвращаем результат промиса.
+                preloader.destroy();
+                return results[0];
+            }).catch(function(error) {
+                // Целевой промис завершился неудачей.
+                // Возвращаем его ошибку.
+                // Note: Возможно мелькание прелоадера, т.к.
+                // Promise.all реджектится сразу.
+                preloader.destroy();
+                throw error;
+            });
+        } else {
+            // Целевой промис разрешился успешно до WAITING_TIME.
+            // Прелоадер показывать не пришлось.
+            return result
+        }
+    });
+}
+
+
 const modals = {
     PaperModal,
     createModal,
     showErrors,
-    showPreloader
+    showPreloader,
+    softPreloaderPromise
 };
 export default modals;
 
