@@ -287,7 +287,7 @@
     &:before {
       content: '\f00c';
       font-size: subtract($custom-checkbox-size, 6px);
-      line-height: $custom-checkbox-size;
+      line-height: subtract($custom-checkbox-size, 2px);
       font-family: FontAwesome, sans-serif;
     }
   }
