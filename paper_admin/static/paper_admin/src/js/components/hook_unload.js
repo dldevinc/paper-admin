@@ -3,6 +3,9 @@
 /**
  * Инициализация отслеживания изменения формы и вывод
  * предупреждения при попытке закрыть страницу без сохранения.
+ *
+ * Для предотвращения изменения в какой-либо части формы,
+ * добавьте аттрибут data-hook-unload="prevent".
  */
 export default function hookUnload(form) {
     let submit = false;
@@ -32,7 +35,8 @@ export default function hookUnload(form) {
 
             const target = event.target;
             const widget = target.closest('.form-widget');
-            if (widget && form.contains(widget)) {
+            const prevent_hook = target.closest('[data-hook-unload="prevent"]') !== null;
+            if (!prevent_hook && widget && form.contains(widget)) {
                 formHasChanged = true;
             }
         });
