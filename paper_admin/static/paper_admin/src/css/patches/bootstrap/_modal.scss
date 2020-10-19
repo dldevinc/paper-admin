@@ -1,0 +1,12 @@
+.modal .close {
+  padding: $modal-close-button-padding;
+}
+
+.modal-body {
+  padding: $modal-inner-padding;
+}
+
+.modal-footer {
+  padding: #{$modal-footer-padding-y - ($modal-footer-margin-between / 2)}
+           #{$modal-footer-padding-x - ($modal-footer-margin-between / 2)};
+}

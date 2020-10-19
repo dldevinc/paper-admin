@@ -7,7 +7,7 @@
     {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
       <div class="related-links tool-items">
         {% if can_view_related or can_change_related %}
-          <a id="change_id_{{ name }}"
+          <a id="change_id_{{ name }}" tabindex="0"
              class="related-widget-wrapper-link {% if can_change_related %}change-related{% else %}view-related{% endif %} tool-item"
              data-href-template="{{ change_related_template_url }}?{{ url_params }}"
              {% if can_change_related %}
@@ -21,7 +21,7 @@
 
         {% if can_add_related %}
           <a href="{{ add_related_url }}?{{ url_params }}"
-             id="add_id_{{ name }}"
+             id="add_id_{{ name }}" tabindex="0"
              class="related-widget-wrapper-link add-related tool-item"
              title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
             <i class="fa fa-fw fa-plus text-success"></i>
@@ -29,7 +29,7 @@
         {% endif %}
 
         {% if can_delete_related %}
-          <a id="delete_id_{{ name }}"
+          <a id="delete_id_{{ name }}" tabindex="0"
              class="related-widget-wrapper-link delete-related tool-item"
              data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
              title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">

@@ -3,10 +3,10 @@
 {% if cl.search_fields %}
   <form method="get" class="paper-search-form">
     <input type="search" name="{{ search_var }}" value="{{ cl.query }}"
-           class="form-control form-control-sm" size="24" placeholder="{% trans 'Search' %}"
+           class="form-control" size="24" placeholder="{% trans 'Search' %}"
            aria-label="{% trans 'Search' %}" required>
 
-    <button type="submit" class="btn btn-light">
+    <button type="submit" class="btn btn-lg btn-light text-secondary">
       <i class="fa fa-fw fa-search"></i>
     </button>
 

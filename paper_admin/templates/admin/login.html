@@ -66,7 +66,7 @@
             <div class="form-widget">
               <input type="text" name="{{ form.username.name }}"
                      value="{{ form.username.value|default:"" }}" id="{{ form.username.id_for_label }}"
-                     class="form-control {{ form.username.errors|yesno:'is-invalid,' }}">
+                     class="form-control form-control-lg {{ form.username.errors|yesno:'is-invalid,' }}">
               <div class="invalid-feedback">
                 <ul class="list-unstyled mb-0">
                   {% for error in form.username.errors %}
@@ -84,7 +84,7 @@
             <div class="form-widget">
               <input type="password" name="{{ form.password.name }}"
                      id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:"" }}"
-                     class="form-control {{ form.password.errors|yesno:'is-invalid,' }}">
+                     class="form-control form-control-lg {{ form.password.errors|yesno:'is-invalid,' }}">
               <div class="invalid-feedback">
                 <ul class="list-unstyled mb-0">
                   {% for error in form.password.errors %}
@@ -107,7 +107,7 @@
       </div>
 
       <div class="card-footer">
-        <button type="submit" class="btn btn-block btn-dark" form="login-form">
+        <button type="submit" class="btn btn-block btn-lg btn-dark" form="login-form">
           {% trans 'Sign in' %}
         </button>
       </div>

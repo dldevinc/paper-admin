@@ -13,8 +13,10 @@
  * @property {?String}   [ignore]
  * @property {?Function} [onChange]
  */
+import {gsap, TimelineLite} from "gsap";
+import {ScrollToPlugin} from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollToPlugin);
 
-import {TimelineLite} from "gsap";
 
 /**
  * Конструктор объектов SortButtons.
@@ -30,6 +32,11 @@ function SortButtons(root, options) {
         moveUpBtn: '.move-up',
         moveDownBtn: '.move-down',
         disabledClass: 'disabled',
+        scrollWindow: true,
+        scrollMargin: {
+            top: 300,
+            bottom: 350
+        },
         ignore: null,
         onChange: null
     }, options);
@@ -81,16 +88,43 @@ SortButtons.prototype._onClick = function(event) {
 };
 
 /**
- * Поиск ближайшего элемента, начиная с elem и ниже.
- * @param {Element} elem
+ * Поиск ближайшего перемещаемого элемента справа, начиная с element.
+ * @param {Element} element
  * @returns {Element}
  * @private
  */
-SortButtons.prototype._findNextSince = function(elem) {
-    while (elem && (!elem.matches(this.opts.items) || (this.opts.ignore && elem.matches(this.opts.ignore)))) {
-        elem = elem.nextElementSibling;
+SortButtons.prototype._findNextItem = function(element) {
+    let nextItem = element;
+    while (nextItem) {
+        if (this.opts.ignore && nextItem.matches(this.opts.ignore)) {
+            nextItem = nextItem.nextElementSibling;
+        } else if (!nextItem.matches(this.opts.items)) {
+            nextItem = nextItem.nextElementSibling;
+        } else {
+            break
+        }
     }
-    return elem;
+    return nextItem;
+};
+
+/**
+ * Поиск ближайшего перемещаемого элемента слева, начиная с element.
+ * @param {Element} element
+ * @returns {Element}
+ * @private
+ */
+SortButtons.prototype._findPreviousItem = function(element) {
+    let prevItem = element;
+    while (prevItem) {
+        if (this.opts.ignore && prevItem.matches(this.opts.ignore)) {
+            prevItem = prevItem.previousElementSibling;
+        } else if (!prevItem.matches(this.opts.items)) {
+            prevItem = prevItem.previousElementSibling;
+        } else {
+            break
+        }
+    }
+    return prevItem;
 };
 
 /**
@@ -98,23 +132,10 @@ SortButtons.prototype._findNextSince = function(elem) {
  * @param {Element} item
  */
 SortButtons.prototype.moveDown = function(item) {
-    const next = this._findNextSince(item.nextElementSibling);
-    if (next) {
-        this._swap(item, next);
+    const nextItem = this._findNextItem(item.nextElementSibling);
+    if (nextItem) {
+        this._swap(item, nextItem);
     }
-};
-
-/**
- * Поиск ближайшего элемента, начиная с elem и выше.
- * @param {Element} elem
- * @returns {Element}
- * @private
- */
-SortButtons.prototype._findPreviousSince = function(elem) {
-    while (elem && (!elem.matches(this.opts.items) || (this.opts.ignore && elem.matches(this.opts.ignore)))) {
-        elem = elem.previousElementSibling;
-    }
-    return elem;
 };
 
 /**
@@ -122,31 +143,9 @@ SortButtons.prototype._findPreviousSince = function(elem) {
  * @param {Element} item
  */
 SortButtons.prototype.moveUp = function(item) {
-    const prev = this._findPreviousSince(item.previousElementSibling);
-    if (prev) {
-        this._swap(prev, item, true);
-    }
-};
-
-/**
- * Получение размера и положения элемента относительно ближайшего
- * элемента, чей position не равен static.
- * @param elem
- * @returns {{top: Number, left: Number, width: Number, height: Number}}
- * @private
- */
-SortButtons.prototype._getPosition = function(elem) {
-    const elemRect = elem.getBoundingClientRect();
-    const elemStyles = window.getComputedStyle(elem);
-
-    let offsetParent = elem.offsetParent || document.documentElement;
-    const parentStyles = window.getComputedStyle(offsetParent);
-
-    return {
-        top: elem.offsetTop - parseInt(parentStyles.borderTopWidth) - parseInt(elemStyles.marginTop),
-        left: elem.offsetLeft - parseInt(parentStyles.borderLeftWidth) - parseInt(elemStyles.marginLeft),
-        width: elemRect.width,
-        height: elemRect.height,
+    const prevItem = this._findPreviousItem(item.previousElementSibling);
+    if (prevItem) {
+        this._swap(prevItem, item, true);
     }
 };
 
@@ -154,10 +153,10 @@ SortButtons.prototype._getPosition = function(elem) {
  * Меняет местами два соседних элемента elem1 и elem2 с анимацией.
  * @param {Element} elem1
  * @param {Element} elem2
- * @param {boolean} highlightSecond
+ * @param {boolean} reversed - True, если elem2 считается активным
  * @private
  */
-SortButtons.prototype._swap = function(elem1, elem2, highlightSecond=false) {
+SortButtons.prototype._swap = function(elem1, elem2, reversed=false) {
     //   Initial state:
     //
     //  |-------------|
@@ -170,8 +169,8 @@ SortButtons.prototype._swap = function(elem1, elem2, highlightSecond=false) {
     //  |-------------|
     //
 
-    const rect1 = this._getPosition(elem1);
-    const rect2 = this._getPosition(elem2);
+    const rect1 = elem1.getBoundingClientRect();
+    const rect2 = elem2.getBoundingClientRect();
     const initialCSSText1 = elem1.style.cssText;
     const initialCSSText2 = elem2.style.cssText;
 
@@ -181,18 +180,41 @@ SortButtons.prototype._swap = function(elem1, elem2, highlightSecond=false) {
 
     // имитация начального расположения
     const spaceY = rect2.top - rect1.top - rect1.height;
-    elem1.style.transform = `translate3d(0, ${-rect2.height - spaceY}px, ${highlightSecond ? 0 : 1}px)`;
-    elem2.style.transform = `translate3d(0, ${rect2.top - rect1.top}px, ${highlightSecond ? 1 : 0}px)`;
+    elem1.style.transform = `translate3d(0, ${-rect2.height - spaceY}px, ${reversed ? 0 : 1}px)`;
+    elem2.style.transform = `translate3d(0, ${rect2.top - rect1.top}px, ${reversed ? 1 : 0}px)`;
 
-    new TimelineLite({
+    const tl = new TimelineLite({
         onComplete: function() {
             elem1.style.cssText = initialCSSText1;
             elem2.style.cssText = initialCSSText2;
             this.updateBounds();
         }.bind(this)
     })
-    .to(elem1, this.opts.speed, {y: 0, clearProps: 'all'})
-    .to(elem2, this.opts.speed, {y: 0, clearProps: 'all'}, 0);
+    .to(elem1, {duration: this.opts.speed, y: 0, clearProps: 'all'})
+    .to(elem2, {duration: this.opts.speed, y: 0, clearProps: 'all'}, 0);
+
+    if (this.opts.scrollWindow) {
+        const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
+        const newYOffset = pageYOffset + (reversed ? rect1.top - rect2.top : rect2.top - rect1.top);
+        const topBound = this.opts.scrollMargin.top;
+        const bottomBound = window.innerHeight - this.opts.scrollMargin.bottom;
+
+        let needScrollWindow = true;
+        if (reversed) {
+            needScrollWindow &= !((rect1.top > bottomBound) && (rect2.top > bottomBound));
+        } else {
+            needScrollWindow &= !((rect1.top < topBound) && (rect2.top < topBound));
+        }
+
+        if (needScrollWindow) {
+            tl.to(window, {
+                duration: this.opts.speed,
+                scrollTo: {
+                    y: Math.max(0, newYOffset)
+                }
+            }, 0)
+        }
+    }
 
     // callback
     if (typeof this.opts.onChange === 'function') {
@@ -227,7 +249,7 @@ SortButtons.prototype.updateBounds = function() {
         downBtn.classList.remove(this.opts.disabledClass);
     }.bind(this));
 
-    const firstItem = this._findNextSince(items[0]);
+    const firstItem = this._findNextItem(items[0]);
     if (firstItem) {
         const firstItemBtn = firstItem.querySelector(this.opts.moveUpBtn);
         if (firstItemBtn) {
@@ -235,7 +257,7 @@ SortButtons.prototype.updateBounds = function() {
         }
     }
 
-    const lastItem = this._findPreviousSince(items[items.length - 1]);
+    const lastItem = this._findPreviousItem(items[items.length - 1]);
     if (lastItem) {
         const lastItemBtn = lastItem.querySelector(this.opts.moveDownBtn);
         if (lastItemBtn) {

@@ -30,6 +30,7 @@ function initWidgets(root = document.body) {
 
     let time_selector = '.vTimePicker';
     let time_options = {
+        allowInput: true,
         enableTime: true,
         noCalendar: true,
         dateFormat: "H:i",
@@ -60,7 +61,7 @@ document.addEventListener('wheel', function(event) {
         });
         input.dispatchEvent(fake_event);
     }
-});
+}, {passive: false});
 
 
 /**
@@ -72,7 +73,8 @@ document.addEventListener('click', function(event) {
     const widget = button && button.closest('.input-group');
     const input = widget && widget.querySelector('.vDateInput');
     if (input && input._flatpickr) {
-        event.preventDefault();
-        input._flatpickr.open();
+        setTimeout(function() {
+            input._flatpickr.open();
+        }, 0)
     }
 });

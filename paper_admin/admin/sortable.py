@@ -23,12 +23,13 @@ class SortableAdminBaseMixin:
                 self.__module__, self.__class__.__qualname__
             ))
         else:
-            self.sortable_field = self.model._meta.get_field(self.sortable)
+            self.sortable_field = self.model._meta.get_field(self.sortable)  # noqa: F821
 
 
 class SortableInlineBaseMixin(SortableAdminBaseMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.ordering = [self.sortable]
         self.fields = self.fields or []
         if self.fields and self.sortable not in self.fields:
             self.fields = list(self.fields) + [self.sortable]
@@ -38,7 +39,7 @@ class SortableInlineBaseMixin(SortableAdminBaseMixin):
             kwargs['widget'] = forms.HiddenInput(attrs={
                 'class': 'sortable-input',
             })
-        return super().formfield_for_dbfield(db_field, **kwargs)
+        return super().formfield_for_dbfield(db_field, **kwargs)  # noqa: F821
 
 
 class SortableStackedInline(SortableInlineBaseMixin, admin.StackedInline):
@@ -77,8 +78,8 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         self._add_sortable_field()
 
         self.list_display = ['_sortable_field'] + list(self.list_display)
-        if isinstance(self.sortable_by, Iterable) and '_sortable_field' not in self.sortable_by:
-            self.sortable_by += ['_sortable_field']
+        if isinstance(self.sortable_by, Iterable) and '_sortable_field' not in self.sortable_by:  # noqa: F821
+            self.sortable_by += ['_sortable_field']  # noqa: F821
 
     def _add_sortable_field(self):
         def func(model_admin, obj):
@@ -97,22 +98,26 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         setattr(self, '_sortable_field', partial_func)
 
     def get_changelist(self, request, **kwargs):
-        ChangeList = super().get_changelist(request, **kwargs)
+        ChangeList = super().get_changelist(request, **kwargs)  # noqa: F821
         SortableChangeList = type('SortableChangeList', (SortableChangeListMixin, ChangeList), {})
         SortableChangeList.sortable = self.sortable
         return SortableChangeList
 
     def get_urls(self):
-        info = self.model._meta.app_label, self.model._meta.model_name
+        info = self.model._meta.app_label, self.model._meta.model_name  # noqa: F821
         urlpatterns = [
-            path('sort/', self.admin_site.admin_view(self.update_order), name='%s_%s_sort' % info),
+            path(
+                'sort/',
+                self.admin_site.admin_view(self.update_order),  # noqa: F821
+                name='%s_%s_sort' % info
+            ),
         ]
-        return urlpatterns + super().get_urls()
+        return urlpatterns + super().get_urls()  # noqa: F821
 
     def _update_order(self, reorder_dict):
         with transaction.atomic():
             for pk, order in reorder_dict.items():
-                self.model._default_manager.filter(pk=pk).update(**{
+                self.model._default_manager.filter(pk=pk).update(**{  # noqa: F821
                     self.sortable: order
                 })
 
@@ -120,7 +125,7 @@ class SortableAdminMixin(SortableAdminBaseMixin):
     def update_order(self, request, *args, **kwargs):
         if request.method != 'POST':
             return HttpResponseNotAllowed('Must be a POST request')
-        if not self.has_change_permission(request):
+        if not self.has_change_permission(request):  # noqa: F821
             return HttpResponseForbidden('Missing permissions to perform this request')
 
         try:
@@ -139,11 +144,11 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         return JsonResponse({})
 
     def get_max_order(self, request, obj=None):
-        return self.model._default_manager.aggregate(
+        return self.model._default_manager.aggregate(  # noqa: F821
             max_order=models.Max(self.sortable)
         )['max_order'] or 0
 
     def save_model(self, request, obj, form, change):
         if not change:
             setattr(obj, self.sortable, self.get_max_order(request, obj) + 1)
-        super().save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)  # noqa: F821

@@ -6,3 +6,9 @@
   font-size: inherit;
   line-height: 1;
 }
+
+a.input-group-text:focus,
+button.input-group-text:focus {
+  position: relative;  // fix outline
+  z-index: 1;
+}

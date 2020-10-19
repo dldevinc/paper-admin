@@ -2,9 +2,10 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
+from solo.admin import SingletonModelAdmin
 from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
 from paper_admin.admin import SortableAdminMixin, SortableMPTTModelAdmin, SortableTabularInline, SortableStackedInline
-from .models import Tag, Category, Item, SubCategory
+from .models import Tag, Category, Item, SubCategory, SigletonExample
 
 
 @admin.register(Tag)
@@ -97,7 +98,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         (_('Standard Fields'), {
             'tab': 'tab2',
             'fields': (
-                'f_bool', 'f_nullbool', 'f_small_int', ('f_int_choices', 'f_int_choices2', 'f_int'),
+                'f_bool', 'f_bool2', 'f_nullbool', 'f_small_int', ('f_int_choices', 'f_int_choices2', 'f_int'),
                 'f_bigint', 'f_float', 'f_decimal',
                 'f_duration', 'f_date', 'f_date2', 'f_time', 'f_datetime',
                 'f_char', 'f_slug', 'f_email', 'f_pass', 'f_ip', 'f_text', 'f_uuid', 'f_url',
@@ -172,6 +173,17 @@ class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
         (None, {
             'fields': (
                 'parent', 'category', 'name', 'number',
+            ),
+        }),
+    )
+
+
+@admin.register(SigletonExample)
+class CategoryAdmin(SingletonModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
             ),
         }),
     )

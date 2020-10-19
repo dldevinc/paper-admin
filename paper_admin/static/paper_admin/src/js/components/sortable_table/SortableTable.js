@@ -14,7 +14,6 @@
  */
 
 import Sortable from "sortablejs";
-import bootbox from "../../vendor/bootbox";
 import ListTree from "./ListTree";
 import StaggerHighlight from "./StaggerHighlight";
 
@@ -239,13 +238,6 @@ SortableTable.prototype._sendRequest = function(data) {
             error.response = response;
             throw error;
         }
-    }).catch(function(error) {
-        error.response.text().then(function(text) {
-            bootbox.alert({
-                message: text,
-                size: 'small'
-            });
-        });
     });
 };
 

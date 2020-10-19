@@ -20,15 +20,20 @@
   }
 }
 
-
 .form-label {
-  margin-top: -0.375rem;
+  margin-top: -0.25rem;
   margin-bottom: 0.375rem;
-  font-size: $font-size-base;
+  font-size: 0.9375rem;
   font-weight: $form-label-font-weight;
   @include media-breakpoint-up(md) {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: .125rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &.col-form-label {
+    @include media-breakpoint-up(md) {
+      margin-bottom: 0;
+    }
   }
 
   label {
@@ -41,6 +46,7 @@
       margin-left: .125em;
       top: -0.2em;
       color: $danger;
+      font-weight: bold;
     }
 
     &.form-check-label {
@@ -73,6 +79,7 @@
 
 .readonly-content {
   word-break: break-word;
+  font-size: $font-size-lg;
 }
 
 .vHelpIcon {
@@ -101,17 +108,19 @@
   }
 
   .input-group-text {
+    font-size: $font-size-lg;
+    line-height: $line-height-lg;
     color: $input-group-addon-color;
     text-decoration: none;
   }
 
-  button.input-group-text:hover,
-  a.input-group-text:hover {
-    color: $primary;
+  a[href].input-group-text {
+    color: $info;
   }
 
-  a:not([href]).input-group-text {
-    color: $input-group-addon-color;
+  button.input-group-text:hover,
+  a[href].input-group-text:hover {
+    color: $primary;
   }
 }
 
@@ -127,19 +136,20 @@
 }
 
 .vTimePicker {
-  width: $form-time-width;
+  min-width: 72px;
+  max-width: $form-time-width;
 }
 
 .vSmallField {
   max-width: 100%;
-  @media (min-width: 400px) {
+  @media (min-width: 420px) {
     width: $form-field-width;
   }
 }
 
 .vSelect {
   max-width: 100%;
-  @media (min-width: 400px) {
+  @media (min-width: 420px) {
     width: auto;
     min-width: $form-field-width;
   }
@@ -197,8 +207,8 @@
 
     i {
       position: absolute;
-      top: 0.375rem;
-      left: $btn-padding-x-sm;
+      top: 0.675rem;
+      left: $btn-padding-x;
     }
 
     span {
@@ -226,124 +236,95 @@
   }
 }
 
+.vMultipleInput {
+  li:not(:last-child) {
+    margin-bottom: 6px;
+  }
+}
+
+.vSplitDateTime {
+  display: flex;
+}
+
+
 .vCustomCheckbox,
 .vCustomRadio {
-  display: inline-block;
-  position: relative;
-  user-select: none;
-  cursor: pointer;
-  vertical-align: middle;
+  padding-left: 0;
+  line-height: #{$custom-checkbox-size / 1rem * 16px};
 
-  input {
-    position: absolute;
-    opacity: 0.001;
-    z-index: -1;
+  .custom-control-input {
+    top: 0;
+    width: $custom-checkbox-size;
+    height: $custom-checkbox-size;
   }
 
-  .indicator {
-    position: relative;
-    margin-top: #{($line-height-base - (1rem / $font-size-base)) / 2}em;
-    width: 1rem;
-    height: 1rem;
+  .custom-control-label {
+    font-size: $font-size-lg;
     cursor: pointer;
-    flex: 0 0 auto;
-    background: $input-bg;
-    border: $input-border-width solid $input-border-color;
 
-    &:before {
-      content: '';
-      position: absolute;
+    &:empty {
+      padding-left: $custom-checkbox-size;
+    }
+    &:not(:empty) {
+      padding-left: add($custom-checkbox-size, $custom-checkbox-margin-y);
+    }
+
+    &:before,
+    &:after {
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      background-color: $primary;
-      background-clip: content-box;
-      border: 2px solid transparent;
-      border-radius: inherit;
-      transition: opacity 0.15s;
-      will-change: opacity;
+      width: $custom-checkbox-size;
+      height: $custom-checkbox-size;
     }
-  }
-
-  .label {
-    flex: 1 0 0;
-    padding-left: 0.25rem;
-    &:empty {
-      display: none;
-    }
-  }
-
-  &:hover .indicator:before {
-    opacity: 0.25;
-  }
-
-  input:focus + .d-flex .indicator {
-    box-shadow: 0 0 0 0.1rem $input-btn-focus-color;
-  }
-
-  input:checked + .d-flex .indicator {
-    border-color: $primary;
 
     &:before {
-      opacity: 1;
+      text-align: center;
+      border-radius: $border-radius;
     }
   }
 
-  input:disabled + .d-flex .indicator {
-    cursor: default;
-    background-color: $input-disabled-bg;
-    border-color: rgba($input-border-color, 0.5);
-
+  .custom-control-input:checked + .custom-control-label {
     &:before {
-      opacity: 0;
-    }
-  }
-
-  input:disabled:checked + .d-flex .indicator {
-    &:before {
-      opacity: 0.5;
+      content: '\f00c';
+      font-size: subtract($custom-checkbox-size, 6px);
+      line-height: subtract($custom-checkbox-size, 2px);
+      font-family: FontAwesome, sans-serif;
     }
   }
 
   @each $color, $value in $theme-colors {
-    input.#{$color} + .d-flex .indicator {
-      &:before {
-        background-color: $value;
-      }
-    }
-
-    input.#{$color}:checked + .d-flex .indicator {
+    input.#{$color}:checked + .custom-control-label:before {
       border-color: $value;
+      background-color: $value;
     }
   }
 }
 
-.vCustomCheckbox {
-  .indicator {
-    border-radius: $border-radius;
-
-    &:after {
-      content: $fa-var-check;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      color: white;
-      line-height: 1;
-      font-size: 0.875em;
-      font-family: FontAwesome, sans-serif;
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.15s;
-      will-change: transform;
-    }
-  }
-}
 
 .vCustomRadio {
-  .indicator {
-    width: 0.875rem;
-    height: 0.875rem;
-    border-radius: 50%;
+  .custom-control-label {
+    &:before {
+      border-radius: 50%;
+    }
+  }
+}
+
+
+.custom-file-lg {
+  height: $input-height-lg;
+
+  .custom-file-input {
+    height: $input-height-lg;
+  }
+
+  .custom-file-label {
+    padding: $input-padding-y-lg $input-padding-x-lg;
+    height: $input-height-lg;
+    font-size: $font-size-lg;
+
+    &:after {
+      padding: $input-padding-y-lg $input-padding-x-lg;
+      height: add($input-line-height-lg * 1em, $input-padding-y-lg * 2);
+    }
   }
 }

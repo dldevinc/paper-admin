@@ -4,7 +4,7 @@ const pixrem = require('pixrem');
 const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const SOURCE_DIR = 'paper_admin/static/paper_admin/src';
 const DIST_DIR = 'paper_admin/static/paper_admin/dist';
@@ -40,10 +40,9 @@ module.exports = {
                 test: require.resolve('jquery'),
                 use: [{
                     loader: 'expose-loader',
-                    options: 'jQuery'
-                }, {
-                    loader: 'expose-loader',
-                    options: '$'
+                    options: {
+                        exposes: ['$', 'jQuery'],
+                    }
                 }]
             },
 
@@ -69,18 +68,22 @@ module.exports = {
                 {
                     loader: 'postcss-loader',
                     options: {
-                        plugins: [
-                            pixrem(),
-                            autoprefixer()
-                        ]
+                        postcssOptions: {
+                            plugins: [
+                                pixrem(),
+                                autoprefixer()
+                            ]
+                        }
                     }
                 },
                 {
                     loader: 'sass-loader',
                     options: {
-                        includePaths: [
-                            path.resolve(`${SOURCE_DIR}/css/`)
-                        ]
+                        sassOptions: {
+                            includePaths: [
+                                path.resolve(`${SOURCE_DIR}/css/`)
+                            ]
+                        }
                     }
                 }]
             },
@@ -88,6 +91,7 @@ module.exports = {
                 test: /\.(woff|woff2)$/i,
                 loader: 'file-loader',
                 options: {
+                    esModule: false,
                     outputPath: function(url, resourcePath, context) {
                         const basename = path.basename(resourcePath);
                         const dirname = path.basename(path.dirname(resourcePath));
@@ -99,6 +103,7 @@ module.exports = {
                 test: /\.(jpe?g|png|gif)$/i,
                 loader: 'file-loader',
                 options: {
+                    esModule: false,
                     name: 'image/[name].[ext]',
                 }
             }
@@ -119,12 +124,9 @@ module.exports = {
     optimization: {
         minimizer: [
             new TerserPlugin({
-                parallel: true,
-                cache: 'cache',
-                sourceMap: true,
-                extractComments: true,
+
             }),
-            new OptimizeCSSAssetsPlugin({
+            new CssMinimizerPlugin({
 
             })
         ]

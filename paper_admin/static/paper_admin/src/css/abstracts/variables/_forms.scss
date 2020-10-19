@@ -1,10 +1,14 @@
 $form-label-color: #202020 !default;
 $form-label-font-weight: 300 !default;
 
-$form-field-width: 300px !default;
-$form-date-width: 200px !default;
+$form-field-width: 360px !default;
+$form-date-width: 220px !default;
 $form-time-width: 90px !default;
-$form-month-width: 130px !default;
-$form-day-width: 70px !default;
-$form-year-width: 80px !default;
+$form-month-width: 160px !default;
+$form-day-width: 90px !default;
+$form-year-width: 90px !default;
 $form-hspace: 10px !default;
+
+// custom checkbox
+$custom-checkbox-size: 1.375rem;
+$custom-checkbox-margin-y: 0.5rem;

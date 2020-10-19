@@ -1,6 +1,7 @@
-import "gsap/ScrollToPlugin";
-import {TweenLite} from "gsap";
+import {gsap} from "gsap";
+import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 import whenDomReady from "when-dom-ready";
+gsap.registerPlugin(ScrollToPlugin);
 
 const ERROR_MIN_VISIBILITY = 50;
 
@@ -18,7 +19,8 @@ whenDomReady(function() {
         const isVisible = (errorTop > ERROR_MIN_VISIBILITY) && (errorTop < document.documentElement.clientHeight - ERROR_MIN_VISIBILITY);
         if (!isVisible) {
             setTimeout(function() {
-                TweenLite.to(window, 0.5, {
+                gsap.to(window, {
+                    duration: 0.5,
                     scrollTo: {
                         y: errorTop - Math.floor(document.documentElement.clientHeight / 2),
                         offsetY: -25

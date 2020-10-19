@@ -18,9 +18,9 @@ class SortableChangeListMixin:
 
         :rtype: bool
         """
-        ordering_field_columns = self.get_ordering_field_columns()
+        ordering_field_columns = self.get_ordering_field_columns()  # noqa: F821
         if not ordering_field_columns:
             return
 
-        idx = list(self.list_display).index('_sortable_field')
+        idx = list(self.list_display).index('_sortable_field')  # noqa: F821
         return list(ordering_field_columns)[0] == idx

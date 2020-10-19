@@ -10,9 +10,6 @@
 {% block scripts %}
   {{ block.super }}
   {{ media.js }}
-  {% if cl.formset or action_form %}
-    <script src="{% url 'admin:jsi18n' %}"></script>
-  {% endif %}
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} changelist-page{% endblock %}
@@ -67,7 +64,7 @@
   {% if cl.has_filters %}
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">{% trans 'Filter' %}</h3>
+        <h3 class="card-title">{% trans 'Filters' %}</h3>
       </div>
       <div class="card-body">
         {% block filters %}
@@ -81,7 +78,7 @@
               <input type="hidden" name="{{ name }}" value="{{ value }}">
             {% endfor %}
           
-            <button type="submit" class="btn btn-info btn-block">
+            <button type="submit" class="btn btn-info btn-lg btn-block">
               {% trans 'Apply' %}
             </button>
           </form>
@@ -100,11 +97,11 @@
       <h1 class="paper-title">{{ page_title|capfirst }}</h1>
     </div>
 
-    <div class="object-tools col-auto mb-2 d-none d-sm-block text-right">
+    <div class="object-tools col-auto mb-3 d-none d-sm-block text-right">
       {% block object-tools %}
         {% if has_add_permission %}
           {% url cl.opts|admin_urlname:'add' as add_url %}
-          <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success">
+          <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success btn-lg">
             <i class="fa fa-fw fa-plus"></i>
             <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
           </a>
@@ -121,13 +118,13 @@
       <div class="card-body">
         <div class="card-row row">
           <div class="col">
-            <small class="results-counter text-muted nowrap">
+            <span class="results-counter text-muted nowrap">
               {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
 
               {% if cl.result_count != cl.full_result_count %}
                 (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
               {% endif %}
-            </small>
+            </span>
           </div>
 
           <div class="col-auto">
@@ -168,7 +165,7 @@
 
               {% if cl.formset %}
                 <div class="paper-save-table-box">
-                  <button type="submit" name="_save" class="btn btn-sm btn-info">
+                  <button type="submit" name="_save" class="btn btn-info">
                     <i class="fa fa-fw fa-save"></i><span>{% trans 'Save' %}</span>
                   </button>
                 </div>
@@ -188,7 +185,7 @@
 
               {% if cl.formset %}
                 <div class="paper-save-table-box">
-                  <button type="submit" name="_save" class="btn btn-sm btn-info">
+                  <button type="submit" name="_save" class="btn btn-info">
                     <i class="fa fa-fw fa-save"></i><span>{% trans 'Save' %}</span>
                   </button>
                 </div>

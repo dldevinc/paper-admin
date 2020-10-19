@@ -35,6 +35,14 @@
   }
 }
 
+.paper-filter {
+  &:not(:first-child) {
+    padding-top: .75rem;
+    border-top: 1px dashed #e0e0e0;
+  }
+}
+
 .paper-filter-header {
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 300;
 }

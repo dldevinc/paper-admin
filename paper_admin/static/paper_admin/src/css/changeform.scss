@@ -11,12 +11,11 @@
 
 .inline-related {
   .delete-inline {
-    .vCustomCheckbox {
-      vertical-align: top;
-    }
+    padding-left: 0.25rem;
+    padding-right: 0.5rem;
 
-    .indicator {
-      margin-top: 0;
+    .vCustomCheckbox {
+      display: inline-block;
     }
   }
 
@@ -86,10 +85,6 @@
   .form-label {
     margin-top: 0;
     margin-bottom: 0;
-
-    label {
-      color: inherit;
-    }
   }
 
   > .card-body {
@@ -103,6 +98,7 @@
 
   .tools-cell {
     white-space: nowrap;
+    text-align: right;
   }
 
   .formset-errors:empty {

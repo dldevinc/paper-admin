@@ -15,6 +15,7 @@ class UUIDInput(forms.TextInput):
 
 
 class DateInput(forms.DateInput):
+    input_type = 'text'
     template_name = 'django/forms/widgets/date.html'
 
 
@@ -84,7 +85,7 @@ class ManyToManyRawIdWidget(DefaultManyToManyRawIdWidget):
 
 class AutosizeTextarea(forms.Textarea):
     def __init__(self, attrs=None):
-        default_attrs = {'rows': '2', 'autosize': True}
+        default_attrs = {'rows': '3', 'autosize': True}
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)
@@ -93,27 +94,25 @@ class AutosizeTextarea(forms.Textarea):
 class SwitchInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/switch.html'
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        classes = context['widget']['attrs'].get('class', '')
-        classes += ' custom-control-input'
-        context['widget']['attrs']['class'] = classes
-        context['widget']['id_for_label'] = self.id_for_label(attrs.get('id', ''))
-        return context
-
 
 class CustomCheckboxInput(forms.CheckboxInput):
     template_name = 'django/forms/widgets/checkbox_custom.html'
 
-
-class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    template_name = 'django/forms/widgets/checkbox_select.html'
-    option_template_name = 'django/forms/widgets/checkbox_custom.html'
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        widget_class = context['widget']['attrs'].pop('widget_class', '')
+        context['widget_class'] = widget_class
+        return context
 
 
 class CustomRadioSelect(forms.RadioSelect):
     template_name = 'django/forms/widgets/radio_custom.html'
     option_template_name = 'django/forms/widgets/radio_option_custom.html'
+
+
+class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    template_name = 'django/forms/widgets/checkbox_select.html'
+    option_template_name = 'django/forms/widgets/checkbox_custom.html'
 
 
 class FilteredSelectMultiple(forms.SelectMultiple):

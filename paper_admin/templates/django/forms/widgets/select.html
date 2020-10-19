@@ -1,4 +1,4 @@
-<select name="{{ widget.name }}" {% include "django/forms/widgets/class_attr.html" with default="vSelect custom-select" %}{% include "django/forms/widgets/attrs.html" %}>
+<select name="{{ widget.name }}" {% include "django/forms/widgets/class_attr.html" with default="vSelect custom-select custom-select-lg" %}{% include "django/forms/widgets/attrs.html" %}>
   {% for group_name, group_choices, group_index in widget.optgroups %}
     {% if group_name %}
       <optgroup label="{{ group_name }}">

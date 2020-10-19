@@ -1,10 +1,6 @@
-<label class="vCustomCheckbox">
-  {% include "django/forms/widgets/input.html" %}
-
-  <div class="d-flex">
-    <div class="indicator"></div>
-    {% if widget.label %}
-      <div class="label">{{ widget.label }}</div>
-    {% endif %}
-  </div>
-</label>
+<div class="custom-control user-select-none vCustomCheckbox {{ widget_class }}">
+  {% with input_class='custom-control-input' %}
+    {% include "django/forms/widgets/input.html" %}
+  {% endwith %}
+  <label class="custom-control-label" for="{{ widget.attrs.id }}">{{ widget.label }}</label>
+</div>

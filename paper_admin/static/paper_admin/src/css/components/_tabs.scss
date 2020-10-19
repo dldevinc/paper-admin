@@ -4,6 +4,7 @@
 #paper-tabs {
   padding: 0 0.5rem;
   margin: 0 -0.5rem;
+  font-size: 16px;
   border-bottom-color: $nav-tabs-link-active-border-color;
   @include media-breakpoint-up(sm) {
     padding: 0 1rem;

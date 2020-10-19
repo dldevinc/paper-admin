@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from solo.models import SingletonModel
 from mptt.models import MPTTModel, TreeForeignKey
 
-
 HELP_TEXT = 'Lorem ipsum <b>dolor</b> sit amet, consetetur sadipscing elitr, ' \
             'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ' \
             'aliquyam erat, sed diam voluptua'
@@ -50,6 +49,7 @@ class Category(models.Model):
     f_tags5 = models.ManyToManyField(Tag, verbose_name=_('M2M Autocomplete'), related_name='+', help_text=HELP_TEXT)
 
     f_bool = models.BooleanField(_('bool'), default=False, help_text=HELP_TEXT)
+    f_bool2 = models.BooleanField(_('bool 2'), default=False, help_text=HELP_TEXT)
     f_nullbool = models.NullBooleanField(_('nullbool'), help_text=HELP_TEXT)
     f_small_int = models.PositiveSmallIntegerField(_('small int'), default=0, help_text=HELP_TEXT)
     f_int_choices = models.PositiveSmallIntegerField(_('int choices'), choices=CHOICES, default=1, help_text=HELP_TEXT)
@@ -132,3 +132,14 @@ class SubCategory(MPTTModel):
 
     def __str__(self):
         return self.name
+
+
+class SigletonExample(SingletonModel):
+    title = models.CharField(_('title'), max_length=255)
+
+    class Meta:
+        verbose_name = _('singleton')
+        verbose_name_plural = _('singletons')
+
+    def __str__(self):
+        return self.title

@@ -4,6 +4,7 @@
 .paper-table-wrapper {
   margin-left: #{-$card-spacer-x-sm};
   margin-right: #{-$card-spacer-x-sm};
+  font-size: 16px;
   @include media-breakpoint-up(sm) {
     margin-left: #{-$card-spacer-x};
     margin-right: #{-$card-spacer-x};
@@ -30,16 +31,9 @@
     max-width: 140px;
 
     // копирование стилей form-control-sm
-    padding: $input-padding-y-sm $input-padding-x-sm;
-    font-size: $font-size-sm;
+    padding: 0.125rem $input-padding-x-sm;
     line-height: $input-line-height-sm;
     @include border-radius($input-border-radius-sm);
-  }
-
-  .vCustomCheckbox {
-    .indicator {
-      margin-top: 0;
-    }
   }
 
   .custom-select {

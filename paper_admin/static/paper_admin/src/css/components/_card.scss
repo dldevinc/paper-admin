@@ -10,24 +10,6 @@
   }
 }
 
-@each $color, $value in $theme-colors {
-  &.card-#{$color} {
-    @if $color == 'dark' {
-      @include card-variant(
-          theme-color-level($color, -2),
-          color-yiq(theme-color($color)),
-          theme-color-level($color, -2)
-      );
-    } @else {
-      @include card-variant(
-          theme-color-level($color, -9),
-          theme-color-level($color, 8),
-          darken(theme-color-level($color, -9), 7%)
-      );
-    }
-  }
-}
-
 .card-header {
   border-width: 1px;
   @include card-padding-x;

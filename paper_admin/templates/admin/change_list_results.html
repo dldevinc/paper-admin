@@ -10,7 +10,7 @@
 {% if results %}
   <div class="paper-table-wrapper">
     <table id="result_list"
-           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }} small{% endblock %}"
+           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }}{% endblock %}"
            {% if cl.sortable %}data-order-url="{% url cl.opts|admin_urlname:'sort' %}"{% endif %}>
       <thead>
       <tr>
@@ -20,8 +20,8 @@
               {% if header.sortable %}
                 {% spaceless %}
                   <span class="table-column-header dropdown">
-                    <a href="{{ header.url_primary }}">
-                      <span class="table-column-header-title">{{ header.text|capfirst }}</span>
+                    <a href="{{ header.url_primary }}" class="table-column-header-title">
+                      {{ header.text|capfirst }}
                     </a>
                     {% if header.sort_priority > 0 %}
                       <span class="sortoptions-btn btn{% if num_sorted_fields > 1 %} has-prior{% endif %}"

@@ -8,7 +8,7 @@
   {% endfor %}
 
   <div class="action-btn-box">
-    <button type="submit" class="btn btn-sm btn-info ml-1" name="index"
+    <button type="submit" class="btn btn-info ml-1" name="index"
             title="{% trans "Run the selected action" %}"
             value="{{ action_index|default:0 }}">
       {% trans "Go" %}
@@ -17,14 +17,14 @@
 
   <div class="paper-action-notes d-md-inline">
     {% if actions_selection_counter %}
-      <small class="action-counter" data-actions-icnt="{{ cl.result_list|length }}">
+      <span class="action-counter" data-actions-icnt="{{ cl.result_list|length }}">
         {{ selection_note }}
-      </small>
+      </span>
 
       {% if cl.result_count != cl.result_list|length %}
-        <small class="action-all" hidden>
+        <span class="action-all" hidden>
           {{ selection_note_all }}
-        </small>
+        </span>
 
         <span class="action-question" hidden>
           <a href="#"

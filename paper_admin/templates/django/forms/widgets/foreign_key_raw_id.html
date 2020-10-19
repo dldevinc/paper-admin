@@ -1,4 +1,4 @@
-<div class="vSmallField input-group">
+<div class="vSmallField input-group input-group-lg">
   {% if related_url %}
     <div class="input-group-prepend">
       {% if related_url %}
@@ -12,7 +12,7 @@
     </div>
   {% endif %}
 
-  {% with input_class='form-control' %}
+  {% with input_class='form-control form-control-lg' %}
     {% include "django/forms/widgets/input.html" %}
   {% endwith %}
 

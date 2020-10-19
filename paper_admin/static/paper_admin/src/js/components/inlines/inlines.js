@@ -5,6 +5,9 @@
 
 import whenDomReady from "when-dom-ready";
 import emitters from "../emitters";
+import {gsap} from "gsap";
+import {ScrollToPlugin} from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollToPlugin);
 
 
 /**
@@ -48,11 +51,13 @@ function Formset(root, options) {
         deleteButtonSelector: '.delete-row',
         formCssClass: 'inline-related',
         emptyCssClass: 'empty-form',
+        animationSpeed: 300,
         onAdded: null,
         onRemove: null
     }, options);
 
     this.root = root;
+    this.root._inline_formset = this;
     this.mgmt = new ManagementForm(root);
 
     this.addButton = this.root.querySelector(this.opts.addButtonSelector);
@@ -104,8 +109,21 @@ Formset.prototype.addRow = function() {
     }
 
     const row = templateElement.cloneNode(true);
+    const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
     row.classList.remove(this.opts.emptyCssClass);
     templateElement.parentNode.insertBefore(row, templateElement);
+
+    window.scrollTo({
+        top: pageYOffset
+    });
+
+    if (row.tagName !== 'TR') {
+        gsap.from(row, {
+            duration: this.opts.animationSpeed / 1000,
+            height: 0,
+            clearProps: 'all',
+        });
+    }
 
     this.mgmt.totalForms(++totalForms);
 
@@ -122,6 +140,9 @@ Formset.prototype.addRow = function() {
     if (this.opts.onAdded) {
         this.opts.onAdded.call(this, row, this.opts.prefix, totalForms);
     }
+    this.root.dispatchEvent(new CustomEvent('row-added', {
+        detail: [row, this.opts.prefix]
+    }));
     emitters.dom.trigger('mutate', [row]);
     emitters.inlines.trigger('added', [row, this.opts.prefix]);
 
@@ -151,10 +172,21 @@ Formset.prototype.deleteRow = function(row) {
     emitters.dom.trigger('release', [row]);
     emitters.inlines.trigger('remove', [row, this.opts.prefix]);
 
-    row.parentNode.removeChild(row);
+    if (row.tagName !== 'TR') {
+        gsap.to(row, {
+            duration: this.opts.animationSpeed / 1000,
+            height: 0,
+            onComplete: function() {
+                row.parentNode.removeChild(row);
+            }
+        });
+    }
 
     // event
     emitters.inlines.trigger('removed', [row, this.opts.prefix]);
+    this.root.dispatchEvent(new CustomEvent('row-removed', {
+        detail: [row, this.opts.prefix]
+    }));
 
     // Django compatible
     $(document).trigger('formset:removed', [$(row), this.opts.prefix]);
