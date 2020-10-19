@@ -1,26 +1,26 @@
 language: python
 python:
-- 3.8
-- 3.7
-- 3.6
+  - 3.8
+  - 3.7
+  - 3.6
 before_install:
-- sudo apt update
-- sudo apt-get install --upgrade nodejs
-- pip install twine
-- pip install -U pip setuptools wheel tox-travis
-- npm install
-- npx webpack
+  - nvm install 14
+  - node --version
+  - pip install twine
+  - pip install -U pip setuptools wheel tox-travis
+  - npm i
 install:
-- pip install -r ./requirements_dev.txt
+  - pip install -r ./requirements_dev.txt
+  - npx webpack
 branches:
   only:
-  - master
-  - "/^v?\\d(\\.\\d+)+$/"
+    - master
+    - "/^v?\\d(\\.\\d+)+$/"
 script:
-- python setup.py sdist
-- python setup.py bdist_wheel
-- twine check dist/*
-- tox
+  - python setup.py sdist
+  - python setup.py bdist_wheel
+  - twine check dist/*
+  - tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
