@@ -4,10 +4,13 @@ python:
 - 3.7
 - 3.6
 before_install:
+- sudo apt-get -y install nodejs
 - pip install twine
 - pip install -U pip setuptools wheel tox-travis
+- npm i
 install:
 - pip install -r ./requirements_dev.txt
+- npx webpack
 branches:
   only:
   - master
