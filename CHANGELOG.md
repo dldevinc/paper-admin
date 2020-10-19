@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.0.17](https://github.com/dldevinc/paper-admin/tree/v0.0.17) - 2020-09-15
+## [1.0.0](https://github.com/dldevinc/paper-admin/tree/v1.0.0) - 2020-10-19
 - Enlarge form controls
 - Update `npm` deps
 
