@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.0.1](https://github.com/dldevinc/paper-admin/tree/v1.0.1) - 2020-10-19
+## [1.0.3](https://github.com/dldevinc/paper-admin/tree/v1.0.3) - 2020-10-19
 - Fix static files
 
 ## [1.0.0](https://github.com/dldevinc/paper-admin/tree/v1.0.0) - 2020-10-19
