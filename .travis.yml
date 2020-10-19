@@ -6,12 +6,13 @@ python:
 node_js:
 - 14
 before_install:
+- npm install -g npm
 - pip install twine
 - pip install -U pip setuptools wheel tox-travis
 - npm install
+- npx webpack
 install:
 - pip install -r ./requirements_dev.txt
-- npx webpack
 branches:
   only:
   - master
