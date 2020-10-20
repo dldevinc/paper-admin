@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.0.4](https://github.com/dldevinc/paper-admin/tree/v1.0.4) - 2020-10-20
+- Fix form dropdowns
+
 ## [1.0.3](https://github.com/dldevinc/paper-admin/tree/v1.0.3) - 2020-10-19
 - Fix static files
 
