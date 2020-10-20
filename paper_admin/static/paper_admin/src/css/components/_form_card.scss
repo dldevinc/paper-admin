@@ -2,6 +2,9 @@
 
 
 .paper-form-card {
+  // for form dropdowns
+  overflow: visible;
+
   .card-body {
     padding: 0;
   }

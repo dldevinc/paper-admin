@@ -179,7 +179,7 @@
       <div class="row">
         {% block support %}
           {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
-            <div class="col-auto">
+            <div class="col-auto position-static">
               <span class="paper-support-text">
                 {% trans 'Please contact us if you have any problems' %}
               </span>
@@ -204,7 +204,7 @@
         {% endblock %}
 
         {% block copyright %}
-          <div class="paper-copyright col-lg-auto ml-lg-auto">
+          <div class="paper-copyright col-lg-auto ml-lg-auto position-static">
             &copy; {% now 'Y' %}
             {% if paper.SUPPORT_COMPANY %}
               {% if paper.SUPPORT_WEBSITE %}
