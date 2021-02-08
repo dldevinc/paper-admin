@@ -103,7 +103,7 @@
                     </a>
                   {% endif %}
 
-                  {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
+                  {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_admin_form.original %}
                     <label for="{{ inline_admin_form.deletion_field.field.id_for_label }}"
                            class="delete-inline tool-item">
                       {{ inline_admin_form.deletion_field.field }}
