@@ -1,4 +1,5 @@
 import types
+
 from django.db import models
 
 
@@ -6,8 +7,8 @@ def extend_class(target, mixin):
     for name, obj in mixin.__dict__.items():
         if isinstance(obj, (types.FunctionType, property)):
             if getattr(target, name, None):
-                setattr(target, name + '__overridden', getattr(target, name))
-        elif name.startswith('__'):
+                setattr(target, name + "__overridden", getattr(target, name))
+        elif name.startswith("__"):
             # skip system attributes
             continue
         setattr(target, name, obj)
@@ -17,10 +18,10 @@ def extend_model(target, mixin):
     for name, obj in mixin.__dict__.items():
         if isinstance(obj, (types.FunctionType, property)):
             if getattr(target, name, None):
-                setattr(target, name + '__overridden', getattr(target, name))
+                setattr(target, name + "__overridden", getattr(target, name))
         elif isinstance(obj, models.Field):
             remove_model_field(target, name)
-        elif name.startswith('__'):
+        elif name.startswith("__"):
             # skip system attributes
             continue
 
@@ -36,11 +37,21 @@ def remove_model_field(model, field_name):
 
 
 def patch():
-    from django.contrib.admin import options, helpers, widgets
+    from django.contrib.admin import helpers, options, widgets
+    from django.contrib.auth.forms import (
+        AdminPasswordChangeForm,
+        PasswordResetForm,
+        SetPasswordForm,
+    )
     from django.contrib.auth.views import PasswordResetView
-    from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordResetForm, SetPasswordForm
-    from .admin.options import PaperBaseModelAdmin, PaperModelAdmin, PaperInlineModelAdmin, RelatedFieldWidgetWrapper
+
     from .admin.helpers import AdminForm, InlineAdminFormSet
+    from .admin.options import (
+        PaperBaseModelAdmin,
+        PaperInlineModelAdmin,
+        PaperModelAdmin,
+        RelatedFieldWidgetWrapper,
+    )
     from .renderer import PaperFormRenderer
     extend_class(options.BaseModelAdmin, PaperBaseModelAdmin)
     extend_class(options.ModelAdmin, PaperModelAdmin)
@@ -52,4 +63,4 @@ def patch():
     AdminPasswordChangeForm.default_renderer = PaperFormRenderer
     PasswordResetForm.default_renderer = PaperFormRenderer
     SetPasswordForm.default_renderer = PaperFormRenderer
-    PasswordResetView.html_email_template_name = 'registration/password_reset_email_alt.html'
+    PasswordResetView.html_email_template_name = "registration/password_reset_email_alt.html"

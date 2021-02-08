@@ -1,13 +1,13 @@
-from django.template import library
-from django.contrib.admin.views.main import PAGE_VAR, ALL_VAR
 from django.contrib.admin.templatetags.admin_list import DOT
+from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
+from django.template import library
 
 ON_EACH_SIDE = 1
 ON_ENDS = 2
 register = library.Library()
 
 
-@register.inclusion_tag('admin/pagination.html')
+@register.inclusion_tag("admin/pagination.html")
 def paper_pagination(cl):
     paginator, page_num = cl.paginator, cl.page_num
 
@@ -39,10 +39,10 @@ def paper_pagination(cl):
 
     need_show_all_link = cl.can_show_all and not cl.show_all and cl.multi_page
     return {
-        'cl': cl,
-        'pagination_required': pagination_required,
-        'show_all_url': need_show_all_link and cl.get_query_string({ALL_VAR: ''}),
-        'page_range': page_range,
+        "cl": cl,
+        "pagination_required": pagination_required,
+        "show_all_url": need_show_all_link and cl.get_query_string({ALL_VAR: ""}),
+        "page_range": page_range,
     }
 
 

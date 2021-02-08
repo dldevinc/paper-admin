@@ -1,8 +1,10 @@
 from collections import Iterable
+
 from django import forms
 from django.contrib.admin import helpers
 from django.contrib.admin.utils import flatten_fieldsets
 from django.utils.functional import cached_property
+
 from ..forms.widgets import CustomCheckboxInput
 
 
@@ -15,26 +17,26 @@ class ActionForm(helpers.ActionForm):
             http://getbootstrap.com/docs/4.0/components/forms/#custom-styles
     """
     action = forms.ChoiceField(
-        label='',
+        label="",
         required=False,
         widget=forms.Select(attrs={
-            'class': 'custom-select',
+            "class": "custom-select",
         })
     )
 
     def clean_action(self):
-        value = self.cleaned_data.get('action')
-        field = self.fields.get('action')
+        value = self.cleaned_data.get("action")
+        field = self.fields.get("action")
         if field and not value:
-            self.add_error('action', field.error_messages.get('required'))
+            self.add_error("action", field.error_messages.get("required"))
         return value
 
 
 checkbox = CustomCheckboxInput({
-    'class': 'action-select custom-control-input'
+    "class": "action-select custom-control-input"
 }, lambda value: False)
 checkbox_toggle = CustomCheckboxInput({
-    'id': 'action-toggle'
+    "id": "action-toggle"
 }, lambda value: False)
 
 
@@ -97,7 +99,7 @@ class Fieldset(helpers.Fieldset):
             elif isinstance(field, Iterable):
                 yield from field
             else:
-                raise TypeError('unsupported field type: {}'.format(field))
+                raise TypeError("unsupported field type: {}".format(field))
 
     @property
     def tab(self):
@@ -117,7 +119,7 @@ class AdminField:
 class AdminReadonlyField(helpers.AdminReadonlyField):
     def __init__(self, form, field, model_admin=None):
         super().__init__(form, field, is_first=False, model_admin=model_admin)
-        self.field['contents'] = self.contents()
+        self.field["contents"] = self.contents()
 
 
 class InlineAdminForm(helpers.InlineAdminForm):
@@ -172,7 +174,7 @@ class InlineFieldset(Fieldset):
             elif isinstance(field, Iterable):
                 yield from field
             else:
-                raise TypeError('unsupported field type: {}'.format(field))
+                raise TypeError("unsupported field type: {}".format(field))
 
 
 InlineAdminFormSetOriginal = helpers.InlineAdminFormSet
@@ -214,7 +216,7 @@ class InlineAdminFormSet(InlineAdminFormSetOriginal):
 
     @property
     def tab(self):
-        return getattr(self.opts, 'tab', None)
+        return getattr(self.opts, "tab", None)
 
 
 class AdminTab:

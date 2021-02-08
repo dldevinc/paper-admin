@@ -1,25 +1,32 @@
 import json
 from collections import Iterable
 from functools import partial, update_wrapper
+
 from django import forms
-from django.urls import path
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models, transaction
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseNotAllowed,
+    JsonResponse,
+)
+from django.urls import path
 from django.utils.html import format_html
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ImproperlyConfigured
-from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
-from django.http import HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
+
 from .changelist import SortableChangeListMixin
 
 
 class SortableAdminBaseMixin:
-    sortable = 'order'
+    sortable = "order"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.sortable:
-            raise ImproperlyConfigured('Class {0}.{1} must define `sortable` field'.format(
+            raise ImproperlyConfigured("Class {0}.{1} must define `sortable` field".format(
                 self.__module__, self.__class__.__qualname__
             ))
         else:
@@ -36,8 +43,8 @@ class SortableInlineBaseMixin(SortableAdminBaseMixin):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == self.sortable:
-            kwargs['widget'] = forms.HiddenInput(attrs={
-                'class': 'sortable-input',
+            kwargs["widget"] = forms.HiddenInput(attrs={
+                "class": "sortable-input",
             })
         return super().formfield_for_dbfield(db_field, **kwargs)  # noqa: F821
 
@@ -77,9 +84,9 @@ class SortableAdminMixin(SortableAdminBaseMixin):
 
         self._add_sortable_field()
 
-        self.list_display = ['_sortable_field'] + list(self.list_display)
-        if isinstance(self.sortable_by, Iterable) and '_sortable_field' not in self.sortable_by:  # noqa: F821
-            self.sortable_by += ['_sortable_field']  # noqa: F821
+        self.list_display = ["_sortable_field"] + list(self.list_display)
+        if isinstance(self.sortable_by, Iterable) and "_sortable_field" not in self.sortable_by:  # noqa: F821
+            self.sortable_by += ["_sortable_field"]  # noqa: F821
 
     def _add_sortable_field(self):
         def func(model_admin, obj):
@@ -91,15 +98,15 @@ class SortableAdminMixin(SortableAdminBaseMixin):
                 order=getattr(obj, self.sortable)
             )
 
-        setattr(func, 'short_description', self.sortable_field.verbose_name)
-        setattr(func, 'admin_order_field', self.sortable)
+        setattr(func, "short_description", self.sortable_field.verbose_name)
+        setattr(func, "admin_order_field", self.sortable)
         partial_func = partial(func, self)
         partial_func = update_wrapper(partial_func, func)
-        setattr(self, '_sortable_field', partial_func)
+        setattr(self, "_sortable_field", partial_func)
 
     def get_changelist(self, request, **kwargs):
         ChangeList = super().get_changelist(request, **kwargs)  # noqa: F821
-        SortableChangeList = type('SortableChangeList', (SortableChangeListMixin, ChangeList), {})
+        SortableChangeList = type("SortableChangeList", (SortableChangeListMixin, ChangeList), {})
         SortableChangeList.sortable = self.sortable
         return SortableChangeList
 
@@ -107,9 +114,9 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         info = self.model._meta.app_label, self.model._meta.model_name  # noqa: F821
         urlpatterns = [
             path(
-                'sort/',
+                "sort/",
                 self.admin_site.admin_view(self.update_order),  # noqa: F821
-                name='%s_%s_sort' % info
+                name="%s_%s_sort" % info
             ),
         ]
         return urlpatterns + super().get_urls()  # noqa: F821
@@ -123,22 +130,22 @@ class SortableAdminMixin(SortableAdminBaseMixin):
 
     @csrf_exempt
     def update_order(self, request, *args, **kwargs):
-        if request.method != 'POST':
-            return HttpResponseNotAllowed('Must be a POST request')
+        if request.method != "POST":
+            return HttpResponseNotAllowed("Must be a POST request")
         if not self.has_change_permission(request):  # noqa: F821
-            return HttpResponseForbidden('Missing permissions to perform this request')
+            return HttpResponseForbidden("Missing permissions to perform this request")
 
         try:
             body = json.loads(request.body.decode())
         except json.JSONDecodeError:
-            return HttpResponseBadRequest('Invalid JSON')
+            return HttpResponseBadRequest("Invalid JSON")
 
         reorder_dict = {}
         for pk, order in body.items():
             try:
                 reorder_dict[int(pk)] = int(order)
             except (TypeError, ValueError):
-                return HttpResponseBadRequest('Invalid order: `%s`' % order)
+                return HttpResponseBadRequest("Invalid order: `%s`" % order)
 
         self._update_order(reorder_dict)
         return JsonResponse({})
@@ -146,7 +153,7 @@ class SortableAdminMixin(SortableAdminBaseMixin):
     def get_max_order(self, request, obj=None):
         return self.model._default_manager.aggregate(  # noqa: F821
             max_order=models.Max(self.sortable)
-        )['max_order'] or 0
+        )["max_order"] or 0
 
     def save_model(self, request, obj, form, change):
         if not change:

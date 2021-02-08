@@ -1,22 +1,24 @@
-import logging
 import itertools
+import logging
 from urllib import parse
+
 from django.contrib.admin import site
-from django.utils.text import capfirst
-from django.shortcuts import resolve_url
 from django.contrib.auth import get_user_model
+from django.shortcuts import resolve_url
+from django.utils.text import capfirst
+
 from . import conf
 
 MENU = None
 item_counter = itertools.count()
-logger = logging.getLogger('paper_admin.menu')
+logger = logging.getLogger("paper_admin.menu")
 
 
 class MenuItemBase:
     __slots__ = [
-        '_uid',
-        '_parent',
-        '_childs',
+        "_uid",
+        "_parent",
+        "_childs",
     ]
 
     def __init__(self):
@@ -53,15 +55,15 @@ class MenuDivider(MenuItemBase):
 
 class MenuItem(MenuItemBase):
     __slots__ = [
-        '_app',
-        '_label',
-        '_url',
-        '_icon',
-        '_active',
-        '_classes',
+        "_app",
+        "_label",
+        "_url",
+        "_icon",
+        "_active",
+        "_classes",
     ]
 
-    def __init__(self, *, app='', label='', url='', icon='', classes=''):
+    def __init__(self, *, app="", label="", url="", icon="", classes=""):
         super().__init__()
         self._app = app
         self._label = label
@@ -71,7 +73,7 @@ class MenuItem(MenuItemBase):
         self._active = False
 
     def __repr__(self):
-        return '%s(%s, %s)' % (self.__class__.__name__, self.label, self.url)
+        return "%s(%s, %s)" % (self.__class__.__name__, self.label, self.url)
 
     @property
     def child_items(self):
@@ -92,8 +94,8 @@ class MenuItem(MenuItemBase):
     @property
     def url(self):
         if not self._url:
-            return ''
-        elif self._url.startswith(('#', '?')):
+            return ""
+        elif self._url.startswith(("#", "?")):
             return self._url
         else:
             return resolve_url(self._url)
@@ -140,8 +142,8 @@ class MenuItem(MenuItemBase):
         Создание MenuItem из модели admin.site
         """
         return cls(
-            label=site_model['name'],
-            url=site_model.get('admin_url') or site_model.get('add_url'),
+            label=site_model["name"],
+            url=site_model.get("admin_url") or site_model.get("add_url"),
         )
 
     @classmethod
@@ -156,8 +158,8 @@ class MenuItem(MenuItemBase):
         try:
             return next(
                 cls.from_site_model(site_model)
-                for site_model in app['models']
-                if site_model['object_name'].lower() == model_name.lower()
+                for site_model in app["models"]
+                if site_model["object_name"].lower() == model_name.lower()
             )
         except StopIteration:
             pass
@@ -172,15 +174,15 @@ class MenuItem(MenuItemBase):
             return
 
         item = MenuItem(
-            label=app['name'],
-            url=app['app_url'],
+            label=app["name"],
+            url=app["app_url"],
         )
-        for model in app['models']:
+        for model in app["models"]:
             item.append(MenuItem.from_site_model(model))
         return item
 
 
-def _create_menu_item(request, app_dict, conf_item, parent_app=''):
+def _create_menu_item(request, app_dict, conf_item, parent_app=""):
     """
     Создание пункта меню из параметра конфигурации.
 
@@ -195,9 +197,9 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=''):
 
     if isinstance(conf_item, str):
         conf_item = conf_item.lower()
-        if '.' in conf_item:
+        if "." in conf_item:
             # absolute path to model
-            app_label, model_name = conf_item.rsplit('.', 1)
+            app_label, model_name = conf_item.rsplit(".", 1)
             item = MenuItem.from_site_app_model(app_dict, app_label, model_name)
         elif parent_app:
             # model
@@ -209,11 +211,11 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=''):
         item = MenuItem()
 
         # проверка прав
-        perms = conf_item.get('perms')
+        perms = conf_item.get("perms")
         if perms:
             if isinstance(perms, str):
                 perms = (perms, )
-            if hasattr(request, 'user') and isinstance(request.user, get_user_model()):
+            if hasattr(request, "user") and isinstance(request.user, get_user_model()):
                 user = request.user
                 for perm in perms:
                     if perm == conf.MENU_PERM_SUPERUSER:
@@ -224,27 +226,27 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=''):
             else:
                 return
 
-        app_name = conf_item.get('app') or parent_app
+        app_name = conf_item.get("app") or parent_app
         site_app = app_dict.get(app_name)
         if site_app:
-            item.label = site_app['name']
+            item.label = site_app["name"]
 
-        item.label = conf_item.get('label')
-        item.url = conf_item.get('url')
-        item.icon = conf_item.get('icon')
-        item.classes = conf_item.get('classes')
+        item.label = conf_item.get("label")
+        item.url = conf_item.get("url")
+        item.icon = conf_item.get("icon")
+        item.classes = conf_item.get("classes")
 
-        models = conf_item.get('models')
+        models = conf_item.get("models")
         if models:
             for conf_subitem in models:
                 subitem = _create_menu_item(request, app_dict, conf_subitem, parent_app=app_name)
                 item.append(subitem)
         elif site_app:
-            for site_model in site_app['models']:
+            for site_model in site_app["models"]:
                 subitem = MenuItem.from_site_model(site_model)
                 item.append(subitem)
     else:
-        raise TypeError('unsupported type:\n{}'.format(conf_item))
+        raise TypeError("unsupported type:\n{}".format(conf_item))
 
     if not item or not item.label:
         return
@@ -268,7 +270,7 @@ def get_menu(request):
     """
     app_list = site.get_app_list(request)
     app_dict = {
-        app['app_label']: app
+        app["app_label"]: app
         for app in app_list
     }
 
@@ -279,7 +281,7 @@ def get_menu(request):
         )
     else:
         items = (
-            MenuItem.from_site_app(app_dict, app['app_label'])
+            MenuItem.from_site_app(app_dict, app["app_label"])
             for app in app_list
         )
 
@@ -295,9 +297,9 @@ def _compare_urls(url1, url2):
     :rtype: float
     """
     parsed1 = parse.urlparse(url1)
-    path1 = parsed1.path.strip('/').split('/')
+    path1 = parsed1.path.strip("/").split("/")
     parsed2 = parse.urlparse(url2)
-    path2 = parsed2.path.strip('/').split('/')
+    path2 = parsed2.path.strip("/").split("/")
 
     max_part_count = max(len(path1), len(path2))
     same_count = sum(
@@ -360,4 +362,4 @@ def activate_menu(request, menu):
                 parent.activate()
     else:
         # совпадений не найдено
-        logger.warning('Not found suitable menu items')
+        logger.warning("Not found suitable menu items")

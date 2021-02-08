@@ -1,6 +1,8 @@
 import sys
+
 from django.urls import reverse
-from paper_admin.admin import SortableAdminMixin
+
+from paper_admin.admin.sortable import SortableAdminMixin
 
 
 class SortableMPTTModelAdmin(SortableAdminMixin):
@@ -10,7 +12,7 @@ class SortableMPTTModelAdmin(SortableAdminMixin):
     https://github.com/darklow/django-suit/issues/381
     """
     list_per_page = sys.maxsize
-    mptt_indent_field = '__str__'   # default for mptt
+    mptt_indent_field = "__str__"   # default for mptt
     mptt_level_indent = 14
 
     def get_ordering(self, request):
@@ -22,12 +24,12 @@ class SortableMPTTModelAdmin(SortableAdminMixin):
         self.model._default_manager.rebuild()
 
     def is_bulk_edit(self, request):
-        changelist_url = 'admin:%(app_label)s_%(model_name)s_changelist' % {
-            'app_label': self.model._meta.app_label,
-            'model_name': self.model._meta.model_name,
+        changelist_url = "admin:%(app_label)s_%(model_name)s_changelist" % {
+            "app_label": self.model._meta.app_label,
+            "model_name": self.model._meta.model_name,
         }
         return (request.path == reverse(changelist_url) and
-                request.method == 'POST' and '_save' in request.POST)
+                request.method == "POST" and "_save" in request.POST)
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

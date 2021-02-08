@@ -1,23 +1,24 @@
 import datetime
 import operator
+
+from django.contrib.admin import filters
+from django.contrib.admin.options import IncorrectLookupParameters
+from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django.contrib.admin import filters
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
-from django.contrib.admin.options import IncorrectLookupParameters
 
 
 class FieldListFilter(filters.ListFilter):
     def __init__(self, field, request, params, model, model_admin, field_path):
         self.field = field
         self.field_path = field_path
-        self.title = getattr(field, 'verbose_name', field_path)
+        self.title = getattr(field, "verbose_name", field_path)
         super().__init__(request, params, model, model_admin)
         params.pop(self.field_path, None)
         values_list = request.GET.getlist(self.field_path)
-        self.value = list(filter(lambda x: x != '', values_list))
+        self.value = list(filter(lambda x: x != "", values_list))
 
     def get_template(self):
         return self.template
@@ -30,14 +31,14 @@ class FieldListFilter(filters.ListFilter):
             return
 
         value = [
-            None if item == 'None' else item
+            None if item == "None" else item
             for item in value
         ]
 
         if len(value) == 1:
             return models.Q((self.field_path, value[0]))
         else:
-            return models.Q(('%s__in' % self.field_path, value))
+            return models.Q(("%s__in" % self.field_path, value))
 
     def queryset(self, request, queryset):
         query = self.get_query(self.value)
@@ -53,73 +54,73 @@ class FieldListFilter(filters.ListFilter):
 
 
 class BooleanFieldListFilter(FieldListFilter):
-    template = 'paper_admin/filters/radio.html'
+    template = "paper_admin/filters/radio.html"
 
     def choices(self, changelist):
         yield {
-            'selected': not self.value,
-            'value': '',
-            'display': _('All')
+            "selected": not self.value,
+            "value": "",
+            "display": _("All")
         }
         for lookup, title in (
-                ('1', _('Yes')),
-                ('0', _('No'))):
+                ("1", _("Yes")),
+                ("0", _("No"))):
             yield {
-                'selected': lookup in self.value,
-                'value': lookup,
-                'display': title,
+                "selected": lookup in self.value,
+                "value": lookup,
+                "display": title,
             }
         if isinstance(self.field, models.NullBooleanField):
             yield {
-                'selected': 'None' in self.value,
-                'value': 'None',
-                'display': _('None'),
+                "selected": "None" in self.value,
+                "value": "None",
+                "display": _("None"),
             }
 
 
 class ChoicesFieldListFilter(FieldListFilter):
-    template = 'paper_admin/filters/checkbox.html'
+    template = "paper_admin/filters/checkbox.html"
 
     def choices(self, changelist):
         for lookup, title in self.field.flatchoices:
             yield {
-                'selected': str(lookup) in self.value,
-                'value': str(lookup),
-                'display': title,
+                "selected": str(lookup) in self.value,
+                "value": str(lookup),
+                "display": title,
             }
         if self.field.null:
             yield {
-                'selected': 'None' in self.value,
-                'value': 'None',
-                'display': _('None'),
+                "selected": "None" in self.value,
+                "value": "None",
+                "display": _("None"),
             }
 
 
 class DateFieldListFilter(FieldListFilter):
-    template = 'paper_admin/filters/radio.html'
+    template = "paper_admin/filters/radio.html"
 
     def choices(self, changelist):
         yield {
-            'selected': not self.value,
-            'value': '',
-            'display': _('Any date'),
+            "selected": not self.value,
+            "value": "",
+            "display": _("Any date"),
         }
         for lookup, title in (
-                ('today', _('Today')),
-                ('week', _('This week')),
-                ('month', _('This month')),
-                ('year', _('This year')),
+                ("today", _("Today")),
+                ("week", _("This week")),
+                ("month", _("This month")),
+                ("year", _("This year")),
         ):
             yield {
-                'selected': lookup in self.value,
-                'value': lookup,
-                'display': title,
+                "selected": lookup in self.value,
+                "value": lookup,
+                "display": title,
             }
         if self.field.null:
             yield {
-                'selected': 'None' in self.value,
-                'value': 'None',
-                'display': _('None'),
+                "selected": "None" in self.value,
+                "value": "None",
+                "display": _("None"),
             }
 
     def get_query(self, value):
@@ -139,34 +140,34 @@ class DateFieldListFilter(FieldListFilter):
             next_month = today.replace(month=today.month + 1, day=1)
         next_year = today.replace(year=today.year + 1, month=1, day=1)
 
-        lookup_since = '%s__gte' % self.field_path
-        lookup_until = '%s__lt' % self.field_path
+        lookup_since = "%s__gte" % self.field_path
+        lookup_until = "%s__lt" % self.field_path
 
         if not value:
             return
         elif len(value) == 1:
             value = value[0]
-            if value == 'None':
+            if value == "None":
                 return models.Q((self.field_path, None))
-            elif value == 'today':
+            elif value == "today":
                 return models.Q((lookup_since, today)) & models.Q((lookup_until, tomorrow))
-            elif value == 'week':
+            elif value == "week":
                 return models.Q((lookup_since, today - datetime.timedelta(days=7))) & models.Q((lookup_until, tomorrow))
-            elif value == 'month':
+            elif value == "month":
                 return models.Q((lookup_since, today.replace(day=1))) & models.Q((lookup_until, next_month))
-            elif value == 'year':
+            elif value == "year":
                 return models.Q((lookup_since, today.replace(month=1, day=1))) & models.Q((lookup_until, next_year))
         raise ValueError(value)
 
 
 class RelatedFieldListFilter(FieldListFilter):
-    template = 'paper_admin/filters/select.html'
+    template = "paper_admin/filters/select.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         other_model = get_model_from_relation(field)
         super().__init__(field, request, params, model, model_admin, field_path)
         self.lookup_choices = self.field_choices(field, request, model_admin)
-        if hasattr(field, 'verbose_name'):
+        if hasattr(field, "verbose_name"):
             self.lookup_title = field.verbose_name
         else:
             self.lookup_title = other_model._meta.verbose_name
@@ -191,8 +192,8 @@ class RelatedFieldListFilter(FieldListFilter):
         rel_model = field.remote_field.model
         choice_func = operator.attrgetter(
             field.remote_field.get_related_field().attname
-            if hasattr(field.remote_field, 'get_related_field')
-            else 'pk'
+            if hasattr(field.remote_field, "get_related_field")
+            else "pk"
         )
 
         queryset = rel_model._default_manager.all()
@@ -206,26 +207,26 @@ class RelatedFieldListFilter(FieldListFilter):
 
     def choices(self, changelist):
         yield {
-            'selected': not self.value,
-            'value': '',
-            'display': _('All')
+            "selected": not self.value,
+            "value": "",
+            "display": _("All")
         }
         for pk, title in self.lookup_choices:
             yield {
-                'selected': str(pk) in self.value,
-                'value': str(pk),
-                'display': title,
+                "selected": str(pk) in self.value,
+                "value": str(pk),
+                "display": title,
             }
         if self.include_empty_choice:
             yield {
-                'selected': 'None' in self.value,
-                'value': 'None',
-                'display': _('None'),
+                "selected": "None" in self.value,
+                "value": "None",
+                "display": _("None"),
             }
 
 
 class AllValuesFieldListFilter(FieldListFilter):
-    template = 'paper_admin/filters/select.html'
+    template = "paper_admin/filters/select.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         super().__init__(field, request, params, model, model_admin, field_path)
@@ -241,9 +242,9 @@ class AllValuesFieldListFilter(FieldListFilter):
 
     def choices(self, changelist):
         yield {
-            'selected': not self.value,
-            'value': '',
-            'display': _('All')
+            "selected": not self.value,
+            "value": "",
+            "display": _("All")
         }
         include_none = False
         for val in self.lookup_choices:
@@ -252,15 +253,15 @@ class AllValuesFieldListFilter(FieldListFilter):
                 continue
             val = str(val)
             yield {
-                'selected': val in self.value,
-                'value': val,
-                'display': val,
+                "selected": val in self.value,
+                "value": val,
+                "display": val,
             }
         if include_none:
             yield {
-                'selected': 'None' in self.value,
-                'value': 'None',
-                'display': _('None'),
+                "selected": "None" in self.value,
+                "value": "None",
+                "display": _("None"),
             }
 
 

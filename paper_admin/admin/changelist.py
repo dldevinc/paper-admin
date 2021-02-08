@@ -22,5 +22,5 @@ class SortableChangeListMixin:
         if not ordering_field_columns:
             return
 
-        idx = list(self.list_display).index('_sortable_field')  # noqa: F821
+        idx = list(self.list_display).index("_sortable_field")  # noqa: F821
         return list(ordering_field_columns)[0] == idx

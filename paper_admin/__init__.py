@@ -7,9 +7,9 @@
     ---------
     Добавить "paper_admin" и патчи для сторонних библиотек в INSTALLED_APPS (вместо django.contrib.admin):
         INSTALLED_APPS = [
-            'paper_admin',
-            'paper_admin.patches.django_solo',
-            'paper_admin.patches.mptt',
+            "paper_admin",
+            "paper_admin.patches.django_solo",
+            "paper_admin.patches.mptt",
             ...
         ]
 
@@ -86,15 +86,15 @@
     # models.py
         class MyModel(models.Model):
             ...
-            order = models.IntegerField(_('order'), default=0, editable=False)
+            order = models.IntegerField(_("order"), default=0, editable=False)
 
     # admin.py
         from paper_admin.admin import SortableAdminMixin
 
         class MyModelAdmin(SortableAdminMixin, admin.ModelAdmin):
             ...
-            sortable = 'order'
+            sortable = "order"
 
 """
 __version__ = "1.0.4"
-default_app_config = 'paper_admin.apps.Config'
+default_app_config = "paper_admin.apps.Config"

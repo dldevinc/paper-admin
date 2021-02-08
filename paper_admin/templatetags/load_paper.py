@@ -1,4 +1,5 @@
 from django.template import library
+
 from .. import conf
 
 register = library.Library()
