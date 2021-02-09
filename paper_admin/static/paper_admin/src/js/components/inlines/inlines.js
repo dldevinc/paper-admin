@@ -3,7 +3,6 @@
  * @namespace Formset
  */
 
-import whenDomReady from "when-dom-ready";
 import emitters from "../emitters";
 import {gsap} from "gsap";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin";
@@ -22,7 +21,7 @@ function ManagementForm(element) {
 ManagementForm.prototype.__property = function(selector) {
     return function(value) {
         const input = this.element.querySelector(selector);
-        if (typeof value === 'undefined') {
+        if (typeof value === "undefined") {
             return parseInt(input.value.toString())
         } else {
             value = parseInt(value);
@@ -31,9 +30,10 @@ ManagementForm.prototype.__property = function(selector) {
             }
         }
     }
-};
+}
 
 ManagementForm.prototype.totalForms = ManagementForm.prototype.__property('input[name$="-TOTAL_FORMS"]');
+ManagementForm.prototype.minForms = ManagementForm.prototype.__property('input[name$="-MIN_NUM_FORMS"]');
 ManagementForm.prototype.maxForms = ManagementForm.prototype.__property('input[name$="-MAX_NUM_FORMS"]');
 
 
@@ -46,37 +46,40 @@ ManagementForm.prototype.maxForms = ManagementForm.prototype.__property('input[n
  */
 function Formset(root, options) {
     this.opts = Object.assign({
-        prefix: 'form',
-        addButtonSelector: '.add-row',
-        deleteButtonSelector: '.delete-row',
-        formCssClass: 'inline-related',
-        emptyCssClass: 'empty-form',
-        animationSpeed: 300,
-        onAdded: null,
-        onRemove: null
+        prefix: "form",
+        addButtonSelector: ".add-row",
+        deleteButtonSelector: ".delete-row",
+        formCssClass: "inline-related",
+        emptyCssClass: "empty-form",
+        animationSpeed: 300
     }, options);
 
     this.root = root;
     this.root._inline_formset = this;
     this.mgmt = new ManagementForm(root);
 
+    // buttons
     this.addButton = this.root.querySelector(this.opts.addButtonSelector);
     if (!this.addButton) {
-        throw new Error('addButton not found');
+        throw new Error("addButton not found");
     }
-    this.addButton.hidden = this.mgmt.totalForms() >= this.mgmt.maxForms();
-    this.addButton.querySelector('a, button').addEventListener('click', function(event) {
+
+    this.toggleAddButtonVisibility();
+    this.toggleDeleteButtonVisibility();
+
+    // events
+    this.addButton.querySelector("a, button").addEventListener("click", function(event) {
         event.preventDefault();
         this.addRow();
     }.bind(this));
 
     const that = this;
-    this.root.addEventListener('click', function(event) {
+    this.root.addEventListener("click", function(event) {
         const target = event.target;
         const button = target.closest(that.opts.deleteButtonSelector);
         if (button) {
             event.preventDefault();
-            const row = target.closest('.' + that.opts.formCssClass);
+            const row = target.closest("." + that.opts.formCssClass);
             that.deleteRow(row);
         }
     });
@@ -84,118 +87,45 @@ function Formset(root, options) {
 
 
 /**
- * Получение всех форм.
- * @returns {NodeListOf<Element>}
+ * Показ / скрытие кнопок удаления инлайн-форм в зависимости
+ * от заданного минимального количества.
  */
-Formset.prototype.getRows = function() {
-    return this.root.querySelectorAll('.' + this.opts.formCssClass);
-};
+Formset.prototype.toggleDeleteButtonVisibility = function() {
+    const deleteButtons = this.root.querySelectorAll(this.opts.deleteButtonSelector);
+    if (this.mgmt.totalForms() > this.mgmt.minForms()) {
+        deleteButtons.forEach(function(button) {
+            button.hidden = false;
+        });
+    } else {
+        deleteButtons.forEach(function(button) {
+            button.hidden = true;
+        });
+    }
+}
 
 
 /**
- * Добавление новой формы.
- * @returns {?Node}
+ * Показ / скрытие кнопки добавления инлайн-формы в зависимости
+ * от заданного максимального количества.
  */
-Formset.prototype.addRow = function() {
-    let totalForms = this.mgmt.totalForms();
-    const maxForms = this.mgmt.maxForms();
-    if (totalForms >= maxForms) {
-        return null
-    }
+Formset.prototype.toggleAddButtonVisibility = function() {
+    this.addButton.hidden = this.mgmt.totalForms() >= this.mgmt.maxForms();
+}
 
-    const templateElement = this.root.querySelector('.' + this.opts.emptyCssClass);
-    if (!templateElement) {
-        throw new Error('template form not found');
-    }
 
-    const row = templateElement.cloneNode(true);
-    const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
-    row.classList.remove(this.opts.emptyCssClass);
-    templateElement.parentNode.insertBefore(row, templateElement);
+/**
+ * Активация / деактивация кнопок при анимации добавления / удаления форм.
+ * @param {Boolean} enable
+ */
+Formset.prototype.toggleButtonState = function(enable) {
+    this.addButton.disabled = !enable;
+    this.addButton.classList.toggle("disabled", !enable);
 
-    window.scrollTo({
-        top: pageYOffset
+    this.root.querySelectorAll(this.opts.deleteButtonSelector).forEach(function(button) {
+        button.disabled = !enable;
+        button.classList.toggle("disabled", !enable);
     });
-
-    if (row.tagName !== 'TR') {
-        gsap.from(row, {
-            duration: this.opts.animationSpeed / 1000,
-            height: 0,
-            clearProps: 'all',
-        });
-    }
-
-    this.mgmt.totalForms(++totalForms);
-
-    // addButton
-    this.addButton.hidden = totalForms >= maxForms;
-
-    // deleteButton
-    const deleteButton = row.querySelector(this.opts.deleteButtonSelector);
-    if (deleteButton) {
-        deleteButton.hidden = false;
-    }
-
-    // event
-    if (this.opts.onAdded) {
-        this.opts.onAdded.call(this, row, this.opts.prefix, totalForms);
-    }
-    this.root.dispatchEvent(new CustomEvent('row-added', {
-        detail: [row, this.opts.prefix]
-    }));
-    emitters.dom.trigger('mutate', [row]);
-    emitters.inlines.trigger('added', [row, this.opts.prefix]);
-
-    // Django compatible
-    $(document).trigger('formset:added', [$(row), this.opts.prefix]);
-
-    return row;
-};
-
-
-/**
- * Удаление формы.
- * @param {Element|Node} row
- */
-Formset.prototype.deleteRow = function(row) {
-    let totalForms = this.mgmt.totalForms();
-
-    const rows = Array.from(this.getRows());
-    const row_index = rows.indexOf(row);
-    if (this.opts.onRemove) {
-        for (let i=row_index+1; i<rows.length; i++) {
-            this.opts.onRemove.call(this, rows[i], this.opts.prefix, i);
-        }
-    }
-
-    // event
-    emitters.dom.trigger('release', [row]);
-    emitters.inlines.trigger('remove', [row, this.opts.prefix]);
-
-    if (row.tagName !== 'TR') {
-        gsap.to(row, {
-            duration: this.opts.animationSpeed / 1000,
-            height: 0,
-            onComplete: function() {
-                row.parentNode.removeChild(row);
-            }
-        });
-    }
-
-    // event
-    emitters.inlines.trigger('removed', [row, this.opts.prefix]);
-    this.root.dispatchEvent(new CustomEvent('row-removed', {
-        detail: [row, this.opts.prefix]
-    }));
-
-    // Django compatible
-    $(document).trigger('formset:removed', [$(row), this.opts.prefix]);
-
-    this.mgmt.totalForms(--totalForms);
-
-    // addButton
-    this.addButton.hidden = totalForms >= this.mgmt.maxForms();
-};
+}
 
 
 /**
@@ -206,8 +136,8 @@ Formset.prototype.deleteRow = function(row) {
  */
 function updateFormIndex(row, prefix, index) {
     const regex = new RegExp("(" + prefix + "-(\\d+|__prefix__))");
-    const replacement = prefix + "-" + (index - 1);
-    row.querySelectorAll('*').forEach(function(element) {
+    const replacement = prefix + "-" + index;
+    row.querySelectorAll("*").forEach(function(element) {
         if (element.htmlFor) {
             element.htmlFor = element.htmlFor.replace(regex, replacement);
         }
@@ -218,7 +148,7 @@ function updateFormIndex(row, prefix, index) {
             element.name = element.name.replace(regex, replacement);
         }
     });
-    row.setAttribute('id', prefix + '-' + (index - 1));
+    row.setAttribute("id", prefix + "-" + index);
 }
 
 
@@ -228,43 +158,152 @@ function updateFormIndex(row, prefix, index) {
  * @param {Number} index
  */
 function updateInlineLabel(row, index) {
-    const label = row.querySelector('.inline-label');
+    const label = row.querySelector(".inline-label");
     if (label) {
         label.innerHTML = label.innerHTML.replace(/(#\d+)/g, "#" + index);
     }
 }
 
 
-function initInlineGroups(root = document.body) {
-    root.querySelectorAll('.inline-group').forEach(function(inlineGroup) {
-        switch(inlineGroup.dataset.inlineType) {
-            case "stacked":
-                new Formset(inlineGroup, {
-                    prefix: inlineGroup.dataset.inlinePrefix,
-                    onAdded: function(row, prefix, index) {
-                        updateFormIndex(row, prefix, index);
-                        updateInlineLabel(row, index);
-                    },
-                    onRemove: function(row, prefix, index) {
-                        updateFormIndex(row, prefix, index);
-                        updateInlineLabel(row, index);
-                    }
-                });
-                break;
-            case "tabular":
-                new Formset(inlineGroup, {
-                    prefix: inlineGroup.dataset.inlinePrefix,
-                    onAdded: function(row, prefix, index) {
-                        updateFormIndex(row, prefix, index);
-                    },
-                    onRemove: function(row, prefix, index) {
-                        updateFormIndex(row, prefix, index);
-                    }
-                });
-                break;
-        }
+/**
+ * Получение всех форм, кроме шаблонной.
+ * @returns {NodeListOf<Element>}
+ */
+Formset.prototype.getRows = function() {
+    return this.root.querySelectorAll("." + this.opts.formCssClass + ":not(." + this.opts.emptyCssClass + ")");
+}
+
+
+/**
+ * Обновление порядковых номеров для всех форм.
+ */
+Formset.prototype.updateFormIndexes = function() {
+    const prefix = this.opts.prefix;
+    this.getRows().forEach(function(row, index) {
+        updateFormIndex(row, prefix, index);
+        updateInlineLabel(row, index + 1);
     });
 }
 
 
-whenDomReady(initInlineGroups);
+/**
+ * Добавление новой формы.
+ * @returns {?Node}
+ */
+Formset.prototype.addRow = function() {
+    if (this.mgmt.totalForms() >= this.mgmt.maxForms()) {
+        return null
+    }
+
+    const templateElement = this.root.querySelector("." + this.opts.emptyCssClass);
+    if (!templateElement) {
+        throw new Error("template form not found");
+    }
+
+    const row = templateElement.cloneNode(true);
+    const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
+    row.classList.remove(this.opts.emptyCssClass);
+    templateElement.parentNode.insertBefore(row, templateElement);
+
+    const formIndex = this.mgmt.totalForms()
+    updateFormIndex(row, this.opts.prefix, formIndex);
+    updateInlineLabel(row, formIndex + 1);
+
+    emitters.inlines.trigger("add", [row, this.opts.prefix]);
+    this.toggleButtonState(false);
+
+    const addRowHandler = function() {
+        let totalForms = this.mgmt.totalForms();
+        this.mgmt.totalForms(++totalForms);
+
+        this.toggleButtonState(true);
+        this.toggleAddButtonVisibility();
+        this.toggleDeleteButtonVisibility();
+        this.updateFormIndexes();
+        this.onRowAdded(row);
+    }.bind(this);
+
+    window.scrollTo({
+        top: pageYOffset
+    });
+
+    if (row.tagName !== "TR") {
+        gsap.from(row, {
+            duration: this.opts.animationSpeed / 1000,
+            height: 0,
+            clearProps: "all",
+            onComplete: addRowHandler
+        });
+    } else {
+        addRowHandler();
+    }
+
+    return row;
+}
+
+
+/**
+ * Событие, вызываемое после добавления новой формы.
+ * @param {Element|Node} row
+ */
+Formset.prototype.onRowAdded = function(row) {
+    emitters.dom.trigger("mutate", [row]);
+    emitters.inlines.trigger("added", [row, this.opts.prefix]);
+
+    // Django compatible
+    $(document).trigger("formset:added", [$(row), this.opts.prefix]);
+}
+
+
+/**
+ * Удаление формы.
+ * @param {Element|Node} row
+ */
+Formset.prototype.deleteRow = function(row) {
+    if (this.mgmt.totalForms() <= this.mgmt.minForms()) {
+        return null
+    }
+
+    emitters.dom.trigger("release", [row]);
+    emitters.inlines.trigger("remove", [row, this.opts.prefix]);
+    this.toggleButtonState(false);
+
+    const deleteRowHandler = function() {
+        row.parentNode.removeChild(row);
+
+        let totalForms = this.mgmt.totalForms();
+        this.mgmt.totalForms(--totalForms);
+
+        this.toggleButtonState(true);
+        this.toggleAddButtonVisibility();
+        this.toggleDeleteButtonVisibility();
+        this.updateFormIndexes();
+        this.onRowRemoved(row);
+    }.bind(this);
+
+    // animation
+    if (row.tagName !== "TR") {
+        gsap.to(row, {
+            duration: this.opts.animationSpeed / 1000,
+            height: 0,
+            onComplete: deleteRowHandler
+        });
+    } else {
+        deleteRowHandler();
+    }
+}
+
+
+/**
+ * Событие, вызываемое после удаления новой формы.
+ * @param {Element|Node} row
+ */
+Formset.prototype.onRowRemoved = function(row) {
+    emitters.inlines.trigger("removed", [row, this.opts.prefix]);
+
+    // Django compatible
+    $(document).trigger("formset:removed", [$(row), this.opts.prefix]);
+}
+
+
+export default Formset;

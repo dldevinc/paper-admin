@@ -47,11 +47,13 @@
               </label>
             {% endif %}
 
-            <button type="button" class="delete-row tool-item text-danger"
-                    data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-                    data-html="true" title="{% trans 'Remove' %}" hidden>
-              <i class="fa fa-fw fa-trash"></i>
-            </button>
+            {% if not inline_admin_form.original and not inline_admin_form.show_url %}
+              <button type="button" class="delete-row tool-item text-danger"
+                      data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+                      data-html="true" title="{% trans 'Remove' %}">
+                <i class="fa fa-fw fa-trash"></i>
+              </button>
+            {% endif %}
 
             {% if inline_admin_formset.opts.sortable %}
               <button type="button" class="sortable-move-up tool-item text-info"

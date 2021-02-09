@@ -2,8 +2,8 @@
 
 import whenDomReady from "when-dom-ready";
 import hookUnload from "./components/hook_unload";
-import "./components/inlines/inlines";
-import "./components/inlines/sortable";
+import Formset from "./components/inlines/inlines";
+import SortableFormset from "./components/inlines/sortable_inlines";
 import "./components/RelatedObjectLookups";
 import "./components/autosize";
 import "./components/tabs";
@@ -27,4 +27,17 @@ whenDomReady(function() {
     if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
         import(/* webpackChunkName: "prepopulate" */ './components/prepopulate/prepopulate');
     }
+
+    // инициализация inline-форм
+    document.querySelectorAll('.sortable-inline-group').forEach(function(inlineGroup) {
+        new SortableFormset(inlineGroup, {
+            prefix: inlineGroup.dataset.inlinePrefix
+        });
+    });
+
+    document.querySelectorAll('.inline-group:not(.sortable-inline-group)').forEach(function(inlineGroup) {
+        new Formset(inlineGroup, {
+            prefix: inlineGroup.dataset.inlinePrefix
+        });
+    });
 });

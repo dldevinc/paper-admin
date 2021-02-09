@@ -28,10 +28,10 @@ function SortButtons(root, options) {
     /** @type module:SortButtons.SortButtonsOptions */
     this.opts = Object.assign({
         speed: 1,
-        items: '.item',
-        moveUpBtn: '.move-up',
-        moveDownBtn: '.move-down',
-        disabledClass: 'disabled',
+        items: ".item",
+        moveUpBtn: ".move-up",
+        moveDownBtn: ".move-down",
+        disabledClass: "disabled",
         scrollWindow: true,
         scrollMargin: {
             top: 300,
@@ -44,10 +44,11 @@ function SortButtons(root, options) {
     /** @type {Element} */
     this.root = root;
 
-    root.addEventListener('click', this._onClick.bind(this));
-    root.addEventListener('update:sortbuttons', this.updateBounds.bind(this));
+    root.addEventListener("click", this._onClick.bind(this));
+    root.addEventListener("update:sortbuttons", this.updateBounds.bind(this));
     this.updateBounds();
 }
+
 
 /**
  * Обработчик события клика в пределах корневого элемента.
@@ -85,7 +86,8 @@ SortButtons.prototype._onClick = function(event) {
             this.moveDown(item);
         }
     }
-};
+}
+
 
 /**
  * Поиск ближайшего перемещаемого элемента справа, начиная с element.
@@ -105,7 +107,8 @@ SortButtons.prototype._findNextItem = function(element) {
         }
     }
     return nextItem;
-};
+}
+
 
 /**
  * Поиск ближайшего перемещаемого элемента слева, начиная с element.
@@ -125,7 +128,17 @@ SortButtons.prototype._findPreviousItem = function(element) {
         }
     }
     return prevItem;
-};
+}
+
+
+/**
+ * Получение всех сортируемых элементов.
+ * @returns {NodeListOf<Element>}
+ */
+SortButtons.prototype.getItems = function() {
+    return this.root.querySelectorAll(this.opts.items + (this.opts.ignore ? ":not(" + this.opts.ignore + ")": ""));
+}
+
 
 /**
  * Перемещение элемента вниз.
@@ -136,7 +149,8 @@ SortButtons.prototype.moveDown = function(item) {
     if (nextItem) {
         this._swap(item, nextItem);
     }
-};
+}
+
 
 /**
  * Перемещение элемента наверх.
@@ -147,7 +161,8 @@ SortButtons.prototype.moveUp = function(item) {
     if (prevItem) {
         this._swap(prevItem, item, true);
     }
-};
+}
+
 
 /**
  * Меняет местами два соседних элемента elem1 и elem2 с анимацией.
@@ -190,8 +205,8 @@ SortButtons.prototype._swap = function(elem1, elem2, reversed=false) {
             this.updateBounds();
         }.bind(this)
     })
-    .to(elem1, {duration: this.opts.speed, y: 0, clearProps: 'all'})
-    .to(elem2, {duration: this.opts.speed, y: 0, clearProps: 'all'}, 0);
+    .to(elem1, {duration: this.opts.speed, y: 0, clearProps: "all"})
+    .to(elem2, {duration: this.opts.speed, y: 0, clearProps: "all"}, 0);
 
     if (this.opts.scrollWindow) {
         const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
@@ -217,10 +232,11 @@ SortButtons.prototype._swap = function(elem1, elem2, reversed=false) {
     }
 
     // callback
-    if (typeof this.opts.onChange === 'function') {
+    if (typeof this.opts.onChange === "function") {
         this.opts.onChange.call(this, elem1, elem2);
     }
-};
+}
+
 
 /**
  * Отключение кнопок сортировки.
@@ -231,7 +247,8 @@ SortButtons.prototype.disableItemButtons = function(item) {
     const downBtn = item.querySelector(this.opts.moveDownBtn);
     upBtn.classList.add(this.opts.disabledClass);
     downBtn.classList.add(this.opts.disabledClass);
-};
+}
+
 
 /**
  * Отключение у граничных элементов кнопок, которые не имеют смысла.
@@ -264,7 +281,7 @@ SortButtons.prototype.updateBounds = function() {
             lastItemBtn.classList.add(this.opts.disabledClass);
         }
     }
-};
+}
 
 
 export default SortButtons;
