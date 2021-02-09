@@ -73,13 +73,13 @@
     min-height: $sidebar-brand-min-height;
     white-space: normal;
     border-bottom: 1px solid $sidebar-brand-border-color;
+  }
 
-    a {
-      display: inline-block;
-      color: $sidebar-brand-color;
-      word-break: break-word;
-      vertical-align: top;
-    }
+  .navbar-brand-name {
+    display: inline-block;
+    color: $sidebar-brand-name-color;
+    word-break: break-word;
+    vertical-align: top;
   }
 }
 

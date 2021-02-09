@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.1.1](https://github.com/dldevinc/paper-admin/tree/v1.1.1) - 2021-02-09
+- Add "View site" link
+
 ## [1.1.0](https://github.com/dldevinc/paper-admin/tree/v1.1.0) - 2021-02-09
 - Update deps
 - Rewrite `inlines.js`

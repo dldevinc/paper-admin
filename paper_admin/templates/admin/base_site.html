@@ -17,11 +17,9 @@
     <div class="sidebar-scroll" style="background-image: url({% static 'paper_admin/dist/image/menu_bg.jpg' %})">
       <nav class="navbar navbar-dark flex-column align-items-stretch p-0">
         {% block branding %}
-          {% if site_url %}
-            <div class="navbar-brand">
-              <a href="{% url 'admin:index' %}">{{ site_header }}</a>
-            </div>
-          {% endif %}
+          <div class="navbar-brand">
+            <a href="{% url 'admin:index' %}" class="navbar-brand-name">{{ site_header }}</a>
+          </div>
         {% endblock %}
 
         {% include 'paper_admin/environment.html' %}
@@ -44,9 +42,9 @@
         {% block header_brand %}
           <div class="navbar-brand d-none d-lg-block{% if not is_popup %} d-xl-none{% endif %}">
             {% if is_popup %}
-              {{ site_header }}
+              <span class="navbar-brand-name">{{ site_header }}</span>
             {% else %}
-              <a href="{% url 'admin:index' %}" class="text-dark">{{ site_header }}</a>
+              <a href="{% url 'admin:index' %}" class="navbar-brand-name">{{ site_header }}</a>
             {% endif %}
           </div>
         {% endblock %}
@@ -61,6 +59,19 @@
               {% block header_navbar_items %}
                 {% if not is_popup %}
                   <li class="nav-item divider"></li>
+
+                  <li class="nav-item">
+                    <a href="{{ site_url }}"
+                       class="nav-link"
+                       data-toggle="tooltip"
+                       data-placement="bottom"
+                       data-trigger="hover"
+                       data-html="true"
+                       title="{% translate 'View site' %}">
+                      <i class="fa fa-fw fa-eye"></i>
+                      <span class="d-none d-sm-inline">{% translate 'View site' %}</span>
+                    </a>
+                  </li>
 
                   <li class="nav-item dropdown">
                     <a href="#" id="userProfileMenu"

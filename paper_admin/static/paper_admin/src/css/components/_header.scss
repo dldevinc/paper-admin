@@ -16,19 +16,20 @@
 
   & > .navbar {
     padding: 0.4375rem 0;
+    min-height: inherit;
   }
 
   .navbar-brand {
     flex: 1 0 0;
     line-height: 1;
     white-space: normal;
+  }
 
-    a {
-      color: $header-navbar-brand-color;
-      font-size: $header-navbar-brand-font-size;
-      @include media-breakpoint-up(sm) {
-        font-size: $header-navbar-brand-font-size-sm;
-      }
+  .navbar-brand-name {
+    color: $header-navbar-brand-color;
+    font-size: $header-navbar-brand-font-size;
+    @include media-breakpoint-up(sm) {
+      font-size: $header-navbar-brand-font-size-sm;
     }
   }
 
