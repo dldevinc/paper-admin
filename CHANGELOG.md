@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.1.0](https://github.com/dldevinc/paper-admin/tree/v1.1.0) - 2021-02-09
+- Update deps
+- Rewrite `inlines.js`
+- Check `has_delete_permission` for inline forms
+- Add "Clear all filters" button
+
 ## [1.0.4](https://github.com/dldevinc/paper-admin/tree/v1.0.4) - 2020-10-20
 - Fix form dropdowns
 
