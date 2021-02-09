@@ -96,5 +96,5 @@
             sortable = "order"
 
 """
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 default_app_config = "paper_admin.apps.Config"
