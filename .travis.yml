@@ -6,9 +6,9 @@ python:
 before_install:
   - nvm install 14
   - node --version
-  - pip install twine
-  - pip install -U pip setuptools wheel tox-travis
   - npm i
+  - pip install -U pip setuptools wheel tox-travis
+  - pip install twine
   - pip install -r ./requirements_dev.txt
   - npx webpack
 branches:
