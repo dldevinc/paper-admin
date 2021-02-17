@@ -6,6 +6,7 @@ from django.contrib.admin.utils import flatten_fieldsets
 from django.utils.functional import cached_property
 
 from ..forms.widgets import CustomCheckboxInput
+from ..renderer import PaperFormRenderer
 
 
 class ActionForm(helpers.ActionForm):
@@ -16,6 +17,8 @@ class ActionForm(helpers.ActionForm):
         См. novalidate для bootstrap:
             http://getbootstrap.com/docs/4.0/components/forms/#custom-styles
     """
+    default_renderer = PaperFormRenderer
+
     action = forms.ChoiceField(
         label="",
         required=False,
