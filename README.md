@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'paper_admin',
     'paper_admin.patches.django_solo',  # optional
     'paper_admin.patches.mptt',         # optional
+    'paper_admin.patches.post_office',  # optional
     # ...
     'django.contrib.admin',
     # ...
