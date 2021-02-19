@@ -1,6 +1,10 @@
 # Change Log
 
-## [1.1.2](https://github.com/dldevinc/paper-admin/tree/v1.1.1) - 2021-02-17
+## [1.1.3](https://github.com/dldevinc/paper-admin/tree/v1.1.3) - 2021-02-19
+- Rollback implicit form renderer for `ActionForm`
+- Add [django-post-office](https://github.com/dldevinc/django-post_office) patch
+
+## [1.1.2](https://github.com/dldevinc/paper-admin/tree/v1.1.2) - 2021-02-17
 - Fix for custom `FORM_RENDERER`
 
 ## [1.1.1](https://github.com/dldevinc/paper-admin/tree/v1.1.1) - 2021-02-09
