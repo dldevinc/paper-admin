@@ -173,14 +173,3 @@ PAPER_MENU = [
 | `PAPER_SUPPORT_COMPANY`   | Название компании в подвале           | 'Web Studio Inc.'     |
 | `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале     | 'https://webstudio.com/' |
 | `PAPER_MENU`              | Меню в сайдбаре                       | |
-
-
-## Development and Testing
-After cloning the Git repository, you should install this
-in a virtualenv and set up for development:
-```shell script
-virtualenv .venv
-source .venv/bin/activate
-pip install -r ./requirements_dev.txt
-pre-commit install
-```
