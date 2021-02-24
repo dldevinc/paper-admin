@@ -29,12 +29,15 @@ INSTALLED_APPS = [
 
 В состав `paper_admin` включены следующие патчи:
 
-* `paper_admin.patches.django_solo`
-    Исправляет хлебные крошки в [django-solo](https://github.com/lazybird/django-solo).
+* `paper_admin.patches.django_solo`<br>
+  Исправляет хлебные крошки в [django-solo](https://github.com/lazybird/django-solo).
 
-* `paper_admin.patches.mptt`
-    Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
-    Предоставляет класс `SortableMPTTModelAdmin` для оформления сортируемого дерева.
+* `paper_admin.patches.mptt`<br>
+  Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
+  Предоставляет класс `SortableMPTTModelAdmin` для оформления сортируемого дерева.
+
+* `paper_admin.patches.post_office`<br>
+  Исправление виджета списка email адресов в [django-post_office](https://github.com/ui/django-post_office)  
 
 **Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
 которые они исправляют.
