@@ -9,7 +9,11 @@ from .sortable import (
 )
 
 __all__ = [
-    "filters", "SortableAdminMixin", "SortableMPTTModelAdmin",
-    "SortableStackedInline", "SortableGenericStackedInline",
-    "SortableTabularInline", "SortableGenericTabularInline"
+    "filters",
+    "SortableAdminMixin",
+    "SortableMPTTModelAdmin",
+    "SortableStackedInline",
+    "SortableGenericStackedInline",
+    "SortableTabularInline",
+    "SortableGenericTabularInline",
 ]

@@ -1,5 +1,5 @@
-from django.forms import widgets
 from django.apps import AppConfig
+from django.forms import widgets
 
 
 def _init_widget(self, *args, **kwargs):

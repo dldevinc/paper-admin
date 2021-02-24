@@ -16,6 +16,7 @@ class ActionForm(helpers.ActionForm):
         См. novalidate для bootstrap:
             http://getbootstrap.com/docs/4.0/components/forms/#custom-styles
     """
+
     action = forms.ChoiceField(
         label="",
         required=False,
@@ -48,7 +49,8 @@ class AdminForm(AdminFormOriginal):
     def fieldset_items(self):
         return [
             Fieldset(
-                self.form, name,
+                self.form,
+                name,
                 readonly_fields=self.readonly_fields,
                 model_admin=self.model_admin,
                 **options
@@ -61,9 +63,20 @@ class AdminForm(AdminFormOriginal):
 
 
 class Fieldset(helpers.Fieldset):
-    def __init__(self, form, name=None, readonly_fields=(), fields=(), classes=(),
-                 tab=None, description=None, model_admin=None):
-        super().__init__(form, name, readonly_fields, fields, classes, description, model_admin)
+    def __init__(
+        self,
+        form,
+        name=None,
+        readonly_fields=(),
+        fields=(),
+        classes=(),
+        tab=None,
+        description=None,
+        model_admin=None,
+    ):
+        super().__init__(
+            form, name, readonly_fields, fields, classes, description, model_admin
+        )
         self._tab = tab
         self.has_visible_field = not all(
             field in self.form.fields and self.form.fields[field].widget.is_hidden
@@ -126,11 +139,16 @@ class InlineAdminForm(helpers.InlineAdminForm):
     """
     Use custom InlineFieldset and AdminField
     """
+
     def __iter__(self):
         for name, options in self.fieldsets:
             yield InlineFieldset(
-                self.formset, self.form, name, self.readonly_fields,
-                model_admin=self.model_admin, **options
+                self.formset,
+                self.form,
+                name,
+                self.readonly_fields,
+                model_admin=self.model_admin,
+                **options
             )
 
     def pk_field(self):
@@ -145,10 +163,12 @@ class InlineAdminForm(helpers.InlineAdminForm):
 
     def deletion_field(self):
         from django.forms.formsets import DELETION_FIELD_NAME
+
         return AdminField(self.form, DELETION_FIELD_NAME)
 
     def ordering_field(self):
         from django.forms.formsets import ORDERING_FIELD_NAME
+
         return AdminField(self.form, ORDERING_FIELD_NAME)
 
 
@@ -190,20 +210,34 @@ class InlineAdminFormSet(InlineAdminFormSetOriginal):
         for form, original in zip(self.formset.initial_forms, self.formset.get_queryset()):
             view_on_site_url = self.opts.get_view_on_site_url(original)
             yield InlineAdminForm(
-                self.formset, form, self.fieldsets, self.prepopulated_fields,
-                original, readonly_fields_for_editing, model_admin=self.opts,
+                self.formset,
+                form,
+                self.fieldsets,
+                self.prepopulated_fields,
+                original,
+                readonly_fields_for_editing,
+                model_admin=self.opts,
                 view_on_site_url=view_on_site_url,
             )
         for form in self.formset.extra_forms:
             yield InlineAdminForm(
-                self.formset, form, self.fieldsets, self.prepopulated_fields,
-                None, self.readonly_fields, model_admin=self.opts,
+                self.formset,
+                form,
+                self.fieldsets,
+                self.prepopulated_fields,
+                None,
+                self.readonly_fields,
+                model_admin=self.opts,
             )
         if self.has_add_permission:
             yield InlineAdminForm(
-                self.formset, self.formset.empty_form,
-                self.fieldsets, self.prepopulated_fields, None,
-                self.readonly_fields, model_admin=self.opts,
+                self.formset,
+                self.formset.empty_form,
+                self.fieldsets,
+                self.prepopulated_fields,
+                None,
+                self.readonly_fields,
+                model_admin=self.opts,
             )
 
     @property

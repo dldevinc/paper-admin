@@ -11,19 +11,24 @@ register = Library()
 class ResultList(admin_list.ResultList):
     def __init__(self, cl, obj, form, items, attrs=None):
         self.obj = obj
-        self.attrs = {
-            "data-id": obj.pk
-        }
+        self.attrs = {"data-id": obj.pk}
         self.attrs.update(attrs or {})
         self.has_add_permission = cl.model_admin.has_add_permission(cl.request)
         self.has_view_permission = cl.model_admin.has_view_permission(cl.request, obj)
-        self.has_change_permission = cl.model_admin.has_change_permission(cl.request, obj)
-        self.has_delete_permission = cl.model_admin.has_delete_permission(cl.request, obj)
+        self.has_change_permission = cl.model_admin.has_change_permission(
+            cl.request, obj
+        )
+        self.has_delete_permission = cl.model_admin.has_delete_permission(
+            cl.request, obj
+        )
 
         if hasattr(cl.model_admin, "get_row_classes"):
-            self.row_classes = " ".join(map(str,
-                filter(bool, cl.model_admin.get_row_classes(cl.request, obj) or [])
-            ))
+            self.row_classes = " ".join(
+                map(
+                    str,
+                    filter(bool, cl.model_admin.get_row_classes(cl.request, obj) or []),
+                )
+            )
         super().__init__(form, items)
 
     @property
@@ -49,11 +54,13 @@ def paper_result_list(cl):
     for h in headers:
         if h["sortable"] and h["sorted"]:
             num_sorted_fields += 1
-    return {"cl": cl,
-            "result_hidden_fields": list(admin_list.result_hidden_fields(cl)),
-            "result_headers": headers,
-            "num_sorted_fields": num_sorted_fields,
-            "results": results(cl)}
+    return {
+        "cl": cl,
+        "result_hidden_fields": list(admin_list.result_hidden_fields(cl)),
+        "result_headers": headers,
+        "num_sorted_fields": num_sorted_fields,
+        "results": results(cl),
+    }
 
 
 @register.simple_tag

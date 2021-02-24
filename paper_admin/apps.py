@@ -8,4 +8,5 @@ class Config(AppConfig):
 
     def ready(self):
         from .monkey_patch import patch
+
         patch()

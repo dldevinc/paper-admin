@@ -21,21 +21,32 @@ def prepopulated_fields_js(context):
 
     prepopulated_fields_json = []
     for field in prepopulated_fields:
-        prepopulated_fields_json.append({
-            "id": field["field"].auto_id,
-            "name": field["field"].name,
-            "dependency_ids": [dependency.auto_id for dependency in field["dependencies"]],
-            "dependency_list": [dependency.name for dependency in field["dependencies"]],
-            "maxLength": field["field"].field.max_length or 50,
-            "allowUnicode": getattr(field["field"].field, "allow_unicode", False)
-        })
+        prepopulated_fields_json.append(
+            {
+                "id": field["field"].auto_id,
+                "name": field["field"].name,
+                "dependency_ids": [
+                    dependency.auto_id for dependency in field["dependencies"]
+                ],
+                "dependency_list": [
+                    dependency.name for dependency in field["dependencies"]
+                ],
+                "maxLength": field["field"].field.max_length or 50,
+                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+            }
+        )
 
-    context.update({
-        "prepopulated_fields_json": json.dumps(prepopulated_fields_json),
-    })
+    context.update(
+        {"prepopulated_fields_json": json.dumps(prepopulated_fields_json),}
+    )
     return context
 
 
 @register.tag(name="prepopulated_fields_js")
 def prepopulated_fields_js_tag(parser, token):
-    return InclusionAdminNode(parser, token, func=prepopulated_fields_js, template_name="prepopulated_fields_js.html")
+    return InclusionAdminNode(
+        parser,
+        token,
+        func=prepopulated_fields_js,
+        template_name="prepopulated_fields_js.html",
+    )

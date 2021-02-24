@@ -214,7 +214,7 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
         perms = conf_item.get("perms")
         if perms:
             if isinstance(perms, str):
-                perms = (perms, )
+                perms = (perms,)
             if hasattr(request, "user") and isinstance(request.user, get_user_model()):
                 user = request.user
                 for perm in perms:
@@ -239,7 +239,9 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
         models = conf_item.get("models")
         if models:
             for conf_subitem in models:
-                subitem = _create_menu_item(request, app_dict, conf_subitem, parent_app=app_name)
+                subitem = _create_menu_item(
+                    request, app_dict, conf_subitem, parent_app=app_name
+                )
                 item.append(subitem)
         elif site_app:
             for site_model in site_app["models"]:

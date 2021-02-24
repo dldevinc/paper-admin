@@ -29,19 +29,50 @@ class Category(models.Model):
         (4, _("Four")),
     )
 
-    f_fk = models.ForeignKey(Tag, verbose_name=_("FK"), related_name="+",
-        null=True, on_delete=models.SET_NULL, help_text=HELP_TEXT
+    f_fk = models.ForeignKey(
+        Tag,
+        verbose_name=_("FK"),
+        related_name="+",
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text=HELP_TEXT
     )
-    f_o2o = models.OneToOneField(Tag, verbose_name=_("One-to-One"), related_name="+",
-        null=True, blank=True, on_delete=models.SET_NULL, help_text=HELP_TEXT
+    f_o2o = models.OneToOneField(
+        Tag,
+        verbose_name=_("One-to-One"),
+        related_name="+",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text=HELP_TEXT
     )
-    f_fk1 = models.ForeignKey(Tag, verbose_name=_("FK Autocomplete"),
-        null=True, on_delete=models.SET_NULL, blank=True, related_name="+", help_text=HELP_TEXT
+    f_fk1 = models.ForeignKey(
+        Tag,
+        verbose_name=_("FK Autocomplete"),
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name="+",
+        help_text=HELP_TEXT
     )
-    f_fk2 = models.ForeignKey(Tag, verbose_name=_("FK Radio"),
-        null=True, on_delete=models.SET_NULL, blank=True, related_name="+", help_text=HELP_TEXT
+    f_fk2 = models.ForeignKey(
+        Tag,
+        verbose_name=_("FK Radio"),
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name="+",
+        help_text=HELP_TEXT
     )
-    f_fk3 = models.ForeignKey(Tag, verbose_name=_("FK Raw ID"), null=True, on_delete=models.SET_NULL, blank=True, related_name="+", help_text=HELP_TEXT)
+    f_fk3 = models.ForeignKey(
+        Tag,
+        verbose_name=_("FK Raw ID"),
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name="+",
+        help_text=HELP_TEXT
+    )
     f_tags = models.ManyToManyField(Tag, verbose_name=_("M2M"), help_text=HELP_TEXT)
     f_tags1 = models.ManyToManyField(Tag, verbose_name=_("M2M Checkboxes"), blank=True, related_name="+", help_text=HELP_TEXT)
     f_tags2 = models.ManyToManyField(Tag, verbose_name=_("M2M Raw ID"), related_name="+", help_text=HELP_TEXT)

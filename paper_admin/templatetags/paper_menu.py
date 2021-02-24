@@ -10,8 +10,12 @@ def paper_menu(context):
     request = context.get("request")
     menu = get_menu(request)
     activate_menu(request, menu)
-    return loader.render_to_string("paper_admin/_menu.html", {
-        "level": 1,
-        "items": menu,
-        "parent": "#sidebar-menu",
-    }, request=request)
+    return loader.render_to_string(
+        "paper_admin/_menu.html",
+        {
+            "level": 1,
+            "items": menu,
+            "parent": "#sidebar-menu",
+        },
+        request=request
+    )

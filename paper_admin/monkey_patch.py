@@ -53,6 +53,7 @@ def patch():
         RelatedFieldWidgetWrapper,
     )
     from .renderer import PaperFormRenderer
+
     extend_class(options.BaseModelAdmin, PaperBaseModelAdmin)
     extend_class(options.ModelAdmin, PaperModelAdmin)
     extend_class(options.InlineModelAdmin, PaperInlineModelAdmin)
@@ -63,4 +64,6 @@ def patch():
     AdminPasswordChangeForm.default_renderer = PaperFormRenderer
     PasswordResetForm.default_renderer = PaperFormRenderer
     SetPasswordForm.default_renderer = PaperFormRenderer
-    PasswordResetView.html_email_template_name = "registration/password_reset_email_alt.html"
+    PasswordResetView.html_email_template_name = (
+        "registration/password_reset_email_alt.html"
+    )

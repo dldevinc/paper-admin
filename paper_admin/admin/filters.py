@@ -106,10 +106,10 @@ class DateFieldListFilter(FieldListFilter):
             "display": _("Any date"),
         }
         for lookup, title in (
-                ("today", _("Today")),
-                ("week", _("This week")),
-                ("month", _("This month")),
-                ("year", _("This year")),
+            ("today", _("Today")),
+            ("week", _("This week")),
+            ("month", _("This month")),
+            ("year", _("This year")),
         ):
             yield {
                 "selected": lookup in self.value,
@@ -199,7 +199,9 @@ class RelatedFieldListFilter(FieldListFilter):
         queryset = rel_model._default_manager.all()
         is_ordered = bool(queryset.query.order_by or rel_model._meta.ordering)
         if not is_ordered:
-            related_admin = model_admin.admin_site._registry.get(field.remote_field.model)
+            related_admin = model_admin.admin_site._registry.get(
+                field.remote_field.model
+            )
             if related_admin is not None:
                 admin_ordering = related_admin.get_ordering(request)
                 queryset = queryset.order_by(*admin_ordering)
@@ -235,10 +237,9 @@ class AllValuesFieldListFilter(FieldListFilter):
             queryset = model_admin.get_queryset(request)
         else:
             queryset = parent_model._default_manager.all()
-        self.lookup_choices = (queryset
-                               .distinct()
-                               .order_by(field.name)
-                               .values_list(field.name, flat=True))
+        self.lookup_choices = (
+            queryset.distinct().order_by(field.name).values_list(field.name, flat=True)
+        )
 
     def choices(self, changelist):
         yield {
@@ -268,29 +269,29 @@ class AllValuesFieldListFilter(FieldListFilter):
 filters.FieldListFilter.register(
     lambda f: f.remote_field,
     RelatedFieldListFilter,
-    take_priority=True
+    take_priority=True,
 )
 
 filters.FieldListFilter.register(
     lambda f: isinstance(f, (models.BooleanField, models.NullBooleanField)),
     BooleanFieldListFilter,
-    take_priority=True
+    take_priority=True,
 )
 
 filters.FieldListFilter.register(
     lambda f: bool(f.choices),
     ChoicesFieldListFilter,
-    take_priority=True
+    take_priority=True,
 )
 
 filters.FieldListFilter.register(
     lambda f: isinstance(f, models.DateField),
     DateFieldListFilter,
-    take_priority=True
+    take_priority=True,
 )
 
 filters.FieldListFilter.register(
     lambda f: True,
     AllValuesFieldListFilter,
-    take_priority=True
+    take_priority=True,
 )

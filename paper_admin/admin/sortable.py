@@ -95,7 +95,7 @@ class SortableAdminMixin(SortableAdminBaseMixin):
                     <i class="fa fa-fw fa-sort"></i>
                 </div>
             '''.strip(),
-                order=getattr(obj, self.sortable)
+                order=getattr(obj, self.sortable),
             )
 
         setattr(func, "short_description", self.sortable_field.verbose_name)
@@ -116,7 +116,7 @@ class SortableAdminMixin(SortableAdminBaseMixin):
             path(
                 "sort/",
                 self.admin_site.admin_view(self.update_order),  # noqa: F821
-                name="%s_%s_sort" % info
+                name="%s_%s_sort" % info,
             ),
         ]
         return urlpatterns + super().get_urls()  # noqa: F821
@@ -151,9 +151,12 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         return JsonResponse({})
 
     def get_max_order(self, request, obj=None):
-        return self.model._default_manager.aggregate(  # noqa: F821
-            max_order=models.Max(self.sortable)
-        )["max_order"] or 0
+        return (
+            self.model._default_manager.aggregate(  # noqa: F821
+                max_order=models.Max(self.sortable)
+            )["max_order"]
+            or 0
+        )
 
     def save_model(self, request, obj, form, change):
         if not change:

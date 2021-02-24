@@ -177,21 +177,31 @@ class PaperModelAdmin:
         return self.get_changelist_formset__overridden(request, **kwargs)  # noqa: F821
 
     def action_checkbox(self, obj):
-        return helpers.checkbox.render(ACTION_CHECKBOX_NAME, str(obj.pk), {
-            "id": "{}-{}".format(ACTION_CHECKBOX_NAME, obj.pk)
-        }, renderer=PaperFormRenderer())
+        return helpers.checkbox.render(
+            ACTION_CHECKBOX_NAME,
+            str(obj.pk),
+            {"id": "{}-{}".format(ACTION_CHECKBOX_NAME, obj.pk)},
+            renderer=PaperFormRenderer(),
+        )
+
     action_checkbox.short_description = mark_safe(
-        helpers.checkbox_toggle.render("action-toggle", "", renderer=PaperFormRenderer())
+        helpers.checkbox_toggle.render(
+            "action-toggle", "", renderer=PaperFormRenderer()
+        )
     )
 
     def history_view(self, request, object_id, extra_context=None):
         log_opts = LogEntry._meta
         codename = get_permission_codename("change", log_opts)
-        has_log_change_permission = request.user.has_perm("%s.%s" % (log_opts.app_label, codename))
+        has_log_change_permission = request.user.has_perm(
+            "%s.%s" % (log_opts.app_label, codename)
+        )
 
         user_opts = get_user_model()._meta
         codename = get_permission_codename("change", user_opts)
-        has_user_change_permission = request.user.has_perm("%s.%s" % (user_opts.app_label, codename))
+        has_user_change_permission = request.user.has_perm(
+            "%s.%s" % (user_opts.app_label, codename)
+        )
 
         default_extra = {
             "log_opts": log_opts,
@@ -247,10 +257,15 @@ class PaperModelAdmin:
         has_change_permission = ctx["has_change_permission"]
         has_view_permission = ctx["has_view_permission"]
         has_editable_inline_admin_formsets = ctx["has_editable_inline_admin_formsets"]
-        can_save = (has_change_permission and change) or (
-                    has_add_permission and add) or has_editable_inline_admin_formsets
+        can_save = (
+            (has_change_permission and change)
+            or (has_add_permission and add)
+            or has_editable_inline_admin_formsets
+        )
 
-        can_save_and_continue = not is_popup and can_save and has_view_permission and show_save_and_continue
+        can_save_and_continue = (
+            not is_popup and can_save and has_view_permission and show_save_and_continue
+        )
         can_change = has_change_permission or has_editable_inline_admin_formsets
         ctx.update({
             "can_change": can_change,
@@ -323,15 +338,20 @@ class RelatedFieldWidgetWrapper:
     FIX: Проброс FORM_RENDERER в get_context, т.к. там рендерятся виджеты.
     Получается, что виджеты рендерятся не тем бэкендом, которым должны.
     """
+
     def get_context(self, name, value, attrs, renderer):
         from django.contrib.admin.views.main import IS_POPUP_VAR, TO_FIELD_VAR
+
         rel_opts = self.rel.model._meta  # noqa: F821
         info = (rel_opts.app_label, rel_opts.model_name)
         self.widget.choices = self.choices  # noqa: F821
-        url_params = "&".join("%s=%s" % param for param in [
-            (TO_FIELD_VAR, self.rel.get_related_field().name),  # noqa: F821
-            (IS_POPUP_VAR, 1),
-        ])
+        url_params = "&".join(
+            "%s=%s" % param
+            for param in [
+                (TO_FIELD_VAR, self.rel.get_related_field().name),  # noqa: F821
+                (IS_POPUP_VAR, 1),
+            ]
+        )
         context = {
             "rendered_widget": self.widget.render(name, value, attrs, renderer=renderer),  # noqa: F821
             "name": name,
