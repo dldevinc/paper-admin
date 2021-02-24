@@ -22,6 +22,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'paper_admin',
+    'paper_admin.patches.dal',
     'paper_admin.patches.django_solo',
     'paper_admin.patches.mptt',
     'django.contrib.admin',
@@ -30,6 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'dal',
+    'dal_select2',
     'mptt',
     'solo',
     'logentry_admin',

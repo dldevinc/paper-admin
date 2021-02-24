@@ -86,6 +86,23 @@ class Category(models.Model):
     f_int_ro = models.IntegerField(_("int RO"), default=0, help_text=HELP_TEXT)
     f_text_ro = models.TextField(_("text RO"), blank=True, help_text=HELP_TEXT)
 
+    # django-autocomplete-light
+    dal_fk = models.ForeignKey(
+        Tag,
+        verbose_name=_("FK"),
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name="+",
+        help_text=HELP_TEXT
+    )
+    dal_m2m = models.ManyToManyField(
+        Tag,
+        verbose_name=_("M2M"),
+        related_name="+",
+        help_text=HELP_TEXT
+    )
+
     order = models.PositiveIntegerField(_("order"), default=0, editable=False)
 
     class Meta:

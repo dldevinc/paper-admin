@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from dal import autocomplete
 from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
@@ -82,6 +83,19 @@ class CategoryForm(forms.ModelForm):
             "f_hidden3": forms.HiddenInput,
             "f_pass": forms.PasswordInput,
             "f_file": forms.FileInput,
+
+            "dal_fk": autocomplete.ModelSelect2(
+                attrs={
+                    "data-theme": "admin-autocomplete"
+                },
+                url="app:ac-tag"
+            ),
+            "dal_m2m": autocomplete.ModelSelect2Multiple(
+                attrs={
+                    "data-theme": "admin-autocomplete"
+                },
+                url="app:ac-tag"
+            ),
         }
 
     def clean(self):
@@ -129,12 +143,20 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
                 "f_filepath", "f_file", "f_image",
             )
         }),
+
+        (None, {
+            "tab": "tab5",
+            "fields": (
+                "dal_fk", "dal_m2m",
+            )
+        }),
     )
     tabs = [
         ("tab1", _("Related Fields")),
         ("tab2", _("Standart Fields")),
         ("tab3", _("File Fields")),
         ("tab4", _("Inlines")),
+        ("tab5", _("Django Autocomplete Light")),
     ]
     form = CategoryForm
     list_per_page = 15

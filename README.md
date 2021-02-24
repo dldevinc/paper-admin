@@ -13,6 +13,7 @@ Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admi
 ```python
 INSTALLED_APPS = [
     'paper_admin',
+    'paper_admin.patches.dal',          # optional
     'paper_admin.patches.django_solo',  # optional
     'paper_admin.patches.mptt',         # optional
     'paper_admin.patches.post_office',  # optional
@@ -28,6 +29,9 @@ INSTALLED_APPS = [
 выглядят инородно. Поэтому приходится применять патчи.
 
 В состав `paper_admin` включены следующие патчи:
+
+* `paper_admin.patches.dal`<br>
+  Исправляет стили виджетов [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light)
 
 * `paper_admin.patches.django_solo`<br>
   Исправляет хлебные крошки в [django-solo](https://github.com/lazybird/django-solo).

@@ -1,4 +1,4 @@
-import "select2";
+import "select2/dist/js/select2.full";
 import whenDomReady from "when-dom-ready";
 import emitters from "../components/emitters";
 
