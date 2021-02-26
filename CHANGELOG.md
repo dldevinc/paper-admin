@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.1.4](https://github.com/dldevinc/paper-admin/tree/v1.1.4) - 2021-02-24
+- Add [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light) patch
+
 ## [1.1.3](https://github.com/dldevinc/paper-admin/tree/v1.1.3) - 2021-02-19
 - Rollback implicit form renderer for `ActionForm`
 - Add [django-post-office](https://github.com/dldevinc/django-post_office) patch
