@@ -1,4 +1,4 @@
-import "select2/dist/js/select2.full";
+import "../helpers/select2";
 import whenDomReady from "when-dom-ready";
 import emitters from "../components/emitters";
 
@@ -30,6 +30,7 @@ function initWidgets(root = document.body) {
             }
         }
     };
+
     root.matches(selector) && initWidget(options, root);
     root.querySelectorAll(selector).forEach(initWidget.bind(null, options));
 }
