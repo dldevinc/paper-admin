@@ -1,4 +1,6 @@
 import os
+
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 
@@ -10,76 +12,76 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's3296tl(k324sma5wez=vyvta+w4!%ez3^nlj#hh5bn=n!i+gr'
+SECRET_KEY = "s3296tl(k324sma5wez=vyvta+w4!%ez3^nlj#hh5bn=n!i+gr"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'paper_admin',
-    'paper_admin.patches.dal',
-    'paper_admin.patches.django_solo',
-    'paper_admin.patches.mptt',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "paper_admin",
+    "paper_admin.patches.dal",
+    "paper_admin.patches.django_solo",
+    "paper_admin.patches.mptt",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
-    'dal',
-    'dal_select2',
-    'mptt',
-    'solo',
-    'logentry_admin',
-    'app',
+    "dal",
+    "dal_select2",
+    "mptt",
+    "solo",
+    "logentry_admin",
+    "app",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = "wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
@@ -101,47 +103,58 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "static"))
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "media"))
 FILE_UPLOAD_PERMISSIONS = 0o666
 
 # =============
 #  Paper Admin
 # =============
-PAPER_SUPPORT_PHONE = '+1 267 626 2554'
-PAPER_SUPPORT_EMAIL = 'office@directlinedev.com'
-PAPER_SUPPORT_COMPANY = 'Direct Line Development'
-PAPER_SUPPORT_WEBSITE = 'https://directlinedev.com/'
+PAPER_SUPPORT_PHONE = "+1 234 567 8900"
+PAPER_SUPPORT_EMAIL = "office@supermega.com"
+PAPER_SUPPORT_COMPANY = "Super Mega Inc."
+PAPER_SUPPORT_WEBSITE = "https://supermega.com/"
 
-PAPER_ENVIRONMENT_NAME = 'development'
-PAPER_ENVIRONMENT_COLOR = '#FFFF00'
+PAPER_ENVIRONMENT_NAME = "development"
+PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 PAPER_MENU = [
     dict(
-        label=_('Dashboard'),
-        url='admin:index',
-        icon='fa fa-fw fa-lg fa-area-chart',
+        label=_("Dashboard"),
+        url="admin:index",
+        icon="fa fa-fw fa-lg fa-area-chart",
     ),
     dict(
-        app='app',
-        icon='fa fa-fw fa-lg fa-home',
+        app="app",
+        icon="fa fa-fw fa-lg fa-home",
         models=[
-            'Tag',
-            'Category',
-            'SubCategory',
-            'SigletonExample'
+            dict(
+                label=_("Index"),
+                url=reverse_lazy("admin:app_list", kwargs={
+                    "app_label": "app"
+                })
+            ),
+            "Tag",
+            dict(
+                label=_("Category"),
+                url="admin:app_category_changelist",
+                perms="app.category_add"
+            ),
+            "SubCategory",
+            "SigletonExample"
         ]
     ),
-    '-',
-    'auth',
+    "-",
+    "auth",
     dict(
-        label=_('Logs'),
-        icon='fa fa-fw fa-lg fa-history',
+        label=_("Logs"),
+        icon="fa fa-fw fa-lg fa-history",
+        perms="admin.view_logentry",
         models=[
-            'admin.LogEntry',
+            "admin.LogEntry"
         ]
     ),
 ]

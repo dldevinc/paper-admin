@@ -154,13 +154,53 @@ PAPER_MENU = [
 
 
 Доступные ключи для формирования пункта меню с помощью словаря:
-* `label`: `str`      - заголовок пункта меню
-* `url`: `str`        - ссылка или именованный URL
-* `icon`: `str`       - CSS-классы иконки
-* `classes`: `str`    - CSS-классы пункта меню
-* `perms`: `str/list` - права, необходимые для отображения пункта (либо строка "superuser")
-* `app`: `str`        - имя приложения. Добавляется к именам моделей в models
-* `models`: `list`    - дочерние пункты меню. Может содержать имена моделей или вложенные словари.
+* `label`: `str`        - заголовок пункта меню
+* `url`: `str`          - ссылка или именованный URL
+* `icon`: `str`         - CSS-классы иконки
+* `classes`: `str`      - CSS-классы пункта меню
+* `perms`: `str/list`   - права, необходимые для отображения пункта (либо строка "superuser")
+* `app`: `str`          - имя приложения. Добавляется к именам моделей в models
+* `models`: `list/dict` - дочерние пункты меню. Может содержать имена моделей или вложенные словари.
+
+#### Пример 1. Собственный пункт меню.
+```python
+from django.urls import reverse_lazy
+
+PAPER_MENU = [
+  dict(
+    app="app",
+    icon="fa fa-fw fa-lg fa-home",
+    models=[
+      dict(
+        label=_("Index"),
+        url=reverse_lazy("admin:app_list", kwargs={
+          "app_label": "app"
+        })
+      ),
+      "Tag",
+      "Category",
+    ]
+  )
+]
+```
+
+#### Пример 2. Отображение пункта модели только при наличии указанных прав.
+```python
+PAPER_MENU = [
+  dict(
+    app="app",
+    icon="fa fa-fw fa-lg fa-home",
+    models=[
+      "Tag",
+      dict(
+        label=_("Category"),
+        url="admin:app_category_changelist",
+        perms="app.category_add"
+      ),
+    ]
+  )
+]
+```
 
 
 ## Settings

@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.1.5](https://github.com/dldevinc/paper-admin/tree/v1.1.5)
+- Fix duplication of menu items to custom internal items
+
 ## [1.1.4](https://github.com/dldevinc/paper-admin/tree/v1.1.4) - 2021-02-24
 - Add [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light) patch
 

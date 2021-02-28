@@ -3,7 +3,6 @@ import logging
 from urllib import parse
 
 from django.contrib.admin import site
-from django.contrib.auth import get_user_model
 from django.shortcuts import resolve_url
 from django.utils.text import capfirst
 
@@ -182,6 +181,29 @@ class MenuItem(MenuItemBase):
         return item
 
 
+def _has_perms(user, perms):
+    """
+    Проверка наличия прав на пункт меню.
+
+    :type perms: str | list[str]
+    :rtype: bool
+    """
+    if not perms:
+        return True
+
+    if isinstance(perms, str):
+        perms = (perms,)
+
+    for perm in perms:
+        if perm == conf.MENU_PERM_SUPERUSER:
+            if not user.is_superuser:
+                return False
+        if not user.has_perm(perm):
+            return False
+
+    return True
+
+
 def _create_menu_item(request, app_dict, conf_item, parent_app=""):
     """
     Создание пункта меню из параметра конфигурации.
@@ -212,22 +234,11 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
 
         # проверка прав
         perms = conf_item.get("perms")
-        if perms:
-            if isinstance(perms, str):
-                perms = (perms,)
-            if hasattr(request, "user") and isinstance(request.user, get_user_model()):
-                user = request.user
-                for perm in perms:
-                    if perm == conf.MENU_PERM_SUPERUSER:
-                        if not user.is_superuser:
-                            return
-                    if not user.has_perm(perm):
-                        return
-            else:
-                return
+        if not _has_perms(request.user, perms):
+            return
 
-        app_name = conf_item.get("app") or parent_app
-        site_app = app_dict.get(app_name)
+        app_name = conf_item.get("app")
+        site_app = app_dict.get(app_name) if app_name else None
         if site_app:
             item.label = site_app["name"]
 
@@ -240,7 +251,7 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
         if models:
             for conf_subitem in models:
                 subitem = _create_menu_item(
-                    request, app_dict, conf_subitem, parent_app=app_name
+                    request, app_dict, conf_subitem, parent_app=app_name or parent_app
                 )
                 item.append(subitem)
         elif site_app:
