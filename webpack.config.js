@@ -1,26 +1,27 @@
-const path = require('path');
-const webpack = require('webpack');
-const pixrem = require('pixrem');
-const autoprefixer = require('autoprefixer');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const pixrem = require("pixrem");
+const autoprefixer = require("autoprefixer");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const SOURCE_DIR = 'paper_admin/static/paper_admin/src';
-const DIST_DIR = 'paper_admin/static/paper_admin/dist';
+const SOURCE_DIR = "paper_admin/static/paper_admin/src";
+const DIST_DIR = "paper_admin/static/paper_admin/dist";
 
 
 module.exports = {
-    devtool: 'source-map',
-    mode: 'production',
+    devtool: "source-map",
+    mode: "production",
     entry: {
         app: path.resolve(`${SOURCE_DIR}/js/app.js`),
     },
     output: {
         path: path.resolve(`${DIST_DIR}`),
-        publicPath: '/static/paper_admin/dist/',
-        filename: '[name].bundle.min.js',
-        chunkFilename: '[name].chunk.min.js'
+        publicPath: "/static/paper_admin/dist/",
+        filename: "[name].bundle.min.js",
+        chunkFilename: "[name].chunk.min.js",
+        assetModuleFilename: "assets/[name][ext][query]"
     },
     module: {
         rules: [
@@ -29,19 +30,19 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: [
                     {
-                        loader: 'babel-loader',
+                        loader: "babel-loader",
                         options: {
-                            cacheDirectory: 'cache'
+                            cacheDirectory: "cache"
                         }
                     }
                 ]
             },
             {
-                test: require.resolve('jquery'),
+                test: require.resolve("jquery"),
                 use: [{
-                    loader: 'expose-loader',
+                    loader: "expose-loader",
                     options: {
-                        exposes: ['$', 'jQuery'],
+                        exposes: ["$", "jQuery"],
                     }
                 }]
             },
@@ -51,7 +52,7 @@ module.exports = {
                 use: [{
                     loader: MiniCssExtractPlugin.loader,
                 }, {
-                    loader: 'fast-css-loader'
+                    loader: "fast-css-loader"
                 }]
             },
             {
@@ -60,13 +61,13 @@ module.exports = {
                     loader: MiniCssExtractPlugin.loader,
                 },
                 {
-                    loader: 'fast-css-loader',
+                    loader: "fast-css-loader",
                     options: {
-                        importLoaders: 1
+                        importLoaders: 2
                     }
                 },
                 {
-                    loader: 'postcss-loader',
+                    loader: "postcss-loader",
                     options: {
                         postcssOptions: {
                             plugins: [
@@ -77,7 +78,7 @@ module.exports = {
                     }
                 },
                 {
-                    loader: 'sass-loader',
+                    loader: "sass-loader",
                     options: {
                         sassOptions: {
                             includePaths: [
@@ -88,24 +89,8 @@ module.exports = {
                 }]
             },
             {
-                test: /\.(woff|woff2)$/i,
-                loader: 'file-loader',
-                options: {
-                    esModule: false,
-                    outputPath: function(url, resourcePath, context) {
-                        const basename = path.basename(resourcePath);
-                        const dirname = path.basename(path.dirname(resourcePath));
-                        return path.join('fonts', dirname, basename);
-                    }
-                }
-            },
-            {
-                test: /\.(jpe?g|png|gif)$/i,
-                loader: 'file-loader',
-                options: {
-                    esModule: false,
-                    name: 'image/[name].[ext]',
-                }
+                test: /\.(jpe?g|png|gif|woff2?|ttf|eot|svg)$/i,
+                type: "asset/resource",
             }
         ]
     },
@@ -114,11 +99,11 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
-            'window.jQuery': "jquery"
+            "window.jQuery": "jquery"
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].min.css',
-            chunkFilename: '[name].chunk.min.css',
+            filename: "[name].min.css",
+            chunkFilename: "[name].chunk.min.css",
         }),
     ],
     optimization: {
