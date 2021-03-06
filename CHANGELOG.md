@@ -1,8 +1,9 @@
 # Change Log
 
-## [1.1.5](https://github.com/dldevinc/paper-admin/tree/v1.1.5)
-- Patch `select2.js` to get rid of the jump effect
-- Fix duplication of menu items to custom internal items
+## [1.1.5](https://github.com/dldevinc/paper-admin/tree/v1.1.5) - 2021-03-06
+- Use Bootstrap v4.6.0
+- Patch `select2.js` to get rid of the jump effect after ajax load. 
+- Fix leakage of menu items into internal elements.
 
 ## [1.1.4](https://github.com/dldevinc/paper-admin/tree/v1.1.4) - 2021-02-24
 - Add [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light) patch
