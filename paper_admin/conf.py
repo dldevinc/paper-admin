@@ -11,6 +11,7 @@ SUPPORT_WEBSITE = getattr(settings, "PAPER_SUPPORT_WEBSITE", None)
 
 MENU = getattr(settings, "PAPER_MENU", None)
 MENU_DIVIDER = getattr(settings, "PAPER_MENU_DIVIDER", "-")
+MENU_PERM_STAFF = getattr(settings, "PAPER_MENU_PERM_STAFF", "staff")
 MENU_PERM_SUPERUSER = getattr(settings, "PAPER_MENU_PERM_SUPERUSER", "superuser")
 MENU_HIDE_SINGLE_CHILD = getattr(settings, "PAPER_MENU_HIDE_SINGLE_CHILD", True)
 

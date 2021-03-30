@@ -198,8 +198,12 @@ def _has_perms(user, perms):
         if perm == conf.MENU_PERM_SUPERUSER:
             if not user.is_superuser:
                 return False
-        if not user.has_perm(perm):
-            return False
+        elif perm == conf.MENU_PERM_STAFF:
+            if not user.is_staff:
+                return False
+        else:
+            if not user.has_perm(perm):
+                return False
 
     return True
 
