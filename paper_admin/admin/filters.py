@@ -78,12 +78,16 @@ class FieldListFilter(filters.ListFilter):
         self.field_path = field_path
         self.title = getattr(field, "verbose_name", field_path)
         super().__init__(request, params, model, model_admin)
-        params.pop(self.field_path, None)
-        values_list = request.GET.getlist(self.field_path)
+        params.pop(self.parameter_name, None)
+        values_list = request.GET.getlist(self.parameter_name)
         self.value = list(filter(lambda x: x != "", values_list))
 
     def get_template(self):
         return self.template
+
+    @property
+    def parameter_name(self):
+        return self.field_path
 
     def has_output(self):
         return True

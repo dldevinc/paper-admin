@@ -6,12 +6,12 @@
       <li>
         <div class="custom-control user-select-none vCustomCheckbox">
           <input type="checkbox"
-                 id="id_{{ spec.field_path }}-{{ choice.value }}"
+                 id="id_{{ spec.parameter_name }}-{{ choice.value }}"
                  value="{{ choice.value }}"
-                 name="{{ spec.field_path }}"
+                 name="{{ spec.parameter_name }}"
                  class="custom-control-input"
                  {{ choice.selected|yesno:"checked," }}>
-          <label class="custom-control-label" for="id_{{ spec.field_path }}-{{ choice.value }}">
+          <label class="custom-control-label" for="id_{{ spec.parameter_name }}-{{ choice.value }}">
             {{ choice.display }}
           </label>
         </div>
