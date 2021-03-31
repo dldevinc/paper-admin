@@ -185,11 +185,14 @@ def _has_perms(user, perms):
     """
     Проверка наличия прав на пункт меню.
 
-    :type perms: str | list[str]
+    :type perms: str | list[str] | function
     :rtype: bool
     """
     if not perms:
         return True
+
+    if callable(perms):
+        return perms()
 
     if isinstance(perms, str):
         perms = (perms,)
