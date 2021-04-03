@@ -5,6 +5,7 @@ const autoprefixer = require("autoprefixer");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 const SOURCE_DIR = "paper_admin/static/paper_admin/src";
 const DIST_DIR = "paper_admin/static/paper_admin/dist";
@@ -96,6 +97,7 @@ module.exports = {
         ]
     },
     plugins: [
+        // new BundleAnalyzerPlugin(),
         new webpack.ProgressPlugin(),
         new webpack.ProvidePlugin({
             $: "jquery",
