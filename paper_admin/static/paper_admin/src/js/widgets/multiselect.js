@@ -1,8 +1,8 @@
 import "multiselect";
-import emitters from "../components/emitters";
+import emitters from "js/components/emitters";
 
 // CSS
-import "../../css/widgets/multiselect.scss";
+import "css/widgets/multiselect.scss";
 
 
 function initWidget(element) {

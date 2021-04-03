@@ -1,9 +1,9 @@
 import flatpickr from "flatpickr";
-import emitters from "../components/emitters";
+import emitters from "js/components/emitters";
 
 // CSS
 import "flatpickr/dist/flatpickr.min.css";
-import "../../css/widgets/datetime.scss";
+import "css/widgets/datetime.scss";
 
 
 function initWidget(options, element) {

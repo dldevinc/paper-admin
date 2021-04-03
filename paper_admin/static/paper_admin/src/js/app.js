@@ -2,30 +2,30 @@
 
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
-import ScrollTopButton from "./components/ScrollTopButton";
-import "./components/bootstrap";
-import "./components/cancel";
-import "./components/filedrag";
-import "./components/form_utils";
-import "./components/menu";
-import "./components/modals";
+import ScrollTopButton from "js/components/ScrollTopButton";
+import "js/components/bootstrap";
+import "js/components/cancel";
+import "js/components/filedrag";
+import "js/components/form_utils";
+import "js/components/menu";
+import "js/components/modals";
 
 // CSS
-import "../css/fonts.scss";
-import "../css/common.scss";
-import "../css/dashboard.scss";
-import "../css/app_index.scss";
-import "../css/history.scss";
-import "../css/login.scss";
-import "../css/delete.scss";
-import "../css/changelist.scss";
-import "../css/changeform.scss";
+import "css/fonts.scss";
+import "css/common.scss";
+import "css/dashboard.scss";
+import "css/app_index.scss";
+import "css/history.scss";
+import "css/login.scss";
+import "css/delete.scss";
+import "css/changelist.scss";
+import "css/changeform.scss";
 
 // Images
-import "../img/favicon.png";
-import "../img/menu_bg.jpg";
+import "img/favicon.png";
+import "img/menu_bg.jpg";
 
 
 // Set django.jQuery for compatibility
@@ -47,17 +47,17 @@ if (sidebar_root) {
 
 // changelist page
 if (document.body.classList.contains('changelist-page')) {
-    import(/* webpackChunkName: "changelist" */ './changelist');
+    import(/* webpackChunkName: "changelist" */ 'js/changelist');
 }
 
 // changeform page
 if (document.body.classList.contains('changeform-page')) {
-    import(/* webpackChunkName: "changeform" */ './changeform');
+    import(/* webpackChunkName: "changeform" */ 'js/changeform');
 }
 
 // passwordform page
 if (document.body.classList.contains('passwordform-page')) {
-    import(/* webpackChunkName: "passwordform" */ './passwordform');
+    import(/* webpackChunkName: "passwordform" */ 'js/passwordform');
 }
 
 

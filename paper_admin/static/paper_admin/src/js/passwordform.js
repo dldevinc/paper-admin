@@ -1,5 +1,5 @@
-import hookUnload from "./components/hook_unload";
-import "./widgets/password";
+import hookUnload from "js/components/hook_unload";
+import "js/widgets/password";
 
 
 // предупреждение при закрытии формы

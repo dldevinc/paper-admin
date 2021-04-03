@@ -1,9 +1,9 @@
-import "../helpers/select2";
-import emitters from "../components/emitters";
+import "js/helpers/select2";
+import emitters from "js/components/emitters";
 
 // CSS
 import "select2/dist/css/select2.min.css";
-import "../../css/widgets/autocomplete.css";
+import "css/widgets/autocomplete.css";
 
 
 function initWidget(options, element) {

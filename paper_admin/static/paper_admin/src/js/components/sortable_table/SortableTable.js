@@ -14,8 +14,8 @@
  */
 
 import Sortable from "sortablejs";
-import ListTree from "./ListTree";
-import StaggerHighlight from "./StaggerHighlight";
+import ListTree from "js/components/sortable_table/ListTree";
+import StaggerHighlight from "js/components/sortable_table/StaggerHighlight";
 
 /**
  * Конструктор объектов SortableTable.

@@ -96,6 +96,9 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        modules: [SOURCE_DIR, "node_modules"],
+    },
     plugins: [
         // new BundleAnalyzerPlugin(),
         new webpack.ProgressPlugin(),

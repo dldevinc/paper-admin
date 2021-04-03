@@ -1,5 +1,5 @@
 import "bootstrap";
-import emitters from "./emitters";
+import emitters from "js/components/emitters";
 
 
 /**

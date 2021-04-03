@@ -1,9 +1,9 @@
 /* global gettext */
 
-import SortableTable from "./components/sortable_table/SortableTable";
-import "./components/actions";
-import "./components/RelatedObjectLookups";
-import "./components/search";
+import SortableTable from "js/components/sortable_table/SortableTable";
+import "js/components/actions";
+import "js/components/RelatedObjectLookups";
+import "js/components/search";
 
 
 // Ctrl + Arrows navigation

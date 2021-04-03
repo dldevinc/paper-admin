@@ -1,7 +1,7 @@
-import emitters from "../emitters";
-import formUtils from "../form_utils";
-import Formset from "./inlines";
-import SortButtons from "./SortButtons";
+import emitters from "js/components/emitters";
+import formUtils from "js/components/form_utils";
+import Formset from "js/components/inlines/inlines";
+import SortButtons from "js/components/inlines/SortButtons";
 
 
 /**

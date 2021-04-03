@@ -1,5 +1,5 @@
-import emitters from "../emitters";
-import urlify from "./urlify";
+import emitters from "js/components/emitters";
+import urlify from "js/components/prepopulate/urlify";
 
 
 function prepopulate(field, dependencies, maxLength, allowUnicode) {
