@@ -395,10 +395,5 @@ const modals = {
     showPreloader,
     softPreloaderPromise
 };
-export default modals;
 
-// share plugin
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
-    modals,
-});
+export default modals;

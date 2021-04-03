@@ -40,11 +40,5 @@ const emitters = {
      */
     inlines: new EventEmitter(),
 };
-export default emitters;
 
-// share plugin
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
-    EventEmitter,
-    emitters,
-});
+export default emitters;

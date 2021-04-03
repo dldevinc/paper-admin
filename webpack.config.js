@@ -18,10 +18,15 @@ module.exports = {
         app: path.resolve(SOURCE_DIR, "js/app.js"),
     },
     output: {
+        clean: true,
         path: path.resolve(DIST_DIR),
         publicPath: "/static/paper_admin/dist/",
         filename: "[name].min.js",
-        assetModuleFilename: "assets/[name][ext][query]"
+        assetModuleFilename: "assets/[name][ext][query]",
+        library: {
+            name: "paperAdmin",
+            type: "window"
+        }
     },
     cache: {
         type: "filesystem",
@@ -112,6 +117,7 @@ module.exports = {
         }),
     ],
     optimization: {
+        moduleIds: "deterministic",
         splitChunks: {
             cacheGroups: {
                 commons: {

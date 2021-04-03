@@ -163,11 +163,5 @@ const formUtils = {
 
     addFormErrorsFromJSON
 };
+
 export default formUtils;
-
-
-// share plugin
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
-    formUtils: formUtils,
-});

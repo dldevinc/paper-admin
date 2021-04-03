@@ -1,16 +1,18 @@
 /* global gettext */
 
 import * as bootstrap from "bootstrap";
+import EventEmitter from "wolfy87-eventemitter";
 import Sortable from "sortablejs";
 import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
 import ScrollTopButton from "js/components/ScrollTopButton";
+import emitters from "js/components/emitters";
+import modals from "js/components/modals";
+import formUtils from "js/components/form_utils";
 import "js/components/bootstrap";
 import "js/components/cancel";
 import "js/components/filedrag";
-import "js/components/form_utils";
 import "js/components/menu";
-import "js/components/modals";
 
 // CSS
 import "css/fonts.scss";
@@ -26,11 +28,6 @@ import "css/changeform.scss";
 // Images
 import "img/favicon.png";
 import "img/menu_bg.jpg";
-
-
-// Set django.jQuery for compatibility
-window.django = {};
-window.django.jQuery = jQuery;
 
 
 // кнопка скролла к вверху страницы
@@ -61,10 +58,16 @@ if (document.body.classList.contains('passwordform-page')) {
 }
 
 
-// Shared API
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
+export const django = {
+    jQuery
+}
+
+export {
     bootstrap,
+    EventEmitter,
     Sortable,
     PerfectScrollbar,
-});
+    emitters,
+    formUtils,
+    modals,
+};
