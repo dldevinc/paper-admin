@@ -6,16 +6,16 @@
  */
 function isChangedField(field) {
     switch (field.type) {
-        case 'checkbox':
-        case 'radio':
+        case "checkbox":
+        case "radio":
             return field.defaultChecked !== field.checked;
-        case 'button':
-        case 'image':
-        case 'reset':
-        case 'submit':
+        case "button":
+        case "image":
+        case "reset":
+        case "submit":
             return false;
-        case 'select-one':
-        case 'select-multiple':
+        case "select-one":
+        case "select-multiple":
             return Array.from(field.options).some(function(option) {
                 return option.selected !== option.defaultSelected
             });
@@ -31,7 +31,7 @@ function isChangedField(field) {
  * @returns {Boolean}
  */
 function containsChangedField(root) {
-    let fields = root.querySelectorAll('input, select, textarea');
+    let fields = root.querySelectorAll("input, select, textarea");
     return Array.from(fields).some(isChangedField);
 }
 
@@ -42,24 +42,24 @@ function containsChangedField(root) {
  * @param {String, String[]} errors
  */
 function addFieldError(field, errors) {
-    let errorList = field.querySelector('.invalid-feedback ul');
+    let errorList = field.querySelector(".invalid-feedback ul");
     if (errorList === null) {
-        errorList = document.createElement('ul');
-        errorList.classList.add('list-unstyled', 'mb-0');
+        errorList = document.createElement("ul");
+        errorList.classList.add("list-unstyled", "mb-0");
 
-        const feedback = document.createElement('div');
-        feedback.classList.add('invalid-feedback');
+        const feedback = document.createElement("div");
+        feedback.classList.add("invalid-feedback");
         feedback.append(errorList);
         field.append(feedback);
     }
 
-    if (typeof errors === 'string') {
-        const errorListItem = document.createElement('li');
+    if (typeof errors === "string") {
+        const errorListItem = document.createElement("li");
         errorListItem.innerText = errors;
         errorList.append(errorListItem);
     } else {
         errors.forEach(function(error) {
-            const errorListItem = document.createElement('li');
+            const errorListItem = document.createElement("li");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
         });
@@ -71,9 +71,9 @@ function addFieldError(field, errors) {
  * @param {Element} field
  */
 function cleanFieldErrors(field) {
-    let errorList = field.querySelector('.invalid-feedback ul');
+    let errorList = field.querySelector(".invalid-feedback ul");
     if (errorList) {
-        errorList.innerHTML = '';
+        errorList.innerHTML = "";
     }
 }
 
@@ -85,22 +85,22 @@ function cleanFieldErrors(field) {
  * @param {String, String[]} errors
  */
 function addFormError(form, errors) {
-    let errorList = form.querySelector('.messages.list-group');
+    let errorList = form.querySelector(".messages.list-group");
     if (errorList === null) {
-        errorList = document.createElement('ul');
-        errorList.classList.add('messages', 'list-group');
+        errorList = document.createElement("ul");
+        errorList.classList.add("messages", "list-group");
         form.prepend(errorList);
     }
 
-    if (typeof errors === 'string') {
-        const errorListItem = document.createElement('li');
-        errorListItem.classList.add('list-group-item', 'list-group-item-danger');
+    if (typeof errors === "string") {
+        const errorListItem = document.createElement("li");
+        errorListItem.classList.add("list-group-item", "list-group-item-danger");
         errorListItem.innerText = errors;
         errorList.append(errorListItem);
     } else {
         errors.forEach(function(error) {
-            const errorListItem = document.createElement('li');
-            errorListItem.classList.add('list-group-item', 'list-group-item-danger');
+            const errorListItem = document.createElement("li");
+            errorListItem.classList.add("list-group-item", "list-group-item-danger");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
         });
@@ -112,13 +112,13 @@ function addFormError(form, errors) {
  * @param {Element} form
  */
 function cleanFormErrors(form) {
-    let errorLists = form.querySelectorAll('.messages.list-group');
+    let errorLists = form.querySelectorAll(".messages.list-group");
     errorLists.forEach(function(errorList) {
-        errorList.innerHTML = '';
+        errorList.innerHTML = "";
     });
 
-    form.querySelectorAll('.invalid').forEach(function(field) {
-        field.classList.remove('invalid');
+    form.querySelectorAll(".invalid").forEach(function(field) {
+        field.classList.remove("invalid");
     });
 }
 
@@ -127,9 +127,9 @@ function cleanFormErrors(form) {
  * Добавление ошибок к форме из JSON.
  * Пример JSON:
  *  {
- *      'name': [
- *          {message: 'This field is required'},
- *          {message: 'Ensure this value has at least 2 characters'},
+ *      "name": [
+ *          {message: "This field is required"},
+ *          {message: "Ensure this value has at least 2 characters"},
  *      ]
  *  }
  * @param {Element} form
@@ -137,14 +137,14 @@ function cleanFormErrors(form) {
  */
 function addFormErrorsFromJSON(form, json) {
     for (let fieldName in json) {
-        if (fieldName === '__all__') {
+        if (fieldName === "__all__") {
             addFormError(form, json[fieldName].map(record => record.message))
         } else {
-            const field = form.querySelector('.field-' + fieldName);
+            const field = form.querySelector(".field-" + fieldName);
             if (field) {
                 cleanFieldErrors(field);
                 addFieldError(field, json[fieldName].map(record => record.message));
-                field.classList.add('invalid');
+                field.classList.add("invalid");
             }
         }
     }

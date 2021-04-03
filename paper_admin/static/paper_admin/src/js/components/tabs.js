@@ -4,9 +4,9 @@ gsap.registerPlugin(ScrollToPlugin);
 
 
 const ERROR_MIN_VISIBILITY = 50;
-const errorContainers = document.querySelectorAll('.invalid, .formset-errors, .formset-form-errors');
+const errorContainers = document.querySelectorAll(".invalid, .formset-errors, .formset-form-errors");
 const firstErrorContainer = Array.from(errorContainers).find(function(errorContainer) {
-    return errorContainer.innerHTML !== '';
+    return errorContainer.innerHTML !== "";
 });
 
 if (firstErrorContainer) {
@@ -26,19 +26,19 @@ if (firstErrorContainer) {
         });
     }
 } else {
-    const hash = location.hash.substr(1).replace(/-panel$/i, '-tab');
+    const hash = location.hash.substr(1).replace(/-panel$/i, "-tab");
     const current_tab = hash && document.querySelector(`#${hash}`);
     if (current_tab) {
-        $(current_tab).tab('show');
+        $(current_tab).tab("show");
     }
 }
 
-$(document).on('shown.bs.tab', function(event) {
-    const tab_name = event.target.getAttribute('aria-controls');
+$(document).on("shown.bs.tab", function(event) {
+    const tab_name = event.target.getAttribute("aria-controls");
     if (tab_name) {
-        history.replaceState(null, '', `#${tab_name}`);
+        history.replaceState(null, "", `#${tab_name}`);
 
-        const form = document.getElementById('changeform');
+        const form = document.getElementById("changeform");
         if (form) {
             const action = new URL(form.action);
             action.hash = tab_name;

@@ -1,13 +1,13 @@
-document.addEventListener('click', function(event) {
+document.addEventListener("click", function(event) {
     const target = event.target;
-    const toggler = target.closest('.vPasswordTrigger');
+    const toggler = target.closest(".vPasswordTrigger");
     if (toggler) {
-        const field = toggler.closest('.input-group');
-        const icon = field && field.querySelector('i.fa');
-        const input = field && field.querySelector('input');
+        const field = toggler.closest(".input-group");
+        const icon = field && field.querySelector("i.fa");
+        const input = field && field.querySelector("input");
         if (input) {
-            const classes = ['fa-eye-slash', 'fa-eye'];
-            const types = ['text', 'password'];
+            const classes = ["fa-eye-slash", "fa-eye"];
+            const types = ["text", "password"];
             const index = (types.indexOf(input.type) + 1) % 2;
             input.type = types[index];
             icon.classList.add(classes[index]);

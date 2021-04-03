@@ -32,11 +32,11 @@ function SortableFormset(root, options) {
     });
 
     // установка значения поля сортировки перед сохранением
-    document.addEventListener("submit", function(event) {
+    document.addEventListener("submit", function() {
         that.updateFormIndexes();
 
         let currentOrder = 0;
-        that.sortButtons.getItems().forEach(function(item, index) {
+        that.sortButtons.getItems().forEach(function(item) {
             if (item.classList.contains("has_original")
                 || formUtils.containsChangedField(item)) {
                 const input = item.querySelector(".sortable-input");

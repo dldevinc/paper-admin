@@ -7,7 +7,7 @@ import "css/widgets/autocomplete.css";
 
 
 function initWidget(options, element) {
-    if (!element.closest('.empty-form')) {
+    if (!element.closest(".empty-form")) {
         $(element).select2(options);
     }
 }
@@ -18,7 +18,7 @@ function initWidget(options, element) {
  * @param {Element} [root]
  */
 function initWidgets(root = document.body) {
-    let selector = '.admin-autocomplete';
+    let selector = ".admin-autocomplete";
     let options = {
         ajax: {
             data: function(params) {
@@ -36,4 +36,4 @@ function initWidgets(root = document.body) {
 
 
 initWidgets();
-emitters.dom.on('mutate', initWidgets);
+emitters.dom.on("mutate", initWidgets);

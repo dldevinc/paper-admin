@@ -6,7 +6,7 @@ import "css/widgets/multiselect.scss";
 
 
 function initWidget(element) {
-    if (!element.closest('.empty-form')) {
+    if (!element.closest(".empty-form")) {
         $(element).multiSelect();
     }
 }
@@ -17,11 +17,11 @@ function initWidget(element) {
  * @param {Element} [root]
  */
 function initWidgets(root = document.body) {
-    let selector = '.vMultiSelect';
+    let selector = ".vMultiSelect";
     root.matches(selector) && initWidget(root);
     root.querySelectorAll(selector).forEach(initWidget);
 }
 
 
 initWidgets();
-emitters.dom.on('mutate', initWidgets);
+emitters.dom.on("mutate", initWidgets);

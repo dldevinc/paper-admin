@@ -13,40 +13,40 @@ function initBootstrap(root = document.body) {
      * Bootstrap dropdown
      * http://getbootstrap.com/docs/4.0/components/dropdowns/#via-javascript
      */
-    let $dropdowns = $root.find('.dropdown-toggle');
-    $root.is('.dropdown-toggle') && $dropdowns.add($root);
+    let $dropdowns = $root.find(".dropdown-toggle");
+    $root.is(".dropdown-toggle") && $dropdowns.add($root);
     $dropdowns.dropdown();
 
     /**
      * Bootstrap tooltips
      * http://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
      */
-    let $tooltips = $root.find('[data-toggle="tooltip"]');
-    $root.is('[data-toggle="tooltip"]') && $tooltips.add($root);
+    let $tooltips = $root.find("[data-toggle=\"tooltip\"]");
+    $root.is("[data-toggle=\"tooltip\"]") && $tooltips.add($root);
     $tooltips.tooltip({
         delay: {
             show: 500,
             hide: 0
         }
-    }).filter('[data-trigger="hover"]').on('click', function() {
+    }).filter("[data-trigger=\"hover\"]").on("click", function() {
         // FIX: при клике на кнопках сортировки, подсказки остаются висеть на прежнем месте
-        $(this).tooltip('hide');
+        $(this).tooltip("hide");
     });
 
     /**
      * Bootstrap popovers
      * http://getbootstrap.com/docs/4.0/components/popovers/#example-enable-popovers-everywhere
      */
-    let $popovers = $root.find('[data-toggle="popover"]');
-    $root.is('[data-toggle="popover"]') && $popovers.add($root);
+    let $popovers = $root.find("[data-toggle=\"popover\"]");
+    $root.is("[data-toggle=\"popover\"]") && $popovers.add($root);
     $popovers.popover();
 
     /**
      * Bootstrap collapse
      * http://getbootstrap.com/docs/4.0/components/collapse/#via-javascript
      */
-    let $collapses = $root.find('.collapse');
-    $root.is('.collapse') && $collapses.add($root);
+    let $collapses = $root.find(".collapse");
+    $root.is(".collapse") && $collapses.add($root);
     $collapses.collapse({
         toggle: false
     });
@@ -56,29 +56,29 @@ function initBootstrap(root = document.body) {
 /**
  * Клик на иконку с подсказкой
  */
-$(document).on('click.bs.popover', '.vHelpIcon[data-toggle="popover"][data-trigger="manual"]', function() {
-    if (this.hasAttribute('aria-describedby')) {
+$(document).on("click.bs.popover", ".vHelpIcon[data-toggle=\"popover\"][data-trigger=\"manual\"]", function() {
+    if (this.hasAttribute("aria-describedby")) {
         return false
     }
 
     let timer;
-    const $that = $(this).popover('show');
+    const $that = $(this).popover("show");
 
     function hidePopover() {
-        $that.popover('hide');
+        $that.popover("hide");
         timer && clearTimeout(timer);
-        document.removeEventListener('click', closePopoverOnClick, true);
+        document.removeEventListener("click", closePopoverOnClick, true);
     }
 
     function closePopoverOnClick(event) {
-        const popover = event.target.closest('.popover');
+        const popover = event.target.closest(".popover");
         if (!popover) {
             hidePopover();
         }
     }
 
     timer = setTimeout(hidePopover, 8000);
-    document.addEventListener('click', closePopoverOnClick, true);
+    document.addEventListener("click", closePopoverOnClick, true);
 });
 
 
@@ -89,14 +89,14 @@ $(document).on('click.bs.popover', '.vHelpIcon[data-toggle="popover"][data-trigg
 function releaseBootstrap(root = document.body) {
     const $root = $(root);
 
-    $root.is('[data-toggle="tooltip"]') && $root.tooltip('hide');
-    $root.find('[data-toggle="tooltip"]').tooltip('hide');
+    $root.is("[data-toggle=\"tooltip\"]") && $root.tooltip("hide");
+    $root.find("[data-toggle=\"tooltip\"]").tooltip("hide");
 
-    $root.is('[data-toggle="popover"]') && $root.popover('hide');
-    $root.find('[data-toggle="popover"]').popover('hide');
+    $root.is("[data-toggle=\"popover\"]") && $root.popover("hide");
+    $root.find("[data-toggle=\"popover\"]").popover("hide");
 }
 
 
 initBootstrap();
-emitters.dom.on('mutate', initBootstrap);
-emitters.dom.on('release', releaseBootstrap);
+emitters.dom.on("mutate", initBootstrap);
+emitters.dom.on("release", releaseBootstrap);

@@ -16,24 +16,24 @@ import "js/widgets/url";
 
 
 // предупреждение при закрытии формы
-const form = document.getElementById('changeform');
+const form = document.getElementById("changeform");
 if (form) {
     hookUnload(form);
 }
 
 // динамическая подгрузка скрипта для prepopulate_fields
 if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
-    import(/* webpackChunkName: "prepopulate" */ 'js/components/prepopulate/prepopulate');
+    import(/* webpackChunkName: "prepopulate" */ "js/components/prepopulate/prepopulate");
 }
 
 // инициализация inline-форм
-document.querySelectorAll('.sortable-inline-group').forEach(function(inlineGroup) {
+document.querySelectorAll(".sortable-inline-group").forEach(function(inlineGroup) {
     new SortableFormset(inlineGroup, {
         prefix: inlineGroup.dataset.inlinePrefix
     });
 });
 
-document.querySelectorAll('.inline-group:not(.sortable-inline-group)').forEach(function(inlineGroup) {
+document.querySelectorAll(".inline-group:not(.sortable-inline-group)").forEach(function(inlineGroup) {
     new Formset(inlineGroup, {
         prefix: inlineGroup.dataset.inlinePrefix
     });

@@ -32,9 +32,9 @@ ManagementForm.prototype.__property = function(selector) {
     }
 }
 
-ManagementForm.prototype.totalForms = ManagementForm.prototype.__property('input[name$="-TOTAL_FORMS"]');
-ManagementForm.prototype.minForms = ManagementForm.prototype.__property('input[name$="-MIN_NUM_FORMS"]');
-ManagementForm.prototype.maxForms = ManagementForm.prototype.__property('input[name$="-MAX_NUM_FORMS"]');
+ManagementForm.prototype.totalForms = ManagementForm.prototype.__property("input[name$=\"-TOTAL_FORMS\"]");
+ManagementForm.prototype.minForms = ManagementForm.prototype.__property("input[name$=\"-MIN_NUM_FORMS\"]");
+ManagementForm.prototype.maxForms = ManagementForm.prototype.__property("input[name$=\"-MAX_NUM_FORMS\"]");
 
 
 /**

@@ -4,11 +4,11 @@ import urlify from "js/components/prepopulate/urlify";
 
 function prepopulate(field, dependencies, maxLength, allowUnicode) {
     const populate = function() {
-        if (field.dataset._changed === '1') {
+        if (field.dataset._changed === "1") {
             if (field.value) {
                 return
             } else {
-                field.dataset._changed = '0';
+                field.dataset._changed = "0";
             }
         }
 
@@ -16,20 +16,20 @@ function prepopulate(field, dependencies, maxLength, allowUnicode) {
             return dependency.value;
         }).filter(Boolean);
 
-        field.value = urlify(values.join(' '), maxLength, allowUnicode);
+        field.value = urlify(values.join(" "), maxLength, allowUnicode);
     };
 
-    field.dataset._changed = '0';
-    field.addEventListener('change', function() {
-        field.dataset._changed = '1';
+    field.dataset._changed = "0";
+    field.addEventListener("change", function() {
+        field.dataset._changed = "1";
     });
 
     const value = field.value;
     if (!value) {
         dependencies.forEach(function(dependency_field) {
-            dependency_field.addEventListener('keyup', populate);
-            dependency_field.addEventListener('change', populate);
-            dependency_field.addEventListener('focus', populate);
+            dependency_field.addEventListener("keyup", populate);
+            dependency_field.addEventListener("change", populate);
+            dependency_field.addEventListener("focus", populate);
         });
     }
 }
@@ -42,8 +42,8 @@ if (window.django_prepopulated_fields && window.django_prepopulated_fields.lengt
         }).filter(Boolean);
 
         if (dependencies.length) {
-            field.classList.add('prepopulated-field');
-            if (field.closest('.empty-form')) {
+            field.classList.add("prepopulated-field");
+            if (field.closest(".empty-form")) {
                 field.dataset.dependency_list = JSON.stringify(record.dependency_list);
                 field.dataset.maxLength = record.maxLength;
                 field.dataset.allowUnicode = Number(record.allowUnicode).toString();
@@ -53,11 +53,11 @@ if (window.django_prepopulated_fields && window.django_prepopulated_fields.lengt
         }
     }
 
-    emitters.inlines.on('added', function(row, prefix) {
-        row.querySelectorAll('.prepopulated-field').forEach(function(field) {
+    emitters.inlines.on("added", function(row, prefix) {
+        row.querySelectorAll(".prepopulated-field").forEach(function(field) {
             const dependency_list = JSON.parse(field.dataset.dependency_list);
             const dependencies = dependency_list.map(function(field_name) {
-                return row.querySelector('.field-' + field_name + ' [name$="-' + field_name + '"]');
+                return row.querySelector(".field-" + field_name + " [name$=\"-" + field_name + "\"]");
             }).filter(Boolean);
 
             if (dependencies.length) {

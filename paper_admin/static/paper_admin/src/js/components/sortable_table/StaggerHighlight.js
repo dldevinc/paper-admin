@@ -23,7 +23,7 @@
 function StaggerHighlight(elements, options) {
     /** @type module:StaggerHighlight.StaggerHighlightOptions */
     this.opts = Object.assign({
-        className: 'highlight',
+        className: "highlight",
         staggerMin: 12,
         staggerMax: 50
     }, options);

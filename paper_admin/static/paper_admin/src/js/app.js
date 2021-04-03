@@ -33,27 +33,27 @@ import "img/menu_bg.jpg";
 new ScrollTopButton();
 
 // сайдбар
-const sidebar_root = document.getElementById('paper-sidebar');
+const sidebar_root = document.getElementById("paper-sidebar");
 if (sidebar_root) {
     new Sidebar(sidebar_root);
 
-    const scrollbar = sidebar_root.querySelector('.sidebar-scroll');
+    const scrollbar = sidebar_root.querySelector(".sidebar-scroll");
     scrollbar && new PerfectScrollbar(scrollbar);
 }
 
 // changelist page
-if (document.body.classList.contains('changelist-page')) {
-    import(/* webpackChunkName: "changelist" */ 'js/changelist');
+if (document.body.classList.contains("changelist-page")) {
+    import(/* webpackChunkName: "changelist" */ "js/changelist");
 }
 
 // changeform page
-if (document.body.classList.contains('changeform-page')) {
-    import(/* webpackChunkName: "changeform" */ 'js/changeform');
+if (document.body.classList.contains("changeform-page")) {
+    import(/* webpackChunkName: "changeform" */ "js/changeform");
 }
 
 // passwordform page
-if (document.body.classList.contains('passwordform-page')) {
-    import(/* webpackChunkName: "passwordform" */ 'js/passwordform');
+if (document.body.classList.contains("passwordform-page")) {
+    import(/* webpackChunkName: "passwordform" */ "js/passwordform");
 }
 
 

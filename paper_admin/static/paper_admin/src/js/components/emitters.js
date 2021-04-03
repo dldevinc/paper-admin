@@ -7,12 +7,12 @@ const emitters = {
      *  `mutate`    - после добавленя/изменения элемента в дерове DOM.
      *                Используется, например, для инициализации виджетов.
      *                Первым аргументом передаётся самый верхний элемент, добавленный/измененный в DOM.
-     *                  emitters.dom.trigger('mutate', [elem]);
+     *                  emitters.dom.trigger("mutate", [elem]);
      *
      *  `release`   - перед удалением элемента из DOM.
      *                Используется, например, для освобождения ресурсов.
      *                Первым аргументом передаётся самый верхний элемент, удаляемый из DOM.
-     *                  emitters.dom.trigger('release', [elem]);
+     *                  emitters.dom.trigger("release", [elem]);
      */
     dom: new EventEmitter(),
 

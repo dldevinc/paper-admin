@@ -7,7 +7,7 @@ import "css/widgets/datetime.scss";
 
 
 function initWidget(options, element) {
-    if (!element.closest('.empty-form')) {
+    if (!element.closest(".empty-form")) {
         flatpickr(element, options);
     }
 }
@@ -18,7 +18,7 @@ function initWidget(options, element) {
  * @param {Element} [root]
  */
 function initWidgets(root = document.body) {
-    let date_selector = '.vDatePicker';
+    let date_selector = ".vDatePicker";
     let date_options = {
         altInput: true,
         altFormat: "F j, Y",
@@ -27,7 +27,7 @@ function initWidgets(root = document.body) {
     root.matches(date_selector) && initWidget(date_options, root);
     root.querySelectorAll(date_selector).forEach(initWidget.bind(null, date_options));
 
-    let time_selector = '.vTimePicker';
+    let time_selector = ".vTimePicker";
     let time_options = {
         allowInput: true,
         enableTime: true,
@@ -41,19 +41,19 @@ function initWidgets(root = document.body) {
 
 
 initWidgets();
-emitters.dom.on('mutate', initWidgets);
+emitters.dom.on("mutate", initWidgets);
 
 
 /**
  * Симуляция нажатия стрелок при прокрутке колеса мыши на полях выбора времени.
  */
-document.addEventListener('wheel', function(event) {
+document.addEventListener("wheel", function(event) {
     const target = event.target;
-    const widget = target.closest('.numInputWrapper');
-    const input = widget && widget.querySelector('input');
+    const widget = target.closest(".numInputWrapper");
+    const input = widget && widget.querySelector("input");
     if (input) {
         event.preventDefault();
-        const fake_event = new KeyboardEvent('keydown', {
+        const fake_event = new KeyboardEvent("keydown", {
             bubbles: true,
             cancelable: true,
             keyCode: event.deltaY > 0 ? 40 : 38
@@ -66,11 +66,11 @@ document.addEventListener('wheel', function(event) {
 /**
  * Клик на иконку календаря
  */
-document.addEventListener('click', function(event) {
+document.addEventListener("click", function(event) {
     const target = event.target;
-    const button = target.closest('.vDateFieldTrigger');
-    const widget = button && button.closest('.input-group');
-    const input = widget && widget.querySelector('.vDateInput');
+    const button = target.closest(".vDateFieldTrigger");
+    const widget = button && button.closest(".input-group");
+    const input = widget && widget.querySelector(".vDateInput");
     if (input && input._flatpickr) {
         setTimeout(function() {
             input._flatpickr.open();
