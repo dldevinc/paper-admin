@@ -1,7 +1,6 @@
 /* global gettext */
 
 import * as bootstrap from "bootstrap";
-import EventEmitter from "wolfy87-eventemitter";
 import Sortable from "sortablejs";
 import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
@@ -64,7 +63,6 @@ export const django = {
 
 export {
     bootstrap,
-    EventEmitter,
     Sortable,
     PerfectScrollbar,
     emitters,
