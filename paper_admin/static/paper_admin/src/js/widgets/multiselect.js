@@ -1,5 +1,5 @@
 import "multiselect";
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 
 // CSS
 import "css/widgets/multiselect.scss";

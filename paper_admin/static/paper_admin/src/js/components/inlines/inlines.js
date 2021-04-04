@@ -3,7 +3,7 @@
  * @namespace Formset
  */
 
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 import {gsap} from "gsap";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);

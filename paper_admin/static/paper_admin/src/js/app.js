@@ -5,7 +5,7 @@ import Sortable from "sortablejs";
 import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
 import ScrollTopButton from "js/components/ScrollTopButton";
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 import modals from "js/components/modals";
 import formUtils from "js/components/form_utils";
 import "js/components/bootstrap";

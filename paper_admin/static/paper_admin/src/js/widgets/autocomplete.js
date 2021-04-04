@@ -1,5 +1,5 @@
 import "js/helpers/select2";
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 
 // CSS
 import "select2/dist/css/select2.min.css";

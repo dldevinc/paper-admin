@@ -1,4 +1,4 @@
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 import urlify from "js/components/prepopulate/urlify";
 
 

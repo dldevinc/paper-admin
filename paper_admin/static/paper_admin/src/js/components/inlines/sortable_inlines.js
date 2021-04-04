@@ -1,4 +1,4 @@
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 import formUtils from "js/components/form_utils";
 import Formset from "js/components/inlines/inlines";
 import SortButtons from "js/components/inlines/SortButtons";

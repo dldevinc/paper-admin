@@ -1,5 +1,5 @@
 import autosize from "autosize";
-import emitters from "js/components/emitters";
+import emitters from "js/utilities/emitters";
 
 
 function initAutosize(root = document.body) {
