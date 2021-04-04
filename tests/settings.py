@@ -136,14 +136,14 @@ PAPER_MENU = [
                     "app_label": "app"
                 })
             ),
+            "SigletonExample",
             "Tag",
             dict(
                 label=_("Category"),
                 url="admin:app_category_changelist",
                 perms="app.category_add"
             ),
-            "SubCategory",
-            "SigletonExample"
+            "Tree",
         ]
     ),
     "-",

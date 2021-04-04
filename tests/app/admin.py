@@ -13,7 +13,7 @@ from paper_admin.admin import (
 )
 from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
 
-from .models import Category, Item, SigletonExample, SubCategory, Tag
+from .models import Category, Item, SigletonExample, Tree, Tag
 
 
 @admin.register(Tag)
@@ -196,8 +196,8 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         return classes
 
 
-@admin.register(SubCategory)
-class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
+@admin.register(Tree)
+class TreeAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
