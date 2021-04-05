@@ -14,14 +14,17 @@ module.exports = {
     devtool: "source-map",
     mode: "production",
     entry: {
-        app: path.resolve(`${SOURCE_DIR}/js/app.js`),
+        app: path.resolve(SOURCE_DIR, "js/app.js"),
     },
     output: {
-        path: path.resolve(`${DIST_DIR}`),
+        path: path.resolve(DIST_DIR),
         publicPath: "/static/paper_admin/dist/",
-        filename: "[name].bundle.min.js",
-        chunkFilename: "[name].chunk.min.js",
+        filename: "[name].min.js",
         assetModuleFilename: "assets/[name][ext][query]"
+    },
+    cache: {
+        type: "filesystem",
+        cacheDirectory: path.resolve(__dirname, "cache")
     },
     module: {
         rules: [
@@ -32,19 +35,17 @@ module.exports = {
                     {
                         loader: "babel-loader",
                         options: {
-                            cacheDirectory: "cache"
+                            cacheDirectory: path.resolve(__dirname, "cache")
                         }
                     }
                 ]
             },
             {
                 test: require.resolve("jquery"),
-                use: [{
-                    loader: "expose-loader",
-                    options: {
-                        exposes: ["$", "jQuery"],
-                    }
-                }]
+                loader: "expose-loader",
+                options: {
+                    exposes: ["$", "jQuery"],
+                }
             },
 
             {
@@ -82,7 +83,7 @@ module.exports = {
                     options: {
                         sassOptions: {
                             includePaths: [
-                                path.resolve(`${SOURCE_DIR}/css/`)
+                                path.resolve(SOURCE_DIR, "css")
                             ]
                         }
                     }
@@ -102,11 +103,22 @@ module.exports = {
             "window.jQuery": "jquery"
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].min.css",
-            chunkFilename: "[name].chunk.min.css",
+            filename: "[name].min.css"
         }),
     ],
     optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: function(module, chunks, cacheGroupKey) {
+                        const allChunksNames = chunks.map((item) => item.name).join("~");
+                        return `vendors-${allChunksNames}`;
+                    },
+                    chunks: "all"
+                }
+            }
+        },
         minimizer: [
             new TerserPlugin({
 
