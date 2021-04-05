@@ -69,6 +69,8 @@ $input-btn-padding-x-lg: 0.75rem;
 
 $input-color: #000000;
 $input-focus-color: #333;
+$input-focus-border-color: #333;
+$input-focus-box-shadow: 0 0 0 1px $input-focus-border-color;
 $input-placeholder-color: #c3c3c3;
 $input-disabled-bg: #f0f0f0;
 $input-group-addon-color: #6c757d;
@@ -79,6 +81,8 @@ $label-margin-bottom: 0;
 // custom select
 $custom-select-height-sm: auto;
 $custom-select-height-lg: auto;
+$custom-select-focus-border-color: $input-focus-border-color;
+$custom-select-focus-box-shadow: $input-focus-box-shadow;
 
 // custom switch
 $custom-control-indicator-size: 1.75rem;

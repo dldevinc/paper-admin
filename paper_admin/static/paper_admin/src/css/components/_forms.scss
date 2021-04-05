@@ -283,7 +283,7 @@
     }
   }
 
-  .custom-control-input:checked + .custom-control-label {
+  .custom-control-input:checked ~ .custom-control-label {
     &:before {
       content: '\f00c';
       font-size: subtract($custom-checkbox-size, 6px);
@@ -292,8 +292,14 @@
     }
   }
 
+  .custom-control-input:focus ~ .custom-control-label {
+    &:before {
+      border-color: $custom-control-indicator-focus-border-color;
+    }
+  }
+
   @each $color, $value in $theme-colors {
-    input.#{$color}:checked + .custom-control-label:before {
+    input.#{$color}:checked ~ .custom-control-label:before {
       border-color: $value;
       background-color: $value;
     }
