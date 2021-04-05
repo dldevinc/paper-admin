@@ -1,17 +1,18 @@
 /* global gettext */
 
 import * as bootstrap from "bootstrap";
+import emitters from "js/utilities/emitters";
+import formUtils from "js/utilities/form_utils";
+import modals from "js/components/modals";
 import Sortable from "sortablejs";
 import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
 import ScrollTopButton from "js/components/ScrollTopButton";
-import emitters from "js/utilities/emitters";
-import formUtils from "js/utilities/form_utils";
-import modals from "js/components/modals";
-import "js/components/bootstrap";
+import Widget from "js/utilities/widget";
 import "js/components/cancel";
 import "js/components/filedrag";
 import "js/components/menu";
+import "js/widgets/bootstrap";
 
 // CSS
 import "css/fonts.scss";
@@ -63,9 +64,10 @@ export const django = {
 
 export {
     bootstrap,
-    Sortable,
-    PerfectScrollbar,
     emitters,
     formUtils,
     modals,
+    Sortable,
+    PerfectScrollbar,
+    Widget
 };

@@ -1,47 +1,29 @@
 import flatpickr from "flatpickr";
-import emitters from "js/utilities/emitters";
+import Widget from "js/utilities/widget";
 
 // CSS
 import "flatpickr/dist/flatpickr.min.css";
 import "css/widgets/datetime.scss";
 
 
-function initWidget(options, element) {
-    if (!element.closest(".empty-form")) {
-        flatpickr(element, options);
+class FlatPickerWidget extends Widget {
+    constructor(options) {
+        super();
+        this.opts = Object.assign({}, options);
+    }
+
+    _init(element) {
+        if (!element.closest(".empty-form")) {
+            flatpickr(element, this.opts);
+        }
+    }
+
+    _destroy(element) {
+        if (element._flatpickr) {
+            element._flatpickr.destroy()
+        }
     }
 }
-
-
-/**
- * Инициализация DateTime виджетов
- * @param {Element} [root]
- */
-function initWidgets(root = document.body) {
-    let date_selector = ".vDatePicker";
-    let date_options = {
-        altInput: true,
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d"
-    };
-    root.matches(date_selector) && initWidget(date_options, root);
-    root.querySelectorAll(date_selector).forEach(initWidget.bind(null, date_options));
-
-    let time_selector = ".vTimePicker";
-    let time_options = {
-        allowInput: true,
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true
-    };
-    root.matches(time_selector) && initWidget(time_options, root);
-    root.querySelectorAll(time_selector).forEach(initWidget.bind(null, time_options));
-}
-
-
-initWidgets();
-emitters.dom.on("mutate", initWidgets);
 
 
 /**
@@ -77,3 +59,23 @@ document.addEventListener("click", function(event) {
         }, 0)
     }
 });
+
+
+const datePicker = new FlatPickerWidget({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d"
+});
+datePicker.observe(".vDatePicker");
+datePicker.initAll(".vDatePicker");
+
+
+const timePicker = new FlatPickerWidget({
+    allowInput: true,
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: true
+});
+timePicker.observe(".vTimePicker");
+timePicker.initAll(".vTimePicker");

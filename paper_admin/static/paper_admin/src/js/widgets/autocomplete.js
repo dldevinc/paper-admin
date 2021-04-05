@@ -1,39 +1,39 @@
 import "js/helpers/select2";
-import emitters from "js/utilities/emitters";
+import Widget from "js/utilities/widget";
 
 // CSS
 import "select2/dist/css/select2.min.css";
 import "css/widgets/autocomplete.css";
 
 
-function initWidget(options, element) {
-    if (!element.closest(".empty-form")) {
-        $(element).select2(options);
+class Select2Widget extends Widget {
+    constructor(options) {
+        super();
+
+        this.opts = options;
+    }
+
+    _init(element) {
+        if (!element.closest(".empty-form")) {
+            $(element).select2(this.opts);
+        }
+    }
+
+    _destroy(element) {
+        $(element).select2("destroy")
     }
 }
 
 
-/**
- * Инициализация Autocomplete виджетов
- * @param {Element} [root]
- */
-function initWidgets(root = document.body) {
-    let selector = ".admin-autocomplete";
-    let options = {
-        ajax: {
-            data: function(params) {
-                return {
-                    term: params.term,
-                    page: params.page
-                };
-            }
+const select2 = new Select2Widget({
+    ajax: {
+        data: function(params) {
+            return {
+                term: params.term,
+                page: params.page
+            };
         }
-    };
-
-    root.matches(selector) && initWidget(options, root);
-    root.querySelectorAll(selector).forEach(initWidget.bind(null, options));
-}
-
-
-initWidgets();
-emitters.dom.on("mutate", initWidgets);
+    }
+});
+select2.observe(".admin-autocomplete");
+select2.initAll(".admin-autocomplete");
