@@ -73,7 +73,9 @@
       <h3 class="card-title">{% trans 'Toolbar' %}</h3>
     </div>
     <div class="card-body">
-      {% include 'paper_admin/toolbar_buttons.html' %}
+      {% block toolbar-items %}
+        {% include 'paper_admin/toolbar_buttons.html' %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}
