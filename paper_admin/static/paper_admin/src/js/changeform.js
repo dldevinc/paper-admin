@@ -5,7 +5,6 @@ import Formset from "js/components/inlines/inlines";
 import SortableFormset from "js/components/inlines/sortable_inlines";
 import "js/components/RelatedObjectLookups";
 import "js/components/tabs";
-import "js/widgets/autocomplete";
 import "js/widgets/autosize";
 import "js/widgets/clearable_file";
 import "js/widgets/datetime";

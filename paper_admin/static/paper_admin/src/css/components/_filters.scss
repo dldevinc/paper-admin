@@ -40,6 +40,11 @@
     padding-top: .75rem;
     border-top: 1px dashed #e0e0e0;
   }
+
+  .select2 {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 .paper-filter-header {

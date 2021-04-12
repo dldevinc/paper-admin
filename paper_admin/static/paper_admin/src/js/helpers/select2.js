@@ -4,7 +4,7 @@ import "select2/dist/js/select2.full";
 // Патч Select2, очищающий список перед отправкой Ajax-запроса.
 // В оригинале, надпись "Searching..." просто добавлялась в начало
 // списка, а затем исчезала, что вызывало эффект прыжка.
-// Это приводило к missclick
+// Это приводило к missclick.
 
 let ResultsAdapter = $.fn.select2.amd.require("select2/results");
 

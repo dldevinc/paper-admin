@@ -85,15 +85,9 @@ class CategoryForm(forms.ModelForm):
             "f_file": forms.FileInput,
 
             "dal_fk": autocomplete.ModelSelect2(
-                attrs={
-                    "data-theme": "admin-autocomplete"
-                },
                 url="app:ac-tag"
             ),
             "dal_m2m": autocomplete.ModelSelect2Multiple(
-                attrs={
-                    "data-theme": "admin-autocomplete"
-                },
                 url="app:ac-tag"
             ),
         }

@@ -1,3 +1,4 @@
+import json
 from django import forms
 from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
 from django.contrib.admin.widgets import (
@@ -51,6 +52,20 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
     @property
     def media(self):
         return forms.Media()
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super(DefaultAutocompleteMixin, self).build_attrs(base_attrs, extra_attrs=extra_attrs)
+        attrs.setdefault('class', '')
+        attrs.update({
+            'data-ajax--cache': 'true',
+            'data-ajax--delay': 250,
+            'data-ajax--type': 'GET',
+            'data-ajax--url': self.get_url(),
+            'data-allow-clear': json.dumps(not self.is_required),
+            'data-placeholder': '',  # Allows clearing of the input.
+            'class': attrs['class'] + (' ' if attrs['class'] else '') + 'vSelect custom-select custom-select-lg admin-autocomplete',
+        })
+        return attrs
 
 
 class AutocompleteSelect(AutocompleteMixin, forms.Select):

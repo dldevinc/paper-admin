@@ -13,6 +13,7 @@ import "js/components/cancel";
 import "js/components/filedrag";
 import "js/components/menu";
 import "js/widgets/bootstrap";
+import "js/widgets/select2";
 
 // CSS
 import "css/fonts.scss";
