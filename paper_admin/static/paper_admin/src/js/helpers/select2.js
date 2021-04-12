@@ -11,14 +11,14 @@ let ResultsAdapter = $.fn.select2.amd.require("select2/results");
 ResultsAdapter.prototype.showLoading = function(params) {
     this.hideLoading();
 
-    var loadingMore = this.options.get('translations').get('searching');
+    let loadingMore = this.options.get('translations').get('searching');
 
-    var loading = {
+    let loading = {
         disabled: true,
         loading: true,
         text: loadingMore(params)
     };
-    var $loading = this.option(loading);
+    let $loading = this.option(loading);
     $loading.className += ' loading-results';
 
     // Очищаем список перед Ajax-запросом

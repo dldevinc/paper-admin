@@ -1,6 +1,7 @@
 from django.contrib.admin.templatetags import admin_list
 from django.template import Library
 from mptt.templatetags.mptt_admin import mptt_items_for_result
+
 from paper_admin.templatetags import paper_list
 
 register = Library()

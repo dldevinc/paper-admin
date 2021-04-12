@@ -37,7 +37,7 @@ def prepopulated_fields_js(context):
         )
 
     context.update(
-        {"prepopulated_fields_json": json.dumps(prepopulated_fields_json),}
+        {"prepopulated_fields_json": json.dumps(prepopulated_fields_json)}
     )
     return context
 

@@ -41,7 +41,7 @@ function StaggerHighlight(elements, options) {
     this._isReleased = false;
 
     /**
-     * @type {?Number}
+     * @type {?NodeJS.Timeout}
      * @private
      */
     this._timer = this._createTimer();
@@ -49,13 +49,13 @@ function StaggerHighlight(elements, options) {
 
 /**
  * Создание таймера, выделяюего элементы один за другим.
- * @returns {Number}
+ * @returns {NodeJS.Timeout}
  * @private
  */
 StaggerHighlight.prototype._createTimer = function() {
     let i = 0;
     const count = this._elements.length;
-    const speed = Math.max(this.opts.staggerMin, this.staggerMax * 2 / count);
+    const speed = Math.max(this.opts.staggerMin, this.opts.staggerMax * 2 / count);
     return setInterval(function() {
         if (i < count) {
             this._elements[i].classList.add(this.opts.className);

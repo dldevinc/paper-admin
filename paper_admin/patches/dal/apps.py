@@ -7,6 +7,7 @@ class Config(AppConfig):
 
     def ready(self):
         from dal_select2.widgets import Select2WidgetMixin
+
         from ...monkey_patch import extend_class
         from . import widgets
 

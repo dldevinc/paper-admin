@@ -1,7 +1,7 @@
+from dal import autocomplete
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from dal import autocomplete
 from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
@@ -208,7 +208,7 @@ class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
 
 
 @admin.register(SigletonExample)
-class CategoryAdmin(SingletonModelAdmin):
+class SigletonExampleAdmin(SingletonModelAdmin):
     fieldsets = (
         (None, {
             "fields": (

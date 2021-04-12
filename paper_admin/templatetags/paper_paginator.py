@@ -18,7 +18,7 @@ def paper_pagination(cl):
         # If there are 10 or fewer pages, display links to every page.
         # Otherwise, do some fancy
         if paginator.num_pages <= 10:
-            page_range = range(paginator.num_pages)
+            page_range = list(range(paginator.num_pages))
         else:
             # Insert "smart" pagination links, so that there are always ON_ENDS
             # links at either end of the list of pages, and there are always
