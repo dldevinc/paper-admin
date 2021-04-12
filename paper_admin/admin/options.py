@@ -15,7 +15,7 @@ from ..forms import widgets
 from ..forms.fields import SplitDateTimeField
 from ..renderer import PaperFormRenderer
 from . import helpers
-from .changelist import RequestChangeListMixin
+from .changelist import PaperChangeListMixin
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.BooleanField: {
@@ -127,7 +127,7 @@ class PaperBaseModelAdmin:
 
 class PaperModelAdmin:
     action_form = helpers.ActionForm
-    list_per_page = 25
+    list_per_page = 20
     list_max_show_all = 50
     changelist_tools = True
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
@@ -162,8 +162,8 @@ class PaperModelAdmin:
 
     def get_changelist(self, request, **kwargs):
         ChangeList = self.get_changelist__overridden(request, **kwargs)  # noqa: F821
-        RequestChangeList = type("RequestChangeList", (RequestChangeListMixin, ChangeList), {})
-        return RequestChangeList
+        PaperChangeList = type("PaperChangeListMixin", (PaperChangeListMixin, ChangeList), {})
+        return PaperChangeList
 
     def get_changelist_formset(self, request, **kwargs):
         """
