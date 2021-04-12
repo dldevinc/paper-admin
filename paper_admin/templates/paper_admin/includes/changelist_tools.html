@@ -14,7 +14,7 @@
       {% endif %}
     {% endwith %}
 
-    {% if not cl.is_popup and result.has_view_permission %}
+    {% if not cl.is_popup and result.has_view_permission and cl.model_admin.object_history %}
       {% url cl.opts|admin_urlname:'history' result.obj.pk|admin_urlquote as history_url %}
       <a href="{{ history_url }}" class="tool-item text-info"
          data-toggle="tooltip" data-placement="bottom" data-trigger="hover"

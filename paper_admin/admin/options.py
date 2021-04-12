@@ -129,7 +129,8 @@ class PaperModelAdmin:
     action_form = helpers.ActionForm
     list_per_page = 20
     list_max_show_all = 50
-    changelist_tools = True
+    object_history = True  # show "History" button
+    changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
     changelist_widget_overrides = {
         models.BooleanField: widgets.CustomCheckboxInput
@@ -269,6 +270,7 @@ class PaperModelAdmin:
         can_change = has_change_permission or has_editable_inline_admin_formsets
         ctx.update({
             "can_change": can_change,
+            "show_history": self.object_history,
             "show_save": show_save and can_save,
             "show_save_as_new": (
                 not is_popup
@@ -288,7 +290,7 @@ class PaperModelAdmin:
                 and ctx["has_delete_permission"]
                 and change
                 and ctx.get("show_delete", True)
-            )
+            ),
         })
         return response
 

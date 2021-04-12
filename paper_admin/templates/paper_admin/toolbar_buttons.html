@@ -38,7 +38,7 @@
     </a>
   {% endif %}
 
-  {% if change %}
+  {% if change and show_history %}
     {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
     <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-info">
       <i class="fa fa-fw fa-history"></i>
