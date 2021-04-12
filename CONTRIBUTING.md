@@ -37,9 +37,11 @@ Commiting will now automatically run the local hooks and ensure that
 your commit passes all lint checks.
 
 ## Testing
-
-To run unit tests:
-
 ```shell
-pytest
+cd ./tests
+python3 manage.py migrate
+python3 manage.py loaddata fixtures.json
+python3 manage.py runserver
 ```
+
+Django admin credentials: `admin` / `admin`
