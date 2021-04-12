@@ -1,7 +1,7 @@
+from dal import autocomplete
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from dal import autocomplete
 from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
@@ -13,7 +13,7 @@ from paper_admin.admin import (
 )
 from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
 
-from .models import Category, Item, SigletonExample, SubCategory, Tag
+from .models import Category, Item, SigletonExample, Tree, Tag
 
 
 @admin.register(Tag)
@@ -85,15 +85,9 @@ class CategoryForm(forms.ModelForm):
             "f_file": forms.FileInput,
 
             "dal_fk": autocomplete.ModelSelect2(
-                attrs={
-                    "data-theme": "admin-autocomplete"
-                },
                 url="app:ac-tag"
             ),
             "dal_m2m": autocomplete.ModelSelect2Multiple(
-                attrs={
-                    "data-theme": "admin-autocomplete"
-                },
                 url="app:ac-tag"
             ),
         }
@@ -196,8 +190,8 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         return classes
 
 
-@admin.register(SubCategory)
-class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
+@admin.register(Tree)
+class TreeAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
@@ -208,7 +202,7 @@ class SubCategoryAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
 
 
 @admin.register(SigletonExample)
-class CategoryAdmin(SingletonModelAdmin):
+class SigletonExampleAdmin(SingletonModelAdmin):
     fieldsets = (
         (None, {
             "fields": (

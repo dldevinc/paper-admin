@@ -15,7 +15,7 @@ from ..forms import widgets
 from ..forms.fields import SplitDateTimeField
 from ..renderer import PaperFormRenderer
 from . import helpers
-from .changelist import RequestChangeListMixin
+from .changelist import PaperChangeListMixin
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.BooleanField: {
@@ -127,9 +127,10 @@ class PaperBaseModelAdmin:
 
 class PaperModelAdmin:
     action_form = helpers.ActionForm
-    list_per_page = 25
+    list_per_page = 20
     list_max_show_all = 50
-    changelist_tools = True
+    object_history = True  # show "History" button
+    changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
     changelist_widget_overrides = {
         models.BooleanField: widgets.CustomCheckboxInput
@@ -162,8 +163,8 @@ class PaperModelAdmin:
 
     def get_changelist(self, request, **kwargs):
         ChangeList = self.get_changelist__overridden(request, **kwargs)  # noqa: F821
-        RequestChangeList = type("RequestChangeList", (RequestChangeListMixin, ChangeList), {})
-        return RequestChangeList
+        PaperChangeList = type("PaperChangeListMixin", (PaperChangeListMixin, ChangeList), {})
+        return PaperChangeList
 
     def get_changelist_formset(self, request, **kwargs):
         """
@@ -269,17 +270,27 @@ class PaperModelAdmin:
         can_change = has_change_permission or has_editable_inline_admin_formsets
         ctx.update({
             "can_change": can_change,
+            "show_history": self.object_history,
             "show_save": show_save and can_save,
-            "show_save_as_new": not is_popup and has_change_permission and change and save_as,
+            "show_save_as_new": (
+                not is_popup
+                and has_change_permission
+                and change
+                and save_as
+            ),
             "show_save_and_continue": can_save_and_continue,
             "show_save_and_add_another": (
-                    has_add_permission and not is_popup and
-                    (not save_as or add) and can_save
+                has_add_permission
+                and not is_popup
+                and (not save_as or add)
+                and can_save
             ),
             "show_delete_link": (
-                    not is_popup and ctx["has_delete_permission"] and
-                    change and ctx.get("show_delete", True)
-            )
+                not is_popup
+                and ctx["has_delete_permission"]
+                and change
+                and ctx.get("show_delete", True)
+            ),
         })
         return response
 

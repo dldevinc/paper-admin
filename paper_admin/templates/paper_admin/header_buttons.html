@@ -23,7 +23,7 @@
       </li>
     {% endif %}
 
-    {% if change %}
+    {% if change and show_history %}
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
         <a href="{% add_preserved_filters history_url %}" class="tool-item text-info"

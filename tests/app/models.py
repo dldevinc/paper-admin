@@ -164,7 +164,7 @@ class Item(models.Model):
         return self.name
 
 
-class SubCategory(MPTTModel):
+class Tree(MPTTModel):
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)
     parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
@@ -173,8 +173,8 @@ class SubCategory(MPTTModel):
 
     class Meta:
         ordering = ["order"]
-        verbose_name = _("subcategory")
-        verbose_name_plural = _("subcategories")
+        verbose_name = _("tree")
+        verbose_name_plural = _("tree")
 
     class MPTTMeta:
         order_insertion_by = ["order"]

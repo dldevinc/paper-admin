@@ -3,21 +3,27 @@ import EventEmitter from "wolfy87-eventemitter";
 
 const emitters = {
     /**
-     * События DOM:
-     *  `mutate`    - после добавленя/изменения элемента в дерове DOM.
-     *                Используется, например, для инициализации виджетов.
-     *                Первым аргументом передаётся самый верхний элемент, добавленный/измененный в DOM.
-     *                  emitters.dom.trigger('mutate', [elem]);
+     * Эмиттер для работы с DOM-деревом.
      *
-     *  `release`   - перед удалением элемента из DOM.
-     *                Используется, например, для освобождения ресурсов.
-     *                Первым аргументом передаётся самый верхний элемент, удаляемый из DOM.
-     *                  emitters.dom.trigger('release', [elem]);
+     * События:
+     *  `mutate`    - после вставки элемента (поддерева) в DOM.
+     *                Используется для инициализации виджетов.
+     *                Первым аргументом передаётся самый верхний элемент
+     *                (корень поддерева), добавленный в DOM:
+     *                  emitters.dom.trigger("mutate", [elem]);
+     *
+     *  `release`   - перед удалением элемента (поддерева) из DOM.
+     *                Используется для освобождения ресурсов, созданных виджетами.
+     *                Первым аргументом передаётся самый верхний элемент
+     *                (корень поддерева), удаляемый из DOM:
+     *                  emitters.dom.trigger("release", [elem]);
      */
     dom: new EventEmitter(),
 
     /**
-     * События Inline-форм:
+     * Эмиттер для работы с inline-формами.
+     * 
+     * События:
      *  `add`       - Перед анимацией добавления новой формы.
      *                Аргументы:
      *                  1) DOM-элемент добавленной формы
@@ -40,11 +46,5 @@ const emitters = {
      */
     inlines: new EventEmitter(),
 };
-export default emitters;
 
-// share plugin
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
-    EventEmitter,
-    emitters,
-});
+export default emitters;

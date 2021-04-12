@@ -1,56 +1,46 @@
 /*global gettext, interpolate, ngettext*/
 
-import whenDomReady from "when-dom-ready";
-
-const TOGGLE_ALL_ID = 'action-toggle';
-const CHECKBOX_CLASS = 'action-select';
-const CHECKBOX_LABEL_SELECTOR = '.action-checkbox .vCustomCheckbox';
-const COUNTER_CLASS = 'action-counter';
-const QUESTION_CLASS= 'action-question';
-const ALL_CLASS = 'action-all';
-const ACROSS_CLASS = 'select-across';
-const CLEAR_CLASS = 'action-clear';
-
-
-whenDomReady(function() {
-    const checkboxes = document.querySelectorAll(`.${CHECKBOX_CLASS}`);
-    if (checkboxes.length) {
-        initActions(Array.from(checkboxes));
-    }
-});
+const TOGGLE_ALL_ID = "action-toggle";
+const CHECKBOX_CLASS = "action-select";
+const CHECKBOX_LABEL_SELECTOR = ".action-checkbox .vCustomCheckbox";
+const COUNTER_CLASS = "action-counter";
+const QUESTION_CLASS= "action-question";
+const ALL_CLASS = "action-all";
+const ACROSS_CLASS = "select-across";
+const CLEAR_CLASS = "action-clear";
 
 
 function initActions(inputs) {
     let lastChecked = null;
-    const table = document.getElementById('result_list');
+    const table = document.getElementById("result_list");
     const allToggleInput = document.getElementById(TOGGLE_ALL_ID);
 
     // клик на чекбокс "выбрать все"
-    allToggleInput.addEventListener('change', function() {
-        const rows = inputs.map(input => input.closest('tr'));
+    allToggleInput.addEventListener("change", function() {
+        const rows = inputs.map(input => input.closest("tr"));
         toggleRows(rows, this.checked);
         updateCounter(inputs);
     });
 
     // пользовательское событие выделения ряда таблицы
-    table.addEventListener('select', function(event) {
+    table.addEventListener("select", function(event) {
         const target = event.target;
-        if ((target.tagName !== 'TR') || (target.closest('table') !== table)) {
+        if ((target.tagName !== "TR") || (target.closest("table") !== table)) {
             return
         }
 
         const state = Boolean(event.detail.state);
         const checkbox = target.querySelector(`.${CHECKBOX_CLASS}`);
         checkbox.checked = state;
-        target.classList.toggle('selected', state);
+        target.classList.toggle("selected", state);
 
         // все ли чекбоксы выделены
         allToggleInput.checked = inputs.find(input => !input.checked) == null;
     });
 
-    table.addEventListener('click', function(event) {
+    table.addEventListener("click", function(event) {
         const target = event.target;
-        const row = target.closest('tr');
+        const row = target.closest("tr");
         const label_clicked = target.closest(CHECKBOX_LABEL_SELECTOR);
         const checkbox_label = row && row.querySelector(CHECKBOX_LABEL_SELECTOR);
         const checkbox = checkbox_label && checkbox_label.querySelector(`.${CHECKBOX_CLASS}`);
@@ -72,7 +62,7 @@ function initActions(inputs) {
             const startIndex = Math.min(lastIndex, targetIndex);
             const endIndex = Math.max(lastIndex, targetIndex);
             const input_slice = inputs.slice(startIndex, endIndex + 1);
-            const rows = input_slice.map(input => input.closest('tr'));
+            const rows = input_slice.map(input => input.closest("tr"));
             toggleRows(rows, lastChecked.checked);
         } else if (label_clicked || (event.ctrlKey && !event.shiftKey)) {
             // клик на чекбокс или на строку через Ctrl
@@ -84,29 +74,29 @@ function initActions(inputs) {
     });
 
     // отмена выделения текста при клике с удержанным Shift
-    table.addEventListener('mousedown', function(event) {
+    table.addEventListener("mousedown", function(event) {
         const target = event.target;
-        if (event.shiftKey && ((target.tagName === 'TD') || (target.tagName === 'TH'))) {
+        if (event.shiftKey && ((target.tagName === "TD") || (target.tagName === "TH"))) {
             event.preventDefault();
         }
     });
 
     // выбор всех записей таблицы
-    document.addEventListener('click', function(event) {
+    document.addEventListener("click", function(event) {
         const target = event.target;
-        if ((target.tagName === 'A') && target.closest(`.${QUESTION_CLASS}`)) {
+        if ((target.tagName === "A") && target.closest(`.${QUESTION_CLASS}`)) {
             event.preventDefault();
             selectAcross();
         }
     });
 
     // очистка выбора
-    document.addEventListener('click', function(event) {
+    document.addEventListener("click", function(event) {
         const target = event.target;
-        if ((target.tagName === 'A') && target.closest(`.${CLEAR_CLASS}`)) {
+        if ((target.tagName === "A") && target.closest(`.${CLEAR_CLASS}`)) {
             event.preventDefault();
             allToggleInput.checked = false;
-            const rows = inputs.map(input => input.closest('tr'));
+            const rows = inputs.map(input => input.closest("tr"));
             toggleRows(rows, false);
             clearAcross(inputs);
             updateCounter(inputs);
@@ -121,18 +111,18 @@ function initActions(inputs) {
  */
 function protectEditForm() {
     let list_editable_changed = false;
-    const form = document.getElementById('changelist_form');
+    const form = document.getElementById("changelist_form");
 
-    form.addEventListener('change', function(event) {
+    form.addEventListener("change", function(event) {
         const target = event.target;
-        if (target.tagName === 'INPUT') {
+        if (target.tagName === "INPUT") {
             if (target.closest(`.${CHECKBOX_CLASS}`) || (target.id === TOGGLE_ALL_ID)) {
                 // nothing
             } else {
                 list_editable_changed = true;
             }
-        } else if (target.tagName === 'SELECT') {
-            if (target.closest(`.action-action`)) {
+        } else if (target.tagName === "SELECT") {
+            if (target.closest(".action-action")) {
                 // nothing
             } else {
                 list_editable_changed = true;
@@ -142,9 +132,9 @@ function protectEditForm() {
         }
     });
 
-    form.addEventListener('click', function(event) {
+    form.addEventListener("click", function(event) {
         const target = event.target;
-        const action_button = target.closest('[name="index"]');
+        const action_button = target.closest("[name=\"index\"]");
         if (action_button && list_editable_changed) {
             const agree = confirm(gettext("You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost."));
             if (!agree) {
@@ -153,11 +143,11 @@ function protectEditForm() {
         }
     });
 
-    form.addEventListener('click', function(event) {
+    form.addEventListener("click", function(event) {
         const target = event.target;
-        const save_button = target.closest('[name="_save"]');
+        const save_button = target.closest("[name=\"_save\"]");
 
-        const action_selects = document.querySelectorAll('.actions select[name="action"]');
+        const action_selects = document.querySelectorAll(".actions select[name=\"action\"]");
         const action_changed = !Array.prototype.every.call(action_selects, function(select) {
             return !select.value
         });
@@ -183,8 +173,8 @@ function protectEditForm() {
  */
 function toggleRows(rows, checked) {
     rows.forEach(function(row) {
-        if (row && row.tagName === 'TR') {
-            row.dispatchEvent(new CustomEvent('select', {
+        if (row && row.tagName === "TR") {
+            row.dispatchEvent(new CustomEvent("select", {
                 bubbles: true,
                 cancelable: true,
                 detail: {
@@ -200,7 +190,7 @@ function updateCounter(inputs) {
     const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
     counters.forEach(function(counter) {
         counter.innerHTML = interpolate(
-            ngettext('%(sel)s of %(cnt)s selected', '%(sel)s of %(cnt)s selected', selected),
+            ngettext("%(sel)s of %(cnt)s selected", "%(sel)s of %(cnt)s selected", selected),
             {
                 sel: selected,
                 cnt: counter.dataset.actionsIcnt
@@ -266,4 +256,10 @@ function clearAcross(inputs) {
 
     const clear = document.querySelector(`.${CLEAR_CLASS}`);
     clear && (clear.hidden = true);
+}
+
+
+const checkboxes = document.querySelectorAll(`.${CHECKBOX_CLASS}`);
+if (checkboxes.length) {
+    initActions(Array.from(checkboxes));
 }

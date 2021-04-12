@@ -3,7 +3,6 @@ import os
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -137,14 +136,14 @@ PAPER_MENU = [
                     "app_label": "app"
                 })
             ),
+            "SigletonExample",
             "Tag",
             dict(
                 label=_("Category"),
                 url="admin:app_category_changelist",
                 perms="app.category_add"
             ),
-            "SubCategory",
-            "SigletonExample"
+            "Tree",
         ]
     ),
     "-",
@@ -158,4 +157,3 @@ PAPER_MENU = [
         ]
     ),
 ]
-

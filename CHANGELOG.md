@@ -1,5 +1,21 @@
 # Change Log
 
+## [2.0.0](https://github.com/dldevinc/paper-admin/tree/v2.0.0) - 2021-04-12
+### ⚠ BREAKING CHANGES
+- Add `select2` to all select boxes.
+- Drop Django 2.0 support.
+### Features
+- Added the `ModelAdmin.object_history` option to disable a "History" button on admin change forms.
+- Added custom `SimpleListFilter`.
+- Allow use of `staff` keyword in menu permissions. 
+- Allow use of user-supplied callable as `perms` in `PAPER_MENU`.
+- Enlarge changelist pagination.
+- Autofocus "Yes"-button on delete confirmation pages.
+### Bug Fixes
+- Use `{% trans %}` instead of `{% translate %}` for cmpatibility.
+- Removed the `capfirst` filter from changeform page title.
+- Fixed issue with missing `gettext` catalogs.
+
 ## [1.1.5](https://github.com/dldevinc/paper-admin/tree/v1.1.5) - 2021-03-06
 - Use Bootstrap v4.6.0
 - Patch `select2.js` to get rid of the jump effect after ajax load. 

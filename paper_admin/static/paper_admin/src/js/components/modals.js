@@ -95,7 +95,7 @@ PaperModal.prototype.destroy = function() {
 
     const that = this;
     const element = this._element;
-    $(element).one('hidden.bs.modal', function() {
+    $(element).one("hidden.bs.modal", function() {
         element.remove();
 
         if (that._element) {
@@ -123,10 +123,10 @@ PaperModal.prototype.destroy = function() {
 function createModal(options) {
     const opts = Object.assign({
         size: null,
-        title: '',
-        message: '',
-        className: '',
-        backdrop: 'static',
+        title: "",
+        message: "",
+        className: "",
+        backdrop: "static",
         onEscape: true,
         closeButton: true,
         scrollable: false,
@@ -138,7 +138,7 @@ function createModal(options) {
         buttons: []
     }, options);
 
-    document.body.insertAdjacentHTML('beforeend', templates.modal);
+    document.body.insertAdjacentHTML("beforeend", templates.modal);
     const modalElement = document.body.lastElementChild;
     const $dialog = $(modalElement);
     const modal = new PaperModal(modalElement, {
@@ -148,24 +148,24 @@ function createModal(options) {
 
     if (opts.size) {
         switch (opts.size) {
-            case 'small':
-            case 'sm':
-                modal._dialog.classList.add('modal-sm');
+            case "small":
+            case "sm":
+                modal._dialog.classList.add("modal-sm");
                 break;
-            case 'large':
-            case 'lg':
-                modal._dialog.classList.add('modal-lg');
+            case "large":
+            case "lg":
+                modal._dialog.classList.add("modal-lg");
                 break;
         }
     }
 
     if (opts.title) {
-        modalElement.querySelector('.modal-content').insertAdjacentHTML('afterbegin', templates.header);
-        modalElement.querySelector('.modal-title').innerText = opts.title;
+        modalElement.querySelector(".modal-content").insertAdjacentHTML("afterbegin", templates.header);
+        modalElement.querySelector(".modal-title").innerText = opts.title;
     }
 
     if (opts.message) {
-        modalElement.querySelector('.modal-body').innerHTML = opts.message;
+        modalElement.querySelector(".modal-body").innerHTML = opts.message;
     }
 
     if (opts.className) {
@@ -174,21 +174,21 @@ function createModal(options) {
 
     if (opts.closeButton) {
         if (opts.title) {
-            modalElement.querySelector('.modal-header').insertAdjacentHTML('beforeend', templates.closeButton);
+            modalElement.querySelector(".modal-header").insertAdjacentHTML("beforeend", templates.closeButton);
         } else {
-            modalElement.querySelector('.modal-body').insertAdjacentHTML('afterbegin', templates.closeButton);
+            modalElement.querySelector(".modal-body").insertAdjacentHTML("afterbegin", templates.closeButton);
         }
 
-        $dialog.on('click', '.paper-modal__close-button', function() {
-            $dialog.trigger('escape.bs.modal');
+        $dialog.on("click", ".paper-modal__close-button", function() {
+            $dialog.trigger("escape.bs.modal");
         });
     }
 
     if (opts.buttons && opts.buttons.length) {
-        modalElement.querySelector('.modal-content').insertAdjacentHTML('beforeend', templates.footer);
-        const footer = modalElement.querySelector('.modal-footer');
+        modalElement.querySelector(".modal-content").insertAdjacentHTML("beforeend", templates.footer);
+        const footer = modalElement.querySelector(".modal-footer");
         opts.buttons.forEach(function(config) {
-            const template = document.createElement('template');
+            const template = document.createElement("template");
             template.innerHTML = templates.button.trim();
             const btn = template.content.firstChild;
 
@@ -201,16 +201,16 @@ function createModal(options) {
             }
 
             if (config.autofocus) {
-                $dialog.one('shown.bs.modal', function() {
+                $dialog.one("shown.bs.modal", function() {
                     setTimeout(function() {
                         btn.focus();
                     })
                 })
             }
 
-            btn.addEventListener('click', function(event) {
+            btn.addEventListener("click", function(event) {
                 let preventClose = false;
-                if (config.callback && (typeof config.callback === 'function')) {
+                if (config.callback && (typeof config.callback === "function")) {
                     preventClose = config.callback.call(modal, event) === false;
                 }
                 if (!preventClose) {
@@ -223,38 +223,38 @@ function createModal(options) {
     }
 
     if (opts.scrollable) {
-        modal._dialog.classList.add('modal-dialog-scrollable');
+        modal._dialog.classList.add("modal-dialog-scrollable");
     }
 
     if (opts.centerVertical) {
-        modal._dialog.classList.add('modal-dialog-centered');
+        modal._dialog.classList.add("modal-dialog-centered");
     }
 
     if (opts.onShow && $.isFunction(opts.onShow)) {
-        $dialog.on('show.bs.modal', opts.onShow);
+        $dialog.on("show.bs.modal", opts.onShow);
     }
 
     if (opts.onShown && $.isFunction(opts.onShown)) {
-        $dialog.on('shown.bs.modal', opts.onShown);
+        $dialog.on("shown.bs.modal", opts.onShown);
     }
 
     if (opts.onHide && $.isFunction(opts.onHide)) {
-        $dialog.on('hide.bs.modal', opts.onHide);
+        $dialog.on("hide.bs.modal", opts.onHide);
     }
 
     if (opts.onHidden && $.isFunction(opts.onHidden)) {
-        $dialog.on('hidden.bs.modal', opts.onHidden);
+        $dialog.on("hidden.bs.modal", opts.onHidden);
     }
 
     if (opts.onEscape) {
-        $dialog.on('keyup.bs.modal', function(e) {
+        $dialog.on("keyup.bs.modal", function(e) {
             if (e.which === 27) {
-                $dialog.trigger('escape.bs.modal');
+                $dialog.trigger("escape.bs.modal");
             }
         });
     }
 
-    $dialog.on('escape.bs.modal', function() {
+    $dialog.on("escape.bs.modal", function() {
         if (!modal._isTransitioning) {
             modal.destroy();
         }
@@ -284,7 +284,7 @@ function showErrors(errors, options) {
                 output.push(`<li>${errors[i]}</li>`);
             }
             output.push(`</ul>`);
-            message = output.join('\n');
+            message = output.join("\n");
         }
     } else {
         message = errors;
@@ -294,8 +294,8 @@ function showErrors(errors, options) {
         message: message,
         buttons: [{
             autofocus: true,
-            label: gettext('OK'),
-            className: 'btn-success',
+            label: gettext("OK"),
+            className: "btn-success",
             callback: function() {
                 this.destroy();
             }
@@ -311,10 +311,10 @@ function showErrors(errors, options) {
  */
 function showPreloader(options) {
     const opts = Object.assign({
-        size: 'sm',
+        size: "sm",
         onEscape: false,
         closeButton: false,
-        className: 'paper-modal--preloader fade-in',
+        className: "paper-modal--preloader fade-in",
         message: `
             <div class="preloader">
               <div class="preloader__text">Loading</div>
@@ -344,7 +344,7 @@ function showPreloader(options) {
 function softPreloaderPromise(promise, options) {
     const WAITING_TIME = 160;
     const PRELOADER_MIN_SHOWING_TIME = 600;
-    const WAITING_TIME_PASSED = Symbol('waiting');
+    const WAITING_TIME_PASSED = Symbol("waiting");
 
     // ожидаем в течение короткого времени
     return Promise.race([
@@ -395,10 +395,5 @@ const modals = {
     showPreloader,
     softPreloaderPromise
 };
-export default modals;
 
-// share plugin
-window.paperAdmin = window.paperAdmin || {};
-Object.assign(window.paperAdmin, {
-    modals,
-});
+export default modals;

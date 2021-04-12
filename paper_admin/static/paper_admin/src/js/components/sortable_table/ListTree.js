@@ -45,7 +45,7 @@ ListTree.prototype._createNode = function(child) {
  * @private
  */
 ListTree.prototype._addNode = function(node) {
-    if (node && (typeof node.pk === 'number')) {
+    if (node && (typeof node.pk === "number")) {
         this._nodes[node.pk] = node;
         if (isNaN(node.parent)) {
             this._roots.push(node);
@@ -62,7 +62,7 @@ ListTree.prototype._addNode = function(node) {
  */
 ListTree.prototype.getNode = function(pk) {
     if (this._nodes === null) {
-        throw new Error('tree is empty');
+        throw new Error("tree is empty");
     }
     if (!(pk in this._nodes)) {
         throw new Error(`node ${pk} not found`);
@@ -104,7 +104,7 @@ ListTree.prototype._buildTree = function(elements) {
  */
 ListTree.prototype.getRoots = function() {
     if (this._roots === null) {
-        throw new Error('tree is empty');
+        throw new Error("tree is empty");
     }
     return this._roots.map(function(root_node) {
         return root_node.element

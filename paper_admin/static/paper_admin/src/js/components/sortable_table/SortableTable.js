@@ -14,8 +14,8 @@
  */
 
 import Sortable from "sortablejs";
-import ListTree from "./ListTree";
-import StaggerHighlight from "./StaggerHighlight";
+import ListTree from "js/components/sortable_table/ListTree";
+import StaggerHighlight from "js/components/sortable_table/StaggerHighlight";
 
 /**
  * Конструктор объектов SortableTable.
@@ -28,17 +28,17 @@ function SortableTable(table, options) {
     this.opts = Object.assign({
         url: null,
         tree: false,
-        handler: '.handler',
-        disabledClass: 'disabled'
+        handler: ".handler",
+        disabledClass: "disabled"
     }, options);
 
     /** @type {Element} */
     this.table = table;
 
     /** @type {Element} */
-    this.tbody = table.querySelector('tbody');
+    this.tbody = table.querySelector("tbody");
     if (!this.tbody) {
-        throw new Error('table body not found');
+        throw new Error("table body not found");
     }
 
     /** @type {?ListTree} */
@@ -54,10 +54,10 @@ function SortableTable(table, options) {
 SortableTable.prototype._createSortable = function() {
     return Sortable.create(this.tbody, {
         animation: 0,
-        draggable: 'tr',
+        draggable: "tr",
         handle: this.opts.handler,
-        filter: '.' + this.opts.disabledClass,
-        ghostClass: 'sortable-ghost',
+        filter: "." + this.opts.disabledClass,
+        ghostClass: "sortable-ghost",
         onStart: this._onStart.bind(this),
         onMove: this._onMove.bind(this),
         onEnd: this._onEnd.bind(this),
@@ -70,7 +70,7 @@ SortableTable.prototype._createSortable = function() {
  * @private
  */
 SortableTable.prototype._onStart = function(evt) {
-    const rows = this.tbody.querySelectorAll('tr');
+    const rows = this.tbody.querySelectorAll("tr");
 
     if (this.opts.tree) {
         this.tree = new ListTree(rows);
@@ -103,7 +103,7 @@ SortableTable.prototype._onMove = function(evt) {
  */
 SortableTable.prototype._onEnd = function(evt) {
     // снимаем блокировку со всех узлов
-    const rows = this.tbody.querySelectorAll('tr');
+    const rows = this.tbody.querySelectorAll("tr");
     rows.forEach(function(row) {
         row.classList.remove(this.opts.disabledClass);
     }.bind(this));
@@ -133,7 +133,7 @@ SortableTable.prototype._onEnd = function(evt) {
 SortableTable.prototype._getMovedRows = function(evt) {
     const sliceStart = Math.min(evt.oldIndex, evt.newIndex);
     const sliceEnd = Math.max(evt.oldIndex, evt.newIndex);
-    const rows = this.tbody.querySelectorAll('tr');
+    const rows = this.tbody.querySelectorAll("tr");
     let slice = Array.prototype.slice.call(rows, sliceStart, sliceEnd + 1);
     if (this.tree) {
         // пропускаем узлы, не являющиеся соседними
@@ -176,8 +176,8 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
         result[pk] = order_array[i];
 
         // обновляем атрибут order
-        const row = this.tbody.querySelector('tr[data-id="'+pk+'"]');
-        row.querySelector(this.opts.handler).setAttribute('data-order', order_array[i]);
+        const row = this.tbody.querySelector("tr[data-id='"+pk+"']");
+        row.querySelector(this.opts.handler).setAttribute("data-order", order_array[i]);
 
         return result;
     }.bind(this), {});
@@ -226,10 +226,10 @@ SortableTable.prototype._normalizeTable = function(evt, moved) {
  */
 SortableTable.prototype._sendRequest = function(data) {
     return fetch(this.opts.url, {
-        method: 'POST',
-        credentials: 'same-origin',
+        method: "POST",
+        credentials: "same-origin",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     }).then(function(response) {

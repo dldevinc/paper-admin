@@ -1,0 +1,13 @@
+<div class="paper-filter form-group">
+  <p class="paper-filter-header mb-1">{{ title|capfirst }}</p>
+
+  <ul class="paper-filter-list list-unstyled">
+    {% for choice in choices %}
+      <li{% if choice.selected %} class="active"{% endif %}>
+        <a href="?{{ spec.parameter_name }}={{ choice.value }}" title="{{ choice.display }}">
+          {{ choice.display }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

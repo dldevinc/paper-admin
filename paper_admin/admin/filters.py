@@ -4,10 +4,72 @@ import operator
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+
+class SimpleListFilter(filters.ListFilter):
+    """
+    Differencies from standard `SimpleListFilter`:
+    1) Use `request.GET.getlist()` instead of `request.GET.get()`
+    2) Versatile `choice` format
+    """
+    # The parameter that should be used in the query string for that filter.
+    parameter_name = None
+    template = "paper_admin/filters/list.html"
+
+    def __init__(self, request, params, model, model_admin):
+        super().__init__(request, params, model, model_admin)
+        if self.parameter_name is None:
+            raise ImproperlyConfigured(
+                "The list filter '%s' does not specify a 'parameter_name'."
+                % self.__class__.__name__
+            )
+        if self.parameter_name in params:
+            params.pop(self.parameter_name, None)
+            values_list = request.GET.getlist(self.parameter_name)
+            self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
+        lookup_choices = self.lookups(request, model_admin)
+        if lookup_choices is None:
+            lookup_choices = ()
+        self.lookup_choices = list(lookup_choices)
+
+    def has_output(self):
+        return len(self.lookup_choices) > 0
+
+    def value(self):
+        """
+        Return the values (as list of strings) provided in the request's
+        query string for this filter.
+        """
+        return self.used_parameters.get(self.parameter_name, [])
+
+    def lookups(self, request, model_admin):
+        """
+        Must be overridden to return a list of tuples (value, verbose value)
+        """
+        raise NotImplementedError(
+            'The SimpleListFilter.lookups() method must be overridden to '
+            'return a list of tuples (value, verbose value).'
+        )
+
+    def expected_parameters(self):
+        return [self.parameter_name]
+
+    def choices(self, changelist):
+        yield {
+            "selected": not self.value(),
+            "value": "",
+            "display": _("All"),
+        }
+        for lookup, title in self.lookup_choices:
+            yield {
+                "selected": str(lookup) in self.value(),
+                "value": lookup,
+                "display": title,
+            }
 
 
 class FieldListFilter(filters.ListFilter):
@@ -16,12 +78,16 @@ class FieldListFilter(filters.ListFilter):
         self.field_path = field_path
         self.title = getattr(field, "verbose_name", field_path)
         super().__init__(request, params, model, model_admin)
-        params.pop(self.field_path, None)
-        values_list = request.GET.getlist(self.field_path)
+        params.pop(self.parameter_name, None)
+        values_list = request.GET.getlist(self.parameter_name)
         self.value = list(filter(lambda x: x != "", values_list))
 
     def get_template(self):
         return self.template
+
+    @property
+    def parameter_name(self):
+        return self.field_path
 
     def has_output(self):
         return True

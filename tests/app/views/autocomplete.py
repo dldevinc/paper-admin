@@ -1,4 +1,5 @@
 from dal import autocomplete
+
 from ..models import Tag
 
 __all__ = ["TagAutocomplete"]

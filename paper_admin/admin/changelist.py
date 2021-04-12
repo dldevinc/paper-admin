@@ -1,10 +1,14 @@
 from django.utils.functional import cached_property
 
 
-class RequestChangeListMixin:
+class PaperChangeListMixin:
     def __init__(self, request, *args, **kwargs):
         super().__init__(request, *args, **kwargs)
         self.request = request
+
+    @property
+    def pagination_required(self):
+        return (not self.show_all or not self.can_show_all) and self.multi_page
 
 
 class SortableChangeListMixin:

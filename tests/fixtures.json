@@ -3,8 +3,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$lQDkZTEf4X9i$2ZkiTq7OTzR/A17rv1GZVyWqEI7e8EU0WzAodqdzTfQ=",
-    "last_login": "2020-03-26T07:21:32.418Z",
+    "password": "pbkdf2_sha256$216000$rDDuZzrfOX0V$9tQEmwO+g0dfpA2OLla2RyNnW7EJ5zEnN3XaUZOroxs=",
+    "last_login": "2021-04-12T09:23:36.326Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -22,13 +22,13 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$150000$JeXtsrdrLT6w$k4MiSVC7I7PIX8SeI6169JneEq/BT2IapO/F+O4WChQ=",
-    "last_login": "2020-03-25T06:39:01.957Z",
+    "last_login": "2020-03-25T06:39:00Z",
     "is_superuser": false,
     "username": "test",
     "first_name": "",
     "last_name": "",
     "email": "",
-    "is_staff": true,
+    "is_staff": false,
     "is_active": true,
     "date_joined": "2020-03-25T06:37:00Z",
     "groups": [],
@@ -101,6 +101,160 @@
   }
 },
 {
+  "model": "app.tag",
+  "pk": 10,
+  "fields": {
+    "name": "Yellow"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 11,
+  "fields": {
+    "name": "Fish"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 12,
+  "fields": {
+    "name": "Bear"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 13,
+  "fields": {
+    "name": "Panda"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 14,
+  "fields": {
+    "name": "Human"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 16,
+  "fields": {
+    "name": "Purple"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 17,
+  "fields": {
+    "name": "AC/DC"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 18,
+  "fields": {
+    "name": "Scorpions"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 19,
+  "fields": {
+    "name": "ABBA"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 20,
+  "fields": {
+    "name": "Beatles"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 21,
+  "fields": {
+    "name": "Judas Priest"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 22,
+  "fields": {
+    "name": "Metallica"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 23,
+  "fields": {
+    "name": "Linkin Park"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 24,
+  "fields": {
+    "name": "Eminem"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 25,
+  "fields": {
+    "name": "Nirvana"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 26,
+  "fields": {
+    "name": "Hotel"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 27,
+  "fields": {
+    "name": "Village"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 28,
+  "fields": {
+    "name": "New York"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 29,
+  "fields": {
+    "name": "California"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 30,
+  "fields": {
+    "name": "War"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 31,
+  "fields": {
+    "name": "Town"
+  }
+},
+{
+  "model": "app.tag",
+  "pk": 32,
+  "fields": {
+    "name": "Velvet"
+  }
+},
+{
   "model": "app.category",
   "pk": 1,
   "fields": {
@@ -109,7 +263,8 @@
     "f_fk1": 4,
     "f_fk2": 1,
     "f_fk3": 4,
-    "f_bool": false,
+    "f_bool": true,
+    "f_bool2": false,
     "f_nullbool": null,
     "f_small_int": 9,
     "f_int_choices": 1,
@@ -140,6 +295,7 @@
     "f_char_ro": "",
     "f_int_ro": 0,
     "f_text_ro": "",
+    "dal_fk": 9,
     "order": 2,
     "f_tags": [
       3
@@ -159,6 +315,10 @@
     ],
     "f_tags5": [
       3
+    ],
+    "dal_m2m": [
+      3,
+      9
     ]
   }
 },
@@ -172,6 +332,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": false,
+    "f_bool2": false,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -202,6 +363,7 @@
     "f_char_ro": "",
     "f_int_ro": 0,
     "f_text_ro": "",
+    "dal_fk": null,
     "order": 3,
     "f_tags": [
       3
@@ -220,56 +382,63 @@
     "f_tags5": [
       5,
       4
-    ]
+    ],
+    "dal_m2m": []
   }
 },
 {
   "model": "app.category",
   "pk": 3,
   "fields": {
-    "f_fk": 4,
-    "f_o2o": null,
-    "f_fk1": null,
-    "f_fk2": null,
-    "f_fk3": null,
-    "f_bool": false,
+    "f_fk": 3,
+    "f_o2o": 1,
+    "f_fk1": 9,
+    "f_fk2": 5,
+    "f_fk3": 3,
+    "f_bool": true,
+    "f_bool2": true,
     "f_nullbool": null,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 1,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_small_int": 1237,
+    "f_int_choices": 3,
+    "f_int_choices2": 4,
+    "f_int": 3898,
+    "f_bigint": 124564564,
+    "f_float": 14.5,
+    "f_decimal": "5.50",
+    "f_duration": "00:03:20",
+    "f_date": "2020-09-15",
+    "f_date2": "2022-03-18",
+    "f_time": "10:10:00",
+    "f_datetime": "2020-09-09T15:30:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
     "f_char": "Redis",
     "f_slug": "redis-0",
-    "f_email": "",
+    "f_email": "mail@box.com",
     "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
+    "f_ip": "127.0.0.1",
+    "f_text": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr",
+    "f_url": "https://www.uuidgenerator.net/",
+    "f_uuid": "bbe94b62-9e84-4667-829c-80d5cc6fcfba",
+    "f_filepath": "/home/jon/Python/www/paper-admin/tests/app/admin.py",
+    "f_file": "category/submit_VTI1oAi.py",
+    "f_image": "category/700x487.jpg",
     "f_char_ro": "",
     "f_int_ro": 0,
     "f_text_ro": "",
+    "dal_fk": 31,
     "order": 1,
     "f_tags": [
       8,
       1,
       7
     ],
-    "f_tags1": [],
+    "f_tags1": [
+      5,
+      9,
+      7
+    ],
     "f_tags2": [
       5
     ],
@@ -285,6 +454,10 @@
     "f_tags5": [
       5,
       4
+    ],
+    "dal_m2m": [
+      5,
+      4
     ]
   }
 },
@@ -298,6 +471,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": true,
+    "f_bool2": false,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -328,6 +502,7 @@
     "f_char_ro": "",
     "f_int_ro": 0,
     "f_text_ro": "",
+    "dal_fk": null,
     "order": 4,
     "f_tags": [
       1
@@ -344,7 +519,8 @@
     ],
     "f_tags5": [
       4
-    ]
+    ],
+    "dal_m2m": []
   }
 },
 {
@@ -400,7 +576,7 @@
     "slug": "sunny",
     "url": "",
     "text": "",
-    "order": 0
+    "order": 1
   }
 },
 {
@@ -418,7 +594,35 @@
   }
 },
 {
-  "model": "app.subcategory",
+  "model": "app.item",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Funny",
+    "slug": "funny",
+    "url": "",
+    "text": "",
+    "order": 0
+  }
+},
+{
+  "model": "app.item",
+  "pk": 10,
+  "fields": {
+    "category": 3,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Banny",
+    "slug": "banny",
+    "url": "",
+    "text": "",
+    "order": 2
+  }
+},
+{
+  "model": "app.tree",
   "pk": 1,
   "fields": {
     "category": 1,
@@ -433,7 +637,7 @@
   }
 },
 {
-  "model": "app.subcategory",
+  "model": "app.tree",
   "pk": 2,
   "fields": {
     "category": 1,
@@ -448,7 +652,7 @@
   }
 },
 {
-  "model": "app.subcategory",
+  "model": "app.tree",
   "pk": 3,
   "fields": {
     "category": 1,
@@ -463,7 +667,7 @@
   }
 },
 {
-  "model": "app.subcategory",
+  "model": "app.tree",
   "pk": 4,
   "fields": {
     "category": 1,
@@ -478,7 +682,7 @@
   }
 },
 {
-  "model": "app.subcategory",
+  "model": "app.tree",
   "pk": 5,
   "fields": {
     "category": 1,
@@ -493,1047 +697,10 @@
   }
 },
 {
-  "model": "admin.logentry",
+  "model": "app.sigletonexample",
   "pk": 1,
   "fields": {
-    "action_time": "2019-08-27T10:45:45.375Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "1",
-    "object_repr": "Family",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2019-08-27T10:45:49.350Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "2",
-    "object_repr": "Work",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2019-08-27T10:45:53.112Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "3",
-    "object_repr": "Food",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 4,
-  "fields": {
-    "action_time": "2019-08-27T10:46:03.715Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "4",
-    "object_repr": "Fun",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 5,
-  "fields": {
-    "action_time": "2019-08-27T10:46:13.504Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "5",
-    "object_repr": "Dance",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 6,
-  "fields": {
-    "action_time": "2019-08-27T10:51:26.344Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "6",
-    "object_repr": "People",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 7,
-  "fields": {
-    "action_time": "2019-08-27T10:56:55.527Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "1",
-    "object_repr": "Gold",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Billy\"}}, {\"added\": {\"name\": \"item\", \"object\": \"Jonny\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 8,
-  "fields": {
-    "action_time": "2019-08-27T12:52:35.393Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "subcategory"
-    ],
-    "object_id": "1",
-    "object_repr": "Adam",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 9,
-  "fields": {
-    "action_time": "2019-08-27T12:52:42.631Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "subcategory"
-    ],
-    "object_id": "2",
-    "object_repr": "Eve",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 10,
-  "fields": {
-    "action_time": "2019-08-27T12:53:03.660Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "subcategory"
-    ],
-    "object_id": "3",
-    "object_repr": "Isaak",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 11,
-  "fields": {
-    "action_time": "2019-08-27T12:53:13.963Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "subcategory"
-    ],
-    "object_id": "4",
-    "object_repr": "Yakov",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 12,
-  "fields": {
-    "action_time": "2019-08-27T12:53:28.734Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "subcategory"
-    ],
-    "object_id": "5",
-    "object_repr": "Ilia",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 13,
-  "fields": {
-    "action_time": "2019-10-01T06:35:20.865Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "object_id": "1",
-    "object_repr": "admin",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"username\", \"last_login\", \"date_joined\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 14,
-  "fields": {
-    "action_time": "2019-10-01T06:35:26.257Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "object_id": "1",
-    "object_repr": "admin",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 15,
-  "fields": {
-    "action_time": "2020-03-20T13:30:28.880Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "1",
-    "object_repr": "Gold",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_slug\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 16,
-  "fields": {
-    "action_time": "2020-03-20T13:32:51.043Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "2",
-    "object_repr": "Milk",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"one\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 17,
-  "fields": {
-    "action_time": "2020-03-20T13:33:49.135Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "3",
-    "object_repr": "Redis",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"Sunny\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 18,
-  "fields": {
-    "action_time": "2020-03-23T06:15:07.839Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "4",
-    "object_repr": "Valve",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"item\", \"object\": \"One\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 19,
-  "fields": {
-    "action_time": "2020-03-23T13:18:19.009Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "3",
-    "object_repr": "Redis",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 20,
-  "fields": {
-    "action_time": "2020-03-24T10:58:52.272Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "5",
-    "object_repr": "Dance",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 21,
-  "fields": {
-    "action_time": "2020-03-24T11:02:01.389Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "5",
-    "object_repr": "Dance",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 22,
-  "fields": {
-    "action_time": "2020-03-24T11:02:02.825Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "5",
-    "object_repr": "Dance",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 23,
-  "fields": {
-    "action_time": "2020-03-24T11:02:44.539Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "2",
-    "object_repr": "Work",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 24,
-  "fields": {
-    "action_time": "2020-03-24T11:02:53.374Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "6",
-    "object_repr": "People",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 25,
-  "fields": {
-    "action_time": "2020-03-24T12:19:15.257Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "7",
-    "object_repr": "Red",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 26,
-  "fields": {
-    "action_time": "2020-03-24T12:19:18.681Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "8",
-    "object_repr": "Blue",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 27,
-  "fields": {
-    "action_time": "2020-03-24T12:19:21.969Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "9",
-    "object_repr": "Green",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 28,
-  "fields": {
-    "action_time": "2020-03-25T06:37:46.260Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "object_id": "2",
-    "object_repr": "test",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 29,
-  "fields": {
-    "action_time": "2020-03-25T06:37:58.669Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "object_id": "2",
-    "object_repr": "test",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"is_staff\", \"user_permissions\", \"date_joined\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 30,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.348Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "34",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 31,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.421Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "33",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 32,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.479Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "32",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 33,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.546Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "31",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 34,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.613Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "30",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 35,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.679Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "29",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 36,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.746Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "28",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 37,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.813Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "27",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 38,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.871Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "26",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 39,
-  "fields": {
-    "action_time": "2020-03-25T12:01:32.937Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "25",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 40,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.004Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "24",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 41,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.070Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "23",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 42,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.138Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "22",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 43,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.196Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "21",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 44,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.254Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "20",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 45,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.313Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "19",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 46,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.371Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "18",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 47,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.445Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "17",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 48,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.504Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "16",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 49,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.587Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "15",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 50,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.654Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "14",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 51,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.712Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "13",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 52,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.779Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "12",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 53,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.846Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "11",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 54,
-  "fields": {
-    "action_time": "2020-03-25T12:01:33.936Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "tag"
-    ],
-    "object_id": "10",
-    "object_repr": "DelMe",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 55,
-  "fields": {
-    "action_time": "2020-03-26T08:43:21.897Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "4",
-    "object_repr": "Valve",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_fk\", \"f_tags\", \"f_tags2\", \"f_tags3\", \"f_tags4\", \"f_tags5\", \"f_bool\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 56,
-  "fields": {
-    "action_time": "2020-03-26T08:43:34.780Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "2",
-    "object_repr": "Milk",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_tags5\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 57,
-  "fields": {
-    "action_time": "2020-03-26T08:43:38.971Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "1",
-    "object_repr": "Gold",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 58,
-  "fields": {
-    "action_time": "2020-03-26T08:43:57.078Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "category"
-    ],
-    "object_id": "3",
-    "object_repr": "Redis",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"f_tags\", \"f_tags2\", \"f_tags3\", \"f_tags4\", \"f_tags5\"]}}]"
+    "title": "Test"
   }
 }
 ]

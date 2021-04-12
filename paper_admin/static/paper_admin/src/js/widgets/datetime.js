@@ -1,60 +1,41 @@
 import flatpickr from "flatpickr";
-import whenDomReady from "when-dom-ready";
-import emitters from "../components/emitters";
+import Widget from "js/utilities/widget";
 
 // CSS
 import "flatpickr/dist/flatpickr.min.css";
-import "../../css/widgets/datetime.scss";
+import "css/widgets/datetime.scss";
 
 
-function initWidget(options, element) {
-    if (!element.closest('.empty-form')) {
-        flatpickr(element, options);
+class FlatPickerWidget extends Widget {
+    constructor(options) {
+        super();
+        this.opts = Object.assign({}, options);
+    }
+
+    _init(element) {
+        if (!element.closest(".empty-form")) {
+            flatpickr(element, this.opts);
+        }
+    }
+
+    _destroy(element) {
+        if (element._flatpickr) {
+            element._flatpickr.destroy()
+        }
     }
 }
 
 
 /**
- * Инициализация DateTime виджетов
- * @param {Element} [root]
- */
-function initWidgets(root = document.body) {
-    let date_selector = '.vDatePicker';
-    let date_options = {
-        altInput: true,
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d"
-    };
-    root.matches(date_selector) && initWidget(date_options, root);
-    root.querySelectorAll(date_selector).forEach(initWidget.bind(null, date_options));
-
-    let time_selector = '.vTimePicker';
-    let time_options = {
-        allowInput: true,
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true
-    };
-    root.matches(time_selector) && initWidget(time_options, root);
-    root.querySelectorAll(time_selector).forEach(initWidget.bind(null, time_options));
-}
-
-
-whenDomReady(initWidgets);
-emitters.dom.on('mutate', initWidgets);
-
-
-/**
  * Симуляция нажатия стрелок при прокрутке колеса мыши на полях выбора времени.
  */
-document.addEventListener('wheel', function(event) {
+document.addEventListener("wheel", function(event) {
     const target = event.target;
-    const widget = target.closest('.numInputWrapper');
-    const input = widget && widget.querySelector('input');
+    const widget = target.closest(".numInputWrapper");
+    const input = widget && widget.querySelector("input");
     if (input) {
         event.preventDefault();
-        const fake_event = new KeyboardEvent('keydown', {
+        const fake_event = new KeyboardEvent("keydown", {
             bubbles: true,
             cancelable: true,
             keyCode: event.deltaY > 0 ? 40 : 38
@@ -67,14 +48,34 @@ document.addEventListener('wheel', function(event) {
 /**
  * Клик на иконку календаря
  */
-document.addEventListener('click', function(event) {
+document.addEventListener("click", function(event) {
     const target = event.target;
-    const button = target.closest('.vDateFieldTrigger');
-    const widget = button && button.closest('.input-group');
-    const input = widget && widget.querySelector('.vDateInput');
+    const button = target.closest(".vDateFieldTrigger");
+    const widget = button && button.closest(".input-group");
+    const input = widget && widget.querySelector(".vDateInput");
     if (input && input._flatpickr) {
         setTimeout(function() {
             input._flatpickr.open();
         }, 0)
     }
 });
+
+
+const datePicker = new FlatPickerWidget({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d"
+});
+datePicker.observe(".vDatePicker");
+datePicker.initAll(".vDatePicker");
+
+
+const timePicker = new FlatPickerWidget({
+    allowInput: true,
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: true
+});
+timePicker.observe(".vTimePicker");
+timePicker.initAll(".vTimePicker");

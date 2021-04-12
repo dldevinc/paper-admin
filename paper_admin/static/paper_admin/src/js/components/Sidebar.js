@@ -10,8 +10,8 @@ import EventEmitter from "wolfy87-eventemitter";
  */
 function Sidebar(root, options) {
     this.opts = Object.assign({
-        hook: '.sidebar-hook',
-        togglers: '.sidebar-toggle',
+        hook: ".sidebar-hook",
+        togglers: ".sidebar-toggle",
         mediaMaxWidth: 1199
     }, options);
 
@@ -20,12 +20,12 @@ function Sidebar(root, options) {
      */
     this.root = root;
     if (!this.root) {
-        throw new Error('root element not found');
+        throw new Error("root element not found");
     }
 
     this.hook = this.root.querySelector(this.opts.hook);
     if (this.hook) {
-        this.hook.addEventListener('click', function() {
+        this.hook.addEventListener("click", function() {
             if (this.isShown()) {
                 this.hide();
             }
@@ -42,12 +42,12 @@ function Sidebar(root, options) {
     ]);
 
     // отслеживание ширины экрана
-    this._mql = window.matchMedia('(max-width: ' + this.opts.mediaMaxWidth + 'px)');
-    this._mql.addEventListener('change', resizeWindow.bind(this));
+    this._mql = window.matchMedia("(max-width: " + this.opts.mediaMaxWidth + "px)");
+    this._mql.addEventListener("change", resizeWindow.bind(this));
     resizeWindow.bind(this)(this._mql);
 
     // нажатие на переключатель меню
-    document.addEventListener('click', function(evt) {
+    document.addEventListener("click", function(evt) {
         const toggler = evt.target.closest(this.opts.togglers);
         if (toggler) {
             evt.preventDefault();
@@ -60,31 +60,31 @@ Sidebar.prototype = Object.create(EventEmitter.prototype);
 
 
 Sidebar.prototype.isShown = function() {
-    return document.documentElement.classList.contains('nav-open');
+    return document.documentElement.classList.contains("nav-open");
 };
 
 Sidebar.prototype.show = function() {
     if (!this.isShown()) {
         this._initialOffset = 0;
-        document.documentElement.classList.add('nav-open');
+        document.documentElement.classList.add("nav-open");
 
-        const shadow = document.createElement('div');
-        shadow.classList.add('sidebar-shadow');
+        const shadow = document.createElement("div");
+        shadow.classList.add("sidebar-shadow");
         document.body.appendChild(shadow);
 
-        this.trigger('show');
+        this.trigger("show");
     }
 };
 
 Sidebar.prototype.hide = function() {
     if (this.isShown()) {
         this._initialOffset = -this._offsetWidth;
-        document.documentElement.classList.remove('nav-open');
+        document.documentElement.classList.remove("nav-open");
 
-        const shadow = document.body.querySelector('.sidebar-shadow');
+        const shadow = document.body.querySelector(".sidebar-shadow");
         shadow && shadow.remove();
 
-        this.trigger('hide');
+        this.trigger("hide");
     }
 };
 
@@ -118,11 +118,11 @@ Sidebar.prototype._onTouchMove = function(event) {
 
         const offset = Math.max(-_this._offsetWidth, Math.min(_this._initialOffset + _this._lastEvent.deltaX, 0));
         if (!_this._lastEvent.isFinal) {
-            _this.root.style.transition = 'none';
+            _this.root.style.transition = "none";
             _this.root.style.transform = `translate(${offset}px, 0)`;
         } else {
-            _this.root.style.transition = '';
-            _this.root.style.transform = '';
+            _this.root.style.transition = "";
+            _this.root.style.transform = "";
 
             // prevent future raf
             _this._rafPending = false;
@@ -156,11 +156,11 @@ Sidebar.prototype._onTouchMove = function(event) {
 
 function resizeWindow(mql) {
     if (mql.matches) {
-        this.hammer.on('hammer.input', this._onTouchStart.bind(this));
-        this.hammer.on('pan', this._onTouchMove.bind(this));
+        this.hammer.on("hammer.input", this._onTouchStart.bind(this));
+        this.hammer.on("pan", this._onTouchMove.bind(this));
     } else {
-        this.hammer.off('hammer.input');
-        this.hammer.off('pan');
+        this.hammer.off("hammer.input");
+        this.hammer.off("pan");
     }
 }
 

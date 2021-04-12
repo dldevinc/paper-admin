@@ -7,7 +7,7 @@
 }
 
 @each $color, $value in $theme-colors {
-  &.card-#{$color} {
+  .card-#{$color} {
     @if $color == 'dark' {
       @include card-variant(
           theme-color-level($color, -2),

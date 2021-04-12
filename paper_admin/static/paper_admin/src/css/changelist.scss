@@ -1,5 +1,7 @@
 @import "app";
+@import "components/actions";
 @import "components/filters";
+@import "components/pagination";
 @import "components/search";
 
 
@@ -22,68 +24,6 @@
       margin-right: 0;
     }
   }
-}
-
-
-/*
-  Действия над выбранными рядами списка (actions)
- */
-.paper-actions-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.actions {
-  flex: 1 1 auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  @media screen and (max-width: 499px) {
-    flex: 0 0 100%;
-  }
-
-  .action-select_across {
-    display: none;
-  }
-
-  .paper-action-notes {
-    padding-right: 1rem;
-    margin: 0 -0.3rem 0 0.375rem;
-    flex: 1 0 auto;
-    @media screen and (max-width: 499px) {
-      margin: 6px 0;
-      flex: 0 0 100%;
-    }
-  }
-
-  .action-action {
-    min-width: 200px;
-  }
-
-  .action-counter,
-  .action-all,
-  .action-question,
-  .action-clear {
-    margin: 0 .5rem;
-  }
-}
-
-.action-checkbox-column {
-  width: $custom-checkbox-size;
-  box-sizing: content-box;
-}
-
-#action-toggle {
-  vertical-align: text-bottom;
-}
-
-.action-select {
-  vertical-align: text-bottom;
 }
 
 
@@ -210,27 +150,4 @@
 .paper-changelist-tools {
   margin: -0.125rem -0.125rem;
   white-space: nowrap;
-}
-
-
-/*
-  Постраничная навигация
- */
-.paper-pagination {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  .page-link {
-    @include media-breakpoint-down(xs) {
-      padding: .25rem .5rem;
-    }
-  }
 }

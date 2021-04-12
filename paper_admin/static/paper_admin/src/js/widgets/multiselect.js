@@ -1,28 +1,23 @@
 import "multiselect";
-import whenDomReady from "when-dom-ready";
-import emitters from "../components/emitters";
+import Widget from "js/utilities/widget";
 
 // CSS
-import "../../css/widgets/multiselect.scss";
+import "css/widgets/multiselect.scss";
 
 
-function initWidget(element) {
-    if (!element.closest('.empty-form')) {
-        $(element).multiSelect();
+class MutliSelectWidget extends Widget {
+    _init(element) {
+        if (!element.closest(".empty-form")) {
+            $(element).multiSelect();
+        }
+    }
+
+    _destroy(element) {
+        $(element).multiSelect("destroy");
     }
 }
 
 
-/**
- * Инициализация MultiSelect виджетов
- * @param {Element} [root]
- */
-function initWidgets(root = document.body) {
-    let selector = '.vMultiSelect';
-    root.matches(selector) && initWidget(root);
-    root.querySelectorAll(selector).forEach(initWidget);
-}
-
-
-whenDomReady(initWidgets);
-emitters.dom.on('mutate', initWidgets);
+const multiSelect = new MutliSelectWidget();
+multiSelect.observe(".vMultiSelect");
+multiSelect.initAll(".vMultiSelect");
