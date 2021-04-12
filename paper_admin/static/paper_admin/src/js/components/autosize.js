@@ -1,5 +1,4 @@
 import autosize from "autosize";
-import whenDomReady from "when-dom-ready";
 import emitters from "./emitters";
 
 
@@ -10,17 +9,15 @@ function initAutosize(root = document.body) {
 }
 
 
-whenDomReady(function() {
-    initAutosize();
+initAutosize();
 
-    // FIX bootstrap tabs
-    $(document).on('shown.bs.tab', function(event) {
-        const tab_selector = event.target.getAttribute('href');
-        const tab_pane = tab_selector && document.querySelector(tab_selector);
-        if (tab_pane) {
-            autosize.update(tab_pane.querySelectorAll('textarea[autosize]'));
-        }
-    });
+// FIX bootstrap tabs
+$(document).on('shown.bs.tab', function(event) {
+    const tab_selector = event.target.getAttribute('href');
+    const tab_pane = tab_selector && document.querySelector(tab_selector);
+    if (tab_pane) {
+        autosize.update(tab_pane.querySelectorAll('textarea[autosize]'));
+    }
 });
 
 emitters.dom.on('mutate', initAutosize);

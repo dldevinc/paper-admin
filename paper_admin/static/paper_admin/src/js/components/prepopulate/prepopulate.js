@@ -1,4 +1,3 @@
-import whenDomReady from "when-dom-ready";
 import emitters from "../emitters";
 import urlify from "./urlify";
 
@@ -36,25 +35,23 @@ function prepopulate(field, dependencies, maxLength, allowUnicode) {
 }
 
 if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
-    whenDomReady(function() {
-        for (let record of window.django_prepopulated_fields) {
-            const field = document.getElementById(record.id);
-            const dependencies = record.dependency_ids.map(function(id) {
-                return document.getElementById(id);
-            }).filter(Boolean);
+    for (let record of window.django_prepopulated_fields) {
+        const field = document.getElementById(record.id);
+        const dependencies = record.dependency_ids.map(function(id) {
+            return document.getElementById(id);
+        }).filter(Boolean);
 
-            if (dependencies.length) {
-                field.classList.add('prepopulated-field');
-                if (field.closest('.empty-form')) {
-                    field.dataset.dependency_list = JSON.stringify(record.dependency_list);
-                    field.dataset.maxLength = record.maxLength;
-                    field.dataset.allowUnicode = Number(record.allowUnicode).toString();
-                } else {
-                    prepopulate(field, dependencies, record.maxLength, record.allowUnicode);
-                }
+        if (dependencies.length) {
+            field.classList.add('prepopulated-field');
+            if (field.closest('.empty-form')) {
+                field.dataset.dependency_list = JSON.stringify(record.dependency_list);
+                field.dataset.maxLength = record.maxLength;
+                field.dataset.allowUnicode = Number(record.allowUnicode).toString();
+            } else {
+                prepopulate(field, dependencies, record.maxLength, record.allowUnicode);
             }
         }
-    });
+    }
 
     emitters.inlines.on('added', function(row, prefix) {
         row.querySelectorAll('.prepopulated-field').forEach(function(field) {

@@ -1,5 +1,4 @@
 import "bootstrap";
-import whenDomReady from "when-dom-ready";
 import emitters from "./emitters";
 
 
@@ -98,6 +97,6 @@ function releaseBootstrap(root = document.body) {
 }
 
 
-whenDomReady(initBootstrap);
+initBootstrap();
 emitters.dom.on('mutate', initBootstrap);
 emitters.dom.on('release', releaseBootstrap);

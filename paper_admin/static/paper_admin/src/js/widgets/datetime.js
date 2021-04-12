@@ -1,5 +1,4 @@
 import flatpickr from "flatpickr";
-import whenDomReady from "when-dom-ready";
 import emitters from "../components/emitters";
 
 // CSS
@@ -41,7 +40,7 @@ function initWidgets(root = document.body) {
 }
 
 
-whenDomReady(initWidgets);
+initWidgets();
 emitters.dom.on('mutate', initWidgets);
 
 

@@ -2,7 +2,6 @@
 
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
-import whenDomReady from "when-dom-ready";
 import Sidebar from "./components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
 import ScrollTopButton from "./components/ScrollTopButton";
@@ -33,40 +32,38 @@ import "../img/menu_bg.jpg";
 window.django = {};
 window.django.jQuery = jQuery;
 
-whenDomReady(function() {
-    // кнопка скролла к вверху страницы
-    new ScrollTopButton();
 
-    // сайдбар
-    const sidebar_root = document.getElementById('paper-sidebar');
-    if (sidebar_root) {
-        new Sidebar(sidebar_root);
+// кнопка скролла к вверху страницы
+new ScrollTopButton();
 
-        const scrollbar = sidebar_root.querySelector('.sidebar-scroll');
-        scrollbar && new PerfectScrollbar(scrollbar);
-    }
+// сайдбар
+const sidebar_root = document.getElementById('paper-sidebar');
+if (sidebar_root) {
+    new Sidebar(sidebar_root);
 
-    // changelist page
-    if (document.body.classList.contains('changelist-page')) {
-        import(/* webpackChunkName: "changelist" */ './changelist');
-    }
+    const scrollbar = sidebar_root.querySelector('.sidebar-scroll');
+    scrollbar && new PerfectScrollbar(scrollbar);
+}
 
-    // changeform page
-    if (document.body.classList.contains('changeform-page')) {
-        import(/* webpackChunkName: "changeform" */ './changeform');
-    }
+// changelist page
+if (document.body.classList.contains('changelist-page')) {
+    import(/* webpackChunkName: "changelist" */ './changelist');
+}
 
-    // passwordform page
-    if (document.body.classList.contains('passwordform-page')) {
-        import(/* webpackChunkName: "passwordform" */ './passwordform');
-    }
-});
+// changeform page
+if (document.body.classList.contains('changeform-page')) {
+    import(/* webpackChunkName: "changeform" */ './changeform');
+}
+
+// passwordform page
+if (document.body.classList.contains('passwordform-page')) {
+    import(/* webpackChunkName: "passwordform" */ './passwordform');
+}
 
 
 // Shared API
 window.paperAdmin = window.paperAdmin || {};
 Object.assign(window.paperAdmin, {
-    whenDomReady,
     bootstrap,
     Sortable,
     PerfectScrollbar,

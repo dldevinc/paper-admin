@@ -1,6 +1,5 @@
 /* global gettext */
 
-import whenDomReady from "when-dom-ready";
 import hookUnload from "./components/hook_unload";
 import Formset from "./components/inlines/inlines";
 import SortableFormset from "./components/inlines/sortable_inlines";
@@ -16,28 +15,26 @@ import "./widgets/password";
 import "./widgets/url";
 
 
-whenDomReady(function() {
-    // предупреждение при закрытии формы
-    const form = document.getElementById('changeform');
-    if (form) {
-        hookUnload(form);
-    }
+// предупреждение при закрытии формы
+const form = document.getElementById('changeform');
+if (form) {
+    hookUnload(form);
+}
 
-    // динамическая подгрузка скрипта для prepopulate_fields
-    if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
-        import(/* webpackChunkName: "prepopulate" */ './components/prepopulate/prepopulate');
-    }
+// динамическая подгрузка скрипта для prepopulate_fields
+if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
+    import(/* webpackChunkName: "prepopulate" */ './components/prepopulate/prepopulate');
+}
 
-    // инициализация inline-форм
-    document.querySelectorAll('.sortable-inline-group').forEach(function(inlineGroup) {
-        new SortableFormset(inlineGroup, {
-            prefix: inlineGroup.dataset.inlinePrefix
-        });
+// инициализация inline-форм
+document.querySelectorAll('.sortable-inline-group').forEach(function(inlineGroup) {
+    new SortableFormset(inlineGroup, {
+        prefix: inlineGroup.dataset.inlinePrefix
     });
+});
 
-    document.querySelectorAll('.inline-group:not(.sortable-inline-group)').forEach(function(inlineGroup) {
-        new Formset(inlineGroup, {
-            prefix: inlineGroup.dataset.inlinePrefix
-        });
+document.querySelectorAll('.inline-group:not(.sortable-inline-group)').forEach(function(inlineGroup) {
+    new Formset(inlineGroup, {
+        prefix: inlineGroup.dataset.inlinePrefix
     });
 });

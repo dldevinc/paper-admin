@@ -1,7 +1,5 @@
 /*global gettext, interpolate, ngettext*/
 
-import whenDomReady from "when-dom-ready";
-
 const TOGGLE_ALL_ID = 'action-toggle';
 const CHECKBOX_CLASS = 'action-select';
 const CHECKBOX_LABEL_SELECTOR = '.action-checkbox .vCustomCheckbox';
@@ -10,14 +8,6 @@ const QUESTION_CLASS= 'action-question';
 const ALL_CLASS = 'action-all';
 const ACROSS_CLASS = 'select-across';
 const CLEAR_CLASS = 'action-clear';
-
-
-whenDomReady(function() {
-    const checkboxes = document.querySelectorAll(`.${CHECKBOX_CLASS}`);
-    if (checkboxes.length) {
-        initActions(Array.from(checkboxes));
-    }
-});
 
 
 function initActions(inputs) {
@@ -266,4 +256,10 @@ function clearAcross(inputs) {
 
     const clear = document.querySelector(`.${CLEAR_CLASS}`);
     clear && (clear.hidden = true);
+}
+
+
+const checkboxes = document.querySelectorAll(`.${CHECKBOX_CLASS}`);
+if (checkboxes.length) {
+    initActions(Array.from(checkboxes));
 }
