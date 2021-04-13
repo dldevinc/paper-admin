@@ -69,9 +69,11 @@
       <div class="card-body">
         {% block filters %}
           <form action="" method="get">
-            {% for spec in cl.filter_specs %}
-              {% paper_filter cl spec %}
-            {% endfor %}
+            <div class="paper-filters">
+              {% for spec in cl.filter_specs %}
+                {% paper_filter cl spec %}
+              {% endfor %}
+            </div>
 
             {% get_filter_keep_params as filter_keep_params %}
             {% for name, value in filter_keep_params %}
@@ -121,31 +123,33 @@
 
 {% block content %}
   {% if cl.full_result_count %}
-    <div class="paper-filters-card card">
-      <div class="card-body">
-        <div class="card-row row">
-          <div class="col">
-            <span class="results-counter text-muted nowrap">
-              {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
+    <div class="paper-top-filters">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-row row">
+            <div class="col">
+              <span class="results-counter text-muted nowrap">
+                {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
 
-              {% if cl.result_count != cl.full_result_count %}
-                (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
-              {% endif %}
-            </span>
+                {% if cl.result_count != cl.full_result_count %}
+                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
+                {% endif %}
+              </span>
+            </div>
+
+            <div class="col-auto">
+              {% search_form cl %}
+            </div>
           </div>
 
-          <div class="col-auto">
-            {% search_form cl %}
-          </div>
+          {% if cl.result_count and cl.date_hierarchy %}
+            <div class="card-row">
+              {% date_hierarchy cl %}
+            </div>
+          {% endif %}
+
+          {% block hierarchy_filters %}{% endblock hierarchy_filters %}
         </div>
-
-        {% if cl.result_count and cl.date_hierarchy %}
-          <div class="card-row">
-            {% date_hierarchy cl %}
-          </div>
-        {% endif %}
-
-        {% block hierarchy_filters %}{% endblock hierarchy_filters %}
       </div>
     </div>
   {% endif %}

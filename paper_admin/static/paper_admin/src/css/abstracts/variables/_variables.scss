@@ -3,7 +3,8 @@ $tool-item-margin-x: 0;
 $tool-item-margin-y: 0.25rem;
 
 // right column (object tools)
-$toolbar-width: 15rem;
+$toolbar-max-width: 15rem;
+$toolbar-min-width: 12rem;
 
 // filters
 $filter-title-font-size: 1rem;

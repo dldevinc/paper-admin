@@ -63,9 +63,11 @@ textarea {
 }
 
 .paper-content-right {
-  max-width: $toolbar-width;
-  @include media-breakpoint-down(md) {
-    display: none;
+  display: none;
+  max-width: $toolbar-max-width;
+  min-width: $toolbar-min-width;
+  @include media-breakpoint-up(lg) {
+    display: block;
   }
 
   .sticky-top {
