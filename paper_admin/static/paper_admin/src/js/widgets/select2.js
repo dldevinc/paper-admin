@@ -2,7 +2,7 @@ import "js/helpers/select2";
 import Widget from "js/utilities/widget";
 
 // CSS
-import "select2/dist/css/select2.min.css";
+import "select2/dist/css/select2.css";
 import "css/widgets/select2.scss";
 
 
@@ -42,14 +42,24 @@ class Select2Widget extends Widget {
 }
 
 
-const select2 = new Select2Widget({
+const select2_changeform = new Select2Widget({
+    width: "",
     minimumResultsForSearch: Infinity
 });
-select2.observe(".vSelect");
-select2.initAll(".vSelect");
+select2_changeform.observe(".paper-form-card .vSelect");
+select2_changeform.initAll(".paper-form-card .vSelect");
+
+
+const select2_changelist = new Select2Widget({
+    theme: "sm",
+    minimumResultsForSearch: Infinity
+});
+select2_changelist.observe(".paper-table-wrapper .vSelect");
+select2_changelist.initAll(".paper-table-wrapper .vSelect");
 
 
 const select2_filters = new Select2Widget({
+    width: "",
     theme: "sm",
     allowClear: true
 });

@@ -184,14 +184,9 @@ $clear-btn-width: 24px;
 
 
 .select2-container--default {
-  min-width: $form-field-width;
   font-size: $input-font-size-lg;
   line-height: $input-line-height-lg;
   border-radius: $input-border-radius-lg;
-  @media (max-width: 419px) {
-    width: 100% !important;
-    min-width: 0;
-  }
 
   .select2-selection--multiple,
   .select2-selection--single {
