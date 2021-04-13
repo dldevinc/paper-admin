@@ -1,5 +1,9 @@
 # Change Log
 
+## [2.0.1](https://github.com/dldevinc/paper-admin/tree/v2.0.1) - 2021-04-13
+### Bug Fixes
+- Remove `required` attribute from the search field.
+
 ## [2.0.0](https://github.com/dldevinc/paper-admin/tree/v2.0.0) - 2021-04-12
 ### ⚠ BREAKING CHANGES
 - Add `select2` to all select boxes.
