@@ -63,7 +63,7 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
             'data-ajax--url': self.get_url(),
             'data-allow-clear': json.dumps(not self.is_required),
             'data-placeholder': '',  # Allows clearing of the input.
-            'class': attrs['class'] + (' ' if attrs['class'] else '') + 'vSelect custom-select custom-select-lg admin-autocomplete',
+            'class': attrs['class'] + (' ' if attrs['class'] else '') + 'vSelect admin-autocomplete',
         })
         return attrs
 
