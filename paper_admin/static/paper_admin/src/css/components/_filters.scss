@@ -1,7 +1,9 @@
 @import "../app";
 
 
-.paper-filters-card {
+.paper-top-filters {
+  margin-bottom: $grid-gutter-width;
+
   .card-body {
     padding: 0;
   }
@@ -29,10 +31,14 @@
 }
 
 .paper-hierarchy-filter {
-  margin-bottom: 1rem;
+  margin-bottom: $grid-gutter-width;
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.paper-filters {
+  
 }
 
 .paper-filter {
