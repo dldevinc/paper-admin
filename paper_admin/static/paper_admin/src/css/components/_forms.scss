@@ -147,8 +147,9 @@
   }
 }
 
-.vSelect {
-  max-width: 100%;
+.vSelect,
+.select2 {
+  width: 100%;
   @media (min-width: 420px) {
     width: auto;
     min-width: $form-field-width;

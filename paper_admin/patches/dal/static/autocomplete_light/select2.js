@@ -75,6 +75,7 @@ document.addEventListener('dal-init-function', function () {
         }
 
         $element.select2({
+            width: "",
             tokenSeparators: $element.attr('data-tags') ? [','] : null,
             debug: true,
             // containerCssClass: ':all:',

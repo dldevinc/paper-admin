@@ -57,6 +57,7 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
         attrs = super(DefaultAutocompleteMixin, self).build_attrs(base_attrs, extra_attrs=extra_attrs)
         attrs.setdefault('class', '')
         attrs.update({
+            'data-width': '',
             'data-ajax--cache': 'true',
             'data-ajax--delay': 250,
             'data-ajax--type': 'GET',

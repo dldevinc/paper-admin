@@ -36,13 +36,9 @@
     @include border-radius($input-border-radius-sm);
   }
 
-  .custom-select {
+  .vSelect,
+  .select2 {
     min-width: 160px;
-
-    // копирование стилей custom-select-sm
-    padding: $custom-select-padding-y-sm ($custom-select-padding-x-sm + $custom-select-indicator-padding) $custom-select-padding-y-sm $custom-select-padding-x-sm;
-    height: $custom-select-height-sm;
-    font-size: $custom-select-font-size-sm;
   }
 
   .input-group {
