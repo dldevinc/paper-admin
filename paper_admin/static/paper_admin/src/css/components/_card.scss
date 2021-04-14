@@ -11,8 +11,12 @@
 }
 
 .card-header {
-  border-width: 1px;
+  border-bottom: 0;
   @include card-padding-x;
+
+  + .card-body {
+    border-top: 1px solid $card-border-color;;
+  }
 }
 
 .card-title {
@@ -25,11 +29,20 @@
   opacity: 0.8;
 }
 
-.card-body {
-  @include card-padding-x;
-}
-
 .card-footer {
   border-width: 1px;
   @include card-padding-x;
+}
+
+// Из-за наличия pagging у "card-body", анимация скрытия/раскрытия (collapse)
+// не плавная. Переносим padding на внутренний элемент card-content".
+.card-body {
+  padding-top: 0;
+  padding-bottom: 0;
+  @include card-padding-x;
+}
+
+.card-content {
+  padding-top: $card-spacer-y;
+  padding-bottom: $card-spacer-y;
 }
