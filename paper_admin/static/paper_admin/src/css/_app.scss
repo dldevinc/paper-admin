@@ -12,13 +12,15 @@
   "css/abstracts/functions/sum";
 
 @import
-  "css/abstracts/variables/header",
-  "css/abstracts/variables/footer",
   "css/abstracts/variables/forms",
   "css/abstracts/variables/range",
   "css/abstracts/variables/sidebar",
   "css/abstracts/variables/tabs",
   "css/abstracts/variables/variables";
+
+@import
+  "css/abstracts/variables/components/paper-footer",
+  "css/abstracts/variables/components/paper-header";
 
 @import
   "css/abstracts/mixins/card";

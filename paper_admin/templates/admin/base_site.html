@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand">
       <div class="container-fluid">
         {% block header_brand %}
-          <div class="navbar-brand d-none d-lg-block{% if not is_popup %} d-xl-none{% endif %}">
+          <div class="navbar-brand d-none d-lg-block{% if not is_popup %} d-xl-none{% endif %} text-wrap">
             {% if is_popup %}
               <span class="navbar-brand-name">{{ site_header }}</span>
             {% else %}
@@ -51,14 +51,15 @@
 
         {% if has_permission %}
           {% block header_navbar %}
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav flex-wrap align-items-center flex-shrink-0 flex-grow-1 flex-lg-grow-0 ml-lg-auto">
               {% spaceless %}
                 {% block header_buttons %}{% endblock %}
               {% endspaceless %}
 
               {% block header_navbar_items %}
                 {% if not is_popup %}
-                  <li class="nav-item divider"></li>
+                  {# divider for mobile devices #}
+                  <li class="nav-item align-self-stretch flex-grow-1 mx-0 d-lg-none"></li>
 
                   <li class="nav-item">
                     <a href="{{ site_url }}"
@@ -115,7 +116,7 @@
                   </li>
 
                   <li class="nav-item d-xl-none">
-                    <a href="#" class="sidebar-toggle nav-link">
+                    <a href="#" class="paper-header__burger nav-link" data-toggle="sidebar">
                       <i class="fa fa-bars"></i>
                     </a>
                   </li>
@@ -190,32 +191,34 @@
       <div class="row">
         {% block support %}
           {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
-            <div class="col-auto position-static">
-              <span class="paper-support-text">
+            <div class="col-auto flex-shrink-1">
+              <p class="mb-0">
                 {% trans 'Please contact us if you have any problems' %}
-              </span>
+              </p>
 
-              <span class="paper-support-links">
-                {% if paper.SUPPORT_PHONE %}
-                  <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="paper-support-phone">
-                    <i class="fa fa-lg fa-phone"></i>
-                    <span>{{ paper.SUPPORT_PHONE }}</span>
-                  </a>
-                {% endif %}
+              {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
+                <div class="mt-1">
+                  {% if paper.SUPPORT_PHONE %}
+                    <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="d-inline-block nowrap mr-3 mt-1">
+                      <i class="fa fa-lg fa-phone"></i>
+                      <span>{{ paper.SUPPORT_PHONE }}</span>
+                    </a>
+                  {% endif %}
 
-                {% if paper.SUPPORT_EMAIL %}
-                  <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="paper-support-email">
-                    <i class="fa fa-lg fa-envelope-o"></i>
-                    <span>{{ paper.SUPPORT_EMAIL }}</span>
-                  </a>
-                {% endif %}
-              </span>
+                  {% if paper.SUPPORT_EMAIL %}
+                    <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="d-inline-block nowrap mt-1">
+                      <i class="fa fa-lg fa-envelope-o"></i>
+                      <span>{{ paper.SUPPORT_EMAIL }}</span>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
             </div>
           {% endif %}
         {% endblock %}
 
         {% block copyright %}
-          <div class="paper-copyright col-lg-auto ml-lg-auto position-static">
+          <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
             &copy; {% now 'Y' %}
             {% if paper.SUPPORT_COMPANY %}
               {% if paper.SUPPORT_WEBSITE %}

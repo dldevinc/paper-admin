@@ -1,0 +1,59 @@
+@import "../app";
+
+
+.paper-header {
+  min-height: $paper-header-min-height;
+  box-shadow: $paper-header-box-shadow;
+  background: $paper-header-bg;
+  z-index: $paper-header-zindex;
+  backface-visibility: hidden;  // force layer to prevent repaint
+
+  .navbar {
+    padding: $paper-header-navbar-padding-y $paper-header-navbar-padding-x;
+    min-height: sum($btn-line-height-sm * $btn-font-size-sm, $btn-padding-y-sm * 2, $btn-border-width * 2);
+    box-sizing: content-box;
+  }
+
+  .navbar-brand-name {
+    color: $paper-header-brand-color;
+    font-size: $paper-header-brand-font-size;
+    word-break: break-word;
+  }
+
+  .navbar-nav {
+    margin-right: -$paper-header-nav-item-margin-x;
+
+    .nav-item {
+      margin-right: $paper-header-nav-item-margin-x;
+    }
+  }
+
+  .nav-link {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    color: $body-color;
+    border-radius: $border-radius;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      background-color: $gray-100;
+    }
+  }
+
+  .tool-item {
+    margin: 0;  // TODO: fix
+  }
+
+  &__burger {
+    min-width: 32px;
+    text-align: center;
+
+    &:hover {
+      color: $info;
+    }
+
+    i {
+      transform: scale(1.5);
+    }
+  }
+}

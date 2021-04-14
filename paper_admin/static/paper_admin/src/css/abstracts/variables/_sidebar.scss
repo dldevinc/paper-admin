@@ -1,6 +1,6 @@
 @import "css/abstracts/variables/bootstrap";
 @import "css/abstracts/variables/font-awesome";
-@import "css/abstracts/variables/header";
+@import "css/abstracts/variables/components/paper-header";
 
 
 $sidebar-width: 15rem !default;
@@ -9,7 +9,7 @@ $sidebar-transition-duration: 0.5s !default;
 
 $sidebar-brand-padding-x: 0.75rem !default;
 $sidebar-brand-padding-y: 0.625rem !default;
-$sidebar-brand-min-height: $header-min-height !default;
+$sidebar-brand-min-height: $paper-header-min-height !default;
 $sidebar-brand-name-color: #fff !default;
 $sidebar-brand-border-color: #404040 !default;
 

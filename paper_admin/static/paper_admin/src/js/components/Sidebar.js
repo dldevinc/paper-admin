@@ -11,7 +11,7 @@ import EventEmitter from "wolfy87-eventemitter";
 function Sidebar(root, options) {
     this.opts = Object.assign({
         hook: ".sidebar-hook",
-        togglers: ".sidebar-toggle",
+        togglers: "[data-toggle=\"sidebar\"]",
         mediaMaxWidth: 1199
     }, options);
 

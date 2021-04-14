@@ -1,0 +1,9 @@
+@import "../app";
+
+
+.paper-footer {
+  padding: $paper-footer-padding-y $paper-footer-padding-x;
+  font-size: $paper-footer-font-size;
+  background: $paper-footer-bg;
+  border-top: $paper-footer-border-width solid $paper-footer-border-color;
+}
