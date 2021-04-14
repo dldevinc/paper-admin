@@ -161,3 +161,8 @@ $pagination-active-border-color: #2aa9be; // theme-color-level("info", -1)
 
 // errors
 $form-feedback-invalid-color: #ff4040;    // theme-color-level('danger', 2)
+
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";

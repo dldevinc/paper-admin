@@ -2,23 +2,23 @@
  * Только переменные, функции и миксины!
  */
 
-// vendors
 @import
-  "abstracts/variables/bootstrap",
-  "abstracts/variables/font_awesome";
+  "css/abstracts/variables/bootstrap",
+  "css/abstracts/variables/font-awesome",
+  "css/patches/font_awesome/variables";
 
 @import
-  "node_modules/bootstrap/scss/functions",
-  "node_modules/bootstrap/scss/variables",
-  "node_modules/bootstrap/scss/mixins",
-  "vendor/font-awesome/variables";
+  "css/abstracts/functions/px",
+  "css/abstracts/functions/sum";
 
 @import
-  "abstracts/mixins";
+  "css/abstracts/variables/header",
+  "css/abstracts/variables/footer",
+  "css/abstracts/variables/forms",
+  "css/abstracts/variables/range",
+  "css/abstracts/variables/sidebar",
+  "css/abstracts/variables/tabs",
+  "css/abstracts/variables/variables";
 
-// patches
 @import
-  "patches/font_awesome/variables";
-
-@import
-  "abstracts/variables";
+  "css/abstracts/mixins/card";
