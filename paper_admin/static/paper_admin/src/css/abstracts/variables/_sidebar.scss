@@ -1,4 +1,7 @@
-@import "header";
+@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/variables/font-awesome";
+@import "css/abstracts/variables/header";
+
 
 $sidebar-width: 15rem !default;
 $sidebar-zindex: $zindex-fixed !default;
