@@ -12,6 +12,7 @@ import "js/widgets/email";
 import "js/widgets/multiselect";
 import "js/widgets/password";
 import "js/widgets/url";
+import "bem/paper-toolbar/paper-toolbar";
 
 
 // предупреждение при закрытии формы
