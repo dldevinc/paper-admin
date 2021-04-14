@@ -12,25 +12,24 @@
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block sidebar %}
-  <aside id="paper-sidebar" class="bg-dark">
-    <div class="sidebar-hook"></div>
-    <div class="sidebar-scroll" style="background-image: url({% static 'paper_admin/dist/assets/menu_bg.jpg' %})">
-      <nav class="navbar navbar-dark flex-column align-items-stretch p-0">
-        {% block branding %}
-          <div class="navbar-brand">
-            <a href="{% url 'admin:index' %}" class="navbar-brand-name">{{ site_header }}</a>
-          </div>
-        {% endblock %}
+  <aside class="paper-sidebar bg-dark" style="background-image: url({% static 'paper_admin/dist/assets/menu_bg.jpg' %})">
+    <nav class="navbar navbar-dark flex-column flex-nowrap justify-content-start align-items-stretch p-0">
+      {% block branding %}
+        <div class="navbar-brand d-flex align-items-center text-wrap mr-0">
+          <a href="{% url 'admin:index' %}" class="navbar-brand-name">{{ site_header }}</a>
+        </div>
+      {% endblock %}
 
-        {% include 'paper_admin/environment.html' %}
+      {% include 'paper_admin/environment.html' %}
 
-        {% block menu %}
-          <ul id="sidebar-menu" class="paper-sidebar-nav navbar-nav">
-            {% paper_menu %}
+      {% block menu %}
+        <div class="paper-sidebar__menu">
+          <ul id="sidebar-menu" class="paper-sidebar__item-list paper-sidebar__item-list--level-1 navbar-nav">
+            {% paper_menu "#sidebar-menu" %}
           </ul>
-        {% endblock %}
-      </nav>
-    </div>
+        </div>
+      {% endblock %}
+    </nav>
   </aside>
 {% endblock %}
 

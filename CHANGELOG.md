@@ -2,7 +2,8 @@
 
 ## [2.1.0](https://github.com/dldevinc/paper-admin/tree/v2.0.1) - 2021-04-13
 ### Features
-- Remove `custom-select` styles.
+- Rewrite sidebar behavior.
+- Remove `custom-select`.
 ### Bug Fixes
 - Remove `required` attribute from the search field.
 

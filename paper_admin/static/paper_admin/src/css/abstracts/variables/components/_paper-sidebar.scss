@@ -1,0 +1,64 @@
+@import "css/abstracts/functions/sum";
+@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/variables/font-awesome";
+@import "css/abstracts/variables/components/paper-header";
+
+
+$paper-sidebar-width: 15rem !default;
+$paper-sidebar-zindex: $zindex-fixed !default;
+$paper-sidebar-box-shadow: 0 0 5px rgba($black, 0.66) !default;
+$paper-sidebar-transition-duration: 0.5s !default;
+
+$paper-sidebar-shadow-bg: rgba($black, 0.33) !default;
+$paper-sidebar-shadow-zindex: ($paper-sidebar-zindex - 1) !default;
+
+$paper-sidebar-brand-padding-y: $paper-header-navbar-padding-y !default;
+$paper-sidebar-brand-padding-x: 0.75rem !default;
+$paper-sidebar-brand-min-height: $paper-header-min-height !default;
+$paper-sidebar-brand-color: #fff !default;
+$paper-sidebar-brand-font-size: $paper-header-brand-font-size !default;
+$paper-sidebar-brand-border-width: 1px !default;
+$paper-sidebar-brand-border-color: #404040 !default;
+
+$paper-sidebar-item-list-bg: darken($dark, 5%) !default;
+
+$paper-sidebar-item-divider-bg: #404040 !default;
+
+$paper-sidebar-link-padding-y: 0.5rem !default;
+$paper-sidebar-link-padding-x: 0.75rem !default;
+$paper-sidebar-link-font-size: $font-size-base !default;
+$paper-sidebar-link-line-height: $line-height-base !default;
+$paper-sidebar-link-color: rgba(#fff, 0.75) !default;
+$paper-sidebar-link-bg: transparent !default;
+$paper-sidebar-link-hover-color: #fff !default;
+$paper-sidebar-link-hover-bg: lighten($dark, 5%) !default;
+$paper-sidebar-link-active-color: #fff !default;
+$paper-sidebar-link-active-bg: $dark !default;
+
+$paper-sidebar-link-arrow-size: 0.625rem !default;
+
+$paper-sidebar-icon-width: 20px !default;
+$paper-sidebar-icon-margin-right: 0.375rem !default;
+
+
+// ================
+//  Level-specific
+// ================
+$paper-sidebar-first-link-color: $paper-sidebar-link-color !default;
+$paper-sidebar-first-link-bg: transparent !default;
+$paper-sidebar-first-link-hover-color: #fff !default;
+$paper-sidebar-first-link-hover-bg: $info !default;
+$paper-sidebar-first-link-active-color: #fff !default;
+$paper-sidebar-first-link-active-bg: $info !default;
+
+$paper-sidebar-link-padding-left-level1: 0.5rem !default;
+$paper-sidebar-link-padding-left-level2: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-icon-width, $paper-sidebar-icon-margin-right) !default;
+$paper-sidebar-link-padding-left-level3: sum($paper-sidebar-link-padding-left-level2, 0.625rem) !default;
+$paper-sidebar-link-padding-left-level4: sum($paper-sidebar-link-padding-left-level3, 0.625rem) !default;
+
+$paper-sidebar-dot-size: 7px;
+$paper-sidebar-dot-left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-icon-width / 2) !default;
+$paper-sidebar-dot-top: sum($paper-sidebar-link-padding-y, $paper-sidebar-link-font-size * $paper-sidebar-link-line-height / 2) !default;
+$paper-sidebar-dot-bg: $paper-sidebar-item-list-bg !default;
+$paper-sidebar-dot-hover-bg: darken(#fff, 20%) !default;
+$paper-sidebar-dot-active-bg: $paper-sidebar-dot-hover-bg !default;

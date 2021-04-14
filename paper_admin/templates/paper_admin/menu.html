@@ -1,10 +1,10 @@
 {% for item in items %}
   {% if item.divider %}
-    <li class="divider"></li>
+    <li class="paper-sidebar__item paper-sidebar__item--divider"></li>
   {% elif item.childs %}
-    <li class="nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
+    <li class="paper-sidebar__item paper-sidebar__item--level-{{ level }} nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
       <a href="#submenu-{{ item.uid }}"
-         class="nav-link has-subs"
+         class="paper-sidebar__link paper-sidebar__link--trigger"
          data-toggle="collapse"
          data-parent="{{ parent }}"
          aria-expanded="{{ item.is_active|yesno:"true,false" }}"
@@ -19,16 +19,16 @@
         <span>{{ item.label }}</span>
       </a>
 
-      <ul class="collapse list-unstyled {{ item.is_active|yesno:"show," }}"
+      <ul class="paper-sidebar__item-list paper-sidebar__item-list--level-{{ level|add:1 }} collapse list-unstyled {{ item.is_active|yesno:"show," }}"
           id="submenu-{{ item.uid }}">
         {% with uid=item.uid|stringformat:"s" %}
-          {% include 'paper_admin/_menu.html' with items=item.childs parent="#submenu-"|add:uid level=level|add:1 %}
+          {% include 'paper_admin/menu.html' with items=item.childs parent="#submenu-"|add:uid level=level|add:1 %}
         {% endwith %}
       </ul>
     </li>
   {% else %}
-    <li class="nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
-      <a href="{{ item.url }}" class="nav-link">
+    <li class="paper-sidebar__item paper-sidebar__item--level-{{ level }} nav-item {{ item.classes }} {{ item.is_active|yesno:"active," }}">
+      <a href="{{ item.url }}" class="paper-sidebar__link">
         {% if item.icon %}
           <i class="{{ item.icon }}"></i>
         {% else %}
