@@ -15,7 +15,7 @@
   {{ media.js }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} changeform-page{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 
 {% block header_buttons %}

@@ -16,10 +16,8 @@ import "js/widgets/select2";
 // CSS
 import "css/fonts.scss";
 import "css/common.scss";
-import "css/dashboard.scss";
 import "css/app_index.scss";
 import "css/history.scss";
-import "css/login.scss";
 import "css/delete.scss";
 import "css/changelist.scss";
 import "css/changeform.scss";
@@ -33,13 +31,24 @@ import "img/menu_bg.jpg";
 // TODO: widget
 new ScrollTopButton();
 
+
+// login page
+if (document.body.classList.contains("login")) {
+    import(/* webpackChunkName: "login" */ "js/login");
+}
+
+// dashboard page
+if (document.body.classList.contains("dashboard")) {
+    import(/* webpackChunkName: "dashboard" */ "js/dashboard");
+}
+
 // changelist page
 if (document.body.classList.contains("changelist-page")) {
     import(/* webpackChunkName: "changelist" */ "js/changelist");
 }
 
 // changeform page
-if (document.body.classList.contains("changeform-page")) {
+if (document.body.classList.contains("change-form")) {
     import(/* webpackChunkName: "changeform" */ "js/changeform");
 }
 

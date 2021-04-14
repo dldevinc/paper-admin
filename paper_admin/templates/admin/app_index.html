@@ -2,6 +2,8 @@
 {% load i18n static %}
 
 
+{% block bodyclass %}{{ block.super }} app-{{ app_label }}{% endblock %}
+
 {% block breadcrumb_items %}
   {% for app in app_list %}
     <li class="breadcrumb-item active" aria-current="page">
@@ -21,7 +23,7 @@
 
 {% block content %}
   {% for app in app_list %}
-    <div class="card" id="appindex">
+    <div class="card">
       <div class="card-body">
         <div class="paper-table-wrapper">
           <table class="table table-middle">

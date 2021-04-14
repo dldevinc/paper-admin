@@ -13,7 +13,7 @@
 {% endblock %}
 
 
-{% block bodyclass %} login-page{% endblock %}
+{% block bodyclass %}{{ block.super }} login{% endblock %}
 {% block sidebar %}{% endblock %}
 {% block header %}{% endblock %}
 {% block breadcrumbs %}{% endblock %}
@@ -108,7 +108,7 @@
 
       <div class="card-footer">
         <button type="submit" class="btn btn-block btn-lg btn-dark" form="login-form">
-          {% trans 'Sign in' %}
+          {% trans 'Log in' %}
         </button>
       </div>
     </div>
