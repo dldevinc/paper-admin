@@ -1,0 +1,5 @@
+.sticky-top {
+  @supports (position: sticky) {
+    backface-visibility: hidden; // force layer to prevent repaint
+  }
+}

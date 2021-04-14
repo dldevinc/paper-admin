@@ -3,6 +3,7 @@
 import hookUnload from "js/components/hook_unload";
 import Formset from "js/components/inlines/inlines";
 import SortableFormset from "js/components/inlines/sortable_inlines";
+import "js/components/paper-toolbar";
 import "js/components/RelatedObjectLookups";
 import "js/components/tabs";
 import "js/widgets/autosize";
