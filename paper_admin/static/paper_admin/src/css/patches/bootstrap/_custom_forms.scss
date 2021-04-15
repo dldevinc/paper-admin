@@ -3,14 +3,6 @@
   transform: translate(0, -50%);
 }
 
-.custom-select-sm {
-  padding-right: ($custom-select-padding-x-sm + $custom-select-indicator-padding);
-}
-
-.custom-select-lg {
-  padding-right: ($custom-select-padding-x-lg + $custom-select-indicator-padding);
-}
-
 .custom-switch {
   .custom-control-label {
     cursor: pointer;

@@ -1,8 +1,10 @@
 # Change Log
 
-## [2.0.1](https://github.com/dldevinc/paper-admin/tree/v2.0.1) - 2021-04-13
+## [2.1.0](https://github.com/dldevinc/paper-admin/tree/v2.1.0) - 2021-04-13
+### Features
+- Removed `custom-select` styles.
 ### Bug Fixes
-- Remove `required` attribute from the search field.
+- Removed `required` attribute from the search field.
 
 ## [2.0.0](https://github.com/dldevinc/paper-admin/tree/v2.0.0) - 2021-04-12
 ### ⚠ BREAKING CHANGES

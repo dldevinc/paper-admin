@@ -20,9 +20,7 @@ class ActionForm(helpers.ActionForm):
     action = forms.ChoiceField(
         label="",
         required=False,
-        widget=forms.Select(attrs={
-            "class": "custom-select",
-        })
+        widget=forms.Select()
     )
 
     def clean_action(self):
