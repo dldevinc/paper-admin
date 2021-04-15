@@ -190,32 +190,34 @@
       <div class="row">
         {% block support %}
           {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
-            <div class="col-auto position-static">
-              <span class="paper-support-text">
+            <div class="col-auto flex-shrink-1">
+              <p class="mb-0">
                 {% trans 'Please contact us if you have any problems' %}
-              </span>
+              </p>
 
-              <span class="paper-support-links">
-                {% if paper.SUPPORT_PHONE %}
-                  <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="paper-support-phone">
-                    <i class="fa fa-lg fa-phone"></i>
-                    <span>{{ paper.SUPPORT_PHONE }}</span>
-                  </a>
-                {% endif %}
+              {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
+                <div class="mt-1">
+                  {% if paper.SUPPORT_PHONE %}
+                    <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="d-inline-block nowrap mr-3 mt-1">
+                      <i class="fa fa-lg fa-phone"></i>
+                      <span>{{ paper.SUPPORT_PHONE }}</span>
+                    </a>
+                  {% endif %}
 
-                {% if paper.SUPPORT_EMAIL %}
-                  <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="paper-support-email">
-                    <i class="fa fa-lg fa-envelope-o"></i>
-                    <span>{{ paper.SUPPORT_EMAIL }}</span>
-                  </a>
-                {% endif %}
-              </span>
+                  {% if paper.SUPPORT_EMAIL %}
+                    <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="d-inline-block nowrap mt-1">
+                      <i class="fa fa-lg fa-envelope-o"></i>
+                      <span>{{ paper.SUPPORT_EMAIL }}</span>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
             </div>
           {% endif %}
         {% endblock %}
 
         {% block copyright %}
-          <div class="paper-copyright col-lg-auto ml-lg-auto position-static">
+          <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
             &copy; {% now 'Y' %}
             {% if paper.SUPPORT_COMPANY %}
               {% if paper.SUPPORT_WEBSITE %}

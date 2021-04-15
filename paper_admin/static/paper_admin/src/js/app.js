@@ -15,6 +15,7 @@ import "js/widgets/select2";
 import "css/fonts.scss";
 import "css/common.scss";
 
+import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
 import "bem/paper-sidebar/paper-sidebar";
 
