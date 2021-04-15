@@ -7,7 +7,6 @@ import modals from "js/components/modals";
 import Sortable from "sortablejs";
 import Sidebar from "js/components/Sidebar";
 import PerfectScrollbar from "perfect-scrollbar";
-import ScrollTopButton from "js/components/ScrollTopButton";
 import Widget from "js/utilities/widget";
 import "js/components/cancel";
 import "js/components/filedrag";
@@ -31,9 +30,6 @@ import "css/changeform.scss";
 // Images
 import "img/favicon.png";
 
-
-// кнопка скролла к вверху страницы
-new ScrollTopButton();
 
 // сайдбар
 const sidebar_root = document.getElementById("paper-sidebar");

@@ -1,6 +1,8 @@
 # Change Log
 
-## [2.1.0](https://github.com/dldevinc/paper-admin/tree/v2.1.0) - 2021-04-13
+## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-04-15
+### ⚠ BREAKING CHANGES
+- Removed scroll-to-top button.
 ### Features
 - Removed `custom-select` styles.
 ### Bug Fixes
