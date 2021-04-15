@@ -25,6 +25,14 @@ textarea {
   white-space: nowrap;
 }
 
+.container-fluid {
+  @include media-breakpoint-up(sm) {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+  }
+}
+
+
 #paper-page {
   min-height: 100vh;
 }
@@ -36,15 +44,6 @@ textarea {
   @include transition(margin-left $paper-sidebar-transition-duration);
   @include media-breakpoint-up(xl) {
     margin-left: $paper-sidebar-width;
-  }
-
-  .container-fluid {
-    padding-left: $grid-gutter-width / 2;
-    padding-right: $grid-gutter-width / 2;
-    @include media-breakpoint-up(sm) {
-      padding-left: $grid-gutter-width;
-      padding-right: $grid-gutter-width;
-    }
   }
 }
 

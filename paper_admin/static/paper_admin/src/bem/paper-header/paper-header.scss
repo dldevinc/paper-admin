@@ -1,0 +1,58 @@
+@import "css/app";
+
+.paper-header {
+  min-height: $paper-header-min-height;
+  box-shadow: $paper-header-box-shadow;
+  background: $paper-header-bg;
+  z-index: $paper-header-zindex;
+  backface-visibility: hidden;  // force layer to prevent repaint
+
+  .navbar {
+    min-height: sum($btn-line-height-sm * $btn-font-size-sm, $btn-padding-y-sm * 2, $btn-border-width * 2);
+    box-sizing: content-box;
+  }
+
+  .navbar-brand-name {
+    color: $paper-header-brand-color;
+    font-size: $paper-header-brand-font-size;
+    word-break: break-word;
+  }
+
+  .navbar-nav {
+    margin-right: -$paper-header-nav-item-gutter;
+  }
+
+  .nav-item {
+    margin-right: $paper-header-nav-item-gutter;
+  }
+
+  .nav-link {
+    padding-top: $paper-header-nav-link-padding-y;
+    padding-bottom: $paper-header-nav-link-padding-y;
+    min-width: $paper-header-nav-link-min-width;
+    font-size: $paper-header-nav-link-font-size;
+    line-height: $paper-header-nav-link-line-height;
+    text-align: center;
+    color: $paper-header-nav-link-color;
+    border-radius: $paper-header-nav-link-border-radius;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      color: $paper-header-nav-link-hover-color;
+      background-color: $paper-header-nav-link-hover-bg;
+    }
+  }
+
+  &__burger {
+    min-width: 32px;
+    text-align: center;
+
+    &:hover {
+      color: $info;
+    }
+
+    i {
+      transform: scale(1.33);
+    }
+  }
+}
