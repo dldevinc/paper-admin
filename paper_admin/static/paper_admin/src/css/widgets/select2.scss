@@ -22,7 +22,7 @@ $clear-btn-width: 24px;
       top: 0;
       width: $clear-btn-width;
       height: 100%;
-      color: $text-muted;
+      color: $secondary;
       line-height: inherit;
       text-align: center;
       align-items: center;
@@ -99,7 +99,7 @@ $clear-btn-width: 24px;
       position: relative;
       padding: 0 4px;
       margin: 0 2px 0 -5px;
-      color: $text-muted;
+      color: $secondary;
 
       &:hover {
         color: $input-color;

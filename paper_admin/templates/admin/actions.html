@@ -17,12 +17,12 @@
 
   {% if actions_selection_counter %}
     <div class="paper-action-notes d-md-inline">
-      <span class="action-counter text-muted" data-actions-icnt="{{ cl.result_list|length }}">
+      <span class="action-counter text-secondary" data-actions-icnt="{{ cl.result_list|length }}">
         {{ selection_note }}
       </span>
 
       {% if cl.result_count != cl.result_list|length %}
-        <span class="action-all text-muted" hidden>
+        <span class="action-all text-secondary" hidden>
           {{ selection_note_all }}
         </span>
 

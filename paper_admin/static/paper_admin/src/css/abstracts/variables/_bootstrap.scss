@@ -4,14 +4,30 @@
   переопределить на более поздних этапах.
  */
 
-$body-bg: #f4f6f9;
-$body-color: #1d1d1d;
-$link-color: #006fe1;
 
-$pre-color: #4A4A4A;
-$code-color: #4A4A4A;
+// colors
+$blue:    #6060e0;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #d04010;
+$orange:  #fd7e14;
+$yellow:  #ffc000;
+$green:   #30b040;
+$teal:    #20c997;
+$cyan:    #10a0b0;
+
+$secondary: #606060;
+$dark:    #1d1d1d;
+
+// base
+$body-bg: #f2f6fa;
+$body-color: $dark;
+
+$pre-color: $secondary;
+$code-color: $secondary;
 $code-font-size: 0.875rem;
-$hr-border-color: #e0e0e0;
+$hr-border-color: #e1e9f0;
 
 // gutters
 $grid-gutter-width: 1rem;
@@ -20,13 +36,8 @@ $grid-gutter-width: 1rem;
 $btn-padding-x: 1rem;
 $btn-padding-x-sm: 0.75rem;
 $btn-padding-x-lg: 1.25rem;
-
-// colors
-$red: #ea4040;
-$green: #20b040;
-$cyan: #149ebf;
-$yellow: #daca00;
-$dark: #1d1d1d;
+$btn-font-size-sm: 0.875rem;
+$btn-line-height-sm: 20 / 14;
 
 // text
 $font-size-base: 0.875rem;
@@ -37,15 +48,17 @@ $small-font-size: 0.75rem;
 $line-height-base: 1.375;
 $line-height-lg: $line-height-base;
 
+$text-muted: #9a9a9a;
+
 // headers
-$headings-color: #4A4A4A;
+$headings-color: #333;
 $headings-font-weight: 400;
-$h1-font-size: $font-size-base * 2;
-$h2-font-size: $font-size-base * 1.75;
-$h3-font-size: $font-size-base * 1.5;
-$h4-font-size: $font-size-base * 1.25;
-$h5-font-size: $font-size-base * 1.125;
-$h6-font-size: $font-size-base;
+$h1-font-size: 1.75rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.25rem;
+$h4-font-size: 1.125rem;
+$h5-font-size: 1rem;
+$h6-font-size: 0.875rem;
 
 // breadcrumbs
 $breadcrumb-bg: #fefefe;
@@ -63,16 +76,16 @@ $form-check-input-margin-y: 0.75em;
 
 // inputs
 $input-padding-x: 0.5rem;
+$input-color: #333;
 $input-border-color: #d0d0d0;
-$input-btn-padding-x: 0.625rem;
-$input-btn-padding-x-lg: 0.75rem;
-
-$input-color: #000000;
-$input-focus-color: #333;
-$input-focus-border-color: #333;
-$input-focus-box-shadow: 0 0 0 1px $input-focus-border-color;
 $input-placeholder-color: #c3c3c3;
 $input-disabled-bg: #f0f0f0;
+
+$input-focus-border-color: #333;
+$input-focus-box-shadow: 0 0 0 1px $input-focus-border-color;
+
+$input-btn-padding-x: 0.625rem;
+$input-btn-padding-x-lg: 0.75rem;
 $input-group-addon-color: #6c757d;
 
 // labels
@@ -84,20 +97,21 @@ $custom-control-gutter: 0.25rem;
 $custom-switch-width: 3rem;
 
 // dropdown
+$caret-width: 0.325em;
+$caret-vertical-align: 0.1875em;
+$caret-spacing: 0.125em;
+
 $dropdown-padding-y: 0;
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.5rem;
-$dropdown-link-active-bg: #2aa9be;  // theme-color-level("info", -1)
-$dropdown-link-active-color: #fff;
-$dropdown-link-hover-bg: #f0f0f0;
 $dropdown-link-color: $body-color;
+$dropdown-link-active-bg: $cyan;
+$dropdown-link-active-color: #fff;
+$dropdown-link-hover-color: $blue;
+$dropdown-link-hover-bg: #f0f0f0;
 
 // lists
 $list-inline-padding: 0.375rem;
-
-// list group
-$list-group-item-padding-y: 0.5rem;
-$list-group-item-padding-x: 1rem;
 
 // nav
 $nav-link-padding-y: .375rem;
@@ -106,7 +120,7 @@ $nav-tabs-link-active-border-color: #a3dae3;
 $nav-tabs-link-hover-border-color: $nav-tabs-border-color;
 
 // navbar
-$navbar-nav-link-padding-x: 0.375rem;
+$navbar-brand-padding-y: 0;
 $navbar-brand-font-size: 1.125rem;
 $navbar-dark-color: rgba(#ffffff, 0.75);
 $navbar-dark-hover-color: #ffffff;

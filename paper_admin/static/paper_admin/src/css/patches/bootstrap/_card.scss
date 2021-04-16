@@ -1,3 +1,6 @@
+@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/mixins/card";
+
 .card {
   background: none;   // fix background bleed
 }

@@ -86,7 +86,7 @@
     {% if add %}
       {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
     {% else %}
-        {{ opts.verbose_name|capfirst }}: <span class="text-muted">{{ original|truncatewords:"18" }}</span>
+        {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
     {% endif %}
   </h1>
 

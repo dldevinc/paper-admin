@@ -1,3 +1,5 @@
+@import "css/abstracts/variables/bootstrap";
+
 @mixin card-variant($background, $color, $border-color) {
   box-shadow: 0 0 0 1px $border-color, $card-box-shadow;
 

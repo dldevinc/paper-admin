@@ -1,4 +1,4 @@
-@import "../app";
+@import "css/app";
 
 
 body {
@@ -73,7 +73,7 @@ textarea {
   .sticky-top {
     backface-visibility: hidden;  // force layer to prevent repaint
     @supports (position: sticky) {
-      top: $header-min-height + 1rem;
+      top: $header-min-height + $grid-gutter-width;
     }
   }
 
