@@ -1,5 +1,4 @@
-@import "app";
-
+@import "css/env";
 
 @keyframes form_appear {
   0% {
@@ -12,9 +11,8 @@
   }
 }
 
-
 .login-page {
-  background: url(../img/login_bg.jpg) center bottom;
+  background: url("img/login_bg.jpg") center bottom;
   background-size: cover;
 
   &:before {

@@ -1,4 +1,4 @@
-@import "app";
+@import "css/env";
 
 // vendors
 @import
@@ -6,30 +6,30 @@
   "~font-awesome/scss/font-awesome";
 
 @import
-  "patches/bootstrap/card",
-  "patches/bootstrap/custom_forms",
-  "patches/bootstrap/dropdown",
-  "patches/bootstrap/input_group",
-  "patches/bootstrap/modal",
-  "patches/bootstrap/sticky",
-  "patches/bootstrap/table",
-  "patches/font_awesome/fixed_width",
-  "patches/font_awesome/larger";
+  "css/patches/bootstrap/card",
+  "css/patches/bootstrap/custom_forms",
+  "css/patches/bootstrap/dropdown",
+  "css/patches/bootstrap/input_group",
+  "css/patches/bootstrap/modal",
+  "css/patches/bootstrap/sticky",
+  "css/patches/bootstrap/table",
+  "css/patches/font_awesome/fixed_width",
+  "css/patches/font_awesome/larger";
 
 // core
 @import
-  "base/base";
+  "css/base/base";
 
 // components
 @import
-  "components/tool_item",   // must be above 'components/forms'
-  "components/buttons",
-  "components/card",
-  "components/environment",
-  "components/forms",
-  "components/form_card",
-  "components/messages",
-  "components/modal",
-  "components/preloader",
-  "components/tables",
-  "components/table_card";
+  "css/components/tool_item",   // must be above 'components/forms'
+  "css/components/buttons",
+  "css/components/card",
+  "css/components/environment",
+  "css/components/forms",
+  "css/components/form_card",
+  "css/components/messages",
+  "css/components/modal",
+  "css/components/preloader",
+  "css/components/tables",
+  "css/components/table_card";
