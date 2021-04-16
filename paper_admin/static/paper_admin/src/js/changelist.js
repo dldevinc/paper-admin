@@ -4,6 +4,7 @@ import SortableTable from "js/components/sortable_table/SortableTable";
 import "js/components/actions";
 import "js/components/RelatedObjectLookups";
 import "js/components/search";
+import "bem/object-tools/object-tools";
 
 
 // Ctrl + Arrows navigation

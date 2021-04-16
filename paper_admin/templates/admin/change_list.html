@@ -106,17 +106,19 @@
       <h1 class="paper-title">{{ page_title|capfirst }}</h1>
     </div>
 
-    <div class="object-tools col-auto mb-3 d-none d-sm-block text-right">
-      {% block object-tools %}
-        {% if has_add_permission %}
-          {% url cl.opts|admin_urlname:'add' as add_url %}
-          <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success btn-lg">
-            <i class="fa fa-fw fa-plus"></i>
-            <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
-          </a>
-        {% endif %}
-      {% endblock %}
-    </div>
+    {% block object-tools %}
+      <div class="object-tools col-auto mb-3">
+        {% block object-tools-items %}
+          {% if has_add_permission %}
+            {% url cl.opts|admin_urlname:'add' as add_url %}
+            <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success btn-lg">
+              <i class="fa fa-fw fa-plus"></i>
+              <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
+            </a>
+          {% endif %}
+        {% endblock %}
+      </div>
+    {% endblock %}
   </div>
 {% endblock %}
 

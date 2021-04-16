@@ -15,19 +15,6 @@
 
 
 /*
-  Кнопки у заголовка
- */
-.object-tools {
-  .btn {
-    margin-right: 0.375rem;
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-}
-
-
-/*
   Сортировка столбцов
  */
 .table-column-header {
@@ -107,10 +94,7 @@
   }
 
   @at-root .table-sortable-allowed tr:not(.disabled) & {
-    cursor: move;
     cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
     opacity: 1;
 
     &:hover {
