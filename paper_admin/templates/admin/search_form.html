@@ -1,14 +1,18 @@
 {% load i18n %}
 
 {% if cl.search_fields %}
-  <form method="get" class="paper-search-form">
-    <input type="search" name="{{ search_var }}" value="{{ cl.query }}"
-           class="form-control" size="24" placeholder="{% trans 'Search' %}"
-           aria-label="{% trans 'Search' %}">
-
-    <button type="submit" class="btn btn-lg btn-light text-secondary">
-      <i class="fa fa-fw fa-search"></i>
-    </button>
+  <form method="get" id="changelist-search" class="paper-search-form">
+    <div class="input-group">
+      <input type="search" name="{{ search_var }}" value="{{ cl.query }}"
+             class="paper-search-form__field form-control"
+             size="24" placeholder="{% trans 'Search' %}"
+             id="searchbar" aria-label="{% trans 'Search' %}">
+      <div class="input-group-append">
+        <button type="submit" class="paper-search-form__button btn btn-sm btn-light text-secondary">
+          <i class="fa fa-lg fa-fw fa-search"></i>
+        </button>
+      </div>
+    </div>
 
     {% for pair in cl.params.items %}
       {% if pair.0 != search_var %}

@@ -1,0 +1,26 @@
+@import "css/app";
+
+.paper-search-form {
+  display: flex;
+
+  &__field {
+    flex-basis: $paper-search-field-width;
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      margin: 0;
+      height: 1em;
+      width: 1em;
+      cursor: pointer;
+      background: no-repeat url("img/cross.svg") center;
+    }
+  }
+
+  &__button {
+    border-color: $paper-search-button-border-color;
+
+    i {
+      vertical-align: 0;
+    }
+  }
+}
