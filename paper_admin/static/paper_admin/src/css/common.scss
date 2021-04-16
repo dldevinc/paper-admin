@@ -3,7 +3,6 @@
 // vendors
 @import
   "node_modules/bootstrap/scss/bootstrap",
-  "vendor/perfect-scrollbar",
   "vendor/font-awesome/font-awesome";
 
 @import
@@ -34,6 +33,5 @@
   "components/messages",
   "components/modal",
   "components/preloader",
-  "components/sidebar",
   "components/tables",
   "components/table_card";

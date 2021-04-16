@@ -1,0 +1,65 @@
+@import "css/abstracts/functions/sum";
+@import "css/abstracts/variables/bootstrap";
+
+$paper-sidebar-width: 15rem !default;
+$paper-sidebar-zindex: $zindex-fixed !default;
+$paper-sidebar-bg: url("img/menu_bg.jpg") !default;
+$paper-sidebar-box-shadow: 0 0 5px rgba(#000, 0.66) !default;
+$paper-sidebar-transition-duration: 0.5s !default;
+
+$paper-sidebar-shadow-bg: rgba(#000, 0.33) !default;
+$paper-sidebar-shadow-zindex: ($paper-sidebar-zindex - 1) !default;
+
+$paper-sidebar-brand-padding-y: $navbar-padding-y !default;
+$paper-sidebar-brand-padding-x: 0.75rem !default;
+$paper-sidebar-brand-min-height: 2.75rem !default;
+$paper-sidebar-brand-color: #fff !default;
+$paper-sidebar-brand-font-size: 1.125rem !default;
+$paper-sidebar-brand-border-width: 1px !default;
+$paper-sidebar-brand-border-color: #404040 !default;
+
+$paper-sidebar-item-list-bg: darken($dark, 5%) !default;
+
+$paper-sidebar-item-divider-bg: #404040 !default;
+
+$paper-sidebar-link-padding-y: 0.5rem !default;
+$paper-sidebar-link-padding-x: 0.75rem !default;
+$paper-sidebar-link-font-size: $font-size-base !default;
+$paper-sidebar-link-line-height: $line-height-base !default;
+$paper-sidebar-link-color: rgba(#fff, 0.80) !default;
+$paper-sidebar-link-bg: null !default;
+$paper-sidebar-link-hover-color: #fff !default;
+$paper-sidebar-link-hover-bg: rgba(#fff, 0.1) !default;
+$paper-sidebar-link-active-color: #fff !default;
+$paper-sidebar-link-active-bg: rgba(#9090d0, 0.7) !default;
+
+$paper-sidebar-link-arrow-size: 0.625rem !default;
+
+$paper-sidebar-icon-width: 20px !default;
+$paper-sidebar-icon-margin-right: 0.375rem !default;
+
+
+// =================
+//  Specific styles
+// =================
+$paper-sidebar-first-link-color: null !default;
+$paper-sidebar-first-link-bg: null !default;
+$paper-sidebar-first-link-hover-color: null !default;
+$paper-sidebar-first-link-hover-bg: rgba(#fff, 0.10) !default;
+$paper-sidebar-first-link-active-color: null !default;
+$paper-sidebar-first-link-active-bg: null !default;
+
+// смещение слева, добавляемое на соответствующем уровне
+$paper-sidebar-link-padding-left-level1: 0 !default;
+$paper-sidebar-link-padding-left-level2: sum($paper-sidebar-link-padding-x, $paper-sidebar-icon-width / 2) !default;
+$paper-sidebar-link-padding-left-level3: 0.75rem !default;
+$paper-sidebar-link-padding-left-level4: 0.75rem !default;
+
+// вертикальная черта в категории первого уровня
+$paper-sidebar-category-line-color: $paper-sidebar-item-divider-bg !default;
+
+// точки на вертикальной черте первого уровня
+$paper-sidebar-dot-size: 7px !default;
+$paper-sidebar-dot-bg: $paper-sidebar-item-list-bg !default;
+$paper-sidebar-dot-hover-bg: #9090d0 !default;
+$paper-sidebar-dot-open-bg: $paper-sidebar-dot-hover-bg !default;

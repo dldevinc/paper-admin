@@ -15,9 +15,11 @@
   "css/abstracts/variables/footer",
   "css/abstracts/variables/forms",
   "css/abstracts/variables/range",
-  "css/abstracts/variables/sidebar",
   "css/abstracts/variables/tabs",
   "css/abstracts/variables/variables";
+
+@import
+  "bem/paper-sidebar/variables";
 
 @import
   "css/abstracts/mixins/card";
