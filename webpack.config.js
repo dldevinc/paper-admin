@@ -89,7 +89,8 @@ module.exports = {
                     options: {
                         sassOptions: {
                             includePaths: [
-                                path.resolve(SOURCE_DIR, "css")
+                                path.resolve(SOURCE_DIR, "css"),
+                                path.resolve("node_modules"),
                             ]
                         }
                     }

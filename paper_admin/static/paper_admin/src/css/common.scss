@@ -2,8 +2,8 @@
 
 // vendors
 @import
-  "node_modules/bootstrap/scss/bootstrap",
-  "vendor/font-awesome/font-awesome";
+  "~bootstrap/scss/bootstrap",
+  "~font-awesome/scss/font-awesome";
 
 @import
   "patches/bootstrap/card",
