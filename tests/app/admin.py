@@ -38,8 +38,10 @@ class ItemForm(forms.ModelForm):
 
     def clean(self):
         name = self.cleaned_data.get("name")
-        if name and name == "error":
+        if name and name.lower() == "error":
             self.add_error(None, _("Some general error"))
+            self.add_error("name", _("Some field error"))
+            self.add_error("name", _("One more field error"))
 
 
 class ItemStackedInlines(SortableStackedInline):
@@ -94,8 +96,10 @@ class CategoryForm(forms.ModelForm):
 
     def clean(self):
         f_char = self.cleaned_data.get("f_char")
-        if f_char and f_char == "error":
+        if f_char and f_char.lower() == "error":
             self.add_error(None, _("Some general error"))
+            self.add_error("f_char", _("Some field error"))
+            self.add_error("f_char", _("One more field error"))
 
 
 @admin.register(Category)
