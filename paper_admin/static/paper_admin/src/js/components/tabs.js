@@ -4,7 +4,7 @@ gsap.registerPlugin(ScrollToPlugin);
 
 
 const ERROR_MIN_VISIBILITY = 50;
-const errorContainers = document.querySelectorAll(".invalid, .formset-errors, .formset-form-errors");
+const errorContainers = document.querySelectorAll(".invalid, .inline-invalid");
 const firstErrorContainer = Array.from(errorContainers).find(function(errorContainer) {
     return errorContainer.innerHTML !== "";
 });

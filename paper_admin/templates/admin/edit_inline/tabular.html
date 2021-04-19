@@ -52,7 +52,7 @@
           </thead>
           <tbody>
           {% for inline_admin_form in inline_admin_formset %}
-            <tr class="inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.non_field_errors %} table-danger{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+            <tr class="inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.non_field_errors %} inline-invalid table-danger{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
                 id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
               {% for fieldset in inline_admin_form %}
                 {% for fld in fieldset %}
