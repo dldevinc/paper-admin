@@ -16,6 +16,7 @@ import "css/fonts.scss";
 import "css/common.scss";
 
 import "bem/paper-breadcrumbs/paper-breadcrumbs";
+import "bem/paper-environment/paper-environment";
 import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
 import "bem/paper-sidebar/paper-sidebar";

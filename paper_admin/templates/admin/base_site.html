@@ -20,7 +20,12 @@
         </div>
       {% endblock %}
 
-      {% include 'paper_admin/environment.html' %}
+      {% if paper.ENVIRONMENT_NAME %}
+        <p class="paper-environment"
+           style="--bg-color: {{ paper.ENVIRONMENT_COLOR|default:"#808080" }}">
+          {{ paper.ENVIRONMENT_NAME }}
+        </p>
+      {% endif %}
 
       {% block menu %}
         <div class="paper-sidebar__menu">
