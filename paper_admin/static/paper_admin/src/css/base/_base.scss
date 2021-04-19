@@ -1,6 +1,5 @@
 @import "css/env";
 
-
 body {
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
 }
@@ -17,13 +16,6 @@ textarea {
   resize: none;
 }
 
-.hidden {
-  display: none;
-}
-
-.nowrap {
-  white-space: nowrap;
-}
 
 .container-fluid {
   @include media-breakpoint-up(sm) {
@@ -32,24 +24,20 @@ textarea {
   }
 }
 
-
-#paper-page {
-  min-height: 100vh;
+.hidden {
+  display: none;
 }
 
-#paper-content {
-  display: flex;
-  min-height: inherit;
-  flex-direction: column;
+.nowrap {
+  white-space: nowrap;
+}
+
+
+.paper-page {
   @include transition(margin-left $paper-sidebar-transition-duration);
   @include media-breakpoint-up(xl) {
     margin-left: $paper-sidebar-width;
   }
-}
-
-#paper-main {
-  padding-top: $grid-gutter-width;
-  padding-bottom: $grid-gutter-width;
 }
 
 .paper-title {

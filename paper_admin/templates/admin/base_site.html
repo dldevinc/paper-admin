@@ -157,34 +157,35 @@
 {% endblock %}
 
 
-{% block messages %}
-  <ul class="form-messages messages container-fluid list-group">
-    {% block message_items %}
-      {% for message in messages %}
-        <li class="list-group-item {% if message.level_tag %}list-group-item-{% firstof message.level_tag 'info' %}{% endif %}">
-          {{ message|capfirst }}
-        </li>
-      {% endfor %}
+{% block main %}
+  <div class="container-fluid d-flex flex-column flex-grow-1">
+    {% block messages %}
+      <ul class="messages list-group mb-3">
+        {% block message_items %}
+          {% for message in messages %}
+            <li class="list-group-item {% if message.level_tag %}list-group-item-{% firstof message.level_tag 'info' %}{% endif %}">
+              {{ message|capfirst }}
+            </li>
+          {% endfor %}
+        {% endblock %}
+      </ul>
     {% endblock %}
-  </ul>
-{% endblock %}
 
-
-{% block content_wrapper %}
-  <div class="container-fluid">
     {% block before_content %}{% endblock %}
 
-    <div class="row">
-      <div class="paper-content-left col">
-        {% block content %}{% endblock %}
-      </div>
-
-      {% spaceless %}
-        <div class="paper-content-right col">
-          {% block toolbar %}{% endblock %}
+    {% block layout %}
+      <div class="row">
+        <div class="paper-content-left col">
+          {% block content %}{% endblock %}
         </div>
-      {% endspaceless %}
-    </div>
+
+        {% spaceless %}
+          <div class="paper-content-right col">
+            {% block toolbar %}{% endblock %}
+          </div>
+        {% endspaceless %}
+      </div>
+    {% endblock %}
   </div>
 {% endblock %}
 

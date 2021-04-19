@@ -26,15 +26,9 @@
     background: rgba(0, 0, 0, 0.5);
   }
 
-  #paper-content {
+  .paper-page {
     margin-left: 0;
   }
-}
-
-
-#paper-main {
-  display: flex;
-  flex: 1 0 auto;
 }
 
 
@@ -54,7 +48,6 @@
     margin-bottom: 0;
   }
 }
-
 
 .password-reset-link {
   margin-top: 0.5rem;

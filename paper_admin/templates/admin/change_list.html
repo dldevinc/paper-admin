@@ -60,44 +60,6 @@
 {% endblock %}
 
 
-{% block toolbar %}
-  {% if cl.has_filters %}
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">{% trans 'Filters' %}</h3>
-      </div>
-      <div class="card-body">
-        {% block filters %}
-          <form action="" method="get">
-            <div class="paper-filters">
-              {% for spec in cl.filter_specs %}
-                {% paper_filter cl spec %}
-              {% endfor %}
-            </div>
-
-            {% get_filter_keep_params as filter_keep_params %}
-            {% for name, value in filter_keep_params %}
-              <input type="hidden" name="{{ name }}" value="{{ value }}">
-            {% endfor %}
-          
-            <button type="submit" class="btn btn-info btn-lg btn-block">
-              {% trans 'Apply' %}
-            </button>
-
-            {% if cl.has_active_filters %}
-              <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
-                <i class="fa fa-fw fa-remove"></i>
-                {% trans "Clear all filters" %}
-              </a>
-            {% endif %}
-          </form>
-        {% endblock %}
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
-
 {% block before_content %}
   {% firstof cl.opts.verbose_name_plural title as page_title %}
 
@@ -120,6 +82,44 @@
       </div>
     {% endblock %}
   </div>
+{% endblock %}
+
+
+{% block toolbar %}
+  {% if cl.has_filters %}
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{% trans 'Filters' %}</h3>
+      </div>
+      <div class="card-body">
+        {% block filters %}
+          <form action="" method="get">
+            <div class="paper-filters">
+              {% for spec in cl.filter_specs %}
+                {% paper_filter cl spec %}
+              {% endfor %}
+            </div>
+
+            {% get_filter_keep_params as filter_keep_params %}
+            {% for name, value in filter_keep_params %}
+              <input type="hidden" name="{{ name }}" value="{{ value }}">
+            {% endfor %}
+
+            <button type="submit" class="btn btn-info btn-lg btn-block">
+              {% trans 'Apply' %}
+            </button>
+
+            {% if cl.has_active_filters %}
+              <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
+                <i class="fa fa-fw fa-remove"></i>
+                {% trans "Clear all filters" %}
+              </a>
+            {% endif %}
+          </form>
+        {% endblock %}
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}
 
 

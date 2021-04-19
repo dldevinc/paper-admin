@@ -9,7 +9,7 @@
   <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
   {{ inline_admin_formset.formset.management_form }}
 
-  <ul class="formset-errors messages list-group">{% spaceless %}
+  <ul class="formset-errors messages list-group mb-3">{% spaceless %}
     {% for error in inline_admin_formset.formset.non_form_errors %}
       <li class="list-group-item list-group-item-danger">
         {{ error }}

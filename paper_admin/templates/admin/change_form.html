@@ -67,6 +67,31 @@
 {% endblock %}
 
 
+{% block before_content %}
+  <h1 class="paper-title">
+    {% if add %}
+      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+    {% else %}
+        {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
+    {% endif %}
+  </h1>
+
+  {% if tabs %}
+    <ul id="paper-tabs" class="nav nav-tabs mb-3" role="tablist">
+      {% for tab in tabs %}
+        <li class="nav-item">
+          <a class="nav-link{{ tab.active|yesno:" active," }}{{ tab.invalid|yesno:" tab-invalid," }}"
+             id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
+             aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
+            {{ tab.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+
 {% block toolbar %}
   <div class="paper-toolbar sticky-top">
     <div class="card">
@@ -80,31 +105,6 @@
       </div>
     </div>
   </div>
-{% endblock %}
-
-
-{% block before_content %}
-  <h1 class="paper-title">
-    {% if add %}
-      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
-    {% else %}
-        {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
-    {% endif %}
-  </h1>
-
-  {% if tabs %}
-    <ul id="paper-tabs" class="nav nav-tabs mt-3 mb-3" role="tablist">
-      {% for tab in tabs %}
-        <li class="nav-item">
-          <a class="nav-link{{ tab.active|yesno:" active," }}{{ tab.invalid|yesno:" tab-invalid," }}"
-             id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
-             aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
-            {{ tab.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
 {% endblock %}
 
 
