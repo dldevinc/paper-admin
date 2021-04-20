@@ -109,6 +109,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "media"))
 FILE_UPLOAD_PERMISSIONS = 0o666
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 # =============
 #  Paper Admin
 # =============

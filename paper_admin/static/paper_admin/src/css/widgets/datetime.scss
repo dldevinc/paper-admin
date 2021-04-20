@@ -31,12 +31,12 @@
       line-height: 1;
 
       svg {
-        fill: $white;
+        fill: #fff;
         transition: fill 0.2s;
       }
 
       &:hover svg {
-        fill: rgba($white, 0.5);
+        fill: rgba(#fff, 0.5);
       }
     }
   }
@@ -51,7 +51,7 @@
 
   .flatpickr-month,
   .flatpickr-weekday {
-    color: $white;
+    color: #fff;
   }
 
   .flatpickr-day {

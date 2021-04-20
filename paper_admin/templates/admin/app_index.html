@@ -13,7 +13,7 @@
 {% block before_content %}
   <h1 class="paper-title">
     {% for app in app_list %}
-      <span class="text-secondary">{{ app.name }}</span>
+      {{ app.name }}
     {% endfor %}
   </h1>
 {% endblock %}
@@ -21,8 +21,8 @@
 
 {% block content %}
   {% for app in app_list %}
-    <div class="card" id="appindex">
-      <div class="card-body">
+    <div class="card">
+      <div class="card-body py-0">
         <div class="paper-table-wrapper">
           <table class="table table-middle">
             <thead>
@@ -56,7 +56,7 @@
                   </td>
                 {% else %}
                   <td>
-                    <span class="text-muted">{% trans 'Not allowed' %}</span>
+                    <small class="text-muted">{% trans 'Not allowed' %}</small>
                   </td>
                 {% endif %}
 
@@ -68,7 +68,7 @@
                   </td>
                 {% else %}
                   <td>
-                    <span class="text-muted">{% trans 'Not allowed' %}</span>
+                    <small class="text-muted">{% trans 'Not allowed' %}</small>
                   </td>
                 {% endif %}
               </tr>
