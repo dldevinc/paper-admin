@@ -50,26 +50,22 @@
 {% endblock %}
 
 
-{% block before_content %}
+{% block content_title %}
   {% firstof cl.opts.verbose_name_plural title as page_title %}
+  <h1>{{ page_title|capfirst }}</h1>
+{% endblock %}
 
-  <div class="row">
-    <div class="col">
-      <h1 class="paper-title">{{ page_title|capfirst }}</h1>
-    </div>
 
-    {% block object-tools %}
-      <div class="object-tools col-auto mb-3">
-        {% block object-tools-items %}
-          {% if has_add_permission %}
-            {% url cl.opts|admin_urlname:'add' as add_url %}
-            <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success btn-lg">
-              <i class="fa fa-fw fa-plus"></i>
-              <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
-            </a>
-          {% endif %}
-        {% endblock %}
-      </div>
+{% block object-tools %}
+  <div class="object-tools col-auto">
+    {% block object-tools-items %}
+      {% if has_add_permission %}
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+        <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success">
+          <i class="fa fa-fw fa-plus"></i>
+          <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
+        </a>
+      {% endif %}
     {% endblock %}
   </div>
 {% endblock %}

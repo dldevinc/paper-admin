@@ -41,9 +41,10 @@ textarea {
 }
 
 .paper-title {
-  @extend .h2;
-  margin-top: .3125rem;
-  margin-bottom: 1.375rem;
+  h1 {
+    @extend .h2;
+    @extend .mb-0;
+  }
 }
 
 .paper-content-right {

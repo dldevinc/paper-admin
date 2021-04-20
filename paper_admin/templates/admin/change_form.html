@@ -57,14 +57,19 @@
 {% endblock %}
 
 
-{% block before_content %}
-  <h1 class="paper-title">
+{% block content_title %}
+  <h1>
     {% if add %}
       {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
     {% else %}
-        {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
+      {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
     {% endif %}
   </h1>
+{% endblock %}
+
+
+{% block before_content %}
+  {{ block.super }}
 
   {% if tabs %}
     <ul class="paper-tabs nav nav-pills mb-3" role="tablist">
