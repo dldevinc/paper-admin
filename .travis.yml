@@ -11,7 +11,7 @@ before_install:
   - pip install -U pip setuptools wheel tox-travis
   - pip install twine
   - pip install -r ./requirements_dev.txt
-  - npx webpack
+  - npx webpack --mode=production
 branches:
   only:
     - master

@@ -11,9 +11,7 @@ const SOURCE_DIR = "paper_admin/static/paper_admin/src";
 const DIST_DIR = "paper_admin/static/paper_admin/dist";
 
 
-module.exports = {
-    devtool: "source-map",
-    mode: "production",
+let config = {
     entry: {
         app: path.resolve(SOURCE_DIR, "js/app.js"),
     },
@@ -28,15 +26,11 @@ module.exports = {
             type: "window"
         }
     },
-    cache: {
-        type: "filesystem",
-        cacheDirectory: path.resolve(__dirname, "cache")
-    },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: "babel-loader",
@@ -122,23 +116,62 @@ module.exports = {
         runtimeChunk: "single",
         splitChunks: {
             cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: function(module, chunks, cacheGroupKey) {
+                defaultVendors: {
+                    test: /[\\/]node_modules[\\/].*\.js$/,
+                    name: function(module, chunks) {
                         const allChunksNames = chunks.map((item) => item.name).join("~");
                         return `vendors-${allChunksNames}`;
                     },
                     chunks: "all"
+                },
+                styles: {
+                    name: "app",
+                    test: /\.s?css$/,
+                    chunks: "all",
+                    enforce: true
                 }
             }
         },
-        minimizer: [
-            new TerserPlugin({
+    },
+    watchOptions: {
+        ignored: ["**/node_modules"]
+    },
+    stats: {
+        assets: false,
+        chunks: true
+    }
+}
 
+
+module.exports = (env, argv) => {
+    config.mode = (argv.mode === "production") ? "production" : "development";
+
+    if (argv.mode === "production") {
+        config.devtool = "source-map";
+    } else {
+        config.devtool = "eval";
+    }
+
+    if (argv.mode === "development") {
+        config.cache = {
+            type: "filesystem",
+            cacheDirectory: path.resolve(__dirname, "cache"),
+            buildDependencies: {
+                config: [__filename]
+            }
+        }
+    }
+
+    if (argv.mode === "production") {
+        config.optimization.minimizer = [
+            new TerserPlugin({
+                parallel: true,
             }),
             new CssMinimizerPlugin({
 
             })
-        ]
+        ];
     }
+
+    return config;
 };

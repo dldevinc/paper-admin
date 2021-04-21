@@ -2,7 +2,7 @@ import flatpickr from "flatpickr";
 import Widget from "js/utilities/widget";
 
 // CSS
-import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/flatpickr.css";
 import "css/widgets/datetime.scss";
 
 
