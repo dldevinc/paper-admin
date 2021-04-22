@@ -229,16 +229,16 @@
     </div>
   {% else %}
     {% if cl.full_result_count %}
-      <div class="alert alert-info mb-0">
+      <div class="paper-message paper-message--info">
         <h4>{% trans 'Nothing found' %}!</h4>
         <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
           {% trans 'Reset search and filters' %}
         </a>
       </div>
     {% else %}
-      <div class="alert alert-warning mb-0">
+      <p class="paper-message paper-message--warning">
         {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}{{ name_plural }} are not created yet{% endblocktrans %}.
-      </div>
+      </p>
     {% endif %}
   {% endif %}
 {% endblock %}
