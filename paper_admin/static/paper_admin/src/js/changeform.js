@@ -4,7 +4,6 @@ import hookUnload from "js/components/hook_unload";
 import Formset from "js/components/inlines/inlines";
 import SortableFormset from "js/components/inlines/sortable_inlines";
 import "js/components/RelatedObjectLookups";
-import "js/components/tabs";
 import "js/widgets/autosize";
 import "js/widgets/clearable_file";
 import "js/widgets/datetime";
@@ -12,6 +11,7 @@ import "js/widgets/email";
 import "js/widgets/multiselect";
 import "js/widgets/password";
 import "js/widgets/url";
+import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
 
 

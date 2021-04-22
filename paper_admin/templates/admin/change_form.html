@@ -67,10 +67,10 @@
   </h1>
 
   {% if tabs %}
-    <ul id="paper-tabs" class="nav nav-tabs mb-3" role="tablist">
+    <ul class="paper-tabs nav nav-pills mb-3" role="tablist">
       {% for tab in tabs %}
         <li class="nav-item">
-          <a class="nav-link{{ tab.active|yesno:" active," }}{{ tab.invalid|yesno:" tab-invalid," }}"
+          <a class="btn nav-link{% if tab.invalid %} btn-outline-danger{% else %} btn-outline-primary{% endif %}{% if tab.active %} active{% endif %}"
              id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
              aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
             {{ tab.title }}
