@@ -109,33 +109,33 @@
 
 {% block content %}
   {% if cl.full_result_count %}
-    <div class="paper-top-filters">
-      <div class="paper-card card">
-        <div class="card-body">
-          <div class="card-row row">
-            <div class="col">
-              <span class="results-counter text-secondary nowrap">
-                {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
+    <div class="paper-card card mb-3">
+      <div class="card-body p-0">
+        <div class="row py-2 px-3">
+          <div class="col align-self-center">
+            <span class="text-secondary nowrap">
+              {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
 
-                {% if cl.result_count != cl.full_result_count %}
-                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
-                {% endif %}
-              </span>
-            </div>
-
-            <div class="col-auto">
-              {% search_form cl %}
-            </div>
+              {% if cl.result_count != cl.full_result_count %}
+                (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
+              {% endif %}
+            </span>
           </div>
 
-          {% if cl.result_count and cl.date_hierarchy %}
-            <div class="card-row">
-              {% date_hierarchy cl %}
-            </div>
-          {% endif %}
-
-          {% block hierarchy_filters %}{% endblock hierarchy_filters %}
+          <div class="col-auto">
+            {% search_form cl %}
+          </div>
         </div>
+
+        {% if cl.result_count and cl.date_hierarchy %}
+          <hr class="m-0">
+
+          <div class="py-2 px-3">
+            {% date_hierarchy cl %}
+          </div>
+        {% endif %}
+
+        {% block hierarchy_filters %}{% endblock hierarchy_filters %}
       </div>
     </div>
   {% endif %}
