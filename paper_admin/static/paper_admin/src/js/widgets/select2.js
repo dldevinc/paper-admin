@@ -59,7 +59,7 @@ select2_changelist.initAll(".paper-table-wrapper .vSelect");
 
 
 const select2_filters = new Select2Widget({
-    width: "",
+    width: "100%",
     theme: "sm",
     allowClear: true
 });

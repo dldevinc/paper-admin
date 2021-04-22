@@ -78,11 +78,9 @@
       <div class="card-body">
         {% block filters %}
           <form action="" method="get">
-            <div class="paper-filters">
-              {% for spec in cl.filter_specs %}
-                {% paper_filter cl spec %}
-              {% endfor %}
-            </div>
+            {% for spec in cl.filter_specs %}
+              {% paper_filter cl spec %}
+            {% endfor %}
 
             {% get_filter_keep_params as filter_keep_params %}
             {% for name, value in filter_keep_params %}

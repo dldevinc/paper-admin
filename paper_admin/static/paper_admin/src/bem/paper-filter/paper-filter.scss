@@ -1,0 +1,15 @@
+@import "css/env";
+
+.paper-filter {
+  margin-bottom: $paper-filter-gutter-width;
+
+  &:not(:first-child) {
+    padding-top: $paper-filter-gutter-width;
+    border-top: $paper-filter-top-border;
+  }
+
+  &__title {
+    font-size: $paper-filter-title-font-size;
+    font-weight: $paper-filter-title-font-weight;
+  }
+}
