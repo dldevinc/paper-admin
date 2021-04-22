@@ -55,7 +55,7 @@
             <div class="form-widget">
               <input type="text" name="{{ form.username.name }}"
                      value="{{ form.username.value|default:"" }}" id="{{ form.username.id_for_label }}"
-                     class="form-control form-control-lg">
+                     class="form-control form-control-lg" autofocus>
               <div class="invalid-feedback">
                 <ul class="list-unstyled mb-0">
                   {% for error in form.username.errors %}

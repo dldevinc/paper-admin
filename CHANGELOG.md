@@ -1,9 +1,10 @@
 # Change Log
 
-## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-04-15
+## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-04-22
 ### ⚠ BREAKING CHANGES
 - Removed scroll-to-top button.
 ### Features
+- Added autofocus on login page.
 - Removed `custom-select` styles.
 ### Bug Fixes
 - Removed `required` attribute from the search field.
