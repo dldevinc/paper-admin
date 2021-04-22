@@ -1,6 +1,9 @@
 import autosize from "autosize";
 import Widget from "js/utilities/widget";
 
+// CSS
+import "css/widgets/autosize.scss";
+
 
 class AutosizeWidget extends Widget {
     _init(element) {
