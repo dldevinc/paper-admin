@@ -20,13 +20,13 @@ import "bem/paper-environment/paper-environment";
 import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
+import "bem/paper-object-list/paper-object-list";
 import "bem/paper-sidebar/paper-sidebar";
 
 // Pages
 import "css/dashboard.scss";
 import "css/history.scss";
 import "css/login.scss";
-import "css/delete.scss";
 import "css/changelist.scss";
 import "css/changeform.scss";
 
