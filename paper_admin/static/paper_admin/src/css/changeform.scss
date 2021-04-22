@@ -48,22 +48,6 @@
       flex: 0 0 auto;
     }
   }
-
-  .formset-errors:empty {
-    display: none;
-  }
-
-  .formset-form-errors {
-    padding: 0.5rem;
-
-    &:empty {
-      display: none;
-    }
-
-    .list-group-item:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 
 .tabular {
@@ -99,10 +83,6 @@
   .tools-cell {
     white-space: nowrap;
     text-align: right;
-  }
-
-  .formset-errors:empty {
-    display: none;
   }
 
   .add-row {

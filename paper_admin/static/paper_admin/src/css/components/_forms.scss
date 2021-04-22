@@ -7,15 +7,16 @@
 }
 
 .invalid {
-  .invalid-feedback,
-  .invalid-tooltip {
+  .invalid-feedback {
     display: block;
+    color: theme-color-level("danger", 2);
   }
 
   .form-control,
   .custom-file-label,
   .select2-selection {
-    border-color: $danger;
+    border-color: transparent;
+    box-shadow: 0 0 0 1px theme-color-level("danger", -4);  // удваивается толщина из-за background-clip
   }
 }
 

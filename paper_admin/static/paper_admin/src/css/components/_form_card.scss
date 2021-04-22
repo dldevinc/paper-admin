@@ -19,7 +19,7 @@
     }
 
     &.invalid {
-      background-color: theme-color-level('danger', -10);
+      background-color: $invalid-field-bg;
     }
 
     &:not(.invalid):nth-child(even) {

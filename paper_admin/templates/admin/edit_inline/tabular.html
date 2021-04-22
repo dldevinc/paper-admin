@@ -9,19 +9,21 @@
   <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
   {{ inline_admin_formset.formset.management_form }}
 
-  <ul class="formset-errors messages list-group mb-3">{% spaceless %}
-    {% for error in inline_admin_formset.formset.non_form_errors %}
-      <li class="list-group-item list-group-item-danger">
-        {{ error }}
-      </li>
-    {% endfor %}
+  {% spaceless %}
+    <ul class="paper-messages messagelist mb-3">
+      {% for error in inline_admin_formset.formset.non_form_errors %}
+        <li class="paper-message paper-message--error">
+          {{ error }}
+        </li>
+      {% endfor %}
 
-    {% for error in inline_admin_formset.non_field_errors %}
-      <li class="list-group-item list-group-item-danger">
-        {{ error }}
-      </li>
-    {% endfor %}
-  {% endspaceless %}</ul>
+      {% for error in inline_admin_formset.non_field_errors %}
+        <li class="paper-message paper-message--error">
+          {{ error }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endspaceless %}
 
   <fieldset class="card">
     <div class="card-body">

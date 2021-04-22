@@ -85,22 +85,20 @@ function cleanFieldErrors(field) {
  * @param {String, String[]} errors
  */
 function addFormError(form, errors) {
-    let errorList = form.querySelector(".messages.list-group");
-    if (errorList === null) {
-        errorList = document.createElement("ul");
-        errorList.classList.add("messages", "list-group");
-        form.prepend(errorList);
+    let errorList = form.querySelector(".paper-messages");
+    if (!errorList) {
+        throw new Error("element not found");
     }
 
     if (typeof errors === "string") {
         const errorListItem = document.createElement("li");
-        errorListItem.classList.add("list-group-item", "list-group-item-danger");
+        errorListItem.classList.add("paper-message", "paper-message--error");
         errorListItem.innerText = errors;
         errorList.append(errorListItem);
     } else {
         errors.forEach(function(error) {
             const errorListItem = document.createElement("li");
-            errorListItem.classList.add("list-group-item", "list-group-item-danger");
+            errorListItem.classList.add("paper-message", "paper-message--error");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
         });
@@ -112,7 +110,7 @@ function addFormError(form, errors) {
  * @param {Element} form
  */
 function cleanFormErrors(form) {
-    let errorLists = form.querySelectorAll(".messages.list-group");
+    let errorLists = form.querySelectorAll(".paper-messages");
     errorLists.forEach(function(errorList) {
         errorList.innerHTML = "";
     });

@@ -3,8 +3,9 @@ import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 
 
-const ERROR_MIN_VISIBILITY = 50;
-const errorContainers = document.querySelectorAll(".invalid, .inline-invalid");
+// Ошибка должна находиться в центральной части экрана, чтобы считаться видимой.
+const ERROR_VISIBILITY_CROP_PERCENT = 30;
+const errorContainers = document.querySelectorAll(".invalid, .inline-invalid, .paper-message--error");
 const firstErrorContainer = Array.from(errorContainers).find(function(errorContainer) {
     return errorContainer.innerHTML !== "";
 });
@@ -13,13 +14,14 @@ if (firstErrorContainer) {
     // скролл к ошибке
     const errorRect = firstErrorContainer.getBoundingClientRect();
     const errorTop = errorRect.top;
-    const isVisible = (errorTop > ERROR_MIN_VISIBILITY) && (errorTop < document.documentElement.clientHeight - ERROR_MIN_VISIBILITY);
+    const errorMinOffset = (ERROR_VISIBILITY_CROP_PERCENT / 100) * document.documentElement.clientHeight;
+    const isVisible = (errorTop > errorMinOffset) && (errorTop < document.documentElement.clientHeight - errorMinOffset);
     if (!isVisible) {
         setTimeout(function() {
             gsap.to(window, {
                 duration: 0.5,
                 scrollTo: {
-                    y: errorTop - Math.floor(document.documentElement.clientHeight / 2),
+                    y: errorTop - Math.floor(document.documentElement.clientHeight * 0.33),
                     offsetY: -25
                 }
             });

@@ -9,16 +9,18 @@
   <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
   {{ inline_admin_formset.formset.management_form }}
 
-  <ul class="formset-errors messages list-group mb-3">{% spaceless %}
-    {% for error in inline_admin_formset.formset.non_form_errors %}
-      <li class="list-group-item list-group-item-danger">
-        {{ error }}
-      </li>
-    {% endfor %}
-  {% endspaceless %}</ul>
+  {% spaceless %}
+    <ul class="paper-messages messagelist mb-3">
+      {% for error in inline_admin_formset.formset.non_form_errors %}
+        <li class="paper-message paper-message--error">
+          {{ error }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endspaceless %}
 
   {% for inline_admin_form in inline_admin_formset %}
-    <fieldset class="paper-form-card card inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid card-danger{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+    <fieldset class="paper-form-card card inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
               id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
       <div class="card-header">
         <div class="card-header-tools">
@@ -73,13 +75,15 @@
       </div>
 
       <div class="card-body">
-        <ul class="formset-form-errors messages list-group">{% spaceless %}
-          {% for error in inline_admin_form.form.non_field_errors %}
-            <li class="list-group-item list-group-item-danger">
-              {{ error }}
-            </li>
-          {% endfor %}
-        {% endspaceless %}</ul>
+        {% spaceless %}
+          <ul class="paper-messages messagelist mb-3">
+            {% for error in inline_admin_form.form.non_field_errors %}
+              <li class="paper-message paper-message--error">
+                {{ error }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endspaceless %}
 
         {% if inline_admin_form.needs_explicit_pk_field %}
           {{ inline_admin_form.pk_field.field }}

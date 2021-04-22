@@ -159,17 +159,17 @@
 
 {% block main %}
   <div class="container-fluid d-flex flex-column flex-grow-1">
-    {% block messages %}
-      <ul class="messages list-group mb-3">
-        {% block message_items %}
+    {% spaceless %}
+      <ul class="paper-messages messagelist mb-3">
+        {% block messages %}
           {% for message in messages %}
-            <li class="list-group-item {% if message.level_tag %}list-group-item-{% firstof message.level_tag 'info' %}{% endif %}">
+            <li class="paper-message paper-message--{% firstof message.level_tag 'info' %}">
               {{ message|capfirst }}
             </li>
           {% endfor %}
         {% endblock %}
       </ul>
-    {% endblock %}
+    {% endspaceless %}
 
     {% block before_content %}{% endblock %}
 
