@@ -41,10 +41,9 @@
 
 {% block layout %}
   <div class="login-card m-auto">
-    <div class="card card-dark">
+    <div class="paper-card card">
+      <h2 class="card-header text-center">{% trans "Log in" %}</h2>
       <div class="card-body">
-        <h2 class="mb-3 text-center">{% trans "Log in" %}</h2>
-
         <form action="{{ app_path }}" method="post" id="login-form">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ next }}" />

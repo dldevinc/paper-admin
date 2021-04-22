@@ -75,7 +75,7 @@ class PageAdmin(admin.ModelAdmin):
     fieldsets = (
         (_('First Section'), {
             'tab': 'common-tab',
-            'classes': ('card-info', ),
+            'classes': ('paper-card--info', ),
             'description': _('Some fieldset help text'),
             'fields': (
                 # ...

@@ -6,7 +6,6 @@
   "~font-awesome/scss/font-awesome";
 
 @import
-  "css/patches/bootstrap/card",
   "css/patches/bootstrap/custom_forms",
   "css/patches/bootstrap/dropdown",
   "css/patches/bootstrap/input_group",
@@ -24,7 +23,6 @@
 @import
   "css/components/tool_item",   // must be above 'components/forms'
   "css/components/buttons",
-  "css/components/card",
   "css/components/forms",
   "css/components/form_card",
   "css/components/modal",

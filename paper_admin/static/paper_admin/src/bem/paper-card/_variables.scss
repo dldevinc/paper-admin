@@ -1,0 +1,22 @@
+@import "css/abstracts/variables/bootstrap";
+
+// Цвета соответствуют цветам paper-messages.
+$paper-card-theme-bg-colors: (
+  "danger": #ffd0d0,
+  "warning": #fafaca,
+  "info": #d0e0f0,
+  "success": #caf0ca,
+  "dark": #414141,
+) !default;
+
+$paper-card-theme-border-colors: (
+  "danger": #ea8080,
+  "warning": #e0c000,
+  "info": #60d0e0,
+  "success": #80d0a0,
+  "dark": #414141,
+) !default;
+
+$paper-card-bg: #fff !default;
+$paper-card-spacer-x-sm: 0.75rem !default;
+$paper-card-subtitle-color: #444 !default;

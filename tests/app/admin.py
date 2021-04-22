@@ -107,7 +107,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (_("Related fields"), {
             "tab": "tab1",
-            "classes": ("card-info", ),
+            "classes": ("paper-card--info", ),
             "description": _("Choose your destiny"),
             "fields": (
                 "f_fk", "f_o2o", "f_fk1", "f_fk2", "f_fk3",

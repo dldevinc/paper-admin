@@ -73,10 +73,8 @@
 
 {% block toolbar %}
   {% if cl.has_filters %}
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">{% trans 'Filters' %}</h3>
-      </div>
+    <div class="paper-card card">
+      <h3 class="card-header">{% trans 'Filters' %}</h3>
       <div class="card-body">
         {% block filters %}
           <form action="" method="get">
@@ -112,7 +110,7 @@
 {% block content %}
   {% if cl.full_result_count %}
     <div class="paper-top-filters">
-      <div class="card">
+      <div class="paper-card card">
         <div class="card-body">
           <div class="card-row row">
             <div class="col">
@@ -143,7 +141,7 @@
   {% endif %}
 
   {% if cl.result_count %}
-    <div class="card">
+    <div class="paper-card card">
       <div class="card-body">
         <form id="changelist_form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
           {% csrf_token %}

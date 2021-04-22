@@ -16,6 +16,7 @@ import "css/fonts.scss";
 import "css/common.scss";
 
 import "bem/paper-breadcrumbs/paper-breadcrumbs";
+import "bem/paper-card/paper-card";
 import "bem/paper-environment/paper-environment";
 import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
@@ -25,7 +26,6 @@ import "bem/paper-sidebar/paper-sidebar";
 
 // Pages
 import "css/dashboard.scss";
-import "css/history.scss";
 import "css/login.scss";
 import "css/changelist.scss";
 import "css/changeform.scss";

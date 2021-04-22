@@ -20,11 +20,11 @@
   {% endspaceless %}
 
   {% for inline_admin_form in inline_admin_formset %}
-    <fieldset class="paper-form-card card inline-related{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+    <fieldset class="paper-form-card paper-card card inline-related mb-3{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
               id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
       <div class="card-header">
         <div class="card-header-tools">
-          <h4 class="card-title inline-label">
+          <h4 class="card-title inline-label mb-0">
             {% if inline_admin_form.original %}
               {{ inline_admin_form.original }}
             {% else %}
@@ -117,7 +117,7 @@
   {% endfor %}
 
   <div class="add-row" hidden>
-    <button type="button" class="btn btn-sm btn-info">
+    <button type="button" class="btn btn-info">
       {% blocktrans with verbose_name=inline_admin_formset.opts.verbose_name|capfirst %}Add another {{ verbose_name }}{% endblocktrans %}
     </button>
   </div>

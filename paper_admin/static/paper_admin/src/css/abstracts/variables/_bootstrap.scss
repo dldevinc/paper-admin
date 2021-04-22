@@ -112,16 +112,12 @@ $navbar-dark-hover-color: #ffffff;
 $navbar-dark-active-color: #ffffff;
 
 // card
-$card-cap-bg: #ffffff;
+$card-bg: transparent;   // fix background leak
+$card-cap-bg: #fff;
 $card-spacer-x: 1rem;
-$card-spacer-x-sm: 0.75rem;
 $card-spacer-y: 0.75rem;
-$card-spacer-y-md: 0.75rem;
-$card-border-radius: 2px;
-$card-inner-border-radius: 2px;
-$card-border-width: 0;
+$card-spacer-x-sm: 0.75rem;  // TODO: remove
 $card-border-color: $hr-border-color;
-$card-box-shadow: 0 0 0 1px $hr-border-color;
 
 // modal
 $modal-dialog-margin: 2rem;

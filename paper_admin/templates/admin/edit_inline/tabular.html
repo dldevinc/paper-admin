@@ -25,7 +25,7 @@
     </ul>
   {% endspaceless %}
 
-  <fieldset class="card">
+  <fieldset class="paper-card card">
     <div class="card-body">
       <div class="paper-table-wrapper">
         <table class="table table-hover table-middle table-striped table-responsive-md small mb-0">
@@ -142,7 +142,7 @@
         </table>
 
         <div class="add-row" hidden>
-          <button type="button" class="btn btn-sm btn-info">
+          <button type="button" class="btn btn-info">
             {% blocktrans with verbose_name=inline_admin_formset.opts.verbose_name|capfirst %}Add another {{ verbose_name }}{% endblocktrans %}
           </button>
         </div>

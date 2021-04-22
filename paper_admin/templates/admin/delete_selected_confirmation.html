@@ -32,7 +32,7 @@
 
 
 {% block content %}
-  <div class="card-danger card">
+  <div class="paper-card paper-card--danger card">
     {% if perms_lacking %}
       <div class="card-body">
         <p>
@@ -60,7 +60,7 @@
         </ul>
       </div>
     {% else %}
-      <h1 class="card-header h3 mb-0">
+      <h1 class="card-header h3">
         {% blocktrans %}Are you sure you want to delete the selected {{ objects_name }}?{% endblocktrans %}
       </h1>
       <div class="card-body">
