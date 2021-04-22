@@ -163,7 +163,7 @@ class ChoicesFieldListFilter(FieldListFilter):
 
 
 class DateFieldListFilter(FieldListFilter):
-    template = "paper_admin/filters/radio.html"
+    template = "paper_admin/filters/select.html"
 
     def choices(self, changelist):
         yield {
