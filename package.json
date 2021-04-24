@@ -1,10 +1,11 @@
 {
   "name": "paper-admin",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "",
   "main": "src/js/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +17,7 @@
     "autosize": "^4.0.2",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.6.0",
-    "css-minimizer-webpack-plugin": "^1.2.0",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "expose-loader": "^2.0.0",
     "fast-async": "^6.3.8",
     "fast-css-loader": "^1.0.2",
