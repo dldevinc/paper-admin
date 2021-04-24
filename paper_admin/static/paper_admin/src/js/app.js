@@ -3,7 +3,6 @@
 import * as bootstrap from "bootstrap";
 import emitters from "js/utilities/emitters";
 import formUtils from "js/utilities/form_utils";
-import modals from "js/components/modals";
 import Sortable from "sortablejs";
 import Widget from "js/utilities/widget";
 import "js/components/cancel";
@@ -21,6 +20,7 @@ import "bem/paper-environment/paper-environment";
 import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
+import modals from "bem/paper-modal/paper-modal";
 import "bem/paper-object-list/paper-object-list";
 import "bem/paper-sidebar/paper-sidebar";
 
