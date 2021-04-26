@@ -22,7 +22,6 @@ let config = {
         filename: "[name].min.js",
         assetModuleFilename: "assets/[name][ext][query]",
         library: {
-            name: "paperAdmin",
             type: "window"
         }
     },

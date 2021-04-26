@@ -50,15 +50,14 @@ if (document.body.classList.contains("passwordform-page")) {
 }
 
 
-export const django = {
-    jQuery
-}
-
-export {
+export const paperAdmin = {
     bootstrap,
     emitters,
     formUtils,
     modals,
     Sortable,
     Widget
-};
+}
+
+window.django = window.django || {};
+window.django.jQuery = jQuery;
