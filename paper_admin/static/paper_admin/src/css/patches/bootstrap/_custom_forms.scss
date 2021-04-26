@@ -1,9 +1,33 @@
-.form-check-input {
-  min-height: 0;
-  transform: translate(0, -50%);
+@import "css/abstracts/variables/bootstrap";
+
+
+.custom-control {
+  .custom-control-input:checked:active ~ .custom-control-label {
+    &:before {
+      border-color: $custom-control-indicator-checked-border-color;
+      background-color: $custom-control-indicator-checked-bg;
+    }
+  }
 }
 
 .custom-switch {
+  .custom-control-input:checked:active ~ .custom-control-label {
+    &:before {
+      background-color: $custom-control-indicator-checked-bg;
+      border-color: $custom-control-indicator-checked-border-color;
+    }
+
+    &:after {
+      background-color: $custom-control-indicator-active-bg;
+    }
+  }
+
+  .custom-control-input:checked:focus ~ .custom-control-label {
+    &:before {
+      border-color: $input-focus-border-color;
+    }
+  }
+
   .custom-control-label {
     cursor: pointer;
   }
