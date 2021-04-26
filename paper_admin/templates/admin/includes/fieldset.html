@@ -1,7 +1,7 @@
 <fieldset class="paper-form-card paper-card card {{ fieldset.classes }}{% if not fieldset.has_visible_field %} hidden{% endif %}">
   {% if fieldset.name %}
     <div class="card-header">
-      <h3 class="card-title mb-0">{{ fieldset.name }}</h3>
+      <h3 class="card-title{% if not fieldset.description %} mb-0{% endif %}">{{ fieldset.name }}</h3>
       {% if fieldset.description %}
         <small class="card-subtitle">
           {{ fieldset.description|safe }}

@@ -173,7 +173,7 @@
 
     {% block before_content %}
       <div class="row mb-3">
-        <div class="paper-title col">
+        <div class="paper-page__header col">
           {% block pretitle %}{% endblock %}
           {% block content_title %}
             {% firstof cl.opts.verbose_name_plural title as page_title %}
@@ -189,12 +189,12 @@
 
     {% block layout %}
       <div class="row">
-        <div class="paper-content-left col">
+        <div class="paper-page__content col">
           {% block content %}{% endblock %}
         </div>
 
-        <div class="paper-content-right col">{% spaceless %}
-            {% block toolbar %}{% endblock %}
+        <div class="paper-page__toolbar col-auto">{% spaceless %}
+          {% block toolbar %}{% endblock %}
         {% endspaceless %}</div>
       </div>
     {% endblock %}

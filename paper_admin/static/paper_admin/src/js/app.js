@@ -11,7 +11,6 @@ import "js/widgets/bootstrap";
 import "js/widgets/select2";
 
 // CSS
-import "css/fonts.scss";
 import "css/common.scss";
 
 import "bem/paper-breadcrumbs/paper-breadcrumbs";
@@ -22,6 +21,7 @@ import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
 import modals from "bem/paper-modal/paper-modal";
 import "bem/paper-object-list/paper-object-list";
+import "bem/paper-page/paper-page";
 import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
 

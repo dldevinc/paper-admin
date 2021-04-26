@@ -12,13 +12,15 @@
   "css/patches/font_awesome/fixed_width",
   "css/patches/font_awesome/larger";
 
-// core
+// base
 @import
+  "css/base/reset",
   "css/base/base";
 
 // components
 @import
   "css/components/buttons",
+  "css/components/container",
   "css/components/tool_item",   // must be above 'components/forms'
   "css/components/forms",
   "css/components/form_card",

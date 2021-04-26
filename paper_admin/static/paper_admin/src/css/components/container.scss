@@ -1,0 +1,8 @@
+@import "css/abstracts/variables/bootstrap";
+
+.container-fluid {
+  @include media-breakpoint-up(sm) {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+  }
+}

@@ -1,0 +1,31 @@
+@import "css/env";
+
+.paper-page {
+  transition: margin-left $paper-sidebar-transition-duration;
+  @include media-breakpoint-up(xl) {
+    margin-left: $paper-sidebar-width;
+  }
+
+  &__header {
+    h1 {
+      margin-bottom: 0;
+      @include font-size($h2-font-size);
+    }
+  }
+
+  &__content {
+
+  }
+
+  &__toolbar {
+    display: none;
+    width: $paper-page-toolbar-width;
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+
+    &:empty {
+      display: none;
+    }
+  }
+}
