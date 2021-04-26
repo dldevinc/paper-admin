@@ -24,14 +24,6 @@ textarea {
   }
 }
 
-.hidden {
-  display: none;
-}
-
-.nowrap {
-  white-space: nowrap;
-}
-
 
 .paper-page {
   @include transition(margin-left $paper-sidebar-transition-duration);

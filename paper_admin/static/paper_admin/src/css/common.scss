@@ -7,8 +7,6 @@
 
 @import
   "css/patches/bootstrap/custom_forms",
-  "css/patches/bootstrap/dropdown",
-  "css/patches/bootstrap/input_group",
   "css/patches/bootstrap/sticky",
   "css/patches/bootstrap/table",
   "css/patches/font_awesome/fixed_width",
@@ -20,8 +18,8 @@
 
 // components
 @import
-  "css/components/tool_item",   // must be above 'components/forms'
   "css/components/buttons",
+  "css/components/tool_item",   // must be above 'components/forms'
   "css/components/forms",
   "css/components/form_card",
   "css/components/preloader",

@@ -216,14 +216,14 @@
               {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
                 <div class="mt-1">
                   {% if paper.SUPPORT_PHONE %}
-                    <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="d-inline-block nowrap mr-3 mt-1">
+                    <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="d-inline-block mr-3 mt-1 text-nowrap">
                       <i class="fa fa-lg fa-phone"></i>
                       <span>{{ paper.SUPPORT_PHONE }}</span>
                     </a>
                   {% endif %}
 
                   {% if paper.SUPPORT_EMAIL %}
-                    <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="d-inline-block nowrap mt-1">
+                    <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="d-inline-block mt-1 text-nowrap">
                       <i class="fa fa-lg fa-envelope-o"></i>
                       <span>{{ paper.SUPPORT_EMAIL }}</span>
                     </a>
