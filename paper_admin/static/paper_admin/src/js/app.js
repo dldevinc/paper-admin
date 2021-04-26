@@ -22,6 +22,7 @@ import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
 import modals from "bem/paper-modal/paper-modal";
 import "bem/paper-object-list/paper-object-list";
+import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
 
 // Pages

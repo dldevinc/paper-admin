@@ -368,8 +368,8 @@ function showPreloader(options) {
     const config = {
         ...{
             body:
-                `<div class="preloader">
-                  <div class="preloader__text">Loading</div>
+                `<div class="paper-preloader">
+                  <div class="paper-preloader__text">Loading</div>
                 </div>`,
             modalClass: "paper-modal--preloader fade-in",
             modalDialogClass: "modal-sm",
