@@ -19,7 +19,7 @@
             <th scope="col" {{ header.class_attrib }}>
               {% if header.sortable %}
                 {% spaceless %}
-                  <span class="table-column-header dropdown">
+                  <div class="table-column-header dropdown">
                     <a href="{{ header.url_primary }}" class="table-column-header-title">
                       {{ header.text|capfirst }}
                     </a>
@@ -31,21 +31,25 @@
                           <span class="sortpriority" title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
                         {% endif %}
                       </span>
-                      <span class="dropdown-menu">
-                        <a href="{{ header.url_toggle }}" class="dropdown-item">
-                          <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
-                          {% trans 'Toggle sorting' %}
-                        </a>
-                        <a href="{{ header.url_remove }}" class="dropdown-item">
-                          <i class="fa fa-fw fa-remove"></i>
-                          {% trans "Remove from sorting" %}
-                        </a>
-                      </span>
+                      <ul class="dropdown-menu">
+                        <li role="presentation">
+                          <a href="{{ header.url_toggle }}" class="dropdown-item" role="menuitem">
+                            <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
+                            {% trans 'Toggle sorting' %}
+                          </a>
+                        </li>
+                        <li role="presentation">
+                          <a href="{{ header.url_remove }}" class="dropdown-item" role="menuitem">
+                            <i class="fa fa-fw fa-remove"></i>
+                            {% trans "Remove from sorting" %}
+                          </a>
+                        </li>
+                      </ul>
                     {% endif %}
-                  </span>
+                  </div>
                 {% endspaceless %}
               {% else %}
-                <span class="table-column-header">{{ header.text|capfirst }}</span>
+                <div class="table-column-header">{{ header.text|capfirst }}</div>
               {% endif %}
             </th>
           {% endblock %}
