@@ -1,17 +1,6 @@
 .btn {
-  > i {
-    &:not(:only-child) {
-      margin-left: -0.25em;
-    }
-
-    + span {
-      margin-left: 0.25em;
-    }
-  }
-}
-
-.btn-sm {
-  > i + span {
-    margin-left: 0.35em;
+  > i:not(:only-child) {
+    margin-left: -0.25em;
+    margin-right: 0.35em;
   }
 }

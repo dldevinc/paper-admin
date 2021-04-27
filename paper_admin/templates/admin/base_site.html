@@ -181,7 +181,9 @@
           {% endblock %}
         </div>
 
-        {% block object-tools %}{% endblock %}
+        {% spaceless %}
+          {% block object-tools %}{% endblock %}
+        {% endspaceless %}
       </div>
     {% endblock %}
 
@@ -191,11 +193,9 @@
           {% block content %}{% endblock %}
         </div>
 
-        {% spaceless %}
-          <div class="paper-content-right col">
+        <div class="paper-content-right col">{% spaceless %}
             {% block toolbar %}{% endblock %}
-          </div>
-        {% endspaceless %}
+        {% endspaceless %}</div>
       </div>
     {% endblock %}
   </div>

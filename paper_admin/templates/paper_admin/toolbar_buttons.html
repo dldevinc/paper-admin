@@ -10,23 +10,23 @@
 {% if show_save_and_continue %}
   <button type="submit" name="_continue" form="changeform" class="btn btn-block btn-info">
     {% if can_change %}
-      <span>{% trans 'Save and continue editing' %}</span>
+      {% trans 'Save and continue editing' %}
     {% else %}
       {% trans 'Save and view' %}
-      <span>{% trans 'Save and view' %}</span>
+      {% trans 'Save and view' %}
     {% endif %}
   </button>
 {% endif %}
 
 {% if show_save_and_add_another %}
   <button type="submit" name="_addanother" form="changeform" class="btn btn-block btn-info">
-    <span>{% trans 'Save and add another' %}</span>
+    {% trans 'Save and add another' %}
   </button>
 {% endif %}
 
 {% if show_save_as_new %}
   <button type="submit" name="_saveasnew" form="changeform" class="btn btn-block btn-info">
-    <span>{% trans 'Save as new' %}</span>
+    {% trans 'Save as new' %}
   </button>
 {% endif %}
 
