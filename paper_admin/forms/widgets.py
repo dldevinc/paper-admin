@@ -1,4 +1,5 @@
 import json
+
 from django import forms
 from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
 from django.contrib.admin.widgets import (

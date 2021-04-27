@@ -58,6 +58,7 @@ let config = {
                     loader: "fast-css-loader"
                 }]
             },
+
             {
                 test: /\.scss$/,
                 use: [{
@@ -92,6 +93,7 @@ let config = {
                         }
                     }]
             },
+
             {
                 test: /\.(jpe?g|png|gif|woff2?|ttf|eot|svg)$/i,
                 type: "asset/resource",
