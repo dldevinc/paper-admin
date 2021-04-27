@@ -2,7 +2,7 @@
 
 {% if show_save %}
   <li class="nav-item d-lg-none">
-    <button type="submit" name="_save" form="changeform" class="btn btn-sm btn-success"
+    <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-sm btn-success"
             data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
             data-html="true" title="{% trans 'Save' %}">
       <i class="fa fa-fw fa-save"></i>

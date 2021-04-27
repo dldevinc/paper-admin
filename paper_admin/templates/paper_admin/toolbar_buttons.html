@@ -1,14 +1,14 @@
 {% load i18n admin_urls %}
 
 {% if show_save %}
-  <button type="submit" name="_save" form="changeform" class="btn btn-lg btn-block btn-success">
+  <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-lg btn-block btn-success">
     <i class="fa fa-fw fa-save"></i>
     <span>{% trans 'Save' %}</span>
   </button>
 {% endif %}
 
 {% if show_save_and_continue %}
-  <button type="submit" name="_continue" form="changeform" class="btn btn-block btn-info">
+  <button type="submit" name="_continue" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
     {% if can_change %}
       {% trans 'Save and continue editing' %}
     {% else %}
@@ -19,13 +19,13 @@
 {% endif %}
 
 {% if show_save_and_add_another %}
-  <button type="submit" name="_addanother" form="changeform" class="btn btn-block btn-info">
+  <button type="submit" name="_addanother" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
     {% trans 'Save and add another' %}
   </button>
 {% endif %}
 
 {% if show_save_as_new %}
-  <button type="submit" name="_saveasnew" form="changeform" class="btn btn-block btn-info">
+  <button type="submit" name="_saveasnew" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
     {% trans 'Save as new' %}
   </button>
 {% endif %}

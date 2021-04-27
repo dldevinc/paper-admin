@@ -102,7 +102,12 @@
 
 
 {% block content %}
-  <form id="changeform" method="post" action="{{ form_url }}" {% if has_file_field %}enctype="multipart/form-data"{% endif %} novalidate>
+  <form action="{{ form_url }}"
+        method="post"
+        class="paper-form paper-form--hook"
+        id="{{ opts.model_name }}_form"
+        novalidate
+        {% if has_file_field %} enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
 
     {% block form_top %}{% endblock %}

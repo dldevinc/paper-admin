@@ -25,6 +25,8 @@ import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
 import "bem/select2/select2";
 
+import "bem/paper-form/paper-form";
+
 // Pages
 import "css/dashboard.scss";
 import "css/login.scss";
@@ -43,11 +45,6 @@ if (document.body.classList.contains("changelist-page")) {
 // changeform page
 if (document.body.classList.contains("changeform-page")) {
     import(/* webpackChunkName: "changeform" */ "js/changeform");
-}
-
-// passwordform page
-if (document.body.classList.contains("passwordform-page")) {
-    import(/* webpackChunkName: "passwordform" */ "js/passwordform");
 }
 
 

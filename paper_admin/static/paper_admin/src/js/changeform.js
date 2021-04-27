@@ -1,6 +1,5 @@
 /* global gettext */
 
-import hookUnload from "js/components/hook_unload";
 import Formset from "js/components/inlines/inlines";
 import SortableFormset from "js/components/inlines/sortable_inlines";
 import "js/components/RelatedObjectLookups";
@@ -14,12 +13,6 @@ import "js/widgets/url";
 import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
 
-
-// предупреждение при закрытии формы
-const form = document.getElementById("changeform");
-if (form) {
-    hookUnload(form);
-}
 
 // динамическая подгрузка скрипта для prepopulate_fields
 if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {

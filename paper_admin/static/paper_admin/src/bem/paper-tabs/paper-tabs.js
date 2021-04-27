@@ -74,7 +74,7 @@ $(document).on("shown.bs.tab", function(event) {
     if (tab_name) {
         history.replaceState(null, "", `#${tab_name}`);
 
-        const form = document.getElementById("changeform");
+        const form = event.target.closest(".paper-form");
         if (form) {
             const action = new URL(form.action);
             action.hash = tab_name;
