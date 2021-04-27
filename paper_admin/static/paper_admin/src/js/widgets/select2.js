@@ -71,5 +71,5 @@ const select2_action = new Select2Widget({
     theme: "sm",
     minimumResultsForSearch: Infinity
 });
-select2_action.observe(".action-action select");
-select2_action.initAll(".action-action select");
+select2_action.observe(".paper-actions select");
+select2_action.initAll(".paper-actions select");

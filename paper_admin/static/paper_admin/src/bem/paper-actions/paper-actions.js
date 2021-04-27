@@ -1,13 +1,15 @@
 /*global gettext, interpolate, ngettext*/
 
+import "./paper-actions.scss";
+
 const TOGGLE_ALL_ID = "action-toggle";
 const CHECKBOX_CLASS = "action-select";
 const CHECKBOX_LABEL_SELECTOR = ".action-checkbox .vCustomCheckbox";
-const COUNTER_CLASS = "action-counter";
-const QUESTION_CLASS= "action-question";
-const ALL_CLASS = "action-all";
-const ACROSS_CLASS = "select-across";
-const CLEAR_CLASS = "action-clear";
+const COUNTER_CLASS = "paper-actions__counter";
+const QUESTION_CLASS= "paper-actions__question";
+const ALL_CLASS = "paper-actions__all";
+const ACROSS_CLASS = "paper-actions__select-across";
+const CLEAR_CLASS = "paper-actions__clear";
 
 
 function initActions(inputs) {
@@ -151,7 +153,7 @@ function protectEditForm() {
         const action_changed = !Array.prototype.every.call(action_selects, function(select) {
             return !select.value
         });
-        
+
         if (save_button && action_changed) {
             let apply;
             if (list_editable_changed) {

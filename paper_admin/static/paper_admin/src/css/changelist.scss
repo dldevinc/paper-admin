@@ -1,5 +1,4 @@
 @import "css/env";
-@import "css/components/actions";
 
 
 .table {
@@ -131,4 +130,21 @@
 .paper-changelist-tools {
   margin: -0.125rem -0.125rem;
   white-space: nowrap;
+}
+
+
+/*
+  Чекбоксы
+ */
+.action-checkbox-column {
+  width: $custom-checkbox-size;
+  box-sizing: content-box;
+}
+
+#action-toggle {
+  vertical-align: text-bottom;
+}
+
+.action-select {
+  vertical-align: text-bottom;
 }

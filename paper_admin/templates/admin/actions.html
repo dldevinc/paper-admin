@@ -1,44 +1,50 @@
 {% load i18n %}
 
-<div class="actions">
-  {% for field in action_form %}
-    <div class="action-{{ field.name }}">
-      {{ field }}
-    </div>
-  {% endfor %}
+<div class="paper-actions actions">
+  {% block actions %}
+    {% block actions-form %}
+      {% for field in action_form %}
+        <div class="paper-actions__{{ field.name }}">
+          {{ field }}
+        </div>
+      {% endfor %}
+    {% endblock %}
 
-  <div class="action-btn-box">
-    <button type="submit" class="btn btn-info ml-1" name="index"
-            title="{% trans "Run the selected action" %}"
-            value="{{ action_index|default:0 }}">
-      {% trans "Go" %}
-    </button>
-  </div>
+    {% block actions-submit %}
+      <button type="submit" class="paper-actions__button btn btn-info ml-1" name="index"
+              title="{% trans "Run the selected action" %}"
+              value="{{ action_index|default:0 }}">
+        {% trans "Go" %}
+      </button>
+    {% endblock %}
 
-  {% if actions_selection_counter %}
-    <div class="paper-action-notes d-md-inline">
-      <span class="action-counter text-secondary" data-actions-icnt="{{ cl.result_list|length }}">
-        {{ selection_note }}
-      </span>
+    {% block actions-counter %}
+      {% if actions_selection_counter %}
+        <div class="paper-actions__tools d-md-inline">
+          <span class="paper-actions__counter action-counter text-secondary" data-actions-icnt="{{ cl.result_list|length }}">
+            {{ selection_note }}
+          </span>
 
-      {% if cl.result_count != cl.result_list|length %}
-        <span class="action-all text-secondary" hidden>
-          {{ selection_note_all }}
-        </span>
+          {% if cl.result_count != cl.result_list|length %}
+            <span class="paper-actions__all all text-secondary" hidden>
+              {{ selection_note_all }}
+            </span>
 
-        <span class="action-question" hidden>
-          <a href="#"
-             title="{% trans "Click here to select the objects across all pages" %}">
-            {% blocktrans with cl.result_count as total_count %}
-              Select all {{ total_count }} {{ module_name }}
-            {% endblocktrans %}
-          </a>
-        </span>
+            <span class="paper-actions__question question" hidden>
+              <a href="#"
+                 title="{% trans "Click here to select the objects across all pages" %}">
+                {% blocktrans with cl.result_count as total_count %}
+                  Select all {{ total_count }} {{ module_name }}
+                {% endblocktrans %}
+              </a>
+            </span>
 
-        <span class="action-clear" hidden>
-          <a href="#">{% trans "Clear selection" %}</a>
-        </span>
+            <span class="paper-actions__clear clear" hidden>
+              <a href="#">{% trans "Clear selection" %}</a>
+            </span>
+          {% endif %}
+        </div>
       {% endif %}
-    </div>
-  {% endif %}
+    {% endblock %}
+  {% endblock %}
 </div>
