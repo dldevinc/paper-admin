@@ -110,6 +110,18 @@
                         </li>
                       {% endif %}
 
+                      {% if user.is_active and user.is_staff %}
+                        {% url 'django-admindocs-docroot' as docsroot %}
+                        {% if docsroot %}
+                          <li role="presentation">
+                            <a href="{{ docsroot }}" class="dropdown-item" role="menuitem">
+                              <i class="fa fa-fw fa-book"></i>
+                              <span>{% trans 'Documentation' %}</span>
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endif %}
+
                       <li role="presentation">
                         <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
                           <i class="fa fa-fw fa-sign-out"></i>
