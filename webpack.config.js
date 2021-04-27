@@ -29,7 +29,7 @@ let config = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+                exclude: /[\\/]node_modules[\\/]/,
                 use: [
                     {
                         loader: "babel-loader",
@@ -145,13 +145,13 @@ let config = {
 module.exports = (env, argv) => {
     config.mode = (argv.mode === "production") ? "production" : "development";
 
-    if (argv.mode === "production") {
+    if (config.mode === "production") {
         config.devtool = "source-map";
     } else {
         config.devtool = "eval";
     }
 
-    if (argv.mode === "development") {
+    if (config.mode === "development") {
         config.cache = {
             type: "filesystem",
             cacheDirectory: path.resolve(__dirname, "cache"),
@@ -161,14 +161,12 @@ module.exports = (env, argv) => {
         }
     }
 
-    if (argv.mode === "production") {
+    if (config.mode === "production") {
         config.optimization.minimizer = [
             new TerserPlugin({
                 parallel: true,
             }),
-            new CssMinimizerPlugin({
-
-            })
+            new CssMinimizerPlugin({})
         ];
     }
 
