@@ -2,9 +2,11 @@ const path = require("path");
 const webpack = require("webpack");
 const pixrem = require("pixrem");
 const autoprefixer = require("autoprefixer");
+const { extendDefaultPlugins } = require("svgo");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 const SOURCE_DIR = "paper_admin/static/paper_admin/src";
@@ -39,6 +41,7 @@ let config = {
                     }
                 ]
             },
+
             {
                 test: require.resolve("jquery"),
                 loader: "expose-loader",
@@ -60,34 +63,34 @@ let config = {
                 use: [{
                     loader: MiniCssExtractPlugin.loader,
                 },
-                {
-                    loader: "fast-css-loader",
-                    options: {
-                        importLoaders: 2
-                    }
-                },
-                {
-                    loader: "postcss-loader",
-                    options: {
-                        postcssOptions: {
-                            plugins: [
-                                pixrem(),
-                                autoprefixer()
-                            ]
+                    {
+                        loader: "fast-css-loader",
+                        options: {
+                            importLoaders: 2
                         }
-                    }
-                },
-                {
-                    loader: "sass-loader",
-                    options: {
-                        sassOptions: {
-                            includePaths: [
-                                path.resolve(SOURCE_DIR, "css"),
-                                path.resolve("node_modules"),
-                            ]
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    pixrem(),
+                                    autoprefixer()
+                                ]
+                            }
                         }
-                    }
-                }]
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sassOptions: {
+                                includePaths: [
+                                    path.resolve(SOURCE_DIR, "css"),
+                                    path.resolve("node_modules"),
+                                ]
+                            }
+                        }
+                    }]
             },
             {
                 test: /\.(jpe?g|png|gif|woff2?|ttf|eot|svg)$/i,
@@ -109,6 +112,42 @@ let config = {
         new MiniCssExtractPlugin({
             filename: "[name].min.css"
         }),
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                plugins: [
+                    [
+                        "gifsicle",
+                        {
+                            interlaced: true,
+                            optimizationLevel: 3
+                        }
+                    ],
+                    [
+                        "mozjpeg",
+                        {
+                            progressive: true
+                        }
+                    ],
+                    [
+                        "optipng",
+                        {
+                            optimizationLevel: 7
+                        }
+                    ],
+                    [
+                        "svgo",
+                        {
+                            plugins: extendDefaultPlugins([
+                                {
+                                    name: 'removeViewBox',
+                                    active: false
+                                },
+                            ]),
+                        },
+                    ],
+                ]
+            }
+        })
     ],
     optimization: {
         moduleIds: "deterministic",
