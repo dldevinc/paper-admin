@@ -4,6 +4,7 @@
 ### ⚠ BREAKING CHANGES
 - Removed scroll-to-top button.
 ### Features
+- Added `PAPER_FAVICON` setting.
 - Use selectbox to filter on date fields.
 - Added autofocus on login page.
 - Removed `custom-select` styles.

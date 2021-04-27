@@ -34,7 +34,7 @@ import "css/changelist.scss";
 import "css/changeform.scss";
 
 // Images
-import "img/favicon.png";
+import "img/default_favicon.png";
 
 
 // changelist page

@@ -114,6 +114,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # =============
 #  Paper Admin
 # =============
+PAPER_FAVICON = "app/favicon.png"
+
 PAPER_SUPPORT_PHONE = "+1 234 567 8900"
 PAPER_SUPPORT_EMAIL = "office@supermega.com"
 PAPER_SUPPORT_COMPANY = "Super Mega Inc."
