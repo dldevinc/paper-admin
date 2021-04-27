@@ -1,9 +1,9 @@
-import "js/helpers/select2";
+import "js/patches/select2";
 import Widget from "js/utilities/widget";
 
 // CSS
 import "select2/dist/css/select2.css";
-import "css/widgets/select2.scss";
+import "./select2.scss";
 
 
 class Select2Widget extends Widget {
@@ -42,6 +42,7 @@ class Select2Widget extends Widget {
 }
 
 
+// TODO: relocate everything below
 const select2_changeform = new Select2Widget({
     width: "",
     minimumResultsForSearch: Infinity
@@ -73,3 +74,6 @@ const select2_action = new Select2Widget({
 });
 select2_action.observe(".paper-actions select");
 select2_action.initAll(".paper-actions select");
+
+
+export default Select2Widget;

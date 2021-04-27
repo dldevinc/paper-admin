@@ -8,7 +8,6 @@ import Widget from "js/utilities/widget";
 import "js/components/cancel";
 import "js/components/filedrag";
 import "js/widgets/bootstrap";
-import "js/widgets/select2";
 
 // CSS
 import "css/common.scss";
@@ -24,6 +23,7 @@ import "bem/paper-object-list/paper-object-list";
 import "bem/paper-page/paper-page";
 import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
+import "bem/select2/select2";
 
 // Pages
 import "css/dashboard.scss";
