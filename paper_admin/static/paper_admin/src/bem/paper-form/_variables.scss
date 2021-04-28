@@ -1,5 +1,10 @@
 @import "css/abstracts/variables/bootstrap";
 
+$paper-form-label-color: #444 !default;
+$paper-form-label-hover-color: #000 !default;
+$paper-form-label-font-size: 1rem !default;
+$paper-form-label-font-weight: 300 !default;
+
 $paper-form-help-icon-margin-left: 6px !default;
 $paper-form-help-icon-color: $info !default;
 $paper-form-help-icon-size: 1rem !default;

@@ -29,13 +29,6 @@
     }
   }
 
-  .col-form-label {
-    @include media-breakpoint-down(sm) {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  }
-
   .readonly-content {
     @include media-breakpoint-up(md) {
       margin-top: add($input-padding-y-lg, $input-border-width);
@@ -52,12 +45,10 @@
       margin-right: 0.375rem;
     }
 
-    + .form-label {
-      margin-top: 0;
-      margin-bottom: 0;
-
-      > label {
-        display: inline;
+    + .inner-label {
+      .paper-form__label {
+        padding-top: 0;
+        padding-bottom: 0;
         user-select: none;
       }
     }

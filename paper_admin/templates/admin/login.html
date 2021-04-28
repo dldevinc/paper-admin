@@ -49,9 +49,7 @@
           <input type="hidden" name="next" value="{{ next }}" />
 
           <div class="mb-3 {{ form.password.errors|yesno:'invalid,' }}">
-            <div class="form-label">
-              <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-            </div>
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
             <div class="form-widget">
               <input type="text" name="{{ form.username.name }}"
                      value="{{ form.username.value|default:"" }}" id="{{ form.username.id_for_label }}"
@@ -67,9 +65,7 @@
           </div>
 
           <div class="{{ form.password.errors|yesno:'invalid,' }}">
-            <div class="form-label">
-              <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-            </div>
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
             <div class="form-widget">
               <input type="password" name="{{ form.password.name }}"
                      id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:"" }}"

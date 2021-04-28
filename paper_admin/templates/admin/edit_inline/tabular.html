@@ -34,17 +34,15 @@
             {% for field in inline_admin_formset.fields %}
               {% if not field.widget.is_hidden %}
                 <th class="{% if field.required %}required{% endif %}">
-                  <div class="form-label">
-                    {% spaceless %}
-                      <label>{{ field.label|capfirst }}</label>
+                  {% spaceless %}
+                    <label>{{ field.label|capfirst }}</label>
 
-                      {% if field.help_text %}
-                        <i class="paper-form__help-icon fa fa-fw fa-question-circle"
-                           data-toggle="popover" data-placement="top" data-trigger="manual"
-                           data-html="true" data-content="{{ field.help_text }}"></i>
-                      {% endif %}
-                    {% endspaceless %}
-                  </div>
+                    {% if field.help_text %}
+                      <i class="paper-form__help-icon fa fa-fw fa-question-circle"
+                         data-toggle="popover" data-placement="top" data-trigger="manual"
+                         data-html="true" data-content="{{ field.help_text }}"></i>
+                    {% endif %}
+                  {% endspaceless %}
                 </th>
               {% endif %}
             {% endfor %}
