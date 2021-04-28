@@ -72,7 +72,7 @@ class CollapseWidget extends Widget {
 /**
  * Клик на иконку с подсказкой
  */
-$(document).on("click.bs.popover", ".vHelpIcon[data-toggle=\"popover\"][data-trigger=\"manual\"]", function() {
+$(document).on("click.bs.popover", ".paper-form__help-icon[data-toggle=\"popover\"][data-trigger=\"manual\"]", function() {
     if (this.hasAttribute("aria-describedby")) {
         return false
     }

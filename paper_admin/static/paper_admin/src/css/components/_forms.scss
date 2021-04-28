@@ -80,19 +80,6 @@
   font-size: $font-size-lg;
 }
 
-.vHelpIcon {
-  padding: 2px;
-  margin-left: 6px;
-  cursor: pointer;
-  color: theme-color('info');
-  opacity: 0.66;
-  transition: opacity 0.4s;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 
 /**
  *  Fields
