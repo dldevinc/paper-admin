@@ -2,13 +2,17 @@
 
 .invalid-feedback {
   li:before {
-    content: '- ';
+    content: '• ';
   }
 }
 
 .invalid {
-  .invalid-feedback {
+  .invalid-feedback,
+  .invalid-tooltip {
     display: block;
+  }
+
+  .invalid-feedback {
     color: theme-color-level("danger", 2);
   }
 
