@@ -63,7 +63,7 @@ class ItemTablularInlines(SortableTabularInline):
     form = ItemForm
     model = Item
     tab = "tab4"
-    fields = ("readonly", "hidden", "name", "slug", "url")
+    fields = ("readonly", "hidden", "name", "slug", "url", "visible")
     extra = 1
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")

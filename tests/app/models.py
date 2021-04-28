@@ -153,6 +153,7 @@ class Item(models.Model):
     slug = models.SlugField(_("slug"), help_text=HELP_TEXT)
     url = models.URLField(_("url"), blank=True, help_text=HELP_TEXT)
     text = models.TextField(_("text"), blank=True)
+    visible = models.BooleanField(_("visible"), default=True)
     order = models.IntegerField(_("order"), default=0)
 
     class Meta:
