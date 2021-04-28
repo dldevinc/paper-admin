@@ -145,7 +145,7 @@ class SortableAdminMixin(SortableAdminBaseMixin):
             try:
                 reorder_dict[int(pk)] = int(order)
             except (TypeError, ValueError):
-                return HttpResponseBadRequest("Invalid order: `%s`" % order)
+                return HttpResponseBadRequest("Invalid order value: %r" % order)
 
         self._update_order(reorder_dict)
         return JsonResponse({})

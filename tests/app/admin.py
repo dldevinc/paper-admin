@@ -101,6 +101,10 @@ class CategoryForm(forms.ModelForm):
             self.add_error("f_char", _("Some field error"))
             self.add_error("f_char", _("One more field error"))
 
+        f_bool2 = self.cleaned_data.get("f_bool2")
+        if not f_bool2:
+            self.add_error("f_bool2", "Required")
+
 
 @admin.register(Category)
 class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):

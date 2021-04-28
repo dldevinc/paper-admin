@@ -2,17 +2,15 @@
   <div class="row{% if field.name %} field-{{ field.name }}{% endif %} mb-0">
 
     {% block label %}
-      <div class="form-label col-form-label col-form-label-lg col-md-3 col-xl-2">
-        {% spaceless %}
-          <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+      <div class="form-label col-form-label col-form-label-lg col-md-3 col-xl-2">{% spaceless %}
+        <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
-          {% if field.help_text %}
-            <i class="fa fa-question-circle vHelpIcon"
-               data-toggle="popover" data-placement="top" data-trigger="manual"
-               data-html="true" data-content="{{ field.help_text }}"></i>
-          {% endif %}
-        {% endspaceless %}
-      </div>
+        {% if field.help_text %}
+          <i class="fa fa-question-circle vHelpIcon"
+             data-toggle="popover" data-placement="top" data-trigger="manual"
+             data-html="true" data-content="{{ field.help_text }}"></i>
+        {% endif %}
+      {% endspaceless %}</div>
     {% endblock %}
 
     {% block widget %}

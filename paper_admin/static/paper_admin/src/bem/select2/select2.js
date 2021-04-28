@@ -47,8 +47,8 @@ const select2_changeform = new Select2Widget({
     width: "",
     minimumResultsForSearch: Infinity
 });
-select2_changeform.observe(".paper-form-card .vSelect");
-select2_changeform.initAll(".paper-form-card .vSelect");
+select2_changeform.observe(".paper-form .vSelect");
+select2_changeform.initAll(".paper-form .vSelect");
 
 
 const select2_changelist = new Select2Widget({
