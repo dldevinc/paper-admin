@@ -1,34 +1,106 @@
 @import "css/abstracts/variables/bootstrap";
 
-
+// add theme colors
 .custom-control {
-  .custom-control-input:checked:active ~ .custom-control-label {
+  @each $color, $value in $theme-colors {
+    .custom-control-input.#{$color}:checked ~ .custom-control-label:before {
+      border-color: $value;
+      background-color: $value;
+    }
+  }
+}
+
+// use font-size-lg
+.custom-control {
+  min-height: $font-size-lg * $line-height-lg;
+}
+
+.custom-control-label {
+  &:after,
+  &:before {
+    top: ($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2;
+  }
+}
+
+.custom-switch {
+  .custom-control-label {
+    &::after {
+      top: add(($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2, $custom-control-indicator-border-width * 2);
+    }
+  }
+}
+
+
+// enlarge label font-size
+.custom-control-label {
+  font-size: $input-font-size-lg;
+}
+
+
+// remove unnecessary right padding when label is empty
+.custom-control {
+  padding-left: $custom-control-indicator-size;
+}
+
+.custom-control-label {
+  &:not(:empty) {
+    margin-left: $custom-control-gutter;
+  }
+
+  &:empty {
+    &:after,
     &:before {
-      border-color: $custom-control-indicator-checked-border-color;
-      background-color: $custom-control-indicator-checked-bg;
+      left: -$custom-control-indicator-size;
     }
   }
 }
 
 .custom-switch {
-  .custom-control-input:checked:active ~ .custom-control-label {
+  padding-left: $custom-switch-width;
+
+  .custom-control-label {
+    &:empty {
+      &:before {
+        left: -$custom-switch-width;
+      }
+
+      &:after {
+        left: add(-$custom-switch-width, $custom-control-indicator-border-width * 2);
+      }
+    }
+  }
+}
+
+
+.custom-control {
+  // fix focus outline
+  .custom-control-input:focus ~ .custom-control-label {
     &:before {
-      background-color: $custom-control-indicator-checked-bg;
-      border-color: $custom-control-indicator-checked-border-color;
+      border-color: $input-focus-border-color !important;
+    }
+  }
+
+  // fix cursor
+  .custom-control-label {
+    cursor: pointer;
+  }
+
+  // enlarge check mark
+  .custom-control-input:checked ~ .custom-control-label:after {
+    background-size: 100%;
+  }
+}
+
+.custom-radio {
+  // restyle radio
+  .custom-control-input ~ .custom-control-label {
+    &:before {
+      padding: 0.1875rem;
+      background-clip: content-box;
     }
 
     &:after {
-      background-color: $custom-control-indicator-active-bg;
+      content: none;
     }
-  }
-
-  .custom-control-input:checked:focus ~ .custom-control-label {
-    &:before {
-      border-color: $input-focus-border-color;
-    }
-  }
-
-  .custom-control-label {
-    cursor: pointer;
   }
 }

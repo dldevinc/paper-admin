@@ -63,4 +63,16 @@
       }
     }
   }
+
+  &__widget {
+    // Показывает второй label на мобиле, справа от виджета.
+    &--checkbox {
+      & > .custom-control {
+        @include media-breakpoint-down(sm) {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+  }
 }

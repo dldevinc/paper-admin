@@ -7,34 +7,4 @@
   .card-body {
     padding: 0;
   }
-
-  // TODO: remove
-  .form-row {
-    &:nth-child(even) {
-      background-color: $table-accent-bg;
-    }
-
-    &.invalid {
-      background-color: $invalid-field-bg;
-    }
-  }
-
-  .form-widget > .vCustomCheckbox,
-  .form-widget > .vSwitch {
-    @include media-breakpoint-up(md) {
-      margin-top: add($input-padding-y-lg, $input-border-width);
-    }
-    @include media-breakpoint-down(sm) {
-      float: left;
-      margin-right: 0.375rem;
-    }
-
-    + .inner-label {
-      .paper-form__label {
-        padding-top: 0;
-        padding-bottom: 0;
-        user-select: none;
-      }
-    }
-  }
 }

@@ -14,12 +14,14 @@
     {% endblock %}
 
     {% block widget %}
-      <div class="form-widget col-md-9 col-xl-10">
-        {% if is_readonly %}
-          <div class="readonly">{{ field.contents }}</div>
-        {% else %}
-          {{ field }}
-        {% endif %}
+      <div class="col-md-9 col-xl-10">
+        <div class="paper-form__widget">
+          {% if is_readonly %}
+            <div class="readonly">{{ field.contents }}</div>
+          {% else %}
+            {{ field }}
+          {% endif %}
+        </div>
 
         {% if not is_readonly %}
           <div class="invalid-feedback">

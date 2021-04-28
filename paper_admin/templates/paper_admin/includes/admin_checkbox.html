@@ -13,17 +13,19 @@
 {% endblock %}
 
 {% block widget %}
-  <div class="form-widget col-md-9 col-xl-10">
-    {{ field }}
-    <div class="inner-label d-md-none">{% spaceless %}
-      <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+  <div class="col-md-9 col-xl-10">
+    <div class="paper-form__widget paper-form__widget--checkbox">
+      {{ field }}
+      <div class="d-inline-block d-md-none ml-1">{% spaceless %}
+        <label class="paper-form__label mb-0" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
-      {% if field.help_text %}
-        <i class="paper-form__help-icon fa fa-fw fa-question-circle"
-           data-toggle="popover" data-placement="top" data-trigger="manual"
-           data-html="true" data-content="{{ field.help_text }}"></i>
-      {% endif %}
-    {% endspaceless %}</div>
+        {% if field.help_text %}
+          <i class="paper-form__help-icon fa fa-fw fa-question-circle"
+             data-toggle="popover" data-placement="top" data-trigger="manual"
+             data-html="true" data-content="{{ field.help_text }}"></i>
+        {% endif %}
+      {% endspaceless %}</div>
+    </div>
 
     <div class="invalid-feedback">
       <ul class="list-unstyled mb-0">

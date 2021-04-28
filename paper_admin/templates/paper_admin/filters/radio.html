@@ -4,7 +4,7 @@
   <ul class="list-unstyled mb-0 vMultipleInput {{ classes }}">
     {% for choice in choices %}
       <li>
-        <div class="custom-control user-select-none vCustomRadio">
+        <div class="custom-control custom-radio user-select-none">
           <input type="radio"
                  id="id_{{ spec.parameter_name }}-{{ choice.value }}"
                  value="{{ choice.value }}"

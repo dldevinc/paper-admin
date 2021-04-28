@@ -4,7 +4,7 @@
   <ul class="list-unstyled mb-0 vMultipleInput {{ classes }}">
     {% for choice in choices %}
       <li>
-        <div class="custom-control user-select-none vCustomCheckbox">
+        <div class="custom-control custom-checkbox user-select-none">
           <input type="checkbox"
                  id="id_{{ spec.parameter_name }}-{{ choice.value }}"
                  value="{{ choice.value }}"

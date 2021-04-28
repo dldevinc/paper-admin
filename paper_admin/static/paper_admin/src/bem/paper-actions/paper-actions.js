@@ -4,7 +4,7 @@ import "./paper-actions.scss";
 
 const TOGGLE_ALL_ID = "action-toggle";
 const CHECKBOX_CLASS = "action-select";
-const CHECKBOX_LABEL_SELECTOR = ".action-checkbox .vCustomCheckbox";
+const CHECKBOX_LABEL_SELECTOR = ".action-checkbox .custom-control";
 const COUNTER_CLASS = "paper-actions__counter";
 const QUESTION_CLASS= "paper-actions__question";
 const ALL_CLASS = "paper-actions__all";
@@ -42,22 +42,17 @@ function initActions(inputs) {
 
     table.addEventListener("click", function(event) {
         const target = event.target;
-        const row = target.closest("tr");
-        const label_clicked = target.closest(CHECKBOX_LABEL_SELECTOR);
-        const checkbox_label = row && row.querySelector(CHECKBOX_LABEL_SELECTOR);
-        const checkbox = checkbox_label && checkbox_label.querySelector(`.${CHECKBOX_CLASS}`);
 
         // клик вне строк таблицы
+        const row = target.closest("tr");
         if (!row) {
             return
         }
 
-        // отмена выделения чекбокса при клике на <label>
-        if (label_clicked) {
-            event.preventDefault();
-        }
+        const checkbox_clicked = target.closest(CHECKBOX_LABEL_SELECTOR);
+        const checkbox = row.querySelector(`.${CHECKBOX_CLASS}`);
 
-        if (event.shiftKey && lastChecked && (lastChecked !== checkbox)) {
+        if (event.shiftKey && lastChecked) {
             // массовое выделение (через Shift)
             const lastIndex = inputs.indexOf(lastChecked);
             const targetIndex = inputs.indexOf(checkbox);
@@ -66,7 +61,7 @@ function initActions(inputs) {
             const input_slice = inputs.slice(startIndex, endIndex + 1);
             const rows = input_slice.map(input => input.closest("tr"));
             toggleRows(rows, lastChecked.checked);
-        } else if (label_clicked || (event.ctrlKey && !event.shiftKey)) {
+        } else if (checkbox_clicked || (event.ctrlKey && !event.shiftKey)) {
             // клик на чекбокс или на строку через Ctrl
             lastChecked = checkbox;
             toggleRows([row], !checkbox.checked);
