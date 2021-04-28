@@ -2,7 +2,7 @@
 
 {% block label %}
   <div class="col-md-3 col-xl-2 d-none d-md-block">{% spaceless %}
-    <label class="paper-form__label col-form-label col-form-label-lg" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+    <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
     {% if field.help_text %}
       <i class="paper-form__help-icon fa fa-fw fa-question-circle"
@@ -16,7 +16,7 @@
   <div class="form-widget col-md-9 col-xl-10">
     {{ field }}
     <div class="inner-label d-md-none">{% spaceless %}
-      <label class="paper-form__label col-form-label col-form-label-lg" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+      <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
       {% if field.help_text %}
         <i class="paper-form__help-icon fa fa-fw fa-question-circle"

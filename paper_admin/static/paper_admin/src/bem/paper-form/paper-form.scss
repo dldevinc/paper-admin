@@ -32,15 +32,28 @@
   }
 
   &__row {
+    padding: $paper-form-row-padding-y $paper-form-row-padding-x;
+    background-color: $paper-form-row-bg;
+    @include media-breakpoint-down(sm) {
+      padding-left: $paper-form-row-padding-x-sm;
+      padding-right: $paper-form-row-padding-x-sm;
+    }
+
+    &:not(last-child) {
+      border-bottom: $paper-form-row-border-width solid $paper-form-row-border-color;
+    }
 
     // поле только для чтения
     &--readonly {
-
+      .readonly {
+        word-break: break-word;
+        font-size: $font-size-lg;
+      }
     }
 
     // обязательное для заполнения поле
     &--required {
-      .paper-form__label label:after {
+      .paper-form__label:after {
         content: '*';
         position: relative;
         margin-left: .125em;

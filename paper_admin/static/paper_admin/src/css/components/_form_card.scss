@@ -8,30 +8,14 @@
     padding: 0;
   }
 
+  // TODO: remove
   .form-row {
-    display: block;
-    margin: 0;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid $table-border-color;
-    @include card-padding-x;
-
-    &:last-child {
-      border-bottom: 0;
+    &:nth-child(even) {
+      background-color: $table-accent-bg;
     }
 
     &.invalid {
       background-color: $invalid-field-bg;
-    }
-
-    &:not(.invalid):nth-child(even) {
-      background-color: $table-accent-bg;
-    }
-  }
-
-  .readonly-content {
-    @include media-breakpoint-up(md) {
-      margin-top: add($input-padding-y-lg, $input-border-width);
     }
   }
 

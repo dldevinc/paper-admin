@@ -60,7 +60,7 @@
                     {% if not field.is_hidden %}
                       <td class="{% if field.name %}field-{{ field.name }}{% endif %}{% if field.errors %} invalid{% endif %}">
                         {% if is_readonly %}
-                          <div class="readonly-content">{{ field.contents }}</div>
+                          <div class="readonly">{{ field.contents }}</div>
                         {% else %}
                           <div class="position-relative">
                             {{ field }}

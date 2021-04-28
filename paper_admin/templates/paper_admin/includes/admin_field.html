@@ -1,9 +1,9 @@
-<div class="form-row{% if field.errors %} invalid{% endif %}{% if field.is_hidden %} hidden{% endif %}{% if is_readonly %} readonly{% endif %}{% if field.field.required %} required{% endif %}">
+<div class="paper-form__row{% if field.errors %} invalid{% endif %}{% if field.is_hidden %} paper-form__row--hidden{% endif %}{% if is_readonly %} paper-form__row--readonly{% endif %}{% if field.field.required %} paper-form__row--required{% endif %}">
   <div class="row{% if field.name %} field-{{ field.name }}{% endif %} mb-0">
 
     {% block label %}
       <div class="col-md-3 col-xl-2">{% spaceless %}
-        <label class="paper-form__label col-form-label col-form-label-lg" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
+        <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
         {% if field.help_text %}
           <i class="paper-form__help-icon fa fa-fw fa-question-circle"
@@ -16,7 +16,7 @@
     {% block widget %}
       <div class="form-widget col-md-9 col-xl-10">
         {% if is_readonly %}
-          <div class="readonly-content">{{ field.contents }}</div>
+          <div class="readonly">{{ field.contents }}</div>
         {% else %}
           {{ field }}
         {% endif %}
