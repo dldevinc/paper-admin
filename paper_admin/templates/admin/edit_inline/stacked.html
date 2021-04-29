@@ -20,7 +20,7 @@
   {% endspaceless %}
 
   {% for inline_admin_form in inline_admin_formset %}
-    <fieldset class="paper-form-card paper-card card inline-related mb-3{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
+    <fieldset class="paper-card card inline-related mb-3{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form{% endif %}{% if inline_admin_form.form.errors %} inline-invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}"
               id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
       <div class="card-header">
         <div class="card-header-tools">
@@ -74,7 +74,7 @@
         </div>
       </div>
 
-      <div class="card-body">
+      <div class="card-body p-0">
         {% spaceless %}
           <ul class="paper-messages messagelist mb-3">
             {% for error in inline_admin_form.form.non_field_errors %}

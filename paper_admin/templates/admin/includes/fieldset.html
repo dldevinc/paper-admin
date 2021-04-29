@@ -1,4 +1,4 @@
-<fieldset class="paper-form-card paper-card card mb-3 {{ fieldset.classes }}{% if not fieldset.has_visible_field %} hidden{% endif %}">
+<fieldset class="paper-card card mb-3 {{ fieldset.classes }}{% if not fieldset.has_visible_field %} hidden{% endif %}">
   {% if fieldset.name %}
     <div class="card-header">
       <h3 class="card-title{% if not fieldset.description %} mb-0{% endif %}">{{ fieldset.name }}</h3>
@@ -10,7 +10,7 @@
     </div>
   {% endif %}
 
-  <div class="card-body">
+  <div class="card-body p-0">
     {% for fld in fieldset %}
       {% with is_readonly=fld.is_readonly field=fld.field %}
         {% if fld.is_checkbox %}
