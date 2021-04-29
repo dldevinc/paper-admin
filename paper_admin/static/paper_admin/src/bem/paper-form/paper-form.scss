@@ -63,4 +63,14 @@
       }
     }
   }
+
+
+  &__table-row {
+
+  }
+
+  &__row--invalid,
+  &__table-row--invalid {
+    background-color: $paper-form-row-invalid-bg;
+  }
 }
