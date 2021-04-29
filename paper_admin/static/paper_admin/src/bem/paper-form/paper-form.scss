@@ -74,5 +74,35 @@
         }
       }
     }
+
+    &--invalid {
+      ~ .invalid-feedback,
+      ~ .invalid-tooltip {
+        display: block;
+      }
+
+      .form-control,
+      .custom-file-label,
+      .select2-selection {
+        border-color: $paper-form-field-invalid-border-color;
+        box-shadow: $paper-form-field-invalid-box-shadow;
+      }
+
+      .form-control:focus {
+        border-color: $input-focus-border-color;
+        box-shadow: $input-focus-box-shadow;
+      }
+
+      // стили Bootstrap из ".is-invalid"
+      .form-control {
+        @if $enable-validation-icons {
+          padding-right: $input-height-inner;
+          background-image: escape-svg($form-feedback-icon-invalid);
+          background-repeat: no-repeat;
+          background-position: right $input-height-inner-quarter center;
+          background-size: $input-height-inner-half $input-height-inner-half;
+        }
+      }
+    }
   }
 }

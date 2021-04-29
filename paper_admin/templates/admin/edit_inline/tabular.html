@@ -59,23 +59,21 @@
                   {% with is_readonly=fld.is_readonly field=fld.field %}
                     {% if not field.is_hidden %}
                       <td class="{% if field.name %}field-{{ field.name }}{% endif %}{% if field.errors %} invalid{% endif %}">
-                        <div class="position-relative">
-                          <div class="paper-form__widget">
-                            {% if is_readonly %}
-                              <div class="readonly">{{ field.contents }}</div>
-                            {% else %}
+                        {% if is_readonly %}
+                          <div class="readonly">{{ field.contents }}</div>
+                        {% else %}
+                          <div class="position-relative">
+                            <div class="paper-form__widget{% if field.errors %} paper-form__widget--invalid{% endif %}">
                               {{ field }}
-                            {% endif %}
-                          </div>
+                            </div>
 
-                          <div class="invalid-tooltip">
-                            <ul class="paper-error-list">
+                            <ul class="paper-error-list invalid-tooltip">{% spaceless %}
                               {% for error in field.errors %}
                                 <li>{{ error }}</li>
                               {% endfor %}
-                            </ul>
+                            {% endspaceless %}</ul>
                           </div>
-                        </div>
+                        {% endif %}
                       </td>
                     {% endif %}
                   {% endwith %}

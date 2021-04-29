@@ -14,7 +14,7 @@
 
 {% block widget %}
   <div class="col-md-9 col-xl-10">
-    <div class="paper-form__widget paper-form__widget--checkbox">
+    <div class="paper-form__widget paper-form__widget--checkbox{% if field.errors %} paper-form__widget--invalid{% endif %}">
       {{ field }}
       <div class="d-inline-block d-md-none ml-1">{% spaceless %}
         <label class="paper-form__label mb-0" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
@@ -27,12 +27,10 @@
       {% endspaceless %}</div>
     </div>
 
-    <div class="invalid-feedback">
-      <ul class="paper-error-list">
-        {% for error in field.errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+    <ul class="paper-error-list invalid-feedback">{% spaceless %}
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    {% endspaceless %}</ul>
   </div>
 {% endblock %}

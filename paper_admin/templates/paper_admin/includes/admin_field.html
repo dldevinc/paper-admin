@@ -15,22 +15,18 @@
 
     {% block widget %}
       <div class="col-md-9 col-xl-10">
-        <div class="paper-form__widget">
-          {% if is_readonly %}
-            <div class="readonly">{{ field.contents }}</div>
-          {% else %}
+        {% if is_readonly %}
+          <div class="readonly">{{ field.contents }}</div>
+        {% else %}
+          <div class="paper-form__widget{% if field.errors %} paper-form__widget--invalid{% endif %}">
             {{ field }}
-          {% endif %}
-        </div>
-
-        {% if not is_readonly %}
-          <div class="invalid-feedback">
-            <ul class="paper-error-list">
-              {% for error in field.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
           </div>
+
+          <ul class="paper-error-list invalid-feedback">{% spaceless %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endspaceless %}</ul>
         {% endif %}
       </div>
     {% endblock %}

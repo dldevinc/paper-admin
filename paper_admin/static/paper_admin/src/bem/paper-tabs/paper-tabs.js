@@ -38,10 +38,7 @@ function scrollTo(element) {
  * @returns {Element}
  */
 function getFirstError() {
-    const errorContainers = document.querySelectorAll(".invalid, .inline-invalid, .paper-message--error");
-    return Array.from(errorContainers).find(function(errorContainer) {
-        return errorContainer.innerHTML !== "";
-    });
+    return document.querySelector(".paper-form__widget--invalid, .paper-message--error");
 }
 
 

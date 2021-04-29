@@ -1,28 +1,5 @@
 @import "css/env";
 
-.invalid-feedback {
-  li:before {
-    content: '• ';
-  }
-}
-
-.invalid {
-  .invalid-feedback,
-  .invalid-tooltip {
-    display: block;
-  }
-
-  .invalid-feedback {
-    color: theme-color-level("danger", 2);
-  }
-
-  .form-control,
-  .custom-file-label,
-  .select2-selection {
-    border-color: transparent;
-    box-shadow: 0 0 0 1px theme-color-level("danger", -4);  // удваивается толщина из-за background-clip
-  }
-}
 
 .form-control {
   display: inline-block;
@@ -43,7 +20,6 @@
     }
   }
 }
-
 
 /**
  *  Fields
