@@ -1,4 +1,4 @@
-@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/bootstrap";
 
 $paper-form-row-padding-x: 1rem !default;
 $paper-form-row-padding-y: 0.75rem !default;
@@ -7,7 +7,7 @@ $paper-form-row-border-width: 1px !default;
 $paper-form-row-border-color: #f4f4f4 !default;
 $paper-form-row-bg: #fff !default;
 
-$paper-form-label-color: #444 !default;
+$paper-form-label-color: $gray-700 !default;
 $paper-form-label-hover-color: #000 !default;
 $paper-form-label-font-size: 1rem !default;
 $paper-form-label-font-weight: 300 !default;

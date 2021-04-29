@@ -1,6 +1,6 @@
-@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/bootstrap";
 
 $paper-filter-gutter-width: 0.75rem !default;
 $paper-filter-title-font-size: 1rem !default;
 $paper-filter-title-font-weight: 300 !default;
-$paper-filter-top-border: 1px dashed $hr-border-color !default;
+$paper-filter-top-border: 1px dashed $gray-200 !default;

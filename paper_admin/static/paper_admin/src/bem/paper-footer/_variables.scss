@@ -1,8 +1,8 @@
-@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/bootstrap";
 
 $paper-footer-padding-x: 0 !default;
 $paper-footer-padding-y: 0.75rem !default;
 $paper-footer-font-size: 0.75rem !default;
 $paper-footer-bg: #fff !default;
-$paper-footer-border-width: $hr-border-width !default;
-$paper-footer-border-color: $hr-border-color !default;
+$paper-footer-border-width: 1px !default;
+$paper-footer-border-color: $gray-200 !default;

@@ -43,10 +43,10 @@
   }
 }
 
-@each $name, $value in $theme-colors {
-  @if map-has-key($paper-card-theme-bg-colors, $name) {
-    $bg: map-get($paper-card-theme-bg-colors, $name);
-    $border: map-get($paper-card-theme-border-colors, $name);
+@each $name, $value in $paper-bg-colors {
+  @if map-has-key($paper-bg-colors, $name) {
+    $bg: map-get($paper-bg-colors, $name);
+    $border: map-get($paper-border-colors, $name);
 
     .paper-card--#{$name} {
       border-color: $border;

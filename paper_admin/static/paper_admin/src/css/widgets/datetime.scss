@@ -73,10 +73,10 @@
 
   &.noCalendar.hasTime {
     width: 160px;
-    box-shadow: 0 0 0 1px #d0d0d0;
+    box-shadow: 0 0 0 1px $input-border-color;
 
     &.arrowTop:before {
-      border-bottom-color: #d0d0d0;
+      border-bottom-color: $input-border-color;
     }
 
     .flatpickr-time {

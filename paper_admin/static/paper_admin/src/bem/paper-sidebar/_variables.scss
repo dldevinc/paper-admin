@@ -1,5 +1,5 @@
+@import "css/abstracts/bootstrap";
 @import "css/abstracts/functions/sum";
-@import "css/abstracts/variables/bootstrap";
 
 $paper-sidebar-width: 15rem !default;
 $paper-sidebar-zindex: $zindex-fixed !default;
@@ -12,15 +12,15 @@ $paper-sidebar-shadow-zindex: ($paper-sidebar-zindex - 1) !default;
 
 $paper-sidebar-brand-padding-y: $navbar-padding-y !default;
 $paper-sidebar-brand-padding-x: 0.75rem !default;
-$paper-sidebar-brand-min-height: 2.75rem !default;
+$paper-sidebar-brand-min-height: 2.875rem !default;
 $paper-sidebar-brand-color: #fff !default;
 $paper-sidebar-brand-font-size: 1.125rem !default;
 $paper-sidebar-brand-border-width: 1px !default;
-$paper-sidebar-brand-border-color: #404040 !default;
+$paper-sidebar-brand-border-color: $gray-700 !default;
 
 $paper-sidebar-item-list-bg: darken($dark, 5%) !default;
 
-$paper-sidebar-item-divider-bg: #404040 !default;
+$paper-sidebar-item-divider-bg: $gray-700 !default;
 
 $paper-sidebar-link-padding-y: 0.5rem !default;
 $paper-sidebar-link-padding-x: 0.75rem !default;
@@ -31,7 +31,7 @@ $paper-sidebar-link-bg: null !default;
 $paper-sidebar-link-hover-color: #fff !default;
 $paper-sidebar-link-hover-bg: rgba(#fff, 0.1) !default;
 $paper-sidebar-link-active-color: #fff !default;
-$paper-sidebar-link-active-bg: rgba(#9090d0, 0.7) !default;
+$paper-sidebar-link-active-bg: rgba(theme-color-level("primary", -6), 0.7) !default;
 
 $paper-sidebar-link-arrow-size: 0.625rem !default;
 
@@ -61,5 +61,5 @@ $paper-sidebar-category-line-color: $paper-sidebar-item-divider-bg !default;
 // точки на вертикальной черте первого уровня
 $paper-sidebar-dot-size: 7px !default;
 $paper-sidebar-dot-bg: $paper-sidebar-item-list-bg !default;
-$paper-sidebar-dot-hover-bg: #9090d0 !default;
+$paper-sidebar-dot-hover-bg: theme-color-level("primary", -6) !default;
 $paper-sidebar-dot-open-bg: $paper-sidebar-dot-hover-bg !default;

@@ -1,4 +1,4 @@
-@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/bootstrap";
 
 @each $color, $value in $theme-colors {
   $bg: darken(theme-color-level($color, $table-bg-level), 4%);

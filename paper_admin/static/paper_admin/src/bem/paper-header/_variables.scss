@@ -1,4 +1,4 @@
-@import "css/abstracts/variables/bootstrap";
+@import "css/abstracts/bootstrap";
 
 $paper-header-min-height: 2.75rem !default;
 $paper-header-bg: #fff !default;
@@ -14,7 +14,7 @@ $paper-header-nav-link-padding-y: 0.25rem !default;
 $paper-header-nav-link-min-width: 30px !default;
 $paper-header-nav-link-font-size: 0.875rem !default;
 $paper-header-nav-link-line-height: 22/14 !default;
-$paper-header-nav-link-color: #333 !default;
+$paper-header-nav-link-color: $gray-800 !default;
 $paper-header-nav-link-hover-color: $link-color !default;
 $paper-header-nav-link-hover-bg: $gray-200 !default;
 $paper-header-nav-link-border-radius: $border-radius !default;

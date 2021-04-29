@@ -174,6 +174,7 @@ let config = {
         },
     },
     watchOptions: {
+        aggregateTimeout: 2000,
         ignored: ["**/node_modules"]
     },
     stats: {
