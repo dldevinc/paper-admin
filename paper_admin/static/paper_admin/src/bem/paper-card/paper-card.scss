@@ -41,24 +41,24 @@
       padding-right: $paper-card-spacer-x-sm;
     }
   }
-}
 
-@each $name, $value in $paper-bg-colors {
-  @if map-has-key($paper-bg-colors, $name) {
-    $bg: map-get($paper-bg-colors, $name);
-    $border: map-get($paper-border-colors, $name);
+  @each $name, $value in $paper-bg-colors {
+    @if map-has-key($paper-bg-colors, $name) {
+      $bg: map-get($paper-bg-colors, $name);
+      $border: map-get($paper-border-colors, $name);
 
-    .paper-card--#{$name} {
-      border-color: $border;
-
-      .card-header {
-        color: color-yiq($bg);
+      &--#{$name} {
         border-color: $border;
-        background-color: $bg;
-      }
 
-      .card-footer {
-        border-color: $border;
+        .card-header {
+          color: color-yiq($bg);
+          border-color: $border;
+          background-color: $bg;
+        }
+
+        .card-footer {
+          border-color: $border;
+        }
       }
     }
   }

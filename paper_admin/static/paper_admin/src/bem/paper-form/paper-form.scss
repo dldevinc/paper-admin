@@ -7,6 +7,7 @@
     color: $paper-form-label-color;
     font-size: $paper-form-label-font-size;
     font-weight: $paper-form-label-font-weight;
+    line-height: $paper-form-label-line-height;
     cursor: pointer;
     @include transition(color .2s);
     @include media-breakpoint-down(sm) {
@@ -39,8 +40,8 @@
       padding-right: $paper-form-row-padding-x-sm;
     }
 
-    &:not(last-child) {
-      border-bottom: $paper-form-row-border-width solid $paper-form-row-border-color;
+    &:not(:first-of-type) {
+      border-top: $paper-form-row-border-top;
     }
 
     // поле только для чтения

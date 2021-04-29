@@ -1,11 +1,6 @@
 @import "css/env";
 
 
-.form-control {
-  display: inline-block;
-  vertical-align: top;
-}
-
 .related-links {
   margin: 0.5rem #{-$tool-item-margin-y} 0 #{-$tool-item-margin-y};
   @media (max-width: 479px) {

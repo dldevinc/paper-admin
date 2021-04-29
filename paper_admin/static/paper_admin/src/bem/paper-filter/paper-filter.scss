@@ -5,7 +5,7 @@
 
   &:not(:first-child) {
     padding-top: $paper-filter-gutter-width;
-    border-top: $paper-filter-top-border;
+    border-top: $paper-filter-border-top;
   }
 
   &__title {

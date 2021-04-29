@@ -87,7 +87,7 @@ let config = {
                             sassOptions: {
                                 includePaths: [
                                     path.resolve(SOURCE_DIR, "css"),
-                                    path.resolve("node_modules"),
+                                    path.resolve(__dirname, "node_modules"),
                                 ]
                             }
                         }

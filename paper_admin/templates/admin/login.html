@@ -39,9 +39,12 @@
 {% endblock %}
 
 
+{% block before_content %}{% endblock %}
+
+
 {% block layout %}
   <div class="login-card m-auto">
-    <div class="paper-card card">
+    <div class="paper-card card border-0">
       <h2 class="card-header text-center">{% trans "Log in" %}</h2>
       <div class="card-body">
         <form action="{{ app_path }}" method="post" id="login-form">
