@@ -3,6 +3,7 @@
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
-	src: url('../fonts/RobotoItalic/RobotoItalic.woff2') format('woff2'),
-		 url('../fonts/RobotoItalic/RobotoItalic.woff') format('woff');
+	src: url('fonts/RobotoItalic/RobotoItalic.woff2') format('woff2'),
+		 url('fonts/RobotoItalic/RobotoItalic.woff') format('woff'),
+		 url('fonts/RobotoItalic/RobotoItalic.ttf') format('truetype');
 }
