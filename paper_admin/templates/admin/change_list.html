@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_list %}
+{% load i18n admin_urls admin_list %}
 {% load paper_list paper_paginator %}
 
 {% block styles %}
@@ -12,7 +12,7 @@
   {{ media.js }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} changelist-page{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
 
 
 {% block header_buttons %}
@@ -121,7 +121,9 @@
           </div>
 
           <div class="col-auto">
-            {% search_form cl %}
+            {% block search %}
+              {% search_form cl %}
+            {% endblock %}
           </div>
         </div>
 
@@ -129,7 +131,9 @@
           <hr class="m-0">
 
           <div class="py-2 px-3">
-            {% date_hierarchy cl %}
+            {% block date_hierarchy %}
+              {% date_hierarchy cl %}
+            {% endblock %}
           </div>
         {% endif %}
 

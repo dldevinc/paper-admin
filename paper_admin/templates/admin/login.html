@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n static %}
+{% load i18n %}
 
 
 {% block styles %}
@@ -12,8 +12,9 @@
   {{ form.media.js }}
 {% endblock %}
 
+{% block bodyclass %}{{ block.super }} login{% endblock %}
 
-{% block bodyclass %} login-page{% endblock %}
+
 {% block sidebar %}{% endblock %}
 {% block header %}{% endblock %}
 {% block breadcrumbs %}{% endblock %}

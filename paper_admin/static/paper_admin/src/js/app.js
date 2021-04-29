@@ -40,12 +40,12 @@ import "img/default_favicon.png";
 
 
 // changelist page
-if (document.body.classList.contains("changelist-page")) {
+if (document.body.classList.contains("change-list")) {
     import(/* webpackChunkName: "changelist" */ "js/changelist");
 }
 
 // changeform page
-if (document.body.classList.contains("changeform-page")) {
+if (document.body.classList.contains("change-form")) {
     import(/* webpackChunkName: "changeform" */ "js/changeform");
 }
 

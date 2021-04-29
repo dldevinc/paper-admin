@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static %}
+{% load i18n admin_urls %}
 {% load paper_modify %}
 
 {% block styles %}
@@ -15,7 +15,7 @@
   {{ media.js }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} changeform-page{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 
 {% block header_buttons %}
@@ -143,5 +143,7 @@
         {% include inline_admin_formset.opts.template %}
       {% endfor %}
     {% endif %}
+
+    {% block after_related_objects %}{% endblock %}
   </form>
 {% endblock %}

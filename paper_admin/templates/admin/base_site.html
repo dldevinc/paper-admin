@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n static %}
+{% load i18n %}
 {% load paper_menu %}
 
 {% block scripts %}
@@ -54,13 +54,13 @@
         {% endblock %}
 
         {% if has_permission %}
-          {% block header_navbar %}
+          {% block usertools %}
             <ul class="navbar-nav flex-wrap align-items-center flex-shrink-0 flex-grow-1 flex-lg-grow-0 ml-lg-auto">
               {% spaceless %}
                 {% block header_buttons %}{% endblock %}
               {% endspaceless %}
 
-              {% block header_navbar_items %}
+              {% block userlinks %}
                 {% if not is_popup %}
                   {# divider for mobile devices #}
                   <li class="nav-item align-self-stretch flex-grow-1 mx-0 d-lg-none"></li>

@@ -1,6 +1,6 @@
 {% load load_paper i18n static %}{% load_paper as paper %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en"|slice:"2" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us"|slice:"2" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
   <meta charset="utf-8">
   {% block preload %}
@@ -17,9 +17,13 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% block responsive %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% endblock %}
   <meta name="theme-color" content="#3b91ca">
-  {% block blockbots %}<meta name="robots" content="none,noarchive"/>{% endblock %}
+  {% block blockbots %}
+    <meta name="robots" content="none,noarchive"/>
+  {% endblock %}
   {% block meta %}{% endblock %}
 
   {# Favicon #}
