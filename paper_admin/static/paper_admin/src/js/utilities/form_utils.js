@@ -45,7 +45,7 @@ function addFieldError(field, errors) {
     let errorList = field.querySelector(".invalid-feedback ul");
     if (errorList === null) {
         errorList = document.createElement("ul");
-        errorList.classList.add("list-unstyled", "mb-0");
+        errorList.classList.add("paper-error-list");
 
         const feedback = document.createElement("div");
         feedback.classList.add("invalid-feedback");

@@ -1,0 +1,24 @@
+@import "css/abstracts/variables/bootstrap";
+
+.paper-error-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &.invalid-feedback {
+    margin-top: $form-feedback-margin-top;
+  }
+
+  &.invalid-tooltip {
+    padding: $form-feedback-tooltip-padding-y $form-feedback-tooltip-padding-x;
+    margin-top: .1rem;
+  }
+
+  &:empty {
+    display: none !important;
+  }
+
+  li:before {
+    content: "• ";
+  }
+}

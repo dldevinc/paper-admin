@@ -85,6 +85,8 @@ $custom-checkbox-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='htt
 $custom-switch-width: 2.25rem;
 
 // errors
+$form-feedback-tooltip-opacity: 0.75;
+$form-feedback-icon-invalid-color: #df7d5c;
 $form-feedback-invalid-color: #af360d;  // theme-color-level("danger", 2)
 
 // dropdown
