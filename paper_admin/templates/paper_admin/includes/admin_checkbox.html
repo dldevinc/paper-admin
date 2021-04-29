@@ -14,7 +14,7 @@
 
 {% block widget %}
   <div class="col-md-9 col-xl-10">
-    <div class="paper-form__widget paper-form__widget--checkbox{% if field.errors %} paper-form__widget--invalid{% endif %}">
+    <div class="paper-widget paper-widget--checkbox{% if field.errors %} paper-widget--invalid{% endif %}">
       {{ field }}
       <div class="d-inline-block d-md-none ml-1">{% spaceless %}
         <label class="paper-form__label mb-0" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>

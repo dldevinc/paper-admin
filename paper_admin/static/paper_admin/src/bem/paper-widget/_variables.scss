@@ -1,0 +1,4 @@
+@import "css/abstracts/variables/bootstrap";
+
+$paper-widget-invalid-border-color: theme-color-level("danger", -4) !default;
+$paper-widget-invalid-box-shadow: 0 0 0 1px $paper-widget-invalid-border-color !default;

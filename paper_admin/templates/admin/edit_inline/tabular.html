@@ -58,12 +58,12 @@
                 {% for fld in fieldset %}
                   {% with is_readonly=fld.is_readonly field=fld.field %}
                     {% if not field.is_hidden %}
-                      <td class="{% if field.name %}field-{{ field.name }}{% endif %}{% if field.errors %} invalid{% endif %}">
+                      <td class="{% if field.name %}field-{{ field.name }}{% endif %}">
                         {% if is_readonly %}
                           <div class="readonly">{{ field.contents }}</div>
                         {% else %}
                           <div class="position-relative">
-                            <div class="paper-form__widget{% if field.errors %} paper-form__widget--invalid{% endif %}">
+                            <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}">
                               {{ field }}
                             </div>
 

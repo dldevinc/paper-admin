@@ -34,7 +34,7 @@ export default function hookUnload(form) {
             form.removeEventListener("change", changeHandler);
 
             const target = event.target;
-            const widget = target.closest(".paper-form__widget");
+            const widget = target.closest(".paper-widget");
             const prevent_hook = target.closest("[data-hook-unload=\"prevent\"]") !== null;
             if (!prevent_hook && widget && form.contains(widget)) {
                 formHasChanged = true;

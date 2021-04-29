@@ -38,7 +38,7 @@ function scrollTo(element) {
  * @returns {Element}
  */
 function getFirstError() {
-    return document.querySelector(".paper-form__widget--invalid, .paper-message--error");
+    return document.querySelector(".paper-widget--invalid, .paper-message--error");
 }
 
 

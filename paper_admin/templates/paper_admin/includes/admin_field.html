@@ -18,7 +18,7 @@
         {% if is_readonly %}
           <div class="readonly">{{ field.contents }}</div>
         {% else %}
-          <div class="paper-form__widget{% if field.errors %} paper-form__widget--invalid{% endif %}">
+          <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}">
             {{ field }}
           </div>
 
