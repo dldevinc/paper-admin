@@ -55,8 +55,8 @@ const select2_changelist = new Select2Widget({
     theme: "sm",
     minimumResultsForSearch: Infinity
 });
-select2_changelist.observe(".paper-table-wrapper .vSelect");
-select2_changelist.initAll(".paper-table-wrapper .vSelect");
+select2_changelist.observe(".paper-table .vSelect");
+select2_changelist.initAll(".paper-table .vSelect");
 
 
 const select2_filters = new Select2Widget({

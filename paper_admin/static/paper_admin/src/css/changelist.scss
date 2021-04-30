@@ -1,15 +1,5 @@
 @import "css/env";
 
-
-.table {
-  tbody tr.selected,
-  tr.selected > td,
-  tr.selected > th {
-    background-color: #f8f9ed;
-  }
-}
-
-
 /*
   Сортировка столбцов
  */
@@ -17,12 +7,6 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  color: $secondary;
-  font-size: 0.75rem;
-  line-height: #{($font-size-lg / 0.75rem) * $line-height-base};
-  font-weight: 500;
-  text-transform: uppercase;
-  vertical-align: bottom;
 
   .dropdown-menu {
     text-transform: none;
@@ -32,7 +16,7 @@
 .table-column-header-title {
   display: inline-block;
   white-space: normal;
-  color: $secondary;
+  color: inherit;
 
   &:hover {
     color: $link-color;

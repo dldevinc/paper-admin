@@ -1,0 +1,20 @@
+@import "css/abstracts/bootstrap";
+
+$paper-table-bg: #fff !default;
+$paper-table-border-width: 1px !default;
+$paper-table-border-color: $gray-200 !default;
+
+$paper-table-row-selected-bg: theme-color-level("warning", -11) !default;
+
+$paper-table-cell-padding-y: 0.75rem !default;
+$paper-table-cell-padding-x: 1rem !default;
+
+$paper-table-head-padding-y: 1rem !default;
+$paper-table-head-padding-x: 1rem !default;
+$paper-table-head-color: $gray-800 !default;
+$paper-table-head-font-size: 0.75rem !default;
+$paper-table-head-font-weight: 500 !default;
+$paper-table-head-text-transform: uppercase !default;
+$paper-table-head-bg: null !default;
+$paper-table-head-border-width: 1px !default;
+$paper-table-head-border-color: $gray-300 !default;

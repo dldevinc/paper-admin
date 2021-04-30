@@ -150,14 +150,9 @@ $popover-font-size: 14px;
 $popover-max-width: 320px;
 
 // table
-// TODO: refactor
-$table-cell-padding: 1rem 0.5rem;
-$table-accent-bg: #fcfcfc;
-$table-hover-bg: #f0f0f0;
-$table-border-color: #f0f0f0;
-$table-head-color: #9a9a9a;
-$table-bg-level: -10;
-$table-border-level: -8;
+$table-border-color: $gray-200;
+$table-accent-bg: $gray-100;
+$table-hover-bg: theme-color-level("warning", -12);
 
 // pagination
 $pagination-line-height: 1;

@@ -27,6 +27,7 @@ import "bem/paper-sidebar/paper-sidebar";
 import "bem/select2/select2";
 
 import "bem/paper-widget/paper-widget";
+import "bem/paper-table/paper-table";
 import "bem/paper-form/paper-form";
 
 // Pages
