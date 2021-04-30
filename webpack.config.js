@@ -4,13 +4,14 @@ const pixrem = require("pixrem");
 const autoprefixer = require("autoprefixer");
 const { extendDefaultPlugins } = require("svgo");
 const TerserPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
-const SOURCE_DIR = "paper_admin/static/paper_admin/src";
-const DIST_DIR = "paper_admin/static/paper_admin/dist";
+const SOURCE_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/src");
+const DIST_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/dist");
 
 
 let config = {
@@ -21,7 +22,7 @@ let config = {
         clean: true,
         path: path.resolve(DIST_DIR),
         publicPath: "/static/paper_admin/dist/",
-        filename: "[name].min.js",
+        filename: "[name].[contenthash].js",
         assetModuleFilename: "assets/[name][ext][query]",
         library: {
             type: "window"
@@ -112,7 +113,7 @@ let config = {
             "window.jQuery": "jquery"
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].min.css"
+            filename: "[name].[contenthash].css"
         }),
         new ImageMinimizerPlugin({
             minimizerOptions: {
@@ -149,6 +150,22 @@ let config = {
                     ],
                 ]
             }
+        }),
+        new HtmlWebpackPlugin({
+            templateContent: ({htmlWebpackPlugin}) =>
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
+            inject: false,
+            scriptLoading: 'blocking',
+            chunks: ["app"]
+        }),
+        new HtmlWebpackPlugin({
+            templateContent: ({htmlWebpackPlugin}) =>
+                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.body.html"),
+            inject: false,
+            scriptLoading: 'blocking',
+            chunks: ["app"]
         })
     ],
     optimization: {
