@@ -5,6 +5,6 @@
 
 {% block result_header %}
   <th scope="col" {{ header.class_attrib }}>
-    <span class="table-column-header">{{ header.text|capfirst }}</span>
+    {{ header.text|capfirst }}
   </th>
 {% endblock %}

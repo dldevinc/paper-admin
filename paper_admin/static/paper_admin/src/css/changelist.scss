@@ -3,32 +3,12 @@
 /*
   Сортировка столбцов
  */
-.table-column-header {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-
-  .dropdown-menu {
-    text-transform: none;
-  }
-}
-
-.table-column-header-title {
-  display: inline-block;
-  white-space: normal;
-  color: inherit;
-
-  &:hover {
-    color: $link-color;
-  }
-}
-
 .sortoptions-btn {
   position: relative;
   padding: 0 .25rem;
-  margin: -.125rem -0.375rem -.125rem .125rem;
+  margin-top: -0.25rem;
+  margin-left: .125rem;
   color: $gray-600;
-  font-size: $font-size-sm;
   line-height: 1;
   border-radius: $btn-border-radius-sm;
 

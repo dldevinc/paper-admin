@@ -18,8 +18,8 @@
           <th scope="col" {{ header.class_attrib }}>
             {% if header.sortable %}
               {% spaceless %}
-                <div class="table-column-header dropdown">
-                  <a href="{{ header.url_primary }}" class="table-column-header-title">
+                <div class="dropdown text-nowrap">
+                  <a href="{{ header.url_primary }}" class="d-inline-block text-wrap">
                     {{ header.text|capfirst }}
                   </a>
                   {% if header.sort_priority > 0 %}
@@ -48,7 +48,7 @@
                 </div>
               {% endspaceless %}
             {% else %}
-              <div class="table-column-header">{{ header.text|capfirst }}</div>
+              {{ header.text|capfirst }}
             {% endif %}
           </th>
         {% endblock %}
