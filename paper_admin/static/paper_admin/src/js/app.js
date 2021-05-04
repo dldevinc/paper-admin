@@ -24,6 +24,7 @@ import "bem/paper-object-list/paper-object-list";
 import "bem/paper-page/paper-page";
 import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
+import "bem/paper-toolbar/paper-toolbar";
 import "bem/select2/select2";
 
 import "bem/paper-widget/paper-widget";

@@ -11,7 +11,6 @@ import "js/widgets/multiselect";
 import "js/widgets/password";
 import "js/widgets/url";
 import "bem/paper-tabs/paper-tabs";
-import "bem/paper-toolbar/paper-toolbar";
 
 
 // динамическая подгрузка скрипта для prepopulate_fields
