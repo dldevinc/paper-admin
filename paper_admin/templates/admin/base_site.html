@@ -184,18 +184,12 @@
     {% endspaceless %}
 
     {% block before_content %}
-      <div class="row mb-3">
-        <div class="paper-page__header col">
-          {% block pretitle %}{% endblock %}
-          {% block content_title %}
-            {% firstof cl.opts.verbose_name_plural title as page_title %}
-            <h1>{{ page_title|capfirst }}</h1>
-          {% endblock %}
-        </div>
-
-        {% spaceless %}
-          {% block object-tools %}{% endblock %}
-        {% endspaceless %}
+      <div class="paper-page__header mb-3">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}
+          {% firstof cl.opts.verbose_name_plural title as page_title %}
+          <h1>{{ page_title|capfirst }}</h1>
+        {% endblock %}
       </div>
     {% endblock %}
 
