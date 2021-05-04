@@ -143,7 +143,7 @@
   {% endif %}
 
   {% if cl.result_count %}
-    <form id="changelist_form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
+    <form id="changelist-form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
       {% csrf_token %}
 
       {% if cl.formset %}

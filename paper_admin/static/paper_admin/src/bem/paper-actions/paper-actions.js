@@ -108,7 +108,7 @@ function initActions(inputs) {
  */
 function protectEditForm() {
     let list_editable_changed = false;
-    const form = document.getElementById("changelist_form");
+    const form = document.getElementById("changelist-form");
 
     form.addEventListener("change", function(event) {
         const target = event.target;
