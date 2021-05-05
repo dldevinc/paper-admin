@@ -1,10 +1,11 @@
 from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
 from django.template import library, loader
 
+register = library.Library()
+
 DOT = '.'
 ON_EACH_SIDE = 1
 ON_ENDS = 2
-register = library.Library()
 
 
 @register.simple_tag()

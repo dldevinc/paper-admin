@@ -1,4 +1,5 @@
 {% load i18n admin_urls %}
+{% load paper_paginator %}
 
 {% block result_hidden_fields %}
   {% if result_hidden_fields %}
@@ -85,5 +86,37 @@
         </tr>
       {% endfor %}
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="{% if cl.model_admin.changelist_tools %}{{ result_headers|length|add:1 }}{% else %}{{ result_headers|length }}{% endif %}">
+          <div class="row align-items-center">
+            <div class="col">
+              <small class="text-muted text-nowrap">
+                {{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endif %}
+
+                {% if cl.result_count != cl.full_result_count %}
+                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
+                {% endif %}
+              </small>
+            </div>
+
+            {% if cl.pagination_required %}
+              <div class="col-auto">
+                <small class="text-muted">
+                  {{ current_page.start_index }}-{{ current_page.end_index }} of {{ cl.result_count }}
+                </small>
+              </div>
+
+              <div class="col-auto">
+                {% block pagination %}
+                  {% paper_pagination cl %}
+                {% endblock %}
+              </div>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 {% endif %}

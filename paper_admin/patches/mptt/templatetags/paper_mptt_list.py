@@ -43,6 +43,7 @@ def paper_mptt_result_list(cl):
             num_sorted_fields += 1
     return {
         "cl": cl,
+        "current_page": cl.paginator.page(cl.page_num + 1),
         "result_hidden_fields": list(admin_list.result_hidden_fields(cl)),
         "result_headers": headers,
         "num_sorted_fields": num_sorted_fields,
