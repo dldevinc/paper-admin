@@ -207,8 +207,10 @@ function updateCounter(inputs) {
  * Показ ссылки "выбрать всё"
  */
 function showQuestion() {
-    const question = document.querySelector(`.${QUESTION_CLASS}`);
-    question && (question.hidden = false);
+    const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
+    questions.forEach(function(question) {
+        question.hidden = false
+    });
 }
 
 /**
@@ -225,34 +227,50 @@ function setAcrossInput(value) {
 function selectAcross() {
     setAcrossInput(true);
 
-    const counter = document.querySelector(`.${COUNTER_CLASS}`);
-    counter && (counter.hidden = true);
+    const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
+    counters.forEach(function(counter) {
+        counter.hidden = true
+    });
 
-    const allContainer = document.querySelector(`.${ALL_CLASS}`);
-    allContainer && (allContainer.hidden = false);
+    const allContainers = document.querySelectorAll(`.${ALL_CLASS}`);
+    allContainers.forEach(function(container) {
+        container.hidden = false
+    });
 
-    const question = document.querySelector(`.${QUESTION_CLASS}`);
-    question && (question.hidden = true);
+    const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
+    questions.forEach(function(question) {
+        question.hidden = true
+    });
 
-    const clear = document.querySelector(`.${CLEAR_CLASS}`);
-    clear && (clear.hidden = false);
+    const clear_buttons = document.querySelectorAll(`.${CLEAR_CLASS}`);
+    clear_buttons.forEach(function(clear_button) {
+        clear_button.hidden = false
+    });
 }
 
 function clearAcross(inputs) {
     setAcrossInput(false);
 
-    const counter = document.querySelector(`.${COUNTER_CLASS}`);
-    counter && (counter.hidden = false);
+    const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
+    counters.forEach(function(counter) {
+        counter.hidden = false
+    });
 
-    const allContainer = document.querySelector(`.${ALL_CLASS}`);
-    allContainer && (allContainer.hidden = true);
+    const allContainers = document.querySelectorAll(`.${ALL_CLASS}`);
+    allContainers.forEach(function(container) {
+        container.hidden = true
+    });
 
     const selected = inputs.reduce((sum, input) => sum + (input.checked ? 1 : 0), 0);
-    const question = document.querySelector(`.${QUESTION_CLASS}`);
-    question && (question.hidden = selected !== inputs.length);
+    const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
+    questions.forEach(function(question) {
+        question.hidden = selected !== inputs.length
+    });
 
-    const clear = document.querySelector(`.${CLEAR_CLASS}`);
-    clear && (clear.hidden = true);
+    const clear_buttons = document.querySelectorAll(`.${CLEAR_CLASS}`);
+    clear_buttons.forEach(function(clear_button) {
+        clear_button.hidden = true
+    });
 }
 
 
