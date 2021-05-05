@@ -50,3 +50,13 @@ def prepopulated_fields_js_tag(parser, token):
         func=prepopulated_fields_js,
         template_name="prepopulated_fields_js.html",
     )
+
+
+@register.tag(name='change_form_object_tools')
+def change_form_object_tools_tag(parser, token):
+    """Display the row of change form object tools."""
+    return InclusionAdminNode(
+        parser, token,
+        func=lambda context: context,
+        template_name='change_form_object_tools.html',
+    )

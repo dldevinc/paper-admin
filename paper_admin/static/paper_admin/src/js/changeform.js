@@ -10,6 +10,7 @@ import "js/widgets/email";
 import "js/widgets/multiselect";
 import "js/widgets/password";
 import "js/widgets/url";
+import "bem/object-tools/object-tools";
 import "bem/paper-tabs/paper-tabs";
 
 
