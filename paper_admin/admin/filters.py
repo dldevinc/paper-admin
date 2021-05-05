@@ -12,9 +12,10 @@ from django.utils.translation import gettext_lazy as _
 
 class SimpleListFilter(filters.ListFilter):
     """
-    Differencies from standard `SimpleListFilter`:
-    1) Use `request.GET.getlist()` instead of `request.GET.get()`
-    2) Versatile `choice` format
+    Отличия от стандартного `SimpleListFilter`:
+    1) Используется `request.GET.getlist()` вместо `request.GET.get()`, что позволяет
+       указывать несколько значений.
+    2) Более универсальный формат `choice`-обекта.
     """
     # The parameter that should be used in the query string for that filter.
     parameter_name = None

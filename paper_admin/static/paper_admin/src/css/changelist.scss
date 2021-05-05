@@ -13,8 +13,7 @@
   border-radius: $btn-border-radius-sm;
 
   &.has-prior {
-    padding-left: 0.375rem;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
   }
 
   &:hover {
@@ -54,7 +53,7 @@
   }
 
   @at-root .table-sortable-allowed tr:not(.disabled) & {
-    cursor: grab;
+    cursor: move;
     opacity: 1;
 
     &:hover {

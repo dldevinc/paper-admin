@@ -129,7 +129,7 @@ function protectEditForm() {
         }
     });
 
-    form.addEventListener("click", function(event) {
+    document.addEventListener("click", function(event) {
         const target = event.target;
         const action_button = target.closest("[name=\"index\"]");
         if (action_button && list_editable_changed) {
@@ -140,7 +140,7 @@ function protectEditForm() {
         }
     });
 
-    form.addEventListener("click", function(event) {
+    document.addEventListener("click", function(event) {
         const target = event.target;
         const save_button = target.closest("[name=\"_save\"]");
 
