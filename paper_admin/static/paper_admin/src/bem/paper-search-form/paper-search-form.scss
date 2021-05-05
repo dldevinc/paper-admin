@@ -1,10 +1,21 @@
 @import "css/env";
 
 .paper-search-form {
-  display: flex;
+  width: $paper-search-form-width;
 
   &__field {
-    flex-basis: $paper-search-field-width;
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: $input-padding-y;
+    left: $input-padding-x;
+    color: $text-muted;
+  }
+
+  .form-control {
+    padding-left: #{$input-padding-x + 1.25rem};
 
     &::-webkit-search-cancel-button {
       -webkit-appearance: none;
@@ -13,14 +24,6 @@
       width: 1em;
       cursor: pointer;
       background: no-repeat url("img/cross.svg") center;
-    }
-  }
-
-  &__button {
-    border-color: $paper-search-button-border-color;
-
-    i {
-      vertical-align: 0;
     }
   }
 }
