@@ -8,8 +8,11 @@
 
   &__action {
     select {
+      padding-left: $input-padding-y;
+      padding-right: 24px;
       width: auto;
-      min-width: 200px;
+      min-width: 180px;
+      max-width: 340px;
     }
 
     .select2 {

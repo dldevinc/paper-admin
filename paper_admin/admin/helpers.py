@@ -20,7 +20,9 @@ class ActionForm(helpers.ActionForm):
     action = forms.ChoiceField(
         label="",
         required=False,
-        widget=forms.Select()
+        widget=forms.Select(attrs={
+            "form": "changelist-form"
+        })
     )
 
     def clean_action(self):
