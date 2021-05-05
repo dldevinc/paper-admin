@@ -4,9 +4,13 @@
   <ul class="list-unstyled">
     {% for choice in choices %}
       <li{% if choice.selected %} class="active"{% endif %}>
-        <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
-          {{ choice.display }}
-        </a>
+        {% if choice.selected %}
+          <span class="text-secondary font-weight-bold">{{ choice.display }}</span>
+        {% else %}
+          <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
+            {{ choice.display }}
+          </a>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
