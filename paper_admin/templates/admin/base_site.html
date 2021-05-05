@@ -43,19 +43,9 @@
   <header class="paper-header sticky-top">
     <nav class="navbar navbar-expand">
       <div class="container-fluid">
-        {% block header_brand %}
-          <div class="navbar-brand d-none d-lg-block{% if not is_popup %} d-xl-none{% endif %} text-wrap">
-            {% if is_popup %}
-              <span class="navbar-brand-name">{{ site_header }}</span>
-            {% else %}
-              <a href="{% url 'admin:index' %}" class="navbar-brand-name">{{ site_header }}</a>
-            {% endif %}
-          </div>
-        {% endblock %}
-
         {% if has_permission %}
           {% block usertools %}
-            <ul class="navbar-nav flex-wrap align-items-center flex-shrink-0 flex-grow-1 flex-lg-grow-0 ml-lg-auto">
+            <ul class="navbar-nav flex-wrap align-items-center flex-shrink-0 flex-grow-1">
               {% spaceless %}
                 {% block header_buttons %}{% endblock %}
               {% endspaceless %}
@@ -63,7 +53,7 @@
               {% block userlinks %}
                 {% if not is_popup %}
                   {# divider for mobile devices #}
-                  <li class="nav-item align-self-stretch flex-grow-1 mx-0 d-lg-none"></li>
+                  <li class="nav-item align-self-stretch flex-grow-1 mx-0"></li>
 
                   <li class="nav-item">
                     <a href="{{ site_url }}"
