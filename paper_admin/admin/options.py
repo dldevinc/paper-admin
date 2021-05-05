@@ -130,7 +130,6 @@ class PaperBaseModelAdmin:
 class PaperModelAdmin:
     action_form = helpers.ActionForm
     list_per_page = 20
-    list_max_show_all = 50
     object_history = True  # show "History" button
     changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"

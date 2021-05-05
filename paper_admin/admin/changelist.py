@@ -1,3 +1,4 @@
+from django.contrib.admin.views.main import ALL_VAR
 from django.utils.functional import cached_property
 
 
@@ -9,6 +10,11 @@ class PaperChangeListMixin:
     @property
     def pagination_required(self):
         return (not self.show_all or not self.can_show_all) and self.multi_page
+
+    @property
+    def show_all_url(self):
+        need_show_all_link = self.can_show_all and not self.show_all and self.multi_page
+        return need_show_all_link and self.get_query_string({ALL_VAR: ""})
 
 
 class SortableChangeListMixin:

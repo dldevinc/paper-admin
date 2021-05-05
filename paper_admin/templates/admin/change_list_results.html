@@ -105,6 +105,10 @@
               <div class="col-auto">
                 <small class="text-muted">
                   {{ current_page.start_index }}-{{ current_page.end_index }} of {{ cl.result_count }}
+
+                  {% if cl.show_all_url %}
+                    (<a href="{{ cl.show_all_url }}">{% trans 'Show all' %}</a>)
+                  {% endif %}
                 </small>
               </div>
 

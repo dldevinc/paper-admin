@@ -155,10 +155,10 @@ $table-accent-bg: $gray-100;
 $table-hover-bg: theme-color-level("warning", -12);
 
 // pagination
+$pagination-padding-x: 0.5rem;
+$pagination-padding-y: 0.375rem;
 $pagination-line-height: 1;
-$pagination-padding-x: 0.75rem;
-$pagination-padding-y: 0.5rem;
-$pagination-focus-box-shadow: none;
+$pagination-border-width: 0;
 $pagination-disabled-color: $gray-400;
-$pagination-active-bg: theme-color-level("info", -1);
-$pagination-active-border-color: theme-color-level("info", -1);
+$pagination-focus-box-shadow: none;
+$pagination-active-bg: theme-color-level("info", -2);

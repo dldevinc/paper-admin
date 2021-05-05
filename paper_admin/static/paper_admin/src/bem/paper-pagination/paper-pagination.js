@@ -1,6 +1,3 @@
-import "./paper-pagination.scss";
-
-
 // Ctrl + Arrows navigation
 window.addEventListener("keydown", function(event) {
     if (event.defaultPrevented) {
