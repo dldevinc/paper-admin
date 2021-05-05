@@ -70,6 +70,7 @@ select2_filters.initAll(".paper-filter select");
 
 const select2_action = new Select2Widget({
     theme: "sm",
+    allowClear: true,
     minimumResultsForSearch: Infinity
 });
 select2_action.observe(".paper-actions select");

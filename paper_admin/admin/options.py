@@ -3,8 +3,10 @@ import copy
 from django import forms
 from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.admin.models import LogEntry
+from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db import models
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms import BaseInlineFormSet
 from django.forms.formsets import DELETION_FIELD_NAME
 from django.utils.safestring import mark_safe
@@ -176,6 +178,14 @@ class PaperModelAdmin:
                 widget_overrides[db_field.name] = self.changelist_widget_overrides[db_field.__class__]
         kwargs["widgets"] = widget_overrides
         return self.get_changelist_formset__overridden(request, **kwargs)  # noqa: F821
+
+    def get_action_choices(self, request, default_choices=BLANK_CHOICE_DASH):
+        # Change empty action label
+        choices = [("", _("Action"))]
+        for func, name, description in self.get_actions(request).values():
+            choice = (name, description % model_format_dict(self.opts))
+            choices.append(choice)
+        return choices
 
     def action_checkbox(self, obj):
         return helpers.checkbox.render(

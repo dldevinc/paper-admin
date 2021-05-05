@@ -11,7 +11,9 @@
     {% endblock %}
 
     {% block actions-submit %}
-      <button type="submit" class="paper-actions__button btn btn-info ml-1" name="index"
+      <button type="submit"
+              name="index"
+              class="paper-actions__button btn btn-info ml-1 border-0"
               title="{% trans "Run the selected action" %}"
               value="{{ action_index|default:0 }}">
         {% trans "Go" %}
