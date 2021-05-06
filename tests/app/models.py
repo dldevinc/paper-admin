@@ -164,6 +164,9 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/"
+
 
 class Tree(MPTTModel):
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)
