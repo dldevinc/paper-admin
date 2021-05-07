@@ -202,6 +202,8 @@ InlineAdminFormSetOriginal = helpers.InlineAdminFormSet
 
 class InlineAdminFormSet(InlineAdminFormSetOriginal):
     def __iter__(self):
+        # use own InlineAdminForm
+        # removed empty-form
         if self.has_change_permission:
             readonly_fields_for_editing = self.readonly_fields
         else:
@@ -229,16 +231,18 @@ class InlineAdminFormSet(InlineAdminFormSetOriginal):
                 self.readonly_fields,
                 model_admin=self.opts,
             )
-        if self.has_add_permission:
-            yield InlineAdminForm(
-                self.formset,
-                self.formset.empty_form,
-                self.fieldsets,
-                self.prepopulated_fields,
-                None,
-                self.readonly_fields,
-                model_admin=self.opts,
-            )
+
+    @property
+    def empty_form(self):
+        return InlineAdminForm(
+            self.formset,
+            self.formset.empty_form,
+            self.fieldsets,
+            self.prepopulated_fields,
+            None,
+            self.readonly_fields,
+            model_admin=self.opts,
+        )
 
     @property
     def non_field_errors(self):

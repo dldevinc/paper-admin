@@ -44,7 +44,7 @@ class SortableInlineBaseMixin(SortableAdminBaseMixin):
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == self.sortable:
             kwargs["widget"] = forms.HiddenInput(attrs={
-                "class": "sortable-input",
+                "class": "paper-formset__order",
             })
         return super().formfield_for_dbfield(db_field, **kwargs)  # noqa: F821
 

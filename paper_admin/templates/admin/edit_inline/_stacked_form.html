@@ -1,0 +1,115 @@
+{% load i18n %}
+
+<fieldset class="paper-formset__form paper-card card mb-3{% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
+  <div class="card-header">
+    <div class="card-header-tools">
+      <h4 class="paper-formset__form-caption card-title inline-label mb-0">
+        {% if inline_form.original %}
+          {{ inline_form.original }}
+        {% else %}
+          {{ inline_admin_formset.opts.verbose_name|capfirst }} #{% if form_index == '__prefix__' %}{{ form_index }}{% else %}{{ form_index|add:1 }}{% endif %}
+        {% endif %}
+      </h4>
+
+      <div class="tool-items">
+        {% if inline_form.show_url %}
+          <a href="{{ inline_form.absolute_url }}"
+             class="tool-item text-info"
+             data-toggle="tooltip"
+             data-placement="bottom"
+             data-trigger="hover"
+             data-html="true"
+             title="{% trans 'View on site' %}"
+             target="_blank"
+             rel="noopener">
+            <i class="fa fa-fw fa-eye"></i>
+          </a>
+        {% endif %}
+
+        {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
+          <label for="{{ inline_form.deletion_field.field.id_for_label }}" class="delete-inline tool-item">
+            {{ inline_form.deletion_field.field }}
+            <span class="delete-inline-text"> {{ inline_form.deletion_field.field.label }}</span>
+          </label>
+        {% endif %}
+
+        {% if not inline_form.original and not inline_form.show_url %}
+          <button type="button"
+                  class="tool-item text-danger"
+                  data-formset-toggle="delete"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  data-trigger="hover"
+                  data-html="true"
+                  title="{% trans 'Delete' %}">
+            <i class="fa fa-fw fa-trash"></i>
+          </button>
+        {% endif %}
+
+        {% if inline_admin_formset.opts.sortable %}
+          <button type="button"
+                  class="sortable-move-up tool-item text-info"
+                  data-formset-toggle="up"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  data-trigger="hover"
+                  data-html="true"
+                  title="{% trans 'Move up' %}">
+            <i class="fa fa-fw fa-chevron-up"></i>
+          </button>
+
+          <button type="button"
+                  class="sortable-move-down tool-item text-info"
+                  data-formset-toggle="down"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  data-trigger="hover"
+                  data-html="true"
+                  title="{% trans 'Move down' %}">
+            <i class="fa fa-fw fa-chevron-down"></i>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body p-0">
+    {% spaceless %}
+      <ul class="paper-messages messagelist mb-3">
+        {% for error in inline_form.form.non_field_errors %}
+          <li class="paper-message paper-message--error">
+            {{ error }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endspaceless %}
+
+    {% if inline_form.needs_explicit_pk_field %}
+      {{ inline_form.pk_field.field }}
+    {% endif %}
+
+    {{ inline_form.fk_field.field }}
+
+    {% for fieldset in inline_form %}
+      {% for fld in fieldset %}
+        {% if fld.field.is_hidden %}
+          {{ fld.field }}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    {% for fieldset in inline_form %}
+      {% for fld in fieldset %}
+        {% if not fld.field.is_hidden %}
+          {% with is_readonly=fld.is_readonly field=fld.field %}
+            {% if fld.is_checkbox %}
+              {% include 'paper_admin/includes/admin_checkbox.html' %}
+            {% else %}
+              {% include 'paper_admin/includes/admin_field.html' %}
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</fieldset>

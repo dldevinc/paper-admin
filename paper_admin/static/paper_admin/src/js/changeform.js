@@ -1,7 +1,5 @@
 /* global gettext */
 
-import Formset from "js/components/inlines/inlines";
-import SortableFormset from "js/components/inlines/sortable_inlines";
 import "js/components/RelatedObjectLookups";
 import "js/widgets/autosize";
 import "js/widgets/clearable_file";
@@ -11,6 +9,7 @@ import "js/widgets/multiselect";
 import "js/widgets/password";
 import "js/widgets/url";
 import "bem/object-tools/object-tools";
+import {InlineFormset} from "bem/paper-formset/paper-formset";
 import "bem/paper-tabs/paper-tabs";
 
 
@@ -20,14 +19,6 @@ if (window.django_prepopulated_fields && window.django_prepopulated_fields.lengt
 }
 
 // инициализация inline-форм
-document.querySelectorAll(".sortable-inline-group").forEach(function(inlineGroup) {
-    new SortableFormset(inlineGroup, {
-        prefix: inlineGroup.dataset.inlinePrefix
-    });
-});
-
-document.querySelectorAll(".inline-group:not(.sortable-inline-group)").forEach(function(inlineGroup) {
-    new Formset(inlineGroup, {
-        prefix: inlineGroup.dataset.inlinePrefix
-    });
+document.querySelectorAll(".paper-formset").forEach(function(formset) {
+    new InlineFormset(formset);
 });

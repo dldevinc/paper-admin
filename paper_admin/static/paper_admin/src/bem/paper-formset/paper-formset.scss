@@ -1,0 +1,82 @@
+@import "css/env";
+
+.paper-formset {
+  &:not(:first-child) {
+    margin-top: $paper-formset-gutter-width;
+  }
+
+  &__forms {
+
+  }
+
+  &__form {
+    overflow: hidden;
+
+    .delete-inline {
+      padding-left: 0.25rem;
+      padding-right: 0.5rem;
+
+      .custom-control {
+        display: inline-block;
+      }
+    }
+
+    .delete-inline-text {
+      line-height: 1;
+    }
+  }
+
+  // название stacked-формы
+  &__form-caption {
+
+  }
+
+  // кнопка добавления формы
+  &__add-form {
+
+  }
+
+
+  &--stacked {
+    .card-header-tools {
+      margin-top: -4px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      margin-top: 4px;
+      padding-right: 1.6rem;
+    }
+
+    .tool-items {
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+  }
+
+  &--tabular {
+    .paper-formset__form--invalid {
+      background-color: $paper-formset-form-invalid-bg;
+    }
+
+    .table {
+      position: relative;
+    }
+
+    thead th {
+      padding-bottom: 0.5rem;
+    }
+
+    .tools-header {
+      width: 0.001%;
+    }
+
+    .tools-cell {
+      white-space: nowrap;
+      text-align: right;
+    }
+  }
+}
