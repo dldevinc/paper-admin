@@ -1,6 +1,80 @@
+import inspect
 import types
 
 from django.db import models
+
+# Pattern for the ids of the original attributes stored.
+ORIGINAL_ID = "_monkey_{}__{}"
+
+
+def get_original(cls=None, attr=None):
+    """
+    Возвращает оригинальную реализацию атрибута.
+    Подобно вызову "super()", можно не указывать ни класс, ни имя атрибута.
+
+        class PatchClass(Class, metaclass=MonkeyPatchMeta):
+            def __init__(self, *args, **kwargs):
+                get_original()(*args, **kwargs)
+    """
+    curent_frame = inspect.currentframe()
+    caller_frame = inspect.getouterframes(curent_frame, 2)
+    caller_info = caller_frame[1]
+
+    if isinstance(cls, str):
+        attr = cls
+        cls = None
+
+    if attr is None:
+        attr = caller_info.function
+
+    if cls is None:
+        cls = type(caller_info.frame.f_locals["self"])
+
+    original_id = ORIGINAL_ID.format(cls.__name__, attr)
+    return getattr(cls, original_id)
+
+
+class MonkeyPatchMeta(type):
+    """
+    Метакласс, который вместо создания дочернего класса патчит родительский класс.
+    Оригинальный метод/атрибут можно получить через вызов get_original.
+
+        class PatchClass(Class, metaclass=MonkeyPatchMeta):
+            def __init__(self, *args, **kwargs):
+                get_original()(*args, **kwargs)
+
+    """
+    def __new__(mcs, name, bases, attrs):
+        if len(bases) != 1:
+            raise TypeError("Monkey patch can only inherit from one base class")
+
+        target = bases[0]
+
+        for attr_name, attr_value in attrs.items():
+            if attr_name in {"__module__", "__qualname__"}:
+                continue
+
+            if hasattr(target, attr_name):
+                original_id = ORIGINAL_ID.format(target.__name__, attr_name)
+                if hasattr(target, original_id):
+                    raise RuntimeError(
+                        "An attribute named '{1}' already exists at the destination '{0}'".format(
+                            target.__name__,
+                            original_id
+                        )
+                    )
+                setattr(target, original_id, getattr(target, attr_name))
+
+            setattr(target, attr_name, attr_value)
+
+        return target
+
+
+
+
+
+
+
 
 
 def extend_class(target, mixin):
