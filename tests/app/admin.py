@@ -11,7 +11,7 @@ from paper_admin.admin import (
     SortableStackedInline,
     SortableTabularInline,
 )
-from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
+from paper_admin.admin.widgets import CustomCheckboxSelectMultiple, AdminSwitchInput
 
 from .models import Category, Item, SigletonExample, Tree, Tag
 
@@ -77,7 +77,7 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = forms.ALL_FIELDS
         widgets = {
-            "f_bool": SwitchInput,
+            "f_bool": AdminSwitchInput,
             "f_tags1": CustomCheckboxSelectMultiple,
             "f_date2": forms.SelectDateWidget,
             "f_hidden1": forms.HiddenInput,

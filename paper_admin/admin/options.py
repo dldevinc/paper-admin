@@ -13,40 +13,21 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from .. import conf
-from ..forms import widgets
-from ..forms.fields import SplitDateTimeField
 from ..forms.renderers import PaperFormRenderer
-from . import helpers
+from . import helpers, widgets
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {
-    models.BooleanField: {
-        "widget": widgets.CustomCheckboxInput,
-    },
-    models.NullBooleanField: {
-        "widget": forms.NullBooleanSelect,
-    },
-    models.UUIDField: {
-        "widget": widgets.UUIDInput,
-    },
-    models.GenericIPAddressField: {
-        "widget": widgets.IPInput,
-    },
-    models.DateField: {
-        "widget": widgets.DateInput,
-    },
     models.DateTimeField: {
-        "form_class": SplitDateTimeField,
-        "widget": widgets.SplitDateTimeInput,
+        "form_class": forms.SplitDateTimeField,
+        "widget": forms.SplitDateTimeWidget,
     },
-    models.TextField: {
-        "widget": widgets.AutosizeTextarea,
-    },
-    models.FileField: {
-        "widget": forms.ClearableFileInput,
-    },
-    models.ImageField: {
-        "widget": forms.ClearableFileInput,
-    },
+    models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
+    models.UUIDField: {"widget": widgets.AdminUUIDInput},
+    models.TextField: {"widget": widgets.AdminTextarea},
+    models.BooleanField: {"widget": widgets.CustomCheckboxInput},
+    models.NullBooleanField: {"widget": forms.NullBooleanSelect},
+    models.FileField: {"widget": forms.ClearableFileInput},
+    models.ImageField: {"widget": forms.ClearableFileInput},
 }
 
 
@@ -114,7 +95,7 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in list(self.filter_vertical) + list(self.filter_horizontal):  # noqa: F821
-            kwargs["widget"] = widgets.FilteredSelectMultiple()
+            kwargs["widget"] = widgets.AdminSelectMultiple()
         else:
             kwargs.setdefault("widget", forms.SelectMultiple)
 

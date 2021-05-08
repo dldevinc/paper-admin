@@ -15,8 +15,8 @@ from django.contrib.admin.utils import flatten_fieldsets
 from django.forms.forms import DeclarativeFieldsMetaclass
 from django.utils.functional import cached_property
 
-from ..forms.widgets import CustomCheckboxInput
 from ..monkey_patch import MonkeyPatchMeta, get_original
+from .widgets import CustomCheckboxInput
 
 checkbox = CustomCheckboxInput({
     "class": "action-select custom-control-input"

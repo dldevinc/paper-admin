@@ -114,7 +114,7 @@ class PageAdmin(admin.ModelAdmin):
 ```
 
 ## Additional widgets
-### SwitchInput
+### AdminSwitchInput
 Стилизованый чекбокс.
 
 ![](http://joxi.net/ZrJJgW9iMDbQ5r.png)
