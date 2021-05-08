@@ -15,7 +15,7 @@ from django.utils.translation import gettext as _
 from .. import conf
 from ..forms import widgets
 from ..forms.fields import SplitDateTimeField
-from ..renderer import PaperFormRenderer
+from ..forms.renderers import PaperFormRenderer
 from . import helpers
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {

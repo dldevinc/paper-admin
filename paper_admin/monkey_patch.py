@@ -125,7 +125,7 @@ def patch():
         PaperModelAdmin,
         RelatedFieldWidgetWrapper,
     )
-    from .renderer import PaperFormRenderer
+    from .forms.renderers import PaperFormRenderer
 
     extend_class(options.BaseModelAdmin, PaperBaseModelAdmin)
     extend_class(options.ModelAdmin, PaperModelAdmin)
