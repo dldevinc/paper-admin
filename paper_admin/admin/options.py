@@ -17,7 +17,6 @@ from ..forms import widgets
 from ..forms.fields import SplitDateTimeField
 from ..renderer import PaperFormRenderer
 from . import helpers
-from .changelist import PaperChangeListMixin
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.BooleanField: {
@@ -161,11 +160,6 @@ class PaperModelAdmin:
         if form.default_renderer is None:
             form.default_renderer = PaperFormRenderer
         return form
-
-    def get_changelist(self, request, **kwargs):
-        ChangeList = self.get_changelist__overridden(request, **kwargs)  # noqa: F821
-        PaperChangeList = type("PaperChangeListMixin", (PaperChangeListMixin, ChangeList), {})
-        return PaperChangeList
 
     def get_changelist_formset(self, request, **kwargs):
         """

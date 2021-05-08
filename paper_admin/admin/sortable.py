@@ -17,7 +17,7 @@ from django.urls import path
 from django.utils.html import format_html
 from django.views.decorators.csrf import csrf_exempt
 
-from .changelist import SortableChangeListMixin
+from .changelist import SortableChangeList
 
 
 class SortableAdminBaseMixin:
@@ -105,10 +105,9 @@ class SortableAdminMixin(SortableAdminBaseMixin):
         setattr(self, "_sortable_field", partial_func)
 
     def get_changelist(self, request, **kwargs):
-        ChangeList = super().get_changelist(request, **kwargs)  # noqa: F821
-        SortableChangeList = type("SortableChangeList", (SortableChangeListMixin, ChangeList), {})
-        SortableChangeList.sortable = self.sortable
-        return SortableChangeList
+        return type("ChangeList", (SortableChangeList, ), {
+            "sortable": self.sortable
+        })
 
     def get_urls(self):
         info = self.model._meta.app_label, self.model._meta.model_name  # noqa: F821

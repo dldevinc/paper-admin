@@ -1,10 +1,12 @@
-from django.contrib.admin.views.main import ALL_VAR
+from django.contrib.admin.views.main import ALL_VAR, ChangeList
 from django.utils.functional import cached_property
 
+from ..monkey_patch import MonkeyPatchMeta, get_original
 
-class PaperChangeListMixin:
+
+class PatchChangeList(ChangeList, metaclass=MonkeyPatchMeta):
     def __init__(self, request, *args, **kwargs):
-        super().__init__(request, *args, **kwargs)
+        get_original(ChangeList)(self, request, *args, **kwargs)
         self.request = request
 
     @property
@@ -17,7 +19,7 @@ class PaperChangeListMixin:
         return need_show_all_link and self.get_query_string({ALL_VAR: ""})
 
 
-class SortableChangeListMixin:
+class SortableChangeList(ChangeList):
     sortable = None
 
     @cached_property
@@ -25,12 +27,10 @@ class SortableChangeListMixin:
         """
         Возвращает True, если таблица в первую очередь отсортирована
         по полю, объявленному в sortable.
-
-        :rtype: bool
         """
-        ordering_field_columns = self.get_ordering_field_columns()  # noqa: F821
+        ordering_field_columns = self.get_ordering_field_columns()
         if not ordering_field_columns:
             return
 
-        idx = list(self.list_display).index("_sortable_field")  # noqa: F821
+        idx = list(self.list_display).index("_sortable_field")
         return list(ordering_field_columns)[0] == idx

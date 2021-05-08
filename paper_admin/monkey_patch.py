@@ -111,7 +111,7 @@ def remove_model_field(model, field_name):
 
 
 def patch():
-    from django.contrib.admin import helpers, options, widgets
+    from django.contrib.admin import options, widgets
     from django.contrib.auth.forms import (
         AdminPasswordChangeForm,
         PasswordResetForm,
