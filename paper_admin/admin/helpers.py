@@ -1,68 +1,92 @@
 from collections import Iterable
 
 from django import forms
-from django.contrib.admin import helpers
+from django.contrib.admin.helpers import (
+    ActionForm,
+    AdminField,
+    AdminForm,
+    AdminReadonlyField,
+    Fieldset,
+    InlineAdminForm,
+    InlineAdminFormSet,
+    InlineFieldset,
+)
 from django.contrib.admin.utils import flatten_fieldsets
+from django.forms.forms import DeclarativeFieldsMetaclass
 from django.utils.functional import cached_property
 
 from ..forms.widgets import CustomCheckboxInput
-
-
-class ActionForm(helpers.ActionForm):
-    """
-        Убираем атрибут required у выпадающего списка,
-        т.к. из-за него не отправляется форма.
-
-        См. novalidate для bootstrap:
-            http://getbootstrap.com/docs/4.0/components/forms/#custom-styles
-    """
-
-    action = forms.ChoiceField(
-        label="",
-        required=False,
-        widget=forms.Select(attrs={
-            "form": "changelist-form"
-        })
-    )
-
-    def clean_action(self):
-        value = self.cleaned_data.get("action")
-        field = self.fields.get("action")
-        if field and not value:
-            self.add_error("action", field.error_messages.get("required"))
-        return value
-
+from ..monkey_patch import MonkeyPatchMeta, get_original
 
 checkbox = CustomCheckboxInput({
     "class": "action-select custom-control-input"
 }, lambda value: False)
+
 checkbox_toggle = CustomCheckboxInput({
     "id": "action-toggle"
 }, lambda value: False)
 
 
-AdminFormOriginal = helpers.AdminForm
+# Метакласс MonkeyPatch для класса Form.
+FormMonkeyPatchMeta = type("FormMonkeyPatchMeta", (MonkeyPatchMeta, DeclarativeFieldsMetaclass, ), {})
 
 
-class AdminForm(AdminFormOriginal):
-    @cached_property
-    def fieldset_items(self):
-        return [
-            Fieldset(
+class PatchActionForm(ActionForm, metaclass=FormMonkeyPatchMeta):
+    def __init__(self, *args, **kwargs):
+        get_original(ActionForm)(self, *args, **kwargs)
+        self.fields["action"].widget.attrs["form"] = "changelist-form"
+
+
+class PatchPrepopulatedFields(AdminForm, metaclass=MonkeyPatchMeta):
+    """
+    Отмена конвертации словаря prepopulated_fields в список в методе __init__.
+    Вместо этого в поле prepopulated_fields сохраняется исходное значение, а
+    а конвертация происходит в шаблонном теге prepopulated_fields_js.
+
+    Такой функционал необходим из-за обновленной реализации inline-форм.
+    Исходная реализация добавляла CSS-класс "prepopulated_field" полям,
+    перечисленным в "prepopulated_fields_js". Но из-за того, что в новой
+    реализации inline-форм шаблон формы (empty-form) хранися не в напрямую
+    в DOM-дереве, а в <template>, это приводит к тому, что функционал
+    "prepopulated_field" не работает для динамически добавленных форм.
+    """
+    def __init__(
+        self,
+        form,
+        fieldsets,
+        prepopulated_fields,
+        readonly_fields=None,
+        model_admin=None
+    ):
+        get_original(AdminForm)(
+            self,
+            form,
+            fieldsets,
+            prepopulated_fields,
+            readonly_fields=readonly_fields,
+            model_admin=model_admin
+        )
+        self.prepopulated_fields = prepopulated_fields
+
+    def __iter__(self):
+        for name, options in self.fieldsets:
+            yield Fieldset(
                 self.form,
                 name,
                 readonly_fields=self.readonly_fields,
                 model_admin=self.model_admin,
+                prepopulated_fields=self.prepopulated_fields,
                 **options
             )
-            for name, options in self.fieldsets
-        ]
-
-    def __iter__(self):
-        return iter(self.fieldset_items)
 
 
-class Fieldset(helpers.Fieldset):
+class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
+    """
+    1. Добавлены вкладки.
+    2. Добавлено поле prepopulated_fields.
+    3. Удалена статика.
+    4. Отмена Fieldline.
+    """
     def __init__(
         self,
         form,
@@ -70,14 +94,24 @@ class Fieldset(helpers.Fieldset):
         readonly_fields=(),
         fields=(),
         classes=(),
-        tab=None,
         description=None,
         model_admin=None,
+        tab=None,
+        prepopulated_fields=None,
     ):
-        super().__init__(
-            form, name, readonly_fields, fields, classes, description, model_admin
+        get_original(Fieldset)(
+            self,
+            form,
+            name=name,
+            readonly_fields=readonly_fields,
+            fields=fields,
+            classes=classes,
+            description=description,
+            model_admin=model_admin,
         )
-        self._tab = tab
+
+        self.prepopulated_fields = prepopulated_fields or {}
+        self.tab = tab
         self.has_visible_field = not all(
             field in self.form.fields and self.form.fields[field].widget.is_hidden
             for field in self.fields
@@ -89,23 +123,33 @@ class Fieldset(helpers.Fieldset):
         return forms.Media()
 
     def __iter__(self):
-        for fieldname in self.iter_fields():
+        for fieldname in self.plain_fields():
             if fieldname in self.readonly_fields:
-                yield AdminReadonlyField(self.form, fieldname, model_admin=self.model_admin)
+                yield AdminReadonlyField(
+                    self.form,
+                    fieldname,
+                    is_first=False,
+                    model_admin=self.model_admin
+                )
             else:
-                yield AdminField(self.form, fieldname)
+                yield AdminField(
+                    self.form,
+                    fieldname,
+                    is_first=False,
+                    prepopulated_fields=self.prepopulated_fields
+                )
 
     @cached_property
     def errors(self):
         errors = []
-        for fieldname in self.iter_fields():
+        for fieldname in self.plain_fields():
             if fieldname in self.readonly_fields:
                 continue
             for error in self.form[fieldname].errors:
                 errors.append(error)
         return errors
 
-    def iter_fields(self):
+    def plain_fields(self):
         for field in self.fields:
             if isinstance(field, str):
                 yield field
@@ -114,96 +158,34 @@ class Fieldset(helpers.Fieldset):
             else:
                 raise TypeError("unsupported field type: {}".format(field))
 
-    @property
-    def tab(self):
-        return self._tab
+
+class PatchAdminField(AdminField, metaclass=MonkeyPatchMeta):
+    """
+    Добавлено поле is_prepopulated.
+    """
+    def __init__(self, form, field, is_first, prepopulated_fields=None):
+        get_original(AdminField)(self, form, field, is_first)
+
+        prepopulated_fields = prepopulated_fields or {}
+        self.is_prepopulated = self.field.name in prepopulated_fields
 
 
-class AdminField:
-    def __init__(self, form, field):
-        self.field = form[field]  # A django.forms.BoundField instance
-        self.is_checkbox = isinstance(self.field.field.widget, forms.CheckboxInput)
-        self.is_readonly = False
-
-    def __str__(self):
-        return str(self.field)
-
-
-class AdminReadonlyField(helpers.AdminReadonlyField):
-    def __init__(self, form, field, model_admin=None):
-        super().__init__(form, field, is_first=False, model_admin=model_admin)
+class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
+    """
+    Т.к. в admin_field.html мы используем поле формы, а не AdminReadonlyField,
+    переносим контент в поле.
+    """
+    def __init__(self, form, field, is_first, model_admin=None):
+        get_original(AdminReadonlyField)(self, form, field, is_first, model_admin=model_admin)
+        self.is_prepopulated = False
         self.field["contents"] = self.contents()
 
 
-class InlineAdminForm(helpers.InlineAdminForm):
+class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
     """
-    Use custom InlineFieldset and AdminField
+    Шаблон формы перенесен из итератора в отдельное поле empty_form.
     """
-
     def __iter__(self):
-        for name, options in self.fieldsets:
-            yield InlineFieldset(
-                self.formset,
-                self.form,
-                name,
-                self.readonly_fields,
-                model_admin=self.model_admin,
-                **options
-            )
-
-    def pk_field(self):
-        return AdminField(self.form, self.formset._pk_field.name)
-
-    def fk_field(self):
-        fk = getattr(self.formset, "fk", None)
-        if fk:
-            return AdminField(self.form, fk.name)
-        else:
-            return ""
-
-    def deletion_field(self):
-        from django.forms.formsets import DELETION_FIELD_NAME
-
-        return AdminField(self.form, DELETION_FIELD_NAME)
-
-    def ordering_field(self):
-        from django.forms.formsets import ORDERING_FIELD_NAME
-
-        return AdminField(self.form, ORDERING_FIELD_NAME)
-
-
-class InlineFieldset(Fieldset):
-    def __init__(self, formset, *args, **kwargs):
-        self.formset = formset
-        super().__init__(*args, **kwargs)
-
-    def __iter__(self):
-        fk = getattr(self.formset, "fk", None)
-        for fieldname in self.iter_fields():
-            if fk and fk.name == fieldname:
-                continue
-            if fieldname in self.readonly_fields:
-                yield AdminReadonlyField(self.form, fieldname, model_admin=self.model_admin)
-            else:
-                yield AdminField(self.form, fieldname)
-
-    def iter_fields(self):
-        for field in self.fields:
-            if isinstance(field, str):
-                yield field
-            elif isinstance(field, Iterable):
-                yield from field
-            else:
-                raise TypeError("unsupported field type: {}".format(field))
-
-
-InlineAdminFormSetOriginal = helpers.InlineAdminFormSet
-
-
-class InlineAdminFormSet(InlineAdminFormSetOriginal):
-    def __iter__(self):
-        # use own InlineAdminForm
-        # removed empty-form
         if self.has_change_permission:
             readonly_fields_for_editing = self.readonly_fields
         else:
@@ -212,24 +194,14 @@ class InlineAdminFormSet(InlineAdminFormSetOriginal):
         for form, original in zip(self.formset.initial_forms, self.formset.get_queryset()):
             view_on_site_url = self.opts.get_view_on_site_url(original)
             yield InlineAdminForm(
-                self.formset,
-                form,
-                self.fieldsets,
-                self.prepopulated_fields,
-                original,
-                readonly_fields_for_editing,
-                model_admin=self.opts,
+                self.formset, form, self.fieldsets, self.prepopulated_fields,
+                original, readonly_fields_for_editing, model_admin=self.opts,
                 view_on_site_url=view_on_site_url,
             )
         for form in self.formset.extra_forms:
             yield InlineAdminForm(
-                self.formset,
-                form,
-                self.fieldsets,
-                self.prepopulated_fields,
-                None,
-                self.readonly_fields,
-                model_admin=self.opts,
+                self.formset, form, self.fieldsets, self.prepopulated_fields,
+                None, self.readonly_fields, model_admin=self.opts,
             )
 
     @property
@@ -255,6 +227,49 @@ class InlineAdminFormSet(InlineAdminFormSetOriginal):
     @property
     def tab(self):
         return getattr(self.opts, "tab", None)
+
+
+class PatchInlineAdminForm(InlineAdminForm, metaclass=MonkeyPatchMeta):
+    """
+    Добавлен prepopulated_fields.
+    """
+    def __iter__(self):
+        for name, options in self.fieldsets:
+            yield InlineFieldset(
+                self.formset,
+                self.form,
+                name,
+                self.readonly_fields,
+                model_admin=self.model_admin,
+                prepopulated_fields=self.prepopulated_fields,
+                **options
+            )
+
+
+class PatchInlineFieldset(InlineFieldset, metaclass=MonkeyPatchMeta):
+    """
+    Отмена Fieldline.
+    Добавлен prepopulated_fields.
+    """
+    def __iter__(self):
+        fk = getattr(self.formset, "fk", None)
+        for fieldname in self.plain_fields():
+            if fk and fk.name == fieldname:
+                continue
+            if fieldname in self.readonly_fields:
+                yield AdminReadonlyField(
+                    self.form,
+                    fieldname,
+                    is_first=False,
+                    model_admin=self.model_admin,
+                )
+            else:
+                yield AdminField(
+                    self.form,
+                    fieldname,
+                    is_first=False,
+                    prepopulated_fields=self.prepopulated_fields
+                )
 
 
 class AdminTab:

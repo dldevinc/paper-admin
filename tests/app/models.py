@@ -150,6 +150,7 @@ class Item(models.Model):
     hidden = models.IntegerField(_("hidden"), default=1)
     readonly = models.CharField(_("readonly"), max_length=128, blank=True, default="Do not edit me")
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
+    age = models.IntegerField("age", default=18, help_text=HELP_TEXT)
     slug = models.SlugField(_("slug"), help_text=HELP_TEXT)
     url = models.URLField(_("url"), blank=True, help_text=HELP_TEXT)
     text = models.TextField(_("text"), blank=True)

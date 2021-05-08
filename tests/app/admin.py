@@ -55,7 +55,7 @@ class ItemStackedInlines(SortableStackedInline):
     verbose_name_plural = _("Stacked Items")
     classes = ("dummy-inline", )
     prepopulated_fields = {
-        "slug": ("name", )
+        "slug": ("name", "age")
     }
 
 
@@ -63,12 +63,12 @@ class ItemTablularInlines(SortableTabularInline):
     form = ItemForm
     model = Item
     tab = "tab4"
-    fields = ("readonly", "hidden", "name", "slug", "url", "visible")
+    fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     extra = 1
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
     prepopulated_fields = {
-        "slug": ("name",)
+        "slug": ("name", "age")
     }
 
 
@@ -104,6 +104,18 @@ class CategoryForm(forms.ModelForm):
         f_bool2 = self.cleaned_data.get("f_bool2")
         if not f_bool2:
             self.add_error("f_bool2", "Required")
+
+
+def set_bool_action(modeladmin, request, queryset):
+    queryset.update(f_bool=True)
+
+
+def unset_bool_action(modeladmin, request, queryset):
+    queryset.update(f_bool=False)
+
+
+set_bool_action.short_description = _("Set bool for selected %(verbose_name_plural)s")
+unset_bool_action.short_description = _("Unset bool for selected %(verbose_name_plural)s")
 
 
 @admin.register(Category)
@@ -159,6 +171,10 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         ("tab3", _("File Fields")),
         ("tab4", _("Inlines")),
         ("tab5", _("Django Autocomplete Light")),
+    ]
+    actions = [
+        set_bool_action,
+        unset_bool_action
     ]
     form = CategoryForm
     list_per_page = 15

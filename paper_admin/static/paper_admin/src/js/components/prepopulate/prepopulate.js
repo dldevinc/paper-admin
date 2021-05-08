@@ -1,73 +1,86 @@
+/*
+    Новый prepopulate-функционал работает не только на формах создания,
+    но и на формах редактирования. Для включения автозаполнения необходимо
+    удалить текущее значения поля, а затем перевести фокус (или изменить)
+    одно из полей, из которых заполняется поле.
+ */
+
 import emitters from "js/utilities/emitters";
 import urlify from "js/components/prepopulate/urlify";
 
 
-function prepopulate(field, dependencies, maxLength, allowUnicode) {
-    const populate = function() {
-        if (field.dataset._changed === "1") {
-            if (field.value) {
-                return
-            } else {
-                field.dataset._changed = "0";
-            }
+function initPrepopulation(root = document.body) {
+    root.querySelectorAll(".prepopulated-field").forEach(function(widget) {
+        let config;
+        const formset = widget.closest(".paper-formset");
+        if (formset) {
+            const formsetPrefix = formset.dataset.formsetPrefix;
+            config = window.django_prepopulated_fields[formsetPrefix];
+        } else {
+            config = window.django_prepopulated_fields[""];
         }
 
-        const values = dependencies.map(function(dependency) {
-            return dependency.value;
-        }).filter(Boolean);
-
-        field.value = urlify(values.join(" "), maxLength, allowUnicode);
-    };
-
-    field.dataset._changed = "0";
-    field.addEventListener("change", function() {
-        field.dataset._changed = "1";
-    });
-
-    const value = field.value;
-    if (!value) {
-        dependencies.forEach(function(dependency_field) {
-            dependency_field.addEventListener("keyup", populate);
-            dependency_field.addEventListener("change", populate);
-            dependency_field.addEventListener("focus", populate);
-        });
-    }
-}
-
-if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
-    for (let record of window.django_prepopulated_fields) {
-        const field = document.getElementById(record.id);
-        const dependencies = record.dependency_ids.map(function(id) {
-            return document.getElementById(id);
-        }).filter(Boolean);
-
-        if (dependencies.length) {
-            field.classList.add("prepopulated-field");
-            if (field.closest(".empty-form")) {
-                field.dataset.dependency_list = JSON.stringify(record.dependency_list);
-                field.dataset.maxLength = record.maxLength;
-                field.dataset.allowUnicode = Number(record.allowUnicode).toString();
-            } else {
-                prepopulate(field, dependencies, record.maxLength, record.allowUnicode);
-            }
+        if (!config) {
+            return
         }
-    }
 
-    emitters.inlines.on("added", function(row, prefix) {
-        row.querySelectorAll(".prepopulated-field").forEach(function(field) {
-            const dependency_list = JSON.parse(field.dataset.dependency_list);
-            const dependencies = dependency_list.map(function(field_name) {
-                return row.querySelector(".field-" + field_name + " [name$=\"-" + field_name + "\"]");
+        const fieldName = widget.dataset.prepopulateFieldName;
+        const fieldConfig = config[fieldName];
+        if (!fieldConfig) {
+            return
+        }
+
+        // поиск автозаполняемого поля формы
+        const prepopulatedField = widget.querySelector("[name$=" + fieldName + "]");
+        if (!prepopulatedField) {
+            return
+        }
+
+        // поиск полей, от которых зависит текущее поле
+        const dependencies = fieldConfig.dependencies.map(function(name) {
+            const dependencyFieldName = prepopulatedField.name.replace(new RegExp(fieldName + "$"), name);
+            return document.querySelector("[name=" + dependencyFieldName + "]");
+        }).filter(Boolean);
+
+        if (!dependencies.length) {
+            return;
+        }
+
+        // автозаполнение поля
+        const populate = function() {
+            // Bail if the field's value has been changed by the user
+            if (prepopulatedField.dataset._changed === "1") {
+                return;
+            }
+
+            const values = dependencies.map(function(dependency) {
+                return dependency.value;
             }).filter(Boolean);
 
-            if (dependencies.length) {
-                prepopulate(
-                    field,
-                    dependencies,
-                    Number(field.dataset.maxLength),
-                    Boolean(Number(field.dataset.allowUnicode))
-                );
+            prepopulatedField.value = urlify(values.join(" "), fieldConfig.maxLength, fieldConfig.allowUnicode);
+        }
+
+        const toggleAutocomplete = function() {
+            if (prepopulatedField.value) {
+                prepopulatedField.dataset._changed = "1";
+            } else {
+                prepopulatedField.dataset._changed = "0";
             }
+        }
+
+        prepopulatedField.addEventListener("change", toggleAutocomplete);
+        toggleAutocomplete();
+
+        dependencies.forEach(function(dependencyField) {
+            dependencyField.addEventListener("keyup", populate);
+            dependencyField.addEventListener("change", populate);
+            dependencyField.addEventListener("focus", populate);
         });
     });
 }
+
+
+initPrepopulation();
+emitters.inlines.on("added", function(form, prefix) {
+    initPrepopulation(form);
+});

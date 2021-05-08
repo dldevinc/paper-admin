@@ -236,7 +236,7 @@ class PaperModelAdmin:
         inline_formsets = context.get("inline_admin_formsets")
         for tab_name, tab_title in self.get_tabs(request, obj):
             tab_obj = helpers.AdminTab(request, tab_name, tab_title)
-            for fieldset in adminform.fieldset_items:
+            for fieldset in adminform:
                 if fieldset.tab == tab_name or (fieldset.tab is None and tab_name == default_tab_name):
                     tab_obj.fieldsets.append(fieldset)
             for inline_formset in inline_formsets:

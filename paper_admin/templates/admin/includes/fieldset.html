@@ -11,9 +11,9 @@
   {% endif %}
 
   <div class="card-body p-0">
-    {% for fld in fieldset %}
-      {% with is_readonly=fld.is_readonly field=fld.field %}
-        {% if fld.is_checkbox %}
+    {% for admin_field in fieldset %}
+      {% with field=admin_field.field is_readonly=admin_field.is_readonly is_prepopulated=admin_field.is_prepopulated %}
+        {% if admin_field.is_checkbox %}
           {% include 'paper_admin/includes/admin_checkbox.html' %}
         {% else %}
           {% include 'paper_admin/includes/admin_field.html' %}

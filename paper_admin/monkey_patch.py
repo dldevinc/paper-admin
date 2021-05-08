@@ -119,7 +119,6 @@ def patch():
     )
     from django.contrib.auth.views import PasswordResetView
 
-    from .admin.helpers import AdminForm, InlineAdminFormSet
     from .admin.options import (
         PaperBaseModelAdmin,
         PaperInlineModelAdmin,
@@ -132,8 +131,6 @@ def patch():
     extend_class(options.ModelAdmin, PaperModelAdmin)
     extend_class(options.InlineModelAdmin, PaperInlineModelAdmin)
     extend_class(widgets.RelatedFieldWidgetWrapper, RelatedFieldWidgetWrapper)
-    helpers.AdminForm = AdminForm
-    helpers.InlineAdminFormSet = InlineAdminFormSet
 
     AdminPasswordChangeForm.default_renderer = PaperFormRenderer
     PasswordResetForm.default_renderer = PaperFormRenderer
