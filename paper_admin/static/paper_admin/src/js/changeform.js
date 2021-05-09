@@ -1,6 +1,5 @@
 /* global gettext */
 
-import "js/widgets/autosize";
 import "js/widgets/clearable_file";
 import "js/widgets/datetime";
 import "js/widgets/email";

@@ -26,7 +26,9 @@ class AdminSwitchInput(forms.CheckboxInput):
 
 class AdminTextarea(forms.Textarea):
     def __init__(self, attrs=None):
-        default_attrs = {"rows": "3", "autosize": True}
+        default_attrs = {
+            "rows": "3",
+        }
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)

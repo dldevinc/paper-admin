@@ -1,15 +1,11 @@
 import autosize from "autosize";
 import Widget from "js/utilities/widget";
 
-// CSS
-import "css/widgets/autosize.scss";
-
+import "./text-field.scss";
 
 class AutosizeWidget extends Widget {
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            autosize(element);
-        }
+        autosize(element);
     }
 
     _destroy(element) {
@@ -17,17 +13,15 @@ class AutosizeWidget extends Widget {
     }
 }
 
-
 // FIX bootstrap tabs
 $(document).on("shown.bs.tab", function(event) {
     const tab_selector = event.target.getAttribute("href");
     const tab_pane = tab_selector && document.querySelector(tab_selector);
     if (tab_pane) {
-        autosize.update(tab_pane.querySelectorAll("textarea[autosize]"));
+        autosize.update(tab_pane.querySelectorAll(".text-field textarea"));
     }
 });
 
-
-const autosizer = new AutosizeWidget();
-autosizer.observe("textarea[autosize]");
-autosizer.initAll("textarea[autosize]");
+const widget = new AutosizeWidget();
+widget.observe(".text-field textarea");
+widget.initAll(".text-field textarea");
