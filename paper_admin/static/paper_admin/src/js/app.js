@@ -16,6 +16,7 @@ import "css/common.scss";
 //  Components
 // ---------------
 import "components/object-tools/object-tools";
+import "components/select2/select2";
 
 // ---------------
 //  Widgets
@@ -38,8 +39,6 @@ import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
 import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
-import "bem/select2/select2";
-
 import "bem/paper-widget/paper-widget";
 import "bem/paper-table/paper-table";
 import "bem/paper-form/paper-form";
