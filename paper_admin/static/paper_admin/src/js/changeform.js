@@ -9,7 +9,6 @@ import "js/widgets/password";
 import "js/widgets/url";
 import "js/components/RelatedObjectLookups";
 import "js/components/prepopulate/prepopulate";
-import "bem/object-tools/object-tools";
 import {InlineFormset} from "bem/paper-formset/paper-formset";
 
 // инициализация inline-форм
