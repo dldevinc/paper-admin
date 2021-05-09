@@ -11,7 +11,6 @@ import "js/components/RelatedObjectLookups";
 import "js/components/prepopulate/prepopulate";
 import "bem/object-tools/object-tools";
 import {InlineFormset} from "bem/paper-formset/paper-formset";
-import "bem/paper-tabs/paper-tabs";
 
 // инициализация inline-форм
 document.querySelectorAll(".paper-formset").forEach(function(formset) {

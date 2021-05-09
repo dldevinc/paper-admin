@@ -107,11 +107,6 @@ let config = {
     plugins: [
         // new BundleAnalyzerPlugin(),
         new webpack.ProgressPlugin(),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
-        }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),

@@ -8,6 +8,10 @@ from django.forms import MediaDefiningClass
 from ..monkey_patch import MonkeyPatchMeta, get_original
 
 
+# Метакласс MonkeyPatch для класса Widget.
+WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})
+
+
 class AdminIPInput(forms.TextInput):
     template_name = "django/forms/widgets/ip.html"
 
@@ -84,10 +88,6 @@ class AutocompleteSelect(AutocompleteMixin, forms.Select):
 
 class AutocompleteSelectMultiple(AutocompleteMixin, forms.SelectMultiple):
     pass
-
-
-# Метакласс MonkeyPatch для класса Widget.
-WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, MediaDefiningClass, ), {})
 
 
 class PatchForeignKeyRawIdWidget(ForeignKeyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
