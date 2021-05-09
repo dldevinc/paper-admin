@@ -22,6 +22,7 @@ import "components/select2/select2";
 //  Widgets
 // ---------------
 import "widgets/text-field/text-field";
+import "widgets/url-field/url-field";
 
 // ---------------
 //  BEM
