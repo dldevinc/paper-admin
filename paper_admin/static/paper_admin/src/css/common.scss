@@ -1,25 +1,21 @@
 @import "css/env";
 
 // vendors
-@import
-  "~bootstrap/scss/bootstrap",
-  "~font-awesome/scss/font-awesome";
+@import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/scss/font-awesome";
 
-@import
-  "css/patches/bootstrap/custom_forms",
-  "css/patches/bootstrap/sticky",
-  "css/patches/bootstrap/table",
-  "css/patches/font_awesome/fixed_width",
-  "css/patches/font_awesome/larger";
+@import "css/patches/bootstrap/custom_forms";
+@import "css/patches/bootstrap/sticky";
+@import "css/patches/bootstrap/table";
+@import "css/patches/font_awesome/fixed_width";
+@import "css/patches/font_awesome/larger";
 
 // base
-@import
-  "css/base/reset",
-  "css/base/base";
+@import "css/base/reset";
+@import "css/base/base";
 
 // components
-@import
-  "css/components/buttons",
-  "css/components/container",
-  "css/components/tool_item",   // must be above 'components/forms'
-  "css/components/forms";
+@import "css/components/buttons";
+@import "css/components/container";
+@import "css/components/tool_item";   // must be above 'components/forms'
+@import "css/components/forms";
