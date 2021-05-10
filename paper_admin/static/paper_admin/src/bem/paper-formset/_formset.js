@@ -56,16 +56,9 @@ class Formset {
         this.root = root;
         this.management_form = new ManagementForm(root);
 
-        // TODO: для тестов и дебага
-        this.root._formset = this;
-
         this._initAddFormButtons();
         this._initDeleteFormButtons();
         this._initSortFormButtons();
-
-        // this.updateFormIndexes();    // Django-индексы ставятся автоматически
-        this.updateFormOrder();
-        this.updateButtonsState();
     }
 
     get prefix() {
