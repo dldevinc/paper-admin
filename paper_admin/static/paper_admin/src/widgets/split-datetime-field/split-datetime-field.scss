@@ -1,0 +1,25 @@
+@import "css/env";
+
+.split-datetime-field {
+  display: flex;
+  @include media-breakpoint-up(sm) {
+    max-width: $split-datetime-field-max-width;
+  }
+
+  .date-field {
+    margin-right: $split-datetime-field-gutter-width;
+    flex-grow: 1;
+    flex-basis: $date-field-max-width;
+    @include media-breakpoint-up(sm) {
+      max-width: none;
+    }
+  }
+
+  .time-field {
+    flex-grow: 1;
+    flex-basis: $time-field-max-width;
+    @include media-breakpoint-up(sm) {
+      max-width: none;
+    }
+  }
+}
