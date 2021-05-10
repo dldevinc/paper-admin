@@ -30,6 +30,7 @@ import "widgets/split-datetime-field/split-datetime-field";
 import "widgets/text-field/text-field";
 import "widgets/time-field/time-field";
 import "widgets/url-field/url-field";
+import "widgets/uuid-field/uuid-field";
 
 // ---------------
 //  BEM

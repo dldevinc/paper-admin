@@ -1,0 +1,7 @@
+@import "css/env";
+
+.uuid-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $uuid-field-max-width;
+  }
+}
