@@ -18,6 +18,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+TIME_INPUT_FORMATS = [
+    '%H:%M',        # '14:30'
+    '%H:%M:%S',     # '14:30:59'
+    '%H:%M:%S.%f',  # '14:30:59.000200'
+]
 
 # Application definition
 

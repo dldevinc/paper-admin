@@ -17,6 +17,7 @@
     "autosize": "^4.0.2",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.6.0",
+    "clockpicker": "^0.0.7",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "expose-loader": "^2.0.0",
     "fast-async": "^6.3.8",

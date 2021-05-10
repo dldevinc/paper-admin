@@ -24,6 +24,7 @@ import "components/select2/select2";
 import "widgets/email-field/email-field";
 import "widgets/password-field/password-field";
 import "widgets/text-field/text-field";
+import "widgets/time-field/time-field";
 import "widgets/url-field/url-field";
 
 // ---------------
