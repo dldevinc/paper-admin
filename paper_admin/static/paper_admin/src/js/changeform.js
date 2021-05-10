@@ -1,7 +1,6 @@
 /* global gettext */
 
 import "js/widgets/clearable_file";
-import "js/widgets/datetime";
 import "js/widgets/multiselect";
 import "js/components/RelatedObjectLookups";
 import "js/components/prepopulate/prepopulate";
