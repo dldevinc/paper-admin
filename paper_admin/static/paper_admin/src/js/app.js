@@ -22,6 +22,7 @@ import "components/select2/select2";
 //  Widgets
 // ---------------
 import "widgets/date-field/date-field";
+import "widgets/ip-field/ip-field";
 import "widgets/email-field/email-field";
 import "widgets/number-field/number-field";
 import "widgets/password-field/password-field";
