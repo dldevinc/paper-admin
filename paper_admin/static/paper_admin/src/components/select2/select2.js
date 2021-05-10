@@ -13,27 +13,25 @@ class Select2Widget extends Widget {
     }
 
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            let options = Object.assign({}, this.opts);
-            if (options.allowClear && (typeof options.placeholder == "undefined")) {
-                // Использование allowClear требует указать placeholder.
-                const emptyOption = element.querySelector("option[value=\"\"]");
-                if (emptyOption) {
-                    options.placeholder = emptyOption.textContent;
-                }
+        let options = Object.assign({}, this.opts);
+        if (options.allowClear && (typeof options.placeholder == "undefined")) {
+            // Использование allowClear требует указать placeholder.
+            const emptyOption = element.querySelector("option[value=\"\"]");
+            if (emptyOption) {
+                options.placeholder = emptyOption.textContent;
             }
-
-            $(element).select2(options).data("select2");
-
-            // вызов события change для поддержки hookUnload
-            $(element).on("select2:select", function() {
-                const event = new CustomEvent("change", {
-                    bubbles: true,
-                    cancelable: true
-                });
-                element.dispatchEvent(event)
-            });
         }
+
+        $(element).select2(options).data("select2");
+
+        // вызов события change для поддержки hookUnload
+        $(element).on("select2:select", function() {
+            const event = new CustomEvent("change", {
+                bubbles: true,
+                cancelable: true
+            });
+            element.dispatchEvent(event)
+        });
     }
 
     _destroy(element) {

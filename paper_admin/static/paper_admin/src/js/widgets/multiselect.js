@@ -7,9 +7,7 @@ import "css/widgets/multiselect.scss";
 
 class MutliSelectWidget extends Widget {
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            $(element).multiSelect();
-        }
+        $(element).multiSelect();
     }
 
     _destroy(element) {
