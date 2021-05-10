@@ -60,7 +60,7 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.ForeignKeyRawIdWidget(
+            kwargs["widget"] = widgets.AdminForeignKeyRawIdWidget(
                 db_field.remote_field,
                 self.admin_site,  # noqa: F821
                 using=db
@@ -89,7 +89,7 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.ManyToManyRawIdWidget(
+            kwargs["widget"] = widgets.AdminManyToManyRawIdWidget(
                 db_field.remote_field,
                 self.admin_site,  # noqa: F821
                 using=db

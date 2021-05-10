@@ -31,6 +31,15 @@ class PatchTextarea(widgets.Textarea, metaclass=WidgetMonkeyPatchMeta):
         get_original(widgets.Textarea)(self, attrs=default_attrs)
 
 
+class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, rel, admin_site, attrs=None, using=None):
+        get_original(ManyToManyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
+        self.attrs["class"] = (self.attrs.get("class", "") + " vManyToManyRawIdAdminField").strip()
+
+    def get_context(self, name, value, attrs):
+        return super().get_context(name, value, attrs)
+
+
 class AdminIPInput(widgets.TextInput):
     template_name = "django/forms/widgets/ip.html"
 
@@ -56,6 +65,14 @@ class AdminTextarea(widgets.Textarea):
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)
+
+
+class AdminForeignKeyRawIdWidget(ForeignKeyRawIdWidget):
+    template_name = "django/forms/widgets/foreign_key_raw_id.html"
+
+
+class AdminManyToManyRawIdWidget(ManyToManyRawIdWidget):
+    template_name = "django/forms/widgets/many_to_many_raw_id.html"
 
 
 class CustomCheckboxInput(widgets.CheckboxInput):
@@ -114,22 +131,3 @@ class AutocompleteSelect(AutocompleteMixin, widgets.Select):
 
 class AutocompleteSelectMultiple(AutocompleteMixin, widgets.SelectMultiple):
     pass
-
-
-class PatchForeignKeyRawIdWidget(ForeignKeyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
-    template_name = "django/forms/widgets/foreign_key_raw_id.html"
-
-    def __init__(self, rel, admin_site, attrs=None, using=None):
-        attrs = {'class': 'form-control', **(attrs or {})}
-        get_original(ForeignKeyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
-
-
-class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
-    template_name = "django/forms/widgets/many_to_many_raw_id.html"
-
-    def __init__(self, rel, admin_site, attrs=None, using=None):
-        attrs = {'class': 'form-control vManyToManyRawIdAdminField', **(attrs or {})}
-        get_original(ForeignKeyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
-
-    def get_context(self, name, value, attrs):
-        return super().get_context(name, value, attrs)
