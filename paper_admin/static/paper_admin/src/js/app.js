@@ -21,6 +21,7 @@ import "components/select2/select2";
 // ---------------
 //  Widgets
 // ---------------
+import "widgets/clearable-file-field/clearable-file-field";
 import "widgets/date-field/date-field";
 import "widgets/ip-field/ip-field";
 import "widgets/email-field/email-field";
