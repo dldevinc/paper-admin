@@ -15,7 +15,6 @@ import "css/common.scss";
 // ---------------
 //  Components
 // ---------------
-import "components/object-tools/object-tools";
 import "components/select2/select2";
 
 // ---------------
