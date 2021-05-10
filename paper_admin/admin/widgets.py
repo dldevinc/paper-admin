@@ -1,9 +1,8 @@
 import json
 
-from django import forms
+from django.forms import widgets
 from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
-from django.forms import MediaDefiningClass
 
 from ..monkey_patch import MonkeyPatchMeta, get_original
 
@@ -12,19 +11,44 @@ from ..monkey_patch import MonkeyPatchMeta, get_original
 WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})
 
 
-class AdminIPInput(forms.TextInput):
+class PatchInput(widgets.Input, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "class": "form-control form-control-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(widgets.Input)(self, attrs=default_attrs)
+
+
+class PatchTextarea(widgets.Textarea, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "class": "form-control form-control-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(widgets.Textarea)(self, attrs=default_attrs)
+
+
+class AdminIPInput(widgets.TextInput):
     template_name = "django/forms/widgets/ip.html"
 
 
-class AdminUUIDInput(forms.TextInput):
+class AdminUUIDInput(widgets.TextInput):
     template_name = "django/forms/widgets/uuid.html"
 
 
-class AdminSwitchInput(forms.CheckboxInput):
+class AdminSwitchInput(widgets.CheckboxInput):
     template_name = "django/forms/widgets/switch.html"
 
+    def __init__(self, attrs=None):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs)
 
-class AdminTextarea(forms.Textarea):
+
+class AdminTextarea(widgets.Textarea):
     def __init__(self, attrs=None):
         default_attrs = {
             "rows": "3",
@@ -34,7 +58,7 @@ class AdminTextarea(forms.Textarea):
         super().__init__(default_attrs)
 
 
-class CustomCheckboxInput(forms.CheckboxInput):
+class CustomCheckboxInput(widgets.CheckboxInput):
     template_name = "django/forms/widgets/checkbox_custom.html"
 
     def get_context(self, name, value, attrs):
@@ -44,17 +68,17 @@ class CustomCheckboxInput(forms.CheckboxInput):
         return context
 
 
-class CustomRadioSelect(forms.RadioSelect):
+class CustomRadioSelect(widgets.RadioSelect):
     template_name = "django/forms/widgets/radio_custom.html"
     option_template_name = "django/forms/widgets/radio_option_custom.html"
 
 
-class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+class CustomCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
     template_name = "django/forms/widgets/checkbox_select.html"
     option_template_name = "django/forms/widgets/checkbox_custom.html"
 
 
-class AdminSelectMultiple(forms.SelectMultiple):
+class AdminSelectMultiple(widgets.SelectMultiple):
     # TODO: использовать другой плагин
     template_name = "django/forms/widgets/filtered_select.html"
 
@@ -67,7 +91,7 @@ class AdminSelectMultiple(forms.SelectMultiple):
 class AutocompleteMixin(DefaultAutocompleteMixin):
     @property
     def media(self):
-        return forms.Media()
+        return widgets.Media()
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         # удалена тема admin-autocomplete
@@ -84,11 +108,11 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
         return attrs
 
 
-class AutocompleteSelect(AutocompleteMixin, forms.Select):
+class AutocompleteSelect(AutocompleteMixin, widgets.Select):
     pass
 
 
-class AutocompleteSelectMultiple(AutocompleteMixin, forms.SelectMultiple):
+class AutocompleteSelectMultiple(AutocompleteMixin, widgets.SelectMultiple):
     pass
 
 
