@@ -43,7 +43,7 @@ class PaperBaseModelAdmin:
         if db_field.name in self.radio_fields:  # noqa: F821
             # Avoid stomping on custom widget/choices arguments.
             if "widget" not in kwargs:
-                kwargs["widget"] = widgets.CustomRadioSelect()
+                kwargs["widget"] = widgets.AdminRadioSelect()
             if "choices" not in kwargs:
                 kwargs["choices"] = db_field.get_choices(
                     include_blank=db_field.blank,
@@ -66,7 +66,7 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in self.radio_fields:  # noqa: F821
-            kwargs["widget"] = widgets.CustomRadioSelect()
+            kwargs["widget"] = widgets.AdminRadioSelect()
             kwargs["empty_label"] = _("None") if db_field.blank else None
 
         if "queryset" not in kwargs:
