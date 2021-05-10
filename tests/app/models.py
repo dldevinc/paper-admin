@@ -155,6 +155,7 @@ class Item(models.Model):
     url = models.URLField(_("url"), blank=True, help_text=HELP_TEXT)
     text = models.TextField(_("text"), blank=True)
     visible = models.BooleanField(_("visible"), default=True)
+    created_at = models.DateTimeField(_("date"), null=True, blank=True, help_text=HELP_TEXT)
     order = models.IntegerField(_("order"), default=0)
 
     class Meta:
