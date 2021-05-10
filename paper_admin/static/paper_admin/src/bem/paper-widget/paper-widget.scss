@@ -1,6 +1,36 @@
 @import "css/env";
 
 .paper-widget {
+  .input-group {
+    a.input-group-text {
+      color: $text-muted;
+
+      &:hover {
+        color: $text-muted;
+      }
+
+      &[href] {
+        color: $link-color;
+
+        &:hover {
+          color: darken($link-color, $emphasized-link-hover-darken-percentage);
+        }
+      }
+    }
+
+    button.input-group-text {
+      color: $link-color;
+
+      &:hover {
+        color: darken($link-color, $emphasized-link-hover-darken-percentage);
+      }
+
+      &:disabled {
+        color: $text-muted;
+      }
+    }
+  }
+
   // Показывает второй label на мобиле, справа от виджета.
   &--checkbox {
     & > .custom-control {
