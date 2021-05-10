@@ -37,6 +37,7 @@ class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPa
         self.attrs["class"] = (self.attrs.get("class", "") + " vManyToManyRawIdAdminField").strip()
 
     def get_context(self, name, value, attrs):
+        # удаление хардкода CSS-класса
         return super().get_context(name, value, attrs)
 
 
@@ -97,7 +98,7 @@ class CustomCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
 
 class AdminSelectMultiple(widgets.SelectMultiple):
     # TODO: использовать другой плагин
-    template_name = "django/forms/widgets/filtered_select.html"
+    template_name = "django/forms/widgets/select_multiple.html"
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)

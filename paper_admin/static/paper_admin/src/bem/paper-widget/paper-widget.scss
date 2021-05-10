@@ -1,5 +1,8 @@
 @import "css/env";
 
+$icon-color: lighten($link-color, 5%);
+$icon-hover-color: $link-color;
+
 .paper-widget {
   .input-group {
     a.input-group-text {
@@ -10,19 +13,19 @@
       }
 
       &[href] {
-        color: $link-color;
+        color: $icon-color;
 
         &:hover {
-          color: darken($link-color, $emphasized-link-hover-darken-percentage);
+          color: $icon-hover-color;
         }
       }
     }
 
     button.input-group-text {
-      color: $link-color;
+      color: $icon-color;
 
       &:hover {
-        color: darken($link-color, $emphasized-link-hover-darken-percentage);
+        color: $icon-hover-color;
       }
 
       &:disabled {

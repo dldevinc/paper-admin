@@ -45,16 +45,17 @@ const select2_changeform = new Select2Widget({
     width: "",
     minimumResultsForSearch: Infinity
 });
-select2_changeform.observe(".paper-form select");
-select2_changeform.initAll(".paper-form select");
+select2_changeform.observe(".paper-form .select-field select");
+select2_changeform.initAll(".paper-form .select-field select");
 
 
 const select2_changelist = new Select2Widget({
+    width: "",
     theme: "sm",
     minimumResultsForSearch: Infinity
 });
-select2_changelist.observe(".paper-table select");
-select2_changelist.initAll(".paper-table select");
+select2_changelist.observe(".paper-table .select-field select");
+select2_changelist.initAll(".paper-table .select-field select");
 
 
 const select2_filters = new Select2Widget({

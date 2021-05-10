@@ -91,7 +91,7 @@ $clear-btn-width: 24px;
       padding: 3px 8px;
       margin-top: 5px;
       margin-right: 5px;
-      background-color: #e9ecef;
+      background-color: $gray-200;
       border: $input-border-width solid $input-border-color;
     }
 
@@ -133,7 +133,7 @@ $clear-btn-width: 24px;
 
   .select2-results__option {
     &[aria-selected=true] {
-      background-color: #e9ecef;
+      background-color: $gray-200;
     }
   }
 

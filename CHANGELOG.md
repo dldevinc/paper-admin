@@ -2,15 +2,12 @@
 
 ## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-04-29
 ### ⚠ BREAKING CHANGES
+Much of the code has been rewritten. We outline some key changes below.
 - Removed scroll-to-top button.
 ### Features
 - Added `PAPER_FAVICON` setting.
-- Use selectbox to filter on date fields.
 - Added autofocus on login page.
-- Removed `custom-select` styles.
 - Updated fonts.
-### Bug Fixes
-- Removed `required` attribute from the search field.
 
 ## [2.0.0](https://github.com/dldevinc/paper-admin/tree/v2.0.0) - 2021-04-12
 ### ⚠ BREAKING CHANGES
