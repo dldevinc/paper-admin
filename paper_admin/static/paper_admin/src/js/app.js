@@ -23,6 +23,7 @@ import "components/select2/select2";
 // ---------------
 import "widgets/date-field/date-field";
 import "widgets/email-field/email-field";
+import "widgets/number-field/number-field";
 import "widgets/password-field/password-field";
 import "widgets/split-datetime-field/split-datetime-field";
 import "widgets/text-field/text-field";
