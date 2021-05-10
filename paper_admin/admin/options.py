@@ -24,7 +24,7 @@ FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.TextField: {"widget": widgets.AdminTextarea},
     models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
     models.UUIDField: {"widget": widgets.AdminUUIDInput},
-    models.BooleanField: {"widget": widgets.CustomCheckboxInput},
+    models.BooleanField: {"widget": widgets.AdminCheckboxInput},
     models.NullBooleanField: {"widget": forms.NullBooleanSelect},
     models.FileField: {"widget": forms.ClearableFileInput},
     models.ImageField: {"widget": forms.ClearableFileInput},
@@ -114,7 +114,7 @@ class PaperModelAdmin:
     changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
     changelist_widget_overrides = {
-        models.BooleanField: widgets.CustomCheckboxInput
+        models.BooleanField: widgets.AdminCheckboxInput
     }
     tabs = [
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
@@ -304,7 +304,7 @@ class BasePaperInlineFormSet(BaseInlineFormSet):
             form.fields[DELETION_FIELD_NAME] = forms.BooleanField(
                 label=_("Delete"),
                 required=False,
-                widget=widgets.CustomCheckboxInput(attrs={
+                widget=widgets.AdminCheckboxInput(attrs={
                     "class": "danger custom-control-input"
                 })
             )

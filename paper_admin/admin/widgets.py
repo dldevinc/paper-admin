@@ -76,14 +76,13 @@ class AdminManyToManyRawIdWidget(ManyToManyRawIdWidget):
     template_name = "django/forms/widgets/many_to_many_raw_id.html"
 
 
-class CustomCheckboxInput(widgets.CheckboxInput):
+class AdminCheckboxInput(widgets.CheckboxInput):
     template_name = "django/forms/widgets/checkbox_custom.html"
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        widget_class = context["widget"]["attrs"].pop("widget_class", "")
-        context["widget_class"] = widget_class
-        return context
+    def __init__(self, attrs=None, check_test=None):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs, check_test=check_test)
 
 
 class CustomRadioSelect(widgets.RadioSelect):

@@ -4,6 +4,7 @@
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
 - Removed scroll-to-top button.
+- `CustomCheckboxInput` renamed to `AdminCheckboxInput`.
 ### Features
 - Added `PAPER_FAVICON` setting.
 - Added autofocus on login page.
