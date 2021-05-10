@@ -95,9 +95,14 @@ class AdminRadioSelect(widgets.RadioSelect):
         super().__init__(attrs=attrs, choices=choices)
 
 
-class CustomCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
+class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
     template_name = "django/forms/widgets/checkbox_select.html"
     option_template_name = "django/forms/widgets/checkbox_custom.html"
+
+    def __init__(self, attrs=None, choices=()):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs, choices=choices)
 
 
 class AdminSelectMultiple(widgets.SelectMultiple):

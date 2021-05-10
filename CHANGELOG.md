@@ -6,6 +6,7 @@ Much of the code has been rewritten. We outline some key changes below.
 - Removed scroll-to-top button.
 - `CustomCheckboxInput` renamed to `AdminCheckboxInput`.
 - `CustomRadioSelect` renamed to `AdminRadioSelect`.
+- `CustomCheckboxSelectMultiple` renamed to `AdminCheckboxSelectMultiple`.
 ### Features
 - Added `PAPER_FAVICON` setting.
 - Added autofocus on login page.
