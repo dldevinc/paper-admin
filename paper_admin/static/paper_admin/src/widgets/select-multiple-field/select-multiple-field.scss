@@ -59,7 +59,7 @@
     }
 
     .item {
-      padding-left: add($input-padding-x-lg, 0.5rem);
+      padding-left: $input-padding-x-lg + 0.5rem;
     }
   }
 }
