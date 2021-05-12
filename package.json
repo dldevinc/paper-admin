@@ -34,6 +34,7 @@
     "imagemin-svgo": "^9.0.0",
     "jquery": "^3.5.1",
     "mini-css-extract-plugin": "^1.6.0",
+    "multi.js": "^0.5.3",
     "multiselect": "^0.9.12",
     "pixrem": "^5.0.0",
     "popper.js": "^1.16.1",

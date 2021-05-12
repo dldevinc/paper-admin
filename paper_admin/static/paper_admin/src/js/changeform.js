@@ -1,5 +1,4 @@
 import formUtils from "js/utilities/form_utils";
-import "js/widgets/multiselect";
 import "js/components/RelatedObjectLookups";
 import "js/components/prepopulate/prepopulate";
 import {InlineFormset} from "bem/paper-formset/paper-formset";

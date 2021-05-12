@@ -1,0 +1,65 @@
+@import "css/env";
+
+.multi-wrapper {
+  overflow: hidden;
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+  border-color: $input-border-color;
+  border-radius: $input-border-radius-lg;
+
+  .search-input {
+    padding: $input-padding-y-lg $input-padding-x-lg;
+    font-size: $input-font-size-lg;
+    line-height: $input-line-height-lg;
+    border-color: $input-border-color;
+
+    &::placeholder {
+      color: $input-placeholder-color;
+    }
+  }
+
+  .non-selected-wrapper,
+  .selected-wrapper {
+    padding: 0;
+    height: 250px;
+    background-color: #ffffff;
+
+    .item.selected {
+      opacity: 1;
+    }
+  }
+
+  .non-selected-wrapper {
+    .item.selected {
+      color: $gray-500;
+      background-color: $gray-200;
+    }
+  }
+
+  .item {
+    padding: 0.5rem $input-padding-x-lg;
+    text-decoration: none;
+
+    &:hover {
+      color: #ffffff;
+      border-radius: 0;
+      background-color: #79aec8;
+    }
+  }
+
+  .item-group {
+    padding: 0;
+
+    .group-label {
+      padding: 0.5rem $input-padding-x-lg 0;
+      color: #808080;
+      font-weight: 500;
+      font-size: inherit;
+      opacity: 1;
+    }
+
+    .item {
+      padding-left: add($input-padding-x-lg, 0.5rem);
+    }
+  }
+}

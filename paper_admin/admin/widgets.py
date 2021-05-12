@@ -106,13 +106,7 @@ class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
 
 
 class AdminSelectMultiple(widgets.SelectMultiple):
-    # TODO: использовать другой плагин
     template_name = "django/forms/widgets/select_multiple.html"
-
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        context["widget"]["attrs"]["class"] = "vMultiSelect"
-        return context
 
 
 class AutocompleteMixin(DefaultAutocompleteMixin):
@@ -125,6 +119,7 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
         attrs = super(DefaultAutocompleteMixin, self).build_attrs(base_attrs, extra_attrs=extra_attrs)
         attrs.setdefault('class', '')
         attrs.update({
+            'data-width': '',
             'data-ajax--cache': 'true',
             'data-ajax--type': 'GET',
             'data-ajax--url': self.get_url(),

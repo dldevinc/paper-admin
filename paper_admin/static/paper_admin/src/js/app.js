@@ -29,6 +29,7 @@ import "widgets/number-field/number-field";
 import "widgets/password-field/password-field";
 import "widgets/select-field/select-field";
 import "widgets/select-date-field/select-date-field";  // must be below select-field
+import "widgets/select-multiple-field/select-multiple-field";
 import "widgets/split-datetime-field/split-datetime-field";
 import "widgets/text-field/text-field";
 import "widgets/time-field/time-field";
