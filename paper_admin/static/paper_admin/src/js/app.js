@@ -24,6 +24,7 @@ import "widgets/clearable-file-field/clearable-file-field";
 import "widgets/date-field/date-field";
 import "widgets/ip-field/ip-field";
 import "widgets/email-field/email-field";
+import "widgets/file-field/file-field";
 import "widgets/fk-raw-field/fk-raw-field";
 import "widgets/number-field/number-field";
 import "widgets/password-field/password-field";

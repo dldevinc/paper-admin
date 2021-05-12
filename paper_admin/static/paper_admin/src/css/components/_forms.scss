@@ -15,25 +15,3 @@
     }
   }
 }
-
-/**
- *  Fields
- */
-.custom-file-lg {
-  height: $input-height-lg;
-
-  .custom-file-input {
-    height: $input-height-lg;
-  }
-
-  .custom-file-label {
-    padding: $input-padding-y-lg $input-padding-x-lg;
-    height: $input-height-lg;
-    font-size: $font-size-lg;
-
-    &:after {
-      padding: $input-padding-y-lg $input-padding-x-lg;
-      height: add($input-line-height-lg * 1em, $input-padding-y-lg * 2);
-    }
-  }
-}
