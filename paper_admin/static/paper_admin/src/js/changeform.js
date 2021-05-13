@@ -1,5 +1,4 @@
 import formUtils from "js/utilities/form_utils";
-import "js/components/RelatedObjectLookups";
 import {InlineFormset} from "bem/paper-formset/paper-formset";
 
 // Инициализация inline-форм
