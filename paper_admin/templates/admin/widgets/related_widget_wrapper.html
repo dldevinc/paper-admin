@@ -8,6 +8,15 @@
       {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
         <div class="related-widget-wrapper__buttons">
 
+          {% if can_add_related %}
+            <a id="add_id_{{ name }}"
+               class="related-widget-wrapper__link add-related tool-item"
+               href="{{ add_related_url }}?{{ url_params }}"
+               title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
+                <i class="fa fa-fw fa-plus text-success"></i>
+            </a>
+          {% endif %}
+
           {% if can_view_related or can_change_related %}
             <a id="change_id_{{ name }}"
                class="related-widget-wrapper__link change-related tool-item"
@@ -18,15 +27,6 @@
                 title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
                {% endif %}
                 <i class="fa fa-fw {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %} text-info"></i>
-            </a>
-          {% endif %}
-
-          {% if can_add_related %}
-            <a id="add_id_{{ name }}"
-               class="related-widget-wrapper__link add-related tool-item"
-               href="{{ add_related_url }}?{{ url_params }}"
-               title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-                <i class="fa fa-fw fa-plus text-success"></i>
             </a>
           {% endif %}
 
