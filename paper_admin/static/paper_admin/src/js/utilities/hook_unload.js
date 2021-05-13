@@ -7,7 +7,7 @@
  * Для предотвращения изменения в какой-либо части формы,
  * добавьте аттрибут data-hook-unload="prevent".
  */
-export default function hookUnload(form) {
+export function hookUnload(form) {
     let submit = false;
     let formHasChanged = false;
 
@@ -18,6 +18,7 @@ export default function hookUnload(form) {
     const message = gettext("You have unsaved changes");
     window.addEventListener("beforeunload", function(evt) {
         if (!submit && formHasChanged) {
+            evt.preventDefault();
             evt.returnValue = message;
             return message;
         }
@@ -30,7 +31,9 @@ export default function hookUnload(form) {
     function userActionHandler() {
         document.removeEventListener("keydown", userActionHandler);
         document.removeEventListener("mousedown", userActionHandler);
-        form.addEventListener("change", function changeHandler(event) {
+
+        function changeHandler(event) {
+            form.removeEventListener("input", changeHandler);
             form.removeEventListener("change", changeHandler);
 
             const target = event.target;
@@ -39,6 +42,9 @@ export default function hookUnload(form) {
             if (!prevent_hook && widget && form.contains(widget)) {
                 formHasChanged = true;
             }
-        });
+        }
+
+        form.addEventListener("input", changeHandler);
+        form.addEventListener("change", changeHandler);
     }
 }

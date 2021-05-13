@@ -3,7 +3,6 @@ import emitters from "js/utilities/emitters";
 import formUtils from "js/utilities/form_utils";
 import Sortable from "sortablejs";
 import Widget from "js/utilities/widget";
-import "js/components/cancel";
 import "js/components/filedrag";
 import "js/widgets/bootstrap";
 
@@ -84,6 +83,13 @@ if (document.body.classList.contains("change-form")) {
     import(/* webpackChunkName: "changeform" */ "js/changeform");
 }
 
+// popup page
+if (window.location.search.indexOf("&_popup=1") !== -1) {
+    import(/* webpackChunkName: "popup" */ "js/popup");
+}
+
+window.django = window.django || {};
+window.django.jQuery = jQuery;
 
 export const paperAdmin = {
     bootstrap,
@@ -93,6 +99,3 @@ export const paperAdmin = {
     Sortable,
     Widget
 }
-
-window.django = window.django || {};
-window.django.jQuery = jQuery;
