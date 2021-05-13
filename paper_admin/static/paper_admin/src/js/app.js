@@ -22,23 +22,23 @@ import "components/select2";
 // ---------------
 //  Widgets
 // ---------------
-import "widgets/clearable-file-field/clearable-file-field";
-import "widgets/date-field/date-field";
-import "widgets/ip-field/ip-field";
-import "widgets/email-field/email-field";
-import "widgets/file-field/file-field";
-import "widgets/fk-raw-field/fk-raw-field";
-import "widgets/number-field/number-field";
-import "widgets/password-field/password-field";
-import "widgets/related-widget-wrapper/related-widget-wrapper";
-import "widgets/select-field/select-field";
-import "widgets/select-date-field/select-date-field";  // must be below select-field
-import "widgets/select-multiple-field/select-multiple-field";
-import "widgets/split-datetime-field/split-datetime-field";
-import "widgets/text-field/text-field";
-import "widgets/time-field/time-field";
-import "widgets/url-field/url-field";
-import "widgets/uuid-field/uuid-field";
+import "widgets/clearable-file-field";
+import "widgets/date-field";
+import "widgets/email-field";
+import "widgets/file-field";
+import "widgets/fk-raw-field";
+import "widgets/ip-field";
+import "widgets/number-field";
+import "widgets/password-field";
+import "widgets/related-widget-wrapper";
+import "widgets/select-field";
+import "widgets/select-date-field";  // must be below select-field
+import "widgets/select-multiple-field";
+import "widgets/split-datetime-field";
+import "widgets/text-field";
+import "widgets/time-field";
+import "widgets/url-field";
+import "widgets/uuid-field";
 
 // ---------------
 //  BEM
