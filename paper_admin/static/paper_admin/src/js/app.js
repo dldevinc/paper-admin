@@ -15,6 +15,7 @@ import "css/common.scss";
 // ---------------
 //  Components
 // ---------------
+import "components/prepopulate";
 import "components/select2/select2";
 
 // ---------------

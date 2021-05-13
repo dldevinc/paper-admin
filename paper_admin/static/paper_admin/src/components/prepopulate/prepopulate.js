@@ -6,7 +6,7 @@
  */
 
 import emitters from "js/utilities/emitters";
-import urlify from "js/components/prepopulate/urlify";
+import urlify from "./urlify";
 
 
 function initPrepopulation(root = document.body) {
