@@ -30,6 +30,7 @@ import "widgets/file-field/file-field";
 import "widgets/fk-raw-field/fk-raw-field";
 import "widgets/number-field/number-field";
 import "widgets/password-field/password-field";
+import "widgets/related-widget-wrapper/related-widget-wrapper";
 import "widgets/select-field/select-field";
 import "widgets/select-date-field/select-date-field";  // must be below select-field
 import "widgets/select-multiple-field/select-multiple-field";

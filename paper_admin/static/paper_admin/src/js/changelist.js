@@ -1,7 +1,6 @@
 /* global gettext */
 
 import SortableTable from "js/components/sortable_table/SortableTable";
-import "js/components/RelatedObjectLookups";
 import "bem/paper-actions/paper-actions";
 import "bem/paper-filter/paper-filter";
 import "bem/paper-pagination/paper-pagination";
