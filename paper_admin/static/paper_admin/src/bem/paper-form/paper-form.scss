@@ -44,6 +44,11 @@
       border-top: $paper-form-row-border-top;
     }
 
+    .paper-card &:last-child {
+      border-bottom-left-radius: $card-border-radius;
+      border-bottom-right-radius: $card-border-radius;
+    }
+
     // поле только для чтения
     &--readonly {
       .readonly {

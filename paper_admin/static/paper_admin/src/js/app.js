@@ -57,6 +57,7 @@ import "bem/paper-sidebar/paper-sidebar";
 import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
 import "bem/paper-widget/paper-widget";
+
 import "bem/paper-table/paper-table";
 import "bem/paper-form/paper-form";
 

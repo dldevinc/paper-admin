@@ -9,7 +9,7 @@ class AutosizeWidget extends Widget {
     }
 
     _destroy(element) {
-        $(element).multiSelect("destroy");
+
     }
 }
 

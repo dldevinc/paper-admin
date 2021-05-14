@@ -144,6 +144,9 @@ class Category(models.Model):
     def __str__(self):
         return self.f_char
 
+    def get_absolute_url(self):
+        return "/"
+
 
 class Item(models.Model):
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)

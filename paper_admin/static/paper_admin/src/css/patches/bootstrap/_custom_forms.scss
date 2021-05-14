@@ -8,6 +8,10 @@
       border-color: $value;
       background-color: $value;
     }
+
+    .custom-control-input.#{$color}:not(:disabled):active ~ .custom-control-label::before {
+      border-color: $value;
+    }
   }
 }
 

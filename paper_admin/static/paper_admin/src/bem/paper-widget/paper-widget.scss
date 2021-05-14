@@ -3,28 +3,34 @@
 .paper-widget {
   .input-group {
     a.input-group-text {
+      min-width: $paper-widget-addon-min-width;
+      justify-content: center;
       color: $text-muted;
+      background-color: $paper-widget-addon-bg;
 
       &:hover {
         color: $text-muted;
       }
 
       &[href] {
-        color: $paper-widget-icon-color;
+        color: $paper-widget-addon-color;
 
         &:hover {
-          color: $paper-widget-icon-hover-color;
-          background-color: #dadada;
+          color: $paper-widget-addon-hover-color;
+          background-color: $paper-widget-addon-hover-bg;
         }
       }
     }
 
     button.input-group-text {
-      color: $paper-widget-icon-color;
+      min-width: $paper-widget-addon-min-width;
+      justify-content: center;
+      color: $paper-widget-addon-color;
+      background-color: $paper-widget-addon-bg;
 
       &:hover {
-        color: $paper-widget-icon-hover-color;
-        background-color: #dadada;
+        color: $paper-widget-addon-hover-color;
+        background-color: $paper-widget-addon-hover-bg;
       }
 
       &:disabled {

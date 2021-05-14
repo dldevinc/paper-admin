@@ -12,6 +12,8 @@
     font-size: $input-font-size-lg;
     line-height: $input-line-height-lg;
     border-color: $input-border-color;
+    border-top-left-radius: $input-border-radius-lg;
+    border-top-right-radius: $input-border-radius-lg;
 
     &::placeholder {
       color: $input-placeholder-color;
