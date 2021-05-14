@@ -14,6 +14,7 @@ import "css/common.scss";
 // ---------------
 //  Components
 // ---------------
+import "components/back-button";
 import "components/prepopulate";
 import "components/related-object-lookups";
 import "components/select2";
