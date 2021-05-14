@@ -304,7 +304,7 @@ class BasePaperInlineFormSet(BaseInlineFormSet):
             form.fields[DELETION_FIELD_NAME] = forms.BooleanField(
                 label=_("Delete"),
                 required=False,
-                widget=widgets.AdminCheckboxInput(attrs={
+                widget=forms.CheckboxInput(attrs={
                     "class": "danger custom-control-input"
                 })
             )

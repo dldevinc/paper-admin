@@ -1,0 +1,56 @@
+@import "css/env";
+
+.delete-inline {
+  &__icon {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  .custom-control-label {
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    &:before,
+    &:after {
+      background: transparent;
+      border-color: transparent;
+      transition: none;
+      transform: scale(0.8181);
+    }
+  }
+
+  .custom-control-input {
+    top: -4px;
+    left: -4px;
+    width: $btn-square-size-sm;
+    height: $btn-square-size-sm;
+    cursor: pointer;
+
+    &:focus {
+      ~ .custom-control-label:before {
+        box-shadow: none;
+        border-color: transparent !important;
+      }
+    }
+
+    &:active {
+      ~ .custom-control-label:before {
+        background: transparent;
+        border-color: transparent !important;
+      }
+    }
+
+    &:checked {
+      ~ .custom-control-label {
+        opacity: 1;
+      }
+
+      ~ .delete-inline__icon {
+        opacity: 0;
+      }
+    }
+  }
+}

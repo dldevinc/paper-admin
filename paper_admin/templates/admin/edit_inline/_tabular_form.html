@@ -30,7 +30,7 @@
     {% endfor %}
   {% endfor %}
 
-  <td class="tools-cell">
+  <td class="text-right">
     {% if inline_form.needs_explicit_pk_field %}
       {{ inline_form.pk_field.field }}
     {% endif %}
@@ -45,10 +45,10 @@
       {% endfor %}
     {% endfor %}
 
-    <div class="tool-items">
+    <div class="btn-square-group btn-group btn-group-sm">
       {% if inline_form.show_url %}
         <a href="{{ inline_form.absolute_url }}"
-           class="tool-item text-info"
+           class="btn btn-square"
            data-toggle="tooltip"
            data-placement="bottom"
            data-trigger="hover"
@@ -56,52 +56,60 @@
            title="{% trans 'View on site' %}"
            target="_blank"
            rel="noopener">
-          <i class="fa fa-fw fa-eye"></i>
+          <i class="fa fa-eye text-info"></i>
         </a>
-      {% endif %}
-
-      {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
-        <label for="{{ inline_form.deletion_field.field.id_for_label }}"
-               class="delete-inline tool-item">
-          {{ inline_form.deletion_field.field }}
-          <span class="delete-inline-text"> {{ inline_form.deletion_field.field.label }}</span>
-        </label>
-      {% endif %}
-
-      {% if not inline_form.original and not inline_form.show_url %}
-        <button type="button"
-                class="tool-item text-danger"
-                data-formset-toggle="delete"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                data-trigger="hover"
-                data-html="true"
-                title="{% trans 'Delete' %}">
-          <i class="fa fa-fw fa-trash"></i>
-        </button>
       {% endif %}
 
       {% if inline_admin_formset.opts.sortable %}
         <button type="button"
-                class="sortable-move-up tool-item text-info"
+                class="sortable-move-up btn btn-square"
                 data-formset-toggle="up"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 data-trigger="hover"
                 data-html="true"
                 title="{% trans 'Move up' %}">
-          <i class="fa fa-fw fa-chevron-up"></i>
+          <i class="fa fa-chevron-up text-info"></i>
         </button>
 
         <button type="button"
-                class="sortable-move-down tool-item text-info"
+                class="sortable-move-down btn btn-square"
                 data-formset-toggle="down"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 data-trigger="hover"
                 data-html="true"
                 title="{% trans 'Move down' %}">
-          <i class="fa fa-fw fa-chevron-down"></i>
+          <i class="fa fa-chevron-down text-info"></i>
+        </button>
+      {% endif %}
+
+      {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
+        <div class="delete-inline btn btn-square"
+             data-toggle="tooltip"
+             data-placement="bottom"
+             data-trigger="hover"
+             data-html="true"
+             title="{{ inline_form.deletion_field.field.label }}">
+          <div class="custom-control custom-checkbox user-select-none">
+            {{ inline_form.deletion_field.field }}
+            <label for="{{ inline_form.deletion_field.field.id_for_label }}"
+                   class="custom-control-label"></label>
+            <i class="delete-inline__icon fa fa-trash text-danger"></i>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if not inline_form.original and not inline_form.show_url %}
+        <button type="button"
+                class="btn btn-square"
+                data-formset-toggle="delete"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                data-trigger="hover"
+                data-html="true"
+                title="{% trans 'Delete' %}">
+          <i class="fa fa-trash text-danger"></i>
         </button>
       {% endif %}
     </div>

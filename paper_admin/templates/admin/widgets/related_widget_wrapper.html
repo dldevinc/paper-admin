@@ -6,36 +6,36 @@
   {% block links %}{% spaceless %}
     {% if not is_hidden %}
       {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
-        <div class="related-widget-wrapper__buttons">
+        <div class="related-widget-wrapper__buttons btn-square-group btn-group">
 
           {% if can_add_related %}
             <a id="add_id_{{ name }}"
-               class="related-widget-wrapper__link add-related tool-item"
+               class="btn btn-square related-widget-wrapper__link add-related"
                href="{{ add_related_url }}?{{ url_params }}"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-                <i class="fa fa-fw fa-plus text-success"></i>
+                <i class="fa fa-plus text-success"></i>
             </a>
           {% endif %}
 
           {% if can_view_related or can_change_related %}
             <a id="change_id_{{ name }}"
-               class="related-widget-wrapper__link change-related tool-item"
+               class="btn btn-square related-widget-wrapper__link change-related"
                data-href-template="{{ change_related_template_url }}?{{ url_params }}"
                {% if can_change_related %}
                 title="{% blocktrans %}Change selected {{ model }}{% endblocktrans %}">
                {% else %}
                 title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
                {% endif %}
-                <i class="fa fa-fw {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %} text-info"></i>
+                <i class="fa {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %} text-info"></i>
             </a>
           {% endif %}
 
           {% if can_delete_related %}
             <a id="delete_id_{{ name }}"
-               class="related-widget-wrapper__link delete-related tool-item"
+               class="btn btn-square related-widget-wrapper__link delete-related"
                data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
-                <i class="fa fa-fw fa-remove text-danger"></i>
+                <i class="fa fa-trash text-danger"></i>
             </a>
           {% endif %}
 

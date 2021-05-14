@@ -56,7 +56,7 @@
       {% endfor %}
 
       {% if cl.model_admin.changelist_tools %}
-        <th class="paper-changelist-tools-header"></th>
+        <th></th>
       {% endif %}
     </tr>
     </thead>
@@ -77,11 +77,9 @@
           {% endfor %}
 
           {% if cl.model_admin.changelist_tools %}
-            <td class="paper-changelist-tools-cell">
-              {% spaceless %}
-                {% include cl.model_admin.changelist_tools_template %}
-              {% endspaceless %}
-            </td>
+            <td class="text-right">{% spaceless %}
+              {% include cl.model_admin.changelist_tools_template %}
+            {% endspaceless %}</td>
           {% endif %}
         </tr>
       {% endfor %}

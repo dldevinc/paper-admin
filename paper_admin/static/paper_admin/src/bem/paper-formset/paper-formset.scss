@@ -11,19 +11,6 @@
 
   &__form {
     overflow: hidden;
-
-    .delete-inline {
-      padding-left: 0.25rem;
-      padding-right: 0.5rem;
-
-      .custom-control {
-        display: inline-block;
-      }
-    }
-
-    .delete-inline-text {
-      line-height: 1;
-    }
   }
 
   // название stacked-формы
@@ -39,7 +26,6 @@
 
   &--stacked {
     .card-header-tools {
-      margin-top: -4px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -47,13 +33,8 @@
     }
 
     .card-title {
-      margin-top: 4px;
+      margin: 0;
       padding-right: 1.6rem;
-    }
-
-    .tool-items {
-      margin-top: 4px;
-      flex: 0 0 auto;
     }
   }
 
@@ -62,21 +43,8 @@
       background-color: $paper-formset-form-invalid-bg;
     }
 
-    .table {
-      position: relative;
-    }
-
     thead th {
       padding-bottom: 0.5rem;
-    }
-
-    .tools-header {
-      width: 0.001%;
-    }
-
-    .tools-cell {
-      white-space: nowrap;
-      text-align: right;
     }
   }
 }
