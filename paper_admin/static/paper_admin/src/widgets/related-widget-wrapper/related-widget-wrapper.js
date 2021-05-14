@@ -7,17 +7,16 @@ import "./related-widget-wrapper.scss";
 // значения <select>.
 // -------------------------------------------
 
-function updateRelatedObjectLinks(triggeringSelect) {
-    const widget = triggeringSelect.closest(".related-widget-wrapper");
+function setRelatedObjectLinks(widget, objId) {
     const links = widget && widget.querySelectorAll(".view-related, .change-related, .delete-related");
     if (!links || !links.length) {
         return;
     }
 
-    if (triggeringSelect.value) {
+    if (objId) {
         links.forEach(function(link) {
             link.classList.remove("disabled");
-            link.href = link.dataset.hrefTemplate.replace("__fk__", triggeringSelect.value);
+            link.href = link.dataset.hrefTemplate.replace("__fk__", objId);
         });
     } else {
         links.forEach(function(link) {
@@ -28,21 +27,30 @@ function updateRelatedObjectLinks(triggeringSelect) {
 }
 
 document.addEventListener("change", function(event) {
-    const triggeringSelect = event.target.closest(".related-widget-wrapper select");
+    const widget = event.target.closest(".related-widget-wrapper");
+
+    const triggeringSelect = widget.querySelector("select");
     if (triggeringSelect) {
         const jQueryEvent = $.Event("django:update-related");
         $(triggeringSelect).trigger(jQueryEvent);
         if (!jQueryEvent.isDefaultPrevented()) {
-            updateRelatedObjectLinks(triggeringSelect);
+            setRelatedObjectLinks(widget, triggeringSelect.value);
         }
     }
 });
 
-document.querySelectorAll(".related-widget-wrapper select").forEach(function(select) {
-    updateRelatedObjectLinks(select);
+document.querySelectorAll(".related-widget-wrapper").forEach(function(widget) {
+    const triggeringSelect = widget.querySelector("select");
+    if (triggeringSelect) {
+        setRelatedObjectLinks(widget, triggeringSelect.value);
+    }
 });
 
-window.updateRelatedObjectLinks = updateRelatedObjectLinks;
+// для обратной совместимости
+window.updateRelatedObjectLinks = function(triggeringSelect) {
+    const widget = triggeringSelect.closest(".related-widget-wrapper");
+    setRelatedObjectLinks(widget, triggeringSelect.value);
+};
 
 
 // -------------------------------------------
