@@ -43,6 +43,7 @@ import "widgets/uuid-field";
 //  BEM
 // ---------------
 import "bem/btn-square/btn-square";
+import "bem/btn-square-group/btn-square-group";
 import "bem/paper-breadcrumbs/paper-breadcrumbs";
 import "bem/paper-card/paper-card";
 import "bem/paper-environment/paper-environment";
