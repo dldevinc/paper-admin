@@ -1,0 +1,49 @@
+@import "css/env";
+
+.btn-square {
+  display: flex;
+  padding: 0 !important;
+  align-items: center;
+  justify-content: center;
+  width: $btn-square-size;
+  height: $btn-square-size;
+  font-size: $btn-square-icon-size;
+  line-height: 1;
+  text-align: center;
+
+  .btn-group-lg > &,
+  &.btn-lg {
+    width: $btn-square-size-lg;
+    height: $btn-square-size-lg;
+    font-size: $btn-square-icon-size-lg;
+  }
+
+  .btn-group-sm > &,
+  &.btn-sm {
+    width: $btn-square-size-sm;
+    height: $btn-square-size-sm;
+    font-size: $btn-square-icon-size-sm;
+  }
+
+  &:focus,
+  &.focus,
+  &:not(:disabled):not(.disabled):active:focus,
+  &:not(:disabled):not(.disabled).active:focus {
+    border-color: $input-focus-border-color !important;
+    box-shadow: $input-focus-box-shadow;
+
+    .btn-group > & {
+      z-index: 2;
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 1;
+    background-color: $gray-100;
+
+    i {
+      opacity: 0.25;
+    }
+  }
+}
