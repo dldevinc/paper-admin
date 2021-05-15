@@ -1,3 +1,11 @@
-{% with input_class='form-control form-control-lg vTimePicker' %}
+<div class="time-field input-group">
   {% include "django/forms/widgets/input.html" %}
-{% endwith %}
+
+  <div class="input-group-append">
+    <button type="button" class="time-field__button input-group-text" tabindex="-1"
+            data-toggle="tooltip" data-placement="top" data-trigger="hover"
+            data-html="true" title="{{ _('Now') }}">
+      <i class="fa fa-fw fa-clock-o"></i>
+    </button>
+  </div>
+</div>

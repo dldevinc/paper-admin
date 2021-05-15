@@ -15,10 +15,30 @@ import "css/common.scss";
 // ---------------
 //  Components
 // ---------------
+import "components/prepopulate";
+import "components/related-object-lookups";
+import "components/select2";
 
 // ---------------
 //  Widgets
 // ---------------
+import "widgets/clearable-file-field/clearable-file-field";
+import "widgets/date-field/date-field";
+import "widgets/ip-field/ip-field";
+import "widgets/email-field/email-field";
+import "widgets/file-field/file-field";
+import "widgets/fk-raw-field/fk-raw-field";
+import "widgets/number-field/number-field";
+import "widgets/password-field/password-field";
+import "widgets/related-widget-wrapper/related-widget-wrapper";
+import "widgets/select-field/select-field";
+import "widgets/select-date-field/select-date-field";  // must be below select-field
+import "widgets/select-multiple-field/select-multiple-field";
+import "widgets/split-datetime-field/split-datetime-field";
+import "widgets/text-field/text-field";
+import "widgets/time-field/time-field";
+import "widgets/url-field/url-field";
+import "widgets/uuid-field/uuid-field";
 
 // ---------------
 //  BEM
@@ -37,8 +57,6 @@ import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
 import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
-import "bem/select2/select2";
-
 import "bem/paper-widget/paper-widget";
 import "bem/paper-table/paper-table";
 import "bem/paper-form/paper-form";

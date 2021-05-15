@@ -21,10 +21,10 @@ FORMFIELD_FOR_DBFIELD_DEFAULTS = {
         "form_class": forms.SplitDateTimeField,
         "widget": forms.SplitDateTimeWidget,
     },
+    models.TextField: {"widget": widgets.AdminTextarea},
     models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
     models.UUIDField: {"widget": widgets.AdminUUIDInput},
-    models.TextField: {"widget": widgets.AdminTextarea},
-    models.BooleanField: {"widget": widgets.CustomCheckboxInput},
+    models.BooleanField: {"widget": widgets.AdminCheckboxInput},
     models.NullBooleanField: {"widget": forms.NullBooleanSelect},
     models.FileField: {"widget": forms.ClearableFileInput},
     models.ImageField: {"widget": forms.ClearableFileInput},
@@ -43,7 +43,7 @@ class PaperBaseModelAdmin:
         if db_field.name in self.radio_fields:  # noqa: F821
             # Avoid stomping on custom widget/choices arguments.
             if "widget" not in kwargs:
-                kwargs["widget"] = widgets.CustomRadioSelect()
+                kwargs["widget"] = widgets.AdminRadioSelect()
             if "choices" not in kwargs:
                 kwargs["choices"] = db_field.get_choices(
                     include_blank=db_field.blank,
@@ -60,13 +60,13 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.ForeignKeyRawIdWidget(
+            kwargs["widget"] = widgets.AdminForeignKeyRawIdWidget(
                 db_field.remote_field,
                 self.admin_site,  # noqa: F821
                 using=db
             )
         elif db_field.name in self.radio_fields:  # noqa: F821
-            kwargs["widget"] = widgets.CustomRadioSelect()
+            kwargs["widget"] = widgets.AdminRadioSelect()
             kwargs["empty_label"] = _("None") if db_field.blank else None
 
         if "queryset" not in kwargs:
@@ -89,7 +89,7 @@ class PaperBaseModelAdmin:
                 using=db
             )
         elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.ManyToManyRawIdWidget(
+            kwargs["widget"] = widgets.AdminManyToManyRawIdWidget(
                 db_field.remote_field,
                 self.admin_site,  # noqa: F821
                 using=db
@@ -114,7 +114,7 @@ class PaperModelAdmin:
     changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
     changelist_widget_overrides = {
-        models.BooleanField: widgets.CustomCheckboxInput
+        models.BooleanField: widgets.AdminCheckboxInput
     }
     tabs = [
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
@@ -304,7 +304,7 @@ class BasePaperInlineFormSet(BaseInlineFormSet):
             form.fields[DELETION_FIELD_NAME] = forms.BooleanField(
                 label=_("Delete"),
                 required=False,
-                widget=widgets.CustomCheckboxInput(attrs={
+                widget=widgets.AdminCheckboxInput(attrs={
                     "class": "danger custom-control-input"
                 })
             )

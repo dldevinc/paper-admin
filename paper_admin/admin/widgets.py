@@ -1,9 +1,8 @@
 import json
 
-from django import forms
+from django.forms import widgets
 from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
-from django.forms import MediaDefiningClass
 
 from ..monkey_patch import MonkeyPatchMeta, get_original
 
@@ -12,66 +11,115 @@ from ..monkey_patch import MonkeyPatchMeta, get_original
 WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})
 
 
-class AdminIPInput(forms.TextInput):
+class PatchInput(widgets.Input, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "class": "form-control form-control-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(widgets.Input)(self, attrs=default_attrs)
+
+
+class PatchTextarea(widgets.Textarea, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "class": "form-control form-control-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(widgets.Textarea)(self, attrs=default_attrs)
+
+
+class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, rel, admin_site, attrs=None, using=None):
+        get_original(ManyToManyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
+        self.attrs["class"] = (self.attrs.get("class", "") + " vManyToManyRawIdAdminField").strip()
+
+    def get_context(self, name, value, attrs):
+        # удаление хардкода CSS-класса
+        return super().get_context(name, value, attrs)
+
+
+class AdminIPInput(widgets.TextInput):
     template_name = "django/forms/widgets/ip.html"
 
 
-class AdminUUIDInput(forms.TextInput):
+class AdminUUIDInput(widgets.TextInput):
     template_name = "django/forms/widgets/uuid.html"
 
 
-class AdminSwitchInput(forms.CheckboxInput):
+class AdminSwitchInput(widgets.CheckboxInput):
     template_name = "django/forms/widgets/switch.html"
 
-
-class AdminTextarea(forms.Textarea):
     def __init__(self, attrs=None):
-        default_attrs = {"rows": "3", "autosize": True}
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs)
+
+
+class AdminTextarea(widgets.Textarea):
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "rows": "3",
+        }
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)
 
 
-class CustomCheckboxInput(forms.CheckboxInput):
+class AdminForeignKeyRawIdWidget(ForeignKeyRawIdWidget):
+    template_name = "django/forms/widgets/foreign_key_raw_id.html"
+
+
+class AdminManyToManyRawIdWidget(ManyToManyRawIdWidget):
+    template_name = "django/forms/widgets/many_to_many_raw_id.html"
+
+
+class AdminCheckboxInput(widgets.CheckboxInput):
     template_name = "django/forms/widgets/checkbox_custom.html"
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        widget_class = context["widget"]["attrs"].pop("widget_class", "")
-        context["widget_class"] = widget_class
-        return context
+    def __init__(self, attrs=None, check_test=None):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs, check_test=check_test)
 
 
-class CustomRadioSelect(forms.RadioSelect):
+class AdminRadioSelect(widgets.RadioSelect):
     template_name = "django/forms/widgets/radio_custom.html"
     option_template_name = "django/forms/widgets/radio_option_custom.html"
 
+    def __init__(self, attrs=None, choices=()):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs, choices=choices)
 
-class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+
+class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
     template_name = "django/forms/widgets/checkbox_select.html"
     option_template_name = "django/forms/widgets/checkbox_custom.html"
 
+    def __init__(self, attrs=None, choices=()):
+        attrs = attrs or {}
+        attrs.setdefault("class", "custom-control-input")
+        super().__init__(attrs=attrs, choices=choices)
 
-class AdminSelectMultiple(forms.SelectMultiple):
-    # TODO: использовать другой плагин
-    template_name = "django/forms/widgets/filtered_select.html"
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        context["widget"]["attrs"]["class"] = "vMultiSelect"
-        return context
+class AdminSelectMultiple(widgets.SelectMultiple):
+    template_name = "django/forms/widgets/select_multiple.html"
 
 
 class AutocompleteMixin(DefaultAutocompleteMixin):
     @property
     def media(self):
-        return forms.Media()
+        return widgets.Media()
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         # удалена тема admin-autocomplete
         attrs = super(DefaultAutocompleteMixin, self).build_attrs(base_attrs, extra_attrs=extra_attrs)
         attrs.setdefault('class', '')
         attrs.update({
+            'data-width': '',
             'data-ajax--cache': 'true',
             'data-ajax--type': 'GET',
             'data-ajax--url': self.get_url(),
@@ -82,28 +130,9 @@ class AutocompleteMixin(DefaultAutocompleteMixin):
         return attrs
 
 
-class AutocompleteSelect(AutocompleteMixin, forms.Select):
+class AutocompleteSelect(AutocompleteMixin, widgets.Select):
     pass
 
 
-class AutocompleteSelectMultiple(AutocompleteMixin, forms.SelectMultiple):
+class AutocompleteSelectMultiple(AutocompleteMixin, widgets.SelectMultiple):
     pass
-
-
-class PatchForeignKeyRawIdWidget(ForeignKeyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
-    template_name = "django/forms/widgets/foreign_key_raw_id.html"
-
-    def __init__(self, rel, admin_site, attrs=None, using=None):
-        attrs = {'class': 'form-control', **(attrs or {})}
-        get_original(ForeignKeyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
-
-
-class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
-    template_name = "django/forms/widgets/many_to_many_raw_id.html"
-
-    def __init__(self, rel, admin_site, attrs=None, using=None):
-        attrs = {'class': 'form-control vManyToManyRawIdAdminField', **(attrs or {})}
-        get_original(ForeignKeyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
-
-    def get_context(self, name, value, attrs):
-        return super().get_context(name, value, attrs)

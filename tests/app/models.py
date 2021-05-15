@@ -92,10 +92,10 @@ class Category(models.Model):
     f_decimal = models.DecimalField(_("decimal"), blank=True, decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
 
     f_duration = models.DurationField(_("duration"), blank=True, null=True, help_text=HELP_TEXT)
-    f_date = models.DateField(_("date"), blank=True, null=True, help_text=HELP_TEXT)
-    f_date2 = models.DateField(_("date selects"), blank=True, null=True, help_text=HELP_TEXT)
-    f_time = models.TimeField(_("time"), blank=True, null=True, help_text=HELP_TEXT)
-    f_datetime = models.DateTimeField(_("datetime"), blank=True, null=True, help_text=HELP_TEXT)
+    f_date = models.DateField(_("date"), null=True, help_text=HELP_TEXT)
+    f_date2 = models.DateField(_("date selects"), null=True, help_text=HELP_TEXT)
+    f_time = models.TimeField(_("time"), null=True, help_text=HELP_TEXT)
+    f_datetime = models.DateTimeField(_("datetime"), null=True, help_text=HELP_TEXT)
 
     f_hidden1 = models.CharField(_("hidden1"), blank=True, max_length=128, help_text=HELP_TEXT)
     f_hidden2 = models.CharField(_("hidden2"), blank=True, max_length=128, help_text=HELP_TEXT)

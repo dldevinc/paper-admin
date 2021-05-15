@@ -1,6 +1,4 @@
 <div class="custom-control custom-switch user-select-none">
-  {% with input_class='custom-control-input' %}
-    {% include "django/forms/widgets/input.html" %}
-  {% endwith %}
+  {% include "django/forms/widgets/input.html" %}
   <label class="custom-control-label" for="{{ widget.attrs.id }}"></label>
 </div>

@@ -2,8 +2,12 @@
 
 .paper-page {
   transition: margin-left $paper-sidebar-transition-duration;
-  @include media-breakpoint-up(xl) {
-    margin-left: $paper-sidebar-width;
+
+  @at-root
+  body:not(.popup) & {
+    @include media-breakpoint-up(xl) {
+      margin-left: $paper-sidebar-width;
+    }
   }
 
   &__header {

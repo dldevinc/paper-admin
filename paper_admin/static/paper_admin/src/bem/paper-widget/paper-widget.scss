@@ -1,6 +1,39 @@
 @import "css/env";
 
 .paper-widget {
+  .input-group {
+    a.input-group-text {
+      color: $text-muted;
+
+      &:hover {
+        color: $text-muted;
+      }
+
+      &[href] {
+        color: $paper-widget-icon-color;
+
+        &:hover {
+          color: $paper-widget-icon-hover-color;
+          background-color: #dadada;
+        }
+      }
+    }
+
+    button.input-group-text {
+      color: $paper-widget-icon-color;
+
+      &:hover {
+        color: $paper-widget-icon-hover-color;
+        background-color: #dadada;
+      }
+
+      &:disabled {
+        color: $text-muted;
+        background-color: $input-group-addon-bg;
+      }
+    }
+  }
+
   // Показывает второй label на мобиле, справа от виджета.
   &--checkbox {
     & > .custom-control {
@@ -32,10 +65,10 @@
     // стили Bootstrap из ".is-invalid"
     .form-control {
       @if $enable-validation-icons {
-        padding-right: $input-height-inner;
+        padding-right: add($input-height-inner-half, $input-padding-y * 2);
         background-image: escape-svg($form-feedback-icon-invalid);
         background-repeat: no-repeat;
-        background-position: right $input-height-inner-quarter center;
+        background-position: right $input-padding-y center;
         background-size: $input-height-inner-half $input-height-inner-half;
       }
     }

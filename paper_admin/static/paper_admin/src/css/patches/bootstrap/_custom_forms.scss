@@ -1,3 +1,4 @@
+@import "css/abstracts/functions/sum";
 @import "css/abstracts/bootstrap";
 
 // add theme colors
@@ -25,7 +26,7 @@
 .custom-switch {
   .custom-control-label {
     &::after {
-      top: add(($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2, $custom-control-indicator-border-width * 2);
+      top: sum(($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2, $custom-control-indicator-border-width * 2);
     }
   }
 }
@@ -65,7 +66,7 @@
       }
 
       &:after {
-        left: add(-$custom-switch-width, $custom-control-indicator-border-width * 2);
+        left: sum(-$custom-switch-width, $custom-control-indicator-border-width * 2);
       }
     }
   }

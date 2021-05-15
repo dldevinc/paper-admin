@@ -1,14 +1,12 @@
-<div class="input-group">
-  {% with input_class='vURLInput form-control form-control-lg' %}
-    {% include "django/forms/widgets/input.html" %}
-  {% endwith %}
+<div class="url-field input-group">
+  {% include "django/forms/widgets/input.html" %}
 
   <div class="input-group-append">
-    <a class="input-group-text {% if widget.value %}text-info{% endif %}"
+    <a class="url-field__link input-group-text text-decoration-none"
        {% if widget.value %}href="{{ widget.value }}"{% endif %}
        target="_blank" rel="noopener" tabindex="-1"
        data-toggle="tooltip" data-placement="top" data-trigger="hover"
-       data-html="true" title="{{ _('Visit') }}">
+       data-html="true" title="{{ _('Visit URL') }}">
       <i class="fa fa-fw fa-globe"></i>
     </a>
   </div>

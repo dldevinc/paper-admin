@@ -1,0 +1,10 @@
+@import "css/env";
+
+.text-field {
+  textarea {
+    max-height: 200px;
+    @include media-breakpoint-up(md) {
+      max-height: 400px;
+    }
+  }
+}

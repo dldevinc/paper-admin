@@ -3,40 +3,44 @@
 <div class="related-widget-wrapper">
   {{ rendered_widget }}
 
-  {% block links %}
-    {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
-      <div class="related-links tool-items">
-        {% if can_view_related or can_change_related %}
-          <a id="change_id_{{ name }}" tabindex="0"
-             class="related-widget-wrapper-link {% if can_change_related %}change-related{% else %}view-related{% endif %} tool-item"
-             data-href-template="{{ change_related_template_url }}?{{ url_params }}"
-             {% if can_change_related %}
-              title="{% blocktrans %}Change selected {{ model }}{% endblocktrans %}">
-             {% else %}
-              title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
-             {% endif %}
-            <i class="fa fa-fw {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %} text-info"></i>
-          </a>
-        {% endif %}
+  {% block links %}{% spaceless %}
+    {% if not is_hidden %}
+      {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
+        <div class="related-widget-wrapper__buttons">
 
-        {% if can_add_related %}
-          <a href="{{ add_related_url }}?{{ url_params }}"
-             id="add_id_{{ name }}" tabindex="0"
-             class="related-widget-wrapper-link add-related tool-item"
-             title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-            <i class="fa fa-fw fa-plus text-success"></i>
-          </a>
-        {% endif %}
+          {% if can_view_related or can_change_related %}
+            <a id="change_id_{{ name }}"
+               class="related-widget-wrapper__link change-related tool-item"
+               data-href-template="{{ change_related_template_url }}?{{ url_params }}"
+               {% if can_change_related %}
+                title="{% blocktrans %}Change selected {{ model }}{% endblocktrans %}">
+               {% else %}
+                title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
+               {% endif %}
+                <i class="fa fa-fw {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %} text-info"></i>
+            </a>
+          {% endif %}
 
-        {% if can_delete_related %}
-          <a id="delete_id_{{ name }}" tabindex="0"
-             class="related-widget-wrapper-link delete-related tool-item"
-             data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
-             title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
-            <i class="fa fa-fw fa-remove text-danger"></i>
-          </a>
-        {% endif %}
-      </div>
+          {% if can_add_related %}
+            <a id="add_id_{{ name }}"
+               class="related-widget-wrapper__link add-related tool-item"
+               href="{{ add_related_url }}?{{ url_params }}"
+               title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
+                <i class="fa fa-fw fa-plus text-success"></i>
+            </a>
+          {% endif %}
+
+          {% if can_delete_related %}
+            <a id="delete_id_{{ name }}"
+               class="related-widget-wrapper__link delete-related tool-item"
+               data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
+               title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
+                <i class="fa fa-fw fa-remove text-danger"></i>
+            </a>
+          {% endif %}
+
+        </div>
+      {% endif %}
     {% endif %}
-  {% endblock %}
+  {% endspaceless %}{% endblock %}
 </div>

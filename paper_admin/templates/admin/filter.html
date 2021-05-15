@@ -1,7 +1,7 @@
 <div class="paper-filter">
   <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
 
-  <ul class="list-unstyled">
+  <ul class="list-unstyled mb-0">
     {% for choice in choices %}
       <li{% if choice.selected %} class="active"{% endif %}>
         {% if choice.selected %}

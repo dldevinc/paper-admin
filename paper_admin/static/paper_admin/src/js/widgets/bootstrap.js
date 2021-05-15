@@ -9,9 +9,7 @@ class DropdownWidget extends Widget {
     }
 
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            $(element).dropdown(this.opts);
-        }
+        $(element).dropdown(this.opts);
     }
 }
 
@@ -23,9 +21,7 @@ class PopoverWidget extends Widget {
     }
 
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            $(element).popover(this.opts);
-        }
+        $(element).popover(this.opts);
     }
 
     _destroy(element) {
@@ -41,12 +37,10 @@ class TooltipWidget extends Widget {
     }
 
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            $(element).tooltip(this.opts).filter("[data-trigger=\"hover\"]").on("click", function() {
-                // FIX: при клике на кнопках сортировки, подсказки остаются висеть на прежнем месте
-                $(this).tooltip("hide");
-            });
-        }
+        $(element).tooltip(this.opts).filter("[data-trigger=\"hover\"]").on("click", function() {
+            // FIX: при клике на кнопках сортировки, подсказки остаются висеть на прежнем месте
+            $(this).tooltip("hide");
+        });
     }
 
     _destroy(element) {
@@ -62,9 +56,7 @@ class CollapseWidget extends Widget {
     }
 
     _init(element) {
-        if (!element.closest(".empty-form")) {
-            $(element).collapse(this.opts);
-        }
+        $(element).collapse(this.opts);
     }
 }
 

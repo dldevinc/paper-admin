@@ -1,0 +1,105 @@
+@import "css/env";
+@import "~flatpickr/dist/flatpickr";
+
+$calendar-day-size: 36px;
+$calendar-padding: 5px;
+$calendar-bg: theme-color-level("info", -2);
+$calendar-active-day-bg: theme-color-level("primary", -4);
+
+.date-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $date-field-max-width;
+  }
+
+  > .form-control.input {
+    // FIX: flatpickr добавляет атрибут readonly, который делает фон серым.
+    background-color: $input-bg;
+
+    // FIX: из-за altInput в flatpickr, поле не удовлетворяет условию :first-child в Bootstrap
+    border-top-left-radius: $input-border-radius;
+    border-bottom-left-radius: $input-border-radius;
+  }
+}
+
+
+.flatpickr-calendar.arrowTop:after {
+  border-bottom-color: $calendar-bg;
+}
+
+.flatpickr-calendar.arrowBottom:after {
+  border-top-color: $calendar-bg;
+}
+
+.flatpickr-calendar {
+  margin-top: 3px;
+  width: $calendar-day-size * 7 + 2 * $calendar-padding;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.flatpickr-months {
+  .flatpickr-month {
+    color: inherit;
+    border-radius: 5px 5px 0 0;
+    background-color: $calendar-bg;
+  }
+
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    svg {
+      fill: #fff;
+      transition: fill 0.2s;
+    }
+
+    &:hover svg {
+      fill: rgba(#fff, 0.5);
+    }
+  }
+}
+
+.flatpickr-current-month {
+  display: flex;
+  justify-content: space-around;
+
+  .flatpickr-monthDropdown-months {
+    padding: 0 16px 0 0;
+
+    .flatpickr-monthDropdown-month {
+      font-weight: 300;
+      background-color: $calendar-bg;
+    }
+  }
+}
+
+.flatpickr-weekdays {
+  padding-left: $calendar-padding;
+  padding-right: $calendar-padding;
+  background-color: $calendar-bg;
+}
+
+span.flatpickr-weekday {
+  color: inherit;
+}
+
+.flatpickr-days {
+  width: 100%;
+}
+
+.dayContainer {
+  padding: $calendar-padding;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.flatpickr-day {
+  max-width: $calendar-day-size;
+  height: $calendar-day-size;
+  line-height: $calendar-day-size;
+
+  &.selected {
+    border-color: $calendar-active-day-bg;
+    background-color: $calendar-active-day-bg;
+  }
+}
