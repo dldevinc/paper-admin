@@ -115,7 +115,7 @@ $caret-width: 0.325em;
 $caret-vertical-align: 0.1875em;
 $caret-spacing: 0.125em;
 
-$dropdown-padding-y: 0;
+$dropdown-padding-y: 0.001px;  // disable border-radius
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.5rem;
 $dropdown-link-color: $gray-800;

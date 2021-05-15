@@ -1,0 +1,10 @@
+.btn-group,
+.btn-group-vertical {
+  > .btn {
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+  }
+}

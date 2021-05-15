@@ -4,7 +4,9 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
+@import "css/patches/bootstrap/button-group";
 @import "css/patches/bootstrap/custom_forms";
+@import "css/patches/bootstrap/dropdown";
 @import "css/patches/bootstrap/sticky";
 @import "css/patches/bootstrap/table";
 @import "css/patches/font_awesome/fixed_width";

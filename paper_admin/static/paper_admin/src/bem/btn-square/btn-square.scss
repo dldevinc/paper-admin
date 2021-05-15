@@ -31,10 +31,6 @@
   &:not(:disabled):not(.disabled).active:focus {
     border-color: $input-focus-border-color !important;
     box-shadow: $input-focus-box-shadow;
-
-    .btn-group > & {
-      z-index: 2;
-    }
   }
 
   &.disabled,

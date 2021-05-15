@@ -104,13 +104,15 @@
     word-break: break-word;
     @include transition();
 
+    &:focus,
     &:hover {
+      outline: none;
       color: $paper-sidebar-link-hover-color;
       background: $paper-sidebar-link-hover-bg;
       text-decoration: none;
     }
 
-    & > i {
+    > i {
       margin-right: $paper-sidebar-icon-margin-right;
       flex: 0 0 $paper-sidebar-icon-width;
     }
@@ -154,7 +156,7 @@
     &--level-1 {
       padding-left: $paper-sidebar-link-padding-left-level1;
 
-      & > .paper-sidebar__link {
+      > .paper-sidebar__link {
         color: $paper-sidebar-first-link-color;
         background-color: $paper-sidebar-first-link-bg;
 
@@ -174,7 +176,7 @@
       position: relative;
       padding-left: $paper-sidebar-link-padding-left-level2;
 
-      & > .paper-sidebar__link {
+      > .paper-sidebar__link {
         // точка на линии
         &:before {
           content: '';
@@ -196,6 +198,7 @@
           left: sum($paper-sidebar-link-padding-left-level1);
         }
 
+        &:focus,
         &:hover {
           &:before {
             background: $paper-sidebar-dot-hover-bg;
@@ -213,13 +216,13 @@
     }
 
     &--level-3 {
-      & > .paper-sidebar__link {
+      > .paper-sidebar__link {
         padding-left: sum($paper-sidebar-link-padding-x, $paper-sidebar-link-padding-left-level3);
       }
     }
 
     &--level-4 {
-      & > .paper-sidebar__link {
+      > .paper-sidebar__link {
         padding-left: sum($paper-sidebar-link-padding-left-level3, $paper-sidebar-link-padding-left-level4);
       }
     }
