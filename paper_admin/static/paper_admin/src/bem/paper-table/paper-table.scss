@@ -8,6 +8,10 @@
   border-radius: $border-radius;
   border: $paper-table-border-width solid $paper-table-border-color;
 
+  &__small-column {
+    width: 0.5%;
+  }
+
   th,
   td {
     padding: $paper-table-cell-padding-y $paper-table-cell-padding-x;

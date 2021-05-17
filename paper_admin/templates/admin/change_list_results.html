@@ -12,6 +12,19 @@
   <table id="result_list"
          class="{% block table_classes %}paper-table table table-hover table-responsive-md mb-0 {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }}{% endblock %}"
          {% if cl.sortable %}data-order-url="{% url cl.opts|admin_urlname:'sort' %}"{% endif %}>
+    <colgroup>
+      {% if cl.has_actions %}
+        <col class="paper-table__small-column">
+        <col span="{{ result_headers|length|add:-1 }}">
+      {% else %}
+        <col span="{{ result_headers|length }}">
+      {% endif %}
+
+      {% if cl.model_admin.changelist_tools %}
+        <col class="paper-table__small-column">
+      {% endif %}
+    </colgroup>
+
     <thead>
     <tr>
       {% for header in result_headers %}

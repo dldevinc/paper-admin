@@ -15,12 +15,8 @@ class ResultList(admin_list.ResultList):
         self.attrs.update(attrs or {})
         self.has_add_permission = cl.model_admin.has_add_permission(cl.request)
         self.has_view_permission = cl.model_admin.has_view_permission(cl.request, obj)
-        self.has_change_permission = cl.model_admin.has_change_permission(
-            cl.request, obj
-        )
-        self.has_delete_permission = cl.model_admin.has_delete_permission(
-            cl.request, obj
-        )
+        self.has_change_permission = cl.model_admin.has_change_permission(cl.request, obj)
+        self.has_delete_permission = cl.model_admin.has_delete_permission(cl.request, obj)
 
         if hasattr(cl.model_admin, "get_row_classes"):
             self.row_classes = " ".join(

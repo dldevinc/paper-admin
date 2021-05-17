@@ -8,6 +8,7 @@ class PatchChangeList(ChangeList, metaclass=MonkeyPatchMeta):
     def __init__(self, request, *args, **kwargs):
         get_original(ChangeList)(self, request, *args, **kwargs)
         self.request = request
+        self.has_actions = bool(self.model_admin.get_actions(request))
 
     @property
     def pagination_required(self):
