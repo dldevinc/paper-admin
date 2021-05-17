@@ -45,10 +45,10 @@
       {% endfor %}
     {% endfor %}
 
-    <div class="btn-square-group btn-group btn-group-sm">
+    <div class="btn-square-group">
       {% if inline_form.show_url %}
         <a href="{{ inline_form.absolute_url }}"
-           class="btn btn-square"
+           class="btn btn-square btn-sm"
            data-toggle="tooltip"
            data-placement="bottom"
            data-trigger="hover"
@@ -62,7 +62,7 @@
 
       {% if inline_admin_formset.opts.sortable %}
         <button type="button"
-                class="sortable-move-up btn btn-square"
+                class="sortable-move-up btn btn-square btn-sm"
                 data-formset-toggle="up"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -73,7 +73,7 @@
         </button>
 
         <button type="button"
-                class="sortable-move-down btn btn-square"
+                class="sortable-move-down btn btn-square btn-sm"
                 data-formset-toggle="down"
                 data-toggle="tooltip"
                 data-placement="bottom"
@@ -85,7 +85,7 @@
       {% endif %}
 
       {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
-        <div class="delete-inline btn btn-square"
+        <div class="delete-inline btn btn-square btn-sm"
              data-toggle="tooltip"
              data-placement="bottom"
              data-trigger="hover"
@@ -102,7 +102,7 @@
 
       {% if not inline_form.original and not inline_form.show_url %}
         <button type="button"
-                class="btn btn-square"
+                class="btn btn-square btn-sm"
                 data-formset-toggle="delete"
                 data-toggle="tooltip"
                 data-placement="bottom"

@@ -6,11 +6,11 @@
   {% block links %}{% spaceless %}
     {% if not is_hidden %}
       {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
-        <div class="related-widget-wrapper__buttons btn-square-group btn-group">
+        <div class="related-widget-wrapper__buttons btn-square-group">
 
           {% if can_add_related %}
             <a id="add_id_{{ name }}"
-               class="btn btn-square related-widget-wrapper__link add-related"
+               class="related-widget-wrapper__link add-related btn btn-square btn-sm"
                href="{{ add_related_url }}?{{ url_params }}"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
                 <i class="fa fa-plus text-success"></i>
@@ -19,7 +19,7 @@
 
           {% if can_view_related or can_change_related %}
             <a id="change_id_{{ name }}"
-               class="btn btn-square related-widget-wrapper__link change-related"
+               class="related-widget-wrapper__link change-related btn btn-square btn-sm"
                data-href-template="{{ change_related_template_url }}?{{ url_params }}"
                {% if can_change_related %}
                 title="{% blocktrans %}Change selected {{ model }}{% endblocktrans %}">
@@ -32,7 +32,7 @@
 
           {% if can_delete_related %}
             <a id="delete_id_{{ name }}"
-               class="btn btn-square related-widget-wrapper__link delete-related"
+               class="related-widget-wrapper__link delete-related btn btn-square btn-sm"
                data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
                 <i class="fa fa-trash text-danger"></i>

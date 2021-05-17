@@ -11,14 +11,12 @@
   line-height: 1;
   text-align: center;
 
-  .btn-group-lg > &,
   &.btn-lg {
     width: $btn-square-size-lg;
     height: $btn-square-size-lg;
     font-size: $btn-square-icon-size-lg;
   }
 
-  .btn-group-sm > &,
   &.btn-sm {
     width: $btn-square-size-sm;
     height: $btn-square-size-sm;

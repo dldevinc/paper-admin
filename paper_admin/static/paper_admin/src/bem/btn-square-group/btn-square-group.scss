@@ -1,8 +1,15 @@
 @import "css/env";
 
 .btn-square-group {
+  display: inline-flex;
+  vertical-align: middle;
+
   > .btn {
     border-color: $btn-square-group-border-color;
+
+    &:focus {
+      z-index: 1;
+    }
 
     &:not(:disabled):hover,
     &:not(.disabled):hover {

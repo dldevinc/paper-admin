@@ -1,10 +1,10 @@
 {% load i18n admin_urls %}
 
 
-<div class="btn-square-group btn-group btn-group-sm">
+<div class="btn-square-group">
   {% with absolute_url=result.obj.get_absolute_url %}
     {% if not cl.is_popup and cl.model_admin.view_on_site and absolute_url %}
-      <a href="{{ absolute_url }}" class="btn btn-square"
+      <a href="{{ absolute_url }}" class="btn btn-square btn-sm"
          data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
          data-html="true" title="{% trans 'View on site' %}"
          target="_blank" rel="noopener">
@@ -15,7 +15,7 @@
 
   {% if not cl.is_popup and result.has_view_permission and cl.model_admin.object_history %}
     {% url cl.opts|admin_urlname:'history' result.obj.pk|admin_urlquote as history_url %}
-    <a href="{{ history_url }}" class="btn btn-square"
+    <a href="{{ history_url }}" class="btn btn-square btn-sm"
        data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
        data-html="true" title="{% trans 'History' %}">
       <i class="fa fa-history text-info"></i>
@@ -24,7 +24,7 @@
 
   {% if result.has_delete_permission %}
     {% url cl.opts|admin_urlname:'delete' result.obj.pk|admin_urlquote as delete_url %}
-    <a href="{{ delete_url }}" class="btn btn-square"
+    <a href="{{ delete_url }}" class="btn btn-square btn-sm"
        data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
        data-html="true" title="{% trans 'Delete' %}">
       <i class="fa fa-trash text-danger"></i>
