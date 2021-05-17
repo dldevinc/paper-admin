@@ -25,14 +25,6 @@
     font-size: $btn-square-icon-size-sm;
   }
 
-  &:focus,
-  &.focus,
-  &:not(:disabled):not(.disabled):active:focus,
-  &:not(:disabled):not(.disabled).active:focus {
-    border-color: $input-focus-border-color !important;
-    box-shadow: $input-focus-box-shadow;
-  }
-
   &.disabled,
   &:disabled {
     opacity: 1;

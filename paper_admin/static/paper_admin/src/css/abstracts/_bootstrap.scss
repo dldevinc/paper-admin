@@ -20,6 +20,8 @@ $dark:        #1d1d1d;
 $body-bg:     #f8f8fa;
 $body-color:  $dark;
 
+$border-radius-sm: 0.25rem;
+
 // text
 $font-size-base:  0.875rem;
 $font-size-lg:    1rem;
@@ -62,11 +64,16 @@ $hr-border-color: $gray-200;
 $grid-gutter-width: 1rem;
 
 // buttons
+$btn-padding-y: 0.4375rem;
 $btn-padding-x: 1rem;
+$btn-padding-y-sm: 0.3125rem;
 $btn-padding-x-sm: 0.75rem;
+$btn-padding-y-lg: 0.5625rem;
 $btn-padding-x-lg: 1.25rem;
 $btn-font-size-sm: 0.875rem;
 $btn-line-height-sm: 20 / 14;
+$btn-border-width: 0;
+$btn-focus-box-shadow: 0 0 0 2px $input-focus-border-color;
 
 // text
 $text-muted: #9a9a9a;

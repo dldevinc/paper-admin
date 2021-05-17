@@ -11,15 +11,13 @@
   }
 }
 
-@each $name, $value in $paper-border-colors {
-  @if map-has-key($paper-border-colors, $name) {
-    .table-#{$name} .btn-square-group > .btn {
-      border-color: map-get($paper-border-colors, $name);
+@each $color, $value in $theme-colors {
+  $background: theme-color-level($color, $table-bg-level);
 
-      &:not(:disabled):hover,
-      &:not(.disabled):hover {
-        background-color: map-get($paper-bg-colors, $name);
-      }
+  .table-#{$color} .btn-square-group > .btn {
+    &:not(:disabled):hover,
+    &:not(.disabled):hover {
+      background-color: saturate(darken($background, 5%), 5%);
     }
   }
 }
