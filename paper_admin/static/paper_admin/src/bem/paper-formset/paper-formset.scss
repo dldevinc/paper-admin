@@ -25,17 +25,7 @@
 
 
   &--stacked {
-    .card-header-tools {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
 
-    .card-title {
-      margin: 0;
-      padding-right: 1.6rem;
-    }
   }
 
   &--tabular {
