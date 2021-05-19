@@ -167,7 +167,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     )
     tabs = [
         ("tab1", _("Related Fields")),
-        ("tab2", _("Standart Fields")),
+        ("tab2", _("Standard Fields")),
         ("tab3", _("File Fields")),
         ("tab4", _("Inlines")),
         ("tab5", _("Django Autocomplete Light")),
