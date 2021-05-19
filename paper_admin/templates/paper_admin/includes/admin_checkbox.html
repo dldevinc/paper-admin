@@ -1,7 +1,7 @@
 {% extends 'paper_admin/includes/admin_field.html' %}
 
 {% block label %}
-  <div class="col-md-3 col-xl-2 d-none d-md-block">{% spaceless %}
+  <div class="col-md-3 col-xxl-2 d-none d-md-block">{% spaceless %}
     <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
 
     {% if field.help_text %}
@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block widget %}
-  <div class="col-md-9 col-xl-10">
+  <div class="col-md-9 col-xxl-10">
     <div class="paper-widget paper-widget--checkbox{% if field.errors %} paper-widget--invalid{% endif %}">
       {{ field }}
       <div class="d-inline-block d-md-none ml-1">{% spaceless %}
