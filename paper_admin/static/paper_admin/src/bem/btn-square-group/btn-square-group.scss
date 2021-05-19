@@ -7,6 +7,10 @@
   > .btn {
     border-color: $btn-square-group-border-color;
 
+    &:not(:last-child) {
+      margin-right: $btn-square-group-gutter-width;
+    }
+
     &:focus {
       z-index: 1;
     }
