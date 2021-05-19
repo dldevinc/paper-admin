@@ -15,7 +15,8 @@ class TimeWidget extends Widget {
                 const input = widget && widget.querySelector("input");
                 if (input) {
                     const today = new Date();
-                    input.value = today.getHours() + ":" + today.getMinutes();
+                    input.value = today.getHours().toString().padStart(2, "0")
+                        + ":" + today.getMinutes().toString().padStart(2, "0");
                 }
             }
         });
