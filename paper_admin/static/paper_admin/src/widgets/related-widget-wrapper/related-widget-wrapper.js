@@ -28,8 +28,7 @@ function setRelatedObjectLinks(widget, objId) {
 
 document.addEventListener("change", function(event) {
     const widget = event.target.closest(".related-widget-wrapper");
-
-    const triggeringSelect = widget.querySelector("select");
+    const triggeringSelect = widget && widget.querySelector("select");
     if (triggeringSelect) {
         const jQueryEvent = $.Event("django:update-related");
         $(triggeringSelect).trigger(jQueryEvent);
