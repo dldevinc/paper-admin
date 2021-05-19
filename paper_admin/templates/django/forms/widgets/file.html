@@ -1,4 +1,8 @@
-<div class="file-field custom-file">
-  {% include "django/forms/widgets/input.html" %}
-  <label for="{{ widget.attrs.id }}" class="custom-file-label">{{ _('Choose file') }}</label>
-</div>
+{% if widget.is_hidden %}
+  {% include "django/forms/widgets/hidden.html" %}
+{% else %}
+  <div class="file-field custom-file">
+    {% include "django/forms/widgets/input.html" %}
+    <label for="{{ widget.attrs.id }}" class="custom-file-label">{{ _('Choose file') }}</label>
+  </div>
+{% endif %}

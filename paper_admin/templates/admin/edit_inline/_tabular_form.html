@@ -10,10 +10,7 @@
               <div class="readonly">{{ field.contents }}</div>
             {% else %}
               <div class="position-relative">
-                <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}{% if is_prepopulated %} prepopulated-field{% endif %}"
-                     {% if is_prepopulated %}
-                     data-prepopulate-field-name="{{ field.name }}"
-                     {% endif %}>
+                <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}{% if is_prepopulated %} prepopulated-field{% endif %}"{% if is_prepopulated %} data-prepopulate-field-name="{{ field.name }}"{% endif %}>
                   {{ field }}
                 </div>
 

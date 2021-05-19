@@ -1,13 +1,17 @@
-<div class="email-field input-group">
-  {% include "django/forms/widgets/input.html" %}
+{% if widget.is_hidden %}
+  {% include "django/forms/widgets/hidden.html" %}
+{% else %}
+  <div class="email-field input-group">
+    {% include "django/forms/widgets/input.html" %}
 
-  <div class="input-group-append">
-    <a class="email-field__link input-group-text text-decoration-none"
-       {% if widget.value %}href="mailto:{{ widget.value }}"{% endif %}
-       target="_blank" rel="noopener" tabindex="-1"
-       data-toggle="tooltip" data-placement="top" data-trigger="hover"
-       data-html="true" title="{{ _('Send mail') }}">
-      <i class="fa fa-envelope-o"></i>
-    </a>
+    <div class="input-group-append">
+      <a class="email-field__link input-group-text text-decoration-none"
+         {% if widget.value %}href="mailto:{{ widget.value }}"{% endif %}
+         target="_blank" rel="noopener" tabindex="-1"
+         data-toggle="tooltip" data-placement="top" data-trigger="hover"
+         data-html="true" title="{{ _('Send mail') }}">
+        <i class="fa fa-envelope-o"></i>
+      </a>
+    </div>
   </div>
-</div>
+{% endif %}
