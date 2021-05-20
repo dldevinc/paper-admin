@@ -9,7 +9,7 @@ class Config(AppConfig):
         from dal.widgets import WidgetMixin
         from dal_select2.widgets import Select2WidgetMixin
 
-        from ...monkey_patch import extend_class
+        from paper_admin.monkey_patch import extend_class
         from . import widgets
 
         extend_class(WidgetMixin, widgets.WidgetMixin)
