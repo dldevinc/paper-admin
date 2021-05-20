@@ -9,11 +9,11 @@
   margin-top: -0.25rem;
   margin-left: .125rem;
   color: $gray-600;
-  line-height: 1;
+  font-size: inherit;
   border-radius: $btn-border-radius-sm;
 
   &.has-prior {
-    padding-right: 1rem;
+    padding-right: 0.875rem;
   }
 
   &:hover {
