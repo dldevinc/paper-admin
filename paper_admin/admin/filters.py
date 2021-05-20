@@ -15,7 +15,7 @@ class SimpleListFilter(filters.ListFilter):
     Отличия от стандартного `SimpleListFilter`:
     1) Используется `request.GET.getlist()` вместо `request.GET.get()`, что позволяет
        указывать несколько значений.
-    2) Более универсальный формат `choice`-обекта.
+    2) Более универсальный формат `choice`-объекта.
     """
     # The parameter that should be used in the query string for that filter.
     parameter_name = None
