@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <fieldset class="paper-formset__form paper-card card mb-3{% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
-  <div class="card-header">
+  <div class="card-header py-2">
     <div class="d-flex align-items-center justify-content-between flex-wrap">
       <h4 class="paper-formset__form-caption card-title inline-label pr-4 mb-0">
         {% if inline_form.original %}
