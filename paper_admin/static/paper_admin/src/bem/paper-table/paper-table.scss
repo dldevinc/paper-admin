@@ -47,14 +47,21 @@
     cursor: move;
     color: $paper-table-sort-handler-color;
     border-right: $paper-table-border-width solid $paper-table-border-color;
+    transition: color 0.3s;
 
-    &:hover {
-      color: $paper-table-sort-handler-hover-color;
+    &.disabled {
+      color: $paper-table-sort-handler-disabled-color;
     }
 
     @at-root
-    tr.disabled & {
+    tr.disabled &,
+    &.disabled {
       cursor: default;
+    }
+
+    @at-root
+    tr:not(.disabled) &:not(.disabled):hover {
+      color: $paper-table-sort-handler-hover-color;
     }
   }
 
@@ -152,13 +159,8 @@
         background-color: $paper-table-sortable-ghost-bg !important;
       }
 
-      &.highlight {
-        transition: background-color 0s 0s;
-        background-color: $paper-table-sortable-highlight-bg;
-      }
-
       &.disabled {
-        opacity: 0.25;
+        opacity: 0.3;
       }
     }
   }
