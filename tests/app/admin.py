@@ -5,15 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
-from paper_admin.admin import (
-    SortableAdminMixin,
-    SortableMPTTModelAdmin,
-    SortableStackedInline,
-    SortableTabularInline,
-)
 from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
 
-from .models import Category, Item, SigletonExample, Tree, Tag
+from .models import Category, Item, SigletonExample, Tag, Tree
 
 
 @admin.register(Tag)
@@ -44,13 +38,14 @@ class ItemForm(forms.ModelForm):
             self.add_error("name", _("One more field error"))
 
 
-class ItemStackedInlines(SortableStackedInline):
+class ItemStackedInlines(admin.StackedInline):
     form = ItemForm
     model = Item
     extra = 1
     min_num = 1
     max_num = 5
     tab = "tab4"
+    sortable = "order"
     readonly_fields = ("readonly", )
     verbose_name_plural = _("Stacked Items")
     classes = ("dummy-inline", )
@@ -59,12 +54,13 @@ class ItemStackedInlines(SortableStackedInline):
     }
 
 
-class ItemTablularInlines(SortableTabularInline):
+class ItemTablularInlines(admin.TabularInline):
     form = ItemForm
     model = Item
     tab = "tab4"
-    fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     extra = 1
+    sortable = "order"
+    fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
     prepopulated_fields = {
@@ -119,7 +115,7 @@ unset_bool_action.short_description = _("Unset bool for selected %(verbose_name_
 
 
 @admin.register(Category)
-class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (_("Related fields"), {
             "tab": "tab1",
@@ -177,6 +173,7 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
         unset_bool_action
     ]
     form = CategoryForm
+    sortable = "order"
     list_per_page = 15
     list_max_show_all = 500
     autocomplete_fields = ["f_fk1", "f_tags5"]
@@ -207,15 +204,15 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     def get_row_classes(self, request, obj=None):
         classes = super().get_row_classes(request, obj)
-        if obj.f_char.startswith("G"):
+        if obj.f_char.startswith("M"):
             classes.append("table-success")
-        elif obj.f_char.startswith("R"):
+        elif obj.f_char.startswith("P"):
             classes.append("table-info")
         return classes
 
 
 @admin.register(Tree)
-class TreeAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
+class TreeAdmin(MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
@@ -223,6 +220,7 @@ class TreeAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
             ),
         }),
     )
+    sortable = "order"
 
 
 @admin.register(SigletonExample)

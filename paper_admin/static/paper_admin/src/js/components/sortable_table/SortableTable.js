@@ -1,6 +1,6 @@
 /**
  * Таблица с возможностью сортировки строк.
- * Каждая строка должна иметь атрибут data-id.
+ * Каждая строка должна иметь атрибуты data-id и data-order-value.
  * В случае, если строки представляют дерево, то еще необходим атрибут data-parent.
  * @module SortableTable
  */
@@ -109,7 +109,7 @@ SortableTable.prototype._onEnd = function(evt) {
     }.bind(this));
 
     let moved = this._getMovedRows(evt);
-    if (!moved.length) {
+    if (!moved.length || (moved.length === 1)) {
         return
     }
 
@@ -160,11 +160,11 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
         const handle = row.querySelector(this.opts.handler);
         if (handle) {
             pk_array.push(parseInt(row.dataset.id));
-            order_array.push(parseInt(handle.dataset.order));
+            order_array.push(parseInt(row.dataset.orderValue));
         }
     }.bind(this));
 
-    // циклический сдвиг значений order
+    // циклический сдвиг значений сортировки
     const movedDown = evt.oldIndex < evt.newIndex;
     if (movedDown) {
         order_array.unshift(order_array.pop());
@@ -175,9 +175,9 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
     return pk_array.reduce(function(result, pk, i) {
         result[pk] = order_array[i];
 
-        // обновляем атрибут order
+        // обновляем атрибут data-order-value
         const row = this.tbody.querySelector("tr[data-id='"+pk+"']");
-        row.querySelector(this.opts.handler).setAttribute("data-order", order_array[i]);
+        row.setAttribute("data-order-value", order_array[i]);
 
         return result;
     }.bind(this), {});

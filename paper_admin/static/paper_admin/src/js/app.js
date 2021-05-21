@@ -70,7 +70,6 @@ import "bem/paper-form/paper-form";
 // ---------------
 import "css/dashboard.scss";
 import "css/login.scss";
-import "css/changelist.scss";
 
 // ---------------
 //  Images

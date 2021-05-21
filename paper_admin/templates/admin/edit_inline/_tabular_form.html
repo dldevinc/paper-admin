@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<tr class="paper-formset__form {% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.opts.sortable %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
+<tr class="paper-formset__form {% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.sortable_allowed %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
   {% for fieldset in inline_form %}
     {% for admin_field in fieldset %}
       {% with field=admin_field.field is_readonly=admin_field.is_readonly is_prepopulated=admin_field.is_prepopulated %}
@@ -57,7 +57,7 @@
         </a>
       {% endif %}
 
-      {% if inline_admin_formset.opts.sortable %}
+      {% if inline_admin_formset.sortable_allowed %}
         <button type="button"
                 class="sortable-move-up btn btn-square btn-sm"
                 data-formset-toggle="up"

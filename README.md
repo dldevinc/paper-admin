@@ -46,21 +46,41 @@ INSTALLED_APPS = [
 **Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
 которые они исправляют.
 
-## Sortable admin objects
+## Sort table of content with drag and drop
+
+Для того, чтобы экземпляры модели можно было сортировать в интерфейсе администратора,
+необходимо выполнить два условия.
+
+1. Добавить в модель *числовое* поле, которое будет хранить 
+   порядковый номер.
 
 ```python
-from paper_admin.admin.sortable import SortableAdminMixin, SortableTabularInline
+from django.db import models
 
+class MyModel(models.Model):
+    order = models.IntegerField(
+        "order", 
+        default=0,
+        editable=False  # опционально
+    )
+```
 
-class TablularInline(SortableTabularInline):
+2. Указать название поля в свойстве `sortable`. Это работает как 
+   с инлайн-формами, так и с подклассами `ModelAdmin`.
+
+```python
+from django.contrib import admin
+
+class TablularInline(admin.TabularInline):
     sortable = 'order'
     # ...
 
 
-class MyModelAdmin(SortableAdminMixin, admin.ModelAdmin):
+class MyModelAdmin(admin.ModelAdmin):
     sortable = 'order'
     # ...
 ```
+
 
 ## Tabs
 Поля формы можно разделить на вкладки:

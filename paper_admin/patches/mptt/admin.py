@@ -1,27 +1,39 @@
-import sys
-
+from django import forms
 from django.urls import reverse
+from mptt.admin import MPTTModelAdmin
 
-from paper_admin.admin.sortable import SortableAdminMixin
+from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
+
+# Метакласс MonkeyPatch для класса BaseModelAdmin.
+MediaDefiningMonkeyPatchMeta = type("MediaDefiningMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
-class SortableMPTTModelAdmin(SortableAdminMixin):
+class PatchMPTTModelAdmin(MPTTModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
     """
     Фиксы для MPTTModelAdmin.
 
     https://github.com/darklow/django-suit/issues/381
     """
-
-    list_per_page = sys.maxsize
-    mptt_indent_field = "__str__"  # default for mptt
+    list_per_page = 2000
     mptt_level_indent = 14
 
-    def get_ordering(self, request):
-        mptt_opts = self.model._mptt_meta
-        return mptt_opts.tree_id_attr, mptt_opts.left_attr, self.sortable
+    def get_changelist(self, request, **kwargs):
+        base_changelist_class = get_original(MPTTModelAdmin)(self, request, **kwargs)
 
-    def _update_order(self, reorder_dict):
-        super()._update_order(reorder_dict)
+        class ChangeList(base_changelist_class):
+            def get_ordering(self, request, queryset):
+                ordering = super().get_ordering(request, queryset) or []
+
+                if self.sortable_allowed:
+                    mptt_opts = self.model._mptt_meta
+                    ordering = [mptt_opts.tree_id_attr, mptt_opts.left_attr] + ordering
+
+                return ordering
+
+        return ChangeList
+
+    def _set_order(self, order_dict):
+        get_original(MPTTModelAdmin)(self, order_dict)
         self.model._default_manager.rebuild()
 
     def is_bulk_edit(self, request):
@@ -36,12 +48,12 @@ class SortableMPTTModelAdmin(SortableAdminMixin):
         )
 
     def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
+        get_original(MPTTModelAdmin)(self, request, obj, form, change)
         if not self.is_bulk_edit(request):
             self.model._default_manager.rebuild()
 
     def changelist_view(self, request, extra_context=None):
-        response = super().changelist_view(request, extra_context)
+        response = get_original(MPTTModelAdmin)(self, request, extra_context)
         if self.is_bulk_edit(request):
             self.model._default_manager.rebuild()
         return response

@@ -3,10 +3,13 @@
 ## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-04-29
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
-- Removed scroll-to-top button.
-- `CustomCheckboxInput` renamed to `AdminCheckboxInput`.
-- `CustomRadioSelect` renamed to `AdminRadioSelect`.
-- `CustomCheckboxSelectMultiple` renamed to `AdminCheckboxSelectMultiple`.
+- Scroll-to-top button has been removed.
+- `CustomCheckboxInput` has been renamed to `AdminCheckboxInput`.
+- `CustomRadioSelect` has been renamed to `AdminRadioSelect`.
+- `CustomCheckboxSelectMultiple` has been renamed to `AdminCheckboxSelectMultiple`.
+- `SortableAdminBaseMixin`, `SortableInlineBaseMixin`, `SortableStackedInline`, 
+  `SortableTabularInline`, `SortableAdminMixin` has been removed. Just add `sortable`
+  property to your regular admin models.
 ### Features
 - Added `PAPER_FAVICON` setting.
 - Added autofocus on login page.

@@ -3,13 +3,13 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$216000$rDDuZzrfOX0V$9tQEmwO+g0dfpA2OLla2RyNnW7EJ5zEnN3XaUZOroxs=",
-    "last_login": "2021-04-12T09:23:36.326Z",
+    "password": "pbkdf2_sha256$120000$mda4uGGPhJjH$UKevsIwWBc8VdJ72fqjo42RRwywHgd3AUUWjXBjX+mc=",
+    "last_login": "2021-05-17T04:46:27.745Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
     "last_name": "",
-    "email": "",
+    "email": "x896321475@gmail.com",
     "is_staff": true,
     "is_active": true,
     "date_joined": "2019-08-27T08:52:00Z",
@@ -264,7 +264,7 @@
     "f_fk2": 1,
     "f_fk3": 4,
     "f_bool": true,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 9,
     "f_int_choices": 1,
@@ -274,15 +274,15 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-04-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:50:00",
+    "f_datetime": "2021-05-21T11:50:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Gold",
-    "f_slug": "gold-0",
+    "f_char": "MongoDB",
+    "f_slug": "mongodb-0",
     "f_email": "",
     "f_pass": "",
     "f_ip": null,
@@ -332,7 +332,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": false,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -342,15 +342,15 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:51:00",
+    "f_datetime": "2021-05-21T11:51:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Milk",
-    "f_slug": "milk-0",
+    "f_char": "Excel",
+    "f_slug": "excel-0",
     "f_email": "",
     "f_pass": "",
     "f_ip": null,
@@ -383,14 +383,17 @@
       5,
       4
     ],
-    "dal_m2m": []
+    "dal_m2m": [
+      29,
+      25
+    ]
   }
 },
 {
   "model": "app.category",
   "pk": 3,
   "fields": {
-    "f_fk": 3,
+    "f_fk": 12,
     "f_o2o": 1,
     "f_fk1": 9,
     "f_fk2": 5,
@@ -401,7 +404,7 @@
     "f_small_int": 1237,
     "f_int_choices": 3,
     "f_int_choices2": 4,
-    "f_int": 3898,
+    "f_int": 3897,
     "f_bigint": 124564564,
     "f_float": 14.5,
     "f_decimal": "5.50",
@@ -426,21 +429,24 @@
     "f_image": "category/700x487.jpg",
     "f_char_ro": "",
     "f_int_ro": 0,
-    "f_text_ro": "",
+    "f_text_ro": "Readonly content",
     "dal_fk": 31,
-    "order": 1,
+    "order": 4,
     "f_tags": [
       8,
       1,
       7
     ],
     "f_tags1": [
+      8,
       5,
       9,
       7
     ],
     "f_tags2": [
-      5
+      8,
+      5,
+      24
     ],
     "f_tags3": [
       1,
@@ -471,7 +477,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": true,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -481,14 +487,14 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:49:00",
+    "f_datetime": "2021-05-21T11:49:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Valve",
+    "f_char": "PostgreSQL",
     "f_slug": "valve-0",
     "f_email": "",
     "f_pass": "",
@@ -503,7 +509,7 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 4,
+    "order": 1,
     "f_tags": [
       1
     ],
@@ -520,7 +526,76 @@
     "f_tags5": [
       4
     ],
-    "dal_m2m": []
+    "dal_m2m": [
+      20
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 5,
+  "fields": {
+    "f_fk": 32,
+    "f_o2o": null,
+    "f_fk1": null,
+    "f_fk2": null,
+    "f_fk3": null,
+    "f_bool": false,
+    "f_bool2": true,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:53:00",
+    "f_datetime": "2021-05-21T11:53:00Z",
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "MySQL",
+    "f_slug": "mysql-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "dal_fk": null,
+    "order": 5,
+    "f_tags": [
+      31,
+      10
+    ],
+    "f_tags1": [],
+    "f_tags2": [
+      26
+    ],
+    "f_tags3": [
+      29,
+      9
+    ],
+    "f_tags4": [
+      12,
+      23
+    ],
+    "f_tags5": [
+      21
+    ],
+    "dal_m2m": [
+      8
+    ]
   }
 },
 {
@@ -531,9 +606,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Billy",
+    "age": 18,
     "slug": "billy",
     "url": "",
     "text": "",
+    "visible": true,
+    "created_at": null,
     "order": 0
   }
 },
@@ -545,9 +623,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Jonny",
+    "age": 18,
     "slug": "jonny",
     "url": "",
     "text": "",
+    "visible": true,
+    "created_at": null,
     "order": 1
   }
 },
@@ -559,9 +640,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "one",
+    "age": 18,
     "slug": "one",
     "url": "",
     "text": "",
+    "visible": true,
+    "created_at": null,
     "order": 0
   }
 },
@@ -573,10 +657,13 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Sunny",
+    "age": 18,
     "slug": "sunny",
     "url": "",
     "text": "",
-    "order": 1
+    "visible": true,
+    "created_at": null,
+    "order": 0
   }
 },
 {
@@ -587,9 +674,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "One",
+    "age": 18,
     "slug": "one",
     "url": "",
     "text": "",
+    "visible": true,
+    "created_at": null,
     "order": 0
   }
 },
@@ -601,10 +691,13 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Funny",
-    "slug": "funny",
+    "age": 18,
+    "slug": "error",
     "url": "",
     "text": "",
-    "order": 0
+    "visible": true,
+    "created_at": null,
+    "order": 2
   }
 },
 {
@@ -615,10 +708,30 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Banny",
+    "age": 18,
     "slug": "banny",
     "url": "",
     "text": "",
-    "order": 2
+    "visible": true,
+    "created_at": null,
+    "order": 1
+  }
+},
+{
+  "model": "app.item",
+  "pk": 11,
+  "fields": {
+    "category": 5,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Propeller",
+    "age": 18,
+    "slug": "propeller-18",
+    "url": "",
+    "text": "",
+    "visible": true,
+    "created_at": null,
+    "order": 0
   }
 },
 {

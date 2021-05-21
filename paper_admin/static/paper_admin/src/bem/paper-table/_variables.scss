@@ -18,3 +18,12 @@ $paper-table-head-text-transform: uppercase !default;
 $paper-table-head-bg: null !default;
 $paper-table-head-border-width: 1px !default;
 $paper-table-head-border-color: $gray-300 !default;
+
+$paper-table-sort-btn-color: $gray-600 !default;
+$paper-table-sort-btn-border-radius: 0.125rem !default;
+
+$paper-table-sort-handler-width: 1.25rem !default;
+$paper-table-sort-handler-color: $gray-400 !default;
+$paper-table-sort-handler-hover-color: $gray-800 !default;
+$paper-table-sortable-ghost-bg: theme-color-level('warning', -10) !default;
+$paper-table-sortable-highlight-bg: theme-color-level('info', -10) !default;
