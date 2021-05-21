@@ -32,6 +32,19 @@ class Select2Widget extends Widget {
             });
             element.dispatchEvent(event)
         });
+
+        /*
+         * Hacky fix for a bug in select2 with jQuery 3.6.0's new nested-focus "protection"
+         * see: https://github.com/select2/select2/issues/5993
+         * see: https://github.com/jquery/jquery/issues/4382
+         *
+         * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
+         */
+        $(element).on("select2:open", function() {
+            const instance = $(this).data("select2");
+            const searchField = instance.$dropdown.get(0).querySelector(".select2-search__field");
+            searchField && searchField.focus();
+        });
     }
 
     _destroy(element) {
@@ -42,8 +55,7 @@ class Select2Widget extends Widget {
 
 // TODO: relocate everything below
 const select2_changeform = new Select2Widget({
-    width: "",
-    minimumResultsForSearch: Infinity
+    width: ""
 });
 select2_changeform.observe(".paper-form .select-field select");
 select2_changeform.initAll(".paper-form .select-field select");
@@ -51,8 +63,7 @@ select2_changeform.initAll(".paper-form .select-field select");
 
 const select2_changelist = new Select2Widget({
     width: "",
-    theme: "sm",
-    minimumResultsForSearch: Infinity
+    theme: "sm"
 });
 select2_changelist.observe(".paper-table .select-field select");
 select2_changelist.initAll(".paper-table .select-field select");
