@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     "mptt",
     "solo",
     "logentry_admin",
+
     "app",
+    "sortables"
 ]
 
 MIDDLEWARE = [
@@ -116,6 +118,8 @@ FILE_UPLOAD_PERMISSIONS = 0o666
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+MPTT_DEFAULT_LEVEL_INDICATOR = "┄"
+
 # =============
 #  Paper Admin
 # =============
@@ -153,6 +157,13 @@ PAPER_MENU = [
                 perms="app.category_add"
             ),
             "Tree",
+        ]
+    ),
+    dict(
+        app="sortables",
+        models=[
+            "Company",
+            "Category"
         ]
     ),
     "-",

@@ -134,10 +134,7 @@ class Category(models.Model):
         help_text=HELP_TEXT
     )
 
-    order = models.PositiveIntegerField(_("order"), default=0, editable=False)
-
     class Meta:
-        ordering = ["order"]
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 
@@ -159,10 +156,8 @@ class Item(models.Model):
     text = models.TextField(_("text"), blank=True)
     visible = models.BooleanField(_("visible"), default=True)
     created_at = models.DateTimeField(_("date"), null=True, blank=True, help_text=HELP_TEXT)
-    order = models.IntegerField(_("order"), default=0)
 
     class Meta:
-        ordering = ["order"]
         verbose_name = _("item")
         verbose_name_plural = _("items")
 
@@ -178,15 +173,10 @@ class Tree(MPTTModel):
     parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
     number = models.IntegerField(_("number"), default=7)
-    order = models.PositiveIntegerField(_("order"), default=0, editable=False)
 
     class Meta:
-        ordering = ["order"]
         verbose_name = _("tree")
         verbose_name_plural = _("tree")
-
-    class MPTTMeta:
-        order_insertion_by = ["order"]
 
     def __str__(self):
         return self.name

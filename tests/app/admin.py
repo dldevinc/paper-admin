@@ -45,7 +45,6 @@ class ItemStackedInlines(admin.StackedInline):
     min_num = 1
     max_num = 5
     tab = "tab4"
-    sortable = "order"
     readonly_fields = ("readonly", )
     verbose_name_plural = _("Stacked Items")
     classes = ("dummy-inline", )
@@ -59,7 +58,6 @@ class ItemTablularInlines(admin.TabularInline):
     model = Item
     tab = "tab4"
     extra = 1
-    sortable = "order"
     fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
@@ -173,7 +171,6 @@ class CategoryAdmin(admin.ModelAdmin):
         unset_bool_action
     ]
     form = CategoryForm
-    sortable = "order"
     list_per_page = 15
     list_max_show_all = 500
     autocomplete_fields = ["f_fk1", "f_tags5"]
@@ -220,7 +217,6 @@ class TreeAdmin(MPTTModelAdmin):
             ),
         }),
     )
-    sortable = "order"
 
 
 @admin.register(SigletonExample)

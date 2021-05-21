@@ -296,7 +296,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": 9,
-    "order": 2,
     "f_tags": [
       3
     ],
@@ -364,7 +363,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 3,
     "f_tags": [
       3
     ],
@@ -431,7 +429,6 @@
     "f_int_ro": 0,
     "f_text_ro": "Readonly content",
     "dal_fk": 31,
-    "order": 4,
     "f_tags": [
       8,
       1,
@@ -509,7 +506,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 1,
     "f_tags": [
       1
     ],
@@ -573,7 +569,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 5,
     "f_tags": [
       31,
       10
@@ -611,8 +606,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 0
+    "created_at": null
   }
 },
 {
@@ -628,8 +622,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 1
+    "created_at": null
   }
 },
 {
@@ -645,8 +638,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 0
+    "created_at": null
   }
 },
 {
@@ -662,8 +654,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 0
+    "created_at": null
   }
 },
 {
@@ -679,8 +670,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 0
+    "created_at": null
   }
 },
 {
@@ -696,8 +686,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 2
+    "created_at": null
   }
 },
 {
@@ -713,8 +702,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 1
+    "created_at": null
   }
 },
 {
@@ -730,8 +718,7 @@
     "url": "",
     "text": "",
     "visible": true,
-    "created_at": null,
-    "order": 0
+    "created_at": null
   }
 },
 {
@@ -742,7 +729,6 @@
     "parent": null,
     "name": "Adam",
     "number": 7,
-    "order": 2,
     "lft": 1,
     "rght": 2,
     "tree_id": 2,
@@ -757,7 +743,6 @@
     "parent": null,
     "name": "Eve",
     "number": 2,
-    "order": 1,
     "lft": 1,
     "rght": 8,
     "tree_id": 1,
@@ -772,7 +757,6 @@
     "parent": 2,
     "name": "Isaak",
     "number": 2,
-    "order": 3,
     "lft": 2,
     "rght": 5,
     "tree_id": 1,
@@ -787,7 +771,6 @@
     "parent": 3,
     "name": "Yakov",
     "number": 3,
-    "order": 4,
     "lft": 3,
     "rght": 4,
     "tree_id": 1,
@@ -802,7 +785,6 @@
     "parent": 2,
     "name": "Ilia",
     "number": 54,
-    "order": 5,
     "lft": 6,
     "rght": 7,
     "tree_id": 1,
