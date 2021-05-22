@@ -199,55 +199,7 @@
 
 
 {% block footer %}
-  <footer class="paper-footer">
-    <div class="container-fluid">
-      <div class="row">
-        {% block support %}
-          {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
-            <div class="col-auto flex-shrink-1">
-              <p class="mb-0">
-                {% trans 'Please contact us if you have any problems' %}
-              </p>
-
-              {% if paper.SUPPORT_PHONE or paper.SUPPORT_EMAIL %}
-                <div class="mt-1">
-                  {% if paper.SUPPORT_PHONE %}
-                    <a href="tel:{{ paper.SUPPORT_PHONE|phone2numeric }}" class="d-inline-block mr-3 mt-1 text-nowrap">
-                      <i class="fa fa-lg fa-phone"></i>
-                      <span>{{ paper.SUPPORT_PHONE }}</span>
-                    </a>
-                  {% endif %}
-
-                  {% if paper.SUPPORT_EMAIL %}
-                    <a href="mailto:{{ paper.SUPPORT_EMAIL }}" class="d-inline-block mt-1 text-nowrap">
-                      <i class="fa fa-lg fa-envelope-o"></i>
-                      <span>{{ paper.SUPPORT_EMAIL }}</span>
-                    </a>
-                  {% endif %}
-                </div>
-              {% endif %}
-            </div>
-          {% endif %}
-        {% endblock %}
-
-        {% block copyright %}
-          <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
-            &copy; {% now 'Y' %}
-            {% if paper.SUPPORT_COMPANY %}
-              {% if paper.SUPPORT_WEBSITE %}
-                <a href="{{ paper.SUPPORT_WEBSITE }}" title="{{ paper.SUPPORT_COMPANY }}">
-              {% endif %}
-
-              {{ paper.SUPPORT_COMPANY }}
-
-              {% if paper.SUPPORT_WEBSITE %}
-                </a>
-              {% endif %}
-            {% endif %}
-          </div>
-        {% endblock %}
-      </div>
-    </div>
-  </footer>
+  {% if not is_popup %}
+    {% include "paper_admin/footer.html" %}
+  {% endif %}
 {% endblock %}
-

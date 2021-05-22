@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<footer class="paper-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-auto flex-shrink-1">
+        <p class="mb-0">{% trans 'Please contact us if you have any problems' %}</p>
+
+        <div class="mt-1">
+          {% block phone %}
+            <a href="tel:+12345678900" class="d-inline-block mr-3 mt-1 text-nowrap">
+              <i class="fa fa-lg fa-phone"></i>
+              <span>+1 234 567 8900</span>
+            </a>
+          {% endblock %}
+
+          {% block email %}
+            <a href="mailto:office@company.com" class="d-inline-block mt-1 text-nowrap">
+              <i class="fa fa-lg fa-envelope-o"></i>
+              <span>office@company.com</span>
+            </a>
+          {% endblock %}
+        </div>
+      </div>
+
+      <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
+        <div class="text-muted">
+          {% blocktrans with version=paper.DJANGO_VERSION %}Django: {{ version }}{% endblocktrans %}
+        </div>
+
+        <div class="mt-1 mt-md-2 text-md-right text-muted">
+          &copy; {% now 'Y' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

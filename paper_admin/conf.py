@@ -1,15 +1,13 @@
+from django import get_version
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+
+DJANGO_VERSION = get_version()
 
 FAVICON = getattr(settings, "PAPER_FAVICON", "paper_admin/dist/assets/default_favicon.png")
 
 ENVIRONMENT_NAME = getattr(settings, "PAPER_ENVIRONMENT_NAME", "")
 ENVIRONMENT_COLOR = getattr(settings, "PAPER_ENVIRONMENT_COLOR", "")
-
-SUPPORT_PHONE = getattr(settings, "PAPER_SUPPORT_PHONE", None)
-SUPPORT_EMAIL = getattr(settings, "PAPER_SUPPORT_EMAIL", None)
-SUPPORT_COMPANY = getattr(settings, "PAPER_SUPPORT_COMPANY", None)
-SUPPORT_WEBSITE = getattr(settings, "PAPER_SUPPORT_WEBSITE", None)
 
 MENU = getattr(settings, "PAPER_MENU", None)
 MENU_DIVIDER = getattr(settings, "PAPER_MENU_DIVIDER", "-")

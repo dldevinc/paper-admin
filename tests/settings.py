@@ -125,11 +125,6 @@ MPTT_DEFAULT_LEVEL_INDICATOR = "┄"
 # =============
 PAPER_FAVICON = "app/favicon.png"
 
-PAPER_SUPPORT_PHONE = "+1 234 567 8900"
-PAPER_SUPPORT_EMAIL = "office@supermega.com"
-PAPER_SUPPORT_COMPANY = "Super Mega Inc."
-PAPER_SUPPORT_WEBSITE = "https://supermega.com/"
-
 PAPER_ENVIRONMENT_NAME = "development"
 PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 

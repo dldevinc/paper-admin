@@ -231,8 +231,4 @@ PAPER_MENU = [
 | --- | --- | --- |
 | `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения    | 'development'         |
 | `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения   | '#FFFF00'             |
-| `PAPER_SUPPORT_PHONE`     | Контактный телефон в подвале          | '+1 234 567 8900'     |
-| `PAPER_SUPPORT_EMAIL`     | Контактный email в подвале            | 'office@example.com'  |
-| `PAPER_SUPPORT_COMPANY`   | Название компании в подвале           | 'Web Studio Inc.'     |
-| `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале     | 'https://webstudio.com/' |
 | `PAPER_MENU`              | Меню в сайдбаре                       | |
