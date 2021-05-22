@@ -2,12 +2,38 @@
 
 {% if show_save %}
   <li class="nav-item d-lg-none">
-    <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-sm btn-success"
-            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-            data-html="true" title="{% trans 'Save' %}">
-      <i class="fa fa-save"></i>
-      <span>{% trans 'Save' %}</span>
-    </button>
+    <div class="btn-group btn-group-sm">
+      <button type="submit" name="_save" form="{{ opts.model_name }}_form"
+              class="btn btn-success"
+              data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+              data-html="true" title="{% trans 'Save' %}">
+        <i class="fa fa-save"></i>
+        <span>{% trans 'Save' %}</span>
+      </button>
+      <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">{% trans 'Toggle Dropdown' %}</span>
+      </button>
+
+      <div class="dropdown-menu">
+        <button type="submit" name="_continue" form="{{ opts.model_name }}_form"
+                class="dropdown-item">
+          {% if can_change %}
+            {% trans 'Save and continue editing' %}
+          {% else %}
+            {% trans 'Save and view' %}
+          {% endif %}
+        </button>
+        <button type="submit" name="_addanother" form="{{ opts.model_name }}_form"
+                class="dropdown-item">
+          {% trans 'Save and add another' %}
+        </button>
+        <button type="submit" name="_saveasnew" form="{{ opts.model_name }}_form"
+                class="dropdown-item">
+          {% trans 'Save as new' %}
+        </button>
+      </div>
+    </div>
   </li>
 {% endif %}
 
