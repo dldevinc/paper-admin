@@ -16,13 +16,15 @@
 
 
 {% block header_buttons %}
-  {% block object-tools %}
-    <ul class="list-inline list-default">
-      {% block object-tools-items %}
-        {% change_list_object_tools %}
-      {% endblock %}
-    </ul>
-  {% endblock %}
+  {% if has_add_permission %}
+    <li class="list-inline-item d-lg-none">
+      {% url cl.opts|admin_urlname:'add' as add_url %}
+      <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
+        <i class="fa fa-plus"></i>
+        <span>{% trans 'New' %}</span>
+      </a>
+    </li>
+  {% endif %}
 {% endblock %}
 
 
@@ -49,8 +51,21 @@
 
 
 {% block content_title %}
-  {% firstof cl.opts.verbose_name_plural title as page_title %}
-  <h1>{{ page_title|capfirst }}</h1>
+  <div class="row">
+    <div class="col">
+      {% firstof cl.opts.verbose_name_plural title as page_title %}
+      <h1>{{ page_title|capfirst }}</h1>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+      {% block object-tools %}
+        <ul class="list-inline list-default">
+          {% block object-tools-items %}
+            {% change_list_object_tools %}
+          {% endblock %}
+        </ul>
+      {% endblock %}
+    </div>
+  </div>
 {% endblock %}
 
 

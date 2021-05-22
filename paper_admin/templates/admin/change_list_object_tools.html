@@ -6,8 +6,7 @@
       {% url cl.opts|admin_urlname:'add' as add_url %}
       <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
         <i class="fa fa-plus"></i>
-        <span class="d-none d-md-inline">{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
-        <span class="d-md-none" aria-hidden="true">{% trans 'New' %}</span>
+        <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
       </a>
     </li>
   {% endif %}
