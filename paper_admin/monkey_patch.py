@@ -120,6 +120,7 @@ def remove_model_field(model, field_name):
 def patch():
     from .admin import changelist
     from .admin import sortable
+    from .admin import filters
 
     from django.contrib.admin import options, widgets
     from django.contrib.auth.forms import (

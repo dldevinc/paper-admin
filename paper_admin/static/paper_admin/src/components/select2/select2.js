@@ -19,13 +19,15 @@ class Select2Widget extends Widget {
             const emptyOption = element.querySelector("option[value=\"\"]");
             if (emptyOption) {
                 options.placeholder = emptyOption.textContent;
+            } else {
+                options.placeholder = "";
             }
         }
 
         $(element).select2(options).data("select2");
 
         // вызов события change для поддержки hookUnload
-        $(element).on("select2:select", function() {
+        $(element).on("select2:select select2:clear", function() {
             const event = new CustomEvent("change", {
                 bubbles: true,
                 cancelable: true
@@ -55,7 +57,8 @@ class Select2Widget extends Widget {
 
 // TODO: relocate everything below
 const select2_changeform = new Select2Widget({
-    width: ""
+    width: "",
+    allowClear: true
 });
 select2_changeform.observe(".paper-form .select-field select");
 select2_changeform.initAll(".paper-form .select-field select");
@@ -63,7 +66,8 @@ select2_changeform.initAll(".paper-form .select-field select");
 
 const select2_changelist = new Select2Widget({
     width: "",
-    theme: "sm"
+    theme: "sm",
+    allowClear: true
 });
 select2_changelist.observe(".paper-table .select-field select");
 select2_changelist.initAll(".paper-table .select-field select");

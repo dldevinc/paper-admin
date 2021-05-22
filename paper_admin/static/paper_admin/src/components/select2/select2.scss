@@ -22,13 +22,16 @@ $clear-btn-width: 24px;
       top: 0;
       width: $clear-btn-width;
       height: 100%;
-      color: $secondary;
+      color: $gray-500;
+      font-size: 14px;
       line-height: inherit;
       text-align: center;
       align-items: center;
       justify-content: center;
+      transition: font-size steps(4) 0.2s;
 
       &:hover {
+        font-size: 20px;
         color: $input-color;
       }
     }
@@ -78,9 +81,13 @@ $clear-btn-width: 24px;
     min-height: 0;
 
     .select2-selection__rendered {
-      padding: 4px $clear-btn-width 4px 4px;
+      padding: 4px;
       margin-top: -5px;
       vertical-align: top;
+
+      &.select2-selection__rendered--clearable {
+        padding-right: $clear-btn-width;
+      }
     }
 
     .select2-selection__clear {
@@ -196,6 +203,10 @@ $clear-btn-width: 24px;
   .select2-selection--single {
     .select2-selection__rendered {
       padding: $input-padding-y-lg $arrow-btn-width $input-padding-y-lg $input-padding-x-lg;
+
+      &.select2-selection__rendered--clearable {
+        padding-right: #{$arrow-btn-width + $clear-btn-width};
+      }
     }
   }
 
@@ -245,6 +256,10 @@ $clear-btn-width: 24px;
   .select2-selection--single {
     .select2-selection__rendered {
       padding: $input-padding-y $arrow-btn-width $input-padding-y $input-padding-x;
+
+      &.select2-selection__rendered--clearable {
+        padding-right: #{$arrow-btn-width + $clear-btn-width};
+      }
     }
   }
 

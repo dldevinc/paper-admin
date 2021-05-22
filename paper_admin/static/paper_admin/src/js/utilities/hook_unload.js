@@ -26,9 +26,11 @@ export function hookUnload(form) {
 
     // начинаем отслеживать изменения после первого действия
     // пользователя, чтобы игнорировать последствия инициализации
+    window.addEventListener("load", userActionHandler);
     document.addEventListener("keydown", userActionHandler);
     document.addEventListener("mousedown", userActionHandler);
     function userActionHandler() {
+        window.removeEventListener("load", userActionHandler);
         document.removeEventListener("keydown", userActionHandler);
         document.removeEventListener("mousedown", userActionHandler);
 
