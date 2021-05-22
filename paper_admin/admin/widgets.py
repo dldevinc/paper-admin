@@ -1,11 +1,10 @@
 import json
 
-from django.forms import widgets
 from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
+from django.forms import widgets
 
 from ..monkey_patch import MonkeyPatchMeta, get_original
-
 
 # Метакласс MonkeyPatch для класса Widget.
 WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})
