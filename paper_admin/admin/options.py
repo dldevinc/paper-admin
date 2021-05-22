@@ -12,7 +12,6 @@ from django.forms.formsets import DELETION_FIELD_NAME
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from .. import conf
 from ..forms.renderers import PaperFormRenderer
 from . import helpers, widgets
 
@@ -116,9 +115,6 @@ class PaperModelAdmin:
     changelist_widget_overrides = {
         models.BooleanField: widgets.AdminCheckboxInput
     }
-    tabs = [
-        (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
-    ]
 
     @property
     def media(self):
@@ -198,36 +194,6 @@ class PaperModelAdmin:
         return self.history_view__overridden(request, object_id, default_extra)  # noqa: F821
 
     def render_change_form(self, request, context, add=False, change=False, form_url="", obj=None):
-        tabs_config = self.get_tabs(request, obj)
-        if conf.DEFAULT_TAB_NAME in dict(tabs_config):
-            default_tab_name = conf.DEFAULT_TAB_NAME
-        elif tabs_config:
-            default_tab_name = tabs_config[0][0]
-        else:
-            raise RuntimeError(_("at least one tab required"))
-
-        tabs = []
-        adminform = context.get("adminform")
-        inline_formsets = context.get("inline_admin_formsets")
-        for tab_name, tab_title in self.get_tabs(request, obj):
-            tab_obj = helpers.AdminTab(request, tab_name, tab_title)
-            for fieldset in adminform:
-                if fieldset.tab == tab_name or (fieldset.tab is None and tab_name == default_tab_name):
-                    tab_obj.fieldsets.append(fieldset)
-            for inline_formset in inline_formsets:
-                if inline_formset.tab == tab_name or (inline_formset.tab is None and tab_name == default_tab_name):
-                    tab_obj.inline_formsets.append(inline_formset)
-            tabs.append(tab_obj)
-
-        if len(tabs) > 1:
-            for tab in tabs:
-                if tab.invalid:
-                    tab.active = True
-                    break
-            else:
-                tabs[0].active = True
-            context["tabs"] = tabs
-
         form_url = form_url or request.get_full_path()
 
         response = self.render_change_form__overridden(request, context, add, change, form_url, obj)  # noqa: F821
@@ -277,14 +243,6 @@ class PaperModelAdmin:
             ),
         })
         return response
-
-    def get_tabs(self, request, obj=None):
-        """
-        Возвращает вкладки админки.
-
-        :rtype: list of tuple
-        """
-        return list(self.tabs)
 
     def get_row_classes(self, request, obj):
         """

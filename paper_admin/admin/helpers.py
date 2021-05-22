@@ -82,36 +82,15 @@ class PatchPrepopulatedFields(AdminForm, metaclass=MonkeyPatchMeta):
 
 class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
     """
-    1. Добавлены вкладки.
-    2. Добавлено поле prepopulated_fields.
-    3. Удалена статика.
-    4. Отмена Fieldline.
+    1. Добавлено поле prepopulated_fields.
+    2. Удалена статика.
+    3. Отмена Fieldline.
     """
-    def __init__(
-        self,
-        form,
-        name=None,
-        readonly_fields=(),
-        fields=(),
-        classes=(),
-        description=None,
-        model_admin=None,
-        tab=None,
-        prepopulated_fields=None,
-    ):
-        get_original(Fieldset)(
-            self,
-            form,
-            name=name,
-            readonly_fields=readonly_fields,
-            fields=fields,
-            classes=classes,
-            description=description,
-            model_admin=model_admin,
-        )
+    def __init__(self, *args, **kwargs):
+        prepopulated_fields = kwargs.pop("prepopulated_fields", None)
+        get_original(Fieldset)(self, *args, **kwargs)
 
         self.prepopulated_fields = prepopulated_fields or {}
-        self.tab = tab
         self.has_visible_field = not all(
             field in self.form.fields and self.form.fields[field].widget.is_hidden
             for field in self.fields
@@ -224,10 +203,6 @@ class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
             for error in form.non_field_errors()
         ]
 
-    @property
-    def tab(self):
-        return getattr(self.opts, "tab", None)
-
 
 class PatchInlineAdminForm(InlineAdminForm, metaclass=MonkeyPatchMeta):
     """
@@ -270,29 +245,3 @@ class PatchInlineFieldset(InlineFieldset, metaclass=MonkeyPatchMeta):
                     is_first=False,
                     prepopulated_fields=self.prepopulated_fields
                 )
-
-
-class AdminTab:
-    def __init__(self, request, name, title):
-        self.request = request
-        self._name = name
-        self._title = title
-        self.active = False
-        self.fieldsets = []
-        self.inline_formsets = []
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def title(self):
-        return self._title
-
-    @cached_property
-    def invalid(self):
-        return any(f.errors for f in self.fieldsets) or any(
-            f.errors
-            for fs in self.inline_formsets
-            for f in fs
-        )
