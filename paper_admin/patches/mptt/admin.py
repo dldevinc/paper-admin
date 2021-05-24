@@ -5,10 +5,10 @@ from mptt.admin import MPTTModelAdmin
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
-MediaDefiningMonkeyPatchMeta = type("MediaDefiningMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
+ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
-class PatchMPTTModelAdmin(MPTTModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
+class PatchMPTTModelAdmin(MPTTModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     """
     Фиксы для MPTTModelAdmin.
 

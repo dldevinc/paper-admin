@@ -34,10 +34,10 @@ class AdminTab:
 
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
-MediaDefiningMonkeyPatchMeta = type("MediaDefiningMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
+ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
-class PatchModelAdmin(ModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
+class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     tabs = [
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
     ]

@@ -15,14 +15,14 @@ from django.views.decorators.csrf import csrf_exempt
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
-MediaDefiningMonkeyPatchMeta = type("MediaDefiningMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
+ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
-class PatchBaseModelAdmin(BaseModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
+class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     sortable = None
 
 
-class PatchInlineModelAdmin(InlineModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
+class PatchInlineModelAdmin(InlineModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         if self.sortable and db_field.name == self.sortable:
             kwargs["widget"] = forms.HiddenInput(attrs={
@@ -31,7 +31,7 @@ class PatchInlineModelAdmin(InlineModelAdmin, metaclass=MediaDefiningMonkeyPatch
         return get_original(InlineModelAdmin)(self, db_field, request, **kwargs)
 
 
-class PatchModelAdmin(ModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
+class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     def __init__(self, model, admin_site):
         get_original(ModelAdmin)(self, model, admin_site)
 
@@ -78,7 +78,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=MediaDefiningMonkeyPatchMeta):
         get_original(ModelAdmin)(self, request, obj, form, change)
 
     @csrf_exempt
-    def set_order(self, request, *args, **kwargs):
+    def set_order(self, request):
         if request.method != "POST":
             return HttpResponseNotAllowed("Must be a POST request")
 
