@@ -16,15 +16,6 @@ from django.forms.forms import DeclarativeFieldsMetaclass
 from django.utils.functional import cached_property
 
 from ..monkey_patch import MonkeyPatchMeta, get_original
-from .widgets import AdminCheckboxInput
-
-checkbox = AdminCheckboxInput({
-    "class": "action-select custom-control-input"
-}, lambda value: False)
-
-checkbox_toggle = AdminCheckboxInput({
-    "id": "action-toggle"
-}, lambda value: False)
 
 
 # Метакласс MonkeyPatch для класса Form.

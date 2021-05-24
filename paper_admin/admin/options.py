@@ -1,7 +1,6 @@
 import copy
 
 from django import forms
-from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
@@ -9,35 +8,12 @@ from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms import BaseInlineFormSet
 from django.forms.formsets import DELETION_FIELD_NAME
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from ..forms.renderers import PaperFormRenderer
 from . import helpers, widgets
-
-FORMFIELD_FOR_DBFIELD_DEFAULTS = {
-    models.DateTimeField: {
-        "form_class": forms.SplitDateTimeField,
-        "widget": forms.SplitDateTimeWidget,
-    },
-    models.TextField: {"widget": widgets.AdminTextarea},
-    models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
-    models.UUIDField: {"widget": widgets.AdminUUIDInput},
-    models.BooleanField: {"widget": widgets.AdminCheckboxInput},
-    models.NullBooleanField: {"widget": forms.NullBooleanSelect},
-    models.FileField: {"widget": forms.ClearableFileInput},
-    models.ImageField: {"widget": forms.ClearableFileInput},
-}
 
 
 class PaperBaseModelAdmin:
-    def __init__(self):
-        """ Откат FORMFIELD_FOR_DBFIELD_DEFAULTS """
-        overrides = copy.deepcopy(FORMFIELD_FOR_DBFIELD_DEFAULTS)
-        for k, v in self.formfield_overrides.items():
-            overrides.setdefault(k, {}).update(v)
-        self.formfield_overrides = overrides
-
     def formfield_for_choice_field(self, db_field, request, **kwargs):
         if db_field.name in self.radio_fields:  # noqa: F821
             # Avoid stomping on custom widget/choices arguments.
@@ -120,24 +96,6 @@ class PaperModelAdmin:
     def media(self):
         return forms.Media(js=[])
 
-    def get_form(self, request, obj=None, change=False, **kwargs):
-        """
-        Установка FORM_RENDERER по-умолчанию для changeform
-        """
-        form = self.get_form__overridden(request, obj, change, **kwargs)  # noqa: F821
-        if form.default_renderer is None:
-            form.default_renderer = PaperFormRenderer
-        return form
-
-    def get_changelist_form(self, request, **kwargs):
-        """
-        Установка FORM_RENDERER по-умолчанию для list_editable
-        """
-        form = self.get_changelist_form__overridden(request, **kwargs)  # noqa: F821
-        if form.default_renderer is None:
-            form.default_renderer = PaperFormRenderer
-        return form
-
     def get_changelist_formset(self, request, **kwargs):
         """
         Замена виджетов редактируемых полей на странице changelist.
@@ -156,20 +114,6 @@ class PaperModelAdmin:
             choice = (name, description % model_format_dict(self.opts))
             choices.append(choice)
         return choices
-
-    def action_checkbox(self, obj):
-        return helpers.checkbox.render(
-            ACTION_CHECKBOX_NAME,
-            str(obj.pk),
-            {"id": "{}-{}".format(ACTION_CHECKBOX_NAME, obj.pk)},
-            renderer=PaperFormRenderer(),
-        )
-
-    action_checkbox.short_description = mark_safe(
-        helpers.checkbox_toggle.render(
-            "action-toggle", "", renderer=PaperFormRenderer()
-        )
-    )
 
     def history_view(self, request, object_id, extra_context=None):
         log_opts = LogEntry._meta
@@ -274,55 +218,3 @@ class PaperInlineModelAdmin:
     @property
     def media(self):
         return forms.Media()
-
-    def get_formset(self, request, obj=None, **kwargs):
-        """
-        Установка FORM_RENDERER, если он не задан явно
-        """
-        form = type(self.form.__name__, (self.form,), {})  # noqa: F821
-        if form.default_renderer is None:
-            form.default_renderer = PaperFormRenderer
-        kwargs.setdefault("form", form)
-        return self.get_formset__overridden(request, obj, **kwargs)  # noqa: F821
-
-
-class RelatedFieldWidgetWrapper:
-    """
-    FIX: Проброс FORM_RENDERER в get_context, т.к. там рендерятся виджеты.
-    Получается, что виджеты рендерятся не тем бэкендом, которым должны.
-    """
-
-    def get_context(self, name, value, attrs, renderer):
-        from django.contrib.admin.views.main import IS_POPUP_VAR, TO_FIELD_VAR
-
-        rel_opts = self.rel.model._meta  # noqa: F821
-        info = (rel_opts.app_label, rel_opts.model_name)
-        self.widget.choices = self.choices  # noqa: F821
-        url_params = "&".join(
-            "%s=%s" % param
-            for param in [
-                (TO_FIELD_VAR, self.rel.get_related_field().name),  # noqa: F821
-                (IS_POPUP_VAR, 1),
-            ]
-        )
-        context = {
-            "rendered_widget": self.widget.render(name, value, attrs, renderer=renderer),  # noqa: F821
-            "name": name,
-            "url_params": url_params,
-            "model": rel_opts.verbose_name,
-            "can_add_related": self.can_add_related,  # noqa: F821
-            "can_change_related": self.can_change_related,  # noqa: F821
-            "can_delete_related": self.can_delete_related,  # noqa: F821
-            "can_view_related": self.can_view_related,  # noqa: F821
-        }
-        if self.can_add_related:  # noqa: F821
-            context["add_related_url"] = self.get_related_url(info, "add")  # noqa: F821
-        if self.can_delete_related:  # noqa: F821
-            context["delete_related_template_url"] = self.get_related_url(info, "delete", "__fk__")  # noqa: F821
-        if self.can_view_related or self.can_change_related:  # noqa: F821
-            context["change_related_template_url"] = self.get_related_url(info, "change", "__fk__")  # noqa: F821
-        return context
-
-    def render(self, name, value, attrs=None, renderer=None):
-        context = self.get_context(name, value, attrs, renderer)
-        return self._render(self.template_name, context, renderer)  # noqa: F821

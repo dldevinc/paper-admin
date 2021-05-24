@@ -4,7 +4,11 @@ from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocomplet
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
 from django.forms import widgets
 
-from ..monkey_patch import MonkeyPatchMeta, get_original
+from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
+
+__all__ = ["AdminIPInput", "AdminUUIDInput", "AdminSwitchInput", "AdminTextarea",
+           "AdminForeignKeyRawIdWidget", "AdminManyToManyRawIdWidget", "AdminCheckboxInput",
+           "AdminRadioSelect", "AdminCheckboxSelectMultiple", "AdminSelectMultiple"]
 
 # Метакласс MonkeyPatch для класса Widget.
 WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})

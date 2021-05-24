@@ -4,7 +4,7 @@ from django.forms.renderers import BaseRenderer, EngineMixin
 from django.template.backends.django import DjangoTemplates
 from django.utils.functional import cached_property
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent.parent
 
 
 class PaperFormRenderer(EngineMixin, BaseRenderer):

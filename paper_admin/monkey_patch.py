@@ -122,31 +122,26 @@ def patch():
     from .admin import sortable
     from .admin import filters
     from .admin import tabs
+    from .admin import widgets
 
-    from django.contrib.admin import options, widgets
-    from django.contrib.auth.forms import (
-        AdminPasswordChangeForm,
-        PasswordResetForm,
-        SetPasswordForm,
-    )
+    # Патч `renderer` должен вызываться после патча `widgets`, т.к. он ссылается
+    # на файл admin.py приложения auth. Вызовы `admin.register()` должны выполняться
+    # с уже пропатченным `formfield_overrides`.
+    from .admin import renderer
+
+    from django.contrib.admin import options
     from django.contrib.auth.views import PasswordResetView
 
     from .admin.options import (
         PaperBaseModelAdmin,
         PaperInlineModelAdmin,
         PaperModelAdmin,
-        RelatedFieldWidgetWrapper,
     )
-    from .forms.renderers import PaperFormRenderer
 
     extend_class(options.BaseModelAdmin, PaperBaseModelAdmin)
     extend_class(options.ModelAdmin, PaperModelAdmin)
     extend_class(options.InlineModelAdmin, PaperInlineModelAdmin)
-    extend_class(widgets.RelatedFieldWidgetWrapper, RelatedFieldWidgetWrapper)
 
-    AdminPasswordChangeForm.default_renderer = PaperFormRenderer
-    PasswordResetForm.default_renderer = PaperFormRenderer
-    SetPasswordForm.default_renderer = PaperFormRenderer
     PasswordResetView.html_email_template_name = (
         "registration/password_reset_email_alt.html"
     )
