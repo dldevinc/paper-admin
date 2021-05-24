@@ -1,6 +1,6 @@
 import json
 
-from django.contrib.admin.widgets import AutocompleteMixin as DefaultAutocompleteMixin
+from django.contrib.admin.widgets import AutocompleteMixin as AutocompleteMixin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
 from django.forms import widgets
 
@@ -42,6 +42,26 @@ class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPa
     def get_context(self, name, value, attrs):
         # удаление хардкода CSS-класса
         return super().get_context(name, value, attrs)
+
+
+class PatchAutocompleteMixin(AutocompleteMixin, metaclass=MonkeyPatchMeta):
+    @property
+    def media(self):
+        return widgets.Media()
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs=extra_attrs)
+        attrs.setdefault("class", "")
+        attrs.update({
+            "data-width": "",
+            "data-ajax--cache": "true",
+            "data-ajax--type": "GET",
+            "data-ajax--url": self.get_url(),
+            "data-allow-clear": json.dumps(not self.is_required),
+            "data-placeholder": "",  # Allows clearing of the input.
+            "class": attrs["class"] + (" " if attrs["class"] else "") + "admin-autocomplete",
+        })
+        return attrs
 
 
 class AdminIPInput(widgets.TextInput):
@@ -110,32 +130,3 @@ class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
 
 class AdminSelectMultiple(widgets.SelectMultiple):
     template_name = "django/forms/widgets/select_multiple.html"
-
-
-class AutocompleteMixin(DefaultAutocompleteMixin):
-    @property
-    def media(self):
-        return widgets.Media()
-
-    def build_attrs(self, base_attrs, extra_attrs=None):
-        # удалена тема admin-autocomplete
-        attrs = super(DefaultAutocompleteMixin, self).build_attrs(base_attrs, extra_attrs=extra_attrs)
-        attrs.setdefault('class', '')
-        attrs.update({
-            'data-width': '',
-            'data-ajax--cache': 'true',
-            'data-ajax--type': 'GET',
-            'data-ajax--url': self.get_url(),
-            'data-allow-clear': json.dumps(not self.is_required),
-            'data-placeholder': '',  # Allows clearing of the input.
-            'class': attrs['class'] + (' ' if attrs['class'] else '') + 'admin-autocomplete',
-        })
-        return attrs
-
-
-class AutocompleteSelect(AutocompleteMixin, widgets.Select):
-    pass
-
-
-class AutocompleteSelectMultiple(AutocompleteMixin, widgets.SelectMultiple):
-    pass

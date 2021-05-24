@@ -1,85 +1,11 @@
-import copy
-
 from django import forms
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
-from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
-from django.forms import BaseInlineFormSet
-from django.forms.formsets import DELETION_FIELD_NAME
 from django.utils.translation import gettext as _
 
-from . import helpers, widgets
-
-
-class PaperBaseModelAdmin:
-    def formfield_for_choice_field(self, db_field, request, **kwargs):
-        if db_field.name in self.radio_fields:  # noqa: F821
-            # Avoid stomping on custom widget/choices arguments.
-            if "widget" not in kwargs:
-                kwargs["widget"] = widgets.AdminRadioSelect()
-            if "choices" not in kwargs:
-                kwargs["choices"] = db_field.get_choices(
-                    include_blank=db_field.blank,
-                    blank_choice=[("", _("None"))]
-                )
-        return db_field.formfield(**kwargs)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        db = kwargs.get("using")
-        if db_field.name in self.get_autocomplete_fields(request):  # noqa: F821
-            kwargs["widget"] = widgets.AutocompleteSelect(
-                db_field.remote_field,
-                self.admin_site,  # noqa: F821
-                using=db
-            )
-        elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.AdminForeignKeyRawIdWidget(
-                db_field.remote_field,
-                self.admin_site,  # noqa: F821
-                using=db
-            )
-        elif db_field.name in self.radio_fields:  # noqa: F821
-            kwargs["widget"] = widgets.AdminRadioSelect()
-            kwargs["empty_label"] = _("None") if db_field.blank else None
-
-        if "queryset" not in kwargs:
-            queryset = self.get_field_queryset(db, db_field, request)  # noqa: F821
-            if queryset is not None:
-                kwargs["queryset"] = queryset
-
-        return db_field.formfield(**kwargs)
-
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if not db_field.remote_field.through._meta.auto_created:
-            return None
-        db = kwargs.get("using")
-
-        autocomplete_fields = self.get_autocomplete_fields(request)  # noqa: F821
-        if db_field.name in autocomplete_fields:
-            kwargs["widget"] = widgets.AutocompleteSelectMultiple(
-                db_field.remote_field,
-                self.admin_site,  # noqa: F821
-                using=db
-            )
-        elif db_field.name in self.raw_id_fields:  # noqa: F821
-            kwargs["widget"] = widgets.AdminManyToManyRawIdWidget(
-                db_field.remote_field,
-                self.admin_site,  # noqa: F821
-                using=db
-            )
-        elif db_field.name in list(self.filter_vertical) + list(self.filter_horizontal):  # noqa: F821
-            kwargs["widget"] = widgets.AdminSelectMultiple()
-        else:
-            kwargs.setdefault("widget", forms.SelectMultiple)
-
-        if "queryset" not in kwargs:
-            queryset = self.get_field_queryset(db, db_field, request)  # noqa: F821
-            if queryset is not None:
-                kwargs["queryset"] = queryset
-
-        return db_field.formfield(**kwargs)
+from . import helpers
 
 
 class PaperModelAdmin:
@@ -88,24 +14,10 @@ class PaperModelAdmin:
     object_history = True  # show "History" button
     changelist_tools = True  # show buttons in changelist view
     changelist_tools_template = "paper_admin/includes/changelist_tools.html"
-    changelist_widget_overrides = {
-        models.BooleanField: widgets.AdminCheckboxInput
-    }
 
     @property
     def media(self):
         return forms.Media(js=[])
-
-    def get_changelist_formset(self, request, **kwargs):
-        """
-        Замена виджетов редактируемых полей на странице changelist.
-        """
-        widget_overrides = {}
-        for db_field in self.model._meta.get_fields():
-            if db_field.__class__ in self.changelist_widget_overrides:
-                widget_overrides[db_field.name] = self.changelist_widget_overrides[db_field.__class__]
-        kwargs["widgets"] = widget_overrides
-        return self.get_changelist_formset__overridden(request, **kwargs)  # noqa: F821
 
     def get_action_choices(self, request, default_choices=BLANK_CHOICE_DASH):
         # Change empty action label
@@ -199,21 +111,7 @@ class PaperModelAdmin:
         return []
 
 
-class BasePaperInlineFormSet(BaseInlineFormSet):
-    def add_fields(self, form, index):
-        super().add_fields(form, index)
-        if self.can_delete:
-            form.fields[DELETION_FIELD_NAME] = forms.BooleanField(
-                label=_("Delete"),
-                required=False,
-                widget=forms.CheckboxInput(attrs={
-                    "class": "danger custom-control-input"
-                })
-            )
-
-
 class PaperInlineModelAdmin:
-    formset = BasePaperInlineFormSet
 
     @property
     def media(self):

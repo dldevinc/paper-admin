@@ -22,11 +22,14 @@
     }
   }
 
-  .custom-control-input {
+  input {
+    position: absolute;
     top: -4px;
     left: -4px;
     width: $btn-square-size-sm;
     height: $btn-square-size-sm;
+    z-index: -1;
+    opacity: 0;
     cursor: pointer;
 
     &:focus {
@@ -46,6 +49,16 @@
     &:checked {
       ~ .custom-control-label {
         opacity: 1;
+
+        &::before {
+          color: #fff;
+          border-color: theme-color("info");
+          background-color: theme-color("info");
+        }
+
+        &:after {
+          background-image: escape-svg($custom-checkbox-indicator-icon-checked);
+        }
       }
 
       ~ .delete-inline__icon {

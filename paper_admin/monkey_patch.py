@@ -133,12 +133,10 @@ def patch():
     from django.contrib.auth.views import PasswordResetView
 
     from .admin.options import (
-        PaperBaseModelAdmin,
         PaperInlineModelAdmin,
         PaperModelAdmin,
     )
 
-    extend_class(options.BaseModelAdmin, PaperBaseModelAdmin)
     extend_class(options.ModelAdmin, PaperModelAdmin)
     extend_class(options.InlineModelAdmin, PaperInlineModelAdmin)
 
