@@ -1,5 +1,6 @@
 from . import changelist
 from . import filters
+from . import prepopulate
 from . import sortable
 from . import tabs
 from . import widgets

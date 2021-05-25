@@ -69,6 +69,7 @@ class ItemTablularInlines(admin.TabularInline):
     fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
+    classes = ("dummy-inline",)
     prepopulated_fields = {
         "slug": ("name", "age")
     }
