@@ -55,13 +55,13 @@
                     <li role="presentation">
                       <a href="{{ header.url_toggle }}" class="dropdown-item" role="menuitem">
                         <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
-                        {% trans 'Toggle sorting' %}
+                        {{ _("Toggle sorting") }}
                       </a>
                     </li>
                     <li role="presentation">
                       <a href="{{ header.url_remove }}" class="dropdown-item" role="menuitem">
                         <i class="fa fa-fw fa-remove"></i>
-                        {% trans "Remove from sorting" %}
+                        {{ _("Remove from sorting") }}
                       </a>
                     </li>
                   </ul>
@@ -121,7 +121,7 @@
                 {{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endif %}
 
                 {% if cl.result_count != cl.full_result_count %}
-                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
+                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{{ _("Show all") }}{% endif %}</a>)
                 {% endif %}
               </small>
             </div>
@@ -132,7 +132,7 @@
                   {{ current_page.start_index }}-{{ current_page.end_index }} of {{ cl.result_count }}
 
                   {% if cl.show_all_url %}
-                    (<a href="{{ cl.show_all_url }}">{% trans 'Show all' %}</a>)
+                    (<a href="{{ cl.show_all_url }}">{{ _("Show all") }}</a>)
                   {% endif %}
                 </small>
               </div>

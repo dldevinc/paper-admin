@@ -1,22 +1,21 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
 
 
 {% block content_title %}
   <h1>
-    {% trans 'You are now logged out' %}
+    {{ _("You are now logged out") }}
   </h1>
 {% endblock %}
 
 
 {% block content %}
   <p>
-    {% trans "Thanks for spending some quality time with the Web site today." %}
+    {{ _("Thanks for spending some quality time with the Web site today.") }}
   </p>
 
   <p>
     <a href="{% url 'admin:index' %}" class="btn btn-sm btn-outline-info">
-      {% trans 'Log in again' %}
+      {{ _("Log in again") }}
     </a>
   </p>
 {% endblock %}

@@ -1,38 +1,37 @@
-{% load i18n %}
 {% load paper_paginator %}
 
 
-<nav aria-label="{% trans 'Search results pages' %}">
+<nav aria-label="{{ _("Search results pages") }}">
   <div class="d-inline-block">
     <ul class="paper-pagination pagination border-ra mb-0">
       {% if page_num == 1 %}
         <li class="page-item disabled">
-          <span class="page-link" aria-label="{% trans 'First' %}">
+          <span class="page-link" aria-label="{{ _("First") }}">
             <i class="fa fa-angle-double-left"></i>
-            <span class="sr-only">{% trans 'First' %}</span>
+            <span class="sr-only">{{ _("First") }}</span>
           </span>
         </li>
       {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% page_url cl 1 %}" aria-label="{% trans 'First' %}">
+          <a class="page-link" href="{% page_url cl 1 %}" aria-label="{{ _("First") }}">
             <i class="fa fa-angle-double-left"></i>
-            <span class="sr-only">{% trans 'First' %}</span>
+            <span class="sr-only">{{ _("First") }}</span>
           </a>
         </li>
       {% endif %}
 
       {% if page_num == 1 %}
         <li class="page-item disabled">
-          <span class="page-link" aria-label="{% trans 'Previous' %}">
+          <span class="page-link" aria-label="{{ _("Previous") }}">
             <i class="fa fa-angle-left"></i>
-            <span class="sr-only">{% trans 'Previous' %}</span>
+            <span class="sr-only">{{ _("Previous") }}</span>
           </span>
         </li>
       {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% page_url cl page_num|add:-1 %}" aria-label="{% trans 'Previous' %}">
+          <a class="page-link" href="{% page_url cl page_num|add:-1 %}" aria-label="{{ _("Previous") }}">
             <i class="fa fa-angle-left"></i>
-            <span class="sr-only">{% trans 'Previous' %}</span>
+            <span class="sr-only">{{ _("Previous") }}</span>
           </a>
         </li>
       {% endif %}
@@ -45,7 +44,7 @@
           </li>
         {% elif i == page_num %}
           <li class="page-item active">
-            <span class="page-link">{{ i }} <span class="sr-only">({% trans 'current' %})</span></span>
+            <span class="page-link">{{ i }} <span class="sr-only">({{ _("current") }})</span></span>
           </li>
         {% else %}
           <li class="page-item">
@@ -57,32 +56,32 @@
 
       {% if page_num == cl.paginator.num_pages %}
         <li class="page-item disabled">
-        <span class="page-link" aria-label="{% trans 'Next' %}">
+        <span class="page-link" aria-label="{{ _("Next") }}">
           <i class="fa fa-angle-right"></i>
-          <span class="sr-only">{% trans 'Next' %}</span>
+          <span class="sr-only">{{ _("Next") }}</span>
         </span>
         </li>
       {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% page_url cl page_num|add:1 %}" aria-label="{% trans 'Next' %}">
+          <a class="page-link" href="{% page_url cl page_num|add:1 %}" aria-label="{{ _("Next") }}">
             <i class="fa fa-angle-right"></i>
-            <span class="sr-only">{% trans 'Next' %}</span>
+            <span class="sr-only">{{ _("Next") }}</span>
           </a>
         </li>
       {% endif %}
 
       {% if page_num == cl.paginator.num_pages %}
         <li class="page-item disabled">
-          <span class="page-link" aria-label="{% trans 'Last' %}">
+          <span class="page-link" aria-label="{{ _("Last") }}">
             <i class="fa fa-angle-double-right"></i>
-            <span class="sr-only">{% trans 'Last' %}</span>
+            <span class="sr-only">{{ _("Last") }}</span>
           </span>
         </li>
       {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% page_url cl cl.paginator.num_pages %}" aria-label="{% trans 'Last' %}">
+          <a class="page-link" href="{% page_url cl cl.paginator.num_pages %}" aria-label="{{ _("Last") }}">
             <i class="fa fa-angle-double-right"></i>
-            <span class="sr-only">{% trans 'Last' %}</span>
+            <span class="sr-only">{{ _("Last") }}</span>
           </a>
         </li>
       {% endif %}

@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls %}
+{% load admin_urls %}
 
 
 {% block breadcrumb_items %}
@@ -16,14 +16,14 @@
   </li>
 
   <li class="breadcrumb-item active" aria-current="page">
-    <span>{% trans 'History' %}</span>
+    <span>{{ _("History") }}</span>
   </li>
 {% endblock breadcrumb_items %}
 
 
 {% block content_title %}
   <h1>
-    {% trans 'History' %}: <span class="text-secondary">{{ object|truncatewords:"18" }}</span>
+    {{ _("History") }}: <span class="text-secondary">{{ object|truncatewords:"18" }}</span>
   </h1>
 {% endblock %}
 
@@ -33,9 +33,9 @@
     <table class="paper-table table table-hover table-responsive-sm">
       <thead>
       <tr>
-        <th scope="col">{% trans 'Date/time' %}</th>
-        <th scope="col">{% trans 'User' %}</th>
-        <th scope="col">{% trans 'Action' %}</th>
+        <th scope="col">{{ _("Date/time") }}</th>
+        <th scope="col">{{ _("User") }}</th>
+        <th scope="col">{{ _("Action") }}</th>
       </tr>
       </thead>
       <tbody>
@@ -67,7 +67,7 @@
     </table>
   {% else %}
     <p class="paper-message paper-message--warning">
-      {% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}
+      {{ _("This object doesn't have a change history. It probably wasn't added via this admin site.") }}
     </p>
   {% endif %}
 {% endblock content %}

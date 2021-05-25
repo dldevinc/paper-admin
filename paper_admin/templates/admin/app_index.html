@@ -1,5 +1,4 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
 
 {% block bodyclass %}{{ block.super }} app-{{ app_label }}{% endblock %}
 
@@ -27,9 +26,9 @@
     <table class="paper-table table table-hover">
       <thead>
       <tr>
-        <th scope="col">{% trans 'Model' %}</th>
-        <th scope="col">{% trans 'Add' %}</th>
-        <th scope="col">{% trans 'Change' %}</th>
+        <th scope="col">{{ _("content type")|capfirst }}</th>
+        <th scope="col">{{ _("Add") }}</th>
+        <th scope="col">{{ _("Change") }}</th>
       </tr>
       </thead>
 
@@ -51,24 +50,24 @@
           {% if model.add_url %}
             <td>
               <a href="{{ model.add_url }}" class="btn btn-sm btn-success">
-                {% trans 'Add' %}
+                {{ _("Add") }}
               </a>
             </td>
           {% else %}
             <td>
-              <small class="text-muted">{% trans 'Not allowed' %}</small>
+              <small class="text-muted">{{ _("None available") }}</small>
             </td>
           {% endif %}
 
           {% if model.admin_url %}
             <td>
               <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
-                {% trans 'Change' %}
+                {{ _("Change") }}
               </a>
             </td>
           {% else %}
             <td>
-              <small class="text-muted">{% trans 'Not allowed' %}</small>
+              <small class="text-muted">{{ _("None available") }}</small>
             </td>
           {% endif %}
         </tr>

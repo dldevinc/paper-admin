@@ -1,5 +1,3 @@
-{% load i18n %}
-
 <fieldset class="paper-formset__form paper-card card mb-3{% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.sortable_allowed %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
   <div class="card-header py-2">
     <div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -19,7 +17,7 @@
              data-placement="bottom"
              data-trigger="hover"
              data-html="true"
-             title="{% trans 'View on site' %}"
+             title="{{ _("View on site") }}"
              target="_blank"
              rel="noopener">
             <i class="fa fa-eye text-info"></i>
@@ -34,7 +32,7 @@
                   data-placement="bottom"
                   data-trigger="hover"
                   data-html="true"
-                  title="{% trans 'Move up' %}">
+                  title="{{ _("Move up") }}">
             <i class="fa fa-chevron-up text-info"></i>
           </button>
 
@@ -45,7 +43,7 @@
                   data-placement="bottom"
                   data-trigger="hover"
                   data-html="true"
-                  title="{% trans 'Move down' %}">
+                  title="{{ _("Move down") }}">
             <i class="fa fa-chevron-down text-info"></i>
           </button>
         {% endif %}
@@ -74,7 +72,7 @@
                   data-placement="bottom"
                   data-trigger="hover"
                   data-html="true"
-                  title="{% trans 'Delete' %}">
+                  title="{{ _("Delete") }}">
             <i class="fa fa-trash text-danger"></i>
           </button>
         {% endif %}

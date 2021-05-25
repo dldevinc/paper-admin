@@ -1,5 +1,3 @@
-{% load i18n %}
-
 {% if cl.search_fields %}
   <form method="get" id="changelist-search" class="paper-search-form">
     <div class="paper-search-form__field">
@@ -8,8 +6,8 @@
       </div>
       <input type="search" name="{{ search_var }}" value="{{ cl.query }}"
              class="form-control"
-             size="24" placeholder="{% trans 'Search' %}"
-             id="searchbar" aria-label="{% trans 'Search' %}">
+             size="24" placeholder="{{ _("Search") }}"
+             id="searchbar" aria-label="{{ _("Search") }}">
     </div>
 
     {% for pair in cl.params.items %}

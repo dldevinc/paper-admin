@@ -1,10 +1,8 @@
-{% load i18n %}
-
 <footer class="paper-footer">
   <div class="container-fluid">
     <div class="row">
       <div class="col-auto flex-shrink-1">
-        <p class="mb-0">{% trans 'Please contact us if you have any problems' %}</p>
+        <p class="mb-0">{{ _("Please contact us if you have any problems") }}</p>
 
         <div class="mt-1">
           {% block phone %}
@@ -25,7 +23,7 @@
 
       <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
         <div class="text-muted">
-          {% blocktrans with version=paper.DJANGO_VERSION %}Django: {{ version }}{% endblocktrans %}
+          Django: {{ paper.DJANGO_VERSION }}
         </div>
 
         <div class="mt-1 mt-md-2 text-md-right text-muted">

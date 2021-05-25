@@ -36,7 +36,7 @@
   </li>
 
   <li class="breadcrumb-item active" aria-current="page">
-    <span>{% trans 'Delete' %}</span>
+    <span>{{ _("Delete") }}</span>
   </li>
 {% endblock %}
 
@@ -81,13 +81,13 @@
       </h1>
       <div class="card-body">
         <p>
-          {% trans 'All of the following related items will be deleted:' %}
+          {{ _("All of the following related items will be deleted:") }}
         </p>
 
         {% include "admin/includes/object_delete_summary.html" %}
 
         <h2 class="h3">
-          {% trans "Objects" %}
+          {{ _("Objects") }}
         </h2>
 
         <ul class="paper-object-list">
@@ -107,11 +107,11 @@
           {% endif %}
 
           <button type="submit" class="btn btn-danger mr-3" autofocus>
-            {% trans "Yes, I'm sure" %}
+            {{ _("Yes, I'm sure") }}
           </button>
 
           <button type="button" class="btn btn-outline-info back-button">
-            {% trans "No, take me back" %}
+            {{ _("No, take me back") }}
           </button>
         </form>
       </div>

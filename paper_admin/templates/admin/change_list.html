@@ -21,7 +21,7 @@
       {% url cl.opts|admin_urlname:'add' as add_url %}
       <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
         <i class="fa fa-plus"></i>
-        <span>{% trans 'New' %}</span>
+        <span>{{ _("Add") }}</span>
       </a>
     </li>
   {% endif %}
@@ -72,7 +72,7 @@
 {% block toolbar %}
   {% if cl.has_filters %}
     <div class="paper-card card">
-      <h3 class="card-header">{% trans 'Filters' %}</h3>
+      <h3 class="card-header">{{ _("Filters") }}</h3>
       <div class="card-body">
         {% block filters %}
           <form action="" method="get">
@@ -86,13 +86,13 @@
             {% endfor %}
 
             <button type="submit" class="btn btn-info btn-lg btn-block">
-              {% trans 'Apply' %}
+              {{ _("Apply") }}
             </button>
 
             {% if cl.has_active_filters %}
               <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
                 <i class="fa fa-remove"></i>
-                <span>{% trans "Clear all filters" %}</span>
+                <span>{{ _("Clear all filters") }}</span>
               </a>
             {% endif %}
           </form>
@@ -107,7 +107,7 @@
   {% if cl.result_count and cl.date_hierarchy %}
     <div class="paper-card card mb-3">
       <h5 class="card-header">
-        {% trans 'Filter by date' %}
+        {{ _("Filter by date") }}
       </h5>
       <div class="card-body">
         {% block date_hierarchy %}
@@ -159,7 +159,7 @@
         {% if cl.formset %}
           <div class="col-auto mt-3">
             <button type="submit" form="changelist-form" name="_save" class="btn btn-sm btn-success">
-              <i class="fa fa-save"></i><span>{% trans 'Save' %}</span>
+              <i class="fa fa-save"></i><span>{{ _("Save") }}</span>
             </button>
           </div>
         {% else %}
@@ -170,9 +170,9 @@
   {% else %}
     {% if cl.full_result_count %}
       <div class="paper-message paper-message--info">
-        <h4>{% trans 'Nothing found' %}!</h4>
+        <h4>{{ _("Nothing found") }}!</h4>
         <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
-          {% trans 'Reset search and filters' %}
+          {{ _("Reset search and filters") }}
         </a>
       </div>
     {% else %}

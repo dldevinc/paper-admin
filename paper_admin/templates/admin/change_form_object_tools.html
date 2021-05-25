@@ -1,11 +1,11 @@
-{% load i18n admin_urls %}
+{% load admin_urls %}
 
 {% block object-tools-items %}
   {% if show_save %}
     <li>
       <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-lg btn-block btn-success">
         <i class="fa fa-save"></i>
-        <span>{% trans 'Save' %}</span>
+        <span>{{ _("Save") }}</span>
       </button>
     </li>
   {% endif %}
@@ -14,9 +14,9 @@
     <li>
       <button type="submit" name="_continue" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
         {% if can_change %}
-          {% trans 'Save and continue editing' %}
+          {{ _("Save and continue editing") }}
         {% else %}
-          {% trans 'Save and view' %}
+          {{ _("Save and view") }}
         {% endif %}
       </button>
     </li>
@@ -25,7 +25,7 @@
   {% if show_save_and_add_another %}
     <li>
       <button type="submit" name="_addanother" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
-        {% trans 'Save and add another' %}
+        {{ _("Save and add another") }}
       </button>
     </li>
   {% endif %}
@@ -33,7 +33,7 @@
   {% if show_save_as_new %}
     <li>
       <button type="submit" name="_saveasnew" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
-        {% trans 'Save as new' %}
+        {{ _("Save as new") }}
       </button>
     </li>
   {% endif %}
@@ -43,7 +43,7 @@
       <li>
         <a href="{{ absolute_url }}" class="btn btn-block btn-outline-info" target="_blank" rel="noopener">
           <i class="fa fa-eye"></i>
-          <span>{% trans 'View on site' %}</span>
+          <span>{{ _("View on site") }}</span>
         </a>
       </li>
     {% endif %}
@@ -53,7 +53,7 @@
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
         <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-info">
           <i class="fa fa-history"></i>
-          <span>{% trans 'History' %}</span>
+          <span>{{ _("History") }}</span>
         </a>
       </li>
     {% endif %}
@@ -64,7 +64,7 @@
       {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
       <a href="{% add_preserved_filters delete_url %}" class="btn btn-block btn-outline-danger">
         <i class="fa fa-trash"></i>
-        <span>{% trans 'Delete' %}</span>
+        <span>{{ _("Delete") }}</span>
       </a>
     </li>
   {% endif %}

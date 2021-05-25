@@ -46,7 +46,7 @@
 {% block layout %}
   <div class="login-card m-auto">
     <div class="paper-card card border-0">
-      <h2 class="card-header text-center">{% trans "Log in" %}</h2>
+      <h2 class="card-header text-center">{{ _("Log in") }}</h2>
       <div class="card-body">
         <form action="{{ app_path }}" method="post" id="login-form">
           {% csrf_token %}
@@ -77,7 +77,7 @@
           {% endspaceless %}</ul>
 
           <button type="submit" class="btn btn-block btn-lg btn-info mt-4">
-            {% trans 'Sign in' %}
+            {{ _("Log in") }}
           </button>
         </form>
       </div>
@@ -87,7 +87,7 @@
     {% if password_reset_url %}
       <div class="password-reset-link text-muted text-center mt-2">
         <a href="{{ password_reset_url }}">
-          <small>{% trans 'Forgotten your password or username?' %}</small>
+          <small>{{ _("Forgotten your password or username?") }}</small>
         </a>
       </div>
     {% endif %}

@@ -15,9 +15,9 @@
               form="changelist-form"
               name="index"
               class="paper-actions__button btn btn-info ml-1 border-0"
-              title="{% trans "Run the selected action" %}"
+              title="{{ _("Run the selected action") }}"
               value="{{ action_index|default:0 }}">
-        {% trans "Go" %}
+        {{ _("Go") }}
       </button>
     {% endblock %}
 
@@ -35,7 +35,7 @@
 
             <span class="paper-actions__question question" hidden>
               <a href="#"
-                 title="{% trans "Click here to select the objects across all pages" %}">
+                 title="{{ _("Click here to select the objects across all pages") }}">
                 {% blocktrans with cl.result_count as total_count %}
                   Select all {{ total_count }} {{ module_name }}
                 {% endblocktrans %}
@@ -43,7 +43,7 @@
             </span>
 
             <span class="paper-actions__clear clear" hidden>
-              <a href="#">{% trans "Clear selection" %}</a>
+              <a href="#">{{ _("Clear selection") }}</a>
             </span>
           {% endif %}
         </div>

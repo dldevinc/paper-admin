@@ -1,5 +1,4 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
 {% load paper_menu %}
 
 {% block scripts %}
@@ -62,9 +61,9 @@
                        data-placement="bottom"
                        data-trigger="hover"
                        data-html="true"
-                       title="{% trans 'View site' %}">
+                       title="{{ _("View site") }}">
                       <i class="fa fa-eye"></i>
-                      <span class="d-none d-sm-inline">{% trans 'View site' %}</span>
+                      <span class="d-none d-sm-inline">{{ _("View site") }}</span>
                     </a>
                   </li>
 
@@ -85,7 +84,7 @@
                         <li role="presentation">
                           <a href="{% url 'admin:password_change' %}" class="dropdown-item" role="menuitem">
                             <i class="fa fa-fw fa-key"></i>
-                            <span>{% trans 'Change password' %}</span>
+                            <span>{{ _("Change password") }}</span>
                           </a>
                         </li>
                       {% endif %}
@@ -95,7 +94,7 @@
                         <li role="presentation">
                           <a href="{% url 'impersonate-stop' %}" class="dropdown-item" role="menuitem">
                             <i class="fa fa-fw fa-sign-out"></i>
-                            <span>{% trans 'Stop impersonation' %}</span>
+                            <span>{{ _("Stop impersonation") }}</span>
                           </a>
                         </li>
                       {% endif %}
@@ -106,7 +105,7 @@
                           <li role="presentation">
                             <a href="{{ docsroot }}" class="dropdown-item" role="menuitem">
                               <i class="fa fa-fw fa-book"></i>
-                              <span>{% trans 'Documentation' %}</span>
+                              <span>{{ _("Documentation") }}</span>
                             </a>
                           </li>
                         {% endif %}
@@ -115,7 +114,7 @@
                       <li role="presentation">
                         <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
                           <i class="fa fa-fw fa-sign-out"></i>
-                          <span>{% trans 'Sign out' %}</span>
+                          <span>{{ _("Log out") }}</span>
                         </a>
                       </li>
                     </ul>
@@ -143,7 +142,7 @@
       <li class="breadcrumb-item">
         <a href="{% url 'admin:index' %}">
           <i class="fa fa-home mr-1"></i>
-          <span>{% trans 'Dashboard' %}</span>
+          <span>{{ _("Home") }}</span>
         </a>
       </li>
 
