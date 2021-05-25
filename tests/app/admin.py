@@ -39,6 +39,14 @@ class ItemForm(forms.ModelForm):
 
 
 class ItemStackedInlines(admin.StackedInline):
+    fieldsets = (
+        (None, {
+            "fields": (
+                ("name", "age"), "slug", "url", "text", "visible", "created_at", "readonly",
+                "hidden"
+            )
+        }),
+    )
     form = ItemForm
     model = Item
     extra = 1

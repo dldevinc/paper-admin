@@ -129,7 +129,15 @@
           <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
                role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
             {% for fieldset in tab.fieldsets %}
-              {% include "admin/includes/fieldset.html" %}
+              {% if fieldset.has_visible_field %}
+                <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
+                  {% include "admin/includes/fieldset.html" %}
+                </fieldset>
+              {% else %}
+                <fieldset class="{{ fieldset.classes }}" hidden>
+                  {% include "admin/includes/fieldset.html" %}
+                </fieldset>
+              {% endif %}
             {% endfor %}
 
             {% for inline_admin_formset in tab.inline_formsets %}
@@ -140,7 +148,15 @@
       </div>
     {% else %}
       {% for fieldset in adminform %}
-        {% include "admin/includes/fieldset.html" %}
+        {% if fieldset.has_visible_field %}
+          <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
+            {% include "admin/includes/fieldset.html" %}
+          </fieldset>
+        {% else %}
+          <fieldset class="{{ fieldset.classes }}" hidden>
+            {% include "admin/includes/fieldset.html" %}
+          </fieldset>
+        {% endif %}
       {% endfor %}
 
       {% for inline_admin_formset in inline_admin_formsets %}

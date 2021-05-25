@@ -1,5 +1,3 @@
-from collections import Iterable
-
 from django import forms
 from django.contrib.admin.helpers import (
     ActionForm,
@@ -7,6 +5,7 @@ from django.contrib.admin.helpers import (
     AdminForm,
     AdminReadonlyField,
     Fieldset,
+    Fieldline,
     InlineAdminForm,
     InlineAdminFormSet,
     InlineFieldset,
@@ -28,19 +27,96 @@ class PatchActionForm(ActionForm, metaclass=FormMonkeyPatchMeta):
         self.fields["action"].widget.attrs["form"] = "changelist-form"
 
 
-class PatchPrepopulatedFields(AdminForm, metaclass=MonkeyPatchMeta):
-    """
-    Отмена конвертации словаря prepopulated_fields в список в методе __init__.
-    Вместо этого в поле prepopulated_fields сохраняется исходное значение, а
-    а конвертация происходит в шаблонном теге prepopulated_fields_js.
+class PatchAdminField(AdminField, metaclass=MonkeyPatchMeta):
+    def __init__(self, *args, **kwargs):
+        prepopulated_fields = kwargs.pop("prepopulated_fields", None) or {}
+        get_original(AdminField)(self, *args, **kwargs)
+        self.is_prepopulated = self.field.name in prepopulated_fields
 
-    Такой функционал необходим из-за обновленной реализации inline-форм.
-    Исходная реализация добавляла CSS-класс "prepopulated_field" полям,
-    перечисленным в "prepopulated_fields_js". Но из-за того, что в новой
-    реализации inline-форм шаблон формы (empty-form) хранися не в напрямую
-    в DOM-дереве, а в <template>, это приводит к тому, что функционал
-    "prepopulated_field" не работает для динамически добавленных форм.
-    """
+
+class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
+    def __init__(self, *args, **kwargs):
+        get_original(AdminReadonlyField)(self, *args, **kwargs)
+        self.is_prepopulated = False
+        self.field["contents"] = self.contents()
+
+
+class PatchFieldline(Fieldline, metaclass=MonkeyPatchMeta):
+    def __init__(self, *args, **kwargs):
+        self.prepopulated_fields = kwargs.pop("prepopulated_fields", None) or {}
+        get_original(Fieldline)(self, *args, **kwargs)
+
+    def __iter__(self):
+        for i, field in enumerate(self.fields):
+            if field in self.readonly_fields:
+                yield AdminReadonlyField(
+                    self.form,
+                    field,
+                    is_first=(i == 0),
+                    model_admin=self.model_admin
+                )
+            else:
+                yield AdminField(
+                    self.form,
+                    field,
+                    is_first=(i == 0),
+                    prepopulated_fields=self.prepopulated_fields
+                )
+
+    @cached_property
+    def errors(self):
+        return [
+            self.form[field].errors
+            for field in self.fields if field not in self.readonly_fields
+        ]
+
+
+class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
+    def __init__(self, *args, **kwargs):
+        prepopulated_fields = kwargs.pop("prepopulated_fields", None)
+        get_original(Fieldset)(self, *args, **kwargs)
+        self.prepopulated_fields = prepopulated_fields or {}
+        self.has_visible_field = not all(
+            field in self.form.fields and self.form.fields[field].widget.is_hidden
+            for line in self.lines
+            for field in line.fields
+        )
+
+    def __iter__(self):
+        return iter(self.lines)
+
+    @cached_property
+    def lines(self):
+        return tuple(
+            Fieldline(
+                self.form,
+                field,
+                self.readonly_fields,
+                model_admin=self.model_admin,
+                prepopulated_fields=self.prepopulated_fields
+            )
+            for field in self.fields
+        )
+
+    @property
+    def media(self):
+        return forms.Media()
+
+    @cached_property
+    def errors(self):
+        errors = []
+        for line in self:
+            for field in line.fields:
+                if field in line.readonly_fields:
+                    continue
+
+                for error in self.form[field].errors:
+                    errors.append(error)
+
+        return errors
+
+
+class PatchAdminForm(AdminForm, metaclass=MonkeyPatchMeta):
     def __init__(
         self,
         form,
@@ -71,84 +147,38 @@ class PatchPrepopulatedFields(AdminForm, metaclass=MonkeyPatchMeta):
             )
 
 
-class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
-    """
-    1. Добавлено поле prepopulated_fields.
-    2. Удалена статика.
-    3. Отмена Fieldline.
-    """
-    def __init__(self, *args, **kwargs):
-        prepopulated_fields = kwargs.pop("prepopulated_fields", None)
-        get_original(Fieldset)(self, *args, **kwargs)
-
-        self.prepopulated_fields = prepopulated_fields or {}
-        self.has_visible_field = not all(
-            field in self.form.fields and self.form.fields[field].widget.is_hidden
-            for field in self.fields
-        )
-
-    @property
-    def media(self):
-        # disable collapse
-        return forms.Media()
-
+class PatchInlineFieldset(InlineFieldset, metaclass=MonkeyPatchMeta):
     def __iter__(self):
-        for fieldname in self.plain_fields():
-            if fieldname in self.readonly_fields:
-                yield AdminReadonlyField(
-                    self.form,
-                    fieldname,
-                    is_first=False,
-                    model_admin=self.model_admin
-                )
-            else:
-                yield AdminField(
-                    self.form,
-                    fieldname,
-                    is_first=False,
-                    prepopulated_fields=self.prepopulated_fields
-                )
+        return iter(self.lines)
 
     @cached_property
-    def errors(self):
-        errors = []
-        for fieldname in self.plain_fields():
-            if fieldname in self.readonly_fields:
-                continue
-            for error in self.form[fieldname].errors:
-                errors.append(error)
-        return errors
-
-    def plain_fields(self):
-        for field in self.fields:
-            if isinstance(field, str):
-                yield field
-            elif isinstance(field, Iterable):
-                yield from field
-            else:
-                raise TypeError("unsupported field type: {}".format(field))
+    def lines(self):
+        fk = getattr(self.formset, "fk", None)
+        return tuple(
+            Fieldline(
+                self.form,
+                field,
+                self.readonly_fields,
+                model_admin=self.model_admin,
+                prepopulated_fields=self.prepopulated_fields
+            )
+            for field in self.fields
+            if not fk or fk.name != field
+        )
 
 
-class PatchAdminField(AdminField, metaclass=MonkeyPatchMeta):
-    """
-    Добавлено поле is_prepopulated.
-    """
-    def __init__(self, form, field, is_first, prepopulated_fields=None):
-        get_original(AdminField)(self, form, field, is_first)
-
-        prepopulated_fields = prepopulated_fields or {}
-        self.is_prepopulated = self.field.name in prepopulated_fields
-
-
-class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
-    """
-    Т.к. в admin_field.html мы используем поле формы, а не AdminReadonlyField,
-    переносим контент в поле.
-    """
-    def __init__(self, form, field, is_first, model_admin=None):
-        get_original(AdminReadonlyField)(self, form, field, is_first, model_admin=model_admin)
-        self.is_prepopulated = False
-        self.field["contents"] = self.contents()
+class PatchInlineAdminForm(InlineAdminForm, metaclass=MonkeyPatchMeta):
+    def __iter__(self):
+        for name, options in self.fieldsets:
+            yield InlineFieldset(
+                self.formset,
+                self.form,
+                name,
+                self.readonly_fields,
+                model_admin=self.model_admin,
+                prepopulated_fields=self.prepopulated_fields,
+                **options
+            )
 
 
 class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
@@ -193,46 +223,3 @@ class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
             for form in self.formset.forms
             for error in form.non_field_errors()
         ]
-
-
-class PatchInlineAdminForm(InlineAdminForm, metaclass=MonkeyPatchMeta):
-    """
-    Добавлен prepopulated_fields.
-    """
-    def __iter__(self):
-        for name, options in self.fieldsets:
-            yield InlineFieldset(
-                self.formset,
-                self.form,
-                name,
-                self.readonly_fields,
-                model_admin=self.model_admin,
-                prepopulated_fields=self.prepopulated_fields,
-                **options
-            )
-
-
-class PatchInlineFieldset(InlineFieldset, metaclass=MonkeyPatchMeta):
-    """
-    Отмена Fieldline.
-    Добавлен prepopulated_fields.
-    """
-    def __iter__(self):
-        fk = getattr(self.formset, "fk", None)
-        for fieldname in self.plain_fields():
-            if fk and fk.name == fieldname:
-                continue
-            if fieldname in self.readonly_fields:
-                yield AdminReadonlyField(
-                    self.form,
-                    fieldname,
-                    is_first=False,
-                    model_admin=self.model_admin,
-                )
-            else:
-                yield AdminField(
-                    self.form,
-                    fieldname,
-                    is_first=False,
-                    prepopulated_fields=self.prepopulated_fields
-                )

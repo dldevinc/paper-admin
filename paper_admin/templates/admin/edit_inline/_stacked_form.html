@@ -100,25 +100,15 @@
     {{ inline_form.fk_field.field }}
 
     {% for fieldset in inline_form %}
-      {% for admin_field in fieldset %}
-        {% if admin_field.field.is_hidden %}
-          {{ admin_field.field }}
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-
-    {% for fieldset in inline_form %}
-      {% for admin_field in fieldset %}
-        {% if not admin_field.field.is_hidden %}
-          {% with field=admin_field.field is_readonly=admin_field.is_readonly is_prepopulated=admin_field.is_prepopulated %}
-            {% if admin_field.is_checkbox %}
-              {% include 'paper_admin/includes/admin_checkbox.html' %}
-            {% else %}
-              {% include 'paper_admin/includes/admin_field.html' %}
-            {% endif %}
-          {% endwith %}
-        {% endif %}
-      {% endfor %}
+      {% if fieldset.has_visible_field %}
+        <fieldset class="paper-card card border-0 {{ fieldset.classes }}">
+          {% include "admin/includes/fieldset.html" %}
+        </fieldset>
+      {% else %}
+        <fieldset class="{{ fieldset.classes }}" hidden>
+          {% include "admin/includes/fieldset.html" %}
+        </fieldset>
+      {% endif %}
     {% endfor %}
   </div>
 </fieldset>
