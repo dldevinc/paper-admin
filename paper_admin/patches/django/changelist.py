@@ -1,6 +1,6 @@
 from django.contrib.admin.views.main import ALL_VAR, ChangeList
 
-from ..monkey_patch import MonkeyPatchMeta, get_original
+from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 
 class PatchChangeList(ChangeList, metaclass=MonkeyPatchMeta):

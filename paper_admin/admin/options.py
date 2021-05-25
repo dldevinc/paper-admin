@@ -1,15 +1,14 @@
 from django import forms
+from django.contrib.admin.helpers import ActionForm
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import gettext as _
 
-from . import helpers
-
 
 class PaperModelAdmin:
-    action_form = helpers.ActionForm
+    action_form = ActionForm
     list_per_page = 20
     object_history = True  # show "History" button
     changelist_tools = True  # show buttons in changelist view

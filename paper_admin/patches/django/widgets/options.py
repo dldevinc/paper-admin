@@ -6,9 +6,8 @@ from django.contrib.admin.widgets import AutocompleteSelect, AutocompleteSelectM
 from django.db import models
 from django.utils.translation import gettext as _
 
+from paper_admin.admin import widgets
 from paper_admin.monkey_patch import MonkeyPatchMeta
-
-from . import widgets
 
 FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.DateTimeField: {

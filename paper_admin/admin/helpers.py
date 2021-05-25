@@ -15,7 +15,7 @@ from django.contrib.admin.utils import flatten_fieldsets
 from django.forms.forms import DeclarativeFieldsMetaclass
 from django.utils.functional import cached_property
 
-from ..monkey_patch import MonkeyPatchMeta, get_original
+from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 
 # Метакласс MonkeyPatch для класса Form.

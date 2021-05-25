@@ -331,34 +331,3 @@ class AllValuesFieldListFilter(FieldListFilter):
                 "value": "None",
                 "display": _("None"),
             }
-
-
-filters.FieldListFilter.register(
-    lambda f: f.remote_field,
-    RelatedFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: isinstance(f, (models.BooleanField, models.NullBooleanField)),
-    BooleanFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: bool(f.choices),
-    ChoicesFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: isinstance(f, models.DateField),
-    DateFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: True,
-    AllValuesFieldListFilter,
-    take_priority=True,
-)

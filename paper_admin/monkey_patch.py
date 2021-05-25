@@ -118,20 +118,12 @@ def remove_model_field(model, field_name):
 
 
 def patch():
-    from .admin import changelist
-    from .admin import sortable
-    from .admin import filters
-    from .admin import tabs
-    from .admin import widgets
-
-    # Патч `renderer` должен вызываться после патча `widgets`, т.к. он ссылается
-    # на файл admin.py приложения auth. Вызовы `admin.register()` должны выполняться
-    # с уже пропатченным `formfield_overrides`.
-    from .admin import renderer
+    from .patches import django
 
     from django.contrib.admin import options
     from django.contrib.auth.views import PasswordResetView
 
+    from .admin import helpers
     from .admin.options import (
         PaperInlineModelAdmin,
         PaperModelAdmin,
