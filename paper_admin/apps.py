@@ -7,6 +7,10 @@ class Config(AppConfig):
     verbose_name = _("Paper Admin")
 
     def ready(self):
-        from .monkey_patch import patch
+        from .patches import django
 
-        patch()
+        from django.contrib.auth.views import PasswordResetView
+
+        PasswordResetView.html_email_template_name = (
+            "registration/password_reset_email_alt.html"
+        )

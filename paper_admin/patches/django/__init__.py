@@ -1,7 +1,10 @@
 from . import changelist
 from . import filters
+from . import helpers
+from . import options
 from . import prepopulate
 from . import sortable
+from . import styles
 from . import tabs
 from . import widgets
 

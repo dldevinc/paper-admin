@@ -115,23 +115,3 @@ def remove_model_field(model, field_name):
             if field.name == field_name:
                 field_table.pop(index)
                 break
-
-
-def patch():
-    from .patches import django
-
-    from django.contrib.admin import options
-    from django.contrib.auth.views import PasswordResetView
-
-    from .admin import helpers
-    from .admin.options import (
-        PaperInlineModelAdmin,
-        PaperModelAdmin,
-    )
-
-    extend_class(options.ModelAdmin, PaperModelAdmin)
-    extend_class(options.InlineModelAdmin, PaperInlineModelAdmin)
-
-    PasswordResetView.html_email_template_name = (
-        "registration/password_reset_email_alt.html"
-    )

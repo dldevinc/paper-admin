@@ -59,7 +59,7 @@
     {% endif %}
   {% endif %}
 
-  {% if show_delete_link %}
+  {% if show_delete_link and original %}
     <li>
       {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
       <a href="{% add_preserved_filters delete_url %}" class="btn btn-block btn-outline-danger">

@@ -58,9 +58,7 @@ class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
 
 
 class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
-    """
-    Шаблон формы перенесен из итератора в отдельное поле empty_form.
-    """
+    # Шаблон формы перенесен из итератора в отдельное поле empty_form.
     def __iter__(self):
         if self.has_change_permission:
             readonly_fields_for_editing = self.readonly_fields
