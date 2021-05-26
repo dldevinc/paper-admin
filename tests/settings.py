@@ -28,9 +28,9 @@ TIME_INPUT_FORMATS = [
 
 INSTALLED_APPS = [
     "paper_admin",
-    "paper_admin.patches.logentry_admin",
     "paper_admin.patches.dal",
     "paper_admin.patches.django_solo",
+    "paper_admin.patches.logentry_admin",
     "paper_admin.patches.mptt",
     "django.contrib.admin",
     "django.contrib.auth",

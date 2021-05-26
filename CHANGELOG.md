@@ -4,6 +4,7 @@
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
 
+- `django-logentry-admin` dependency has been removed.
 - Scroll-to-top button has been removed.
 - `CustomCheckboxInput` widget has been renamed to `AdminCheckboxInput`.
 - `CustomRadioSelect` widget has been renamed to `AdminRadioSelect`.
@@ -15,6 +16,7 @@ Much of the code has been rewritten. We outline some key changes below.
   `PAPER_SUPPORT_WEBSITE` settings have been removed. Override `paper_admin/footer.html`
   template to set your contact information.
 ### Features
+- Added patch for `django-logentry-admin`.
 - Added `PAPER_FAVICON` setting.
 - Added autofocus on login page.
 - Updated fonts.
