@@ -13,10 +13,11 @@ Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admi
 ```python
 INSTALLED_APPS = [
     'paper_admin',
-    'paper_admin.patches.dal',          # optional
-    'paper_admin.patches.django_solo',  # optional
-    'paper_admin.patches.mptt',         # optional
-    'paper_admin.patches.post_office',  # optional
+    'paper_admin.patches.dal',              # optional
+    'paper_admin.patches.django_solo',      # optional
+    'paper_admin.patches.mptt',             # optional
+    'paper_admin.patches.logentry_admin',   # optional
+    'paper_admin.patches.post_office',      # optional
     # ...
     'django.contrib.admin',
     # ...
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
 
 * `paper_admin.patches.mptt`<br>
   Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
-  Предоставляет класс `SortableMPTTModelAdmin` для оформления сортируемого дерева.
+  Добавляет возможность сортировки узлов дерева (при указании свойства `sortable`).
+
+* `paper_admin.patches.logentry_admin`<br>
+  Исправление фильтров и скрытие ненужных кнопок в [django-logentry-admin](https://github.com/yprez/django-logentry-admin).  
 
 * `paper_admin.patches.post_office`<br>
   Исправление виджета списка email адресов в [django-post_office](https://github.com/ui/django-post_office)  
