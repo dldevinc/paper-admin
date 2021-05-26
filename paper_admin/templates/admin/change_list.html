@@ -1,6 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls admin_list %}
-{% load paper_list %}
+{% load paper_filters paper_list %}
 
 {% block styles %}
   {{ block.super }}
@@ -77,7 +77,7 @@
         {% block filters %}
           <form action="" method="get">
             {% for spec in cl.filter_specs %}
-              {% paper_filter cl spec %}
+              {% paper_list_filter cl spec %}
             {% endfor %}
 
             {% get_filter_keep_params as filter_keep_params %}
