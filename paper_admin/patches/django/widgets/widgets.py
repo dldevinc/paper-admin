@@ -6,7 +6,6 @@ from django.forms import widgets
 
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
-
 # Метакласс MonkeyPatch для класса Widget.
 WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.MediaDefiningClass, ), {})
 

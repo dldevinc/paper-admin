@@ -12,7 +12,6 @@ from django.utils.functional import cached_property
 
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
-
 # Метакласс MonkeyPatch для класса Form.
 FormMonkeyPatchMeta = type("FormMonkeyPatchMeta", (MonkeyPatchMeta, DeclarativeFieldsMetaclass, ), {})
 

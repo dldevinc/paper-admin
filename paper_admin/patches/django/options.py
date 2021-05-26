@@ -85,9 +85,9 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
             ),
             "show_delete_link": (
                 not is_popup
-                and context["has_delete_permission"]
+                and _context["has_delete_permission"]
                 and change
-                and context.get("show_delete", True)
+                and _context.get("show_delete", True)
             ),
             "show_save_as_new": (
                 not is_popup

@@ -23,7 +23,6 @@ FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.ImageField: {"widget": forms.ClearableFileInput},
 }
 
-
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 

@@ -25,6 +25,7 @@
 @each $color, $value in $theme-colors {
   $background: theme-color-level($color, $table-bg-level);
 
+  .paper-card--#{$color} .btn-square-group > .btn,
   .table-#{$color} .btn-square-group > .btn {
     &:not(:disabled):hover,
     &:not(.disabled):hover {

@@ -6,6 +6,9 @@ from django.utils.translation import gettext_lazy as _
 from paper_admin import conf
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
+# Метакласс MonkeyPatch для класса BaseModelAdmin.
+ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
+
 
 class AdminTab:
     def __init__(self, request, name, title):
@@ -31,10 +34,6 @@ class AdminTab:
             for fs in self.inline_formsets
             for f in fs
         )
-
-
-# Метакласс MonkeyPatch для класса BaseModelAdmin.
-ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
 class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):

@@ -15,7 +15,6 @@ checkbox_toggle = AdminCheckboxInput({
     "id": "action-toggle"
 }, lambda value: False)
 
-
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
