@@ -169,14 +169,12 @@ class Item(models.Model):
 
 
 class Tree(MPTTModel):
-    category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)
     parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
-    number = models.IntegerField(_("number"), default=7)
 
     class Meta:
         verbose_name = _("tree")
-        verbose_name_plural = _("tree")
+        verbose_name_plural = _("trees")
 
     def __str__(self):
         return self.name

@@ -52,8 +52,8 @@
 
         &::before {
           color: #fff;
-          border-color: theme-color("info");
-          background-color: theme-color("info");
+          border-color: theme-color("danger");
+          background-color: theme-color("danger");
         }
 
         &:after {

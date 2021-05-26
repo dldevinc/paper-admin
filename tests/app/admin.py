@@ -231,7 +231,7 @@ class TreeAdmin(MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
-                "parent", "category", "name", "number",
+                "parent", "name",
             ),
         }),
     )
