@@ -1,7 +1,4 @@
 import inspect
-import types
-
-from django.db import models
 
 # Pattern for the ids of the original attributes stored.
 ORIGINAL_ID = "_monkey_{}__{}"
@@ -75,43 +72,3 @@ class MonkeyPatchMeta(type):
             setattr(target, attr_name, attr_value)
 
         return target
-
-
-
-
-
-
-
-
-
-def extend_class(target, mixin):
-    for name, obj in mixin.__dict__.items():
-        if isinstance(obj, (types.FunctionType, property)):
-            if getattr(target, name, None):
-                setattr(target, name + "__overridden", getattr(target, name))
-        elif name.startswith("__"):
-            # skip system attributes
-            continue
-        setattr(target, name, obj)
-
-
-def extend_model(target, mixin):
-    for name, obj in mixin.__dict__.items():
-        if isinstance(obj, (types.FunctionType, property)):
-            if getattr(target, name, None):
-                setattr(target, name + "__overridden", getattr(target, name))
-        elif isinstance(obj, models.Field):
-            remove_model_field(target, name)
-        elif name.startswith("__"):
-            # skip system attributes
-            continue
-
-        target.add_to_class(name, obj)
-
-
-def remove_model_field(model, field_name):
-    for field_table in (model._meta.local_fields, model._meta.local_many_to_many):
-        for index, field in enumerate(field_table):
-            if field.name == field_name:
-                field_table.pop(index)
-                break
