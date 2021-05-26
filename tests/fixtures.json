@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$120000$mda4uGGPhJjH$UKevsIwWBc8VdJ72fqjo42RRwywHgd3AUUWjXBjX+mc=",
-    "last_login": "2021-05-21T08:29:26.196Z",
+    "last_login": "2021-05-26T15:08:29.717Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -21,18 +21,23 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$150000$JeXtsrdrLT6w$k4MiSVC7I7PIX8SeI6169JneEq/BT2IapO/F+O4WChQ=",
-    "last_login": "2020-03-25T06:39:00Z",
+    "password": "pbkdf2_sha256$120000$j9oH3FPhKf89$jo6ij+4U+zKBY37a7pFfqji8UKkGyZHWuF2bpSWeMHo=",
+    "last_login": "2021-05-26T14:52:00.691Z",
     "is_superuser": false,
     "username": "test",
     "first_name": "",
     "last_name": "",
     "email": "",
-    "is_staff": false,
+    "is_staff": true,
     "is_active": true,
     "date_joined": "2020-03-25T06:37:00Z",
     "groups": [],
     "user_permissions": [
+      [
+        "view_logentry",
+        "admin",
+        "logentry"
+      ],
       [
         "add_tag",
         "app",
@@ -47,6 +52,11 @@
         "view_tag",
         "app",
         "tag"
+      ],
+      [
+        "view_user",
+        "auth",
+        "user"
       ]
     ]
   }
