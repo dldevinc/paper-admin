@@ -34,7 +34,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         from django.contrib.admin.models import LogEntry
 
         log_opts = LogEntry._meta
-        codename = get_permission_codename("change", log_opts)  # TODO: change или view
+        codename = get_permission_codename("view", log_opts)
         has_log_change_permission = request.user.has_perm(
             "%s.%s" % (log_opts.app_label, codename)
         )
@@ -42,7 +42,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
 
         UserModel = get_user_model()
         user_opts = UserModel._meta
-        codename = get_permission_codename("change", user_opts)  # TODO: change или view
+        codename = get_permission_codename("view", user_opts)
         has_user_change_permission = request.user.has_perm(
             "%s.%s" % (user_opts.app_label, codename)
         )

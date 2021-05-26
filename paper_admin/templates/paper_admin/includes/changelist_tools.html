@@ -2,32 +2,34 @@
 
 
 <div class="btn-square-group">
-  {% with absolute_url=result.obj.get_absolute_url %}
-    {% if not cl.is_popup and cl.model_admin.view_on_site and absolute_url %}
-      <a href="{{ absolute_url }}" class="btn btn-square btn-sm"
+  {% block tools %}
+    {% with absolute_url=result.obj.get_absolute_url %}
+      {% if not cl.is_popup and cl.model_admin.view_on_site and absolute_url %}
+        <a href="{{ absolute_url }}" class="btn btn-square btn-sm"
+           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-html="true" title="{{ _("View on site") }}"
+           target="_blank" rel="noopener">
+          <i class="fa fa-eye text-info"></i>
+        </a>
+      {% endif %}
+    {% endwith %}
+
+    {% if not cl.is_popup and result.has_view_permission and cl.model_admin.object_history %}
+      {% url cl.opts|admin_urlname:'history' result.obj.pk|admin_urlquote as history_url %}
+      <a href="{{ history_url }}" class="btn btn-square btn-sm"
          data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-         data-html="true" title="{{ _("View on site") }}"
-         target="_blank" rel="noopener">
-        <i class="fa fa-eye text-info"></i>
+         data-html="true" title="{{ _("History") }}">
+        <i class="fa fa-history text-info"></i>
       </a>
     {% endif %}
-  {% endwith %}
 
-  {% if not cl.is_popup and result.has_view_permission and cl.model_admin.object_history %}
-    {% url cl.opts|admin_urlname:'history' result.obj.pk|admin_urlquote as history_url %}
-    <a href="{{ history_url }}" class="btn btn-square btn-sm"
-       data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-       data-html="true" title="{{ _("History") }}">
-      <i class="fa fa-history text-info"></i>
-    </a>
-  {% endif %}
-
-  {% if result.has_delete_permission %}
-    {% url cl.opts|admin_urlname:'delete' result.obj.pk|admin_urlquote as delete_url %}
-    <a href="{{ delete_url }}" class="btn btn-square btn-sm"
-       data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-       data-html="true" title="{{ _("Delete") }}">
-      <i class="fa fa-trash text-danger"></i>
-    </a>
-  {% endif %}
+    {% if result.has_delete_permission %}
+      {% url cl.opts|admin_urlname:'delete' result.obj.pk|admin_urlquote as delete_url %}
+      <a href="{{ delete_url }}" class="btn btn-square btn-sm"
+         data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+         data-html="true" title="{{ _("Delete") }}">
+        <i class="fa fa-trash text-danger"></i>
+      </a>
+    {% endif %}
+  {% endblock %}
 </div>
