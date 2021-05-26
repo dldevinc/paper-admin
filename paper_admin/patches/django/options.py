@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
@@ -33,22 +34,25 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         from django.contrib.admin.models import LogEntry
 
         log_opts = LogEntry._meta
-        codename = get_permission_codename("change", log_opts)
+        codename = get_permission_codename("change", log_opts)  # TODO: change или view
         has_log_change_permission = request.user.has_perm(
             "%s.%s" % (log_opts.app_label, codename)
         )
+        log_model_registered = self.admin_site.is_registered(LogEntry)
 
-        user_opts = get_user_model()._meta
-        codename = get_permission_codename("change", user_opts)
+        UserModel = get_user_model()
+        user_opts = UserModel._meta
+        codename = get_permission_codename("change", user_opts)  # TODO: change или view
         has_user_change_permission = request.user.has_perm(
             "%s.%s" % (user_opts.app_label, codename)
         )
+        user_model_registered = self.admin_site.is_registered(UserModel)
 
         default_extra = {
             "log_opts": log_opts,
-            "has_log_change_permission": has_log_change_permission,
             "user_opts": user_opts,
-            "has_user_change_permission": has_user_change_permission,
+            "show_log_link": has_log_change_permission and log_model_registered,
+            "show_user_link": has_user_change_permission and user_model_registered
         }
         default_extra.update(extra_context or {})
         return get_original(ModelAdmin)(self, request, object_id, default_extra)

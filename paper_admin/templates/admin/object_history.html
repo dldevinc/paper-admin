@@ -42,22 +42,23 @@
       {% for action in action_list %}
         <tr>
           <th scope="row">
-            {% if has_log_change_permission %}
+            {% if show_log_link %}
               <a href="{% url log_opts|admin_urlname:'change' action.pk|admin_urlquote %}">
-            {% endif %}
-            {{ action.action_time|date:"DATETIME_FORMAT" }}
-            {% if has_log_change_permission %}
+                {{ action.action_time|date:"DATETIME_FORMAT" }}
               </a>
+            {% else %}
+              {{ action.action_time|date:"DATETIME_FORMAT" }}
             {% endif %}
           </th>
           <td>
-            {% if has_user_change_permission %}
+            {% if show_user_link %}
               <a href="{% url user_opts|admin_urlname:'change' action.user.pk|admin_urlquote %}">
-            {% endif %}
-            {{ action.user.get_username }}
-            {% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}
-            {% if has_user_change_permission %}
+                {{ action.user.get_username }}
+                {% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}
               </a>
+            {% else %}
+              {{ action.user.get_username }}
+              {% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}
             {% endif %}
           </td>
           <td>{{ action.get_change_message }}</td>
