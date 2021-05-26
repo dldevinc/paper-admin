@@ -96,7 +96,7 @@
       <div class="card-body">
         <ul class="list-default">
           {% block object-tools-items %}
-            {% change_form_object_tools %}
+            {% include "admin/change_form_object_tools.html" %}
           {% endblock %}
         </ul>
       </div>
