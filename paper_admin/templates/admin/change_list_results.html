@@ -82,15 +82,15 @@
 
     <tbody>
       {% for result in results %}
-        {% if result.form.non_field_errors %}
+        {% if result.form and result.form.non_field_errors %}
           <tr class="table-danger">
-            <td colspan="{{ num_columns }}">
+            <td colspan="{{ column_count }}">
               {{ result.form.non_field_errors }}
             </td>
           </tr>
         {% endif %}
 
-        <tr class="{% block row_classes %}{% paper_row_classes result cl.model_admin %}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.row_attrs }}>
+        <tr class="{% block row_classes %}{% paper_row_classes result cl.model_admin %}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.attrs }}>
           {% if cl.sortable_allowed %}
             <td class="paper-table__sortable-cell p-0">
               <div class="paper-table__sort-handler">
@@ -114,7 +114,7 @@
 
     <tfoot>
       <tr>
-        <td colspan="{{ num_columns }}">
+        <td colspan="{{ column_count }}">
           <div class="row align-items-center">
             <div class="col">
               <small class="text-muted text-nowrap">
