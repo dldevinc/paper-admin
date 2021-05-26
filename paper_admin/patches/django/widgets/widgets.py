@@ -30,6 +30,14 @@ class PatchTextarea(widgets.Textarea, metaclass=WidgetMonkeyPatchMeta):
         get_original(widgets.Textarea)(self, attrs=default_attrs)
 
 
+class PatchSelectDateWidget(widgets.SelectDateWidget, metaclass=WidgetMonkeyPatchMeta):
+    def get_context(self, name, value, attrs):
+        # disable select2 allowClear
+        attrs = attrs or {}
+        attrs.setdefault("data-allow-clear", "false")
+        return get_original(widgets.SelectDateWidget)(self, name, value, attrs)
+
+
 class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPatchMeta):
     def __init__(self, rel, admin_site, attrs=None, using=None):
         get_original(ManyToManyRawIdWidget)(self, rel, admin_site, attrs=attrs, using=using)
