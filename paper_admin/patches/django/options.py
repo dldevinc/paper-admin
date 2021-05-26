@@ -15,7 +15,6 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     list_per_page = 20
     object_history = True  # show "History" button
     changelist_tools = True  # show buttons in changelist view
-    changelist_tools_template = "paper_admin/includes/changelist_tools.html"
 
     @property
     def media(self):
