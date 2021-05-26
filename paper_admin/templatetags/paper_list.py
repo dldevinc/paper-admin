@@ -25,13 +25,6 @@ class ResultList(admin_list.ResultList):
         self.has_change_permission = cl.model_admin.has_change_permission(cl.request, obj)
         self.has_delete_permission = cl.model_admin.has_delete_permission(cl.request, obj)
 
-        if hasattr(cl.model_admin, "get_row_classes"):
-            self.row_classes = " ".join(
-                map(
-                    str,
-                    filter(bool, cl.model_admin.get_row_classes(cl.request, obj) or []),
-                )
-            )
         super().__init__(form, items)
 
     @property
@@ -50,8 +43,8 @@ def results(cl):
             yield ResultList(cl, res, None, items)
 
 
-@register.inclusion_tag("admin/change_list_results.html")
-def paper_result_list(cl):
+@register.inclusion_tag("admin/change_list_results.html", takes_context=True)
+def paper_result_list(context, cl):
     headers = list(admin_list.result_headers(cl))
     num_sorted_fields = 0
     for h in headers:
@@ -65,6 +58,7 @@ def paper_result_list(cl):
         num_columns += 1
 
     return {
+        "request": context.get("request"),
         "cl": cl,
         "current_page": cl.paginator.page(cl.page_num + 1),
         "result_hidden_fields": list(admin_list.result_hidden_fields(cl)),

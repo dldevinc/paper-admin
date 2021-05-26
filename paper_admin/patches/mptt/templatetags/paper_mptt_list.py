@@ -34,8 +34,8 @@ def mptt_results(cl):
             )
 
 
-@register.inclusion_tag("admin/mptt_change_list_results.html")
-def paper_mptt_result_list(cl):
+@register.inclusion_tag("admin/mptt_change_list_results.html", takes_context=True)
+def paper_mptt_result_list(context, cl):
     headers = list(admin_list.result_headers(cl))
     num_sorted_fields = 0
     for h in headers:
@@ -49,6 +49,7 @@ def paper_mptt_result_list(cl):
         num_columns += 1
 
     return {
+        "request": context.get("request"),
         "cl": cl,
         "current_page": cl.paginator.page(cl.page_num + 1),
         "result_hidden_fields": list(admin_list.result_hidden_fields(cl)),

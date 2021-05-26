@@ -60,6 +60,11 @@ class ItemStackedInlines(admin.StackedInline):
         "slug": ("name", "age")
     }
 
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["paper-card--success"]
+        return []
+
 
 class ItemTablularInlines(admin.TabularInline):
     form = ItemForm
@@ -73,6 +78,11 @@ class ItemTablularInlines(admin.TabularInline):
     prepopulated_fields = {
         "slug": ("name", "age")
     }
+
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["table-success"]
+        return []
 
 
 class CategoryForm(forms.ModelForm):
@@ -209,12 +219,11 @@ class CategoryAdmin(admin.ModelAdmin):
     m2m_field.short_description = _("M2M Field")
 
     def get_row_classes(self, request, obj=None):
-        classes = super().get_row_classes(request, obj)
         if obj.f_char.startswith("M"):
-            classes.append("table-success")
+            return ["table-success"]
         elif obj.f_char.startswith("P"):
-            classes.append("table-info")
-        return classes
+            return ["table-info"]
+        return []
 
 
 @admin.register(Tree)

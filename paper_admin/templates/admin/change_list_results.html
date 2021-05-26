@@ -1,5 +1,5 @@
 {% load i18n admin_urls %}
-{% load paper_paginator %}
+{% load paper_paginator paper_styles %}
 
 {% block result_hidden_fields %}
   {% if result_hidden_fields %}
@@ -90,7 +90,7 @@
           </tr>
         {% endif %}
 
-        <tr class="{% block row_classes %}{{ result.row_classes }}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.row_attrs }}>
+        <tr class="{% block row_classes %}{% paper_row_classes result cl.model_admin %}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.row_attrs }}>
           {% if cl.sortable_allowed %}
             <td class="paper-table__sortable-cell p-0">
               <div class="paper-table__sort-handler">
