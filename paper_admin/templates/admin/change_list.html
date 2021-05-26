@@ -60,7 +60,7 @@
       {% block object-tools %}
         <ul class="list-inline list-default">
           {% block object-tools-items %}
-            {% change_list_object_tools %}
+            {% include "admin/change_list_object_tools.html" %}
           {% endblock %}
         </ul>
       {% endblock %}
