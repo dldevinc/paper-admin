@@ -58,6 +58,7 @@ AllowClear.prototype._handleClear = function(_, evt) {
         return;
     }
 
+    evt.preventDefault();
     evt.stopPropagation();
 
     const data = Utils.GetData($clear[0], 'data');
