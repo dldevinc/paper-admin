@@ -35,9 +35,7 @@
             <span class="paper-actions__question question" hidden>
               <a href="#"
                  title="{{ _("Click here to select the objects across all pages") }}">
-                {% blocktrans with cl.result_count as total_count %}
-                  Select all {{ total_count }} {{ module_name }}
-                {% endblocktrans %}
+                {% blocktrans with cl.result_count as total_count %}Select all {{ total_count }} {{ module_name }}{% endblocktrans %}
               </a>
             </span>
 

@@ -174,7 +174,7 @@ class DateFieldListFilter(FieldListFilter):
         }
         for lookup, title in (
             ("today", _("Today")),
-            ("week", _("This week")),
+            ("week", _("Past 7 days")),
             ("month", _("This month")),
             ("year", _("This year")),
         ):

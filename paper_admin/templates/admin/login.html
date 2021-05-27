@@ -32,7 +32,7 @@
   {% if user.is_authenticated %}
     <li class="paper-message paper-message--error">
       {% blocktrans trimmed %}
-        You are authenticated as {{ user }}, but are not authorized to
+        You are authenticated as {{ username }}, but are not authorized to
         access this page. Would you like to login to a different account?
       {% endblocktrans %}
     </li>

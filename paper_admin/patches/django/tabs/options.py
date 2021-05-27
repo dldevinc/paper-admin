@@ -51,7 +51,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         elif tabs_config:
             default_tab_name = tabs_config[0][0]
         else:
-            raise RuntimeError(_("At least one tab required"))
+            raise RuntimeError("at least one tab required")
 
         tabs = []
         adminform = context.get("adminform")

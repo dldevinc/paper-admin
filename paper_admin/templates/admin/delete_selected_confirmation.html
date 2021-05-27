@@ -38,8 +38,7 @@
     {% if perms_lacking %}
       <div class="card-body">
         <p>
-          {% blocktrans %}Deleting the selected {{ objects_name }} would result in deleting related objects, but your
-            account doesn't have permission to delete the following types of objects:{% endblocktrans %}
+          {% blocktrans %}Deleting the selected {{ objects_name }} would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}
         </p>
 
         <ul class="paper-object-list">
@@ -51,8 +50,7 @@
     {% elif protected %}
       <div class="card-body">
         <p>
-          {% blocktrans %}Deleting the selected {{ objects_name }} would require deleting the following protected related
-            objects:{% endblocktrans %}
+          {% blocktrans %}Deleting the selected {{ objects_name }} would require deleting the following protected related objects:{% endblocktrans %}
         </p>
 
         <ul class="paper-object-list">
