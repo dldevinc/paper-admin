@@ -9,6 +9,8 @@ import "js/components/filedrag";
 // ---------------
 //  CSS
 // ---------------
+import "css/vendors/bootstrap.scss";
+import "css/vendors/font-awesome.scss";
 import "css/common.scss";
 
 // ---------------

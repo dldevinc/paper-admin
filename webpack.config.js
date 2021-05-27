@@ -176,6 +176,12 @@ let config = {
                     },
                     chunks: "all"
                 },
+                styleVendors: {
+                    test: /[\\/]css[\\/]vendors[\\/].*\.scss$/,
+                    name: "vendors-app",
+                    chunks: "all",
+                    enforce: true
+                },
                 styles: {
                     name: "app",
                     test: /\.s?css$/,
