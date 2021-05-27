@@ -4,6 +4,8 @@ import "bem/paper-filter/paper-filter";
 import "bem/paper-pagination/paper-pagination";
 import "bem/paper-search-form/paper-search-form";
 
+import "css/changelist.scss";
+
 
 const table = document.getElementById("result_list");
 if (table && table.classList.contains("paper-table--sortable")) {

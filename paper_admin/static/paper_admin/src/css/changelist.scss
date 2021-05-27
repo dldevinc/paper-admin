@@ -1,0 +1,20 @@
+@import "env";
+
+
+#result_list {
+
+  // Скрытие кнопок FK-полей
+  .related-widget-wrapper__buttons {
+    display: none;
+  }
+
+  // Подмена "form-control-lg" на нормальные стили
+  .form-control-lg {
+    height: $input-height;
+    padding: $input-padding-y $input-padding-x;
+    @include font-size($input-font-size);
+    line-height: $input-line-height;
+
+    // border-radius не указываем из-за того, что поле может быть частью input-group
+  }
+}
