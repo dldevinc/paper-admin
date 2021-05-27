@@ -123,7 +123,7 @@
     <div class="row">
       {% if action_form and actions_on_top and cl.show_admin_actions %}
         <div class="col-lg mb-3 order-1 order-lg-0">
-          {% include "admin/actions.html" %}
+          {% include "admin/actions.html" with index=0 %}
         </div>
       {% else %}
         <div class="col-lg"></div>
@@ -152,7 +152,7 @@
       <div class="row">
         {% if action_form and actions_on_bottom and cl.show_admin_actions %}
           <div class="col-md mt-3">
-            {% include "admin/actions.html" %}
+            {% include "admin/actions.html" with index=1 %}
           </div>
         {% else %}
           <div class="col-md"></div>
