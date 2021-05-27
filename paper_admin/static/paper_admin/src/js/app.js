@@ -46,6 +46,7 @@ import "widgets/uuid-field";
 import "bem/btn-square/btn-square";
 import "bem/btn-square-group/btn-square-group";
 import "bem/delete-inline/delete-inline";
+import "bem/dotted-underline/dotted-underline";
 import "bem/paper-breadcrumbs/paper-breadcrumbs";
 import "bem/paper-card/paper-card";
 import "bem/paper-environment/paper-environment";
