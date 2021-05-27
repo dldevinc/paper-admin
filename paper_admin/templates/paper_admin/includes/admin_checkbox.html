@@ -1,30 +1,34 @@
 {% extends 'paper_admin/includes/admin_field.html' %}
 
 {% block label %}
-  <div class="col-md-3 col-xxl-2 d-none d-md-block">{% spaceless %}
-    <label class="paper-form__label" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-
-    {% if field.help_text %}
-      <i class="paper-form__help-icon fa fa-question-circle"
-         data-toggle="popover" data-placement="top" data-trigger="manual"
-         data-html="true" data-content="{{ field.help_text }}"></i>
-    {% endif %}
-  {% endspaceless %}</div>
+  <div class="col-md-3 col-xxl-2 d-none d-md-block">
+    <label class="paper-form__label{% if field.help_text %} dotted-underline{% endif %}"
+           for="{{ field.id_for_label }}"
+           {% if field.help_text %}
+           data-toggle="popover"
+           data-placement="bottom"
+           data-trigger="hover"
+           data-html="true"
+           data-content="{{ field.help_text }}"
+           {% endif %}>{{ field.label|capfirst }}</label>
+  </div>
 {% endblock %}
 
 {% block widget %}
   <div class="col-md-9 col-xxl-10">
     <div class="paper-widget paper-widget--checkbox{% if field.errors %} paper-widget--invalid{% endif %}">
       {{ field }}
-      <div class="d-inline-block d-md-none ml-1">{% spaceless %}
-        <label class="paper-form__label mb-0" for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-
-        {% if field.help_text %}
-          <i class="paper-form__help-icon fa fa-question-circle"
-             data-toggle="popover" data-placement="top" data-trigger="manual"
-             data-html="true" data-content="{{ field.help_text }}"></i>
-        {% endif %}
-      {% endspaceless %}</div>
+      <div class="d-inline-block d-md-none ml-1">
+        <label class="paper-form__label mb-0{% if field.help_text %} dotted-underline{% endif %}"
+               for="{{ field.id_for_label }}"
+               {% if field.help_text %}
+               data-toggle="popover"
+               data-placement="bottom"
+               data-trigger="hover"
+               data-html="true"
+               data-content="{{ field.help_text }}"
+               {% endif %}>{{ field.label|capfirst }}</label>
+      </div>
     </div>
 
     <ul class="paper-error-list invalid-feedback">{% spaceless %}

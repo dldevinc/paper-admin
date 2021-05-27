@@ -61,41 +61,17 @@ class CollapseWidget extends Widget {
 }
 
 
-/**
- * Клик на иконку с подсказкой
- */
-$(document).on("click.bs.popover", ".paper-form__help-icon[data-toggle=\"popover\"][data-trigger=\"manual\"]", function() {
-    if (this.hasAttribute("aria-describedby")) {
-        return false
-    }
-
-    let timer;
-    const $that = $(this).popover("show");
-
-    function hidePopover() {
-        $that.popover("hide");
-        timer && clearTimeout(timer);
-        document.removeEventListener("click", closePopoverOnClick, true);
-    }
-
-    function closePopoverOnClick(event) {
-        const popover = event.target.closest(".popover");
-        if (!popover) {
-            hidePopover();
-        }
-    }
-
-    timer = setTimeout(hidePopover, 8000);
-    document.addEventListener("click", closePopoverOnClick, true);
-});
-
-
 const bs_dropdown = new DropdownWidget();
 bs_dropdown.observe(".dropdown-toggle");
 bs_dropdown.initAll(".dropdown-toggle");
 
 
-const bs_popover = new PopoverWidget();
+const bs_popover = new PopoverWidget({
+    delay: {
+        show: 600,
+        hide: 100
+    }
+});
 bs_popover.observe("[data-toggle=\"popover\"]");
 bs_popover.initAll("[data-toggle=\"popover\"]");
 
@@ -109,7 +85,7 @@ bs_collapse.initAll(".collapse");
 
 const bs_tooltip = new TooltipWidget({
     delay: {
-        show: 800,
+        show: 600,
         hide: 100
     }
 });

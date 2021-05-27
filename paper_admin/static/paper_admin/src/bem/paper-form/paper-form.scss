@@ -19,19 +19,6 @@
     }
   }
 
-  &__help-icon {
-    margin-left: $paper-form-help-icon-margin-left;
-    color: $paper-form-help-icon-color;
-    font-size: $paper-form-help-icon-size;
-    cursor: pointer;
-    opacity: 0.66;
-    transition: opacity 0.4s;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   &__row {
     padding: $paper-form-row-padding-y $paper-form-row-padding-x;
     background-color: $paper-form-row-bg;
@@ -61,6 +48,7 @@
     &--required {
       .paper-form__label:after {
         content: '*';
+        display: inline-block;  // disable text-decoration
         position: relative;
         margin-left: .125em;
         top: -0.2em;
