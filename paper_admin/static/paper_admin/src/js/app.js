@@ -3,8 +3,8 @@ import emitters from "js/utilities/emitters";
 import formUtils from "js/utilities/form_utils";
 import Sortable from "sortablejs";
 import Widget from "js/utilities/widget";
+import "js/components/bootstrap";
 import "js/components/filedrag";
-import "js/widgets/bootstrap";
 
 // ---------------
 //  CSS

@@ -12,6 +12,10 @@
             <a id="add_id_{{ name }}"
                class="related-widget-wrapper__link add-related btn btn-square btn-sm"
                href="{{ add_related_url }}?{{ url_params }}"
+               data-toggle="tooltip"
+               data-placement="top"
+               data-trigger="hover"
+               data-html="true"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
                 <i class="fa fa-plus text-success"></i>
             </a>
@@ -21,6 +25,10 @@
             <a id="change_id_{{ name }}"
                class="related-widget-wrapper__link change-related btn btn-square btn-sm"
                data-href-template="{{ change_related_template_url }}?{{ url_params }}"
+               data-toggle="tooltip"
+               data-placement="top"
+               data-trigger="hover"
+               data-html="true"
                {% if can_change_related %}
                 title="{% blocktrans %}Change selected {{ model }}{% endblocktrans %}">
                {% else %}
@@ -34,6 +42,10 @@
             <a id="delete_id_{{ name }}"
                class="related-widget-wrapper__link delete-related btn btn-square btn-sm"
                data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
+               data-toggle="tooltip"
+               data-placement="top"
+               data-trigger="hover"
+               data-html="true"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
                 <i class="fa fa-trash text-danger"></i>
             </a>

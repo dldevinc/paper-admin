@@ -40,24 +40,22 @@
 </head>
 <body class="{{ is_popup|yesno:"popup," }} {% block bodyclass %}{% endblock %}"
       data-admin-utc-offset="{% now "Z" %}">
-  <div>
+  {% if not is_popup %}
+    {% block sidebar %}{% endblock %}
+  {% endif %}
+
+  <div class="paper-page d-flex flex-column min-vh-100">
+    {% block header %}{% endblock %}
+
     {% if not is_popup %}
-      {% block sidebar %}{% endblock %}
+      {% spaceless %}{% block breadcrumbs %}{% endblock %}{% endspaceless %}
     {% endif %}
 
-    <div class="paper-page d-flex flex-column min-vh-100">
-      {% block header %}{% endblock %}
+    <main class="d-flex flex-column flex-grow-1 py-3 mb-auto">
+      {% block main %}{% endblock %}
+    </main>
 
-      {% if not is_popup %}
-        {% spaceless %}{% block breadcrumbs %}{% endblock %}{% endspaceless %}
-      {% endif %}
-
-      <main class="d-flex flex-column flex-grow-1 py-3 mb-auto">
-        {% block main %}{% endblock %}
-      </main>
-
-      {% block footer %}{% endblock %}
-    </div>
+    {% block footer %}{% endblock %}
   </div>
 
   {% block scripts %}

@@ -1,7 +1,12 @@
 @import "css/env";
 
 .paper-page {
-  transition: margin-left $paper-sidebar-transition-duration;
+
+  // Анимация выполняется при загрузке страницы.
+  // Отменяем это поведение через JS.
+  &.js {
+    transition: margin-left $paper-sidebar-transition-duration;
+  }
 
   @at-root
   body:not(.popup) & {

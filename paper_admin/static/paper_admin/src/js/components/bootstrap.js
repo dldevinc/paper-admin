@@ -109,8 +109,8 @@ bs_collapse.initAll(".collapse");
 
 const bs_tooltip = new TooltipWidget({
     delay: {
-        show: 500,
-        hide: 0
+        show: 800,
+        hide: 100
     }
 });
 bs_tooltip.observe("[data-toggle=\"tooltip\"]");

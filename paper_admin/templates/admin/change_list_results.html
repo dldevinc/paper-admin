@@ -90,7 +90,7 @@
           </tr>
         {% endif %}
 
-        <tr class="{% block row_classes %}{% paper_row_classes result cl.model_admin %}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.attrs }}>
+        <tr class="{% paper_row_classes result cl.model_admin %}" {{ result.attrs }}>
           {% if cl.sortable_allowed %}
             <td class="paper-table__sortable-cell p-0">
               <div class="paper-table__sort-handler">

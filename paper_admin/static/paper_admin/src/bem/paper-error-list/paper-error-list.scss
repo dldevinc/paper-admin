@@ -11,7 +11,7 @@
 
   &.invalid-tooltip {
     padding: $form-feedback-tooltip-padding-y $form-feedback-tooltip-padding-x;
-    margin-top: .1rem;
+    margin-top: 2px;
   }
 
   &:empty {

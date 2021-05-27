@@ -55,7 +55,6 @@ class Select2Widget extends Widget {
 }
 
 
-// TODO: relocate everything below
 const select2_changeform = new Select2Widget({
     width: "",
     allowClear: true
