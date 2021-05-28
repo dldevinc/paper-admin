@@ -64,35 +64,34 @@ let config = {
                 test: /\.scss$/,
                 use: [{
                     loader: MiniCssExtractPlugin.loader,
+                }, {
+                    loader: "fast-css-loader",
+                    options: {
+                        importLoaders: 2
+                    }
                 },
-                    {
-                        loader: "fast-css-loader",
-                        options: {
-                            importLoaders: 2
+                {
+                    loader: "postcss-loader",
+                    options: {
+                        postcssOptions: {
+                            plugins: [
+                                pixrem(),
+                                autoprefixer()
+                            ]
                         }
-                    },
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    pixrem(),
-                                    autoprefixer()
-                                ]
-                            }
+                    }
+                },
+                {
+                    loader: "sass-loader",
+                    options: {
+                        sassOptions: {
+                            includePaths: [
+                                path.resolve(SOURCE_DIR, "css"),
+                                path.resolve(__dirname, "node_modules"),
+                            ]
                         }
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sassOptions: {
-                                includePaths: [
-                                    path.resolve(SOURCE_DIR, "css"),
-                                    path.resolve(__dirname, "node_modules"),
-                                ]
-                            }
-                        }
-                    }]
+                    }
+                }]
             },
 
             {
@@ -167,26 +166,40 @@ let config = {
         moduleIds: "deterministic",
         runtimeChunk: "single",
         splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
             cacheGroups: {
                 defaultVendors: {
-                    test: /[\\/]node_modules[\\/].*\.js$/,
-                    name: function(module, chunks) {
-                        const allChunksNames = chunks.map((item) => item.name).join("~");
-                        return `vendors-${allChunksNames}`;
-                    },
-                    chunks: "all"
+                    priority: 20,
+                    test: /[\\/]node_modules[\\/]/,
+                    name: function(module) {
+                        let packageName = module.context.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/)[1];
+                        return `npm.${packageName.replace('@', '')}`;
+                    }
                 },
-                styleVendors: {
-                    test: /[\\/]css[\\/]vendors[\\/].*\.scss$/,
-                    name: "vendors-app",
-                    chunks: "all",
-                    enforce: true
+                innerVendors: {
+                    priority: 10,
+                    test: /[\\/]css[\\/]vendors[\\/].*\.s?css$/,
+                    name: function(module) {
+                        let modulePath = module.nameForCondition();
+                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
+                        if (verdorMatch) {
+                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
+                        }
+                    }
                 },
                 styles: {
-                    name: "app",
                     test: /\.s?css$/,
-                    chunks: "all",
-                    enforce: true
+                    name: function(module) {
+                        let modulePath = module.nameForCondition();
+                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
+                        if (verdorMatch) {
+                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
+                        } else {
+                            return "vendors.app"
+                        }
+                    }
                 }
             }
         },
