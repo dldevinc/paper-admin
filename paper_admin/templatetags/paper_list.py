@@ -1,3 +1,4 @@
+import django
 from django.contrib.admin.templatetags import admin_list
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
@@ -196,6 +197,11 @@ class ResultTable:
 
 
 def result_list_context(table):
+    if django.VERSION >= (3, 2):
+        current_page = table.cl.paginator.page(table.cl.page_num)
+    else:
+        current_page = table.cl.paginator.page(table.cl.page_num + 1)
+
     return {
         "cl": table.cl,
         "result_hidden_fields": table.hidden_fields,
@@ -204,7 +210,7 @@ def result_list_context(table):
         "results": table,
 
         "column_count": table.column_count,
-        "current_page": table.cl.paginator.page(table.cl.page_num + 1),
+        "current_page": current_page,
     }
 
 
