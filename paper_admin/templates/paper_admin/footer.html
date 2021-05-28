@@ -1,34 +1,28 @@
-<footer class="paper-footer">
+<footer class="paper-footer py-3 small text-secondary">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-auto flex-shrink-1">
-        <p class="mb-0">{{ _("Please contact us if you have any problems") }}</p>
+      <div class="col">
 
-        <div class="mt-1">
-          {% block phone %}
-            <a href="tel:+12345678900" class="d-inline-block mr-3 mt-1 text-nowrap">
-              <i class="fa fa-lg fa-phone"></i>
-              <span>+1 234 567 8900</span>
-            </a>
-          {% endblock %}
-
-          {% block email %}
-            <a href="mailto:office@company.com" class="d-inline-block mt-1 text-nowrap">
-              <i class="fa fa-lg fa-envelope-o"></i>
-              <span>office@company.com</span>
-            </a>
-          {% endblock %}
-        </div>
       </div>
 
-      <div class="mt-2 mt-md-0 col-md-auto ml-md-auto">
-        <div class="text-muted">
-          Django: {{ paper.DJANGO_VERSION }}
-        </div>
-
-        <div class="mt-1 mt-md-2 text-md-right text-muted">
-          &copy; {% now 'Y' %}
-        </div>
+      <div class="col-auto">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            Django {{ paper.DJANGO_VERSION }}
+          </li>
+          <li class="list-inline-item">
+            |
+          </li>
+          <li class="list-inline-item">
+            Python {{ paper.PYTHON_VERSION }}
+          </li>
+          <li class="list-inline-item">
+            |
+          </li>
+          <li class="list-inline-item">
+            {{ paper.DB_VENDOR }} {{ paper.DB_VERSION }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>

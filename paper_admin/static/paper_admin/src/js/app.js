@@ -53,7 +53,6 @@ import "bem/paper-breadcrumbs/paper-breadcrumbs";
 import "bem/paper-card/paper-card";
 import "bem/paper-environment/paper-environment";
 import "bem/paper-error-list/paper-error-list";
-import "bem/paper-footer/paper-footer";
 import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
 import modals from "bem/paper-modal/paper-modal";
