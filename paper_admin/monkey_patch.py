@@ -71,4 +71,8 @@ class MonkeyPatchMeta(type):
 
             setattr(target, attr_name, attr_value)
 
+            # for descriptors like "cached_property"
+            if hasattr(attr_value, "__set_name__"):
+                attr_value.__set_name__(target, attr_name)
+
         return target
