@@ -24,7 +24,7 @@ class Select2Widget extends Widget {
             }
         }
 
-        $(element).select2(options).data("select2");
+        $(element).select2(options);
 
         // вызов события change для поддержки hookUnload
         $(element).on("select2:select select2:clear", function() {

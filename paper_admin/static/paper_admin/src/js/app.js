@@ -6,25 +6,25 @@ import Widget from "js/utilities/widget";
 import "js/components/bootstrap";
 import "js/components/filedrag";
 
-// ---------------
-//  CSS
-// ---------------
+// -----------------
+//  CSS vendors
+// -----------------
 import "css/vendors/bootstrap.scss";
 import "css/vendors/font-awesome.scss";
 import "css/common.scss";
 
-// ---------------
-//  Components
-// ---------------
+// -----------------
+//  JS Components
+// -----------------
 import "components/back-button";
 import "components/flatpickr";
 import "components/prepopulate";
 import "components/related-object-lookups";
 import "components/select2";
 
-// ---------------
-//  Widgets
-// ---------------
+// -----------------
+//  Django Widgets
+// -----------------
 import "widgets/clearable-file-field";
 import "widgets/date-field";
 import "widgets/email-field";
@@ -43,9 +43,9 @@ import "widgets/time-field";
 import "widgets/url-field";
 import "widgets/uuid-field";
 
-// ---------------
+// -----------------
 //  BEM
-// ---------------
+// -----------------
 import "bem/btn-square/btn-square";
 import "bem/btn-square-group/btn-square-group";
 import "bem/delete-inline/delete-inline";
@@ -68,17 +68,21 @@ import "bem/paper-widget/paper-widget";
 import "bem/paper-table/paper-table";
 import "bem/paper-form/paper-form";
 
-// ---------------
-//  Pages
-// ---------------
+// -----------------
+//  CSS for pages
+// -----------------
 import "css/dashboard.scss";
 import "css/login.scss";
 
-// ---------------
+// -----------------
 //  Images
-// ---------------
+// -----------------
 import "img/default_favicon.png";
 
+
+// -----------------
+//  Import & Export
+// -----------------
 
 // changelist page
 if (document.body.classList.contains("change-list")) {

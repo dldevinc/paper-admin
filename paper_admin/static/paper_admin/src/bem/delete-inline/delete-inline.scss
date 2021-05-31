@@ -11,6 +11,7 @@
 
   .custom-control-label {
     opacity: 0;
+    cursor: pointer;
     transition: opacity 0.2s;
 
     &:before,
@@ -51,7 +52,7 @@
         opacity: 1;
 
         &::before {
-          color: #fff;
+          color: $custom-control-indicator-bg;
           border-color: theme-color("danger");
           background-color: theme-color("danger");
         }
