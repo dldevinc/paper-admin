@@ -86,8 +86,12 @@
   }
 
   // fix cursor
-  .custom-control-label {
+  .custom-control-input:not(.disabled):not([disabled]) {
     cursor: pointer;
+
+    ~ .custom-control-label {
+      cursor: pointer;
+    }
   }
 
   // enlarge check mark
