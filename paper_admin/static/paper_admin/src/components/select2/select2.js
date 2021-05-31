@@ -72,15 +72,6 @@ select2_changelist.observe(".paper-table .select-field select");
 select2_changelist.initAll(".paper-table .select-field select");
 
 
-const select2_filters = new Select2Widget({
-    width: "100%",
-    theme: "sm",
-    allowClear: true
-});
-select2_filters.observe(".paper-filter select");
-select2_filters.initAll(".paper-filter select");
-
-
 const select2_action = new Select2Widget({
     theme: "sm",
     allowClear: true,
