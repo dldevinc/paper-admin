@@ -1,5 +1,5 @@
-@import "css/abstracts/functions/sum";
 @import "css/abstracts/bootstrap";
+@import "css/abstracts/functions/sum";
 @import "./variables";
 
 $field-height: sum($input-line-height-lg * $input-font-size-lg, $input-padding-y-lg * 2, $input-height-border);

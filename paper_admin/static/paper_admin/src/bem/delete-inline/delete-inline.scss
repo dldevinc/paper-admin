@@ -1,12 +1,19 @@
-@import "css/env";
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/functions/sum";
 
 .delete-inline {
+  position: relative;
+
   &__icon {
     position: absolute;
-    top: 4px;
+    top: sum($custom-control-indicator-size, -14px);
     left: 0;
     right: 0;
     pointer-events: none;
+  }
+
+  .custom-control {
+    position: static;
   }
 
   .custom-control-label {
@@ -25,10 +32,10 @@
 
   input {
     position: absolute;
-    top: -4px;
-    left: -4px;
-    width: $btn-square-size-sm;
-    height: $btn-square-size-sm;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
     opacity: 0;
     cursor: pointer;

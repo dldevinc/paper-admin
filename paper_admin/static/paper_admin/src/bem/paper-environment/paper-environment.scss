@@ -1,11 +1,12 @@
-@import "css/env";
+@import "./variables";
 
 .paper-environment {
-  padding: 2px 0.75rem;
+  padding: $paper-environment-padding-y $paper-environment-padding-x;
   margin-bottom: 0;
-  font-size: 10px;
+  font-size: $paper-environment-font-size;
+  line-height: $paper-environment-line-height;
   text-align: center;
   text-transform: uppercase;
-  border-bottom: 1px solid $paper-sidebar-brand-border-color;
+  border-bottom: $paper-environment-border-width solid $paper-environment-border-color;
   background: var(--bg-color);
 }

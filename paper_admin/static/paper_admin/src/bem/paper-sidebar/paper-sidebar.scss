@@ -1,4 +1,6 @@
-@import "css/env";
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/font-awesome";
+@import "./variables";
 
 .sidebar-shadow {
   position: fixed;

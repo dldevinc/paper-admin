@@ -1,4 +1,6 @@
-@import "css/env";
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/colors";
+@import "./variables";
 
 .paper-card {
   .card-header {

@@ -1,9 +1,11 @@
-@import "css/env";
+@import "css/abstracts/bootstrap";
+@import "bem/paper-sidebar/variables";
+@import "./variables";
 
 .paper-page {
 
   // Анимация выполняется при загрузке страницы.
-  // Отменяем это поведение через JS.
+  // Отменяем это поведение привязкой к динамически добавляемому классу.
   &.js {
     transition: margin-left $paper-sidebar-transition-duration;
   }
