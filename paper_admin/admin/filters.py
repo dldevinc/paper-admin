@@ -1,12 +1,12 @@
-import datetime
 import operator
+from itertools import zip_longest
 
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils import timezone
+from django.utils.dateparse import parse_date
 from django.utils.translation import gettext_lazy as _
 
 
@@ -129,66 +129,53 @@ class ChoicesFieldListFilter(FieldListFilter):
 
 
 class DateFieldListFilter(FieldListFilter):
-    template = "paper_admin/filters/select.html"
+    template = "paper_admin/filters/daterange.html"
+
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        self.field = field
+        self.field_path = field_path
+        self.title = getattr(field, "verbose_name", field_path)
+        super(FieldListFilter, self).__init__(request, params, model, model_admin)
+
+        params.pop(self.start_parameter_name, None)
+        params.pop(self.end_parameter_name, None)
+
+        start_values_list = request.GET.getlist(self.start_parameter_name)
+        start_values_list = list(filter(lambda x: x != "", start_values_list))
+
+        end_values_list = request.GET.getlist(self.end_parameter_name)
+        end_values_list = list(filter(lambda x: x != "", end_values_list))
+
+        self.value = tuple(zip_longest(start_values_list, end_values_list))
+
+    @property
+    def start_parameter_name(self):
+        return "{}-start".format(self.parameter_name)
+
+    @property
+    def end_parameter_name(self):
+        return "{}-end".format(self.parameter_name)
 
     def choices(self, changelist):
-        yield {
-            "selected": not self.value,
-            "value": "",
-            "display": _("Any date"),
-        }
-        for lookup, title in (
-            ("today", _("Today")),
-            ("week", _("Past 7 days")),
-            ("month", _("This month")),
-            ("year", _("This year")),
-        ):
-            yield {
-                "selected": lookup in self.value,
-                "value": lookup,
-                "display": title,
-            }
-        if self.field.null:
-            yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
-            }
+        return []
 
     def get_query(self, value):
-        now = timezone.now()
-        if timezone.is_aware(now):
-            now = timezone.localtime(now)
-
-        if isinstance(self.field, models.DateTimeField):
-            today = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        else:  # field is a models.DateField
-            today = now.date()
-
-        tomorrow = today + datetime.timedelta(days=1)
-        if today.month == 12:
-            next_month = today.replace(year=today.year + 1, month=1, day=1)
-        else:
-            next_month = today.replace(month=today.month + 1, day=1)
-        next_year = today.replace(year=today.year + 1, month=1, day=1)
-
-        lookup_since = "%s__gte" % self.field_path
-        lookup_until = "%s__lt" % self.field_path
-
         if not value:
             return
         elif len(value) == 1:
-            value = value[0]
-            if value == "None":
-                return models.Q((self.field_path, None))
-            elif value == "today":
-                return models.Q((lookup_since, today)) & models.Q((lookup_until, tomorrow))
-            elif value == "week":
-                return models.Q((lookup_since, today - datetime.timedelta(days=7))) & models.Q((lookup_until, tomorrow))
-            elif value == "month":
-                return models.Q((lookup_since, today.replace(day=1))) & models.Q((lookup_until, next_month))
-            elif value == "year":
-                return models.Q((lookup_since, today.replace(month=1, day=1))) & models.Q((lookup_until, next_year))
+            start, end = value[0]
+
+            lookup_since = "%s__gte" % self.field_path
+            lookup_until = "%s__lt" % self.field_path
+
+            query = models.Q()
+            if start:
+                query &= models.Q((lookup_since, parse_date(start)))
+            if end:
+                query &= models.Q((lookup_until, parse_date(end)))
+
+            return query
+
         raise ValueError(value)
 
 

@@ -7,6 +7,7 @@ import "bem/paper-search-form/paper-search-form";
 // -----------------
 //  Filters
 // -----------------
+import "filters/date-range-filter";
 import "filters/select2-filter";
 
 // -----------------

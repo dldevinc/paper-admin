@@ -15,6 +15,7 @@ Much of the code has been rewritten. We outline some key changes below.
 - `PAPER_SUPPORT_PHONE`, `PAPER_SUPPORT_EMAIL`, `PAPER_SUPPORT_COMPANY` and
   `PAPER_SUPPORT_WEBSITE` settings have been removed. Override `paper_admin/footer.html`
   template to set your contact information.
+- Date range filter has been added.
 ### Features
 - Added patch for `django-logentry-admin`.
 - Added `PAPER_FAVICON` setting.
