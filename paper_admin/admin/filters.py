@@ -10,54 +10,22 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-class SimpleListFilter(filters.ListFilter):
+class SimpleListFilter(filters.SimpleListFilter):
     """
     Отличия от стандартного `SimpleListFilter`:
     1) Используется `request.GET.getlist()` вместо `request.GET.get()`, что позволяет
        указывать несколько значений.
     2) Более универсальный формат `choice`-объекта.
     """
-    # The parameter that should be used in the query string for that filter.
-    parameter_name = None
-    template = "paper_admin/filters/list.html"
-
     def __init__(self, request, params, model, model_admin):
-        super().__init__(request, params, model, model_admin)
-        if self.parameter_name is None:
-            raise ImproperlyConfigured(
-                "The list filter '%s' does not specify a 'parameter_name'."
-                % self.__class__.__name__
-            )
         if self.parameter_name in params:
             params.pop(self.parameter_name, None)
             values_list = request.GET.getlist(self.parameter_name)
             self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
-        lookup_choices = self.lookups(request, model_admin)
-        if lookup_choices is None:
-            lookup_choices = ()
-        self.lookup_choices = list(lookup_choices)
-
-    def has_output(self):
-        return len(self.lookup_choices) > 0
+        super().__init__(request, params, model, model_admin)
 
     def value(self):
-        """
-        Return the values (as list of strings) provided in the request's
-        query string for this filter.
-        """
         return self.used_parameters.get(self.parameter_name, [])
-
-    def lookups(self, request, model_admin):
-        """
-        Must be overridden to return a list of tuples (value, verbose value)
-        """
-        raise NotImplementedError(
-            'The SimpleListFilter.lookups() method must be overridden to '
-            'return a list of tuples (value, verbose value).'
-        )
-
-    def expected_parameters(self):
-        return [self.parameter_name]
 
     def choices(self, changelist):
         yield {
@@ -82,9 +50,6 @@ class FieldListFilter(filters.ListFilter):
         params.pop(self.parameter_name, None)
         values_list = request.GET.getlist(self.parameter_name)
         self.value = list(filter(lambda x: x != "", values_list))
-
-    def get_template(self):
-        return self.template
 
     @property
     def parameter_name(self):
