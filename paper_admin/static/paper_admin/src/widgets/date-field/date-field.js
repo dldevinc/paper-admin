@@ -1,4 +1,4 @@
-import flatpickr from "flatpickr";
+import { flatpickr } from "components/flatpickr";
 import Widget from "js/utilities/widget";
 
 import "./date-field.scss";
@@ -8,7 +8,8 @@ class DateWidget extends Widget {
         super();
 
         this.opts = Object.assign({
-            altInput: true
+            altInput: true,
+            locale: (document.documentElement.getAttribute("lang") || "en").toLowerCase()
         }, options);
 
         document.addEventListener("click", function(event) {
@@ -35,20 +36,6 @@ class DateWidget extends Widget {
 }
 
 
-function initWidget() {
-    const widget = new DateWidget();
-    widget.observe(".date-field input");
-    widget.initAll(".date-field input");
-}
-
-// Если локализация английская - инициализируем виджеты сразу,
-// а если нет - сначала подгружаем файл перевода.
-const lang = (document.documentElement.getAttribute("lang") || "en").toLowerCase();
-if (lang === "en") {
-    initWidget();
-} else {
-    import(`flatpickr/dist/l10n/${lang}.js`).then(function() {
-        flatpickr.localize(flatpickr.l10ns[lang]);
-        initWidget();
-    });
-}
+const widget = new DateWidget();
+widget.observe(".date-field input");
+widget.initAll(".date-field input");
