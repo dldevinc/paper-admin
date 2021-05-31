@@ -4,7 +4,3 @@ $paper-widget-invalid-border-color: theme-color-level("danger", -4) !default;
 $paper-widget-invalid-box-shadow: 0 0 0 1px $paper-widget-invalid-border-color !default;
 
 $paper-widget-addon-min-width: 2.25rem;
-$paper-widget-addon-color: lighten($link-color, 5%) !default;
-$paper-widget-addon-bg: $input-group-addon-bg !default;
-$paper-widget-addon-hover-color: $link-color !default;
-$paper-widget-addon-hover-bg: $gray-200 !default;

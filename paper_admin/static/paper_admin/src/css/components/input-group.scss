@@ -1,0 +1,36 @@
+@import "css/abstracts/bootstrap";
+
+.input-group {
+  a.input-group-text {
+    color: $text-muted;
+    background-color: $gray-100;
+
+    &:hover {
+      color: $text-muted;
+    }
+
+    &[href] {
+      color: lighten($link-color, 5%);
+
+      &:hover {
+        color: $link-color;
+        background-color: $gray-200;
+      }
+    }
+  }
+
+  button.input-group-text {
+    color: lighten($link-color, 5%);
+    background-color: $gray-100;
+
+    &:hover {
+      color: $link-color;
+      background-color: $gray-200;
+    }
+
+    &:disabled {
+      color: $text-muted;
+      background-color: $gray-100;
+    }
+  }
+}

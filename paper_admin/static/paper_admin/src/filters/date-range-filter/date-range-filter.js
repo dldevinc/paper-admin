@@ -1,8 +1,6 @@
 import { flatpickr } from "components/flatpickr";
 import Widget from "js/utilities/widget";
 
-import "./date-range-filter.scss";
-
 
 class DateRangeFilter extends Widget {
     constructor(options) {
