@@ -3,6 +3,7 @@ from . import filters
 from . import helpers
 from . import options
 from . import prepopulate
+from . import sites
 from . import sortable
 from . import styles
 from . import tabs

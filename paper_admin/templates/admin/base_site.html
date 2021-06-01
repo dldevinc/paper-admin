@@ -2,9 +2,7 @@
 {% load paper_menu %}
 
 {% block scripts %}
-  {% if user.is_authenticated %}
-    <script src="{% url 'admin:jsi18n' %}"></script>
-  {% endif %}
+  <script src="{% url 'admin:jsi18n' %}"></script>
   {{ block.super }}
 {% endblock %}
 
