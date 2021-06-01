@@ -120,6 +120,8 @@ FILE_UPLOAD_PERMISSIONS = 0o666
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+LOGIN_URL = "admin:login"
+
 MPTT_DEFAULT_LEVEL_INDICATOR = "┄"
 
 # =============
