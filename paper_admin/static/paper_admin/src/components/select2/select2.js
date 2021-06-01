@@ -54,31 +54,4 @@ class Select2Widget extends Widget {
     }
 }
 
-
-const select2_changeform = new Select2Widget({
-    width: "",
-    allowClear: true
-});
-select2_changeform.observe(".paper-form .select-field select");
-select2_changeform.initAll(".paper-form .select-field select");
-
-
-const select2_changelist = new Select2Widget({
-    width: "",
-    theme: "sm",
-    allowClear: true
-});
-select2_changelist.observe(".paper-table .select-field select");
-select2_changelist.initAll(".paper-table .select-field select");
-
-
-const select2_action = new Select2Widget({
-    theme: "sm",
-    allowClear: true,
-    minimumResultsForSearch: Infinity
-});
-select2_action.observe(".paper-actions select");
-select2_action.initAll(".paper-actions select");
-
-
-export default Select2Widget;
+export {Select2Widget};
