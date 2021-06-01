@@ -158,7 +158,7 @@ let config = {
                 `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
             filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.body.html"),
             inject: false,
-            scriptLoading: 'blocking',
+            scriptLoading: "blocking",
             chunks: ["app"]
         })
     ],
@@ -166,7 +166,7 @@ let config = {
         moduleIds: "deterministic",
         runtimeChunk: "single",
         splitChunks: {
-            chunks: 'all',
+            chunks: "all",
             maxInitialRequests: Infinity,
             minSize: 0,
             cacheGroups: {

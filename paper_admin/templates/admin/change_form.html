@@ -127,7 +127,7 @@
       {% if tabs %}
         <div class="tab-content">
           {% for tab in tabs %}
-            <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
+            <div class="tab-pane{% if tab.active %} active{% endif %}" id="{{ tab.name }}-panel"
                  role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
               {% for fieldset in tab.fieldsets %}
                 {% if fieldset.has_visible_field %}
