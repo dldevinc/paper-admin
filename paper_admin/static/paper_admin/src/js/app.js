@@ -54,6 +54,7 @@ import "bem/paper-breadcrumbs/paper-breadcrumbs";
 import "bem/paper-card/paper-card";
 import "bem/paper-environment/paper-environment";
 import "bem/paper-error-list/paper-error-list";
+import "bem/paper-form/paper-form";
 import "bem/paper-header/paper-header";
 import "bem/paper-messages/paper-messages";
 import modals from "bem/paper-modal/paper-modal";
@@ -61,12 +62,11 @@ import "bem/paper-object-list/paper-object-list";
 import "bem/paper-page/paper-page";
 import "bem/paper-preloader/paper-preloader";
 import "bem/paper-sidebar/paper-sidebar";
+import "bem/paper-table/paper-table";
 import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
 import "bem/paper-widget/paper-widget";
 
-import "bem/paper-table/paper-table";
-import "bem/paper-form/paper-form";
 
 // -----------------
 //  CSS for pages

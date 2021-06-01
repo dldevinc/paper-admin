@@ -5,7 +5,6 @@
 Much of the code has been rewritten. We outline some key changes below.
 
 - `django-logentry-admin` dependency has been removed.
-- Scroll-to-top button has been removed.
 - `CustomCheckboxInput` widget has been renamed to `AdminCheckboxInput`.
 - `CustomRadioSelect` widget has been renamed to `AdminRadioSelect`.
 - `CustomCheckboxSelectMultiple` widget has been renamed to `AdminCheckboxSelectMultiple`.

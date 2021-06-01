@@ -1,0 +1,61 @@
+@import "css/abstracts/bootstrap";
+
+@keyframes arrow {
+  0% {
+    top: 0.875rem;
+  }
+  25% {
+    top: 0.625rem;
+  }
+  75% {
+    top: 1.125rem;
+  }
+  100% {
+    top: 0.875rem;
+  }
+}
+
+.scroll-top-button {
+  position: fixed;
+  display: none;
+  right: 1rem;
+  bottom: 2rem;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  opacity: 0.75;
+  z-index: $zindex-sticky;
+  font-size: 1rem;
+  transform: scale(0);
+  will-change: transform;
+  border-radius: 50%;
+  background-color: theme-color-level("success");
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  @include transition();
+  @include media-breakpoint-up(lg) {
+    display: block !important;
+    right: 2rem;
+    bottom: 2.75rem;
+  }
+
+  i {
+    position: absolute;
+    left: 1rem;
+    top: 0.875rem;
+    color: #fff;
+    will-change: top;
+    backface-visibility: hidden;
+  }
+
+  &.show {
+    transform: scale(1);
+  }
+
+  &:hover {
+    opacity: 1;
+
+    i {
+      animation: arrow 2s linear infinite;
+    }
+  }
+}
