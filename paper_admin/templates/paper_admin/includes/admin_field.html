@@ -1,4 +1,4 @@
-<div class="paper-form__row{% if field.errors %} paper-form__row--invalid{% endif %}{% if is_readonly %} paper-form__row--readonly{% endif %}{% if field.field.required %} paper-form__row--required{% endif %}">
+<div class="paper-form__row{% if field.errors %} paper-form__row--invalid{% endif %}{% if is_readonly %} paper-form__row--readonly{% endif %}{% if field.field.required %} paper-form__row--required{% endif %}{% if field.name %} field-{{ field.name }}{% endif %}">
   <div class="row">
     {% block label %}
       <div class="col-md-3 col-xxl-2">
