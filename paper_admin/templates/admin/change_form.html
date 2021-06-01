@@ -123,46 +123,48 @@
       <input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />
     {% endif %}
 
-    {% if tabs %}
-      <div class="tab-content">
-        {% for tab in tabs %}
-          <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
-               role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
-            {% for fieldset in tab.fieldsets %}
-              {% if fieldset.has_visible_field %}
-                <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
-                  {% include "admin/includes/fieldset.html" %}
-                </fieldset>
-              {% else %}
-                <fieldset class="{{ fieldset.classes }}" hidden>
-                  {% include "admin/includes/fieldset.html" %}
-                </fieldset>
-              {% endif %}
-            {% endfor %}
+    {% block field_sets %}
+      {% if tabs %}
+        <div class="tab-content">
+          {% for tab in tabs %}
+            <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
+                 role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
+              {% for fieldset in tab.fieldsets %}
+                {% if fieldset.has_visible_field %}
+                  <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
+                    {% include "admin/includes/fieldset.html" %}
+                  </fieldset>
+                {% else %}
+                  <fieldset class="{{ fieldset.classes }}" hidden>
+                    {% include "admin/includes/fieldset.html" %}
+                  </fieldset>
+                {% endif %}
+              {% endfor %}
 
-            {% for inline_admin_formset in tab.inline_formsets %}
-              {% include inline_admin_formset.opts.template %}
-            {% endfor %}
-          </div>
+              {% for inline_admin_formset in tab.inline_formsets %}
+                {% include inline_admin_formset.opts.template %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        {% for fieldset in adminform %}
+          {% if fieldset.has_visible_field %}
+            <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
+              {% include "admin/includes/fieldset.html" %}
+            </fieldset>
+          {% else %}
+            <fieldset class="{{ fieldset.classes }}" hidden>
+              {% include "admin/includes/fieldset.html" %}
+            </fieldset>
+          {% endif %}
         {% endfor %}
-      </div>
-    {% else %}
-      {% for fieldset in adminform %}
-        {% if fieldset.has_visible_field %}
-          <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
-            {% include "admin/includes/fieldset.html" %}
-          </fieldset>
-        {% else %}
-          <fieldset class="{{ fieldset.classes }}" hidden>
-            {% include "admin/includes/fieldset.html" %}
-          </fieldset>
-        {% endif %}
-      {% endfor %}
 
-      {% for inline_admin_formset in inline_admin_formsets %}
-        {% include inline_admin_formset.opts.template %}
-      {% endfor %}
-    {% endif %}
+        {% for inline_admin_formset in inline_admin_formsets %}
+          {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
 
     {% block after_related_objects %}{% endblock %}
   </form>
