@@ -31,8 +31,7 @@
     }
 
     .form-control,
-    .custom-file-label,
-    .select2-selection {
+    .custom-file-label {
       border-color: $paper-widget-invalid-border-color;
       box-shadow: $paper-widget-invalid-box-shadow;
     }

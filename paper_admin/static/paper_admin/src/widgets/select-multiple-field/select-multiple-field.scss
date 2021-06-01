@@ -1,4 +1,5 @@
 @import "css/abstracts/bootstrap";
+@import "bem/paper-widget/variables";
 
 .multi-wrapper {
   overflow: hidden;
@@ -63,5 +64,10 @@
     .item {
       padding-left: $input-padding-x-lg + 0.5rem;
     }
+  }
+
+  @at-root .paper-widget--invalid & {
+    border-color: $paper-widget-invalid-border-color;
+    box-shadow: $paper-widget-invalid-box-shadow;
   }
 }
