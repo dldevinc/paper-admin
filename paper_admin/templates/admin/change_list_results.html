@@ -105,7 +105,7 @@
 
           {% if cl.model_admin.changelist_tools %}
             <td class="text-right">{% spaceless %}
-              {% include "paper_admin/includes/changelist_tools.html" %}
+              {% include cl.model_admin.changelist_tools_template %}
             {% endspaceless %}</td>
           {% endif %}
         </tr>

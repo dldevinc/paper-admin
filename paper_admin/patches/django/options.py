@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.auth import get_permission_codename, get_user_model
@@ -16,6 +15,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     list_per_page = 20
     object_history = True  # show "History" button
     changelist_tools = True  # show buttons in changelist view
+    changelist_tools_template = "paper_admin/includes/changelist_tools.html"
 
     @property
     def media(self):
