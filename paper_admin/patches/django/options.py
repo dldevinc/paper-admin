@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
+from django.contrib.admin.options import InlineModelAdmin, ModelAdmin, csrf_protect_m
 from django.contrib.admin.utils import model_format_dict
+from django.contrib.admin.views.main import SEARCH_VAR
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import gettext as _
@@ -28,6 +29,12 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
             choice = (name, description % model_format_dict(self.opts))
             choices.append(choice)
         return choices
+
+    @csrf_protect_m
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["search_var"] = SEARCH_VAR
+        return get_original(ModelAdmin)(self, request, extra_context=extra_context)
 
     def history_view(self, request, object_id, extra_context=None):
         # Добавление в список логов ссылки на пользователя и ссылки на запись лога

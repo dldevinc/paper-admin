@@ -120,21 +120,25 @@
   {% endif %}
 
   {% if cl.result_count %}
-    <div class="row">
-      {% if action_form and actions_on_top and cl.show_admin_actions %}
-        <div class="col-lg mb-3 order-1 order-lg-0">
-          {% include "admin/actions.html" with index=0 %}
-        </div>
-      {% else %}
-        <div class="col-lg"></div>
-      {% endif %}
+    {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
+      <div class="row mb-3">
+        {% if action_form and actions_on_top and cl.show_admin_actions %}
+          <div class="col-lg order-1 order-lg-0">
+            {% include "admin/actions.html" with index=0 %}
+          </div>
+        {% else %}
+          <div class="col-lg"></div>
+        {% endif %}
 
-      <div class="col-auto mb-3">
-        {% block search %}
-          {% search_form cl %}
-        {% endblock %}
+        {% if cl.search_fields %}
+          <div class="col-auto">
+            {% block search %}
+              {% include "admin/search_form.html" %}
+            {% endblock %}
+          </div>
+        {% endif %}
       </div>
-    </div>
+    {% endif %}
 
     <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
       {% csrf_token %}
