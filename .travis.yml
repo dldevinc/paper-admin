@@ -10,7 +10,7 @@ before_install:
   - npm ci
   - pip install -U pip setuptools wheel tox-travis
   - pip install twine
-  - pip install -r ./requirements_dev.txt
+  - pip install -r ./requirements.txt
   - npx webpack --mode=production
 branches:
   only:
