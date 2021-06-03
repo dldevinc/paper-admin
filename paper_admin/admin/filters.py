@@ -18,11 +18,15 @@ class SimpleListFilter(filters.SimpleListFilter):
     2) Более универсальный формат `choice`-объекта.
     """
     def __init__(self, request, params, model, model_admin):
-        if self.parameter_name in params:
+        has_value = self.parameter_name in params
+        if has_value:
             params.pop(self.parameter_name, None)
+
+        super().__init__(request, params, model, model_admin)
+
+        if has_value:
             values_list = request.GET.getlist(self.parameter_name)
             self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
-        super().__init__(request, params, model, model_admin)
 
     def value(self):
         return self.used_parameters.get(self.parameter_name, [])
