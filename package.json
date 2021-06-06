@@ -27,6 +27,7 @@
     "flatpickr": "^4.6.9",
     "font-awesome": "^4.7.0",
     "gsap": "^3.6.0",
+    "html-inline-css-webpack-plugin": "^1.11.0",
     "html-webpack-plugin": "^5.3.1",
     "image-minimizer-webpack-plugin": "^2.2.0",
     "imagemin-gifsicle": "^7.0.0",
