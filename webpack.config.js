@@ -147,20 +147,12 @@ let config = {
         }),
         new HtmlWebpackPlugin({
             templateContent: ({htmlWebpackPlugin}) =>
-                `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
             filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
             inject: false,
-            scriptLoading: 'blocking',
+            scriptLoading: 'defer',
             chunks: ["app"]
         }),
-        new HtmlWebpackPlugin({
-            templateContent: ({htmlWebpackPlugin}) =>
-                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.body.html"),
-            inject: false,
-            scriptLoading: "blocking",
-            chunks: ["app"]
-        })
     ],
     optimization: {
         moduleIds: "deterministic",
