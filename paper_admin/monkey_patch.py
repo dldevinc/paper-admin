@@ -57,8 +57,12 @@ class MonkeyPatchMeta(type):
 
         target = bases[0]
 
+        # fix python 3.8+
+        if "__classcell__" in attrs:
+            attrs["__classcell__"].cell_contents = target
+
         for attr_name, attr_value in attrs.items():
-            if attr_name in {"__module__", "__qualname__"}:
+            if attr_name in {"__module__", "__qualname__", "__classcell__"}:
                 continue
 
             if hasattr(target, attr_name):
