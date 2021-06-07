@@ -360,6 +360,59 @@ class PaperModal extends Modal {
 
 
 /**
+ * Обертка над PaperModal для создания окна.
+ * @param {Object?} options
+ * @returns {PaperModal}
+ */
+function createModal(options) {
+    return new PaperModal(options);
+}
+
+
+/**
+ * Специализированное окно для показа ошибок формы.
+ * @param {String|String[]} errors
+ * @param {Object?} options
+ * @returns {PaperModal}
+ */
+function showErrors(errors, options) {
+    let message;
+    if (Array.isArray(errors)) {
+        if (errors.length === 1) {
+            message = errors[0]
+        } else {
+            let output = [`<ul class="px-4 mb-0">`];
+            for (let i=0, l=errors.length; i<l; i++) {
+                output.push(`<li>${errors[i]}</li>`);
+            }
+            output.push(`</ul>`);
+            message = output.join("\n");
+        }
+    } else {
+        message = errors;
+    }
+
+    const modal = createModal(Object.assign({
+        modalClass: "paper-modal--danger",
+        title: "Please correct the following errors",
+        body: message,
+        buttons: [{
+            autofocus: true,
+            label: gettext("OK"),
+            buttonClass: "btn-success",
+            onClick: function() {
+                this.destroy();
+            }
+        }]
+    }, options));
+
+    modal.show();
+
+    return modal;
+}
+
+
+/**
  * Специализированное окно для показа прелоадера.
  * @param {Object?} options
  * @returns {PaperModal}
@@ -456,6 +509,8 @@ function showSmartPreloader(promise, options) {
 
 const modals = {
     PaperModal,
+    createModal,
+    showErrors,
     showPreloader,
     showSmartPreloader
 };

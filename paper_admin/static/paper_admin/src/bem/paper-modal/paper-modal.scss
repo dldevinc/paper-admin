@@ -1,4 +1,5 @@
 @import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/colors";
 @import "./variables";
 
 .paper-modal-backdrop {
@@ -43,6 +44,26 @@
   &--preloader {
     .paper-preloader {
       margin: 10px auto 20px;
+    }
+  }
+
+
+  @each $name, $value in $paper-bg-colors {
+    @if map-has-key($paper-bg-colors, $name) {
+      $bg: map-get($paper-bg-colors, $name);
+      $border: map-get($paper-border-colors, $name);
+
+      &--#{$name} {
+        .modal-content {
+          border-color: $border;
+        }
+
+        .modal-header {
+          color: color-yiq($bg);
+          border-color: $border;
+          background-color: $bg;
+        }
+      }
     }
   }
 }
