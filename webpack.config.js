@@ -8,7 +8,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 const SOURCE_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/src");
@@ -148,20 +147,19 @@ let config = {
         }),
         new HtmlWebpackPlugin({
             templateContent: ({htmlWebpackPlugin}) =>
-                `${htmlWebpackPlugin.tags.headTags.join("\n")}\n` +
-                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}\n` +
-                `$styles$`,
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
             filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
             inject: false,
-            scriptLoading: 'defer',
+            scriptLoading: "blocking",
             chunks: ["app"]
         }),
-        new HTMLInlineCSSWebpackPlugin({
-            leaveCSSFile: true,
-            replace: {
-                target: "$styles$",
-                removeTarget: true
-            }
+        new HtmlWebpackPlugin({
+            templateContent: ({htmlWebpackPlugin}) =>
+                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.body.html"),
+            inject: false,
+            scriptLoading: "blocking",
+            chunks: ["app"]
         }),
     ],
     optimization: {
