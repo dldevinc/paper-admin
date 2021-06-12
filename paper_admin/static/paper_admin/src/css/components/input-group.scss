@@ -5,6 +5,11 @@
     color: $text-muted;
     background-color: $gray-100;
 
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
+
     &:hover {
       color: $text-muted;
       text-decoration: none;
@@ -23,6 +28,11 @@
   button.input-group-text {
     color: lighten($link-color, 5%);
     background-color: $gray-100;
+
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
 
     &:hover {
       color: $link-color;
