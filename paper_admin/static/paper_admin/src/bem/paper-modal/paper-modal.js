@@ -1,24 +1,28 @@
 /* global gettext */
 
 import Modal from "bootstrap/js/src/modal";
-import $ from "jquery";
+import Util from "bootstrap/js/src/util";
 import "./paper-modal.scss";
 
-const EVENT_KEY = '.bs.modal';
-const ESCAPE_KEYCODE = 27;
+const EVENT_KEY = '.bs.modal'
+const ESCAPE_KEYCODE = 27
 
-const EVENT_HIDE = `hide${EVENT_KEY}`;
-const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+const EVENT_HIDE = `hide${EVENT_KEY}`
+const EVENT_HIDDEN = `hidden${EVENT_KEY}`
 const EVENT_SHOW = `show${EVENT_KEY}`
 const EVENT_SHOWN = `shown${EVENT_KEY}`
-const EVENT_CLICK_DESTROY = `click.destroy.${EVENT_KEY}`;
+const EVENT_CLICK_DESTROY = `click.destroy.${EVENT_KEY}`
 const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`
+const EVENT_AUTOFOCUS = `autofocus${EVENT_KEY}`
 
-const CLASS_NAME_SUSPENDED = 'modal-suspended';
-const CLASS_NAME_FADE = 'fade';
-const CLASS_NAME_SHOW = 'show';
 
-const SELECTOR_DATA_DESTROY = '[data-destroy="modal"]';
+const CLASS_NAME_SCROLLABLE = 'modal-dialog-scrollable'
+const CLASS_NAME_SUSPENDED = 'modal-suspended'
+const CLASS_NAME_FADE = 'fade'
+const CLASS_NAME_SHOW = 'show'
+
+const SELECTOR_MODAL_BODY = '.modal-body'
+const SELECTOR_DATA_DESTROY = '[data-destroy="modal"]'
 
 
 const _stack = [];
@@ -45,20 +49,59 @@ const Default = {
               </div>
             </div>`,
         closeButton:
-            `<button type="button" class="close" data-destroy="modal" aria-label="Close">
+            `<button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>  
             </button>`,
         button:
             `<button type="button" class="btn"></button>`
     },
+
     options: {
         backdrop: "static"
+    },
+
+    onInit: null,
+    onDestroy: null,
+    onClose: function() {
+        this.destroy();
     }
 }
 
 
 /**
- * Модальное окно со стеком
+ * Модальное окно.
+ *
+ * Добавлен функционал стека модальных окон: когда открывается новое окно
+ * (при уже других открытых), текущее окно временнно скрывается. После закрытия
+ * самого нового окна будет восстановлено предыдущее.
+ *
+ * @example
+ * new PaperModal({
+ *     title: "Hello, world!",
+ *     body: "<h1>Caption</h1>\n<p>Sample text</p>",
+ *     modalClass: "paper-modal--warning fade",
+ *     buttons: [
+ *         {
+ *             label: "Cancel",
+ *             buttonClass: "btn-light",
+ *             onClick: function(event, popup) {
+ *                 popup.destroy();
+ *             }
+ *         },
+ *         {
+ *             autofocus: true,
+ *             label: "OK",
+ *             buttonClass: "btn-info",
+ *             onClick: function(event, popup) {
+ *                 console.log("Success");
+ *                 popup.destroy();
+ *             }
+ *         }
+ *     ],
+ *     onInit: function() {
+ *         this.show();
+ *     }
+ * })
  */
 class PaperModal extends Modal {
     constructor(options) {
@@ -83,6 +126,14 @@ class PaperModal extends Modal {
         this._footer = this._element.querySelector(".modal-footer");
 
         this.init();
+
+        if (typeof this.config.onInit === "function") {
+            this.config.onInit.call(this);
+        }
+    }
+
+    static getClosestModal() {
+        return _stack[_stack.length - 1] || null
     }
 
     get suspended() {
@@ -112,6 +163,13 @@ class PaperModal extends Modal {
 
         if (this.config.closeButton) {
             this._header.insertAdjacentHTML("beforeend", this.config.templates.closeButton);
+
+            const closeButton = this._header.querySelector(".close");
+            closeButton && closeButton.addEventListener("click", function() {
+                if (typeof this.config.onClose === "function") {
+                    this.config.onClose.call(this);
+                }
+            }.bind(this));
         }
 
         if (this.config.buttons && this.config.buttons.length) {
@@ -134,15 +192,15 @@ class PaperModal extends Modal {
                 }
 
                 if (options.autofocus) {
-                    $(this._element).one(EVENT_SHOWN, function() {
-                        setTimeout(function() {
-                            button.focus();
-                        });
+                    $(this._element).one(EVENT_AUTOFOCUS, function() {
+                        button.focus();
                     });
                 }
 
                 if (options.onClick && (typeof options.onClick === "function")) {
-                    button.addEventListener("click", options.onClick.bind(this));
+                    button.addEventListener("click", function(event) {
+                        options.onClick.call(button, event, this);
+                    }.bind(this));
                 }
             });
         }
@@ -156,11 +214,20 @@ class PaperModal extends Modal {
         this._footer = null;
     }
 
+    /**
+     * Скрытие и уничтожение окна с учетом анимаций.
+     * @returns {Promise}
+     */
     destroy() {
         const transitionComplete = function() {
+            if (typeof this.config.onDestroy === "function") {
+                this.config.onDestroy.call(this);
+            }
+
             if (this._element) {
                 this._element.remove();
             }
+
             this.dispose();
         }.bind(this);
 
@@ -169,22 +236,36 @@ class PaperModal extends Modal {
                 // Окно в процессе открытия. Ждем завершения открытия,
                 // затем вызываем функцию закрытия, по окончании которой
                 // окно будет удалено.
-                $(this._element).one(EVENT_SHOWN, () => {
-                    $(this._element).one(EVENT_HIDDEN, transitionComplete);
-                    this.hide();
-                });
+                return new Promise(function(resolve) {
+                    $(this._element).one(EVENT_SHOWN, () => {
+                        this.hide().then(function() {
+                            transitionComplete();
+                            resolve();
+                        });
+                    });
+                }.bind(this));
             } else {
                 // Окно открыто. Сначала скрываем его, потом удаляем.
-                $(this._element).one(EVENT_HIDDEN, transitionComplete);
-                this.hide();
+                return new Promise(function(resolve) {
+                    this.hide().then(function() {
+                        transitionComplete();
+                        resolve();
+                    });
+                }.bind(this));
             }
         } else {
             if (this._isTransitioning) {
                 // Окно в процессе скрытия. Ждем завершения анимации и удаляем его.
-                $(this._element).one(EVENT_HIDDEN, transitionComplete);
+                return new Promise(function(resolve) {
+                    $(this._element).one(EVENT_HIDDEN, function() {
+                        transitionComplete();
+                        resolve();
+                    });
+                }.bind(this));
             } else {
                 // Окно уже скрыто. Удаляем его сразу
                 transitionComplete();
+                return Promise.resolve();
             }
         }
     }
@@ -200,14 +281,18 @@ class PaperModal extends Modal {
     _setEscapeEvent() {
         if (this._isShown) {
             $(this._element).on(EVENT_KEYDOWN_DISMISS, event => {
-                if (this._config.keyboard && event.which === ESCAPE_KEYCODE) {
-                    event.preventDefault();
-                    this.destroy();
-                } else if (!this._config.keyboard && event.which === ESCAPE_KEYCODE) {
-                    this._triggerBackdropTransition();
+                if (event.which === ESCAPE_KEYCODE) {
+                    if (this._config.keyboard) {
+                        event.preventDefault();
+                        if (typeof this.config.onClose === "function") {
+                            this.config.onClose.call(this);
+                        }
+                    } else {
+                        this._triggerBackdropTransition();
+                    }
                 }
             })
-        } else if (!this._isShown) {
+        } else {
             $(this._element).off(EVENT_KEYDOWN_DISMISS);
         }
     }
@@ -238,7 +323,7 @@ class PaperModal extends Modal {
             if (animate) {
                 setTimeout(() => {
                     this._backdrop.classList.add(CLASS_NAME_FADE);
-                }, 0);
+                });
             }
 
             $(this._backdrop).off("bsTransitionEnd");
@@ -251,7 +336,7 @@ class PaperModal extends Modal {
         $(this._element).trigger(EVENT_HIDDEN);
     }
 
-    resume() {
+    _resume() {
         if (!this.suspended) {
             return
         }
@@ -274,7 +359,7 @@ class PaperModal extends Modal {
             if (animate) {
                 setTimeout(() => {
                     this._backdrop.classList.add(CLASS_NAME_FADE);
-                }, 0);
+                });
             }
         }
 
@@ -282,8 +367,12 @@ class PaperModal extends Modal {
     }
 
     show(relatedTarget) {
-        if (this._isShown || this._isTransitioning) {
-            return
+        if (this._isShown) {
+            return Promise.reject("Modal is already open");
+        }
+
+        if (this._isTransitioning) {
+            return Promise.reject("Animation in progress");
         }
 
         this.suspended = false;
@@ -312,6 +401,7 @@ class PaperModal extends Modal {
 
         _stack.push(this);
 
+        const superCall = super.show.bind(this);
         if (hasVisibleModals) {
             // мгновенный показ окна, минуя анимации
             const animate = this._element.classList.contains(CLASS_NAME_FADE);
@@ -320,8 +410,16 @@ class PaperModal extends Modal {
             if (animate) {
                 this._element.classList.add(CLASS_NAME_FADE);
             }
+
+            return Promise.resolve();
         } else {
-            super.show(relatedTarget);
+            return new Promise(function(resolve) {
+                $(this._element).one(
+                    EVENT_SHOWN,
+                    () => resolve()
+                )
+                superCall(relatedTarget);
+            }.bind(this));
         }
     }
 
@@ -330,8 +428,12 @@ class PaperModal extends Modal {
             event.preventDefault()
         }
 
-        if (!this._isShown || this._isTransitioning) {
-            return
+        if (!this._isShown) {
+            return Promise.reject("Modal is already closed");
+        }
+
+        if (this._isTransitioning) {
+            return Promise.reject("Animation in progress");
         }
 
         this.suspended = false;
@@ -343,17 +445,100 @@ class PaperModal extends Modal {
             _stack.splice(stackIndex, 1);
         }
 
+        const superCall = super.hide.bind(this);
         if ((stackIndex === _stack.length) && (stackIndex > 0)) {
             let previousModal = _stack[_stack.length - 1];
             if (previousModal.suspended) {
                 this._removeBackdrop();
                 this._suspend(event);
-                previousModal.resume();
+                previousModal._resume();
+                return Promise.resolve();
             } else {
-                super.hide(event);
+                return new Promise(function(resolve) {
+                    $(this._element).one(
+                        EVENT_HIDDEN,
+                        () => resolve()
+                    )
+                    superCall(event);
+                }.bind(this));
             }
         } else {
-            super.hide(event);
+            return new Promise(function(resolve) {
+                $(this._element).one(
+                    EVENT_HIDDEN,
+                    () => resolve()
+                )
+                superCall(event);
+            }.bind(this));
+        }
+    }
+
+    /*
+        Исправлен автофокус.
+        По умолчанию, фокус безоговорочно ставится на само окно на событии shown.
+        Это создает проблему автофокусировки на кнопках при наличии анимации:
+        из-за задержки такой фокус спадает.
+
+        Добавлено событие autofocus, т.к. элементы окна недоступны для фокусирования
+        до тех пор, пока окно не стало видимым.
+     */
+    _showElement(relatedTarget) {
+        const transition = $(this._element).hasClass(CLASS_NAME_FADE)
+        const modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null
+
+        if (!this._element.parentNode ||
+            this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+            // Don't move modal's DOM position
+            document.body.appendChild(this._element)
+        }
+
+        this._element.style.display = 'block'
+        this._element.removeAttribute('aria-hidden')
+        this._element.setAttribute('aria-modal', true)
+        this._element.setAttribute('role', 'dialog')
+
+        if ($(this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
+            modalBody.scrollTop = 0
+        } else {
+            this._element.scrollTop = 0
+        }
+
+        if (transition) {
+            Util.reflow(this._element)
+        }
+
+        $(this._element).addClass(CLASS_NAME_SHOW)
+
+        if (this._config.focus) {
+            this._enforceFocus()
+        }
+
+        const shownEvent = $.Event(EVENT_SHOWN, {
+            relatedTarget
+        })
+
+        // autofocus event
+        $(this._element).trigger($.Event(EVENT_AUTOFOCUS))
+
+        const transitionComplete = () => {
+            if (this._config.focus) {
+                if (document.activeElement && !this._element.contains(document.activeElement)) {
+                    this._element.focus()
+                }
+            }
+
+            this._isTransitioning = false
+            $(this._element).trigger(shownEvent)
+        }
+
+        if (transition) {
+            const transitionDuration = Util.getTransitionDurationFromElement(this._dialog)
+
+            $(this._dialog)
+            .one(Util.TRANSITION_END, transitionComplete)
+            .emulateTransitionEnd(transitionDuration)
+        } else {
+            transitionComplete()
         }
     }
 }
@@ -376,11 +561,15 @@ function createModal(options) {
  * @returns {PaperModal}
  */
 function showErrors(errors, options) {
+    let title = gettext("Error");
     let message;
+
     if (Array.isArray(errors)) {
         if (errors.length === 1) {
             message = errors[0]
         } else {
+            title = gettext("Please correct the following errors");
+
             let output = [`<ul class="px-4 mb-0">`];
             for (let i=0, l=errors.length; i<l; i++) {
                 output.push(`<li>${errors[i]}</li>`);
@@ -393,15 +582,15 @@ function showErrors(errors, options) {
     }
 
     const modal = createModal(Object.assign({
-        modalClass: "paper-modal--danger",
-        title: "Please correct the following errors",
+        modalClass: "paper-modal--danger fade",
+        title: title,
         body: message,
         buttons: [{
             autofocus: true,
             label: gettext("OK"),
             buttonClass: "btn-success",
-            onClick: function() {
-                this.destroy();
+            onClick: function(event, popup) {
+                popup.destroy();
             }
         }]
     }, options));
@@ -436,7 +625,8 @@ function showPreloader(options) {
                         </div>
                       </div>
                     </div>`,
-            }
+            },
+            onClose: null
         },
         ...options
     }
