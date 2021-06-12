@@ -14,7 +14,7 @@
       <div class="btn-square-group">
         {% if inline_form.show_url %}
           <a href="{{ inline_form.absolute_url }}"
-             class="btn btn-square btn-sm"
+             class="btn btn-square btn-sm btn-square--info"
              data-toggle="tooltip"
              data-placement="top"
              data-trigger="hover"
@@ -22,36 +22,36 @@
              title="{{ _("View on site") }}"
              target="_blank"
              rel="noopener">
-            <i class="fa fa-eye text-info"></i>
+            <i class="fa fa-eye"></i>
           </a>
         {% endif %}
 
         {% if inline_admin_formset.sortable_allowed %}
           <button type="button"
-                  class="sortable-move-up btn btn-square btn-sm"
+                  class="sortable-move-up btn btn-square btn-sm btn-square--info"
                   data-formset-toggle="up"
                   data-toggle="tooltip"
                   data-placement="top"
                   data-trigger="hover"
                   data-html="true"
                   title="{{ _("Move up") }}">
-            <i class="fa fa-chevron-up text-info"></i>
+            <i class="fa fa-chevron-up"></i>
           </button>
 
           <button type="button"
-                  class="sortable-move-down btn btn-square btn-sm"
+                  class="sortable-move-down btn btn-square btn-sm btn-square--info"
                   data-formset-toggle="down"
                   data-toggle="tooltip"
                   data-placement="top"
                   data-trigger="hover"
                   data-html="true"
                   title="{{ _("Move down") }}">
-            <i class="fa fa-chevron-down text-info"></i>
+            <i class="fa fa-chevron-down"></i>
           </button>
         {% endif %}
 
         {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
-          <div class="delete-inline btn btn-square btn-sm"
+          <div class="delete-inline btn btn-square btn-sm btn-square--danger"
                data-toggle="tooltip"
                data-placement="top"
                data-trigger="hover"
@@ -61,21 +61,21 @@
               {{ inline_form.deletion_field.field }}
               <label for="{{ inline_form.deletion_field.field.id_for_label }}"
                      class="custom-control-label"></label>
-              <i class="delete-inline__icon fa fa-trash text-danger"></i>
+              <i class="delete-inline__icon fa fa-trash"></i>
             </div>
           </div>
         {% endif %}
 
         {% if not inline_form.original and not inline_form.show_url %}
           <button type="button"
-                  class="btn btn-square btn-sm"
+                  class="btn btn-square btn-sm btn-square--danger"
                   data-formset-toggle="delete"
                   data-toggle="tooltip"
                   data-placement="top"
                   data-trigger="hover"
                   data-html="true"
                   title="{{ _("Delete") }}">
-            <i class="fa fa-trash text-danger"></i>
+            <i class="fa fa-trash"></i>
           </button>
         {% endif %}
       </div>

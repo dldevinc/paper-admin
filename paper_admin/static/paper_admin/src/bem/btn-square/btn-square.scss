@@ -33,4 +33,10 @@
       opacity: 0.25;
     }
   }
+
+  @each $name, $value in $theme-colors {
+    &--#{$name} {
+      color: theme-color($name);
+    }
+  }
 }
