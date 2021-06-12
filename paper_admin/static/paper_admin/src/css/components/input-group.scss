@@ -1,47 +1,71 @@
 @import "css/abstracts/bootstrap";
 
-.input-group {
-  a.input-group-text {
+a.input-group-text {
+  color: $text-muted;
+  background-color: $gray-100;
+
+  &:focus {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    color: $text-muted;
+    text-decoration: none;
+  }
+
+  &[href] {
+    color: lighten($link-color, 5%);
+
+    &:not(.disabled):hover {
+      color: $link-color;
+      background-color: $gray-200;
+    }
+  }
+
+  &.disabled {
+    cursor: default;
     color: $text-muted;
     background-color: $gray-100;
+  }
+}
 
-    &:focus {
-      position: relative;
-      z-index: 1;
-    }
 
-    &:hover {
-      color: $text-muted;
-      text-decoration: none;
-    }
+button.input-group-text {
+  color: lighten($link-color, 5%);
+  background-color: $gray-100;
 
-    &[href] {
-      color: lighten($link-color, 5%);
+  &:focus {
+    position: relative;
+    z-index: 1;
+  }
 
-      &:hover {
-        color: $link-color;
-        background-color: $gray-200;
+  &:hover {
+    color: $link-color;
+    background-color: $gray-200;
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: default;
+    color: $text-muted;
+    background-color: $gray-100;
+  }
+}
+
+
+@each $name, $value in $theme-colors {
+  a.input-group-text--#{$name} {
+    &:not(.disabled)[href] {
+      color: lighten(theme-color($name), 5%);
+
+      &:not(.disabled):hover {
+        color: theme-color($name);
       }
     }
   }
 
-  button.input-group-text {
-    color: lighten($link-color, 5%);
-    background-color: $gray-100;
-
-    &:focus {
-      position: relative;
-      z-index: 1;
-    }
-
-    &:hover {
-      color: $link-color;
-      background-color: $gray-200;
-    }
-
-    &:disabled {
-      color: $text-muted;
-      background-color: $gray-100;
-    }
+  button.input-group-text--#{$name} {
+    color: theme-color($name);
   }
 }
