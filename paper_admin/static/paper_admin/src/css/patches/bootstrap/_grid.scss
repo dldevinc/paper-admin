@@ -5,6 +5,8 @@
 // нужные классы.
 @for $i from 1 through $grid-columns {
   .col-xxl-#{$i} {
-    @include make-col($i, $grid-columns);
+    @media (min-width: 1400px) {
+      @include make-col($i, $grid-columns);
+    }
   }
 }
