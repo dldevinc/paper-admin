@@ -20,16 +20,16 @@ import "css/changelist.scss";
 // Select2 для выпадающих списков
 const select2_changelist = new Select2Widget({
     width: "",
-    theme: "sm",
-    allowClear: true
+    allowClear: true,
+    containerCssClass: "select2-container--small"
 });
 select2_changelist.observe(".paper-table .select-field select");
 select2_changelist.initAll(".paper-table .select-field select");
 
 
 const select2_action = new Select2Widget({
-    theme: "sm",
     allowClear: true,
+    containerCssClass: "select2-container--small",
     minimumResultsForSearch: Infinity
 });
 select2_action.observe(".paper-actions select");

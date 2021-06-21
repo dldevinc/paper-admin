@@ -20,6 +20,7 @@ class PatchActionForm(ActionForm, metaclass=FormMonkeyPatchMeta):
     def __init__(self, *args, **kwargs):
         get_original(ActionForm)(self, *args, **kwargs)
         self.fields["action"].widget.attrs["form"] = "changelist-form"
+        self.fields["action"].widget.attrs["class"] = "custom-select"
 
 
 class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):

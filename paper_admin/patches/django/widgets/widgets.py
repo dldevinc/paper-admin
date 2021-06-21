@@ -20,6 +20,16 @@ class PatchInput(widgets.Input, metaclass=WidgetMonkeyPatchMeta):
         get_original(widgets.Input)(self, attrs=default_attrs)
 
 
+class PatchSelect(widgets.Select, metaclass=WidgetMonkeyPatchMeta):
+    def __init__(self, attrs=None, choices=()):
+        default_attrs = {
+            "class": "custom-select custom-select-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(widgets.Select)(self, attrs=default_attrs, choices=choices)
+
+
 class PatchTextarea(widgets.Textarea, metaclass=WidgetMonkeyPatchMeta):
     def __init__(self, attrs=None):
         default_attrs = {
@@ -49,6 +59,14 @@ class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPa
 
 
 class PatchAutocompleteMixin(AutocompleteMixin, metaclass=MonkeyPatchMeta):
+    def __init__(self, rel, admin_site, attrs=None, choices=(), using=None):
+        default_attrs = {
+            "class": "custom-select custom-select-lg"
+        }
+        if attrs:
+            default_attrs.update(attrs)
+        get_original(AutocompleteMixin)(self, rel, admin_site, attrs=default_attrs, choices=choices, using=using)
+
     @property
     def media(self):
         return widgets.Media()

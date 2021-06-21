@@ -1,9 +1,11 @@
 import Widget from "js/utilities/widget";
-import "./patch";
+import "select2/dist/js/select2.full";
+import "./patches";
 
 // CSS
 import "select2/dist/css/select2.css";
-import "./select2.scss";
+import "./patches.scss";
+import "./small.scss";
 
 
 class Select2Widget extends Widget {
