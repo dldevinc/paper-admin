@@ -8,23 +8,36 @@ import "select2/dist/js/select2.full";
 
 let ResultsAdapter = $.fn.select2.amd.require("select2/results");
 
+
+ResultsAdapter.prototype.hideLoading = function () {
+	this.$results.find(".select2-results__option").each(function(index, option) {
+		let isSelectable = option.dataset._stateSelectable === "1";
+		if (isSelectable) {
+			option.classList.add("select2-results__option--selectable");
+		}
+
+		let isDisabled = option.dataset._stateDisabled === "1";
+		if (!isDisabled) {
+			option.classList.remove("select2-results__option--disabled");
+			option.removeAttribute("aria-disabled");
+		}
+	});
+};
+
 ResultsAdapter.prototype.showLoading = function(params) {
-    this.hideLoading();
+	this.hideLoading();
 
-    let loadingMore = this.options.get("translations").get("searching");
+	this.$results.find(".select2-results__option").each(function(index, option) {
+		let isSelectable = option.classList.contains("select2-results__option--selectable");
+		let isDisabled = option.classList.contains("select2-results__option--disabled");
 
-    let loading = {
-        disabled: true,
-        loading: true,
-        text: loadingMore(params)
-    };
-    let $loading = this.option(loading);
-    $loading.className += " loading-results";
+		option.dataset._stateSelectable = isSelectable ? "1" : "0";
+		option.dataset._stateDisabled = isDisabled ? "1" : "0";
 
-    // Очищаем список перед Ajax-запросом
-    this.clear();
-
-    this.$results.prepend($loading);
+		option.classList.remove("select2-results__option--selectable");
+		option.classList.add("select2-results__option--disabled");
+		option.setAttribute("aria-disabled", true);
+	});
 };
 
 
