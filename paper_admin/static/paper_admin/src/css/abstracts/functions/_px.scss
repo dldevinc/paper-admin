@@ -1,5 +1,5 @@
 /*
-  Конвертирует значение (число, px, rem) в px.
+  Конвертирует любое значение (число, px, rem) в px.
  */
 @function px($value) {
   $unit: unit($value);
