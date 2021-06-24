@@ -4,7 +4,7 @@ from django.forms import widgets
 
 __all__ = ["AdminIPInput", "AdminUUIDInput", "AdminSwitchInput", "AdminTextarea",
            "AdminForeignKeyRawIdWidget", "AdminManyToManyRawIdWidget", "AdminCheckboxInput",
-           "AdminRadioSelect", "AdminCheckboxSelectMultiple", "AdminSelectMultiple"]
+           "AdminRadioSelect", "AdminCheckboxSelectMultiple", "FilteredSelectMultiple"]
 
 
 class AdminIPInput(widgets.TextInput):
@@ -71,5 +71,5 @@ class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
         super().__init__(attrs=attrs, choices=choices)
 
 
-class AdminSelectMultiple(widgets.SelectMultiple):
+class FilteredSelectMultiple(widgets.SelectMultiple):
     template_name = "django/forms/widgets/select_multiple.html"

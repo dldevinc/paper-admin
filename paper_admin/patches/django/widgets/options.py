@@ -93,7 +93,7 @@ class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
                 using=db
             )
         elif db_field.name in list(self.filter_vertical) + list(self.filter_horizontal):
-            kwargs["widget"] = widgets.AdminSelectMultiple()
+            kwargs["widget"] = widgets.FilteredSelectMultiple()
         else:
             kwargs.setdefault("widget", forms.SelectMultiple)
 
