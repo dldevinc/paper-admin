@@ -33,8 +33,18 @@
     }
 
     .paper-card &:last-child {
-      border-bottom-left-radius: $card-border-radius;
-      border-bottom-right-radius: $card-border-radius;
+      border-bottom-left-radius: inherit;
+      border-bottom-right-radius: inherit;
+    }
+
+    .paper-card > .card-body:first-of-type &:first-child {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
+
+    .paper-card > .card-header:first-of-type + .card-body &:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
 
     // поле только для чтения
