@@ -1,4 +1,5 @@
-import { flatpickr } from "components/flatpickr";
+import { flatpickr, dateFormats } from "components/flatpickr";
+import getPossibleLocales from "js/utilities/locale";
 import Widget from "js/utilities/widget";
 
 import "./date-field.scss";
@@ -9,7 +10,8 @@ class DateWidget extends Widget {
 
         this.opts = Object.assign({
             altInput: true,
-            locale: (document.documentElement.getAttribute("lang") || "en").toLowerCase()
+            locale: this._getLocale(),
+            dateFormat: this._getDateFormat()
         }, options);
 
         document.addEventListener("click", function(event) {
@@ -32,6 +34,24 @@ class DateWidget extends Widget {
         if (element._flatpickr) {
             element._flatpickr.destroy()
         }
+    }
+
+    _getLocale() {
+        for(let locale of getPossibleLocales()) {
+            if (flatpickr.l10ns[locale]) {
+                return locale
+            }
+        }
+        return "default"
+    }
+
+    _getDateFormat() {
+        for(let locale of getPossibleLocales()) {
+            if (dateFormats[locale]) {
+                return dateFormats[locale]
+            }
+        }
+        return "Y-m-d";
     }
 }
 

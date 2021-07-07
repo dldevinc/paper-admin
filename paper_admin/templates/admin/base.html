@@ -1,6 +1,6 @@
 {% load load_paper i18n static %}{% load_paper as paper %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us"|slice:"2" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
   <meta charset="utf-8">
 

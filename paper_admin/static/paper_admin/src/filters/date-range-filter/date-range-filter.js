@@ -1,4 +1,5 @@
-import { flatpickr } from "components/flatpickr";
+import {dateFormats, flatpickr} from "components/flatpickr";
+import getPossibleLocales from "js/utilities/locale";
 import Widget from "js/utilities/widget";
 
 
@@ -8,7 +9,8 @@ class DateRangeFilter extends Widget {
 
         this.opts = Object.assign({
             altInput: true,
-            locale: (document.documentElement.getAttribute("lang") || "en").toLowerCase()
+            locale: this._getLocale(),
+            dateFormat: this._getDateFormat()
         }, options);
     }
 
@@ -43,6 +45,24 @@ class DateRangeFilter extends Widget {
         if (dateEnd._flatpickr) {
             dateEnd._flatpickr.destroy()
         }
+    }
+
+    _getLocale() {
+        for(let locale of getPossibleLocales()) {
+            if (flatpickr.l10ns[locale]) {
+                return locale
+            }
+        }
+        return "default"
+    }
+
+    _getDateFormat() {
+        for(let locale of getPossibleLocales()) {
+            if (dateFormats[locale]) {
+                return dateFormats[locale]
+            }
+        }
+        return "Y-m-d";
     }
 }
 
