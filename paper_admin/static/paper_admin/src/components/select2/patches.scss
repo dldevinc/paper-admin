@@ -10,7 +10,7 @@
   .select2-selection--single,
   .select2-selection--multiple {
     outline: none;
-    background-color: $select2-bg-color;
+    background-color: $select2-bg;
     border-radius: $select2-border-radius;
     border: $select2-border-width solid $select2-border-color;
     transition: border-color 0.15s ease-in-out;
@@ -26,7 +26,7 @@
       font-family: inherit;
       font-size: inherit;
       line-height: inherit;
-      background-color: $select2-search-field-bg-color;
+      background-color: $select2-search-field-bg;
       border-radius: $select2-search-field-border-radius;
       border: $select2-search-field-border-width solid $select2-search-field-border-color;
     }
@@ -102,7 +102,7 @@
       margin: $select2-multiple-field-padding-y  0 0 $select2-multiple-field-padding-x;
       color: $select2-multiple-field-item-color;
       border: $select2-multiple-field-item-border-width solid $select2-multiple-field-item-border-color;
-      background-color: $select2-multiple-field-item-bg-color;
+      background-color: $select2-multiple-field-item-bg;
       border-radius: $select2-multiple-field-item-border-radius;
       vertical-align: top;
     }
@@ -148,7 +148,7 @@
 
       &:hover,
       &:focus {
-        background-color: $select2-multiple-field-item-remove-button-hovered-bg-color;
+        background-color: $select2-multiple-field-item-remove-button-hovered-bg;
 
         &:before,
         &:after {
@@ -201,19 +201,19 @@
   .select2-results__option--highlighted.select2-results__option--selectable {
     color: $select2-item-highlighted-color;
     font-weight: $select2-item-highlighted-font-wight;
-    background-color: $select2-item-highlighted-bg-color;
+    background-color: $select2-item-highlighted-bg;
   }
 
   .select2-results__option--selected {
     color: $select2-item-selected-color;
     font-weight: $select2-item-selected-font-wight;
-    background-color: $select2-item-selected-bg-color;
+    background-color: $select2-item-selected-bg;
   }
 
   .select2-results__option--disabled {
     color: $select2-item-disabled-color;
     font-weight: $select2-item-disabled-font-wight;
-    background-color: $select2-item-disabled-bg-color;
+    background-color: $select2-item-disabled-bg;
     transition: background 0.15s ease-in-out, color 0.15s ease-in-out;
   }
 
@@ -225,11 +225,11 @@
   .select2-results__option--highlighted.select2-results__option--disabled {
     color: $select2-item-highlighted-color;
     font-weight: $select2-item-highlighted-font-wight;
-    background-color: $select2-item-highlighted-bg-color;
+    background-color: $select2-item-highlighted-bg;
   }
 
   .select2-results__option--selected.select2-results__option--disabled {
-    background-color: $select2-item-selected-bg-color;
+    background-color: $select2-item-selected-bg;
   }
 
   &.select2-container--focus {
@@ -257,7 +257,7 @@
 .select2-dropdown {
   overflow: hidden;  // applies border-radius to scrollbar
   box-shadow: $select2-dropdown-box-shadow;
-  background-color: $select2-dropdown-bg-color;
+  background-color: $select2-dropdown-bg;
   border-radius: $select2-dropdown-border-radius;
   border: $select2-dropdown-border-width solid $select2-dropdown-border-color;
 

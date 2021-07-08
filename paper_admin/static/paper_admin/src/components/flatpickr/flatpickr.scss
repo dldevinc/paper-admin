@@ -19,10 +19,6 @@ $calendar-active-day-bg: theme-color-level("primary", -4);
   border-bottom-color: $calendar-bg;
 }
 
-.flatpickr-calendar.arrowBottom:after {
-  border-top-color: $calendar-bg;
-}
-
 .flatpickr-calendar {
   margin-top: 3px;
   width: $calendar-day-size * 7 + 2 * $calendar-padding;

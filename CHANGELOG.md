@@ -1,6 +1,6 @@
 # Change Log
 
-## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-06-03
+## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-07-08
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
 

@@ -239,7 +239,7 @@ msgstr "Сбросить все фильтры"
 
 #: templates/admin/change_list.html:112
 msgid "Filter by date"
-msgstr ""
+msgstr "Фильтрация по дате"
 
 #: templates/admin/change_list.html:175
 msgid "Nothing found"
@@ -304,7 +304,7 @@ msgid ""
 "\"%(object_url)s\" target=\"_blank\">%(escaped_object)s</a>\"?"
 msgstr ""
 "Вы уверены, что хотите удалить %(object_name)s \"<a href=\"%(object_url)s\" "
-"target=\"_blank\">%(escaped_object)s\"?"
+"target=\"_blank\">%(escaped_object)s</a>\"?"
 
 #: templates/admin/delete_confirmation.html:80
 msgid "All of the following related items will be deleted:"

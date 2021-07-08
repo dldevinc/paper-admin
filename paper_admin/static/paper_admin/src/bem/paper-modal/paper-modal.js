@@ -1,5 +1,6 @@
 /* global gettext */
 
+import allSettled from "promise.allsettled";
 import Modal from "bootstrap/js/src/modal";
 import Util from "bootstrap/js/src/util";
 import "./paper-modal.scss";
@@ -224,9 +225,16 @@ class PaperModal extends Modal {
                 this.config.onDestroy.call(this);
             }
 
+            const stackIndex = _stack.indexOf(this);
+            if (stackIndex >= 0) {
+                _stack.splice(stackIndex, 1);
+            }
+
             if (this._element) {
                 this._element.remove();
             }
+
+            this._removeBackdrop();
 
             this.dispose();
         }.bind(this);
@@ -238,10 +246,17 @@ class PaperModal extends Modal {
                 // окно будет удалено.
                 return new Promise(function(resolve) {
                     $(this._element).one(EVENT_SHOWN, () => {
-                        this.hide().then(function() {
+                        if (this._isShown) {
+                            this.hide().then(function() {
+                                transitionComplete();
+                                resolve();
+                            });
+                        } else {
+                            // Ситуация, когда окно было заморожено (suspended)
+                            // во время открытия.
                             transitionComplete();
                             resolve();
-                        });
+                        }
                     });
                 }.bind(this));
             } else {
@@ -672,7 +687,7 @@ function showSmartPreloader(promise, options) {
         }
 
         const preloader = showPreloader(options);
-        return Promise.allSettled([
+        return allSettled([
             promise,
             new Promise((resolve) => {
                 setTimeout(() => {
