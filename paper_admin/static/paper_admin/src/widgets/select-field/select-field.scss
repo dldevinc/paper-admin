@@ -1,0 +1,13 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.select-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $select-field-max-width;
+  }
+
+  select,
+  .select2 {
+    width: 100%;
+  }
+}

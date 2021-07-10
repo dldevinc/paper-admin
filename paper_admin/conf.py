@@ -1,13 +1,28 @@
+from platform import python_version
+
+from django import get_version
+from django.db import connection
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+DJANGO_VERSION = get_version()
+PYTHON_VERSION = python_version()
+DB_VENDOR = connection.display_name
+
+if connection.vendor == "postgresql":
+    DB_VERSION = connection.pg_version
+elif connection.vendor == "mysql":
+    DB_VERSION = ".".join(connection.mysql_version)
+elif connection.vendor == "sqlite":
+    import sqlite3
+    DB_VERSION = sqlite3.version
+else:
+    DB_VERSION = ""
+
+FAVICON = getattr(settings, "PAPER_FAVICON", "paper_admin/dist/assets/default_favicon.png")
+
 ENVIRONMENT_NAME = getattr(settings, "PAPER_ENVIRONMENT_NAME", "")
 ENVIRONMENT_COLOR = getattr(settings, "PAPER_ENVIRONMENT_COLOR", "")
-
-SUPPORT_PHONE = getattr(settings, "PAPER_SUPPORT_PHONE", None)
-SUPPORT_EMAIL = getattr(settings, "PAPER_SUPPORT_EMAIL", None)
-SUPPORT_COMPANY = getattr(settings, "PAPER_SUPPORT_COMPANY", None)
-SUPPORT_WEBSITE = getattr(settings, "PAPER_SUPPORT_WEBSITE", None)
 
 MENU = getattr(settings, "PAPER_MENU", None)
 MENU_DIVIDER = getattr(settings, "PAPER_MENU_DIVIDER", "-")

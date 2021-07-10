@@ -3,13 +3,13 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$216000$rDDuZzrfOX0V$9tQEmwO+g0dfpA2OLla2RyNnW7EJ5zEnN3XaUZOroxs=",
-    "last_login": "2021-04-12T09:23:36.326Z",
+    "password": "pbkdf2_sha256$120000$mda4uGGPhJjH$UKevsIwWBc8VdJ72fqjo42RRwywHgd3AUUWjXBjX+mc=",
+    "last_login": "2021-05-26T15:08:29.717Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
     "last_name": "",
-    "email": "",
+    "email": "x896321475@gmail.com",
     "is_staff": true,
     "is_active": true,
     "date_joined": "2019-08-27T08:52:00Z",
@@ -21,18 +21,23 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$150000$JeXtsrdrLT6w$k4MiSVC7I7PIX8SeI6169JneEq/BT2IapO/F+O4WChQ=",
-    "last_login": "2020-03-25T06:39:00Z",
+    "password": "pbkdf2_sha256$120000$j9oH3FPhKf89$jo6ij+4U+zKBY37a7pFfqji8UKkGyZHWuF2bpSWeMHo=",
+    "last_login": "2021-05-26T14:52:00.691Z",
     "is_superuser": false,
     "username": "test",
     "first_name": "",
     "last_name": "",
     "email": "",
-    "is_staff": false,
+    "is_staff": true,
     "is_active": true,
     "date_joined": "2020-03-25T06:37:00Z",
     "groups": [],
     "user_permissions": [
+      [
+        "view_logentry",
+        "admin",
+        "logentry"
+      ],
       [
         "add_tag",
         "app",
@@ -47,6 +52,11 @@
         "view_tag",
         "app",
         "tag"
+      ],
+      [
+        "view_user",
+        "auth",
+        "user"
       ]
     ]
   }
@@ -264,7 +274,7 @@
     "f_fk2": 1,
     "f_fk3": 4,
     "f_bool": true,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 9,
     "f_int_choices": 1,
@@ -274,15 +284,15 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-04-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:50:00",
+    "f_datetime": "2021-05-21T11:50:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Gold",
-    "f_slug": "gold-0",
+    "f_char": "MongoDB",
+    "f_slug": "mongodb-0",
     "f_email": "",
     "f_pass": "",
     "f_ip": null,
@@ -296,7 +306,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": 9,
-    "order": 2,
     "f_tags": [
       3
     ],
@@ -332,7 +341,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": false,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -342,15 +351,15 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:51:00",
+    "f_datetime": "2021-05-21T11:51:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Milk",
-    "f_slug": "milk-0",
+    "f_char": "Excel",
+    "f_slug": "excel-0",
     "f_email": "",
     "f_pass": "",
     "f_ip": null,
@@ -364,7 +373,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 3,
     "f_tags": [
       3
     ],
@@ -383,25 +391,28 @@
       5,
       4
     ],
-    "dal_m2m": []
+    "dal_m2m": [
+      29,
+      25
+    ]
   }
 },
 {
   "model": "app.category",
   "pk": 3,
   "fields": {
-    "f_fk": 3,
+    "f_fk": 12,
     "f_o2o": 1,
     "f_fk1": 9,
     "f_fk2": 5,
     "f_fk3": 3,
-    "f_bool": true,
+    "f_bool": false,
     "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 1237,
     "f_int_choices": 3,
     "f_int_choices2": 4,
-    "f_int": 3898,
+    "f_int": 3897,
     "f_bigint": 124564564,
     "f_float": 14.5,
     "f_decimal": "5.50",
@@ -426,21 +437,23 @@
     "f_image": "category/700x487.jpg",
     "f_char_ro": "",
     "f_int_ro": 0,
-    "f_text_ro": "",
+    "f_text_ro": "Readonly content",
     "dal_fk": 31,
-    "order": 1,
     "f_tags": [
       8,
       1,
       7
     ],
     "f_tags1": [
+      8,
       5,
       9,
       7
     ],
     "f_tags2": [
-      5
+      8,
+      5,
+      24
     ],
     "f_tags3": [
       1,
@@ -471,7 +484,7 @@
     "f_fk2": null,
     "f_fk3": null,
     "f_bool": true,
-    "f_bool2": false,
+    "f_bool2": true,
     "f_nullbool": null,
     "f_small_int": 0,
     "f_int_choices": 1,
@@ -481,14 +494,14 @@
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": null,
-    "f_date2": null,
-    "f_time": null,
-    "f_datetime": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:49:00",
+    "f_datetime": "2021-05-21T11:49:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
-    "f_char": "Valve",
+    "f_char": "PostgreSQL",
     "f_slug": "valve-0",
     "f_email": "",
     "f_pass": "",
@@ -503,7 +516,6 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
-    "order": 4,
     "f_tags": [
       1
     ],
@@ -520,7 +532,78 @@
     "f_tags5": [
       4
     ],
-    "dal_m2m": []
+    "dal_m2m": [
+      20
+    ]
+  }
+},
+{
+  "model": "app.category",
+  "pk": 5,
+  "fields": {
+    "f_fk": 32,
+    "f_o2o": 12,
+    "f_fk1": 20,
+    "f_fk2": null,
+    "f_fk3": 29,
+    "f_bool": false,
+    "f_bool2": true,
+    "f_nullbool": null,
+    "f_small_int": 0,
+    "f_int_choices": 1,
+    "f_int_choices2": 1,
+    "f_int": 0,
+    "f_bigint": 0,
+    "f_float": 0.0,
+    "f_decimal": "0.00",
+    "f_duration": null,
+    "f_date": "2021-05-21",
+    "f_date2": "2021-01-01",
+    "f_time": "11:53:00",
+    "f_datetime": "2021-05-21T11:53:00Z",
+    "f_hidden1": "",
+    "f_hidden2": "",
+    "f_hidden3": "",
+    "f_char": "MySQL",
+    "f_slug": "mysql-0",
+    "f_email": "",
+    "f_pass": "",
+    "f_ip": null,
+    "f_text": "",
+    "f_url": "",
+    "f_uuid": null,
+    "f_filepath": "",
+    "f_file": "",
+    "f_image": "",
+    "f_char_ro": "",
+    "f_int_ro": 0,
+    "f_text_ro": "",
+    "dal_fk": null,
+    "f_tags": [
+      31,
+      10
+    ],
+    "f_tags1": [
+      5,
+      9
+    ],
+    "f_tags2": [
+      26
+    ],
+    "f_tags3": [
+      29,
+      9
+    ],
+    "f_tags4": [
+      12,
+      23
+    ],
+    "f_tags5": [
+      21
+    ],
+    "dal_m2m": [
+      8
+    ]
   }
 },
 {
@@ -531,10 +614,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Billy",
+    "age": 18,
     "slug": "billy",
     "url": "",
     "text": "",
-    "order": 0
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -545,10 +630,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Jonny",
+    "age": 18,
     "slug": "jonny",
     "url": "",
     "text": "",
-    "order": 1
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -559,10 +646,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "one",
+    "age": 18,
     "slug": "one",
     "url": "",
     "text": "",
-    "order": 0
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -573,10 +662,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Sunny",
+    "age": 18,
     "slug": "sunny",
     "url": "",
     "text": "",
-    "order": 1
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -587,10 +678,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "One",
+    "age": 18,
     "slug": "one",
     "url": "",
     "text": "",
-    "order": 0
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -601,10 +694,12 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Funny",
-    "slug": "funny",
+    "age": 18,
+    "slug": "error",
     "url": "",
     "text": "",
-    "order": 0
+    "visible": true,
+    "created_at": null
   }
 },
 {
@@ -615,21 +710,36 @@
     "hidden": 1,
     "readonly": "Do not edit me",
     "name": "Banny",
+    "age": 18,
     "slug": "banny",
     "url": "",
     "text": "",
-    "order": 2
+    "visible": true,
+    "created_at": null
+  }
+},
+{
+  "model": "app.item",
+  "pk": 11,
+  "fields": {
+    "category": 5,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Propeller",
+    "age": 18,
+    "slug": "propeller-18",
+    "url": "",
+    "text": "",
+    "visible": true,
+    "created_at": null
   }
 },
 {
   "model": "app.tree",
   "pk": 1,
   "fields": {
-    "category": 1,
     "parent": null,
     "name": "Adam",
-    "number": 7,
-    "order": 2,
     "lft": 1,
     "rght": 2,
     "tree_id": 2,
@@ -640,11 +750,8 @@
   "model": "app.tree",
   "pk": 2,
   "fields": {
-    "category": 1,
     "parent": null,
     "name": "Eve",
-    "number": 2,
-    "order": 1,
     "lft": 1,
     "rght": 8,
     "tree_id": 1,
@@ -655,11 +762,8 @@
   "model": "app.tree",
   "pk": 3,
   "fields": {
-    "category": 1,
     "parent": 2,
     "name": "Isaak",
-    "number": 2,
-    "order": 3,
     "lft": 2,
     "rght": 5,
     "tree_id": 1,
@@ -670,11 +774,8 @@
   "model": "app.tree",
   "pk": 4,
   "fields": {
-    "category": 1,
     "parent": 3,
     "name": "Yakov",
-    "number": 3,
-    "order": 4,
     "lft": 3,
     "rght": 4,
     "tree_id": 1,
@@ -685,11 +786,8 @@
   "model": "app.tree",
   "pk": 5,
   "fields": {
-    "category": 1,
     "parent": 2,
     "name": "Ilia",
-    "number": 54,
-    "order": 5,
     "lft": 6,
     "rght": 7,
     "tree_id": 1,
@@ -701,6 +799,651 @@
   "pk": 1,
   "fields": {
     "title": "Test"
+  }
+},
+{
+  "model": "sortables.company",
+  "pk": 1,
+  "fields": {
+    "title": "Microsoft",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.company",
+  "pk": 2,
+  "fields": {
+    "title": "Apple",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.company",
+  "pk": 3,
+  "fields": {
+    "title": "Samsung",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.company",
+  "pk": 4,
+  "fields": {
+    "title": "Sony",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 1,
+  "fields": {
+    "first_name": "Satya",
+    "last_name": "Nadella"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 2,
+  "fields": {
+    "first_name": "Judson",
+    "last_name": "Althoff"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 3,
+  "fields": {
+    "first_name": "Amy",
+    "last_name": "Hood"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 4,
+  "fields": {
+    "first_name": "Tim",
+    "last_name": "Cook"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 5,
+  "fields": {
+    "first_name": "Katherine",
+    "last_name": "Adams"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 6,
+  "fields": {
+    "first_name": "Eddy",
+    "last_name": "Cue"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 7,
+  "fields": {
+    "first_name": "Craig",
+    "last_name": "Federighi"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 8,
+  "fields": {
+    "first_name": "David",
+    "last_name": "Goldschmidt"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 9,
+  "fields": {
+    "first_name": "James",
+    "last_name": "Oh"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 10,
+  "fields": {
+    "first_name": "Sean",
+    "last_name": "Kae"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 11,
+  "fields": {
+    "first_name": "Kenichiro",
+    "last_name": "Yoshida"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 12,
+  "fields": {
+    "first_name": "Shuzo",
+    "last_name": "Sumi"
+  }
+},
+{
+  "model": "sortables.person",
+  "pk": 13,
+  "fields": {
+    "first_name": "Kazuo",
+    "last_name": "Matsunaga"
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 1,
+  "fields": {
+    "company": 1,
+    "person": 1,
+    "position": "Chief Executive Officer",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 2,
+  "fields": {
+    "company": 1,
+    "person": 2,
+    "position": "Executive Vice President, Worldwide Commercial Business",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 3,
+  "fields": {
+    "company": 1,
+    "person": 3,
+    "position": "Executive Vice President and Chief Financial Officer",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 4,
+  "fields": {
+    "company": 2,
+    "person": 4,
+    "position": "CEO",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 5,
+  "fields": {
+    "company": 2,
+    "person": 5,
+    "position": "Senior Vice President and General Counsel",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 6,
+  "fields": {
+    "company": 2,
+    "person": 6,
+    "position": "Senior Vice President Internet Software and Services",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 7,
+  "fields": {
+    "company": 2,
+    "person": 7,
+    "position": "Senior Vice President Software Engineering",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 8,
+  "fields": {
+    "company": 3,
+    "person": 8,
+    "position": "Vice President",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 9,
+  "fields": {
+    "company": 3,
+    "person": 9,
+    "position": "Senior Vice President",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 10,
+  "fields": {
+    "company": 3,
+    "person": 10,
+    "position": "Acting Head",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 11,
+  "fields": {
+    "company": 4,
+    "person": 11,
+    "position": "Member of Nominating Committee",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 12,
+  "fields": {
+    "company": 4,
+    "person": 12,
+    "position": "Chairman of the Board",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.staff",
+  "pk": 13,
+  "fields": {
+    "company": 4,
+    "person": 13,
+    "position": "Vice Chairman of the Board",
+    "order": 0
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 1,
+  "fields": {
+    "title": "Computer hardware"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 2,
+  "fields": {
+    "title": "Computer software"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 3,
+  "fields": {
+    "title": "Cloud computing"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 4,
+  "fields": {
+    "title": "Electronics"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 5,
+  "fields": {
+    "title": "Semiconductors"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 6,
+  "fields": {
+    "title": "Home appliances"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 7,
+  "fields": {
+    "title": "Telecommunications"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 8,
+  "fields": {
+    "title": "Entertainment"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 9,
+  "fields": {
+    "title": "Television"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 10,
+  "fields": {
+    "title": "Music"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 11,
+  "fields": {
+    "title": "Software development"
+  }
+},
+{
+  "model": "sortables.industry",
+  "pk": 12,
+  "fields": {
+    "title": "Consumer electronics"
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 1,
+  "fields": {
+    "company": 2,
+    "industry": 1,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 2,
+  "fields": {
+    "company": 2,
+    "industry": 2,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 3,
+  "fields": {
+    "company": 2,
+    "industry": 3,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 4,
+  "fields": {
+    "company": 3,
+    "industry": 4,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 5,
+  "fields": {
+    "company": 3,
+    "industry": 5,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 6,
+  "fields": {
+    "company": 3,
+    "industry": 6,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 7,
+  "fields": {
+    "company": 4,
+    "industry": 7,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 8,
+  "fields": {
+    "company": 4,
+    "industry": 8,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 9,
+  "fields": {
+    "company": 4,
+    "industry": 9,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 10,
+  "fields": {
+    "company": 4,
+    "industry": 10,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 11,
+  "fields": {
+    "company": 1,
+    "industry": 11,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 12,
+  "fields": {
+    "company": 1,
+    "industry": 1,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 13,
+  "fields": {
+    "company": 1,
+    "industry": 12,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.companyindustry",
+  "pk": 14,
+  "fields": {
+    "company": 1,
+    "industry": 3,
+    "order": 0
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 1,
+  "fields": {
+    "parent": null,
+    "title": "Women",
+    "order": 1,
+    "lft": 1,
+    "rght": 12,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 2,
+  "fields": {
+    "parent": 1,
+    "title": "Shirts",
+    "order": 2,
+    "lft": 2,
+    "rght": 7,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 3,
+  "fields": {
+    "parent": 1,
+    "title": "Skirts",
+    "order": 3,
+    "lft": 8,
+    "rght": 9,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 4,
+  "fields": {
+    "parent": 1,
+    "title": "Purses",
+    "order": 4,
+    "lft": 10,
+    "rght": 11,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 5,
+  "fields": {
+    "parent": 2,
+    "title": "Long Sleeves",
+    "order": 5,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 6,
+  "fields": {
+    "parent": 2,
+    "title": "T-shirts",
+    "order": 6,
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 7,
+  "fields": {
+    "parent": null,
+    "title": "Men",
+    "order": 7,
+    "lft": 1,
+    "rght": 14,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 8,
+  "fields": {
+    "parent": 7,
+    "title": "Footwear",
+    "order": 8,
+    "lft": 2,
+    "rght": 7,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 9,
+  "fields": {
+    "parent": 8,
+    "title": "Shoes",
+    "order": 9,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 10,
+  "fields": {
+    "parent": 8,
+    "title": "Sneakers",
+    "order": 10,
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 11,
+  "fields": {
+    "parent": 7,
+    "title": "Shirts",
+    "order": 11,
+    "lft": 8,
+    "rght": 13,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 12,
+  "fields": {
+    "parent": 11,
+    "title": "Tank Tops",
+    "order": 12,
+    "lft": 9,
+    "rght": 10,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "sortables.category",
+  "pk": 13,
+  "fields": {
+    "parent": 11,
+    "title": "T-shirts",
+    "order": 13,
+    "lft": 11,
+    "rght": 12,
+    "tree_id": 2,
+    "level": 2
   }
 }
 ]

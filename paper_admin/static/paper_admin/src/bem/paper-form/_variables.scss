@@ -1,0 +1,18 @@
+@import "css/abstracts/bootstrap";
+
+$paper-form-row-padding-x: 1rem !default;
+$paper-form-row-padding-y: 0.75rem !default;
+$paper-form-row-padding-x-sm: 0.75rem !default;
+$paper-form-row-bg: #fff !default;
+$paper-form-row-border-top: 1px dashed $gray-200 !default;
+$paper-form-row-invalid-bg: #ffe0e0 !default;
+
+$paper-form-label-color: $gray-700 !default;
+$paper-form-label-hover-color: $gray-900 !default;
+$paper-form-label-font-size: 0.875rem !default;
+$paper-form-label-font-weight: 300 !default;
+$paper-form-label-line-height: 1.375rem !default;
+
+$paper-form-help-icon-margin-left: 6px !default;
+$paper-form-help-icon-color: $info !default;
+$paper-form-help-icon-size: 1rem !default;

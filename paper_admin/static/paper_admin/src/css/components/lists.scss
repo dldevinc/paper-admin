@@ -1,0 +1,12 @@
+// Список для радиобоксов, чекбоксов и кнопок тулбара.
+.list-default {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &:not(.list-inline) {
+    li + li {
+      margin-top: 5px;
+    }
+  }
+}

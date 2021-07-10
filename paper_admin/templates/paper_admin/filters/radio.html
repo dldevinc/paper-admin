@@ -1,10 +1,10 @@
-<div class="paper-filter form-group">
-  <p class="paper-filter-header mb-1">{{ title|capfirst }}</p>
+<div class="paper-filter">
+  <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
 
-  <ul class="list-unstyled mb-0 vMultipleInput {{ classes }}">
+  <ul class="list-default {{ classes }}">
     {% for choice in choices %}
       <li>
-        <div class="custom-control user-select-none vCustomRadio">
+        <div class="custom-control custom-radio user-select-none">
           <input type="radio"
                  id="id_{{ spec.parameter_name }}-{{ choice.value }}"
                  value="{{ choice.value }}"

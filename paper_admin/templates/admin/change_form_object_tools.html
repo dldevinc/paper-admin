@@ -1,0 +1,71 @@
+{% load admin_urls %}
+
+{% block object-tools-items %}
+  {% if show_save %}
+    <li>
+      <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-lg btn-block btn-success">
+        <i class="fa fa-save"></i>
+        <span>{{ _("Save") }}</span>
+      </button>
+    </li>
+  {% endif %}
+
+  {% if show_save_and_continue %}
+    <li>
+      <button type="submit" name="_continue" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
+        {% if can_change %}
+          {{ _("Save and continue editing") }}
+        {% else %}
+          {{ _("Save and view") }}
+        {% endif %}
+      </button>
+    </li>
+  {% endif %}
+
+  {% if show_save_and_add_another %}
+    <li>
+      <button type="submit" name="_addanother" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
+        {{ _("Save and add another") }}
+      </button>
+    </li>
+  {% endif %}
+
+  {% if show_save_as_new %}
+    <li>
+      <button type="submit" name="_saveasnew" form="{{ opts.model_name }}_form" class="btn btn-block btn-info">
+        {{ _("Save as new") }}
+      </button>
+    </li>
+  {% endif %}
+
+  {% if not is_popup %}
+    {% if has_absolute_url %}
+      <li>
+        <a href="{{ absolute_url }}" class="btn btn-block btn-outline-info" target="_blank" rel="noopener">
+          <i class="fa fa-eye"></i>
+          <span>{{ _("View on site") }}</span>
+        </a>
+      </li>
+    {% endif %}
+
+    {% if change and show_history %}
+      <li>
+        {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+        <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-info">
+          <i class="fa fa-history"></i>
+          <span>{{ _("History") }}</span>
+        </a>
+      </li>
+    {% endif %}
+  {% endif %}
+
+  {% if show_delete_link and original %}
+    <li>
+      {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+      <a href="{% add_preserved_filters delete_url %}" class="btn btn-block btn-outline-danger">
+        <i class="fa fa-trash"></i>
+        <span>{{ _("Delete") }}</span>
+      </a>
+    </li>
+  {% endif %}
+{% endblock %}

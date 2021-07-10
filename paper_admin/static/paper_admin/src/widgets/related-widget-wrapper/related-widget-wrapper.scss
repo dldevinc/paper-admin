@@ -1,0 +1,44 @@
+@import "css/abstracts/bootstrap";
+
+.related-widget-wrapper {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+
+  &__buttons {
+
+  }
+
+  > ul {
+    flex-grow: 1;
+
+    // Прячем кнопки для виджетов с радиобоксами и чекбоксами,
+    // т.к. нельзя заставить их работать со списками.
+    + .related-widget-wrapper__buttons {
+      display: none;
+    }
+  }
+
+  > .select-field {
+    flex-grow: 1;
+
+    + .related-widget-wrapper__buttons {
+      margin-top: 0.5rem;
+      flex-basis: 100%;
+      @include media-breakpoint-up(sm) {
+        margin-left: 0.5rem;
+        margin-top: 0;
+        flex-basis: auto;
+      }
+    }
+  }
+
+  > .select-multiple-field {
+    flex-grow: 1;
+
+    + .related-widget-wrapper__buttons {
+      margin-top: 0.5rem;
+      flex-basis: 100%;
+    }
+  }
+}

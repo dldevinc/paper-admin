@@ -1,4 +1,5 @@
 {% load i18n admin_urls %}
+{% load paper_paginator paper_styles %}
 
 {% block result_hidden_fields %}
   {% if result_hidden_fields %}
@@ -8,80 +9,143 @@
 
 
 {% if results %}
-  <div class="paper-table-wrapper">
-    <table id="result_list"
-           class="{% block table_classes %}table table-hover table-middle table-striped table-responsive-md {{ cl.sortable|yesno:"table-sortable," }} {{ cl.can_sort|yesno:"table-sortable-allowed," }}{% endblock %}"
-           {% if cl.sortable %}data-order-url="{% url cl.opts|admin_urlname:'sort' %}"{% endif %}>
-      <thead>
-      <tr>
-        {% for header in result_headers %}
-          {% block result_header %}
-            <th scope="col" {{ header.class_attrib }}>
-              {% if header.sortable %}
-                {% spaceless %}
-                  <span class="table-column-header dropdown">
-                    <a href="{{ header.url_primary }}" class="table-column-header-title">
-                      {{ header.text|capfirst }}
-                    </a>
-                    {% if header.sort_priority > 0 %}
-                      <span class="sortoptions-btn btn{% if num_sorted_fields > 1 %} has-prior{% endif %}"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa {% if header.ascending %}fa-sort-asc{% else %}fa-sort-desc{% endif %}"></i>
-                        {% if num_sorted_fields > 1 %}
-                          <span class="sortpriority" title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
-                        {% endif %}
-                      </span>
-                      <span class="dropdown-menu">
-                        <a href="{{ header.url_toggle }}" class="dropdown-item">
-                          <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
-                          {% trans 'Toggle sorting' %}
-                        </a>
-                        <a href="{{ header.url_remove }}" class="dropdown-item">
-                          <i class="fa fa-fw fa-remove"></i>
-                          {% trans "Remove from sorting" %}
-                        </a>
-                      </span>
+  <table id="result_list"
+         class="{% block table_classes %}paper-table table table-hover table-responsive-md mb-0{% if cl.sortable_allowed %} paper-table--sortable{% endif %}{% endblock %}"
+         {% if cl.sortable_allowed %}data-order-url="{% url cl.opts|admin_urlname:'order' %}"{% endif %}>
+    <colgroup>
+      {% if cl.sortable_allowed %}
+        <col>
+      {% endif %}
+
+      {% if cl.has_actions %}
+        <col class="paper-table__small-column">
+        <col span="{{ result_headers|length|add:-1 }}">
+      {% else %}
+        <col span="{{ result_headers|length }}">
+      {% endif %}
+
+      {% if cl.model_admin.changelist_tools %}
+        <col class="paper-table__small-column">
+      {% endif %}
+    </colgroup>
+
+    <thead>
+    <tr>
+      {% if cl.sortable_allowed %}
+        <th class="p-0"></th>
+      {% endif %}
+
+      {% for header in result_headers %}
+        {% block result_header %}
+          <th scope="col" {{ header.class_attrib }}>
+            {% if header.sortable %}{% spaceless %}
+              <div class="dropdown text-nowrap">
+                <a href="{{ header.url_primary }}" class="d-inline-block text-wrap">
+                  {{ header.text|capfirst }}
+                </a>
+                {% if header.sort_priority > 0 %}
+                  <span class="paper-table__sort-button btn btn-outline-light{% if num_sorted_fields > 1 %} paper-table__sort-button--has-prior{% endif %}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa {% if header.ascending %}fa-sort-asc{% else %}fa-sort-desc{% endif %}"></i>
+                    {% if num_sorted_fields > 1 %}
+                      <span title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
                     {% endif %}
                   </span>
-                {% endspaceless %}
-              {% else %}
-                <span class="table-column-header">{{ header.text|capfirst }}</span>
-              {% endif %}
-            </th>
-          {% endblock %}
-        {% endfor %}
+                  <ul class="dropdown-menu">
+                    <li role="presentation">
+                      <a href="{{ header.url_toggle }}" class="dropdown-item" role="menuitem">
+                        <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
+                        {{ _("Toggle sorting") }}
+                      </a>
+                    </li>
+                    <li role="presentation">
+                      <a href="{{ header.url_remove }}" class="dropdown-item" role="menuitem">
+                        <i class="fa fa-fw fa-remove"></i>
+                        {{ _("Remove from sorting") }}
+                      </a>
+                    </li>
+                  </ul>
+                {% endif %}
+              </div>
+            {% endspaceless %}{% else %}
+              {{ header.text|capfirst }}
+            {% endif %}
+          </th>
+        {% endblock %}
+      {% endfor %}
 
-        {% if cl.model_admin.changelist_tools %}
-          <th class="paper-changelist-tools-header"></th>
+      {% if cl.model_admin.changelist_tools %}
+        <th></th>
+      {% endif %}
+    </tr>
+    </thead>
+
+    <tbody>
+      {% for result in results %}
+        {% if result.form and result.form.non_field_errors %}
+          <tr class="table-danger">
+            <td colspan="{{ column_count }}">
+              {{ result.form.non_field_errors }}
+            </td>
+          </tr>
         {% endif %}
-      </tr>
-      </thead>
 
-      <tbody>
-        {% for result in results %}
-          {% if result.form.non_field_errors %}
-            <tr class="table-danger">
-              <td colspan="{{ result|length }}">
-                {{ result.form.non_field_errors }}
-              </td>
-            </tr>
+        <tr class="{% paper_row_classes result cl.model_admin %}" {{ result.attrs }}>
+          {% if cl.sortable_allowed %}
+            <td class="paper-table__sortable-cell p-0">
+              <div class="paper-table__sort-handler">
+                <i class="fa fa-arrows-v"></i>
+              </div>
+            </td>
           {% endif %}
 
-          <tr class="{% block row_classes %}{{ result.row_classes }}{% if result.form.errors %}table-danger{% endif %}{% endblock %}" {{ result.row_attrs }}>
-            {% for item in result %}
-              {{ item }}
-            {% endfor %}
+          {% for item in result %}
+            {{ item }}
+          {% endfor %}
 
-            {% if cl.model_admin.changelist_tools %}
-              <td class="paper-changelist-tools-cell">
-                {% spaceless %}
-                  {% include cl.model_admin.changelist_tools_template %}
-                {% endspaceless %}
-              </td>
+          {% if cl.model_admin.changelist_tools %}
+            <td class="text-right">{% spaceless %}
+              {% include cl.model_admin.changelist_tools_template %}
+            {% endspaceless %}</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="{{ column_count }}">
+          <div class="row align-items-center">
+            <div class="col">
+              <small class="text-muted text-nowrap">
+                {{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endif %}
+
+                {% if cl.result_count != cl.full_result_count %}
+                  (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{{ _("Show all") }}{% endif %}</a>)
+                {% endif %}
+              </small>
+            </div>
+
+            {% if cl.pagination_required %}
+              <div class="col-auto">
+                <small class="text-muted">
+                  {{ current_page.start_index }}-{{ current_page.end_index }} of {{ cl.result_count }}
+
+                  {% if cl.show_all_url %}
+                    (<a href="{{ cl.show_all_url }}">{{ _("Show all") }}</a>)
+                  {% endif %}
+                </small>
+              </div>
+
+              <div class="col-auto">
+                {% block pagination %}
+                  {% paper_pagination cl %}
+                {% endblock %}
+              </div>
             {% endif %}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 {% endif %}

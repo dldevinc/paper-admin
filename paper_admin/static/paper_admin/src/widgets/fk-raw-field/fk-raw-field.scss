@@ -1,0 +1,8 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.fk-raw-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $fk-raw-field-max-width;
+  }
+}

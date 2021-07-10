@@ -1,0 +1,41 @@
+@import "css/abstracts/bootstrap";
+
+.paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1 1 auto;
+
+  &__action {
+    select {
+      padding-left: $input-padding-y;
+      padding-right: 24px;
+      width: auto;
+      min-width: 180px;
+      max-width: 340px;
+    }
+  }
+
+  &__select_across {
+    display: none;
+  }
+
+  &__button {
+    margin-right: 1rem;
+  }
+
+  &__tools {
+    padding: .375rem 0;
+    flex: 1 0 auto;
+  }
+
+  &__counter,
+  &__all {
+    margin-right: .375rem;
+  }
+
+  &__question,
+  &__clear {
+    margin-left: .375rem;
+  }
+}

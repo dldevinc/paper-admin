@@ -6,17 +6,18 @@ Custom Django admin interface.
 
 ## Requirements
 * Python >= 3.6
-* Django >= 2.1
+* Django >= 2.2
 
 ## Installation
 Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admin`.
 ```python
 INSTALLED_APPS = [
     'paper_admin',
-    'paper_admin.patches.dal',          # optional
-    'paper_admin.patches.django_solo',  # optional
-    'paper_admin.patches.mptt',         # optional
-    'paper_admin.patches.post_office',  # optional
+    'paper_admin.patches.dal',              # optional
+    'paper_admin.patches.django_solo',      # optional
+    'paper_admin.patches.mptt',             # optional
+    'paper_admin.patches.logentry_admin',   # optional
+    'paper_admin.patches.post_office',      # optional
     # ...
     'django.contrib.admin',
     # ...
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
 
 * `paper_admin.patches.mptt`<br>
   Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
-  Предоставляет класс `SortableMPTTModelAdmin` для оформления сортируемого дерева.
+  Добавляет возможность сортировки узлов дерева (при указании свойства `sortable`).
+
+* `paper_admin.patches.logentry_admin`<br>
+  Исправление фильтров и скрытие ненужных кнопок в [django-logentry-admin](https://github.com/yprez/django-logentry-admin).  
 
 * `paper_admin.patches.post_office`<br>
   Исправление виджета списка email адресов в [django-post_office](https://github.com/ui/django-post_office)  
@@ -46,21 +50,41 @@ INSTALLED_APPS = [
 **Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
 которые они исправляют.
 
-## Sortable admin objects
+## Sort table of content with drag and drop
+
+Для того, чтобы экземпляры модели можно было сортировать в интерфейсе администратора,
+необходимо выполнить два условия.
+
+1. Добавить в модель *числовое* поле, которое будет хранить 
+   порядковый номер.
 
 ```python
-from paper_admin.admin.sortable import SortableAdminMixin, SortableTabularInline
+from django.db import models
 
+class MyModel(models.Model):
+    order = models.IntegerField(
+        "order", 
+        default=0,
+        editable=False  # опционально
+    )
+```
 
-class TablularInline(SortableTabularInline):
+2. Указать название поля в свойстве `sortable`. Это работает как 
+   с инлайн-формами, так и с подклассами `ModelAdmin`.
+
+```python
+from django.contrib import admin
+
+class TablularInline(admin.TabularInline):
     sortable = 'order'
     # ...
 
 
-class MyModelAdmin(SortableAdminMixin, admin.ModelAdmin):
+class MyModelAdmin(admin.ModelAdmin):
     sortable = 'order'
     # ...
 ```
+
 
 ## Tabs
 Поля формы можно разделить на вкладки:
@@ -75,7 +99,7 @@ class PageAdmin(admin.ModelAdmin):
     fieldsets = (
         (_('First Section'), {
             'tab': 'common-tab',
-            'classes': ('card-info', ),
+            'classes': ('paper-card--info', ),
             'description': _('Some fieldset help text'),
             'fields': (
                 # ...
@@ -114,7 +138,7 @@ class PageAdmin(admin.ModelAdmin):
 ```
 
 ## Additional widgets
-### SwitchInput
+### AdminSwitchInput
 Стилизованый чекбокс.
 
 ![](http://joxi.net/ZrJJgW9iMDbQ5r.png)
@@ -211,8 +235,4 @@ PAPER_MENU = [
 | --- | --- | --- |
 | `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения    | 'development'         |
 | `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения   | '#FFFF00'             |
-| `PAPER_SUPPORT_PHONE`     | Контактный телефон в подвале          | '+1 234 567 8900'     |
-| `PAPER_SUPPORT_EMAIL`     | Контактный email в подвале            | 'office@example.com'  |
-| `PAPER_SUPPORT_COMPANY`   | Название компании в подвале           | 'Web Studio Inc.'     |
-| `PAPER_SUPPORT_WEBSITE`   | Ссылка на сайт компании в подвале     | 'https://webstudio.com/' |
 | `PAPER_MENU`              | Меню в сайдбаре                       | |

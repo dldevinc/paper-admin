@@ -1,0 +1,12 @@
+@import "css/abstracts/bootstrap";
+
+// Для текущей реализации нужны только "col-xxl" классы.
+// Чтобы не раздувать стили новым брейкопинтом, генерируем только
+// нужные классы.
+@for $i from 1 through $grid-columns {
+  .col-xxl-#{$i} {
+    @media (min-width: 1400px) {
+      @include make-col($i, $grid-columns);
+    }
+  }
+}

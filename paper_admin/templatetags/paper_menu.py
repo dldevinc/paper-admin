@@ -6,7 +6,7 @@ register = library.Library()
 
 
 @register.simple_tag(takes_context=True)
-def paper_menu(context):
+def paper_menu(context, parent_id):
     request = context.get("request")
     menu = get_menu(request)
     activate_menu(request, menu)
@@ -15,7 +15,7 @@ def paper_menu(context):
         {
             "level": 1,
             "items": menu,
-            "parent": "#sidebar-menu",
+            "parent": parent_id,
         },
         request=request
     )

@@ -16,6 +16,7 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = _("Tag")
 
     def __str__(self):
         return self.name
@@ -92,10 +93,10 @@ class Category(models.Model):
     f_decimal = models.DecimalField(_("decimal"), blank=True, decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
 
     f_duration = models.DurationField(_("duration"), blank=True, null=True, help_text=HELP_TEXT)
-    f_date = models.DateField(_("date"), blank=True, null=True, help_text=HELP_TEXT)
-    f_date2 = models.DateField(_("date selects"), blank=True, null=True, help_text=HELP_TEXT)
-    f_time = models.TimeField(_("time"), blank=True, null=True, help_text=HELP_TEXT)
-    f_datetime = models.DateTimeField(_("datetime"), blank=True, null=True, help_text=HELP_TEXT)
+    f_date = models.DateField(_("date"), null=True, help_text=HELP_TEXT)
+    f_date2 = models.DateField(_("date selects"), null=True, help_text=HELP_TEXT)
+    f_time = models.TimeField(_("time"), null=True, help_text=HELP_TEXT)
+    f_datetime = models.DateTimeField(_("datetime"), null=True, help_text=HELP_TEXT)
 
     f_hidden1 = models.CharField(_("hidden1"), blank=True, max_length=128, help_text=HELP_TEXT)
     f_hidden2 = models.CharField(_("hidden2"), blank=True, max_length=128, help_text=HELP_TEXT)
@@ -134,15 +135,15 @@ class Category(models.Model):
         help_text=HELP_TEXT
     )
 
-    order = models.PositiveIntegerField(_("order"), default=0, editable=False)
-
     class Meta:
-        ordering = ["order"]
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 
     def __str__(self):
         return self.f_char
+
+    def get_absolute_url(self):
+        return "/"
 
 
 class Item(models.Model):
@@ -150,34 +151,31 @@ class Item(models.Model):
     hidden = models.IntegerField(_("hidden"), default=1)
     readonly = models.CharField(_("readonly"), max_length=128, blank=True, default="Do not edit me")
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
+    age = models.IntegerField("age", default=18, help_text=HELP_TEXT)
     slug = models.SlugField(_("slug"), help_text=HELP_TEXT)
     url = models.URLField(_("url"), blank=True, help_text=HELP_TEXT)
     text = models.TextField(_("text"), blank=True)
-    order = models.IntegerField(_("order"), default=0)
+    visible = models.BooleanField(_("visible"), default=True)
+    created_at = models.DateTimeField(_("date"), null=True, blank=True, help_text=HELP_TEXT)
 
     class Meta:
-        ordering = ["order"]
         verbose_name = _("item")
         verbose_name_plural = _("items")
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/"
+
 
 class Tree(MPTTModel):
-    category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)
     parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
-    number = models.IntegerField(_("number"), default=7)
-    order = models.PositiveIntegerField(_("order"), default=0, editable=False)
 
     class Meta:
-        ordering = ["order"]
         verbose_name = _("tree")
-        verbose_name_plural = _("tree")
-
-    class MPTTMeta:
-        order_insertion_by = ["order"]
+        verbose_name_plural = _("trees")
 
     def __str__(self):
         return self.name

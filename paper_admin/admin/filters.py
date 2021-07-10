@@ -1,62 +1,35 @@
-import datetime
 import operator
+from itertools import zip_longest
 
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils import timezone
+from django.utils.dateparse import parse_date
 from django.utils.translation import gettext_lazy as _
 
 
-class SimpleListFilter(filters.ListFilter):
+class SimpleListFilter(filters.SimpleListFilter):
     """
-    Differencies from standard `SimpleListFilter`:
-    1) Use `request.GET.getlist()` instead of `request.GET.get()`
-    2) Versatile `choice` format
+    Отличия от стандартного `SimpleListFilter`:
+    1) Используется `request.GET.getlist()` вместо `request.GET.get()`, что позволяет
+       указывать несколько значений.
+    2) Более универсальный формат `choice`-объекта.
     """
-    # The parameter that should be used in the query string for that filter.
-    parameter_name = None
-    template = "paper_admin/filters/list.html"
-
     def __init__(self, request, params, model, model_admin):
-        super().__init__(request, params, model, model_admin)
-        if self.parameter_name is None:
-            raise ImproperlyConfigured(
-                "The list filter '%s' does not specify a 'parameter_name'."
-                % self.__class__.__name__
-            )
-        if self.parameter_name in params:
+        has_value = self.parameter_name in params
+        if has_value:
             params.pop(self.parameter_name, None)
+
+        super().__init__(request, params, model, model_admin)
+
+        if has_value:
             values_list = request.GET.getlist(self.parameter_name)
             self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
-        lookup_choices = self.lookups(request, model_admin)
-        if lookup_choices is None:
-            lookup_choices = ()
-        self.lookup_choices = list(lookup_choices)
-
-    def has_output(self):
-        return len(self.lookup_choices) > 0
 
     def value(self):
-        """
-        Return the values (as list of strings) provided in the request's
-        query string for this filter.
-        """
         return self.used_parameters.get(self.parameter_name, [])
-
-    def lookups(self, request, model_admin):
-        """
-        Must be overridden to return a list of tuples (value, verbose value)
-        """
-        raise NotImplementedError(
-            'The SimpleListFilter.lookups() method must be overridden to '
-            'return a list of tuples (value, verbose value).'
-        )
-
-    def expected_parameters(self):
-        return [self.parameter_name]
 
     def choices(self, changelist):
         yield {
@@ -81,9 +54,6 @@ class FieldListFilter(filters.ListFilter):
         params.pop(self.parameter_name, None)
         values_list = request.GET.getlist(self.parameter_name)
         self.value = list(filter(lambda x: x != "", values_list))
-
-    def get_template(self):
-        return self.template
 
     @property
     def parameter_name(self):
@@ -163,66 +133,53 @@ class ChoicesFieldListFilter(FieldListFilter):
 
 
 class DateFieldListFilter(FieldListFilter):
-    template = "paper_admin/filters/radio.html"
+    template = "paper_admin/filters/daterange.html"
+
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        self.field = field
+        self.field_path = field_path
+        self.title = getattr(field, "verbose_name", field_path)
+        super(FieldListFilter, self).__init__(request, params, model, model_admin)
+
+        params.pop(self.start_parameter_name, None)
+        params.pop(self.end_parameter_name, None)
+
+        start_values_list = request.GET.getlist(self.start_parameter_name)
+        start_values_list = list(filter(lambda x: x != "", start_values_list))
+
+        end_values_list = request.GET.getlist(self.end_parameter_name)
+        end_values_list = list(filter(lambda x: x != "", end_values_list))
+
+        self.value = tuple(zip_longest(start_values_list, end_values_list))
+
+    @property
+    def start_parameter_name(self):
+        return "{}-start".format(self.parameter_name)
+
+    @property
+    def end_parameter_name(self):
+        return "{}-end".format(self.parameter_name)
 
     def choices(self, changelist):
-        yield {
-            "selected": not self.value,
-            "value": "",
-            "display": _("Any date"),
-        }
-        for lookup, title in (
-            ("today", _("Today")),
-            ("week", _("This week")),
-            ("month", _("This month")),
-            ("year", _("This year")),
-        ):
-            yield {
-                "selected": lookup in self.value,
-                "value": lookup,
-                "display": title,
-            }
-        if self.field.null:
-            yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
-            }
+        return []
 
     def get_query(self, value):
-        now = timezone.now()
-        if timezone.is_aware(now):
-            now = timezone.localtime(now)
-
-        if isinstance(self.field, models.DateTimeField):
-            today = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        else:  # field is a models.DateField
-            today = now.date()
-
-        tomorrow = today + datetime.timedelta(days=1)
-        if today.month == 12:
-            next_month = today.replace(year=today.year + 1, month=1, day=1)
-        else:
-            next_month = today.replace(month=today.month + 1, day=1)
-        next_year = today.replace(year=today.year + 1, month=1, day=1)
-
-        lookup_since = "%s__gte" % self.field_path
-        lookup_until = "%s__lt" % self.field_path
-
         if not value:
             return
         elif len(value) == 1:
-            value = value[0]
-            if value == "None":
-                return models.Q((self.field_path, None))
-            elif value == "today":
-                return models.Q((lookup_since, today)) & models.Q((lookup_until, tomorrow))
-            elif value == "week":
-                return models.Q((lookup_since, today - datetime.timedelta(days=7))) & models.Q((lookup_until, tomorrow))
-            elif value == "month":
-                return models.Q((lookup_since, today.replace(day=1))) & models.Q((lookup_until, next_month))
-            elif value == "year":
-                return models.Q((lookup_since, today.replace(month=1, day=1))) & models.Q((lookup_until, next_year))
+            start, end = value[0]
+
+            lookup_since = "%s__gte" % self.field_path
+            lookup_until = "%s__lt" % self.field_path
+
+            query = models.Q()
+            if start:
+                query &= models.Q((lookup_since, parse_date(start)))
+            if end:
+                query &= models.Q((lookup_until, parse_date(end)))
+
+            return query
+
         raise ValueError(value)
 
 
@@ -330,34 +287,3 @@ class AllValuesFieldListFilter(FieldListFilter):
                 "value": "None",
                 "display": _("None"),
             }
-
-
-filters.FieldListFilter.register(
-    lambda f: f.remote_field,
-    RelatedFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: isinstance(f, (models.BooleanField, models.NullBooleanField)),
-    BooleanFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: bool(f.choices),
-    ChoicesFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: isinstance(f, models.DateField),
-    DateFieldListFilter,
-    take_priority=True,
-)
-
-filters.FieldListFilter.register(
-    lambda f: True,
-    AllValuesFieldListFilter,
-    take_priority=True,
-)

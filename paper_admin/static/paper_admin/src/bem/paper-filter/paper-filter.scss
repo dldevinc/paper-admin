@@ -1,0 +1,19 @@
+@import "./variables";
+
+.paper-filter {
+  margin-bottom: $paper-filter-gutter-width;
+
+  &:not(:first-child) {
+    padding-top: $paper-filter-gutter-width;
+    border-top: $paper-filter-border-top;
+  }
+
+  &__title {
+    font-size: $paper-filter-title-font-size;
+    font-weight: $paper-filter-title-font-weight;
+  }
+
+  &__row:not(:first-of-type) {
+    margin-top: $paper-filter-row-space;
+  }
+}

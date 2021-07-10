@@ -1,0 +1,43 @@
+<div class="paper-date-range-filter paper-filter">
+  <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
+
+  <div class="paper-filter__row">
+    <div class="paper-input-group input-group">
+      <input type="text"
+             class="form-control"
+             id="filter-{{ spec.parameter_name }}-start"
+             name="{{ spec.parameter_name }}-start"
+             value="{{ spec.value.0.0|default:"" }}"
+             placeholder="{{ _("Start date") }}"
+             data-range-start>
+
+      <div class="input-group-append">
+        <button type="button" class="input-group-text" tabindex="-1" data-today
+                data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                data-html="true" title="{{ _('Today') }}">
+          <i class="fa fa-calendar-check-o"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="paper-filter__row">
+    <div class="paper-input-group input-group">
+      <input type="text"
+             class="form-control"
+             id="filter-{{ spec.parameter_name }}-end"
+             name="{{ spec.parameter_name }}-end"
+             value="{{ spec.value.0.1|default:"" }}"
+             placeholder="{{ _("End date") }}"
+             data-range-end>
+
+      <div class="input-group-append">
+        <button type="button" class="input-group-text" tabindex="-1" data-today
+                data-toggle="tooltip" data-placement="top" data-trigger="hover"
+                data-html="true" title="{{ _('Today') }}">
+          <i class="fa fa-calendar-check-o"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import "css/abstracts/bootstrap";
+
+.dotted-underline {
+  text-decoration: underline dotted rgba($gray-700, 0.75);
+  text-decoration-thickness: 0.25px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

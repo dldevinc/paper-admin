@@ -1,0 +1,42 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.btn-square {
+  display: flex;
+  padding: 0 !important;
+  align-items: center;
+  justify-content: center;
+  width: $btn-square-size;
+  height: $btn-square-size;
+  font-size: $btn-square-icon-size;
+  line-height: 1;
+  text-align: center;
+
+  &.btn-lg {
+    width: $btn-square-size-lg;
+    height: $btn-square-size-lg;
+    font-size: $btn-square-icon-size-lg;
+  }
+
+  &.btn-sm {
+    width: $btn-square-size-sm;
+    height: $btn-square-size-sm;
+    font-size: $btn-square-icon-size-sm;
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 1;
+    background-color: $gray-100;
+
+    i {
+      opacity: 0.25;
+    }
+  }
+
+  @each $name, $value in $theme-colors {
+    &--#{$name} {
+      color: theme-color($name);
+    }
+  }
+}

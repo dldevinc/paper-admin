@@ -1,0 +1,8 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.email-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $email-field-max-width;
+  }
+}

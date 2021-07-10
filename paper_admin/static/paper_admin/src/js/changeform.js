@@ -1,39 +1,33 @@
-/* global gettext */
+import formUtils from "js/utilities/form_utils";
+import {Select2Widget} from "components/select2";
+import {InlineFormset} from "bem/paper-formset/paper-formset";
+import "bem/scroll-top-button/scroll-top-button";
 
-import hookUnload from "js/components/hook_unload";
-import Formset from "js/components/inlines/inlines";
-import SortableFormset from "js/components/inlines/sortable_inlines";
-import "js/components/RelatedObjectLookups";
-import "js/components/tabs";
-import "js/widgets/autosize";
-import "js/widgets/clearable_file";
-import "js/widgets/datetime";
-import "js/widgets/email";
-import "js/widgets/multiselect";
-import "js/widgets/password";
-import "js/widgets/url";
+// Select2 для выпадающих списков
+const select2_changeform = new Select2Widget({
+    width: "",
+    allowClear: true
+});
+select2_changeform.observe(".select-field select");
+select2_changeform.initAll(".select-field select");
 
-
-// предупреждение при закрытии формы
-const form = document.getElementById("changeform");
-if (form) {
-    hookUnload(form);
-}
-
-// динамическая подгрузка скрипта для prepopulate_fields
-if (window.django_prepopulated_fields && window.django_prepopulated_fields.length) {
-    import(/* webpackChunkName: "prepopulate" */ "js/components/prepopulate/prepopulate");
-}
-
-// инициализация inline-форм
-document.querySelectorAll(".sortable-inline-group").forEach(function(inlineGroup) {
-    new SortableFormset(inlineGroup, {
-        prefix: inlineGroup.dataset.inlinePrefix
-    });
+// Инициализация inline-форм
+let formsets = [];
+document.querySelectorAll(".paper-formset").forEach(function(element) {
+    let formset = new InlineFormset(element);
+    formset.updateButtonsState();
+    formsets.push(formset);
 });
 
-document.querySelectorAll(".inline-group:not(.sortable-inline-group)").forEach(function(inlineGroup) {
-    new Formset(inlineGroup, {
-        prefix: inlineGroup.dataset.inlinePrefix
+// Установка значения поля сортировки перед сохранением.
+// Назначить сортировку сразу нельзя из-за того, что extra-формы не должны меняться.
+document.addEventListener("submit", function() {
+    formsets.forEach(function(formset) {
+        let index = 0;
+        formset.getForms().forEach(function(form) {
+            if (form.classList.contains("has_original") || formUtils.containsChangedField(form)) {
+                this.setFormOrder(form, index++);
+            }
+        }.bind(formset));
     });
 });

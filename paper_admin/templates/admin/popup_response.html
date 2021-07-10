@@ -1,7 +1,6 @@
-{% load i18n %}
 <!DOCTYPE html>
 <html>
-  <head><title>{% trans 'Popup closing...' %}</title></head>
+  <head><title>{{ _("Popup closing...") }}</title></head>
   <body>
     <script>
       const initData = {{ popup_response_data|safe }};

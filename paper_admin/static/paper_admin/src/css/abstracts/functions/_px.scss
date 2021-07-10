@@ -1,0 +1,14 @@
+/*
+  Конвертирует любое значение (число, px, rem) в px.
+ */
+@function px($value) {
+  $unit: unit($value);
+
+  @if ($unit == "px") {
+    @return $value;
+  } @else if ($unit == "rem") {
+    @return $value / 1rem * 16px;
+  } @else {
+    @return $value * 1px;
+  }
+}

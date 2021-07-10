@@ -1,5 +1,4 @@
-@import "app";
-
+@import "css/env";
 
 @keyframes form_appear {
   0% {
@@ -12,9 +11,8 @@
   }
 }
 
-
-.login-page {
-  background: url(../img/login_bg.jpg) center bottom;
+.login {
+  background: url("img/login_bg.jpg") center bottom;
   background-size: cover;
 
   &:before {
@@ -25,36 +23,24 @@
     right: 0;
     bottom: 0;
     z-index: -1;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .paper-page {
+    margin-left: 0 !important;
   }
 }
-
-
-#paper-main {
-  display: flex;
-  flex: 1 0 auto;
-}
-
 
 .login-card {
   position: relative;
-  overflow: hidden;
-  max-width: 18rem;
-  border-radius: 0.375rem;
-  box-shadow: 0 0 0 1px theme-color-level('dark', -2);
+  width: 320px;
+  max-width: 100%;
+  border-radius: $border-radius;
   animation: form_appear 0.8s backwards 0.4s;
-
-  .card-title {
-    color: $white;
-  }
-
-  .form-group:last-child {
-    margin-bottom: 0;
-  }
 }
 
-
 .password-reset-link {
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
+  a {
+    color: inherit;
+  }
 }

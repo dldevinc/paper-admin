@@ -38,69 +38,105 @@ function containsChangedField(root) {
 
 /**
  * Добавление ошибок к виджету поля формы.
- * @param {Element} field
- * @param {String, String[]} errors
+ * @param {Element} widget
+ * @param {(String|String[])=} errors
  */
-function addFieldError(field, errors) {
-    let errorList = field.querySelector(".invalid-feedback ul");
-    if (errorList === null) {
-        errorList = document.createElement("ul");
-        errorList.classList.add("list-unstyled", "mb-0");
+function setWidgetErrors(widget, errors) {
+    // возможность вызывать функцию как с виджетом, так и с полем, хранящемся в виджете
+    if (!widget.classList.contains(".paper-widget")) {
+        widget = widget.closest(".paper-widget");
+        if (!widget) {
+            throw new Error("widget not found");
+        }
+    }
 
-        const feedback = document.createElement("div");
-        feedback.classList.add("invalid-feedback");
-        feedback.append(errorList);
-        field.append(feedback);
+    // очистка списка текущих ошибок
+    let errorList = widget.nextElementSibling;
+    if (errorList && errorList.classList.contains("paper-error-list")) {
+        while (errorList.firstChild) {
+            errorList.removeChild(errorList.lastChild);
+        }
+    } else {
+        throw new Error("error list not found");
     }
 
     if (typeof errors === "string") {
-        const errorListItem = document.createElement("li");
-        errorListItem.innerText = errors;
-        errorList.append(errorListItem);
-    } else {
+        errors = [errors];
+    }
+
+    // оформление виджета, поля и вкладки
+    if (errors && errors.length) {
+        widget.classList.add("paper-widget--invalid");
+
         errors.forEach(function(error) {
             const errorListItem = document.createElement("li");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
         });
+
+        // form row
+        let formRow = widget.closest(".paper-form__row");
+        if (formRow) {
+            formRow.classList.add("paper-form__row--invalid");
+        }
+
+        // tab
+        let tabPane = widget.closest(".tab-pane");
+        if (tabPane) {
+            let tabButtonId = tabPane.getAttribute("aria-labelledby");
+            let tabButton = tabButtonId && document.getElementById(tabButtonId);
+            if (tabButton) {
+                tabButton.classList.add("btn-outline-danger");
+                tabButton.classList.remove("btn-outline-primary");
+            }
+        }
+    } else {
+        widget.classList.remove("paper-widget--invalid");
+
+        // form row
+        let formRow = widget.closest(".paper-form__row");
+        if (formRow) {
+            formRow.classList.remove("paper-form__row--invalid");
+        }
+
+        // tab
+        let tabPane = widget.closest(".tab-pane");
+        if (tabPane && !tabPane.querySelectorAll(".paper-widget--invalid").length) {
+            let tabButtonId = tabPane.getAttribute("aria-labelledby");
+            let tabButton = tabButtonId && document.getElementById(tabButtonId);
+            if (tabButton) {
+                tabButton.classList.remove("btn-outline-danger");
+                tabButton.classList.add("btn-outline-primary");
+            }
+        }
     }
 }
-
-/**
- * Удаление ошибок поля.
- * @param {Element} field
- */
-function cleanFieldErrors(field) {
-    let errorList = field.querySelector(".invalid-feedback ul");
-    if (errorList) {
-        errorList.innerHTML = "";
-    }
-}
-
 
 /**
  * Добавление ошибок к форме.
- * Может применяться к body или к инлайн-форме.
- * @param {Element} form
+ * Может применяться к "document.body" или к ".paper-formset".
+ * @param {Element} root
  * @param {String, String[]} errors
  */
-function addFormError(form, errors) {
-    let errorList = form.querySelector(".messages.list-group");
-    if (errorList === null) {
-        errorList = document.createElement("ul");
-        errorList.classList.add("messages", "list-group");
-        form.prepend(errorList);
+function setFormErrors(root, errors) {
+    // очистка списка текущих ошибок
+    let errorList = root.querySelector(".paper-messages");
+    if (errorList) {
+        while (errorList.firstChild) {
+            errorList.removeChild(errorList.lastChild);
+        }
+    } else {
+        throw new Error("error list not found");
     }
 
     if (typeof errors === "string") {
-        const errorListItem = document.createElement("li");
-        errorListItem.classList.add("list-group-item", "list-group-item-danger");
-        errorListItem.innerText = errors;
-        errorList.append(errorListItem);
-    } else {
+        errors = [errors];
+    }
+
+    if (errors && errors.length) {
         errors.forEach(function(error) {
             const errorListItem = document.createElement("li");
-            errorListItem.classList.add("list-group-item", "list-group-item-danger");
+            errorListItem.classList.add("paper-message", "paper-message--error");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
         });
@@ -108,43 +144,40 @@ function addFormError(form, errors) {
 }
 
 /**
- * Удаление ошибок формы и скрытие ошибок полей.
- * @param {Element} form
+ * Удаление ошибок формы и полей.
+ * @param {Element} root
  */
-function cleanFormErrors(form) {
-    let errorLists = form.querySelectorAll(".messages.list-group");
-    errorLists.forEach(function(errorList) {
-        errorList.innerHTML = "";
-    });
-
-    form.querySelectorAll(".invalid").forEach(function(field) {
-        field.classList.remove("invalid");
+function cleanAllErrors(root=document.body) {
+    setFormErrors(root, []);
+    root.querySelectorAll(".paper-widget").forEach(function(widget) {
+        setWidgetErrors(widget, []);
     });
 }
-
 
 /**
  * Добавление ошибок к форме из JSON.
  * Пример JSON:
  *  {
+ *      "__all__": [
+ *          {message: "Form invalid"}
+ *      ],
  *      "name": [
  *          {message: "This field is required"},
  *          {message: "Ensure this value has at least 2 characters"},
  *      ]
  *  }
- * @param {Element} form
+ * @param {Element} root
  * @param {object} json
  */
-function addFormErrorsFromJSON(form, json) {
+function setErrorsFromJSON(root, json) {
     for (let fieldName in json) {
         if (fieldName === "__all__") {
-            addFormError(form, json[fieldName].map(record => record.message))
+            setFormErrors(root, json[fieldName].map(record => record.message));
         } else {
-            const field = form.querySelector(".field-" + fieldName);
-            if (field) {
-                cleanFieldErrors(field);
-                addFieldError(field, json[fieldName].map(record => record.message));
-                field.classList.add("invalid");
+            const formRow = root.querySelector(".field-" + fieldName);
+            const widget = formRow && formRow.querySelector(".paper-widget");
+            if (widget) {
+                setWidgetErrors(widget, json[fieldName].map(record => record.message));
             }
         }
     }
@@ -155,13 +188,10 @@ const formUtils = {
     isChangedField,
     containsChangedField,
 
-    addFieldError,
-    cleanFieldErrors,
-
-    addFormError,
-    cleanFormErrors,
-
-    addFormErrorsFromJSON
+    setWidgetErrors,
+    setFormErrors,
+    cleanAllErrors,
+    setErrorsFromJSON
 };
 
 export default formUtils;

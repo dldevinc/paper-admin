@@ -1,0 +1,16 @@
+/*
+  Суммирует значения (число, px, rem).
+  Возвращает результат в пикселях.
+ */
+
+@import "px";
+
+@function sum($values...) {
+  $sum: 0px;
+
+  @each $value in $values {
+    $sum: $sum + px($value);
+  }
+
+  @return $sum;
+}

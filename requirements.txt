@@ -1,0 +1,13 @@
+django-autocomplete-light==3.8.2
+django-logentry-admin==1.1.0
+django-mptt==0.12.0
+django-solo==1.1.5
+Pillow==8.3.1
+
+pytest==6.2.4
+pytest-env==0.6.2
+pytest-cov==2.12.1
+pytest-django==4.4.0
+pytest-pythonpath==0.7.3
+pytest-tldr==0.2.4
+pytest-xdist==2.3.0

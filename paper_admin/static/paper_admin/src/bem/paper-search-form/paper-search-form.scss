@@ -1,0 +1,31 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.paper-search-form {
+  width: $paper-search-form-width;
+
+  &__field {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: $input-padding-y;
+    left: $input-padding-x;
+    color: $text-muted;
+    line-height: $input-line-height;
+  }
+
+  .form-control {
+    padding-left: #{$input-padding-x + 1.25rem};
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      margin: 0;
+      height: 1em;
+      width: 1em;
+      cursor: pointer;
+      background: no-repeat url("img/cross.svg") center;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@use "sass:math";
+@import "bem/paper-widget/variables";
+@import "./variables";
+
+
+.select2-container--small {
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+
+  .select2-selection--single,
+  .select2-selection--multiple {
+    border-radius: $input-border-radius;
+  }
+
+  .select2-search--dropdown .select2-search__field {
+    padding: #{$input-padding-y * 0.75} math.div($input-padding-x, 2);
+    border-radius: $input-border-radius;
+  }
+
+  .select2-selection--single {
+    .select2-selection__rendered {
+      padding: $input-padding-y 0 $input-padding-y $input-padding-x;
+      min-height: #{$input-font-size * $input-line-height};
+    }
+  }
+
+  .select2-selection--multiple {
+    min-height: sum($input-font-size * $input-line-height, $select2-multiple-field-item-padding-y * 2, $select2-multiple-field-item-border-width * 2, $select2-multiple-field-padding-y);
+    box-sizing: content-box;
+
+    .select2-selection__choice {
+      padding: $select2-multiple-field-item-padding-y sum(math.div($select2-multiple-field-item-padding-x, 2) + $select2-multiple-field-item-remove-button-width) $select2-multiple-field-item-padding-y $select2-multiple-field-item-padding-x;
+      border-radius: $input-border-radius;
+    }
+
+    .select2-search--inline {
+      .select2-search__field {
+        height: sum($input-font-size * $input-line-height, $select2-multiple-field-item-padding-y * 2, $select2-multiple-field-item-border-width * 2);
+      }
+    }
+  }
+
+  &.select2-dropdown {
+    border-radius: $input-border-radius;
+  }
+
+  .select2-results__option {
+    padding: $input-padding-y $input-padding-x;
+  }
+
+  @at-root .paper-widget--invalid .select2-selection {
+    border-color: $paper-widget-invalid-border-color;
+    box-shadow: $paper-widget-invalid-box-shadow;
+  }
+}

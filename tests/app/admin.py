@@ -5,15 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
-from paper_admin.admin import (
-    SortableAdminMixin,
-    SortableMPTTModelAdmin,
-    SortableStackedInline,
-    SortableTabularInline,
-)
-from paper_admin.forms.widgets import CustomCheckboxSelectMultiple, SwitchInput
+from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
 
-from .models import Category, Item, SigletonExample, Tree, Tag
+from .models import Category, Item, SigletonExample, Tag, Tree
 
 
 @admin.register(Tag)
@@ -38,11 +32,21 @@ class ItemForm(forms.ModelForm):
 
     def clean(self):
         name = self.cleaned_data.get("name")
-        if name and name == "error":
+        if name and name.lower() == "error":
             self.add_error(None, _("Some general error"))
+            self.add_error("name", _("Some field error"))
+            self.add_error("name", _("One more field error"))
 
 
-class ItemStackedInlines(SortableStackedInline):
+class ItemStackedInlines(admin.StackedInline):
+    fieldsets = (
+        (None, {
+            "fields": (
+                ("name", "age"), "slug", "url", "text", "visible", "created_at", "readonly",
+                "hidden"
+            )
+        }),
+    )
     form = ItemForm
     model = Item
     extra = 1
@@ -53,21 +57,32 @@ class ItemStackedInlines(SortableStackedInline):
     verbose_name_plural = _("Stacked Items")
     classes = ("dummy-inline", )
     prepopulated_fields = {
-        "slug": ("name", )
+        "slug": ("name", "age")
     }
 
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["paper-card--success"]
+        return []
 
-class ItemTablularInlines(SortableTabularInline):
+
+class ItemTablularInlines(admin.TabularInline):
     form = ItemForm
     model = Item
     tab = "tab4"
-    fields = ("readonly", "hidden", "name", "slug", "url")
     extra = 1
+    fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
+    classes = ("dummy-inline",)
     prepopulated_fields = {
-        "slug": ("name",)
+        "slug": ("name", "age")
     }
+
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["table-success"]
+        return []
 
 
 class CategoryForm(forms.ModelForm):
@@ -75,8 +90,8 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = forms.ALL_FIELDS
         widgets = {
-            "f_bool": SwitchInput,
-            "f_tags1": CustomCheckboxSelectMultiple,
+            "f_bool": AdminSwitchInput,
+            "f_tags1": AdminCheckboxSelectMultiple,
             "f_date2": forms.SelectDateWidget,
             "f_hidden1": forms.HiddenInput,
             "f_hidden2": forms.HiddenInput,
@@ -94,16 +109,34 @@ class CategoryForm(forms.ModelForm):
 
     def clean(self):
         f_char = self.cleaned_data.get("f_char")
-        if f_char and f_char == "error":
+        if f_char and f_char.lower() == "error":
             self.add_error(None, _("Some general error"))
+            self.add_error("f_char", _("Some field error"))
+            self.add_error("f_char", _("One more field error"))
+
+        f_bool2 = self.cleaned_data.get("f_bool2")
+        if not f_bool2:
+            self.add_error("f_bool2", "Required")
+
+
+def set_bool_action(modeladmin, request, queryset):
+    queryset.update(f_bool=True)
+
+
+def unset_bool_action(modeladmin, request, queryset):
+    queryset.update(f_bool=False)
+
+
+set_bool_action.short_description = _("Set bool for selected %(verbose_name_plural)s")
+unset_bool_action.short_description = _("Unset bool for selected %(verbose_name_plural)s")
 
 
 @admin.register(Category)
-class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (_("Related fields"), {
             "tab": "tab1",
-            "classes": ("card-info", ),
+            "classes": ("paper-card--info", ),
             "description": _("Choose your destiny"),
             "fields": (
                 "f_fk", "f_o2o", "f_fk1", "f_fk2", "f_fk3",
@@ -147,10 +180,14 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     )
     tabs = [
         ("tab1", _("Related Fields")),
-        ("tab2", _("Standart Fields")),
+        ("tab2", _("Standard Fields")),
         ("tab3", _("File Fields")),
         ("tab4", _("Inlines")),
         ("tab5", _("Django Autocomplete Light")),
+    ]
+    actions = [
+        set_bool_action,
+        unset_bool_action
     ]
     form = CategoryForm
     list_per_page = 15
@@ -182,20 +219,19 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     m2m_field.short_description = _("M2M Field")
 
     def get_row_classes(self, request, obj=None):
-        classes = super().get_row_classes(request, obj)
-        if obj.f_char.startswith("G"):
-            classes.append("table-success")
-        elif obj.f_char.startswith("R"):
-            classes.append("table-info")
-        return classes
+        if obj.f_char.startswith("M"):
+            return ["table-success"]
+        elif obj.f_char.startswith("P"):
+            return ["table-info"]
+        return []
 
 
 @admin.register(Tree)
-class TreeAdmin(SortableMPTTModelAdmin, MPTTModelAdmin):
+class TreeAdmin(MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
-                "parent", "category", "name", "number",
+                "parent", "name",
             ),
         }),
     )

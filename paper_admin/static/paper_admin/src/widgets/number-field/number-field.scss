@@ -1,0 +1,8 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.number-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $number-field-max-width;
+  }
+}

@@ -1,153 +1,20 @@
-@import "app";
-@import "components/actions";
-@import "components/filters";
-@import "components/pagination";
-@import "components/search";
+@import "env";
 
 
-.table {
-  tbody tr.selected,
-  tr.selected > td,
-  tr.selected > th {
-    background-color: #f8f9ed;
-  }
-}
+#result_list {
 
-
-/*
-  Кнопки у заголовка
- */
-.object-tools {
-  .btn {
-    margin-right: 0.375rem;
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-}
-
-
-/*
-  Сортировка столбцов
- */
-.table-column-header {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-  color: $secondary;
-  font-size: 0.75rem;
-  line-height: #{($font-size-lg / 0.75rem) * $line-height-base};
-  font-weight: 500;
-  text-transform: uppercase;
-  vertical-align: bottom;
-
-  .dropdown-menu {
-    text-transform: none;
-  }
-}
-
-.table-column-header-title {
-  display: inline-block;
-  white-space: normal;
-  color: $secondary;
-
-  &:hover {
-    color: $link-color;
-  }
-}
-
-.sortoptions-btn {
-  position: relative;
-  padding: 0 .25rem;
-  margin: -.125rem -0.375rem -.125rem .125rem;
-  color: $gray-600;
-  font-size: $font-size-sm;
-  line-height: 1;
-  border-radius: $btn-border-radius-sm;
-
-  &.has-prior {
-    padding-left: 0.375rem;
-    padding-right: 0.5rem;
+  // Скрытие кнопок FK-полей
+  .related-widget-wrapper__buttons {
+    display: none;
   }
 
-  &:hover {
-    background-color: darken($light, 7.5%);
+  // Подмена "form-control-lg" на нормальные стили
+  .form-control-lg {
+    height: $input-height;
+    padding: $input-padding-y $input-padding-x;
+    @include font-size($input-font-size);
+    line-height: $input-line-height;
+
+    // border-radius не указываем из-за того, что поле может быть частью input-group
   }
-
-  .sortpriority {
-    position: absolute;
-    top: 50%;
-    left: 1em;
-    font-size: .75em;
-    transform: translate(0, -50%);
-  }
-}
-
-
-/*
-  Сортировка строк
- */
-.column-_sortable_field {
-  width: 0.01%;
-}
-
-.sort-handler {
-  display: block;
-  padding: .125rem;
-  opacity: 0.25;
-  text-align: center;
-  cursor: not-allowed;
-  vertical-align: middle;
-  border-radius: $border-radius;
-  background: darken($light, 3%);
-  user-select: none;
-
-  i {
-    vertical-align: 1px;
-  }
-
-  @at-root .table-sortable-allowed tr:not(.disabled) & {
-    cursor: move;
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-    opacity: 1;
-
-    &:hover {
-      background-color: darken($light, 5%);
-    }
-  }
-}
-
-.table-sortable-allowed {
-  tbody tr {
-    transition: opacity 0.1s, background-color 0.3s;
-
-    &.sortable-ghost {
-      opacity: 1;
-      background-color: theme-color-level('warning', -9);
-    }
-
-    &.highlight {
-      transition: background-color 0s 0s;
-      background-color: theme-color-level('info', -10);
-    }
-
-    &.disabled {
-      opacity: 0.25;
-    }
-  }
-}
-
-
-/*
-  Набор иконок в каждом ряду таблицы
- */
-.paper-changelist-tools-header {
-  width: 0.1%;
-}
-
-.paper-changelist-tools {
-  margin: -0.125rem -0.125rem;
-  white-space: nowrap;
 }

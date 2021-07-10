@@ -10,8 +10,8 @@ before_install:
   - npm ci
   - pip install -U pip setuptools wheel tox-travis
   - pip install twine
-  - pip install -r ./requirements_dev.txt
-  - npx webpack
+  - pip install -r ./requirements.txt
+  - npx webpack --mode=production
 branches:
   only:
     - master
@@ -29,7 +29,7 @@ deploy:
   skip_cleanup: true
   user: __token__
   password:
-    secure: BDy011zw9dlDgA48uEm3lY+tUQQvwSnb5ADdxYVgwYDtvn/6Q4e3AOgt3QXEnq/tpONMayeb1+UWvPXlWjKeUS0ZPt+f49E9WY1f0urZEJhrZtbeiqwRO5aMd31/MA463QtU6HlC4+LWwGbrhn8lQlPkFPXimz+g8tBzrybse0wSf/u09PlwciEX+012+W9tvR2eto2Of+Ztz+d989wunXYz7KIgYDRch4WhkmrUXO8Qq35CvbHApxl8f4P1ePZDUeSSENiecSmFRXp/ciPdfeD1/ObSAwksR24wMv1mFpRybsZMS9E3fABZt8B1lArQXoq8buUrHBNhSAGMtem4wXk4ulrZydOUYTOvjZrD0yBE/K2r8BgK48HxwGDQ2auJVjDJmBPaDTbaqW2n4IP9/S14pVpcpAYGjlBGt9DgZ/TgcsRYdH0wMneF65Y+y1mOHbq1zNIXATPq97oXJG3NKJ5az1uhAXZoQinmktUHrDeW3074RoydoYsGynKV1Xbd4yFe53bu/pDwFhGkcyaQpd53Lpd1OhdMeC8BJ7aUTdWBJFpM9OQHutPWcHnnoL2nKNKi8eybUgQiSqtDldwx509as/jbfLTVC7jnL1DdNKCI+r9D6LcOIhHQfdYgScDcPMe8NnnhzMQnVh9Rplrax3tBT8NcqQYtKmFbGXM3ZDo=
+    secure: g76hvojiGPvoO6mPoBSdfYOoFr8sHG7JCyAtVjvSBk4hcZ09GjhwkX0By7H+aLXnzjGGYUTyHSMH9NojdkoQ9AhKffydW++cEY/pbzpEJl0hDAVteQYGfT1ZK/1DOa33DIo2yyMtZyyzMnd/QfdW7Zii6MFFY2subm3sMHfcDYpiIcRSZmu82SlLJPSu5EE7sj8ZGGswsUDGq/mp0LUwNlZIE0aUWeFlnQOQRZjR1Jv1dmksW5P797gJVS1myRXdLN2uM30yr8wZbJcfuv+3xiYRY7jwyg7aiY7PYep18YwVHtMs3GzN8fMzD5mwDPgLhJAAqBrsP9xhk8pdPp0MxZGSnBLijPhI/dpoySxv1JkB+iaH96//9VmjH8SfhHv+Fk6grIvAEGs3bQO1Biqh80v/av5zh4aNiY/qZmFrQFg56HcEE8NmfA9d19QuUJ0FMzxsLo79eXgWsJg1QQMaLh5DljdQBmPvTff98QCuDkpLfA/uK1luIgLyJfOoos670ePyMTnwv+UGHtHEW4U6F6H6x6JLscOZuojli5496Um0rzQbQNdZs8KceHFcmq473FEIi33hwluDthJJIBQoY++HASSwHkqtALKiQoVGaG2onGt3WqxHaCBJKc1aoy5HpQhYCVfU8BNEryAF2hU6isrL+RB4chqIcxarxkoE5EY=
   on:
     repo: dldevinc/paper-admin
     condition: "$TRAVIS_PYTHON_VERSION = 3.8"

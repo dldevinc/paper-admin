@@ -1,0 +1,8 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.date-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $date-field-max-width;
+  }
+}

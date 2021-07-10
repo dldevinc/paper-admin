@@ -1,6 +1,6 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_list %}
-{% load paper_list paper_paginator %}
+{% load i18n admin_urls admin_list %}
+{% load paper_filters paper_list %}
 
 {% block styles %}
   {{ block.super }}
@@ -12,16 +12,16 @@
   {{ media.js }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} changelist-page{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
 
 
 {% block header_buttons %}
   {% if has_add_permission %}
-    <li class="nav-item d-sm-none">
+    <li class="list-inline-item d-lg-none">
       {% url cl.opts|admin_urlname:'add' as add_url %}
       <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
-        <i class="fa fa-fw fa-plus"></i>
-        <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
+        <i class="fa fa-plus"></i>
+        <span>{{ _("Add") }}</span>
       </a>
     </li>
   {% endif %}
@@ -39,20 +39,12 @@
 {% endblock breadcrumb_items %}
 
 
-{% block message_items %}
+{% block messages %}
   {{ block.super }}
 
-  {% if cl.formset.errors %}
-    <li class="list-group-item list-group-item-danger">
-      {% if cl.formset.total_error_count == 1 %}
-        {% trans "Please correct the error below." %}
-      {% else %}
-        {% trans "Please correct the errors below." %}
-      {% endif %}
-    </li>
-
+  {% if cl.formset and cl.formset.non_form_errors %}
     {% for error in cl.formset.non_form_errors %}
-      <li class="list-group-item list-group-item-danger">
+      <li class="paper-message paper-message--error">
         {{ error }}
       </li>
     {% endfor %}
@@ -60,32 +52,49 @@
 {% endblock %}
 
 
+{% block content_title %}
+  <div class="row">
+    <div class="col">
+      {% firstof cl.opts.verbose_name_plural title as page_title %}
+      <h1>{{ page_title|capfirst }}</h1>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+      {% block object-tools %}
+        <ul class="list-inline list-default">
+          {% block object-tools-items %}
+            {% include "admin/change_list_object_tools.html" %}
+          {% endblock %}
+        </ul>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+
 {% block toolbar %}
   {% if cl.has_filters %}
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">{% trans 'Filters' %}</h3>
-      </div>
+    <div class="paper-card card">
+      <h3 class="card-header">{{ _("Filters") }}</h3>
       <div class="card-body">
         {% block filters %}
           <form action="" method="get">
             {% for spec in cl.filter_specs %}
-              {% paper_filter cl spec %}
+              {% paper_list_filter cl spec %}
             {% endfor %}
 
             {% get_filter_keep_params as filter_keep_params %}
             {% for name, value in filter_keep_params %}
               <input type="hidden" name="{{ name }}" value="{{ value }}">
             {% endfor %}
-          
+
             <button type="submit" class="btn btn-info btn-lg btn-block">
-              {% trans 'Apply' %}
+              {{ _("Apply") }}
             </button>
 
             {% if cl.has_active_filters %}
               <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
-                <i class="fa fa-fw fa-remove"></i>
-                {% trans "Clear all filters" %}
+                <i class="fa fa-remove"></i>
+                <span>{{ _("Clear all filters") }}</span>
               </a>
             {% endif %}
           </form>
@@ -96,157 +105,86 @@
 {% endblock %}
 
 
-{% block before_content %}
-  {% firstof cl.opts.verbose_name_plural title as page_title %}
-
-  <div class="row">
-    <div class="col">
-      <h1 class="paper-title">{{ page_title|capfirst }}</h1>
-    </div>
-
-    <div class="object-tools col-auto mb-3 d-none d-sm-block text-right">
-      {% block object-tools %}
-        {% if has_add_permission %}
-          {% url cl.opts|admin_urlname:'add' as add_url %}
-          <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-success btn-lg">
-            <i class="fa fa-fw fa-plus"></i>
-            <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
-          </a>
-        {% endif %}
-      {% endblock %}
-    </div>
-  </div>
-{% endblock %}
-
-
 {% block content %}
-  {% if cl.full_result_count %}
-    <div class="paper-filters-card card">
+  {% if cl.result_count and cl.date_hierarchy %}
+    <div class="paper-card card mb-3">
+      <h5 class="card-header">
+        {{ _("Filter by date") }}
+      </h5>
       <div class="card-body">
-        <div class="card-row row">
-          <div class="col">
-            <span class="results-counter text-muted nowrap">
-              {% blocktrans count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
-
-              {% if cl.result_count != cl.full_result_count %}
-                (<a href="?{% if cl.is_popup %}_popup=1{% endif %}">{% if cl.show_full_result_count %}{% blocktrans with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktrans %}{% else %}{% trans "Show all" %}{% endif %}</a>)
-              {% endif %}
-            </span>
-          </div>
-
-          <div class="col-auto">
-            {% search_form cl %}
-          </div>
-        </div>
-
-        {% if cl.result_count and cl.date_hierarchy %}
-          <div class="card-row">
-            {% date_hierarchy cl %}
-          </div>
-        {% endif %}
-
-        {% block hierarchy_filters %}{% endblock hierarchy_filters %}
+        {% block date_hierarchy %}
+          {% date_hierarchy cl %}
+        {% endblock %}
       </div>
     </div>
   {% endif %}
 
   {% if cl.result_count %}
-    <div class="card">
-      <div class="card-body">
-        <form id="changelist_form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
-          {% csrf_token %}
+    {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
+      <div class="row mb-3">
+        {% if action_form and actions_on_top and cl.show_admin_actions %}
+          <div class="col-lg order-1 order-lg-0">
+            {% include "admin/actions.html" with index=0 %}
+          </div>
+        {% else %}
+          <div class="col-lg"></div>
+        {% endif %}
 
-          {% if cl.formset %}
-            {{ cl.formset.management_form }}
-          {% endif %}
-
-          {% if cl.pagination_required or action_form and actions_on_top and cl.show_admin_actions %}
-            <div class="row">
-              {% if action_form and actions_on_top and cl.show_admin_actions %}
-                <div class="col-lg mb-3 order-1 order-lg-0">
-                  {% admin_actions %}
-                </div>
-              {% else %}
-                <div class="col-lg"></div>
-              {% endif %}
-
-              {% if cl.pagination_required or cl.formset %}
-                <div class="row col-auto mb-3">
-                  {% if cl.pagination_required %}
-                    <div class="col">
-                      {% block pagination_top %}
-                        {% paper_pagination cl %}
-                      {% endblock %}
-                    </div>
-                  {% endif %}
-
-                  {% if cl.formset %}
-                    <div class="col">
-                      <button type="submit" name="_save" class="btn btn-success">
-                        <i class="fa fa-fw fa-save"></i><span>{% trans 'Save' %}</span>
-                      </button>
-                    </div>
-                  {% endif %}
-                </div>
-              {% else %}
-                <div class="col-auto"></div>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          {% block result_list %}
-            {% paper_result_list cl %}
-          {% endblock %}
-
-          {% if cl.pagination_required or action_form and actions_on_bottom and cl.show_admin_actions %}
-            <div class="row">
-              {% if action_form and actions_on_bottom and cl.show_admin_actions %}
-                <div class="col-lg mt-3">
-                  {% admin_actions %}
-                </div>
-              {% else %}
-                <div class="col-lg"></div>
-              {% endif %}
-
-              {% if cl.pagination_required or cl.formset %}
-                <div class="row col-auto mt-3">
-                  {% if cl.pagination_required %}
-                    <div class="col">
-                      {% block pagination_bottom %}
-                        {% paper_pagination cl %}
-                      {% endblock %}
-                    </div>
-                  {% endif %}
-
-                  {% if cl.formset %}
-                    <div class="col">
-                      <button type="submit" name="_save" class="btn btn-success">
-                        <i class="fa fa-fw fa-save"></i><span>{% trans 'Save' %}</span>
-                      </button>
-                    </div>
-                  {% endif %}
-                </div>
-              {% else %}
-                <div class="col-auto"></div>
-              {% endif %}
-            </div>
-          {% endif %}
-
-        </form>
+        {% if cl.search_fields %}
+          <div class="col-auto">
+            {% block search %}
+              {% include "admin/search_form.html" %}
+            {% endblock %}
+          </div>
+        {% endif %}
       </div>
-    </div>
+    {% endif %}
+
+    <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
+      {% csrf_token %}
+
+      {% if cl.formset %}
+        {{ cl.formset.management_form }}
+      {% endif %}
+
+      {% block result_list %}
+        {% paper_result_list cl %}
+      {% endblock %}
+    </form>
+
+    {% if cl.formset or action_form and actions_on_bottom and cl.show_admin_actions %}
+      <div class="row">
+        {% if action_form and actions_on_bottom and cl.show_admin_actions %}
+          <div class="col-md mt-3">
+            {% include "admin/actions.html" with index=1 %}
+          </div>
+        {% else %}
+          <div class="col-md"></div>
+        {% endif %}
+
+        {% if cl.formset %}
+          <div class="col-auto mt-3">
+            <button type="submit" form="changelist-form" name="_save" class="btn btn-sm btn-success">
+              <i class="fa fa-save"></i><span>{{ _("Save") }}</span>
+            </button>
+          </div>
+        {% else %}
+          <div class="col-auto"></div>
+        {% endif %}
+      </div>
+    {% endif %}
   {% else %}
     {% if cl.full_result_count %}
-      <div class="alert alert-info mb-0">
-        <h4>{% trans 'Nothing found' %}!</h4>
+      <div class="paper-message paper-message--info">
+        <h4>{{ _("Nothing found") }}!</h4>
         <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
-          {% trans 'Reset search and filters' %}
+          {{ _("Reset search and filters") }}
         </a>
       </div>
     {% else %}
-      <div class="alert alert-warning mb-0">
+      <p class="paper-message paper-message--warning">
         {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}{{ name_plural }} are not created yet{% endblocktrans %}.
-      </div>
+      </p>
     {% endif %}
   {% endif %}
 {% endblock %}

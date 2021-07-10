@@ -1,0 +1,9 @@
+@import "css/abstracts/bootstrap";
+
+.container-fluid {
+  @include media-breakpoint-up(sm) {
+    // Увеличенный отступ сетки на десктопе
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+  }
+}

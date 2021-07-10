@@ -1,0 +1,30 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+
+.file-field {
+  position: relative;
+  @include media-breakpoint-up(sm) {
+    max-width: $file-field-max-width;
+  }
+
+  input.form-control {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+  }
+
+  &__field,
+  &__addon {
+    cursor: pointer;
+  }
+
+  &__field--empty {
+    color: $input-placeholder-color;
+
+    &:focus {
+      // override .form-control style
+      color: $input-placeholder-color;
+    }
+  }
+}

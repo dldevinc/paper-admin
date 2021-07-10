@@ -1,0 +1,56 @@
+@import "css/abstracts/bootstrap";
+
+.clearable-file-field {
+  .js & input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  input[type="file"].focus + label,
+  input[type="file"]:focus + label {
+    border-color: $input-focus-border-color;
+    @if $enable-shadows {
+      @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+
+  &__state {
+    margin-right: 1.5em;
+  }
+
+  &__checkbox {
+
+  }
+
+  &__button {
+    position: relative;
+    max-width: 100%;
+
+    .no-js & {
+      display: none;
+    }
+
+    i {
+      position: absolute;
+      top: 0.675rem;
+      left: $btn-padding-x-lg;
+
+      ~ span {
+        display: inline-block;
+        overflow: hidden;
+        margin-left: 1.25rem;
+        max-width: calc(100% - 1.25rem);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: top;
+      }
+    }
+  }
+}

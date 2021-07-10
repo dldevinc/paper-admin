@@ -1,41 +1,36 @@
-<div class="form-row{% if field.errors %} invalid{% endif %}{% if field.is_hidden %} hidden{% endif %}{% if is_readonly %} readonly{% endif %}{% if field.field.required %} required{% endif %}">
-  <div class="col">
-    <div class="form-group row{% if field.name %} field-{{ field.name }}{% endif %} mb-0">
+<div class="paper-form__row{% if field.errors %} paper-form__row--invalid{% endif %}{% if is_readonly %} paper-form__row--readonly{% endif %}{% if field.field.required %} paper-form__row--required{% endif %}{% if field.name %} field-{{ field.name }}{% endif %}">
+  <div class="row">
+    {% block label %}
+      <div class="col-md-3 col-xxl-2">
+        <label class="paper-form__label{% if field.help_text %} dotted-underline{% endif %}"
+               for="{{ field.id_for_label }}"
+               {% if field.help_text %}
+               data-toggle="popover"
+               data-placement="bottom"
+               data-trigger="hover"
+               data-html="true"
+               data-content="{{ field.help_text }}"
+               {% endif %}>{{ field.label|capfirst }}</label>
+      </div>
+    {% endblock %}
 
-      {% block label %}
-        <div class="form-label col-form-label col-form-label-lg col-md-3 col-xl-2">
-          {% spaceless %}
-            <label for="{{ field.id_for_label }}">{{ field.label|capfirst }}</label>
-
-            {% if field.help_text %}
-              <i class="fa fa-question-circle vHelpIcon"
-                 data-toggle="popover" data-placement="top" data-trigger="manual"
-                 data-html="true" data-content="{{ field.help_text }}"></i>
-            {% endif %}
-          {% endspaceless %}
-        </div>
-      {% endblock %}
-
-      {% block widget %}
-        <div class="form-widget col-md-9 col-xl-10">
-          {% if is_readonly %}
-            <div class="readonly-content">{{ field.contents }}</div>
-          {% else %}
+    {% block widget %}
+      <div class="col-md-9 col-xxl-10">
+        {% if is_readonly %}
+          <div class="readonly">{{ field.contents }}</div>
+        {% else %}
+          <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}{% if is_prepopulated %} prepopulated-field{% endif %}"{% if is_prepopulated %} data-prepopulate-field-name="{{ field.name }}"{% endif %}>
             {{ field }}
-          {% endif %}
+          </div>
 
-          {% if not is_readonly %}
-            <div class="invalid-feedback">
-              <ul class="list-unstyled mb-0">
-                {% for error in field.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        </div>
-      {% endblock %}
+          <ul class="paper-error-list invalid-feedback">{% spaceless %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endspaceless %}</ul>
+        {% endif %}
+      </div>
+    {% endblock %}
 
-    </div>
   </div>
 </div>

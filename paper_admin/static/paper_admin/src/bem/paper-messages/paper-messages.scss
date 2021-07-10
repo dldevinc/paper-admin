@@ -1,0 +1,57 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/functions/sum";
+@import "./variables";
+
+$line_height: $paper-message-font-size * $paper-message-line-height;
+
+.paper-messages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.paper-message {
+  padding: $paper-message-padding-y $paper-message-padding-x;
+  font-size: $paper-message-font-size;
+  line-height: $paper-message-line-height;
+  border-width: 1px 1px 1px 8px;
+  border-style: solid;
+  border-radius: $paper-message-border-radius;
+  background-repeat: no-repeat;
+  background-size: $line_height $line_height;
+  background-position: sum($paper-message-padding-x, -$line_height) / 2 $paper-message-padding-y;
+
+  &:not(:first-child) {
+    margin-top: $paper-message-gutter;
+  }
+
+
+  &--error {
+    border-color: $paper-message-error-border-color;
+    background-color: $paper-message-error-bg;
+    background-image: escape-svg($paper-message-error-icon);
+  }
+
+  &--warning {
+    border-color: $paper-message-warning-border-color;
+    background-color: $paper-message-warning-bg;
+    background-image: escape-svg($paper-message-warning-icon);
+  }
+
+  &--debug,
+  &--info {
+    border-color: $paper-message-info-border-color;
+    background-color: $paper-message-info-bg;
+    background-image: escape-svg($paper-message-info-icon);
+  }
+
+  &--success {
+    border-color: $paper-message-success-border-color;
+    background-color: $paper-message-success-bg;
+    background-image: escape-svg($paper-message-success-icon);
+  }
+}

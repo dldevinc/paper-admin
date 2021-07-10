@@ -1,0 +1,169 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/colors";
+@import "./variables";
+
+.paper-table {
+  vertical-align: top;
+  background-color: $paper-table-bg;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: $border-radius;
+  border: $paper-table-border-width solid $paper-table-border-color;
+
+  &__small-column {
+    width: 0.1%;
+  }
+
+  &__sort-button {
+    position: relative;
+    padding: 0.125rem 0.375rem;
+    margin: -0.125rem 0 -0.125rem 0.125rem;
+    color: $paper-table-sort-btn-color;
+    font-size: inherit;
+    vertical-align: baseline;
+    border-radius: $paper-table-sort-btn-border-radius;
+
+    &--has-prior {
+      padding-right: 0.6em;
+    }
+
+    span {
+      margin-left: 0.125rem !important;
+    }
+  }
+
+  &__sortable-cell {
+    position: relative;
+    width: $paper-table-sort-handler-width;
+  }
+
+  &__sort-handler {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: move;
+    color: $paper-table-sort-handler-color;
+    border-right: $paper-table-border-width solid $paper-table-border-color;
+    transition: color 0.3s;
+
+    &.disabled {
+      color: $paper-table-sort-handler-disabled-color;
+    }
+
+    @at-root
+    tr.disabled &,
+    &.disabled {
+      cursor: default;
+    }
+
+    @at-root
+    tr:not(.disabled) &:not(.disabled):hover {
+      color: $paper-table-sort-handler-hover-color;
+    }
+  }
+
+  th,
+  td {
+    padding: $paper-table-cell-padding-y $paper-table-cell-padding-x;
+    vertical-align: middle;
+    border-top: none;
+  }
+
+  thead th {
+    padding: $paper-table-head-padding-y $paper-table-head-padding-x;
+    color: $paper-table-head-color;
+    font-size: $paper-table-head-font-size;
+    font-weight: $paper-table-head-font-weight;
+    text-transform: $paper-table-head-text-transform;
+    vertical-align: middle;
+    background-color: $paper-table-head-bg;
+    border-bottom: $paper-table-head-border-width solid $paper-table-head-border-color;
+
+    &:first-child {
+      border-top-left-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .dropdown-item {
+      text-transform: none;
+    }
+  }
+
+  tfoot td {
+    border-top: $paper-table-head-border-width solid $paper-table-head-border-color;
+  }
+
+  tbody {
+    th {
+      font-weight: normal;
+    }
+
+    tr {
+      &.selected {
+        th, td {
+          background-color: $paper-table-row-selected-bg;
+        }
+      }
+
+      &:not(:last-child) {
+        th, td {
+          border-bottom: $table-border-width solid $table-border-color;
+        }
+      }
+    }
+  }
+
+  @each $name, $value in $paper-bg-colors {
+    @if map-has-key($paper-bg-colors, $name) {
+      $bg: map-get($paper-bg-colors, $name);
+      $border: map-get($paper-border-colors, $name);
+
+      &--#{$name} {
+        thead th {
+          background-color: $bg;
+          border-color: $border;
+        }
+      }
+
+      tbody tr.table-#{$name} {
+        th, td {
+          background-color: $bg;
+          border-color: $border;
+        }
+
+        &:hover {
+          th, td {
+            background-color: darken($bg, 3%);
+          }
+        }
+      }
+    }
+  }
+
+
+  &--sortable {
+    tbody tr {
+      transition: opacity 0.1s, background-color 0.3s;
+
+      &.sortable-ghost {
+        background-color: $paper-table-sortable-ghost-bg !important;
+      }
+
+      &.disabled {
+        opacity: 0.3;
+      }
+    }
+  }
+}

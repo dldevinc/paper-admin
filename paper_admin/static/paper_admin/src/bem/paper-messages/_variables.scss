@@ -1,0 +1,25 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/colors";
+
+$paper-message-gutter: 0.5rem !default;
+$paper-message-padding-y: .75rem !default;
+$paper-message-padding-x: 2rem !default;
+$paper-message-font-size: $font-size-base !default;
+$paper-message-line-height: $line-height-base !default;
+$paper-message-border-radius: 0 3px 3px 0 !default;
+
+$paper-message-error-border-color: map-get($paper-border-colors, "danger") !default;
+$paper-message-error-bg: map-get($paper-bg-colors, "danger") !default;
+$paper-message-error-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225'><circle cx='112.5' cy='112.5' r='92.5' fill='none' stroke='#{$danger}' stroke-width='20' stroke-linejoin='round'/><path d='M115 120.86v-57h-5v57z' fill='#{$danger}' stroke='#{$danger}' stroke-width='20' stroke-linecap='round' stroke-linejoin='round'/><circle cx='112.5' cy='157.5' r='12.5' fill='#{$danger}'/></svg>") !default;
+
+$paper-message-warning-border-color: map-get($paper-border-colors, "warning") !default;
+$paper-message-warning-bg: map-get($paper-bg-colors, "warning") !default;
+$paper-message-warning-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225'><path d='M215.17 205.17H9.83L112.5 19.83z' fill='none' stroke='#{$warning}' stroke-width='20' stroke-linejoin='round'/><path d='M110 123v57h5v-57z' fill='#{$warning}' stroke='#{$warning}' stroke-width='20' stroke-linecap='round' stroke-linejoin='round'/><circle cx='112.5' cy='86.36' r='12.5' fill='#{$warning}'/></svg>") !default;
+
+$paper-message-info-border-color: map-get($paper-border-colors, "info") !default;
+$paper-message-info-bg: map-get($paper-bg-colors, "info") !default;
+$paper-message-info-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225'><circle cx='112.5' cy='112.5' fill='none' stroke='#{$info}' stroke-width='20' stroke-linejoin='round' r='92.5'/><path d='M110 103v57h5v-57z' fill='#{$info}' stroke='#{$info}' stroke-width='20' stroke-linecap='round' stroke-linejoin='round'/><circle cx='112.5' cy='66.36' r='12.5' fill='#{$info}'/></svg>") !default;
+
+$paper-message-success-border-color: map-get($paper-border-colors, "success") !default;
+$paper-message-success-bg: map-get($paper-bg-colors, "success") !default;
+$paper-message-success-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225'><path d='M68.71 110.45l36.42 36.41 59.75-59.75' fill='none' stroke='#{$success}' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/><circle cx='112.5' cy='112.5' r='92.5' fill='none' stroke='#{$success}' stroke-width='20' stroke-linejoin='round'/></svg>") !default;

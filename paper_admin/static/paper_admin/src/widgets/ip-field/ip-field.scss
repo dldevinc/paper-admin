@@ -1,0 +1,8 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.ip-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $ip-field-max-width;
+  }
+}

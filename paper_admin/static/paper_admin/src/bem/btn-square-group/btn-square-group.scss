@@ -1,0 +1,36 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.btn-square-group {
+  display: inline-flex;
+  vertical-align: middle;
+
+  > .btn {
+    border-color: $btn-square-group-border-color;
+
+    &:not(:last-child) {
+      margin-right: $btn-square-group-gutter-width;
+    }
+
+    &:focus {
+      z-index: 1;
+    }
+
+    &:not(:disabled):hover,
+    &:not(.disabled):hover {
+      background-color: $btn-square-group-hover-bg;
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  $background: theme-color-level($color, $table-bg-level);
+
+  .paper-formset__form.paper-card--#{$color} .btn-square-group > .btn,
+  .table-#{$color} .btn-square-group > .btn {
+    &:not(:disabled):hover,
+    &:not(.disabled):hover {
+      background-color: saturate(darken($background, 5%), 5%);
+    }
+  }
+}

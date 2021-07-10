@@ -1,10 +1,10 @@
-<div class="paper-filter form-group">
-  <p class="paper-filter-header mb-1">{{ title|capfirst }}</p>
+<div class="paper-filter">
+  <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
 
-  <ul class="list-unstyled mb-0 vMultipleInput {{ classes }}">
+  <ul class="list-default {{ classes }}">
     {% for choice in choices %}
       <li>
-        <div class="custom-control user-select-none vCustomCheckbox">
+        <div class="custom-control custom-checkbox user-select-none">
           <input type="checkbox"
                  id="id_{{ spec.parameter_name }}-{{ choice.value }}"
                  value="{{ choice.value }}"

@@ -1,24 +1,28 @@
-<fieldset class="paper-form-card card {{ fieldset.classes }}{% if not fieldset.has_visible_field %} hidden{% endif %}">
-  {% if fieldset.name %}
-    <div class="card-header">
-      <h3 class="card-title">{{ fieldset.name }}</h3>
-      {% if fieldset.description %}
-        <small class="card-subtitle">
-          {{ fieldset.description|safe }}
-        </small>
-      {% endif %}
-    </div>
-  {% endif %}
-
-  <div class="card-body">
-    {% for fld in fieldset %}
-      {% with is_readonly=fld.is_readonly field=fld.field %}
-        {% if fld.is_checkbox %}
-          {% include 'paper_admin/includes/admin_checkbox.html' %}
-        {% else %}
-          {% include 'paper_admin/includes/admin_field.html' %}
-        {% endif %}
-      {% endwith %}
-    {% endfor %}
+{% if fieldset.name %}
+  <div class="card-header">
+    <h3 class="card-title{% if not fieldset.description %} mb-0{% endif %}">{{ fieldset.name }}</h3>
+    {% if fieldset.description %}
+      <small class="card-subtitle">
+        {{ fieldset.description|safe }}
+      </small>
+    {% endif %}
   </div>
-</fieldset>
+{% endif %}
+
+<div class="card-body p-0">
+  {% for line in fieldset %}
+    {% for admin_field in line %}
+      {% if admin_field.field.is_hidden %}
+        {{ admin_field.field }}
+      {% else %}
+        {% with field=admin_field.field is_readonly=admin_field.is_readonly is_prepopulated=admin_field.is_prepopulated %}
+          {% if admin_field.is_checkbox %}
+            {% include 'paper_admin/includes/admin_checkbox.html' %}
+          {% else %}
+            {% include 'paper_admin/includes/admin_field.html' %}
+          {% endif %}
+        {% endwith %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>

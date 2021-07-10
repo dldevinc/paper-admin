@@ -1,5 +1,27 @@
 # Change Log
 
+## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-07-10
+### ⚠ BREAKING CHANGES
+Much of the code has been rewritten. We outline some key changes below.
+
+- Drop support for Django versions before 2.2.
+- `django-logentry-admin` dependency has been removed.
+- `CustomCheckboxInput` widget has been renamed to `AdminCheckboxInput`.
+- `CustomRadioSelect` widget has been renamed to `AdminRadioSelect`.
+- `CustomCheckboxSelectMultiple` widget has been renamed to `AdminCheckboxSelectMultiple`.
+- `SortableAdminBaseMixin`, `SortableInlineBaseMixin`, `SortableStackedInline`, 
+  `SortableTabularInline` and `SortableAdminMixin` have been removed. Just add `sortable`
+  property to your regular admin models.
+- `PAPER_SUPPORT_PHONE`, `PAPER_SUPPORT_EMAIL`, `PAPER_SUPPORT_COMPANY` and
+  `PAPER_SUPPORT_WEBSITE` settings have been removed. Override `paper_admin/footer.html`
+  template to set your contact information.
+- Date range filter has been added.
+### Features
+- Added patch for `django-logentry-admin`.
+- Added `PAPER_FAVICON` setting.
+- Added autofocus on login page.
+- Updated fonts.
+
 ## [2.0.0](https://github.com/dldevinc/paper-admin/tree/v2.0.0) - 2021-04-12
 ### ⚠ BREAKING CHANGES
 - Add `select2` to all select boxes.

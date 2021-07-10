@@ -1,0 +1,13 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.time-field {
+  @include media-breakpoint-up(sm) {
+    max-width: $time-field-max-width;
+  }
+}
+
+.clockpicker-popover .popover-title {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}

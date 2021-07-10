@@ -1,0 +1,1 @@
+import "./paper-filter.scss";

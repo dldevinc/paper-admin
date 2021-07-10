@@ -1,7 +1,7 @@
-<div class="paper-filter form-group">
-  <p class="paper-filter-header mb-1">{{ title|capfirst }}</p>
+<div class="paper-select2-filter paper-filter">
+  <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
 
-  <select class="custom-select custom-select-sm" name="{{ spec.parameter_name }}">
+  <select name="{{ spec.parameter_name }}" id="filter-{{ spec.parameter_name }}" class="custom-select">
     {% for choice in choices %}
       <option value="{{ choice.value }}" {{ choice.selected|yesno:' selected="selected",' }}>{{ choice.display }}</option>
     {% endfor %}

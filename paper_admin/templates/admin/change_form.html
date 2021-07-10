@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static %}
+{% load i18n admin_urls %}
 {% load paper_modify %}
 
 {% block styles %}
@@ -15,7 +15,7 @@
   {{ media.js }}
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} changeform-page{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 
 {% block header_buttons %}
@@ -46,68 +46,72 @@
 {% endblock breadcrumb_items %}
 
 
-{% block message_items %}
+{% block messages %}
   {{ block.super }}
 
-  {% if errors %}
-    <li class="list-group-item list-group-item-danger">
-      {% if errors|length == 1 %}
-        {% trans "Please correct the error below." %}
-      {% else %}
-        {% trans "Please correct the errors below." %}
-      {% endif %}
+  {% for error in adminform.form.non_field_errors %}
+    <li class="paper-message paper-message--error">
+      {{ error }}
     </li>
+  {% endfor %}
+{% endblock %}
 
-    {% for error in adminform.form.non_field_errors %}
-      <li class="list-group-item list-group-item-danger">
-        {{ error }}
-      </li>
-    {% endfor %}
+
+{% block content_title %}
+  <h1>
+    {% if add %}
+      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+    {% else %}
+      {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
+    {% endif %}
+  </h1>
+{% endblock %}
+
+
+{% block before_content %}
+  {{ block.super }}
+
+  {% if tabs %}
+    <div class="paper-tabs mb-3">
+      <ul class="nav nav-pills " role="tablist">
+        {% for tab in tabs %}
+          <li class="nav-item">
+            <a class="btn nav-link{% if tab.invalid %} btn-outline-danger{% else %} btn-outline-primary{% endif %}{% if tab.active %} active{% endif %}"
+               id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
+               aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
+              {{ tab.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   {% endif %}
 {% endblock %}
 
 
 {% block toolbar %}
-  <div class="card sticky-top">
-    <div class="card-header">
-      <h3 class="card-title">{% trans 'Toolbar' %}</h3>
-    </div>
-    <div class="card-body">
-      {% block toolbar-items %}
-        {% include 'paper_admin/toolbar_buttons.html' %}
-      {% endblock %}
+  <div class="paper-toolbar sticky-top">
+    <div class="paper-card card">
+      <h3 class="card-header">{{ _("Toolbar") }}</h3>
+      <div class="card-body">
+        <ul class="list-default">
+          {% block object-tools-items %}
+            {% include "admin/change_form_object_tools.html" %}
+          {% endblock %}
+        </ul>
+      </div>
     </div>
   </div>
 {% endblock %}
 
 
-{% block before_content %}
-  <h1 class="paper-title">
-    {% if add %}
-      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
-    {% else %}
-        {{ opts.verbose_name|capfirst }}: <span class="text-muted">{{ original|truncatewords:"18" }}</span>
-    {% endif %}
-  </h1>
-
-  {% if tabs %}
-    <ul id="paper-tabs" class="nav nav-tabs mt-3 mb-3" role="tablist">
-      {% for tab in tabs %}
-        <li class="nav-item">
-          <a class="nav-link{{ tab.active|yesno:" active," }}{{ tab.invalid|yesno:" tab-invalid," }}"
-             id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
-             aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
-            {{ tab.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endblock %}
-
-
 {% block content %}
-  <form id="changeform" method="post" action="{{ form_url }}" {% if has_file_field %}enctype="multipart/form-data"{% endif %} novalidate>
+  <form action="{{ form_url }}"
+        method="post"
+        class="paper-form paper-form--hook"
+        id="{{ opts.model_name }}_form"
+        novalidate
+        {% if has_file_field %} enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
 
     {% block form_top %}{% endblock %}
@@ -119,29 +123,49 @@
       <input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />
     {% endif %}
 
-    {% if tabs %}
-      <div class="tab-content">
-        {% for tab in tabs %}
-          <div class="tab-pane{{ tab.active|yesno:" active," }}" id="{{ tab.name }}-panel"
-               role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
-            {% for fieldset in tab.fieldsets %}
+    {% block field_sets %}
+      {% if tabs %}
+        <div class="tab-content">
+          {% for tab in tabs %}
+            <div class="tab-pane{% if tab.active %} active{% endif %}" id="{{ tab.name }}-panel"
+                 role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
+              {% for fieldset in tab.fieldsets %}
+                {% if fieldset.has_visible_field %}
+                  <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
+                    {% include "admin/includes/fieldset.html" %}
+                  </fieldset>
+                {% else %}
+                  <fieldset class="{{ fieldset.classes }}" hidden>
+                    {% include "admin/includes/fieldset.html" %}
+                  </fieldset>
+                {% endif %}
+              {% endfor %}
+
+              {% for inline_admin_formset in tab.inline_formsets %}
+                {% include inline_admin_formset.opts.template %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        {% for fieldset in adminform %}
+          {% if fieldset.has_visible_field %}
+            <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
               {% include "admin/includes/fieldset.html" %}
-            {% endfor %}
-
-            {% for inline_admin_formset in tab.inline_formsets %}
-              {% include inline_admin_formset.opts.template %}
-            {% endfor %}
-          </div>
+            </fieldset>
+          {% else %}
+            <fieldset class="{{ fieldset.classes }}" hidden>
+              {% include "admin/includes/fieldset.html" %}
+            </fieldset>
+          {% endif %}
         {% endfor %}
-      </div>
-    {% else %}
-      {% for fieldset in adminform %}
-        {% include "admin/includes/fieldset.html" %}
-      {% endfor %}
 
-      {% for inline_admin_formset in inline_admin_formsets %}
-        {% include inline_admin_formset.opts.template %}
-      {% endfor %}
-    {% endif %}
+        {% for inline_admin_formset in inline_admin_formsets %}
+          {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
+
+    {% block after_related_objects %}{% endblock %}
   </form>
 {% endblock %}

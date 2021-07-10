@@ -1,7 +1,22 @@
-<div class="vSmallField custom-file custom-file-lg">
-  {% with input_class='custom-file-input' %}
+{% if widget.is_hidden %}
+  {% include "django/forms/widgets/hidden.html" %}
+{% else %}
+  <div class="file-field">
     {% include "django/forms/widgets/input.html" %}
-  {% endwith %}
 
-  <label for="{{ widget.attrs.id }}" class="custom-file-label">{{ _('Choose file') }}</label>
-</div>
+    <div class="paper-input-group input-group">
+      <label class="file-field__field file-field__field--empty form-control form-control-lg"
+             for="{{ widget.attrs.id }}" tabindex="-1"
+             data-initial-text="{{ _('Choose file') }}">{{ _('Choose file') }}</label>
+
+      <div class="input-group-append">
+        <label class="file-field__addon input-group-text"
+               for="{{ widget.attrs.id }}" tabindex="-1"
+               data-toggle="tooltip" data-placement="top"
+               data-trigger="hover" data-html="true" title="{{ _('Choose file') }}">
+          <i class="fa fa-folder-open-o"></i>
+        </label>
+      </div>
+    </div>
+  </div>
+{% endif %}

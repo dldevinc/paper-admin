@@ -1,13 +1,48 @@
-{% load i18n admin_urls %}
+{% load admin_urls %}
 
 {% if show_save %}
   <li class="nav-item d-lg-none">
-    <button type="submit" name="_save" form="changeform" class="btn btn-sm btn-success"
-            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-            data-html="true" title="{% trans 'Save' %}">
-      <i class="fa fa-fw fa-save"></i>
-      <span>{% trans 'Save' %}</span>
-    </button>
+    <div class="btn-group btn-group-sm">
+      <button type="submit" name="_save" form="{{ opts.model_name }}_form"
+              class="btn btn-success">
+        <i class="fa fa-save"></i>
+        <span>{{ _("Save") }}</span>
+      </button>
+
+      {% if show_save_and_continue or show_save_and_add_another or show_save_as_new %}
+        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">{{ _("Toggle dropdown") }}</span>
+        </button>
+
+        <div class="dropdown-menu">
+          {% if show_save_and_continue %}
+            <button type="submit" name="_continue" form="{{ opts.model_name }}_form"
+                    class="dropdown-item">
+              {% if can_change %}
+                {{ _("Save and continue editing") }}
+              {% else %}
+                {{ _("Save and view") }}
+              {% endif %}
+            </button>
+          {% endif %}
+
+          {% if show_save_and_add_another %}
+            <button type="submit" name="_addanother" form="{{ opts.model_name }}_form"
+                    class="dropdown-item">
+              {{ _("Save and add another") }}
+            </button>
+          {% endif %}
+
+          {% if show_save_as_new %}
+            <button type="submit" name="_saveasnew" form="{{ opts.model_name }}_form"
+                    class="dropdown-item">
+              {{ _("Save as new") }}
+            </button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
   </li>
 {% endif %}
 
@@ -15,10 +50,10 @@
   {% block tools %}
     {% if has_absolute_url %}
       <li class="nav-item d-lg-none">
-        <a href="{{ absolute_url }}" class="tool-item text-info"
+        <a href="{{ absolute_url }}" class="nav-link"
            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{% trans 'View on site' %}">
-          <i class="fa fa-fw fa-eye"></i>
+           data-html="true" title="{{ _("View on site") }}">
+          <i class="fa fa-eye text-info"></i>
         </a>
       </li>
     {% endif %}
@@ -26,21 +61,21 @@
     {% if change and show_history %}
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
-        <a href="{% add_preserved_filters history_url %}" class="tool-item text-info"
+        <a href="{% add_preserved_filters history_url %}" class="nav-link"
            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{% trans 'History' %}">
-          <i class="fa fa-fw fa-history"></i>
+           data-html="true" title="{{ _("History") }}">
+          <i class="fa fa-history text-info"></i>
         </a>
       </li>
     {% endif %}
 
-    {% if show_delete_link %}
+    {% if show_delete_link and original %}
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-        <a href="{% add_preserved_filters delete_url %}" class="tool-item text-danger"
+        <a href="{% add_preserved_filters delete_url %}" class="nav-link"
            data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{% trans 'Delete' %}">
-          <i class="fa fa-fw fa-trash"></i>
+           data-html="true" title="{{ _("Delete") }}">
+          <i class="fa fa-trash text-danger"></i>
         </a>
       </li>
     {% endif %}
@@ -48,8 +83,7 @@
 {% else %}
   <li class="nav-item ml-auto">
     <button type="button" class="btn btn-sm btn-light cancel-link">
-      <i class="fa fa-fw fa-close"></i>
-      <span>{% trans 'Close' %}</span>
+      <i class="fa fa-close"></i><span>{{ _("Close") }}</span>
     </button>
   </li>
 {% endif %}

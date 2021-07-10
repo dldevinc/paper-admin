@@ -1,13 +1,8 @@
 {% load load_paper i18n static %}{% load_paper as paper %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en"|slice:"2" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
   <meta charset="utf-8">
-  {% block preload %}
-    <link rel="preload" href="{% static 'paper_admin/dist/app.min.css' %}" as="style">
-    <link rel="preload" href="{% static 'paper_admin/dist/vendors-app.min.js' %}" as="script">
-    <link rel="preload" href="{% static 'paper_admin/dist/app.min.js' %}" as="script">
-  {% endblock %}
 
   <title>{% block title %}{% endblock %}</title>
   <meta http-equiv="content-type" content="text/html">
@@ -16,19 +11,23 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% block responsive %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  {% endblock %}
   <meta name="theme-color" content="#3b91ca">
-  {% block blockbots %}<meta name="robots" content="none,noarchive"/>{% endblock %}
+  {% block blockbots %}
+    <meta name="robots" content="none,noarchive"/>
+  {% endblock %}
   {% block meta %}{% endblock %}
 
   {# Favicon #}
   {% block favicon %}
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static "paper_admin/dist/assets/favicon.png" %}">
+    <link rel="icon" type="image/png" href="{% static paper.FAVICON %}">
   {% endblock %}
 
   {# CSS #}
   {% block styles %}
-    <link rel="stylesheet" href="{% static 'paper_admin/dist/app.min.css' %}">
+    {% include "paper_admin/app.head.html" %}
   {% endblock %}
   {% block extrastyle %}{% endblock %}
 
@@ -41,33 +40,32 @@
 </head>
 <body class="{{ is_popup|yesno:"popup," }} {% block bodyclass %}{% endblock %}"
       data-admin-utc-offset="{% now "Z" %}">
-  <div id="paper-page">
+  {% if not is_popup %}
+    {% block sidebar %}{% endblock %}
+  {% endif %}
+
+  <div class="paper-page d-flex flex-column min-vh-100">
+    {% block header %}{% endblock %}
+
     {% if not is_popup %}
-      {% block sidebar %}{% endblock %}
+      {% spaceless %}{% block breadcrumbs %}{% endblock %}{% endspaceless %}
     {% endif %}
 
-    <div id="paper-content">
-      {% block header %}{% endblock %}
+    <main class="d-flex flex-column flex-grow-1 py-3 mb-auto">
+      {% block main %}{% endblock %}
+    </main>
 
-      {% if not is_popup %}
-        {% spaceless %}{% block breadcrumbs %}{% endblock %}{% endspaceless %}
-      {% endif %}
-
-      {% block messages %}{% endblock %}
-
-      <main id="paper-main" class="mb-auto">
-        {% block content_wrapper %}{% endblock %}
-      </main>
-
-      {% if not is_popup %}
-        {% block footer %}{% endblock %}
-      {% endif %}
-    </div>
+    {% block footer %}{% endblock %}
   </div>
 
+  {% block scroll_top_button %}
+    <div class="scroll-top-button" hidden>
+      <i class="fa fa-chevron-up"></i>
+    </div>
+  {% endblock %}
+
   {% block scripts %}
-    <script src="{% static 'paper_admin/dist/vendors-app.min.js' %}"></script>
-    <script src="{% static 'paper_admin/dist/app.min.js' %}"></script>
+    {% include "paper_admin/app.body.html" %}
   {% endblock %}
 </body>
 </html>

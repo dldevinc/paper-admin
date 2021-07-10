@@ -1,0 +1,18 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.paper-breadcrumbs {
+
+  &__list {
+    padding-left: $grid-gutter-width / 2;
+    padding-right: $grid-gutter-width / 2;
+    font-size: $paper-breadcrumbs-font-size;
+    line-height: $paper-breadcrumbs-line-height;
+    border-radius: $paper-breadcrumbs-border-radius;
+    border-bottom: $paper-breadcrumbs-border-width solid $paper-breadcrumbs-border-color;
+    @include media-breakpoint-up(sm) {
+      padding-left: $grid-gutter-width;
+      padding-right: $grid-gutter-width;
+    }
+  }
+}

@@ -1,13 +1,15 @@
-<div class="vDateField input-group">
-  {% with input_class='form-control form-control-lg vDateInput vDatePicker' %}
+{% if widget.is_hidden %}
+  {% include "django/forms/widgets/hidden.html" %}
+{% else %}
+  <div class="date-field paper-input-group input-group">
     {% include "django/forms/widgets/input.html" %}
-  {% endwith %}
 
-  <div class="input-group-append">
-    <button type="button" class="input-group-text vDateFieldTrigger text-info" tabindex="-1"
-            data-toggle="tooltip" data-placement="top" data-trigger="hover"
-            data-html="true" title="{{ _('Select date') }}">
-      <i class="fa fa-fw fa-calendar"></i>
-    </button>
+    <div class="input-group-append">
+      <button type="button" class="date-field__button input-group-text" tabindex="-1"
+              data-toggle="tooltip" data-placement="top" data-trigger="hover"
+              data-html="true" title="{{ _('Today') }}">
+        <i class="fa fa-calendar-check-o"></i>
+      </button>
+    </div>
   </div>
-</div>
+{% endif %}

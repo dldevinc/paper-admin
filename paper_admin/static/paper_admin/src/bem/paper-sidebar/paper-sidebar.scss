@@ -1,0 +1,233 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/font-awesome";
+@import "./variables";
+
+.sidebar-shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: $paper-sidebar-shadow-zindex;
+  background: $paper-sidebar-shadow-bg;
+  transition: all $paper-sidebar-transition-duration, visibility $paper-sidebar-transition-duration 0s;
+  @include media-breakpoint-up(xl) {
+    display: none;
+  }
+
+  @at-root .sidebar-open & {
+    opacity: 1;
+    visibility: visible;
+    transition: all $paper-sidebar-transition-duration, visibility 0s 0s;
+  }
+}
+
+
+.paper-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $paper-sidebar-width;
+  height: 100vh;
+  will-change: transform;
+  z-index: $paper-sidebar-zindex;
+  box-shadow: $paper-sidebar-box-shadow;
+  background: $paper-sidebar-bg;
+  transform: translate(-102%, 0);
+  transition: transform $paper-sidebar-transition-duration;
+  @include media-breakpoint-up(xl) {
+    transform: translate(0, 0);
+  }
+
+  @at-root .sidebar-open & {
+    transform: translate(0, 0);
+  }
+
+  .navbar {
+    height: 100%;
+  }
+
+  .navbar-brand {
+    padding: $paper-sidebar-brand-padding-y $paper-sidebar-brand-padding-x;
+    min-height: $paper-sidebar-brand-min-height;
+    border-bottom: $paper-sidebar-brand-border-width solid $paper-sidebar-brand-border-color;
+  }
+
+  .navbar-brand-name {
+    color: $paper-sidebar-brand-color;
+    font-size: $paper-sidebar-brand-font-size;
+    word-break: break-word;
+  }
+
+  &__menu {
+    overflow-y: auto;
+  }
+
+  &__item-list {
+    background: $paper-sidebar-item-list-bg;
+
+    &--level-1 {
+      margin-bottom: 20px;
+      background: transparent;
+    }
+
+    &--level-2 {
+      position: relative;
+      border-bottom: 1px solid $paper-sidebar-item-divider-bg;
+
+      // вертикальная черта
+      &:before {
+        content: '';
+        position: absolute;
+        top:  0;
+        left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-link-padding-left-level2);
+        width: 1px;
+        height: 100%;
+        z-index: 1;
+        background: $paper-sidebar-category-line-color;
+      }
+
+      .paper-sidebar__item--divider {
+        margin-left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-icon-width / 2);
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: baseline;
+    padding: $paper-sidebar-link-padding-y $paper-sidebar-link-padding-x;
+    color: $paper-sidebar-link-color;
+    font-size: $paper-sidebar-link-font-size;
+    line-height: $paper-sidebar-link-line-height;
+    background: $paper-sidebar-link-bg;
+    word-break: break-word;
+    @include transition();
+
+    &:focus,
+    &:hover {
+      outline: none;
+      color: $paper-sidebar-link-hover-color;
+      background: $paper-sidebar-link-hover-bg;
+      text-decoration: none;
+    }
+
+    > i {
+      margin-right: $paper-sidebar-icon-margin-right;
+      flex: 0 0 $paper-sidebar-icon-width;
+      text-align: left;
+    }
+
+    @at-root
+    .active > & {
+      color: $paper-sidebar-link-active-color;
+      background: $paper-sidebar-link-active-bg;
+    }
+
+    &--trigger {
+      position: relative;
+      padding-right: sum($paper-sidebar-link-padding-x * 2, $paper-sidebar-link-arrow-size);
+
+      // стрелка
+      &:after {
+        content: $fa-var-chevron-down;
+        position: absolute;
+        top: calc(50% - 0.375rem);
+        right: $paper-sidebar-link-padding-x;
+        font: $paper-sidebar-link-arrow-size 'FontAwesome';
+        transform: rotate(-90deg);
+        @include transition();
+      }
+
+      &[aria-expanded="true"] {
+        &:after {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+
+  &__item {
+    &--divider {
+      height: 1px;
+      background: $paper-sidebar-item-divider-bg;
+    }
+
+    &--level-1 {
+      padding-left: $paper-sidebar-link-padding-left-level1;
+
+      > .paper-sidebar__link {
+        color: $paper-sidebar-first-link-color;
+        background-color: $paper-sidebar-first-link-bg;
+
+        &:hover {
+          color: $paper-sidebar-first-link-hover-color;
+          background: $paper-sidebar-first-link-hover-bg;
+        }
+      }
+
+      &.active > .paper-sidebar__link {
+        color: $paper-sidebar-first-link-active-color;
+        background: $paper-sidebar-first-link-active-bg;
+      }
+    }
+
+    &--level-2 {
+      position: relative;
+      padding-left: $paper-sidebar-link-padding-left-level2;
+
+      > .paper-sidebar__link {
+        // точка на линии
+        &:before {
+          content: '';
+          position: absolute;
+          left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-link-padding-left-level2);
+          top: sum($paper-sidebar-link-padding-y, $paper-sidebar-link-font-size * $paper-sidebar-link-line-height / 2);
+          width: $paper-sidebar-dot-size;
+          height: $paper-sidebar-dot-size;
+          z-index: 1;
+          border-radius: 50%;
+          border: 1px solid $paper-sidebar-item-divider-bg;
+          background: $paper-sidebar-dot-bg;
+          transform: translate(#{-($paper-sidebar-dot-size - 1) / 2}, #{-($paper-sidebar-dot-size + 1) / 2});
+          @include transition();
+        }
+
+        // FIX position relative
+        &.paper-sidebar__link--trigger:before {
+          left: sum($paper-sidebar-link-padding-left-level1);
+        }
+
+        &:focus,
+        &:hover {
+          &:before {
+            background: $paper-sidebar-dot-hover-bg;
+          }
+        }
+      }
+
+      &.active > .paper-sidebar__link:before {
+        content: none;
+      }
+
+      &.open > .paper-sidebar__link:before {
+        background: $paper-sidebar-dot-open-bg;
+      }
+    }
+
+    &--level-3 {
+      > .paper-sidebar__link {
+        padding-left: sum($paper-sidebar-link-padding-x, $paper-sidebar-link-padding-left-level3);
+      }
+    }
+
+    &--level-4 {
+      > .paper-sidebar__link {
+        padding-left: sum($paper-sidebar-link-padding-left-level3, $paper-sidebar-link-padding-left-level4);
+      }
+    }
+  }
+}

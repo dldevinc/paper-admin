@@ -1,6 +1,6 @@
 /**
  * Таблица с возможностью сортировки строк.
- * Каждая строка должна иметь атрибут data-id.
+ * Каждая строка должна иметь атрибуты data-id и data-order-value.
  * В случае, если строки представляют дерево, то еще необходим атрибут data-parent.
  * @module SortableTable
  */
@@ -15,7 +15,6 @@
 
 import Sortable from "sortablejs";
 import ListTree from "js/components/sortable_table/ListTree";
-import StaggerHighlight from "js/components/sortable_table/StaggerHighlight";
 
 /**
  * Конструктор объектов SortableTable.
@@ -29,7 +28,7 @@ function SortableTable(table, options) {
         url: null,
         tree: false,
         handler: ".handler",
-        disabledClass: "disabled"
+        disabledClass: "disabled",
     }, options);
 
     /** @type {Element} */
@@ -56,7 +55,16 @@ SortableTable.prototype._createSortable = function() {
         animation: 0,
         draggable: "tr",
         handle: this.opts.handler,
-        filter: "." + this.opts.disabledClass,
+        filter: function(event, row, instance) {
+            if (row.classList.contains(this.opts.disabledClass)) {
+                return true
+            }
+
+            const handler = row.querySelector(this.opts.handler);
+            if (handler && handler.classList.contains(this.opts.disabledClass)) {
+                return true
+            }
+        }.bind(this),
         ghostClass: "sortable-ghost",
         onStart: this._onStart.bind(this),
         onMove: this._onMove.bind(this),
@@ -109,7 +117,7 @@ SortableTable.prototype._onEnd = function(evt) {
     }.bind(this));
 
     let moved = this._getMovedRows(evt);
-    if (!moved.length) {
+    if (!moved.length || (moved.length === 1)) {
         return
     }
 
@@ -117,11 +125,20 @@ SortableTable.prototype._onEnd = function(evt) {
 
     const map = this._createOrderMap(evt, moved);
 
-    // выделение рядов, учавствовавших в перемещении
-    const highlighter = new StaggerHighlight(moved);
-    this._sendRequest(map).then(function() {
-        highlighter.release();
-    });
+    // блокировка областей сортировки на время выполнения запроса
+    const handlers = this.tbody.querySelectorAll(this.opts.handler);
+    handlers.forEach(function(handler) {
+        handler.classList.add(this.opts.disabledClass);
+    }.bind(this));
+
+    // отправка запроса на сервер
+    this._sendRequest(map)
+    .then(function() {
+        // снятие блокировки
+        handlers.forEach(function(handler) {
+            handler.classList.remove(this.opts.disabledClass);
+        }.bind(this));
+    }.bind(this));
 };
 
 /**
@@ -160,11 +177,11 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
         const handle = row.querySelector(this.opts.handler);
         if (handle) {
             pk_array.push(parseInt(row.dataset.id));
-            order_array.push(parseInt(handle.dataset.order));
+            order_array.push(parseInt(row.dataset.orderValue));
         }
     }.bind(this));
 
-    // циклический сдвиг значений order
+    // циклический сдвиг значений сортировки
     const movedDown = evt.oldIndex < evt.newIndex;
     if (movedDown) {
         order_array.unshift(order_array.pop());
@@ -175,9 +192,9 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
     return pk_array.reduce(function(result, pk, i) {
         result[pk] = order_array[i];
 
-        // обновляем атрибут order
+        // обновляем атрибут data-order-value
         const row = this.tbody.querySelector("tr[data-id='"+pk+"']");
-        row.querySelector(this.opts.handler).setAttribute("data-order", order_array[i]);
+        row.setAttribute("data-order-value", order_array[i]);
 
         return result;
     }.bind(this), {});

@@ -1,0 +1,69 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/colors";
+@import "./variables";
+
+.paper-modal-backdrop {
+  opacity: 0;
+}
+
+
+.paper-modal {
+  .modal-header {
+    padding: $paper-modal-header-padding-y $paper-modal-header-padding-x;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .modal-title {
+    font-size: $paper-modal-title-font-size;
+    line-height: $paper-modal-title-line-height;
+  }
+
+  .modal-body {
+    padding: $paper-modal-inner-padding-y $paper-modal-inner-padding-x;
+  }
+
+  .modal-footer {
+    padding: #{$paper-modal-footer-padding-y - ($modal-footer-margin-between / 2)}
+             #{$paper-modal-footer-padding-x - ($modal-footer-margin-between / 2)};
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .close {
+    padding: 0 1rem;
+    margin: #{-$paper-modal-header-padding-y} #{-$paper-modal-header-padding-x} #{-$paper-modal-header-padding-y} auto;
+    align-self: stretch;
+  }
+
+  // Preloader
+  &--preloader {
+    .paper-preloader {
+      margin: 10px auto 20px;
+    }
+  }
+
+
+  @each $name, $value in $paper-bg-colors {
+    @if map-has-key($paper-bg-colors, $name) {
+      $bg: map-get($paper-bg-colors, $name);
+      $border: map-get($paper-border-colors, $name);
+
+      &--#{$name} {
+        .modal-content {
+          border-color: $border;
+        }
+
+        .modal-header {
+          color: color-yiq($bg);
+          border-color: $border;
+          background-color: $bg;
+        }
+      }
+    }
+  }
+}

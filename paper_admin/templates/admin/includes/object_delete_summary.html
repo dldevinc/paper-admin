@@ -1,10 +1,6 @@
-{% load i18n %}
+<h2 class="h3">{{ _("Summary") }}</h2>
 
-<h2 class="h4">
-  {% trans "Summary" %}
-</h2>
-
-<ul>
+<ul class="paper-object-list">
   {% for model_name, object_count in model_count %}
     <li>{{ model_name|capfirst }}: {{ object_count }}</li>
   {% endfor %}

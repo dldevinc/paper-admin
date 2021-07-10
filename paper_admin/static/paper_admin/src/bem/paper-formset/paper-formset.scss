@@ -1,0 +1,40 @@
+@import "./variables";
+
+.paper-formset {
+  &:not(:first-child) {
+    margin-top: $paper-formset-gutter-width;
+  }
+
+  &__forms {
+
+  }
+
+  &__form {
+    overflow: hidden;
+  }
+
+  // название stacked-формы
+  &__form-caption {
+
+  }
+
+  // кнопка добавления формы
+  &__add-form {
+
+  }
+
+
+  &--stacked {
+
+  }
+
+  &--tabular {
+    .paper-formset__form--invalid {
+      background-color: $paper-formset-form-invalid-bg;
+    }
+
+    thead th {
+      padding-bottom: 0.5rem;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{% load paper_styles %}
+
+<tr class="paper-formset__form {% paper_form_classes inline_form %}{% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.sortable_allowed %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
+  {% for fieldset in inline_form %}
+    {% for line in fieldset %}
+      {% for admin_field in line %}
+        {% with field=admin_field.field is_readonly=admin_field.is_readonly is_prepopulated=admin_field.is_prepopulated %}
+          {% if not field.is_hidden %}
+            <td class="{% if field.name %}field-{{ field.name }}{% endif %}">
+              {% if is_readonly %}
+                <div class="readonly">{{ field.contents }}</div>
+              {% else %}
+                <div class="position-relative">
+                  <div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}{% if is_prepopulated %} prepopulated-field{% endif %}"{% if is_prepopulated %} data-prepopulate-field-name="{{ field.name }}"{% endif %}>
+                    {{ field }}
+                  </div>
+
+                  <ul class="paper-error-list invalid-feedback">{% spaceless %}
+                    {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  {% endspaceless %}</ul>
+                </div>
+              {% endif %}
+            </td>
+          {% endif %}
+        {% endwith %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+
+  <td class="text-right">
+    {% if inline_form.needs_explicit_pk_field %}
+      {{ inline_form.pk_field.field }}
+    {% endif %}
+
+    {{ inline_form.fk_field.field }}
+
+    {% for fieldset in inline_form %}
+      {% for line in fieldset %}
+        {% for admin_field in line %}
+          {% if admin_field.field.is_hidden %}
+            {{ admin_field.field }}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+
+    <div class="btn-square-group">
+      {% if inline_form.show_url %}
+        <a href="{{ inline_form.absolute_url }}"
+           class="btn btn-square btn-sm btn-square--info"
+           data-toggle="tooltip"
+           data-placement="top"
+           data-trigger="hover"
+           data-html="true"
+           title="{{ _("View on site") }}"
+           target="_blank"
+           rel="noopener">
+          <i class="fa fa-eye"></i>
+        </a>
+      {% endif %}
+
+      {% if inline_admin_formset.sortable_allowed %}
+        <button type="button"
+                class="sortable-move-up btn btn-square btn-sm btn-square--info"
+                data-formset-toggle="up"
+                data-toggle="tooltip"
+                data-placement="top"
+                data-trigger="hover"
+                data-html="true"
+                title="{{ _("Move up") }}">
+          <i class="fa fa-chevron-up"></i>
+        </button>
+
+        <button type="button"
+                class="sortable-move-down btn btn-square btn-sm btn-square--info"
+                data-formset-toggle="down"
+                data-toggle="tooltip"
+                data-placement="top"
+                data-trigger="hover"
+                data-html="true"
+                title="{{ _("Move down") }}">
+          <i class="fa fa-chevron-down"></i>
+        </button>
+      {% endif %}
+
+      {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
+        <div class="delete-inline btn btn-square btn-sm btn-square--danger"
+             data-toggle="tooltip"
+             data-placement="top"
+             data-trigger="hover"
+             data-html="true"
+             title="{{ inline_form.deletion_field.field.label }}">
+          <div class="custom-control custom-checkbox user-select-none">
+            {{ inline_form.deletion_field.field }}
+            <label for="{{ inline_form.deletion_field.field.id_for_label }}"
+                   class="custom-control-label"></label>
+            <i class="delete-inline__icon fa fa-trash"></i>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if not inline_form.original and not inline_form.show_url %}
+        <button type="button"
+                class="btn btn-square btn-sm btn-square--danger"
+                data-formset-toggle="delete"
+                data-toggle="tooltip"
+                data-placement="top"
+                data-trigger="hover"
+                data-html="true"
+                title="{{ _("Delete") }}">
+          <i class="fa fa-trash"></i>
+        </button>
+      {% endif %}
+    </div>
+  </td>
+</tr>

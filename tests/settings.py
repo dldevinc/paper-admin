@@ -18,6 +18,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+TIME_INPUT_FORMATS = [
+    '%H:%M',        # '14:30'
+    '%H:%M:%S',     # '14:30:59'
+    '%H:%M:%S.%f',  # '14:30:59.000200'
+]
 
 # Application definition
 
@@ -25,6 +30,7 @@ INSTALLED_APPS = [
     "paper_admin",
     "paper_admin.patches.dal",
     "paper_admin.patches.django_solo",
+    "paper_admin.patches.logentry_admin",
     "paper_admin.patches.mptt",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -38,7 +44,9 @@ INSTALLED_APPS = [
     "mptt",
     "solo",
     "logentry_admin",
+
     "app",
+    "sortables"
 ]
 
 MIDDLEWARE = [
@@ -49,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.gzip.GZipMiddleware",
 ]
 
 ROOT_URLCONF = "urls"
@@ -84,6 +93,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -109,13 +119,16 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "media"))
 FILE_UPLOAD_PERMISSIONS = 0o666
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+LOGIN_URL = "admin:login"
+
+MPTT_DEFAULT_LEVEL_INDICATOR = "┄"
+
 # =============
 #  Paper Admin
 # =============
-PAPER_SUPPORT_PHONE = "+1 234 567 8900"
-PAPER_SUPPORT_EMAIL = "office@supermega.com"
-PAPER_SUPPORT_COMPANY = "Super Mega Inc."
-PAPER_SUPPORT_WEBSITE = "https://supermega.com/"
+PAPER_FAVICON = "app/favicon.png"
 
 PAPER_ENVIRONMENT_NAME = "development"
 PAPER_ENVIRONMENT_COLOR = "#FFFF00"
@@ -144,6 +157,13 @@ PAPER_MENU = [
                 perms="app.category_add"
             ),
             "Tree",
+        ]
+    ),
+    dict(
+        app="sortables",
+        models=[
+            "Company",
+            "Category"
         ]
     ),
     "-",

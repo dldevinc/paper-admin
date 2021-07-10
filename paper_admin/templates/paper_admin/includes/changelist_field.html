@@ -1,0 +1,9 @@
+<div class="paper-widget{% if field.errors %} paper-widget--invalid{% endif %}">
+  {{ field }}
+</div>
+
+<ul class="paper-error-list invalid-feedback">{% spaceless %}
+  {% for error in field.errors %}
+    <li>{{ error }}</li>
+  {% endfor %}
+{% endspaceless %}</ul>
