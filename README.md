@@ -6,7 +6,7 @@ Custom Django admin interface.
 
 ## Requirements
 * Python >= 3.6
-* Django >= 2.1
+* Django >= 2.2
 
 ## Installation
 Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admin`.

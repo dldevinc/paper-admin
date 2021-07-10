@@ -1,9 +1,10 @@
 # Change Log
 
-## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-07-08
+## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-07-10
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
 
+- Drop support for Django versions before 2.2.
 - `django-logentry-admin` dependency has been removed.
 - `CustomCheckboxInput` widget has been renamed to `AdminCheckboxInput`.
 - `CustomRadioSelect` widget has been renamed to `AdminRadioSelect`.
