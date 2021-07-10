@@ -5,8 +5,9 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="paper-input-group input-group">
-      <label class="file-field__field form-control form-control-lg"
-             for="{{ widget.attrs.id }}" tabindex="-1">{{ _('Choose file') }}</label>
+      <label class="file-field__field file-field__field--empty form-control form-control-lg"
+             for="{{ widget.attrs.id }}" tabindex="-1"
+             data-initial-text="{{ _('Choose file') }}">{{ _('Choose file') }}</label>
 
       <div class="input-group-append">
         <label class="file-field__addon input-group-text"

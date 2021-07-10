@@ -19,7 +19,7 @@
     cursor: pointer;
   }
 
-  &__field {
+  &__field--empty {
     color: $input-placeholder-color;
 
     &:focus {
