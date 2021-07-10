@@ -2,18 +2,6 @@
 @import "./variables";
 
 .paper-widget {
-  .input-group {
-    a.input-group-text {
-      min-width: $paper-widget-addon-min-width;
-      justify-content: center;
-    }
-
-    button.input-group-text {
-      min-width: $paper-widget-addon-min-width;
-      justify-content: center;
-    }
-  }
-
   // Показывает второй label на мобиле, справа от виджета.
   &--checkbox {
     & > .custom-control {

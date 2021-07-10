@@ -1,33 +1,30 @@
 @import "css/abstracts/bootstrap";
-@import "css/abstracts/functions/sum";
 @import "./variables";
 
-$field-height: sum($input-line-height-lg * $input-font-size-lg, $input-padding-y-lg * 2, $input-height-border);
 
 .file-field {
-  height: $field-height;
+  position: relative;
   @include media-breakpoint-up(sm) {
     max-width: $file-field-max-width;
   }
 
-  .form-control:focus + .custom-file-label {
-    border-color: $input-focus-border-color;
+  input.form-control {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
   }
 
-  .custom-file-label {
-    padding: $input-padding-y-lg $input-padding-x-lg;
-    margin-bottom: 0;
-    height: $field-height;
-    font-size: $input-font-size-lg;
-    line-height: $input-line-height-lg;
-    border-radius: $input-border-radius-lg;
+  &__field,
+  &__addon {
     cursor: pointer;
+  }
 
-    &:after {
-      padding: $input-padding-y-lg $input-padding-x-lg;
-      height: $field-height;
-      line-height: $input-line-height-lg;
-      border-radius: 0 $input-border-radius-lg $input-border-radius-lg 0;
+  &__field {
+    color: $input-placeholder-color;
+
+    &:focus {
+      // override .form-control style
+      color: $input-placeholder-color;
     }
   }
 }

@@ -1,0 +1,9 @@
+@import "css/abstracts/bootstrap";
+
+$paper-input-group-addon-min-width: 2.25rem;
+$paper-input-group-addon-color: lighten($link-color, 5%);
+$paper-input-group-addon-hover-color: $link-color;
+$paper-input-group-addon-disabled-color: $text-muted;
+$paper-input-group-addon-bg: $gray-100;
+$paper-input-group-addon-hover-bg: $gray-200;
+$paper-input-group-addon-disabled-bg: $gray-100;

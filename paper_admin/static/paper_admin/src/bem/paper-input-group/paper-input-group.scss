@@ -1,0 +1,121 @@
+@import "./variables";
+
+.paper-input-group {
+  a.input-group-text {
+    min-width: $paper-input-group-addon-min-width;
+    justify-content: center;
+    color: $paper-input-group-addon-disabled-color;
+    background: $paper-input-group-addon-bg;
+
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:hover {
+      color: $paper-input-group-addon-disabled-color;
+      text-decoration: none;
+    }
+
+    &[href] {
+      color: $paper-input-group-addon-color;
+
+      &:not(.disabled):hover {
+        color: $paper-input-group-addon-hover-color;
+        background: $paper-input-group-addon-hover-bg;
+      }
+    }
+
+    &.disabled {
+      cursor: default;
+      color: $paper-input-group-addon-disabled-color;
+      background: $paper-input-group-addon-disabled-bg;
+    }
+  }
+
+  button.input-group-text {
+    min-width: $paper-input-group-addon-min-width;
+    justify-content: center;
+    color: $paper-input-group-addon-color;
+    background: $paper-input-group-addon-bg;
+
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:hover {
+      color: $paper-input-group-addon-hover-color;
+      background-color: $paper-input-group-addon-hover-bg;
+    }
+
+    &.disabled,
+    &:disabled {
+      cursor: default;
+      color: $paper-input-group-addon-disabled-color;
+      background-color: $paper-input-group-addon-disabled-bg;
+    }
+  }
+
+  label.input-group-text {
+    min-width: $paper-input-group-addon-min-width;
+    justify-content: center;
+    color: $paper-input-group-addon-disabled-color;
+    background-color: $paper-input-group-addon-bg;
+
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:hover {
+      color: $paper-input-group-addon-disabled-color;
+      text-decoration: none;
+    }
+
+    &[for] {
+      color: $paper-input-group-addon-color;
+
+      &:not(.disabled):hover {
+        color: $paper-input-group-addon-hover-color;
+        background-color: $paper-input-group-addon-hover-bg;
+      }
+    }
+
+    &.disabled {
+      cursor: default;
+      color: $paper-input-group-addon-disabled-color;
+      background-color: $paper-input-group-addon-disabled-bg;
+    }
+  }
+
+  @each $name, $value in $theme-colors {
+    a.input-group-text--#{$name} {
+      &[href] {
+        color: lighten(theme-color($name), 5%);
+
+        &:not(.disabled):hover {
+          color: theme-color($name);
+        }
+      }
+    }
+
+    button.input-group-text--#{$name} {
+      color: lighten(theme-color($name), 5%);
+
+      &:not(.disabled):not(:disabled):hover {
+        color: theme-color($name);
+      }
+    }
+
+    label.input-group-text--#{$name} {
+      &[for] {
+        color: lighten(theme-color($name), 5%);
+
+        &:not(.disabled):hover {
+          color: theme-color($name);
+        }
+      }
+    }
+  }
+}

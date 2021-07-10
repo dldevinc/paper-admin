@@ -1,7 +1,7 @@
 {% if widget.is_hidden %}
   {% include "django/forms/widgets/hidden.html" %}
 {% else %}
-  <div class="fk-raw-field input-group">
+  <div class="fk-raw-field paper-input-group input-group">
     {% include "django/forms/widgets/input.html" %}
 
     {% if link_label %}

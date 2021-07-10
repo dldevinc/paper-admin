@@ -56,6 +56,7 @@ import "bem/paper-environment/paper-environment";
 import "bem/paper-error-list/paper-error-list";
 import "bem/paper-form/paper-form";
 import "bem/paper-header/paper-header";
+import "bem/paper-input-group/paper-input-group";
 import "bem/paper-messages/paper-messages";
 import modals from "bem/paper-modal/paper-modal";
 import "bem/paper-object-list/paper-object-list";
