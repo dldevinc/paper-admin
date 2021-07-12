@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 **Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
 которые они исправляют.
 
-## Sort table of content with drag and drop
+## Сортировка объектов при помощи Drag & Drop
 
 Для того, чтобы экземпляры модели можно было сортировать в интерфейсе администратора,
 необходимо выполнить два условия.
@@ -58,19 +58,35 @@ INSTALLED_APPS = [
 1. Добавить в модель *числовое* поле, которое будет хранить 
    порядковый номер.
 
-```python
-from django.db import models
+   ```python
+   from django.db import models
 
-class MyModel(models.Model):
-    order = models.IntegerField(
-        "order", 
-        default=0,
-        editable=False  # опционально
-    )
-```
+   class MyModel(models.Model):
+       order = models.IntegerField(
+           "order", 
+           default=0,
+           editable=False  # опционально
+       )
+   ```
 
-2. Указать название поля в свойстве `sortable`. Это работает как 
-   с инлайн-формами, так и с подклассами `ModelAdmin`.
+2. Указать название поля в свойстве `sortable`.
+
+   ```python
+   from django.contrib import admin
+
+   class MyModelAdmin(admin.ModelAdmin):
+       sortable = 'order'
+       # ...
+   ```
+
+Результат:
+
+https://user-images.githubusercontent.com/6928240/125331456-0f1bb280-e359-11eb-8b17-b04be4b1e62c.mp4
+
+Сохранение сортировки происходит через AJAX-запрос. 
+
+Таким же путём можно включить сортировку инлайн-форм, но в этом случае сортировка происходит 
+с помощью кнопок и сохраняется вместе со всей страницей при нажатии кнопки "Save":
 
 ```python
 from django.contrib import admin
@@ -78,20 +94,32 @@ from django.contrib import admin
 class TablularInline(admin.TabularInline):
     sortable = 'order'
     # ...
-
-
-class MyModelAdmin(admin.ModelAdmin):
-    sortable = 'order'
-    # ...
 ```
 
+Результат:
 
-## Tabs
-Поля формы можно разделить на вкладки:
+https://user-images.githubusercontent.com/6928240/125331956-b6004e80-e359-11eb-8422-832dfe37bb6c.mp4
+
+Сортировка `paper-admin` совместима с [django-mptt](https://github.com/django-mptt/django-mptt).
+Менять местами можно только те элементы, которые имеют общего родителя и находятся на одном уровне
+вложенности:
+
+https://user-images.githubusercontent.com/6928240/125340277-55760f00-e363-11eb-94d4-49a978cb7ae4.mp4
+
+
+## Вкладки
+
+Форму добавления/редактирования объекта можно разделить на вкладки.
+Список вкладок указывается в атрибуте `tabs`:
 
 ```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
+
 class TablularInlines(admin.TabularInline):
-    tab = 'inlines-tab'
+    # имя вкладки, на которой должен быть отображен формсет
+    tab = 'common-tab'
 
 
 @admin.register(Page)
@@ -99,8 +127,6 @@ class PageAdmin(admin.ModelAdmin):
     fieldsets = (
         (_('First Section'), {
             'tab': 'common-tab',
-            'classes': ('paper-card--info', ),
-            'description': _('Some fieldset help text'),
             'fields': (
                 # ...
             ),
@@ -126,58 +152,166 @@ class PageAdmin(admin.ModelAdmin):
     inlines = (TablularInlines, )
 ```
 
-## Colorize table rows
+Результат:
+
+https://user-images.githubusercontent.com/6928240/125336032-4e003700-e35e-11eb-8399-9cff90ea7aca.mp4
+
+
+Вкладки можно добавлять динамически, с помощью метода `get_tabs`:
 ```python
+from django.contrib import admin
+
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    def get_row_classes(self, request, obj):
-        classes = super().get_row_classes(request, obj)
-        if obj.status == 'OK':
-            classes.append('table-success')
-        return classes
+    def get_tabs(self, request, obj=None):
+        return [
+            # ...
+        ]
 ```
 
-## Additional widgets
-### AdminSwitchInput
-Стилизованый чекбокс.
 
-![](http://joxi.net/ZrJJgW9iMDbQ5r.png)
+## Стилизация
 
-## Menu
-Меню в сайдбаре настраивается путем заполнения списка 
-`PAPER_MENU` в `settings.py`.
+### Стилизация fieldset
+
+Django даёт возможность указать произвольные CSS-классы и описание для любого fieldset.
+`paper-admin` предоставляет набор готовых CSS-классов для стилизации fieldset:
+* `paper-card--primary`
+* `paper-card--secondary`
+* `paper-card--info`
+* `paper-card--danger`
+* `paper-card--success`
+* `paper-card--warning`
+
+```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
+@admin.register(Page)
+class PageAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (_('Info Section'), {
+            'classes': ('paper-card--info', ),
+            'description': _('Description for the fieldset'),
+            'fields': (
+                # ...
+            ),
+        }),
+        (_("Success Section"), {
+            "classes": ("paper-card--success",),
+            "fields": (
+                # ...
+            )
+        }),
+        (_("Danger Section"), {
+            "classes": ("paper-card--danger",),
+            "fields": (
+                # ...
+            )
+        }),
+    )
+```
+
+Результат:
+
+![](https://user-images.githubusercontent.com/6928240/125337870-8f91e180-e360-11eb-9b19-7f903ab30464.png)
+
+### Стилизация рядов таблицы
+
+Для каждого ряда таблицы вызывается метод `get_row_classes`, который должен вернуть 
+список CSS-классов, которые будут добавлены к тэгу `<tr>`.
+
+```python
+from django.contrib import admin
+
+@admin.register(Page)
+class PageAdmin(admin.ModelAdmin):
+    
+    def get_row_classes(self, request, obj=None):
+        if obj.name.startswith("M"):
+            return ["table-success"]
+        elif obj.name.startswith("P"):
+            return ["table-info"]
+        return []
+```
+
+Результат:
+
+![](https://user-images.githubusercontent.com/6928240/125338431-3aa29b00-e361-11eb-91ae-01d482b80fad.png)
+
+
+### Стилизация inline-форм
+
+Inline-формам тоже можно назначить произвольные CSS-классы с помощью метода 
+`get_form_classes`:
+
+```python
+from django.contrib import admin
+
+class StackedInline(admin.StackedInline):
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["paper-card--success"]
+        elif obj.name.startswith("M"):
+            return ["paper-card--info"]
+        return []
+
+class TablularInlines(admin.TabularInline):
+    def get_form_classes(self, request, obj):
+        if obj.name.startswith("P"):
+            return ["table-success"]
+        elif obj.name.startswith("M"):
+            return ["table-info"]
+        return []
+```
+
+Результат:
+
+![](https://user-images.githubusercontent.com/6928240/125339687-9b7ea300-e362-11eb-85c7-1f875a506cc1.png)
+![](https://user-images.githubusercontent.com/6928240/125339691-9c173980-e362-11eb-8941-04ccfdaae914.png)
+
+
+## Меню
+
+Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU` в `settings.py`.
 
 ```python
 PAPER_MENU = [
-    dict(
-        label=_('Dashboard'),
-        url='admin:index',
-        icon='fa fa-fw fa-lg fa-area-chart',
+    dict(       # Пункт меню для главной страницы
+        label=_("Dashboard"),
+        url="admin:index",
+        icon="fa fa-fw fa-lg fa-area-chart",
     ),
-    dict(
-        app='app',
-        icon='fa fa-fw fa-lg fa-home',
+    dict(       # Пункт меню для приложения
+        app="app",
+        icon="fa fa-fw fa-lg fa-home",
         models=[
-            'Tag',
-            'Category',
-            'SubCategory',
+            "Tag",
+            "Category",
+            "SubCategory",
         ]
     ),
-    '-',
-    'auth',
-    'sites',
+    "-",        # Разделитель
+    "auth",     # Приложение    
+    "sites",    # Приложение
 ]
 ```
 
-Каждый элемент списка `PAPER_MENU` может быть представлен 
-одним из четырех видов:
-* имя приложения (app_label)
-* путь к модели (app_label.model_name)
-* словарь
-* строка-разделитель ("-")
+Пункт меню может быть задан одним из четырех способов:
+* Имя приложения (app_label).<br>
+  Все редактируемые модели выбранного приложения образуют подменю. 
+  Порядок моделей будет определен автоматически.
+* Путь к модели (app_label.model_name).<br>
+  Создаст пункт меню с именем, соответствующим имени модели и соответствующим URL.
+* Строка-разделитель ("-")<br>
+  Добавляет горизонтальную линию. С помощью разделителей можно визуально
+  группировать пункты меню.
+* Словарь.<br>
+  Самый гибкий способ создания пункта меню. В словаре можно явным образом указать
+  название пункта меню, его URL, иконку, CSS-классы и вложенные пункты.
 
 
-Доступные ключи для формирования пункта меню с помощью словаря:
+При исползовании словаря можно указать следующие ключи:
 * `label`: `str`                - заголовок пункта меню
 * `url`: `str`                  - URL или имя URL-шаблона (например `app:index`)
 * `icon`: `str`                 - CSS-классы иконки
@@ -185,11 +319,12 @@ PAPER_MENU = [
 * `perms`: `str/list/callable`  - права, необходимые для отображения пункта.
     Для определения суперюзера и сотрудников, можно использовать
     специальные значения `superuser` и `staff`.
-* `app`: `str`                  - имя приложения. Добавляется к именам моделей в `models`.
+* `app`: `str`                  - имя приложения. 
+  Неявно добавляется к именам моделей в `models`.
 * `models`: `list/dict`         - дочерние пункты меню. 
   Может содержать имена моделей или пункты меню.
 
-#### Пример 1. Собственный пункт меню.
+#### Пример 1.
 ```python
 from django.urls import reverse_lazy
 
@@ -201,38 +336,50 @@ PAPER_MENU = [
           dict(
               label=_("Index"),
               url=reverse_lazy("admin:app_list", kwargs={
-                    "app_label": "app"
+                  "app_label": "app"
               })
-          ),
-          "Tag",
-          "Category",
+          ),            # Произвольный пункт меню
+          "Tag",        # Модель app.Tag
+          "Category",   # Модель app.Category
       ]
-    )
+    ),
+    "-",        # Разделитель
+    "auth",     # Приложение
 ]
 ```
 
-#### Пример 2. Отображение пункта модели только при наличии указанных прав.
+#### Пример 2. Проверка прав.
+
+Этот пункт меню увидят только сотрудники, имеющие право на изменение модели `Tag`.
+
+На доступность страниц параметр `perms` никак не влияет. Если пользователь знает
+адрес страницы или ссылка на неё имеется где-то ещё, то пользователь сможет на неё 
+перейти. 
+
 ```python
 PAPER_MENU = [
     dict(
         app="app",
-        icon="fa fa-fw fa-lg fa-home",
+        perms=["staff", "app.change_tag"],
         models=[
             "Tag",
-            dict(
-                label=_("Category"),
-                url="admin:app_category_changelist",
-                perms=["app.add_category", "app.view_category"]
-            ),
         ]
     )
 ]
 ```
 
 
-## Settings
-| Option | Description | Example value |
-| --- | --- | --- |
-| `PAPER_ENVIRONMENT_NAME`  | Текст на плашке текущего окружения    | 'development'         |
-| `PAPER_ENVIRONMENT_COLOR` | Цвет фона плашки текущего окружения   | '#FFFF00'             |
-| `PAPER_MENU`              | Меню в сайдбаре                       | |
+## Бейдж (badge)
+
+Полоса с текстом в сайдбаре. 
+
+![](https://user-images.githubusercontent.com/6928240/125350052-4a28e080-e36f-11eb-8772-4d797d64863a.png)
+
+Её основное предназначение - визуально обозначить окружение, в котором работает
+административный интерфейс. Так вы не перепутаете сервер разработки с продашеном.
+
+Цвет полосы и текст устанавливаются в `settings.py`:
+```python
+PAPER_ENVIRONMENT_NAME = "development"
+PAPER_ENVIRONMENT_COLOR = "#FFFF00"
+```
