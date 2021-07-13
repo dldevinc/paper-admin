@@ -1,5 +1,5 @@
 # paper-admin
-Custom Django admin interface.
+Custom Django admin interface based on Bootstrap 4.
 
 [![PyPI](https://img.shields.io/pypi/v/paper-admin.svg)](https://pypi.org/project/paper-admin/)
 [![Build Status](https://travis-ci.org/dldevinc/paper-admin.svg?branch=master)](https://travis-ci.org/dldevinc/paper-admin)
