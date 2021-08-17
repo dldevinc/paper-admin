@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-27 23:01+0400\n"
+"POT-Creation-Date: 2021-08-17 15:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,54 +18,34 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin/filters.py:66 admin/filters.py:130 admin/filters.py:281
-#: admin/filters.py:315
+#: admin/filters.py:38 admin/filters.py:99 admin/filters.py:237
+#: admin/filters.py:271
 msgid "All"
 msgstr "Все"
 
-#: admin/filters.py:133
+#: admin/filters.py:102
 msgid "Yes"
 msgstr "Да"
 
-#: admin/filters.py:134
+#: admin/filters.py:103
 msgid "No"
 msgstr "Нет"
 
-#: admin/filters.py:144 admin/filters.py:162 admin/filters.py:190
-#: admin/filters.py:293 admin/filters.py:332
-#: patches/django/widgets/options.py:46 patches/django/widgets/options.py:67
+#: admin/filters.py:113 admin/filters.py:131 admin/filters.py:249
+#: admin/filters.py:288 patches/django/widgets/options.py:46
+#: patches/django/widgets/options.py:67
 msgid "None"
 msgstr "Нет"
-
-#: admin/filters.py:173
-msgid "Any date"
-msgstr "Любая дата"
-
-#: admin/filters.py:176 templates/django/forms/widgets/date.html:10
-msgid "Today"
-msgstr "Сегодня"
-
-#: admin/filters.py:177
-msgid "Past 7 days"
-msgstr "Последние 7 дней"
-
-#: admin/filters.py:178
-msgid "This month"
-msgstr "Этот месяц"
-
-#: admin/filters.py:179
-msgid "This year"
-msgstr "Этот год"
 
 #: apps.py:7
 msgid "Paper Admin"
 msgstr ""
 
-#: conf.py:19
+#: conf.py:34
 msgid "General"
 msgstr "Основные"
 
-#: patches/django/options.py:26 templates/admin/object_history.html:38
+#: patches/django/options.py:27 templates/admin/object_history.html:38
 msgid "Action"
 msgstr "Действие"
 
@@ -89,24 +69,24 @@ msgstr "История"
 msgid "content type"
 msgstr "тип содержимого"
 
-#: templates/admin/actions.html:18
+#: templates/admin/actions.html:19
 msgid "Run the selected action"
 msgstr "Выполнить выбранное действие"
 
-#: templates/admin/actions.html:19
+#: templates/admin/actions.html:20
 msgid "Go"
 msgstr "Выполнить"
 
-#: templates/admin/actions.html:37
+#: templates/admin/actions.html:38
 msgid "Click here to select the objects across all pages"
 msgstr "Нажмите здесь, чтобы выбрать объекты на всех страницах"
 
-#: templates/admin/actions.html:38
+#: templates/admin/actions.html:39
 #, python-format
 msgid "Select all %(total_count)s %(module_name)s"
 msgstr "Выбрать все %(module_name)s (%(total_count)s)"
 
-#: templates/admin/actions.html:43
+#: templates/admin/actions.html:44
 msgid "Clear selection"
 msgstr "Снять выделение"
 
@@ -135,46 +115,46 @@ msgstr ""
 msgid "Enter a username and password."
 msgstr "Введите имя пользователя и пароль."
 
-#: templates/admin/auth/user/change_password.html:22
-#: templates/admin/auth/user/change_password.html:40
-#: templates/admin/base_site.html:87
+#: templates/admin/auth/user/change_password.html:24
+#: templates/admin/auth/user/change_password.html:42
+#: templates/admin/base_site.html:85
 #: templates/auth/widgets/read_only_password_hash.html:3
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: templates/admin/auth/user/change_password.html:59
+#: templates/admin/auth/user/change_password.html:61
 msgid "It's a good idea to use a strong password that you don't use elsewhere."
 msgstr ""
 "Рекомендуем установить надежный пароль, который вы больше нигде не "
 "используете."
 
-#: templates/admin/auth/user/change_password.html:68
-#: templates/registration/password_change_form.html:53
-#: templates/registration/password_reset_confirm.html:36
+#: templates/admin/auth/user/change_password.html:70
+#: templates/registration/password_change_form.html:55
+#: templates/registration/password_reset_confirm.html:38
 msgid "Change my password"
 msgstr "Изменить мой пароль"
 
-#: templates/admin/base_site.html:11
+#: templates/admin/base_site.html:9
 msgid "Django site admin"
 msgstr ""
 
-#: templates/admin/base_site.html:64 templates/admin/base_site.html:66
+#: templates/admin/base_site.html:62 templates/admin/base_site.html:64
 msgid "View site"
 msgstr "Открыть сайт"
 
-#: templates/admin/base_site.html:97
+#: templates/admin/base_site.html:95
 msgid "Stop impersonation"
 msgstr ""
 
-#: templates/admin/base_site.html:108
+#: templates/admin/base_site.html:106
 msgid "Documentation"
 msgstr "Документация"
 
-#: templates/admin/base_site.html:117
+#: templates/admin/base_site.html:115
 msgid "Log out"
 msgstr "Выйти"
 
-#: templates/admin/base_site.html:145
+#: templates/admin/base_site.html:143
 msgid "Home"
 msgstr "Начало"
 
@@ -183,7 +163,7 @@ msgid "Toolbar"
 msgstr "Панель инструментов"
 
 #: templates/admin/change_form_object_tools.html:8
-#: templates/admin/change_list.html:164
+#: templates/admin/change_list.html:168
 #: templates/paper_admin/header_buttons.html:9
 msgid "Save"
 msgstr "Сохранить"
@@ -241,15 +221,15 @@ msgstr "Сбросить все фильтры"
 msgid "Filter by date"
 msgstr "Фильтрация по дате"
 
-#: templates/admin/change_list.html:175
+#: templates/admin/change_list.html:179
 msgid "Nothing found"
 msgstr "Нет результатов"
 
-#: templates/admin/change_list.html:177
+#: templates/admin/change_list.html:181
 msgid "Reset search and filters"
 msgstr "Сбросить настройки поиска и фильтров"
 
-#: templates/admin/change_list.html:182
+#: templates/admin/change_list.html:186
 #, python-format
 msgid "%(name_plural)s are not created yet"
 msgstr "%(name_plural)s еще не созданы"
@@ -454,7 +434,7 @@ msgstr "В конец"
 msgid "Popup closing..."
 msgstr "Всплывающее окно закрывается..."
 
-#: templates/admin/search_form.html:9 templates/admin/search_form.html:10
+#: templates/admin/search_form.html:8 templates/admin/search_form.html:9
 msgid "Search"
 msgstr "Найти"
 
@@ -478,11 +458,18 @@ msgstr "Просмотреть выбранный объект %(model)s"
 msgid "Delete selected %(model)s"
 msgstr "Удалить выбранный объект %(model)s"
 
+#: templates/django/forms/widgets/date.html:10
+#: templates/paper_admin/filters/daterange.html:17
+#: templates/paper_admin/filters/daterange.html:37
+msgid "Today"
+msgstr "Сегодня"
+
 #: templates/django/forms/widgets/email.html:12
 msgid "Send mail"
 msgstr "Написать письмо"
 
-#: templates/django/forms/widgets/file.html:6
+#: templates/django/forms/widgets/file.html:10
+#: templates/django/forms/widgets/file.html:16
 msgid "Choose file"
 msgstr "Выбрать файл"
 
@@ -498,9 +485,13 @@ msgstr "Сейчас"
 msgid "Visit URL"
 msgstr "Открыть страницу"
 
-#: templates/paper_admin/footer.html:5
-msgid "Please contact us if you have any problems"
-msgstr ""
+#: templates/paper_admin/filters/daterange.html:11
+msgid "Start date"
+msgstr "От"
+
+#: templates/paper_admin/filters/daterange.html:31
+msgid "End date"
+msgstr "До"
 
 #: templates/paper_admin/header_buttons.html:15
 msgid "Toggle dropdown"
@@ -523,8 +514,8 @@ msgid "Log in again"
 msgstr "Войти снова"
 
 #: templates/registration/password_change_done.html:6
-#: templates/registration/password_change_form.html:6
-#: templates/registration/password_change_form.html:24
+#: templates/registration/password_change_form.html:8
+#: templates/registration/password_change_form.html:26
 msgid "Password change"
 msgstr "Изменение пароля"
 
@@ -537,7 +528,7 @@ msgstr "Ваш пароль был сохранен. Теперь вы може�
 msgid "Go to dashboard"
 msgstr "Перейти на главную страницу"
 
-#: templates/registration/password_change_form.html:43
+#: templates/registration/password_change_form.html:45
 msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
@@ -547,15 +538,15 @@ msgstr ""
 
 #: templates/registration/password_reset_complete.html:6
 #: templates/registration/password_reset_done.html:6
-#: templates/registration/password_reset_form.html:6
+#: templates/registration/password_reset_form.html:8
 msgid "Password reset"
 msgstr "Восстановление пароля"
 
-#: templates/registration/password_reset_confirm.html:6
+#: templates/registration/password_reset_confirm.html:8
 msgid "Password reset confirmation"
 msgstr "Подтверждение восстановления пароля"
 
-#: templates/registration/password_reset_confirm.html:27
+#: templates/registration/password_reset_confirm.html:29
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -563,7 +554,7 @@ msgstr ""
 "Пожалуйста, введите новый пароль дважды, чтобы мы могли убедиться в "
 "правильности написания."
 
-#: templates/registration/password_reset_confirm.html:41
+#: templates/registration/password_reset_confirm.html:43
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -641,7 +632,7 @@ msgstr "Если вы не запрашивали сброс пароля, пр�
 msgid "Set new password"
 msgstr "Установить новый пароль"
 
-#: templates/registration/password_reset_form.html:26
+#: templates/registration/password_reset_form.html:28
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
@@ -649,6 +640,6 @@ msgstr ""
 "Забыли пароль? Введите свой адрес электронной почты ниже, и мы вышлем вам "
 "инструкцию, как установить новый пароль."
 
-#: templates/registration/password_reset_form.html:34
+#: templates/registration/password_reset_form.html:36
 msgid "Reset my password"
 msgstr "Восстановить мой пароль"
