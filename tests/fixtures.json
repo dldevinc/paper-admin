@@ -3,8 +3,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$120000$mda4uGGPhJjH$UKevsIwWBc8VdJ72fqjo42RRwywHgd3AUUWjXBjX+mc=",
-    "last_login": "2021-05-26T15:08:29.717Z",
+    "password": "pbkdf2_sha256$260000$WEJf3XQrVKsT267vERhIow$DmvxJrx97lNJis/NmaF+od/FbB+Df2r75kQLfzL08ec=",
+    "last_login": "2021-08-17T08:00:16.870Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -342,10 +342,10 @@
     "f_fk3": null,
     "f_bool": false,
     "f_bool2": true,
-    "f_nullbool": null,
+    "f_nullbool": true,
     "f_small_int": 0,
     "f_int_choices": 1,
-    "f_int_choices2": 1,
+    "f_int_choices2": 4,
     "f_int": 0,
     "f_bigint": 0,
     "f_float": 0.0,
@@ -485,16 +485,16 @@
     "f_fk3": null,
     "f_bool": true,
     "f_bool2": true,
-    "f_nullbool": null,
+    "f_nullbool": true,
     "f_small_int": 0,
     "f_int_choices": 1,
-    "f_int_choices2": 1,
+    "f_int_choices2": 2,
     "f_int": 0,
     "f_bigint": 0,
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": "2021-05-21",
+    "f_date": "2021-05-22",
     "f_date2": "2021-01-01",
     "f_time": "11:49:00",
     "f_datetime": "2021-05-21T11:49:00Z",
@@ -548,19 +548,19 @@
     "f_fk3": 29,
     "f_bool": false,
     "f_bool2": true,
-    "f_nullbool": null,
+    "f_nullbool": false,
     "f_small_int": 0,
     "f_int_choices": 1,
-    "f_int_choices2": 1,
+    "f_int_choices2": 3,
     "f_int": 0,
     "f_bigint": 0,
     "f_float": 0.0,
     "f_decimal": "0.00",
     "f_duration": null,
-    "f_date": "2021-05-21",
+    "f_date": "2021-07-07",
     "f_date2": "2021-01-01",
     "f_time": "11:53:00",
-    "f_datetime": "2021-05-21T11:53:00Z",
+    "f_datetime": "2021-07-07T11:53:00Z",
     "f_hidden1": "",
     "f_hidden2": "",
     "f_hidden3": "",
@@ -806,7 +806,7 @@
   "pk": 1,
   "fields": {
     "title": "Microsoft",
-    "order": 0
+    "order": 3
   }
 },
 {
@@ -814,7 +814,7 @@
   "pk": 2,
   "fields": {
     "title": "Apple",
-    "order": 0
+    "order": 2
   }
 },
 {
@@ -822,7 +822,7 @@
   "pk": 3,
   "fields": {
     "title": "Samsung",
-    "order": 0
+    "order": 1
   }
 },
 {
@@ -1283,7 +1283,7 @@
   "fields": {
     "parent": null,
     "title": "Women",
-    "order": 1,
+    "order": 0,
     "lft": 1,
     "rght": 12,
     "tree_id": 1,
@@ -1296,7 +1296,7 @@
   "fields": {
     "parent": 1,
     "title": "Shirts",
-    "order": 2,
+    "order": 1,
     "lft": 2,
     "rght": 7,
     "tree_id": 1,
@@ -1309,9 +1309,9 @@
   "fields": {
     "parent": 1,
     "title": "Skirts",
-    "order": 3,
-    "lft": 8,
-    "rght": 9,
+    "order": 4,
+    "lft": 10,
+    "rght": 11,
     "tree_id": 1,
     "level": 1
   }
@@ -1322,9 +1322,9 @@
   "fields": {
     "parent": 1,
     "title": "Purses",
-    "order": 4,
-    "lft": 10,
-    "rght": 11,
+    "order": 5,
+    "lft": 8,
+    "rght": 9,
     "tree_id": 1,
     "level": 1
   }
@@ -1335,7 +1335,7 @@
   "fields": {
     "parent": 2,
     "title": "Long Sleeves",
-    "order": 5,
+    "order": 2,
     "lft": 3,
     "rght": 4,
     "tree_id": 1,
@@ -1348,7 +1348,7 @@
   "fields": {
     "parent": 2,
     "title": "T-shirts",
-    "order": 6,
+    "order": 3,
     "lft": 5,
     "rght": 6,
     "tree_id": 1,
@@ -1361,7 +1361,7 @@
   "fields": {
     "parent": null,
     "title": "Men",
-    "order": 7,
+    "order": 6,
     "lft": 1,
     "rght": 14,
     "tree_id": 2,
@@ -1374,7 +1374,7 @@
   "fields": {
     "parent": 7,
     "title": "Footwear",
-    "order": 8,
+    "order": 7,
     "lft": 2,
     "rght": 7,
     "tree_id": 2,
@@ -1387,7 +1387,7 @@
   "fields": {
     "parent": 8,
     "title": "Shoes",
-    "order": 9,
+    "order": 8,
     "lft": 3,
     "rght": 4,
     "tree_id": 2,
@@ -1400,7 +1400,7 @@
   "fields": {
     "parent": 8,
     "title": "Sneakers",
-    "order": 10,
+    "order": 9,
     "lft": 5,
     "rght": 6,
     "tree_id": 2,
@@ -1413,7 +1413,7 @@
   "fields": {
     "parent": 7,
     "title": "Shirts",
-    "order": 11,
+    "order": 10,
     "lft": 8,
     "rght": 13,
     "tree_id": 2,
@@ -1426,7 +1426,7 @@
   "fields": {
     "parent": 11,
     "title": "Tank Tops",
-    "order": 12,
+    "order": 11,
     "lft": 9,
     "rght": 10,
     "tree_id": 2,
@@ -1439,7 +1439,7 @@
   "fields": {
     "parent": 11,
     "title": "T-shirts",
-    "order": 13,
+    "order": 12,
     "lft": 11,
     "rght": 12,
     "tree_id": 2,

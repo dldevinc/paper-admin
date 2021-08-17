@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const pixrem = require("pixrem");
 const autoprefixer = require("autoprefixer");
-const { extendDefaultPlugins } = require("svgo");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -134,12 +133,16 @@ let config = {
                     [
                         "svgo",
                         {
-                            plugins: extendDefaultPlugins([
+                            plugins: [
                                 {
-                                    name: 'removeViewBox',
-                                    active: false
+                                    name: 'preset-default',
+                                    params: {
+                                        overrides: {
+                                            removeViewBox: false,
+                                        },
+                                    },
                                 },
-                            ]),
+                            ],
                         },
                     ],
                 ]
