@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.1](https://github.com/dldevinc/paper-admin/tree/v3.0.1) - 2021-08-17
+- Update npm dependencies
+
+
 ## [3.0.0](https://github.com/dldevinc/paper-admin/tree/v3.0.0) - 2021-07-10
 ### ⚠ BREAKING CHANGES
 Much of the code has been rewritten. We outline some key changes below.
