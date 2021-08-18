@@ -7,7 +7,7 @@ from solo.admin import SingletonModelAdmin
 
 from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
 
-from .models import Category, Item, SigletonExample, Tag, Tree
+from .models import Category, Item, MPTTTree, SigletonExample, Tag
 
 
 @admin.register(Tag)
@@ -226,23 +226,23 @@ class CategoryAdmin(admin.ModelAdmin):
         return []
 
 
-@admin.register(Tree)
-class TreeAdmin(MPTTModelAdmin):
-    fieldsets = (
-        (None, {
-            "fields": (
-                "parent", "name",
-            ),
-        }),
-    )
-
-
 @admin.register(SigletonExample)
 class SigletonExampleAdmin(SingletonModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
                 "title",
+            ),
+        }),
+    )
+
+
+@admin.register(MPTTTree)
+class MPTTTreeAdmin(MPTTModelAdmin):
+    fieldsets = (
+        (None, {
+            "fields": (
+                "parent", "name",
             ),
         }),
     )

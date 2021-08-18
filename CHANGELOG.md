@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.2](https://github.com/dldevinc/paper-admin/tree/v3.0.2) - 2021-08-18
+- New `PAPER_LOCALE_PACKAGES` setting was added.
+- Added `ru-RU` translation.
+
 ## [3.0.1](https://github.com/dldevinc/paper-admin/tree/v3.0.1) - 2021-08-17
 - Update npm dependencies
 

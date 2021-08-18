@@ -32,3 +32,5 @@ MENU_HIDE_SINGLE_CHILD = getattr(settings, "PAPER_MENU_HIDE_SINGLE_CHILD", True)
 
 DEFAULT_TAB_NAME = getattr(settings, "PAPER_DEFAULT_TAB_NAME", "general")
 DEFAULT_TAB_TITLE = getattr(settings, "PAPER_DEFAULT_TAB_TITLE", _("General"))
+
+LOCALE_PACKAGES = getattr(settings, "PAPER_LOCALE_PACKAGES", ["paper_admin", "django.contrib.admin"])
