@@ -383,3 +383,57 @@ PAPER_MENU = [
 PAPER_ENVIRONMENT_NAME = "development"
 PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 ```
+
+## Settings
+
+`PAPER_FAVICON`<br>
+Путь к favicon-файлу, который будет использоваться в интерфейсе админимтратора.<br> 
+Default: `"paper_admin/dist/assets/default_favicon.png"`
+
+`PAPER_ENVIRONMENT_NAME`<br>
+Текст на бейжде в сайдбаре.<br>
+Default: `""`
+
+`PAPER_ENVIRONMENT_COLOR`<br>
+Цвет фона бейджа.<br>
+Default: `""`
+
+`PAPER_MENU`<br>
+Меню.<br>
+Default: `None`
+
+`PAPER_MENU_DIVIDER`<br>
+При встрече указанной строки в списке пунктов `PAPER_MENU`, 
+на её место будут вставлен горизонтальный разделитель.<br>
+Default: `"-"`
+
+`PAPER_MENU_PERM_STAFF`<br>
+Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`, 
+которое указывает, что текущий пункт меню должен быть показан
+только при условии, что у пользователя установлен флаг `is_staff`.<br>
+Default: `"staff"`
+
+`PAPER_MENU_PERM_SUPERUSER`<br>
+Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
+которое указывает, что текущий пункт меню должен быть показан
+только при условии, что у пользователя установлен флаг `is_superuser`.<br>
+Default: `"superuser"`
+
+`PAPER_MENU_HIDE_SINGLE_CHILD`<br>
+Если родительский пункт меню содержит единственный дочерний пункт,
+то вместо отображения выпадающего списка, родительский пункт будет вести
+на страницу дочернего пункта.<br>
+Default: `True`
+
+`PAPER_DEFAULT_TAB_NAME`<br>
+Алиас вкладки по-умолчанию для форм админки.<br>
+Default: `"general"`
+
+`PAPER_DEFAULT_TAB_TITLE`<br>
+Заголовок вкладки по-умолчанию для форм админки.<br>
+Default: `_("General")`
+
+`PAPER_LOCALE_PACKAGES`<br>
+Список модулей, из которых должны загружаться переводы 
+для `JavaScriptCatalog` интерфейса администратора.<br>
+Default: `["paper_admin", "django.contrib.admin"]`

@@ -1,6 +1,7 @@
 from django.contrib.admin.sites import AdminSite
 from django.views.i18n import JavaScriptCatalog
 
+from paper_admin.conf import LOCALE_PACKAGES
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 
@@ -27,4 +28,4 @@ class PatchAdminSite(AdminSite, metaclass=MonkeyPatchMeta):
         return get_original(AdminSite)(self, request, extra_context)
 
     def i18n_javascript(self, request, extra_context=None):
-        return JavaScriptCatalog.as_view()(request)
+        return JavaScriptCatalog.as_view(packages=LOCALE_PACKAGES)(request)
