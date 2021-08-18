@@ -1,6 +1,11 @@
 # Change Log
 
+## [3.0.3](https://github.com/dldevinc/paper-admin/tree/v3.0.3) - 2021-08-18
+### Bug Fixes
+- Fix missing translations.
+
 ## [3.0.2](https://github.com/dldevinc/paper-admin/tree/v3.0.2) - 2021-08-18
+### Features
 - New `PAPER_LOCALE_PACKAGES` setting was added.
 - Added `ru-RU` translation.
 
