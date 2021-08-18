@@ -169,18 +169,6 @@ class Item(models.Model):
         return "/"
 
 
-class Tree(MPTTModel):
-    parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
-    name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
-
-    class Meta:
-        verbose_name = _("tree")
-        verbose_name_plural = _("trees")
-
-    def __str__(self):
-        return self.name
-
-
 class SigletonExample(SingletonModel):
     title = models.CharField(_("title"), max_length=255)
 
@@ -190,3 +178,15 @@ class SigletonExample(SingletonModel):
 
     def __str__(self):
         return self.title
+
+
+class MPTTTree(MPTTModel):
+    parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
+    name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
+
+    class Meta:
+        verbose_name = _("MPTT")
+        verbose_name_plural = _("MPTT")
+
+    def __str__(self):
+        return self.name
