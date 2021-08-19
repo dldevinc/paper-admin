@@ -713,7 +713,6 @@ function showSmartPreloader(promise, options) {
 
 
 const modals = {
-    PaperModal,
     createModal,
     showErrors,
     showPreloader,
