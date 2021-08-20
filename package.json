@@ -35,7 +35,7 @@
     "imagemin-svgo": "^9.0.0",
     "jquery": "^3.5.1",
     "mini-css-extract-plugin": "^2.2.0",
-    "multi.js": "^0.5.3",
+    "multi.js": "git+https://github.com/dldevinc/multi.js.git",
     "multiselect": "^0.9.12",
     "pixrem": "^5.0.0",
     "popper.js": "^1.16.1",
@@ -52,5 +52,6 @@
     "webpack-cli": "^4.8.0",
     "wolfy87-eventemitter": "^5.2.9",
     "xregexp": "^5.1.0"
-  }
+  },
+  "dependencies": {}
 }

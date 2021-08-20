@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.4](https://github.com/dldevinc/paper-admin/tree/v3.0.4) - 2021-08-20
+### Features
+- Use improved version of `multi.js`.
+
 ## [3.0.3](https://github.com/dldevinc/paper-admin/tree/v3.0.3) - 2021-08-18
 ### Bug Fixes
 - Fix missing translations.
