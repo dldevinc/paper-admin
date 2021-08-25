@@ -12,14 +12,15 @@ Custom Django admin interface based on Bootstrap 4.
 Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admin`.
 ```python
 INSTALLED_APPS = [
-    'paper_admin',
-    'paper_admin.patches.dal',              # optional
-    'paper_admin.patches.django_solo',      # optional
-    'paper_admin.patches.mptt',             # optional
-    'paper_admin.patches.logentry_admin',   # optional
-    'paper_admin.patches.post_office',      # optional
+    "paper_admin",
+    "paper_admin.patches.dal",              # optional
+    "paper_admin.patches.django_solo",      # optional
+    "paper_admin.patches.mptt",             # optional
+    "paper_admin.patches.logentry_admin",   # optional
+    "paper_admin.patches.post_office",      # optional
+    "paper_admin.patches.tree_queries",     # optional
     # ...
-    'django.contrib.admin',
+    "django.contrib.admin",
     # ...
 ]
 ```
@@ -47,6 +48,23 @@ INSTALLED_APPS = [
 * `paper_admin.patches.post_office`<br>
   Исправление виджета списка email адресов в [django-post_office](https://github.com/ui/django-post_office)  
 
+* `paper_admin.patches.tree_queries`<br>
+  Добавление возможности сортировки узлов дерева для [django-tree-queries](https://github.com/matthiask/django-tree-queries).
+  
+  **Необходимо** использовать специальный класс вместо `ModelAdmin`:
+  ```python
+  # admin.py
+  from django.contrib import admin
+  from paper_admin.patches.tree_queries.admin import TreeNodeModelAdmin  # <--
+  from .models import MyTreeNode
+  
+  @admin.register(MyTreeNode)
+  class MyTreeNodeAdmin(TreeNodeModelAdmin):
+      ...
+      sortable = "position"
+  ```  
+
+
 **Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек, 
 которые они исправляют.
 
@@ -62,8 +80,8 @@ INSTALLED_APPS = [
    from django.db import models
 
    class MyModel(models.Model):
-       order = models.IntegerField(
-           "order", 
+       position = models.IntegerField(
+           "position", 
            default=0,
            editable=False  # опционально
        )
@@ -75,7 +93,7 @@ INSTALLED_APPS = [
    from django.contrib import admin
 
    class MyModelAdmin(admin.ModelAdmin):
-       sortable = 'order'
+       sortable = "position"
        # ...
    ```
 
@@ -92,7 +110,7 @@ https://user-images.githubusercontent.com/6928240/125331456-0f1bb280-e359-11eb-8
 from django.contrib import admin
 
 class TablularInline(admin.TabularInline):
-    sortable = 'order'
+    sortable = "position"
     # ...
 ```
 

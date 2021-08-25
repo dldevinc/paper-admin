@@ -6,8 +6,9 @@ from mptt.admin import MPTTModelAdmin
 from solo.admin import SingletonModelAdmin
 
 from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
+from paper_admin.patches.tree_queries.admin import TreeNodeModelAdmin
 
-from .models import Category, Item, MPTTTree, SigletonExample, Tag
+from .models import Category, DjangoTreeQueriesNode, Item, MPTTTree, SigletonExample, Tag
 
 
 @admin.register(Tag)
@@ -239,6 +240,17 @@ class SigletonExampleAdmin(SingletonModelAdmin):
 
 @admin.register(MPTTTree)
 class MPTTTreeAdmin(MPTTModelAdmin):
+    fieldsets = (
+        (None, {
+            "fields": (
+                "parent", "name",
+            ),
+        }),
+    )
+
+
+@admin.register(DjangoTreeQueriesNode)
+class DjangoTreeQueriesNodeAdmin(TreeNodeModelAdmin):
     fieldsets = (
         (None, {
             "fields": (

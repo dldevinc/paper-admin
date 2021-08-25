@@ -2,7 +2,17 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from mptt.admin import MPTTModelAdmin
 
-from .models import Company, Person, Staff, Industry, CompanyIndustry, Category
+from paper_admin.patches.tree_queries.admin import TreeNodeModelAdmin
+
+from .models import (
+    Company,
+    CompanyIndustry,
+    DjangoTreeQueriesNode,
+    Industry,
+    MPTTTree,
+    Person,
+    Staff,
+)
 
 
 @admin.register(Person)
@@ -42,8 +52,8 @@ class CompanyAdmin(admin.ModelAdmin):
         return obj.staff.count()
 
 
-@admin.register(Category)
-class CategoryAdmin(MPTTModelAdmin):
+@admin.register(MPTTTree)
+class MPTTTreeAdmin(MPTTModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
@@ -51,4 +61,16 @@ class CategoryAdmin(MPTTModelAdmin):
             ),
         }),
     )
-    sortable = "order"
+    sortable = "position"
+
+
+@admin.register(DjangoTreeQueriesNode)
+class DjangoTreeQueriesNodeAdmin(TreeNodeModelAdmin):
+    fieldsets = (
+        (None, {
+            "fields": (
+                "parent", "title",
+            ),
+        }),
+    )
+    sortable = "position"
