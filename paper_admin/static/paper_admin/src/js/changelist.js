@@ -40,7 +40,7 @@ const table = document.getElementById("result_list");
 if (table && table.classList.contains("paper-table--sortable")) {
     new SortableTable(table, {
         url: table.dataset.orderUrl,
-        tree: table.classList.contains("paper-table--mptt"),
+        tree: table.classList.contains("paper-table--tree"),
         handler: ".paper-table__sort-handler"
     });
 }

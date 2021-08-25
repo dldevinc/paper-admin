@@ -15,7 +15,7 @@ class PatchMPTTModelAdmin(MPTTModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     https://github.com/darklow/django-suit/issues/381
     """
     list_per_page = 2000
-    mptt_level_indent = 14
+    mptt_level_indent = 12
 
     def get_changelist(self, request, **kwargs):
         base_changelist_class = get_original(MPTTModelAdmin)(self, request, **kwargs)

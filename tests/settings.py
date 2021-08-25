@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "paper_admin.patches.django_solo",
     "paper_admin.patches.logentry_admin",
     "paper_admin.patches.mptt",
+    "paper_admin.patches.tree_queries",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -160,6 +161,7 @@ PAPER_MENU = [
                 label=_("Trees"),
                 models=[
                     "MPTTTree",
+                    "DjangoTreeQueriesNode",
                 ]
             ),
         ]
@@ -168,6 +170,13 @@ PAPER_MENU = [
         app="sortables",
         models=[
             "Company",
+            dict(
+                label=_("Trees"),
+                models=[
+                    "MPTTTree",
+                    "DjangoTreeQueriesNode",
+                ]
+            ),
             "Category"
         ]
     ),

@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.1.0](https://github.com/dldevinc/paper-admin/tree/v3.1.0) - 2021-08-25
+### Features
+- Added support for [django-tree-queries](https://github.com/matthiask/django-tree-queries).
+
 ## [3.0.4](https://github.com/dldevinc/paper-admin/tree/v3.0.4) - 2021-08-20
 ### Features
 - Use improved version of `multi.js`.
