@@ -1,6 +1,6 @@
 django-autocomplete-light==3.8.2
 django-logentry-admin==1.1.0
-django-mptt==0.12.0
+django-mptt==0.13.1
 django-solo==1.1.5
 Pillow==8.3.1
 
