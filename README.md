@@ -137,7 +137,7 @@ from django.utils.translation import gettext_lazy as _
 
 class TablularInlines(admin.TabularInline):
     # имя вкладки, на которой должен быть отображен формсет
-    tab = 'common-tab'
+    tab = 'inlines-tab'
 
 
 @admin.register(Page)
