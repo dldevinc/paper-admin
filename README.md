@@ -2,7 +2,8 @@
 Custom Django admin interface based on Bootstrap 4.
 
 [![PyPI](https://img.shields.io/pypi/v/paper-admin.svg)](https://pypi.org/project/paper-admin/)
-[![Build Status](https://travis-ci.org/dldevinc/paper-admin.svg?branch=master)](https://travis-ci.org/dldevinc/paper-admin)
+[![Build Status](https://github.com/dldevinc/paper-admin/actions/workflows/release.yml/badge.svg)](https://github.com/dldevinc/paper-admin)
+[![Software license](https://img.shields.io/pypi/l/paper-admin.svg)](https://pypi.org/project/paper-admin/)
 
 ## Requirements
 * Python >= 3.6
@@ -208,10 +209,10 @@ from django.utils.translation import gettext_lazy as _
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Info Section'), {
-            'classes': ('paper-card--info', ),
-            'description': _('Description for the fieldset'),
-            'fields': (
+        (_("Info Section"), {
+            "classes": ("paper-card--info", ),
+            "description": _("Description for the fieldset"),
+            "fields": (
                 # ...
             ),
         }),
@@ -245,7 +246,7 @@ from django.contrib import admin
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     
-    def get_row_classes(self, request, obj=None):
+    def get_row_classes(self, request, obj):
         if obj.name.startswith("M"):
             return ["table-success"]
         elif obj.name.startswith("P"):
@@ -300,7 +301,7 @@ PAPER_MENU = [
         url="admin:index",
         icon="fa fa-fw fa-lg fa-area-chart",
     ),
-    dict(       # Пункт меню для приложения
+    dict(       # Пункт меню для приложения app
         app="app",
         icon="fa fa-fw fa-lg fa-home",
         models=[
@@ -310,23 +311,24 @@ PAPER_MENU = [
         ]
     ),
     "-",        # Разделитель
-    "auth",     # Приложение    
-    "sites",    # Приложение
+    "auth",     # Приложение auth    
+    "sites",    # Приложение sites
 ]
 ```
 
 Пункт меню может быть задан одним из четырех способов:
 * Имя приложения (app_label).<br>
   Все модели выбранного приложения образуют подменю. 
-  Порядок моделей будет определен автоматически.
+  Порядок моделей Django определяет автоматически.
 * Путь к модели (app_label.model_name).<br>
-  Создаст пункт меню с заголовком, соответствующим названию модели и соответствующим URL.
+  Создаст пункт меню с заголовком, соответствующим названию модели и 
+  соответствующим URL.
 * Строка-разделитель ("-")<br>
   Добавляет горизонтальную линию. С помощью разделителей можно визуально
   группировать пункты меню.
 * Словарь.<br>
   Самый гибкий способ создания пункта меню. В словаре можно явным образом указать
-  название пункта меню, его URL, иконку, CSS-классы и вложенные пункты.
+  название пункта меню, его URL, иконку, CSS-классы и пункты подменю.
 
 
 При использовании словаря можно указать следующие ключи:
@@ -336,11 +338,12 @@ PAPER_MENU = [
 * `classes`: `str`              - CSS-классы пункта меню
 * `perms`: `str/list/callable`  - права, необходимые для отображения пункта.
     Для определения суперюзера и сотрудников, можно использовать
-    специальные значения `superuser` и `staff`.
+    специальные значения `superuser` и `staff` соответственно.
 * `app`: `str`                  - имя приложения. 
-  Неявно добавляется к именам моделей в `models`.
+  Неявно добавляется к именам моделей, указанным в пункте `models`.
 * `models`: `list/dict`         - дочерние пункты меню. 
-  Может содержать имена моделей или пункты меню.
+  Содержит список имен моделей приложения или пунктов подменю, 
+  которые можно задать в виде словаря.
 
 #### Пример 1.
 ```python
@@ -362,20 +365,23 @@ PAPER_MENU = [
       ]
     ),
     "-",        # Разделитель
-    "auth",     # Приложение
+    "auth",     # Приложение auth
 ]
 ```
 
 #### Пример 2. Проверка прав.
 
-Этот пункт меню увидят только сотрудники, имеющие право на изменение модели `Tag`.
+С помощью параметра `perms` можно укзать названия прав (Django permissions), 
+которые должен иметь пользователь, чтобы увидеть этот пункт меню.
 
 На доступность страниц параметр `perms` никак не влияет. Если пользователь знает
 адрес страницы или ссылка на неё имеется где-то ещё, то пользователь сможет на неё 
-перейти. 
+зайти.
 
 ```python
 PAPER_MENU = [
+    # Пункт меню приложения app увидят только сотрудники (staff), 
+    # имеющие право на изменение модели `app.Tag`.
     dict(
         app="app",
         perms=["staff", "app.change_tag"],
@@ -405,7 +411,7 @@ PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 ## Settings
 
 `PAPER_FAVICON`<br>
-Путь к favicon-файлу, который будет использоваться в интерфейсе админимтратора.<br> 
+Путь к favicon-файлу, который будет использоваться в интерфейсе админиcтратора.<br> 
 Default: `"paper_admin/dist/assets/default_favicon.png"`
 
 `PAPER_ENVIRONMENT_NAME`<br>
@@ -438,17 +444,17 @@ Default: `"staff"`
 Default: `"superuser"`
 
 `PAPER_MENU_HIDE_SINGLE_CHILD`<br>
-Если родительский пункт меню содержит единственный дочерний пункт,
-то вместо отображения выпадающего списка, родительский пункт будет вести
-на страницу дочернего пункта.<br>
+При значении `True`, те пункты меню, которые содержат единственный 
+подпункт, не будут отображаться как выпадающие списки. Вместо этого
+они сразу будут вести на страницу, указанную в подпункте.<br>
 Default: `True`
 
 `PAPER_DEFAULT_TAB_NAME`<br>
-Алиас вкладки по-умолчанию для форм админки.<br>
+Алиас вкладки по-умолчанию.<br>
 Default: `"general"`
 
 `PAPER_DEFAULT_TAB_TITLE`<br>
-Заголовок вкладки по-умолчанию для форм админки.<br>
+Заголовок вкладки по-умолчанию.<br>
 Default: `_("General")`
 
 `PAPER_LOCALE_PACKAGES`<br>

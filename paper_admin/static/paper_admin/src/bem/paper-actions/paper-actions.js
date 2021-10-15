@@ -6,10 +6,10 @@ const TOGGLE_ALL_ID = "action-toggle";
 const CHECKBOX_CLASS = "action-select";
 const CHECKBOX_LABEL_SELECTOR = ".action-checkbox .custom-control";
 const COUNTER_CLASS = "paper-actions__counter";
-const QUESTION_CLASS= "paper-actions__question";
+const QUESTION_CLASS = "paper-actions__question";
 const ALL_CLASS = "paper-actions__all";
-const ACROSS_CLASS = "paper-actions__select-across";
 const CLEAR_CLASS = "paper-actions__clear";
+const ACROSS_INPUT = ".paper-actions__select_across input.select-across";
 
 
 function initActions(inputs) {
@@ -218,7 +218,7 @@ function showQuestion() {
  * @param {Boolean} value
  */
 function setAcrossInput(value) {
-    const acrossInput = document.querySelectorAll(`.${ACROSS_CLASS}`);
+    const acrossInput = document.querySelectorAll(ACROSS_INPUT);
     acrossInput.forEach(function(input) {
         input.value = Number(value);
     });

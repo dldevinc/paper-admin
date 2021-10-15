@@ -219,7 +219,7 @@ class CategoryAdmin(admin.ModelAdmin):
         return ", ".join(str(_) for _ in obj.f_tags.all())
     m2m_field.short_description = _("M2M Field")
 
-    def get_row_classes(self, request, obj=None):
+    def get_row_classes(self, request, obj):
         if obj.f_char.startswith("M"):
             return ["table-success"]
         elif obj.f_char.startswith("P"):
