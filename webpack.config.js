@@ -177,8 +177,14 @@ let config = {
                     priority: 20,
                     test: /[\\/]node_modules[\\/]/,
                     name: function(module) {
-                        let packageName = module.context.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/)[1];
-                        return `npm.${packageName.replace('@', '')}`;
+                        let modulePath = module.nameForCondition();
+                        let match = modulePath.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/);
+                        if (match) {
+                            let packageName = match[1].replace("@", "");
+                            return `npm.${packageName}`;
+                        } else {
+                            throw new Error(`Invalid module path: ${modulePath}`);
+                        }
                     }
                 },
                 innerVendors: {

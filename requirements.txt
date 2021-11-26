@@ -2,7 +2,7 @@ django-autocomplete-light==3.8.2
 django-logentry-admin==1.1.0
 django-mptt==0.13.4
 django-solo==1.2.0
-django-tree-queries==0.6.0
+django-tree-queries==0.7.0
 Pillow==8.4.0
 
 pytest==6.2.5
