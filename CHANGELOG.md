@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.2.0](https://github.com/dldevinc/paper-admin/tree/v3.2.0) - 2021-11-26
+### Features
+- Update to Bootstrap 4.6.1
+
 ## [3.1.2](https://github.com/dldevinc/paper-admin/tree/v3.1.2) - 2021-10-15
 ### Bug Fixes
 - Fixed "Select all" link on changelist page.
