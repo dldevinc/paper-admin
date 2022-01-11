@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /*
   Конвертирует любое значение (число, px, rem) в px.
  */
@@ -7,7 +9,7 @@
   @if ($unit == "px") {
     @return $value;
   } @else if ($unit == "rem") {
-    @return $value / 1rem * 16px;
+    @return math.div($value, 1rem) * 16px;
   } @else {
     @return $value * 1px;
   }

@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/functions/sum";
 @import "./variables";
@@ -23,7 +24,7 @@ $line_height: $paper-message-font-size * $paper-message-line-height;
   border-radius: $paper-message-border-radius;
   background-repeat: no-repeat;
   background-size: $line_height $line_height;
-  background-position: sum($paper-message-padding-x, -$line_height) / 2 $paper-message-padding-y;
+  background-position: math.div(sum($paper-message-padding-x, -$line_height), 2) $paper-message-padding-y;
 
   &:not(:first-child) {
     margin-top: $paper-message-gutter;

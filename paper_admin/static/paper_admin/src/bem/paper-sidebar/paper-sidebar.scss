@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/font-awesome";
 @import "./variables";
@@ -90,7 +91,7 @@
       }
 
       .paper-sidebar__item--divider {
-        margin-left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-icon-width / 2);
+        margin-left: sum($paper-sidebar-link-padding-left-level1, math.div($paper-sidebar-icon-width, 2));
       }
     }
   }
@@ -185,14 +186,14 @@
           content: '';
           position: absolute;
           left: sum($paper-sidebar-link-padding-left-level1, $paper-sidebar-link-padding-left-level2);
-          top: sum($paper-sidebar-link-padding-y, $paper-sidebar-link-font-size * $paper-sidebar-link-line-height / 2);
+          top: sum($paper-sidebar-link-padding-y, $paper-sidebar-link-font-size * math.div($paper-sidebar-link-line-height, 2));
           width: $paper-sidebar-dot-size;
           height: $paper-sidebar-dot-size;
           z-index: 1;
           border-radius: 50%;
           border: 1px solid $paper-sidebar-item-divider-bg;
           background: $paper-sidebar-dot-bg;
-          transform: translate(#{-($paper-sidebar-dot-size - 1) / 2}, #{-($paper-sidebar-dot-size + 1) / 2});
+          transform: translate(math.div(-$paper-sidebar-dot-size + 1, 2), math.div(-$paper-sidebar-dot-size - 1, 2));
           @include transition();
         }
 

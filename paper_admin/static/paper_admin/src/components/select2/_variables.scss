@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 
 $select2-font-size: $input-font-size-lg;
@@ -53,7 +54,7 @@ $select2-multiple-field-item-remove-button-hovered-bg: darken($select2-multiple-
 $select2-search-field-margin-y: 4px;
 $select2-search-field-margin-x: 4px;
 $select2-search-field-padding-y: #{$input-padding-y-lg * 0.75};
-$select2-search-field-padding-x: #{$input-padding-x-lg / 2};
+$select2-search-field-padding-x: math.div($input-padding-x-lg, 2);
 $select2-search-field-bg: $select2-bg;
 $select2-search-field-border-color: $select2-border-color;
 $select2-search-field-border-radius: $select2-border-radius;

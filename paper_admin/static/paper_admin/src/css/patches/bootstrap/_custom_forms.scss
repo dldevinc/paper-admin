@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/functions/sum";
 
@@ -23,14 +24,14 @@
 .custom-control-label {
   &:after,
   &:before {
-    top: ($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2;
+    top: math.div($font-size-lg * $line-height-lg - $custom-control-indicator-size, 2);
   }
 }
 
 .custom-switch {
   .custom-control-label {
     &::after {
-      top: sum(($font-size-lg * $line-height-lg - $custom-control-indicator-size) / 2, $custom-control-indicator-border-width * 2);
+      top: sum(math.div($font-size-lg * $line-height-lg - $custom-control-indicator-size, 2), $custom-control-indicator-border-width * 2);
     }
   }
 }
