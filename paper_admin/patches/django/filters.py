@@ -16,7 +16,7 @@ filters.FieldListFilter.register(
 )
 
 filters.FieldListFilter.register(
-    lambda f: isinstance(f, (models.BooleanField, models.NullBooleanField)),
+    lambda f: isinstance(f, models.BooleanField),
     BooleanFieldListFilter,
     take_priority=True,
 )

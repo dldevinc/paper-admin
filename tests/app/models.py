@@ -84,7 +84,6 @@ class Category(models.Model):
 
     f_bool = models.BooleanField(_("bool"), default=False, help_text=HELP_TEXT)
     f_bool2 = models.BooleanField(_("bool 2"), default=False, help_text=HELP_TEXT)
-    f_nullbool = models.NullBooleanField(_("nullbool"), help_text=HELP_TEXT)
     f_small_int = models.PositiveSmallIntegerField(_("small int"), default=0, help_text=HELP_TEXT)
     f_int_choices = models.PositiveSmallIntegerField(_("int choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)
     f_int_choices2 = models.PositiveSmallIntegerField(_("radio choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)

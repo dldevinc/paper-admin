@@ -18,7 +18,6 @@ FORMFIELD_FOR_DBFIELD_DEFAULTS = {
     models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
     models.UUIDField: {"widget": widgets.AdminUUIDInput},
     models.BooleanField: {"widget": widgets.AdminCheckboxInput},
-    models.NullBooleanField: {"widget": forms.NullBooleanSelect},
     models.FileField: {"widget": forms.ClearableFileInput},
     models.ImageField: {"widget": forms.ClearableFileInput},
 }
