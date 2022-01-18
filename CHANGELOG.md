@@ -3,6 +3,7 @@
 ## [4.0.0](https://github.com/dldevinc/paper-admin/tree/v4.0.0) - 2022-01-18
 ### Features
 - Added support for Python 3.10, Django 4.0
+- Fixed `paper_admin.patches.post_office`. 
 
 ## [3.2.0](https://github.com/dldevinc/paper-admin/tree/v3.2.0) - 2021-11-26
 ### Features

@@ -8,10 +8,9 @@ WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.
 
 
 class PatchCommaSeparatedEmailWidget(CommaSeparatedEmailWidget, metaclass=WidgetMonkeyPatchMeta):
-    # Добавление CSS-класса "vTextField", но без перезаписи всего атрибута "class".
-    def __init__(self, attrs=None):
-        attrs = attrs or {}
-        classes = attrs.get("class", "") or ""
-        classes = (classes + " vTextField").strip()
-        attrs["class"] = classes
-        super().__init__(attrs=attrs)
+    # В оригинальном классе атрибут "class" полностью переопределяется через `.update()`.
+    # Из-за этого стираются классы, назначенные с помощью патчей виджетов Django.
+    # Этот класс удаляет CSS-класс "vTextField", т.к. в paper-admin он не нужен.
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
