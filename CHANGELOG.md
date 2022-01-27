@@ -1,8 +1,11 @@
 # Change Log
 
 ## [4.0.0](https://github.com/dldevinc/paper-admin/tree/v4.0.0) - 2022-01-18
+### ⚠ BREAKING CHANGES
+- Removed support for deprecated `NullBooleanField`.
 ### Features
 - Added support for Python 3.10, Django 4.0
+- Use `sass:math`.
 ### Bug Fixes  
 - Fixed `paper_admin.patches.post_office`. 
 - Fixed `autocomplete_fields` in Django 3.2
