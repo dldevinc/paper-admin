@@ -1,4 +1,4 @@
-django-autocomplete-light==3.8.2
+django-autocomplete-light==3.9.0
 django-logentry-admin==1.1.0
 django-mptt==0.13.4
 django-post-office==3.6.0

@@ -1,5 +1,6 @@
 import copy
 
+import django
 from django import forms
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.widgets import AutocompleteSelect, AutocompleteSelectMultiple
@@ -51,7 +52,7 @@ class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
 
         if db_field.name in self.get_autocomplete_fields(request):
             kwargs["widget"] = AutocompleteSelect(
-                db_field.remote_field,
+                db_field if django.VERSION >= (3, 2) else db_field.remote_field,
                 self.admin_site,
                 using=db
             )
@@ -81,7 +82,7 @@ class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         autocomplete_fields = self.get_autocomplete_fields(request)
         if db_field.name in autocomplete_fields:
             kwargs['widget'] = AutocompleteSelectMultiple(
-                db_field.remote_field,
+                db_field if django.VERSION >= (3, 2) else db_field.remote_field,
                 self.admin_site,
                 using=db
             )
