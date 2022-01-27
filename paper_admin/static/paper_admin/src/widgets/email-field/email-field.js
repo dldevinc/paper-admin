@@ -7,7 +7,7 @@ function update(event) {
         const link = widget.querySelector(".email-field__link");
         if (link) {
             const email = input.value.trim();
-            if (email) {
+            if (/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
                 link.href = "mailto:" + email;
             } else {
                 link.removeAttribute("href");
