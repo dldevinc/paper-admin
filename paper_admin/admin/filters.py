@@ -106,12 +106,6 @@ class BooleanFieldListFilter(FieldListFilter):
                 "value": lookup,
                 "display": title,
             }
-        if isinstance(self.field, models.NullBooleanField):
-            yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
-            }
 
 
 class ChoicesFieldListFilter(FieldListFilter):

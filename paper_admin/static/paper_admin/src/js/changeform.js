@@ -14,7 +14,7 @@ select2_changeform.initAll(".select-field select");
 // Инициализация inline-форм
 let formsets = [];
 document.querySelectorAll(".paper-formset").forEach(function(element) {
-    let formset = new InlineFormset(element);
+    const formset = new InlineFormset(element);
     formset.updateButtonsState();
     formsets.push(formset);
 });

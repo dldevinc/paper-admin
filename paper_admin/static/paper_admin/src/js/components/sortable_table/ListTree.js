@@ -81,11 +81,11 @@ ListTree.prototype._buildTree = function(elements) {
     this._nodes = {};
     this._roots = [];
     elements.forEach(function(elem) {
-        let node = this._createNode(elem);
+        const node = this._createNode(elem);
         this._addNode(node);
 
         while (stack.length) {
-            let stack_node = stack[0];
+            const stack_node = stack[0];
             if (node.parent === stack_node.pk) {
                 stack_node.childs.push(node.pk);
                 stack.unshift(node);
@@ -119,7 +119,7 @@ ListTree.prototype.getRoots = function() {
 ListTree.prototype.getDescendants = function(pk) {
     const node = this.getNode(pk);
     return node.childs.reduce(function(result, child_pk) {
-        let child_node = this.getNode(child_pk);
+        const child_node = this.getNode(child_pk);
         if (child_node) {
             result.push(child_node.element);
             result = result.concat(this.getDescendants(child_pk));

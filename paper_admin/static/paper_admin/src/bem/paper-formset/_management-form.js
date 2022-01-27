@@ -15,7 +15,7 @@ class ManagementForm {
     }
 
     set totalForms(value) {
-        let intValue = parseInt(value);
+        const intValue = parseInt(value);
         if (isNaN(intValue) || (intValue < 0)) {
             throw new Error(`Invalid value: ${value}`);
         }
@@ -30,7 +30,7 @@ class ManagementForm {
     }
 
     set initialForms(value) {
-        let intValue = parseInt(value);
+        const intValue = parseInt(value);
         if (isNaN(intValue) || (intValue < 0)) {
             throw new Error(`Invalid value: ${value}`);
         }
@@ -49,7 +49,7 @@ class ManagementForm {
     }
 
     set minForms(value) {
-        let intValue = parseInt(value);
+        const intValue = parseInt(value);
         if (isNaN(intValue) || (intValue < 0)) {
             throw new Error(`Invalid value: ${value}`);
         }
@@ -68,7 +68,7 @@ class ManagementForm {
     }
 
     set maxForms(value) {
-        let intValue = parseInt(value);
+        const intValue = parseInt(value);
         if (isNaN(intValue) || (intValue < 0)) {
             throw new Error(`Invalid value: ${value}`);
         }

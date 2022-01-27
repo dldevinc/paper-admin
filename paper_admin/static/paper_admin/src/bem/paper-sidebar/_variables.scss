@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/functions/sum";
 
@@ -51,7 +52,7 @@ $paper-sidebar-first-link-active-bg: null !default;
 
 // смещение слева, добавляемое на соответствующем уровне
 $paper-sidebar-link-padding-left-level1: 0 !default;
-$paper-sidebar-link-padding-left-level2: sum($paper-sidebar-link-padding-x, $paper-sidebar-icon-width / 2) !default;
+$paper-sidebar-link-padding-left-level2: sum($paper-sidebar-link-padding-x, math.div($paper-sidebar-icon-width, 2)) !default;
 $paper-sidebar-link-padding-left-level3: 0.75rem !default;
 $paper-sidebar-link-padding-left-level4: 0.75rem !default;
 

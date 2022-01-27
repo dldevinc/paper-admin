@@ -6,7 +6,7 @@ import "./scroll-top-button.scss";
 gsap.registerPlugin(ScrollToPlugin);
 
 document.addEventListener("click", function(event) {
-    let button = event.target.closest(".scroll-top-button");
+    const button = event.target.closest(".scroll-top-button");
     if (button) {
         gsap.to(window, {
             duration: 0.3,
@@ -18,7 +18,7 @@ document.addEventListener("click", function(event) {
 });
 
 window.addEventListener("scroll", function() {
-    let button = document.querySelector(".scroll-top-button");
+    const button = document.querySelector(".scroll-top-button");
     if (button) {
         button.classList.toggle("show", window.pageYOffset >= (document.documentElement.clientHeight * .75));
     }

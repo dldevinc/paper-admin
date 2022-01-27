@@ -29,7 +29,8 @@ INSTALLED_APPS = [
 ## Patches
 Некоторые сторонние библиотеки переопределяют стандартные 
 шаблоны Django и в рамках интерфейса `paper_admin` 
-выглядят инородно. Поэтому приходится применять патчи.
+выглядят инородно. По этой причине (а также для внедрения 
+дополнительного функционала) применяются патчи.
 
 В состав `paper_admin` включены следующие патчи:
 
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
 * `paper_admin.patches.tree_queries`<br>
   Добавление возможности сортировки узлов дерева для [django-tree-queries](https://github.com/matthiask/django-tree-queries).
   
-  **Необходимо** использовать специальный класс вместо `ModelAdmin`:
+  **Необходимо** использовать специальный класс `TreeNodeModelAdmin` вместо `ModelAdmin`:
   ```python
   # admin.py
   from django.contrib import admin
@@ -78,6 +79,8 @@ INSTALLED_APPS = [
    порядковый номер.
 
    ```python
+   # models.py 
+   
    from django.db import models
 
    class MyModel(models.Model):
@@ -88,9 +91,12 @@ INSTALLED_APPS = [
        )
    ```
 
-2. Указать название поля в свойстве `sortable`.
+2. Указать название этого поля в свойстве `sortable` соответствующего 
+   подкласса `ModelAdmin`:
 
    ```python
+   # admin.py
+   
    from django.contrib import admin
 
    class MyModelAdmin(admin.ModelAdmin):
@@ -119,7 +125,8 @@ class TablularInline(admin.TabularInline):
 
 https://user-images.githubusercontent.com/6928240/125331956-b6004e80-e359-11eb-8422-832dfe37bb6c.mp4
 
-Сортировка `paper-admin` совместима с [django-mptt](https://github.com/django-mptt/django-mptt).
+Сортировка `paper-admin` совместима с [django-mptt](https://github.com/django-mptt/django-mptt) 
+(если в `INSTALLED_APPS` добавлен патч `paper_admin.patches.mptt`).
 Менять местами можно только те элементы, которые имеют общего родителя и находятся на одном уровне
 вложенности:
 
@@ -179,6 +186,7 @@ https://user-images.githubusercontent.com/6928240/125336032-4e003700-e35e-11eb-8
 Вкладки можно добавлять динамически, с помощью метода `get_tabs`:
 ```python
 from django.contrib import admin
+from .models import Page
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
@@ -193,7 +201,8 @@ class PageAdmin(admin.ModelAdmin):
 
 ### Стилизация fieldset
 
-Django даёт возможность указать произвольные CSS-классы и описание для любого fieldset.
+Django [даёт возможность](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets) 
+указать произвольные CSS-классы и описание для любого fieldset.
 `paper-admin` предоставляет набор готовых CSS-классов для стилизации fieldset:
 * `paper-card--primary`
 * `paper-card--secondary`
@@ -242,6 +251,7 @@ class PageAdmin(admin.ModelAdmin):
 
 ```python
 from django.contrib import admin
+from .models import Page
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):

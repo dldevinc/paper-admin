@@ -147,7 +147,7 @@ class CategoryAdmin(admin.ModelAdmin):
         (_("Standard Fields"), {
             "tab": "tab2",
             "fields": (
-                "f_bool", "f_bool2", "f_nullbool", "f_small_int", ("f_int_choices", "f_int_choices2", "f_int"),
+                "f_bool", "f_bool2", "f_small_int", ("f_int_choices", "f_int_choices2", "f_int"),
                 "f_bigint", "f_float", "f_decimal",
                 "f_duration", "f_date", "f_date2", "f_time", "f_datetime",
                 "f_char", "f_slug", "f_email", "f_pass", "f_ip", "f_text", "f_uuid", "f_url",
@@ -196,7 +196,7 @@ class CategoryAdmin(admin.ModelAdmin):
     autocomplete_fields = ["f_fk1", "f_tags5"]
     list_display = ["f_char", "f_fk", "f_int", "m2m_field", "f_date", "f_bool"]
     list_editable = ["f_int", "f_bool"]
-    list_filter = ["f_bool", "f_nullbool", "f_int_choices2", "f_date", "f_fk", "f_tags", "f_int"]
+    list_filter = ["f_bool", "f_int_choices2", "f_date", "f_fk", "f_tags", "f_int"]
     list_select_related = ["f_fk"]
     date_hierarchy = "f_date"
     search_fields = ["f_char"]

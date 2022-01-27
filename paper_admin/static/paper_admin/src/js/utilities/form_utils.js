@@ -31,7 +31,7 @@ function isChangedField(field) {
  * @returns {Boolean}
  */
 function containsChangedField(root) {
-    let fields = root.querySelectorAll("input, select, textarea");
+    const fields = root.querySelectorAll("input, select, textarea");
     return Array.from(fields).some(isChangedField);
 }
 
@@ -51,7 +51,7 @@ function setWidgetErrors(widget, errors) {
     }
 
     // очистка списка текущих ошибок
-    let errorList = widget.nextElementSibling;
+    const errorList = widget.nextElementSibling;
     if (errorList && errorList.classList.contains("paper-error-list")) {
         while (errorList.firstChild) {
             errorList.removeChild(errorList.lastChild);
@@ -75,16 +75,16 @@ function setWidgetErrors(widget, errors) {
         });
 
         // form row
-        let formRow = widget.closest(".paper-form__row");
+        const formRow = widget.closest(".paper-form__row");
         if (formRow) {
             formRow.classList.add("paper-form__row--invalid");
         }
 
         // tab
-        let tabPane = widget.closest(".tab-pane");
+        const tabPane = widget.closest(".tab-pane");
         if (tabPane) {
-            let tabButtonId = tabPane.getAttribute("aria-labelledby");
-            let tabButton = tabButtonId && document.getElementById(tabButtonId);
+            const tabButtonId = tabPane.getAttribute("aria-labelledby");
+            const tabButton = tabButtonId && document.getElementById(tabButtonId);
             if (tabButton) {
                 tabButton.classList.add("btn-outline-danger");
                 tabButton.classList.remove("btn-outline-primary");
@@ -94,16 +94,16 @@ function setWidgetErrors(widget, errors) {
         widget.classList.remove("paper-widget--invalid");
 
         // form row
-        let formRow = widget.closest(".paper-form__row");
+        const formRow = widget.closest(".paper-form__row");
         if (formRow) {
             formRow.classList.remove("paper-form__row--invalid");
         }
 
         // tab
-        let tabPane = widget.closest(".tab-pane");
+        const tabPane = widget.closest(".tab-pane");
         if (tabPane && !tabPane.querySelectorAll(".paper-widget--invalid").length) {
-            let tabButtonId = tabPane.getAttribute("aria-labelledby");
-            let tabButton = tabButtonId && document.getElementById(tabButtonId);
+            const tabButtonId = tabPane.getAttribute("aria-labelledby");
+            const tabButton = tabButtonId && document.getElementById(tabButtonId);
             if (tabButton) {
                 tabButton.classList.remove("btn-outline-danger");
                 tabButton.classList.add("btn-outline-primary");
@@ -120,7 +120,7 @@ function setWidgetErrors(widget, errors) {
  */
 function setFormErrors(root, errors) {
     // очистка списка текущих ошибок
-    let errorList = root.querySelector(".paper-messages");
+    const errorList = root.querySelector(".paper-messages");
     if (errorList) {
         while (errorList.firstChild) {
             errorList.removeChild(errorList.lastChild);
@@ -170,14 +170,14 @@ function cleanAllErrors(root=document.body) {
  * @param {object} json
  */
 function setErrorsFromJSON(root, json) {
-    for (let fieldName in json) {
+    for (const [fieldName, errorList] of Object.entries(json)) {
         if (fieldName === "__all__") {
-            setFormErrors(root, json[fieldName].map(record => record.message));
+            setFormErrors(root, errorList.map(record => record.message));
         } else {
             const formRow = root.querySelector(".field-" + fieldName);
             const widget = formRow && formRow.querySelector(".paper-widget");
             if (widget) {
-                setWidgetErrors(widget, json[fieldName].map(record => record.message));
+                setWidgetErrors(widget, errorList.map(record => record.message));
             }
         }
     }

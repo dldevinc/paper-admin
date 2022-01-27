@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/variables/colors";
 @import "./variables";
@@ -26,8 +27,8 @@
   }
 
   .modal-footer {
-    padding: #{$paper-modal-footer-padding-y - ($modal-footer-margin-between / 2)}
-             #{$paper-modal-footer-padding-x - ($modal-footer-margin-between / 2)};
+    padding: #{$paper-modal-footer-padding-y - math.div($modal-footer-margin-between, 2)}
+             #{$paper-modal-footer-padding-x - math.div($modal-footer-margin-between, 2)};
 
     &:empty {
       display: none;

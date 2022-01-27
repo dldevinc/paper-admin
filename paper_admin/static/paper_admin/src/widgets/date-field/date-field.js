@@ -37,7 +37,7 @@ class DateWidget extends Widget {
     }
 
     _getLocale() {
-        for(let locale of getPossibleLocales()) {
+        for(const locale of getPossibleLocales()) {
             if (flatpickr.l10ns[locale]) {
                 return locale
             }
@@ -46,7 +46,7 @@ class DateWidget extends Widget {
     }
 
     _getDateFormat() {
-        for(let locale of getPossibleLocales()) {
+        for(const locale of getPossibleLocales()) {
             if (dateFormats[locale]) {
                 return dateFormats[locale]
             }

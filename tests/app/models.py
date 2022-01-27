@@ -84,14 +84,13 @@ class Category(models.Model):
 
     f_bool = models.BooleanField(_("bool"), default=False, help_text=HELP_TEXT)
     f_bool2 = models.BooleanField(_("bool 2"), default=False, help_text=HELP_TEXT)
-    f_nullbool = models.NullBooleanField(_("nullbool"), help_text=HELP_TEXT)
     f_small_int = models.PositiveSmallIntegerField(_("small int"), default=0, help_text=HELP_TEXT)
     f_int_choices = models.PositiveSmallIntegerField(_("int choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)
     f_int_choices2 = models.PositiveSmallIntegerField(_("radio choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)
     f_int = models.IntegerField(_("int"), default=0, help_text=HELP_TEXT)
     f_bigint = models.BigIntegerField(_("bigint"), default=0, help_text=HELP_TEXT)
     f_float = models.FloatField(_("float"), default=0, help_text=HELP_TEXT)
-    f_decimal = models.DecimalField(_("decimal"), blank=True, decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
+    f_decimal = models.DecimalField(_("decimal"), decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
 
     f_duration = models.DurationField(_("duration"), blank=True, null=True, help_text=HELP_TEXT)
     f_date = models.DateField(_("date"), null=True, help_text=HELP_TEXT)

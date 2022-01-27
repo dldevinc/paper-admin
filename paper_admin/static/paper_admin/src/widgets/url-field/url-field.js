@@ -4,7 +4,7 @@ function update(event) {
         const input = widget.querySelector("input");
         const link = widget.querySelector(".url-field__link");
         if (link) {
-            let url = input.value.trim();
+            const url = input.value.trim();
             if (url) {
                 link.href = url;
             } else {

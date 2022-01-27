@@ -1,6 +1,7 @@
 import json
 
-from django.contrib.admin.widgets import AutocompleteMixin as AutocompleteMixin
+import django
+from django.contrib.admin.widgets import AutocompleteMixin
 from django.contrib.admin.widgets import ManyToManyRawIdWidget
 from django.forms import widgets
 
@@ -59,13 +60,13 @@ class PatchManyToManyRawIdWidget(ManyToManyRawIdWidget, metaclass=WidgetMonkeyPa
 
 
 class PatchAutocompleteMixin(AutocompleteMixin, metaclass=MonkeyPatchMeta):
-    def __init__(self, rel, admin_site, attrs=None, choices=(), using=None):
+    def __init__(self, field, admin_site, attrs=None, choices=(), using=None):
         default_attrs = {
             "class": "custom-select custom-select-lg"
         }
         if attrs:
             default_attrs.update(attrs)
-        get_original(AutocompleteMixin)(self, rel, admin_site, attrs=default_attrs, choices=choices, using=using)
+        get_original(AutocompleteMixin)(self, field, admin_site, attrs=default_attrs, choices=choices, using=using)
 
     @property
     def media(self):
@@ -83,4 +84,16 @@ class PatchAutocompleteMixin(AutocompleteMixin, metaclass=MonkeyPatchMeta):
             "data-placeholder": "",  # Allows clearing of the input.
             "class": attrs["class"] + (" " if attrs["class"] else "") + "admin-autocomplete",
         })
+
+        if django.VERSION >= (3, 2):
+            attrs.update({
+                "data-app-label": self.field.model._meta.app_label,
+                "data-model-name": self.field.model._meta.model_name,
+                "data-field-name": self.field.name,
+            })
+
+        # Django 4.0 support
+        if hasattr(self, "lang"):
+            attrs["lang"] = self.i18n_name
+
         return attrs

@@ -15,12 +15,12 @@ class DateRangeFilter extends Widget {
     }
 
     _init(element) {
-        let dateStart = element.querySelector("[data-range-start]");
-        let dateStartConfig = Object.assign({}, this.opts);
+        const dateStart = element.querySelector("[data-range-start]");
+        const dateStartConfig = Object.assign({}, this.opts);
         flatpickr(dateStart, dateStartConfig);
 
-        let dateEnd = element.querySelector("[data-range-end]");
-        let dateEndConfig = Object.assign({}, this.opts);
+        const dateEnd = element.querySelector("[data-range-end]");
+        const dateEndConfig = Object.assign({}, this.opts);
         flatpickr(dateEnd, dateEndConfig);
 
         element.addEventListener("click", function(event) {
@@ -36,19 +36,19 @@ class DateRangeFilter extends Widget {
     }
 
     _destroy(element) {
-        let dateStart = element.querySelector("[data-range-start]");
+        const dateStart = element.querySelector("[data-range-start]");
         if (dateStart._flatpickr) {
             dateStart._flatpickr.destroy()
         }
 
-        let dateEnd = element.querySelector("[data-range-end]");
+        const dateEnd = element.querySelector("[data-range-end]");
         if (dateEnd._flatpickr) {
             dateEnd._flatpickr.destroy()
         }
     }
 
     _getLocale() {
-        for(let locale of getPossibleLocales()) {
+        for(const locale of getPossibleLocales()) {
             if (flatpickr.l10ns[locale]) {
                 return locale
             }
@@ -57,7 +57,7 @@ class DateRangeFilter extends Widget {
     }
 
     _getDateFormat() {
-        for(let locale of getPossibleLocales()) {
+        for(const locale of getPossibleLocales()) {
             if (dateFormats[locale]) {
                 return dateFormats[locale]
             }

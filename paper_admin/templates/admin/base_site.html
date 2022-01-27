@@ -87,13 +87,25 @@
                         </li>
                       {% endif %}
 
-                      <!-- django-impersonate support -->
                       {% if user.is_impersonate %}
+                        <!-- django-impersonate support -->
                         <li role="presentation">
                           <a href="{% url 'impersonate-stop' %}" class="dropdown-item" role="menuitem">
                             <i class="fa fa-fw fa-sign-out"></i>
                             <span>{{ _("Stop impersonation") }}</span>
                           </a>
+                        </li>
+                      {% elif user.is_hijacked %}
+                        <!-- django-hijack support -->
+                        <li role="presentation">
+                          <form action="{% url 'hijack:release' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="dropdown-item" role="menuitem">
+                              <i class="fa fa-fw fa-sign-out"></i>
+                              <span>{{ _("Stop impersonation") }}</span>
+                            </button>
+                          </form>
                         </li>
                       {% endif %}
 

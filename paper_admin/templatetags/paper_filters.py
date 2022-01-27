@@ -1,8 +1,8 @@
-from django.contrib.admin.views.main import ALL_VAR, ORDER_TYPE_VAR, ORDER_VAR, SEARCH_VAR
+from django.contrib.admin.views.main import ALL_VAR, ORDER_VAR, SEARCH_VAR
 from django.template import Library
 from django.template.loader import get_template
 
-FILTER_KEEP_PARAMS = {ALL_VAR, ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR}
+FILTER_KEEP_PARAMS = {ALL_VAR, ORDER_VAR, SEARCH_VAR}
 register = Library()
 
 
