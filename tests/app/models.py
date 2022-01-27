@@ -90,7 +90,7 @@ class Category(models.Model):
     f_int = models.IntegerField(_("int"), default=0, help_text=HELP_TEXT)
     f_bigint = models.BigIntegerField(_("bigint"), default=0, help_text=HELP_TEXT)
     f_float = models.FloatField(_("float"), default=0, help_text=HELP_TEXT)
-    f_decimal = models.DecimalField(_("decimal"), blank=True, decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
+    f_decimal = models.DecimalField(_("decimal"), decimal_places=2, max_digits=16, default=0, help_text=HELP_TEXT)
 
     f_duration = models.DurationField(_("duration"), blank=True, null=True, help_text=HELP_TEXT)
     f_date = models.DateField(_("date"), null=True, help_text=HELP_TEXT)
