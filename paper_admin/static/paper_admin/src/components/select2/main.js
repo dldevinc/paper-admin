@@ -15,7 +15,7 @@ class Select2Widget extends Widget {
     }
 
     _init(element) {
-        let options = Object.assign({}, this.opts);
+        const options = Object.assign({}, this.opts);
         if (options.allowClear && (typeof options.placeholder == "undefined")) {
             // Использование allowClear требует указать placeholder.
             const emptyOption = element.querySelector("option[value=\"\"]");

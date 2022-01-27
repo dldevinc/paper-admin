@@ -14,28 +14,28 @@ class InlineFormset extends Formset {
 
     setAddFormButtonState(button, state) {
         // отключение кнопок во время анимации
-        let finalState = !this._isTransitioning && state;
+        const finalState = !this._isTransitioning && state;
         super.setAddFormButtonState(button, finalState);
         button.classList.toggle("disabled", !finalState);
     }
 
     setDeleteFormButtonState(button, state) {
         // отключение кнопок во время анимации
-        let finalState = !this._isTransitioning && state;
+        const finalState = !this._isTransitioning && state;
         super.setDeleteFormButtonState(button, finalState);
         button.classList.toggle("disabled", !finalState);
     }
 
     setSortFormButtonState(button, state) {
         // отключение кнопок во время анимации
-        let finalState = !this._isTransitioning && state;
+        const finalState = !this._isTransitioning && state;
         super.setSortFormButtonState(button, finalState);
         button.classList.toggle("disabled", !finalState);
     }
 
     addForm() {
         this._isTransitioning = true;
-        let form = super.addForm();
+        const form = super.addForm();
 
         // Events
         emitters.dom.trigger("mutate", [form]);
@@ -248,13 +248,13 @@ class InlineFormset extends Formset {
         super.setFormIndex(form, index);
 
         // Обновление индекса в заголовке stacked-формы.
-        let caption = form.querySelector(".paper-formset__form-caption");
+        const caption = form.querySelector(".paper-formset__form-caption");
         if (caption) {
             caption.innerHTML = caption.innerHTML.replace(/#(\d+|__prefix__)/g, "#" + (index + 1));
         }
 
         // Обновление кнопки удаления
-        let deleteFormButton = form.querySelector("[data-formset-toggle=\"delete\"]");
+        const deleteFormButton = form.querySelector("[data-formset-toggle=\"delete\"]");
         if (deleteFormButton && deleteFormButton.dataset.formsetForm) {
             const regex = new RegExp("(" + this.prefix + "-(\\d+|__prefix__))");
             const replacement = this.prefix + "-" + index;

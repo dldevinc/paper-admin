@@ -116,7 +116,7 @@ SortableTable.prototype._onEnd = function(evt) {
         row.classList.remove(this.opts.disabledClass);
     }.bind(this));
 
-    let moved = this._getMovedRows(evt);
+    const moved = this._getMovedRows(evt);
     if (!moved.length || (moved.length === 1)) {
         return
     }

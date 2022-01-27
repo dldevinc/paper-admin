@@ -134,7 +134,7 @@ class Formset {
      * @returns {HTMLElement[]}
      */
     getAddFormButtons() {
-        let buttons = [];
+        const buttons = [];
 
         document.querySelectorAll("[data-formset-toggle=\"add\"]").forEach(function(button) {
             if (this.root.id && (button.dataset.formset === this.root.id)) {
@@ -155,7 +155,7 @@ class Formset {
         let buttons = [];
 
         this.getForms().forEach(function(form) {
-            let deleteFormButtons = form.querySelectorAll("[data-formset-toggle=\"delete\"]");
+            const deleteFormButtons = form.querySelectorAll("[data-formset-toggle=\"delete\"]");
             if (deleteFormButtons.length) {
                 buttons = buttons.concat(Array.from(deleteFormButtons));
             }
@@ -172,12 +172,12 @@ class Formset {
         let buttons = [];
 
         this.getForms().forEach(function(form) {
-            let moveUpButtons = form.querySelectorAll("[data-formset-toggle=\"up\"]");
+            const moveUpButtons = form.querySelectorAll("[data-formset-toggle=\"up\"]");
             if (moveUpButtons.length) {
                 buttons = buttons.concat(Array.from(moveUpButtons));
             }
 
-            let moveDownButtons = form.querySelectorAll("[data-formset-toggle=\"down\"]");
+            const moveDownButtons = form.querySelectorAll("[data-formset-toggle=\"down\"]");
             if (moveDownButtons.length) {
                 buttons = buttons.concat(Array.from(moveDownButtons));
             }
@@ -215,7 +215,7 @@ class Formset {
 
     _initAddFormButtons() {
         document.addEventListener("click", function(event) {
-            let button = event.target.closest("[data-formset-toggle=\"add\"]");
+            const button = event.target.closest("[data-formset-toggle=\"add\"]");
             if (button) {
                 if (this.root.id && (button.dataset.formset === this.root.id)) {
                     this.addForm();
@@ -228,9 +228,9 @@ class Formset {
 
     _initDeleteFormButtons() {
         document.addEventListener("click", function(event) {
-            let button = event.target.closest("[data-formset-toggle=\"delete\"]");
+            const button = event.target.closest("[data-formset-toggle=\"delete\"]");
             if (button && this.root.contains(button)) {
-                let form = button.closest(this.formSelector);
+                const form = button.closest(this.formSelector);
                 if (form) {
                     this.deleteForm(form);
                 }
@@ -240,16 +240,16 @@ class Formset {
 
     _initSortFormButtons() {
         document.addEventListener("click", function(event) {
-            let moveUpButton = event.target.closest("[data-formset-toggle=\"up\"]");
-            let moveDownButton = event.target.closest("[data-formset-toggle=\"down\"]");
+            const moveUpButton = event.target.closest("[data-formset-toggle=\"up\"]");
+            const moveDownButton = event.target.closest("[data-formset-toggle=\"down\"]");
 
             if (moveUpButton && this.root.contains(moveUpButton)) {
-                let form = moveUpButton.closest(this.formSelector);
+                const form = moveUpButton.closest(this.formSelector);
                 if (form) {
                     this.moveFormUp(form);
                 }
             } else if (moveDownButton && this.root.contains(moveDownButton)) {
-                let form = moveDownButton.closest(this.formSelector);
+                const form = moveDownButton.closest(this.formSelector);
                 if (form) {
                     this.moveFormDown(form);
                 }
@@ -262,8 +262,8 @@ class Formset {
             throw new Error("Maximum number of forms is reached");
         }
 
-        let formFragment = this.formTemplate.content.cloneNode(true);
-        let form = formFragment.children[0];
+        const formFragment = this.formTemplate.content.cloneNode(true);
+        const form = formFragment.children[0];
 
         this.formContainer.appendChild(formFragment);
 

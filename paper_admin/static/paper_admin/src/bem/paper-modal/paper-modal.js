@@ -462,7 +462,7 @@ class PaperModal extends Modal {
 
         const superCall = super.hide.bind(this);
         if ((stackIndex === _stack.length) && (stackIndex > 0)) {
-            let previousModal = _stack[_stack.length - 1];
+            const previousModal = _stack[_stack.length - 1];
             if (previousModal.suspended) {
                 this._removeBackdrop();
                 this._suspend(event);
@@ -585,7 +585,7 @@ function showErrors(errors, options) {
         } else {
             title = gettext("Please correct the following errors");
 
-            let output = [`<ul class="px-4 mb-0">`];
+            const output = [`<ul class="px-4 mb-0">`];
             for (let i=0, l=errors.length; i<l; i++) {
                 output.push(`<li>${errors[i]}</li>`);
             }
