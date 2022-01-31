@@ -108,46 +108,6 @@ let config = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new ImageMinimizerPlugin({
-            minimizerOptions: {
-                plugins: [
-                    [
-                        "gifsicle",
-                        {
-                            interlaced: true,
-                            optimizationLevel: 3
-                        }
-                    ],
-                    [
-                        "mozjpeg",
-                        {
-                            progressive: true
-                        }
-                    ],
-                    [
-                        "optipng",
-                        {
-                            optimizationLevel: 7
-                        }
-                    ],
-                    [
-                        "svgo",
-                        {
-                            plugins: [
-                                {
-                                    name: 'preset-default',
-                                    params: {
-                                        overrides: {
-                                            removeViewBox: false,
-                                        },
-                                    },
-                                },
-                            ],
-                        },
-                    ],
-                ]
-            }
-        }),
         new HtmlWebpackPlugin({
             templateContent: ({htmlWebpackPlugin}) =>
                 `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
@@ -212,6 +172,39 @@ let config = {
                 }
             }
         },
+        minimizer: [
+            new ImageMinimizerPlugin({
+                minimizer: {
+                    implementation: ImageMinimizerPlugin.imageminMinify,
+                    options: {
+                        plugins: [
+                            ["gifsicle", {
+                                interlaced: true,
+                                optimizationLevel: 3
+                            }],
+                            ["mozjpeg", {
+                                progressive: true
+                            }],
+                            ["optipng", {
+                                optimizationLevel: 7
+                            }],
+                            ["svgo", {
+                                plugins: [
+                                    {
+                                        name: "preset-default",
+                                        params: {
+                                            overrides: {
+                                                removeViewBox: false,
+                                            },
+                                        },
+                                    },
+                                ],
+                            }]
+                        ]
+                    }
+                }
+            })
+        ],
     },
     watchOptions: {
         aggregateTimeout: 2000,
