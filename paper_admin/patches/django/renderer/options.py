@@ -1,3 +1,4 @@
+import django
 from django import forms
 from django.contrib.admin import helpers
 from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
@@ -54,4 +55,11 @@ class PatchInlineModelAdmin(InlineModelAdmin, metaclass=ModelAdminMonkeyPatchMet
         if form.default_renderer is None:
             form.default_renderer = PaperFormRenderer
         kwargs.setdefault("form", form)
+
+        if django.VERSION >= (4, 0):
+            # Начиная с Django 4.0, функция formset_factory() принимает новый параметр
+            # renderer. Если значение этой переменной не задано, то используется
+            # рендерер по умолчанию (Django Templates), а не form.default_renderer.
+            kwargs.setdefault("renderer", PaperFormRenderer())
+
         return get_original(InlineModelAdmin)(self, *args, **kwargs)
