@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.0.0](https://github.com/dldevinc/paper-admin/tree/v4.0.0) - 2022-02-22
+### Bug Fixes
+- Fixed form renderer issue with Django 4.0 
+
 ## [4.0.0rc1](https://github.com/dldevinc/paper-admin/tree/v4.0.0rc1) - 2022-01-18
 ### ⚠ BREAKING CHANGES
 - Removed support for deprecated `NullBooleanField`.
