@@ -1,5 +1,10 @@
 # Change Log
 
+## [4.0.1](https://github.com/dldevinc/paper-admin/tree/v4.0.1) - 2022-03-07
+### Features
+- Redirect to changelist after deleting an object with read-only permissions.
+  By default, such redirect occurs only when `has_change_permission()` returned `True`.
+
 ## [4.0.0](https://github.com/dldevinc/paper-admin/tree/v4.0.0) - 2022-02-22
 ### Bug Fixes
 - Fixed form renderer issue with Django 4.0 
