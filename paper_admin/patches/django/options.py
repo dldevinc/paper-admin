@@ -1,9 +1,21 @@
+import json
+
 from django import forms
-from django.contrib.admin.options import InlineModelAdmin, ModelAdmin, csrf_protect_m
+from django.contrib import messages
+from django.contrib.admin.options import (
+    IS_POPUP_VAR,
+    InlineModelAdmin,
+    ModelAdmin,
+    csrf_protect_m,
+)
+from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.utils import model_format_dict
 from django.contrib.admin.views.main import SEARCH_VAR
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.db.models.fields import BLANK_CHOICE_DASH
+from django.http import HttpResponseRedirect
+from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
@@ -63,6 +75,46 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         }
         default_extra.update(extra_context or {})
         return get_original(ModelAdmin)(self, request, object_id, default_extra)
+
+    def response_delete(self, request, obj_display, obj_id):
+        # Добавление редиректа на список при наличии прав на чтение
+        opts = self.model._meta
+
+        if IS_POPUP_VAR in request.POST:
+            popup_response_data = json.dumps({
+                "action": "delete",
+                "value": str(obj_id),
+            })
+            return TemplateResponse(request, self.popup_response_template or [
+                "admin/%s/%s/popup_response.html" % (opts.app_label, opts.model_name),
+                "admin/%s/popup_response.html" % opts.app_label,
+                "admin/popup_response.html",
+            ], {
+                "popup_response_data": popup_response_data,
+            })
+
+        self.message_user(
+            request,
+            _("The %(name)s “%(obj)s” was deleted successfully.") % {
+                "name": opts.verbose_name,
+                "obj": obj_display,
+            },
+            messages.SUCCESS,
+        )
+
+        if self.has_view_permission(request, None):
+            post_url = reverse(
+                "admin:%s_%s_changelist" % (opts.app_label, opts.model_name),
+                current_app=self.admin_site.name,
+            )
+            preserved_filters = self.get_preserved_filters(request)
+            post_url = add_preserved_filters(
+                {"preserved_filters": preserved_filters, "opts": opts}, post_url
+            )
+        else:
+            post_url = reverse("admin:index", current_app=self.admin_site.name)
+
+        return HttpResponseRedirect(post_url)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         response = get_original(ModelAdmin)(self, request, context, add=add, change=change, form_url=form_url, obj=obj)
