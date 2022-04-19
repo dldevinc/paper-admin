@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.0.2](https://github.com/dldevinc/paper-admin/tree/v4.0.2) - 2022-04-19
+### Bug Fixes
+- Update npm packages.
+
 ## [4.0.1](https://github.com/dldevinc/paper-admin/tree/v4.0.1) - 2022-03-16
 ### Features
 - Redirect to changelist after deleting an object with read-only permissions.
