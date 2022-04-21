@@ -3,6 +3,8 @@
 @import "./variables";
 
 .paper-card {
+  box-shadow: $paper-card-box-shadow;
+
   .card-header {
     border-top-left-radius: $card-border-radius;
     border-top-right-radius: $card-border-radius;
