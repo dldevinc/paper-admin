@@ -1,5 +1,10 @@
 # Change Log
 
+## [4.0.3](https://github.com/dldevinc/paper-admin/tree/v4.0.3) - 2022-05-13
+### Features
+- `post_office` patch package is now deprecated and will be removed in a future release.
+  The `post-office` libarary considered too specific to be included in `paper-admin`.
+
 ## [4.0.2](https://github.com/dldevinc/paper-admin/tree/v4.0.2) - 2022-04-19
 ### Bug Fixes
 - Update npm packages.

@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     "paper_admin.patches.django_solo",
     "paper_admin.patches.logentry_admin",
     "paper_admin.patches.mptt",
-    "paper_admin.patches.post_office",
     "paper_admin.patches.tree_queries",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     "mptt",
     "solo",
     "logentry_admin",
-    "post_office",
 
     "app",
     "sortables"
@@ -182,7 +180,6 @@ PAPER_MENU = [
             "Category"
         ]
     ),
-    "post_office",
     "-",
     "auth",
     dict(

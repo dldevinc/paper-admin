@@ -18,7 +18,6 @@ INSTALLED_APPS = [
     "paper_admin.patches.django_solo",      # optional
     "paper_admin.patches.mptt",             # optional
     "paper_admin.patches.logentry_admin",   # optional
-    "paper_admin.patches.post_office",      # optional
     "paper_admin.patches.tree_queries",     # optional
     # ...
     "django.contrib.admin",
@@ -46,9 +45,6 @@ INSTALLED_APPS = [
 
 * `paper_admin.patches.logentry_admin`<br>
   Исправление фильтров и скрытие ненужных кнопок в [django-logentry-admin](https://github.com/yprez/django-logentry-admin).  
-
-* `paper_admin.patches.post_office`<br>
-  Исправление виджета списка email адресов в [django-post_office](https://github.com/ui/django-post_office)  
 
 * `paper_admin.patches.tree_queries`<br>
   Добавление возможности сортировки узлов дерева для [django-tree-queries](https://github.com/matthiask/django-tree-queries).
