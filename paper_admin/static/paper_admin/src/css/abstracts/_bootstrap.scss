@@ -19,7 +19,7 @@ $secondary:   $gray-600;
 $light:       $gray-200;
 $dark:        #1d1d1d;
 
-$body-bg:     #f8f8fa;
+$body-bg:     #edf5f8;
 $body-color:  $dark;
 $border-color: $gray-200;
 
@@ -50,6 +50,7 @@ $input-focus-box-shadow: 0 0 0 1px $input-focus-border-color;
 $input-btn-padding-x: 0.625rem;
 $input-btn-padding-x-lg: 0.75rem;
 $input-group-addon-color: $gray-600;
+$input-disabled-bg: #eaf2f2;
 
 // custom controls
 $custom-control-indicator-size: 1.375rem;
@@ -127,6 +128,7 @@ $caret-width: 0.325em;
 $caret-vertical-align: 0.1875em;
 $caret-spacing: 0.125em;
 
+$dropdown-border-color: #e0e5e7;
 $dropdown-padding-y: 0.001px;  // disable border-radius
 $dropdown-item-padding-x: 0.75rem;
 $dropdown-item-padding-y: 0.5rem;
@@ -152,7 +154,7 @@ $card-bg: transparent;   // fix background leak
 $card-cap-bg: #fff;
 $card-spacer-x: 1rem;
 $card-spacer-y: 0.75rem;
-$card-border-color: $gray-200;
+$card-border-color: #e0e5e7;
 
 // modal
 $modal-dialog-margin: 2rem;

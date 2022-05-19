@@ -9,6 +9,7 @@
   border-collapse: separate;
   border-radius: $border-radius;
   border: $paper-table-border-width solid $paper-table-border-color;
+  box-shadow: $paper-table-box-shadow;
 
   &__small-column {
     width: 0.1%;
@@ -102,7 +103,7 @@
   }
 
   tfoot td {
-    border-top: $paper-table-head-border-width solid $paper-table-head-border-color;
+    border-top: $paper-table-foot-border-width solid $paper-table-foot-border-color;
   }
 
   tbody {

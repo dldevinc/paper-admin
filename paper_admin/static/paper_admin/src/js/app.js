@@ -72,7 +72,6 @@ import "bem/paper-widget/paper-widget";
 // -----------------
 //  CSS for pages
 // -----------------
-import "css/dashboard.scss";
 import "css/login.scss";
 
 // -----------------

@@ -2,7 +2,8 @@
 
 $paper-table-bg: #fff !default;
 $paper-table-border-width: 1px !default;
-$paper-table-border-color: $gray-200 !default;
+$paper-table-border-color: $card-border-color !default;
+$paper-table-box-shadow: 0 8px 12px rgb(0 0 0 / 2%) !default;
 
 $paper-table-row-selected-bg: theme-color-level("warning", -11) !default;
 
@@ -17,7 +18,10 @@ $paper-table-head-font-weight: 500 !default;
 $paper-table-head-text-transform: uppercase !default;
 $paper-table-head-bg: null !default;
 $paper-table-head-border-width: 1px !default;
-$paper-table-head-border-color: $gray-300 !default;
+$paper-table-head-border-color: #dadada !default;
+
+$paper-table-foot-border-width: 1px !default;
+$paper-table-foot-border-color: #dadada !default;
 
 $paper-table-sort-btn-color: $gray-600 !default;
 $paper-table-sort-btn-border-radius: 0.125rem !default;
