@@ -1,5 +1,4 @@
-import {Select2Widget} from "components/select2";
-
+import { Select2Widget } from "components/select2";
 
 const widget = new Select2Widget({
     width: "100%",

@@ -8,15 +8,17 @@ class TimeWidget extends Widget {
     constructor() {
         super();
 
-        document.addEventListener("click", function(event) {
+        document.addEventListener("click", function (event) {
             const button = event.target.closest(".time-field__button");
             if (button) {
                 const widget = button.closest(".time-field");
                 const input = widget && widget.querySelector("input");
                 if (input) {
                     const today = new Date();
-                    input.value = today.getHours().toString().padStart(2, "0")
-                        + ":" + today.getMinutes().toString().padStart(2, "0");
+                    input.value =
+                        today.getHours().toString().padStart(2, "0") +
+                        ":" +
+                        today.getMinutes().toString().padStart(2, "0");
                 }
             }
         });
@@ -24,13 +26,13 @@ class TimeWidget extends Widget {
 
     _init(element) {
         $(element).clockpicker({
-            'default': 'now',
+            default: "now",
             autoclose: true
         });
     }
 
     _destroy(element) {
-        $(element).clockpicker('remove');
+        $(element).clockpicker("remove");
     }
 }
 

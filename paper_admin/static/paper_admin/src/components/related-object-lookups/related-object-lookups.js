@@ -19,17 +19,23 @@ function showAdminPopup(triggeringLink, name_regexp, add_popup) {
         browser_top = typeof window.screenY !== "undefined" ? window.screenY : window.screenTop,
         browser_width = typeof window.outerWidth !== "undefined" ? window.outerWidth : document.body.clientWidth,
         browser_height = typeof window.outerHeight !== "undefined" ? window.outerHeight : document.body.clientHeight,
-        popup_width = Math.max(940, browser_width * .7),
-        popup_height = Math.max(600, browser_height * .7),
+        popup_width = Math.max(940, browser_width * 0.7),
+        popup_height = Math.max(600, browser_height * 0.7),
         top_position = browser_top + Math.round((browser_height - popup_height) / 2),
         left_position = browser_left + Math.round((browser_width - popup_width) / 2);
 
-    const win = window.open(href, name,
-        "width=" + popup_width +
-        ",height=" + popup_height +
-        ",top=" + top_position +
-        ",left=" + left_position +
-        ",resizable=yes,scrollbars=yes"
+    const win = window.open(
+        href,
+        name,
+        "width=" +
+            popup_width +
+            ",height=" +
+            popup_height +
+            ",top=" +
+            top_position +
+            ",left=" +
+            left_position +
+            ",resizable=yes,scrollbars=yes"
     );
 
     win.focus();
@@ -51,7 +57,7 @@ function dismissRelatedLookupPopup(win, chosenId) {
     win.close();
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const triggeringLink = event.target.closest(".related-lookup");
     if (triggeringLink) {
         event.preventDefault();
@@ -72,6 +78,4 @@ document.addEventListener("click", function(event) {
 window.showRelatedObjectLookupPopup = showRelatedObjectLookupPopup;
 window.dismissRelatedLookupPopup = dismissRelatedLookupPopup;
 
-export {
-    showAdminPopup
-}
+export { showAdminPopup };

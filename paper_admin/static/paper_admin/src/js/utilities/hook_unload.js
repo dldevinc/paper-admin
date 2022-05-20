@@ -11,12 +11,12 @@ export function hookUnload(form) {
     let submit = false;
     let formHasChanged = false;
 
-    form.addEventListener("submit", function() {
+    form.addEventListener("submit", function () {
         submit = true;
     });
 
     const message = gettext("You have unsaved changes");
-    window.addEventListener("beforeunload", function(evt) {
+    window.addEventListener("beforeunload", function (evt) {
         if (!submit && formHasChanged) {
             evt.preventDefault();
             evt.returnValue = message;
@@ -40,7 +40,7 @@ export function hookUnload(form) {
 
             const target = event.target;
             const widget = target.closest(".paper-widget");
-            const prevent_hook = target.closest("[data-hook-unload=\"prevent\"]") !== null;
+            const prevent_hook = target.closest('[data-hook-unload="prevent"]') !== null;
             if (!prevent_hook && widget && form.contains(widget)) {
                 formHasChanged = true;
             }

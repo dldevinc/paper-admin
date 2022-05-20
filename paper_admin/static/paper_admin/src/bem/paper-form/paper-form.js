@@ -1,8 +1,7 @@
-import {hookUnload} from "js/utilities/hook_unload";
+import { hookUnload } from "js/utilities/hook_unload";
 
 import "./paper-form.scss";
 
-
-document.querySelectorAll(".paper-form--hook").forEach(function(form) {
+document.querySelectorAll(".paper-form--hook").forEach(function (form) {
     hookUnload(form);
 });

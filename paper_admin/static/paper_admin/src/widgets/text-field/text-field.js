@@ -8,13 +8,11 @@ class AutosizeWidget extends Widget {
         autosize(element);
     }
 
-    _destroy(element) {
-
-    }
+    _destroy(element) {}
 }
 
 // FIX bootstrap tabs
-$(document).on("shown.bs.tab", function(event) {
+$(document).on("shown.bs.tab", function (event) {
     const tab_selector = event.target.getAttribute("href");
     const tab_pane = tab_selector && document.querySelector(tab_selector);
     if (tab_pane) {

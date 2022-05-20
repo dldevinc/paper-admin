@@ -8,9 +8,8 @@
 import emitters from "js/utilities/emitters";
 import urlify from "./urlify";
 
-
 function initPrepopulation(root = document.body) {
-    root.querySelectorAll(".prepopulated-field").forEach(function(widget) {
+    root.querySelectorAll(".prepopulated-field").forEach(function (widget) {
         let config;
         const formset = widget.closest(".paper-formset");
         if (formset) {
@@ -21,57 +20,61 @@ function initPrepopulation(root = document.body) {
         }
 
         if (!config) {
-            return
+            return;
         }
 
         const fieldName = widget.dataset.prepopulateFieldName;
         const fieldConfig = config[fieldName];
         if (!fieldConfig) {
-            return
+            return;
         }
 
         // поиск автозаполняемого поля формы
         const prepopulatedField = widget.querySelector("[name$=" + fieldName + "]");
         if (!prepopulatedField) {
-            return
+            return;
         }
 
         // поиск полей, от которых зависит текущее поле
-        const dependencies = fieldConfig.dependencies.map(function(name) {
-            const dependencyFieldName = prepopulatedField.name.replace(new RegExp(fieldName + "$"), name);
-            return document.querySelector("[name=" + dependencyFieldName + "]");
-        }).filter(Boolean);
+        const dependencies = fieldConfig.dependencies
+            .map(function (name) {
+                const dependencyFieldName = prepopulatedField.name.replace(new RegExp(fieldName + "$"), name);
+                return document.querySelector("[name=" + dependencyFieldName + "]");
+            })
+            .filter(Boolean);
 
         if (!dependencies.length) {
             return;
         }
 
         // автозаполнение поля
-        const populate = function() {
+        const populate = function () {
             // Bail if the field's value has been changed by the user
             if (prepopulatedField.dataset._changed === "1") {
                 return;
             }
 
-            const values = dependencies.map(function(dependency) {
-                return dependency.value;
-            }).filter(Boolean);
+            const values = dependencies
+                .map(function (dependency) {
+                    return dependency.value;
+                })
+                .filter(Boolean);
 
             prepopulatedField.value = urlify(values.join(" "), fieldConfig.maxLength, fieldConfig.allowUnicode);
-        }
+        };
 
-        const toggleAutocomplete = function() {
+        const toggleAutocomplete = function () {
             if (prepopulatedField.value) {
                 prepopulatedField.dataset._changed = "1";
             } else {
                 prepopulatedField.dataset._changed = "0";
             }
-        }
+        };
 
         prepopulatedField.addEventListener("change", toggleAutocomplete);
         toggleAutocomplete();
 
-        dependencies.forEach(function(dependencyField) {
+        dependencies.forEach(function (dependencyField) {
             dependencyField.addEventListener("keyup", populate);
             dependencyField.addEventListener("change", populate);
             dependencyField.addEventListener("focus", populate);
@@ -79,8 +82,7 @@ function initPrepopulation(root = document.body) {
     });
 }
 
-
 initPrepopulation();
-emitters.inlines.on("added", function(form, prefix) {
+emitters.inlines.on("added", function (form, prefix) {
     initPrepopulation(form);
 });

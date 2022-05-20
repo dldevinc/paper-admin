@@ -28,5 +28,5 @@ export default function getPossibleLocales() {
     // версия по-умолчанию
     locales.push("en");
 
-    return locales
+    return locales;
 }

@@ -28,7 +28,7 @@ function ListTree(elements) {
  * @returns {module:ListTree.ListTreeNode}
  * @private
  */
-ListTree.prototype._createNode = function(child) {
+ListTree.prototype._createNode = function (child) {
     const dataset = child.dataset;
     return {
         pk: parseInt(dataset.id),
@@ -44,8 +44,8 @@ ListTree.prototype._createNode = function(child) {
  * @returns {Boolean}
  * @private
  */
-ListTree.prototype._addNode = function(node) {
-    if (node && (typeof node.pk === "number")) {
+ListTree.prototype._addNode = function (node) {
+    if (node && typeof node.pk === "number") {
         this._nodes[node.pk] = node;
         if (isNaN(node.parent)) {
             this._roots.push(node);
@@ -60,7 +60,7 @@ ListTree.prototype._addNode = function(node) {
  * @param {Number} pk
  * @returns {module:ListTree.ListTreeNode}
  */
-ListTree.prototype.getNode = function(pk) {
+ListTree.prototype.getNode = function (pk) {
     if (this._nodes === null) {
         throw new Error("tree is empty");
     }
@@ -75,40 +75,44 @@ ListTree.prototype.getNode = function(pk) {
  * @param {Element[]} elements
  * @private
  */
-ListTree.prototype._buildTree = function(elements) {
+ListTree.prototype._buildTree = function (elements) {
     const stack = [];
 
     this._nodes = {};
     this._roots = [];
-    elements.forEach(function(elem) {
-        const node = this._createNode(elem);
-        this._addNode(node);
+    elements.forEach(
+        function (elem) {
+            const node = this._createNode(elem);
+            this._addNode(node);
 
-        while (stack.length) {
-            const stack_node = stack[0];
-            if (node.parent === stack_node.pk) {
-                stack_node.childs.push(node.pk);
-                stack.unshift(node);
-                return
+            while (stack.length) {
+                const stack_node = stack[0];
+                if (node.parent === stack_node.pk) {
+                    stack_node.childs.push(node.pk);
+                    stack.unshift(node);
+                    return;
+                }
+                stack.shift();
             }
-            stack.shift();
-        }
 
-        stack.unshift(node);
-    }.bind(this));
+            stack.unshift(node);
+        }.bind(this)
+    );
 };
 
 /**
  * Получение корневых элементов.
  * @returns {Element[]}
  */
-ListTree.prototype.getRoots = function() {
+ListTree.prototype.getRoots = function () {
     if (this._roots === null) {
         throw new Error("tree is empty");
     }
-    return this._roots.map(function(root_node) {
-        return root_node.element
-    }.bind(this));
+    return this._roots.map(
+        function (root_node) {
+            return root_node.element;
+        }.bind(this)
+    );
 };
 
 /**
@@ -116,17 +120,19 @@ ListTree.prototype.getRoots = function() {
  * @param {Number} pk
  * @returns {Element[]}
  */
-ListTree.prototype.getDescendants = function(pk) {
+ListTree.prototype.getDescendants = function (pk) {
     const node = this.getNode(pk);
-    return node.childs.reduce(function(result, child_pk) {
-        const child_node = this.getNode(child_pk);
-        if (child_node) {
-            result.push(child_node.element);
-            result = result.concat(this.getDescendants(child_pk));
-        }
-        return result
-    }.bind(this), []);
+    return node.childs.reduce(
+        function (result, child_pk) {
+            const child_node = this.getNode(child_pk);
+            if (child_node) {
+                result.push(child_node.element);
+                result = result.concat(this.getDescendants(child_pk));
+            }
+            return result;
+        }.bind(this),
+        []
+    );
 };
-
 
 export default ListTree;

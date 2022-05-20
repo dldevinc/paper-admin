@@ -3,7 +3,6 @@ import FlatpickrLanguages from "flatpickr/dist/l10n";
 
 import "./flatpickr.scss";
 
-
 /*
     Карта соответствия формата даты и языка.
 
@@ -46,12 +45,7 @@ const dateFormats = {
     tr: "d/m/Y",
     uk: "d.m.Y",
     zh_hans: "Y/m/d",
-    zh_hant: "Y/m/d",
-}
-
-
-export {
-    flatpickr,
-    FlatpickrLanguages,
-    dateFormats
+    zh_hant: "Y/m/d"
 };
+
+export { flatpickr, FlatpickrLanguages, dateFormats };

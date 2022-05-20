@@ -10,14 +10,14 @@ if (/add\/?$/.test(window.location.pathname)) {
 }
 
 // Close popup on Esc
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.which === 27) {
         window.close();
     }
 });
 
 // "Close popup" button
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const link = event.target.closest(".cancel-link");
     if (link) {
         event.preventDefault();

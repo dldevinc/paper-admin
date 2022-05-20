@@ -24,12 +24,15 @@ import ListTree from "js/components/sortable_table/ListTree";
  */
 function SortableTable(table, options) {
     /** @type {module:SortableTable.SortableTableOptions} */
-    this.opts = Object.assign({
-        url: null,
-        tree: false,
-        handler: ".handler",
-        disabledClass: "disabled",
-    }, options);
+    this.opts = Object.assign(
+        {
+            url: null,
+            tree: false,
+            handler: ".handler",
+            disabledClass: "disabled"
+        },
+        options
+    );
 
     /** @type {Element} */
     this.table = table;
@@ -50,25 +53,25 @@ function SortableTable(table, options) {
  * Инициализация плагина сортировки.
  * @private
  */
-SortableTable.prototype._createSortable = function() {
+SortableTable.prototype._createSortable = function () {
     return Sortable.create(this.tbody, {
         animation: 0,
         draggable: "tr",
         handle: this.opts.handler,
-        filter: function(event, row, instance) {
+        filter: function (event, row, instance) {
             if (row.classList.contains(this.opts.disabledClass)) {
-                return true
+                return true;
             }
 
             const handler = row.querySelector(this.opts.handler);
             if (handler && handler.classList.contains(this.opts.disabledClass)) {
-                return true
+                return true;
             }
         }.bind(this),
         ghostClass: "sortable-ghost",
         onStart: this._onStart.bind(this),
         onMove: this._onMove.bind(this),
-        onEnd: this._onEnd.bind(this),
+        onEnd: this._onEnd.bind(this)
     });
 };
 
@@ -77,7 +80,7 @@ SortableTable.prototype._createSortable = function() {
  * @param evt
  * @private
  */
-SortableTable.prototype._onStart = function(evt) {
+SortableTable.prototype._onStart = function (evt) {
     const rows = this.tbody.querySelectorAll("tr");
 
     if (this.opts.tree) {
@@ -86,12 +89,14 @@ SortableTable.prototype._onStart = function(evt) {
 
     // блокируем все узлы, кроме соседних
     const item_parentId = parseInt(evt.item.dataset.parent);
-    rows.forEach(function(row) {
-        const parentId = parseInt(row.dataset.parent);
-        if ((!isNaN(parentId) || !isNaN(item_parentId)) && parentId !== item_parentId) {
-            row.classList.add(this.opts.disabledClass);
-        }
-    }.bind(this));
+    rows.forEach(
+        function (row) {
+            const parentId = parseInt(row.dataset.parent);
+            if ((!isNaN(parentId) || !isNaN(item_parentId)) && parentId !== item_parentId) {
+                row.classList.add(this.opts.disabledClass);
+            }
+        }.bind(this)
+    );
 };
 
 /**
@@ -100,7 +105,7 @@ SortableTable.prototype._onStart = function(evt) {
  * @returns {Boolean}
  * @private
  */
-SortableTable.prototype._onMove = function(evt) {
+SortableTable.prototype._onMove = function (evt) {
     return !evt.related.classList.contains(this.opts.disabledClass);
 };
 
@@ -109,16 +114,18 @@ SortableTable.prototype._onMove = function(evt) {
  * @param evt
  * @private
  */
-SortableTable.prototype._onEnd = function(evt) {
+SortableTable.prototype._onEnd = function (evt) {
     // снимаем блокировку со всех узлов
     const rows = this.tbody.querySelectorAll("tr");
-    rows.forEach(function(row) {
-        row.classList.remove(this.opts.disabledClass);
-    }.bind(this));
+    rows.forEach(
+        function (row) {
+            row.classList.remove(this.opts.disabledClass);
+        }.bind(this)
+    );
 
     const moved = this._getMovedRows(evt);
-    if (!moved.length || (moved.length === 1)) {
-        return
+    if (!moved.length || moved.length === 1) {
+        return;
     }
 
     this._normalizeTable(evt, moved);
@@ -127,18 +134,23 @@ SortableTable.prototype._onEnd = function(evt) {
 
     // блокировка областей сортировки на время выполнения запроса
     const handlers = this.tbody.querySelectorAll(this.opts.handler);
-    handlers.forEach(function(handler) {
-        handler.classList.add(this.opts.disabledClass);
-    }.bind(this));
+    handlers.forEach(
+        function (handler) {
+            handler.classList.add(this.opts.disabledClass);
+        }.bind(this)
+    );
 
     // отправка запроса на сервер
-    this._sendRequest(map)
-    .then(function() {
-        // снятие блокировки
-        handlers.forEach(function(handler) {
-            handler.classList.remove(this.opts.disabledClass);
-        }.bind(this));
-    }.bind(this));
+    this._sendRequest(map).then(
+        function () {
+            // снятие блокировки
+            handlers.forEach(
+                function (handler) {
+                    handler.classList.remove(this.opts.disabledClass);
+                }.bind(this)
+            );
+        }.bind(this)
+    );
 };
 
 /**
@@ -147,7 +159,7 @@ SortableTable.prototype._onEnd = function(evt) {
  * @returns {Element[]}
  * @private
  */
-SortableTable.prototype._getMovedRows = function(evt) {
+SortableTable.prototype._getMovedRows = function (evt) {
     const sliceStart = Math.min(evt.oldIndex, evt.newIndex);
     const sliceEnd = Math.max(evt.oldIndex, evt.newIndex);
     const rows = this.tbody.querySelectorAll("tr");
@@ -156,8 +168,8 @@ SortableTable.prototype._getMovedRows = function(evt) {
         // пропускаем узлы, не являющиеся соседними
         const pk = parseInt(evt.item.dataset.id);
         const node = this.tree.getNode(pk);
-        slice = slice.filter(function(row) {
-            return parseInt(row.dataset.parent) === node.parent
+        slice = slice.filter(function (row) {
+            return parseInt(row.dataset.parent) === node.parent;
         });
     }
     return slice;
@@ -170,16 +182,18 @@ SortableTable.prototype._getMovedRows = function(evt) {
  * @returns {Object}
  * @private
  */
-SortableTable.prototype._createOrderMap = function(evt, rows) {
+SortableTable.prototype._createOrderMap = function (evt, rows) {
     const pk_array = [];
     const order_array = [];
-    rows.forEach(function(row) {
-        const handle = row.querySelector(this.opts.handler);
-        if (handle) {
-            pk_array.push(parseInt(row.dataset.id));
-            order_array.push(parseInt(row.dataset.orderValue));
-        }
-    }.bind(this));
+    rows.forEach(
+        function (row) {
+            const handle = row.querySelector(this.opts.handler);
+            if (handle) {
+                pk_array.push(parseInt(row.dataset.id));
+                order_array.push(parseInt(row.dataset.orderValue));
+            }
+        }.bind(this)
+    );
 
     // циклический сдвиг значений сортировки
     const movedDown = evt.oldIndex < evt.newIndex;
@@ -189,15 +203,18 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
         order_array.push(order_array.shift());
     }
 
-    return pk_array.reduce(function(result, pk, i) {
-        result[pk] = order_array[i];
+    return pk_array.reduce(
+        function (result, pk, i) {
+            result[pk] = order_array[i];
 
-        // обновляем атрибут data-order-value
-        const row = this.tbody.querySelector("tr[data-id='"+pk+"']");
-        row.setAttribute("data-order-value", order_array[i]);
+            // обновляем атрибут data-order-value
+            const row = this.tbody.querySelector("tr[data-id='" + pk + "']");
+            row.setAttribute("data-order-value", order_array[i]);
 
-        return result;
-    }.bind(this), {});
+            return result;
+        }.bind(this),
+        {}
+    );
 };
 
 /**
@@ -209,7 +226,7 @@ SortableTable.prototype._createOrderMap = function(evt, rows) {
  * @param {Element[]} moved
  * @private
  */
-SortableTable.prototype._normalizeTable = function(evt, moved) {
+SortableTable.prototype._normalizeTable = function (evt, moved) {
     if (this.tree) {
         const pk = parseInt(evt.item.dataset.id);
         const node = this.tree.getNode(pk);
@@ -221,17 +238,19 @@ SortableTable.prototype._normalizeTable = function(evt, moved) {
             // то сосед должен быть в списке нормализации.
             const isPrevSibling = parseInt(prev.dataset.parent) === node.parent;
             const isNextChild = parseInt(next.dataset.parent) === parseInt(prev.dataset.id);
-            if (isPrevSibling && isNextChild && (parents.indexOf(prev) < 0)) {
+            if (isPrevSibling && isNextChild && parents.indexOf(prev) < 0) {
                 parents.unshift(prev);
             }
         }
 
         // перенос детей под родителя
-        parents.forEach(function(parent) {
-            const pk = parseInt(parent.dataset.id);
-            const childs = this.tree.getDescendants(pk);
-            Element.prototype.after.apply(parent, childs);
-        }.bind(this));
+        parents.forEach(
+            function (parent) {
+                const pk = parseInt(parent.dataset.id);
+                const childs = this.tree.getDescendants(pk);
+                Element.prototype.after.apply(parent, childs);
+            }.bind(this)
+        );
     }
 };
 
@@ -241,7 +260,7 @@ SortableTable.prototype._normalizeTable = function(evt, moved) {
  * @returns {Promise<Response>}
  * @private
  */
-SortableTable.prototype._sendRequest = function(data) {
+SortableTable.prototype._sendRequest = function (data) {
     return fetch(this.opts.url, {
         method: "POST",
         credentials: "same-origin",
@@ -249,7 +268,7 @@ SortableTable.prototype._sendRequest = function(data) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-    }).then(function(response) {
+    }).then(function (response) {
         if (!response.ok) {
             const error = new Error(`${response.status} ${response.statusText}`);
             error.response = response;
@@ -257,6 +276,5 @@ SortableTable.prototype._sendRequest = function(data) {
         }
     });
 };
-
 
 export default SortableTable;

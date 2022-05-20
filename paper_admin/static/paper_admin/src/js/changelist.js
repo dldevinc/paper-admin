@@ -1,5 +1,5 @@
 import SortableTable from "js/components/sortable_table/SortableTable";
-import {Select2Widget} from "components/select2";
+import { Select2Widget } from "components/select2";
 import "bem/paper-actions/paper-actions";
 import "bem/paper-filter/paper-filter";
 import "bem/paper-pagination/paper-pagination";
@@ -16,7 +16,6 @@ import "filters/select2-filter";
 // -----------------
 import "css/changelist.scss";
 
-
 // Select2 для выпадающих списков
 const select2_changelist = new Select2Widget({
     width: "",
@@ -25,7 +24,6 @@ const select2_changelist = new Select2Widget({
 });
 select2_changelist.observe(".paper-table .select-field select");
 select2_changelist.initAll(".paper-table .select-field select");
-
 
 const select2_action = new Select2Widget({
     allowClear: true,

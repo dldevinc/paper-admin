@@ -1,5 +1,5 @@
-import {gsap} from "gsap";
-import {ScrollToPlugin} from "gsap/ScrollToPlugin";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import "./paper-tabs.scss";
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -10,7 +10,6 @@ const ERROR_VISIBILITY_CROP_PERCENT = 30;
 // При скролле показываем ошибку в позиции 33% от верха экрана.
 const ERROR_SCROLL_POSITION = 33;
 
-
 /**
  * Плавный скролл к указанной Y-координате.
  * @param {Element} element
@@ -19,19 +18,18 @@ function scrollTo(element) {
     const rect = element.getBoundingClientRect();
     const topOffset = rect.top;
     const minOffset = (ERROR_VISIBILITY_CROP_PERCENT / 100) * document.documentElement.clientHeight;
-    const isVisible = (topOffset > minOffset) && (topOffset < document.documentElement.clientHeight - minOffset);
+    const isVisible = topOffset > minOffset && topOffset < document.documentElement.clientHeight - minOffset;
     if (!isVisible) {
-        setTimeout(function() {
+        setTimeout(function () {
             gsap.to(window, {
                 duration: 0.5,
                 scrollTo: {
-                    y: topOffset - Math.floor(document.documentElement.clientHeight * ERROR_SCROLL_POSITION / 100),
+                    y: topOffset - Math.floor((document.documentElement.clientHeight * ERROR_SCROLL_POSITION) / 100)
                 }
             });
         });
     }
 }
-
 
 /**
  * Поиск первой ошибки на форме для последующего скролла к ней.
@@ -40,7 +38,6 @@ function scrollTo(element) {
 function getFirstError() {
     return document.querySelector(".paper-widget--invalid, .paper-message--error");
 }
-
 
 /**
  * Открытие вкладки по имени.
@@ -53,7 +50,6 @@ function activateTab(name) {
     }
 }
 
-
 const invalidElement = getFirstError();
 if (invalidElement) {
     scrollTo(invalidElement);
@@ -64,9 +60,8 @@ if (invalidElement) {
     }
 }
 
-
 // Установка якоря при смене вкладки
-$(document).on("shown.bs.tab", function(event) {
+$(document).on("shown.bs.tab", function (event) {
     const tab_name = event.target.getAttribute("aria-controls");
     if (tab_name) {
         history.replaceState(null, "", `#${tab_name}`);
@@ -79,5 +74,3 @@ $(document).on("shown.bs.tab", function(event) {
         }
     }
 });
-
-

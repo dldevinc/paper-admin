@@ -35,7 +35,7 @@ import "widgets/number-field";
 import "widgets/password-field";
 import "widgets/related-widget-wrapper";
 import "widgets/select-field";
-import "widgets/select-date-field";  // must be below select-field
+import "widgets/select-date-field"; // must be below select-field
 import "widgets/select-multiple-field";
 import "widgets/split-datetime-field";
 import "widgets/text-field";
@@ -68,7 +68,6 @@ import "bem/paper-tabs/paper-tabs";
 import "bem/paper-toolbar/paper-toolbar";
 import "bem/paper-widget/paper-widget";
 
-
 // -----------------
 //  CSS for pages
 // -----------------
@@ -78,7 +77,6 @@ import "css/login.scss";
 //  Images
 // -----------------
 import "img/default_favicon.png";
-
 
 // -----------------
 //  Import & Export
@@ -109,4 +107,4 @@ export const paperAdmin = {
     modals,
     Sortable,
     Widget
-}
+};

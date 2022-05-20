@@ -8,13 +8,16 @@ class DateWidget extends Widget {
     constructor(options) {
         super();
 
-        this.opts = Object.assign({
-            altInput: true,
-            locale: this._getLocale(),
-            dateFormat: this._getDateFormat()
-        }, options);
+        this.opts = Object.assign(
+            {
+                altInput: true,
+                locale: this._getLocale(),
+                dateFormat: this._getDateFormat()
+            },
+            options
+        );
 
-        document.addEventListener("click", function(event) {
+        document.addEventListener("click", function (event) {
             const button = event.target.closest(".date-field__button");
             if (button) {
                 const widget = button.closest(".date-field");
@@ -32,29 +35,28 @@ class DateWidget extends Widget {
 
     _destroy(element) {
         if (element._flatpickr) {
-            element._flatpickr.destroy()
+            element._flatpickr.destroy();
         }
     }
 
     _getLocale() {
-        for(const locale of getPossibleLocales()) {
+        for (const locale of getPossibleLocales()) {
             if (flatpickr.l10ns[locale]) {
-                return locale
+                return locale;
             }
         }
-        return "default"
+        return "default";
     }
 
     _getDateFormat() {
-        for(const locale of getPossibleLocales()) {
+        for (const locale of getPossibleLocales()) {
             if (dateFormats[locale]) {
-                return dateFormats[locale]
+                return dateFormats[locale];
             }
         }
         return "Y-m-d";
     }
 }
-
 
 const widget = new DateWidget();
 widget.observe(".date-field input");

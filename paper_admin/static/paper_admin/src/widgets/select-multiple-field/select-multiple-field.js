@@ -5,7 +5,6 @@ import Widget from "js/utilities/widget";
 import "multi.js/src/multi.css";
 import "./select-multiple-field.scss";
 
-
 class MutliSelectWidget extends Widget {
     _init(element) {
         multi(element, {
@@ -13,11 +12,8 @@ class MutliSelectWidget extends Widget {
         });
     }
 
-    _destroy(element) {
-
-    }
+    _destroy(element) {}
 }
-
 
 const widget = new MutliSelectWidget();
 widget.observe(".select-multiple-field select");

@@ -1,6 +1,5 @@
 import emitters from "js/utilities/emitters";
 
-
 /**
  * Базовый класс для создания виджетов.
  * По умолчанию слушает события `mutate` и `release` из EventEmitter
@@ -53,7 +52,7 @@ class Widget {
             throw new Error(`Event "${event_name}" already registered`);
         }
 
-        return this._event_handlers[event_name] = handler;
+        return (this._event_handlers[event_name] = handler);
     }
 
     /**
@@ -123,7 +122,7 @@ class Widget {
     init(element) {
         if (this.getWidget(element)) {
             console.debug(`The widget is already inialized on this element`);
-            return
+            return;
         }
         this._setWidget(element);
         this._init(element);
@@ -135,9 +134,7 @@ class Widget {
      * @param {HTMLElement} element
      * @private
      */
-    _init(element) {
-
-    }
+    _init(element) {}
 
     /**
      * Освобождение ресурсов виджета для указанного DOM-элемента.
@@ -148,7 +145,7 @@ class Widget {
      */
     destroy(element) {
         if (!this.getWidget(element)) {
-            return
+            return;
         }
         this._removeWidget(element);
         this._destroy(element);
@@ -160,9 +157,7 @@ class Widget {
      * @param {HTMLElement} element
      * @private
      */
-    _destroy(element) {
-
-    }
+    _destroy(element) {}
 
     /**
      * Вызывает функцию инициализации для каждого DOM-элемента,
@@ -177,7 +172,7 @@ class Widget {
             _this.init(root);
         }
 
-        root.querySelectorAll(selector).forEach(function(element) {
+        root.querySelectorAll(selector).forEach(function (element) {
             _this.init(element);
         });
     }
@@ -195,7 +190,7 @@ class Widget {
             _this.destroy(root);
         }
 
-        root.querySelectorAll(selector).forEach(function(element) {
+        root.querySelectorAll(selector).forEach(function (element) {
             _this.destroy(element);
         });
     }
@@ -206,14 +201,22 @@ class Widget {
      * @param {String} selector
      */
     observe(selector) {
-        const onmutate = this.addEventHandler("dom_mutate", selector, function(root) {
-            this.initAll(selector, root);
-        }.bind(this));
+        const onmutate = this.addEventHandler(
+            "dom_mutate",
+            selector,
+            function (root) {
+                this.initAll(selector, root);
+            }.bind(this)
+        );
         emitters.dom.on("mutate", onmutate);
 
-        const onrelease = this.addEventHandler("dom_release", selector, function(root) {
-            this.destroyAll(selector, root);
-        }.bind(this));
+        const onrelease = this.addEventHandler(
+            "dom_release",
+            selector,
+            function (root) {
+                this.destroyAll(selector, root);
+            }.bind(this)
+        );
         emitters.dom.on("release", onrelease);
     }
 
@@ -226,6 +229,5 @@ class Widget {
         emitters.dom.off("release", this.getEventHandler("dom_release", selector));
     }
 }
-
 
 export default Widget;

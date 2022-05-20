@@ -16,8 +16,8 @@ function isChangedField(field) {
             return false;
         case "select-one":
         case "select-multiple":
-            return Array.from(field.options).some(function(option) {
-                return option.selected !== option.defaultSelected
+            return Array.from(field.options).some(function (option) {
+                return option.selected !== option.defaultSelected;
             });
         default:
             return field.defaultValue !== field.value;
@@ -34,7 +34,6 @@ function containsChangedField(root) {
     const fields = root.querySelectorAll("input, select, textarea");
     return Array.from(fields).some(isChangedField);
 }
-
 
 /**
  * Добавление ошибок к виджету поля формы.
@@ -68,7 +67,7 @@ function setWidgetErrors(widget, errors) {
     if (errors && errors.length) {
         widget.classList.add("paper-widget--invalid");
 
-        errors.forEach(function(error) {
+        errors.forEach(function (error) {
             const errorListItem = document.createElement("li");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
@@ -134,7 +133,7 @@ function setFormErrors(root, errors) {
     }
 
     if (errors && errors.length) {
-        errors.forEach(function(error) {
+        errors.forEach(function (error) {
             const errorListItem = document.createElement("li");
             errorListItem.classList.add("paper-message", "paper-message--error");
             errorListItem.innerText = error;
@@ -147,9 +146,9 @@ function setFormErrors(root, errors) {
  * Удаление ошибок формы и полей.
  * @param {Element} root
  */
-function cleanAllErrors(root=document.body) {
+function cleanAllErrors(root = document.body) {
     setFormErrors(root, []);
-    root.querySelectorAll(".paper-widget").forEach(function(widget) {
+    root.querySelectorAll(".paper-widget").forEach(function (widget) {
         setWidgetErrors(widget, []);
     });
 }
@@ -172,17 +171,22 @@ function cleanAllErrors(root=document.body) {
 function setErrorsFromJSON(root, json) {
     for (const [fieldName, errorList] of Object.entries(json)) {
         if (fieldName === "__all__") {
-            setFormErrors(root, errorList.map(record => record.message));
+            setFormErrors(
+                root,
+                errorList.map(record => record.message)
+            );
         } else {
             const formRow = root.querySelector(".field-" + fieldName);
             const widget = formRow && formRow.querySelector(".paper-widget");
             if (widget) {
-                setWidgetErrors(widget, errorList.map(record => record.message));
+                setWidgetErrors(
+                    widget,
+                    errorList.map(record => record.message)
+                );
             }
         }
     }
 }
-
 
 const formUtils = {
     isChangedField,

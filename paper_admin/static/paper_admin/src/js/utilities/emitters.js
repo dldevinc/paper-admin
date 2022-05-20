@@ -1,6 +1,5 @@
 import EventEmitter from "wolfy87-eventemitter";
 
-
 const emitters = {
     /**
      * Эмиттер для работы с DOM-деревом.
@@ -22,7 +21,7 @@ const emitters = {
 
     /**
      * Эмиттер для работы с inline-формами.
-     * 
+     *
      * События:
      *  `add`       - Перед анимацией добавления новой формы.
      *                Аргументы:
@@ -44,7 +43,7 @@ const emitters = {
      *                  1) DOM-элемент удалённой формы
      *                  2) Префикс формсета
      */
-    inlines: new EventEmitter(),
+    inlines: new EventEmitter()
 };
 
 export default emitters;

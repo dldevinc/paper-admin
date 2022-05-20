@@ -1,6 +1,6 @@
 import "./password-field.scss";
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const button = event.target.closest(".password-field__button");
     if (button) {
         const widget = button.closest(".password-field");
