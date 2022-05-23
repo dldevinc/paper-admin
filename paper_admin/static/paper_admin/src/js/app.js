@@ -1,6 +1,7 @@
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
 import emitters from "js/utilities/emitters.js";
+import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import Widget from "js/utilities/widget.js";
 import "js/components/bootstrap.js";
@@ -103,6 +104,7 @@ window.django.jQuery = jQuery;
 export const paperAdmin = {
     bootstrap,
     emitters,
+    dragUtils,
     formUtils,
     modals,
     Sortable,

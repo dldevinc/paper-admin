@@ -1,19 +1,29 @@
 /**
- * Добавление класса на <html> при перемещении файла
+ * Добавление CSS-класса на элемент <html> при перемещении файла в окно браузера.
  */
 
+import dragUtils from "../utilities/drag_utils.js";
+
+const CSS_CLASS = "on-drag-file";
 let drag_event_counter = 0;
 
 document.addEventListener(
     "dragenter",
-    function (evt) {
-        evt.preventDefault();
+    event => {
         drag_event_counter++;
-        const fileIndex = Array.from(evt.dataTransfer.items).findIndex(function (item) {
-            return item.kind === "file";
-        });
-        if (fileIndex >= 0) {
-            document.documentElement.classList.add("ondrag");
+        if (dragUtils.containsFiles(event)) {
+            event.preventDefault();
+            document.documentElement.classList.add(CSS_CLASS);
+        }
+    },
+    true
+);
+
+document.addEventListener(
+    "dragleave",
+    () => {
+        if (--drag_event_counter === 0) {
+            document.documentElement.classList.remove(CSS_CLASS);
         }
     },
     true
@@ -21,19 +31,9 @@ document.addEventListener(
 
 document.addEventListener(
     "drop",
-    function () {
+    () => {
         drag_event_counter = 0;
-        document.documentElement.classList.remove("ondrag");
-    },
-    true
-);
-
-document.addEventListener(
-    "dragleave",
-    function () {
-        if (--drag_event_counter === 0) {
-            document.documentElement.classList.remove("ondrag");
-        }
+        document.documentElement.classList.remove(CSS_CLASS);
     },
     true
 );
