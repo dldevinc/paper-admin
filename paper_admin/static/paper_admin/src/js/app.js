@@ -53,6 +53,7 @@ import "bem/delete-inline/delete-inline.js";
 import "bem/dotted-underline/dotted-underline.js";
 import "bem/paper-breadcrumbs/paper-breadcrumbs.js";
 import "bem/paper-card/paper-card.js";
+import "bem/paper-dropzone/paper-dropzone.js";
 import "bem/paper-environment/paper-environment.js";
 import "bem/paper-error-list/paper-error-list.js";
 import "bem/paper-form/paper-form.js";

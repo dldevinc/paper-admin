@@ -1,0 +1,50 @@
+@import "./variables";
+
+.paper-dropzone {
+  position: relative;
+  min-height: 50px;
+
+  &__overlay {
+    position: absolute;
+    padding: $paper-dropzone-offset;
+    top: #{-$paper-dropzone-offset};
+    left: #{-$paper-dropzone-offset};
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: -1;
+    text-align: center;
+    box-sizing: content-box;
+    border-radius: $paper-dropzone-border-radius;
+    background: $paper-dropzone-bg;
+    transition: opacity 0.1s, background 0.1s, z-index 0s 0.1s;
+
+    @at-root
+    .ondrag &,  // TODO: deprecated
+    .on-drag-file & {
+      opacity: 1;
+      z-index: 1;
+      transition: opacity 0.1s, background 0.1s, z-index 0s 0s;
+    }
+
+    &--highlighted {
+      background-color: $paper-dropzone-active-bg;
+    }
+  }
+
+  &__hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+// ============================
+//  Dropzone.js
+// ============================
+
+.dz-default {
+  display: none;
+}

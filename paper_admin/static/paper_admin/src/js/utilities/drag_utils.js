@@ -42,27 +42,31 @@ function filterFiles(e) {
  *
  *  element.addEventListener("drop", event => {
  *      event.preventDefault();
- *      paperAdmin.dragUtils.parseDroppedFiles(event, file => {
- *          console.log(`File dropped: ${file.name}`);
+ *      paperAdmin.dragUtils.parseDroppedFiles(event).then(files => {
+ *          for (let file of files) {
+ *              console.log(`File dropped: ${file.name}`);
+ *          }
  *      })
  *  });
  *
  * @param {DragEvent} event
- * @param {Function} callback
+ * @returns {Promise<File[]>}
  */
-function parseDroppedFiles(event, callback) {
-    let files = filterFiles(event);
-    if (files.length) {
-        let { items } = event.dataTransfer;
-        if (items && items.length && items[0].webkitGetAsEntry != null) {
-            // The browser supports dropping of folders, so handle items instead of files
-            _addFilesFromItems(items, callback);
-        } else {
-            for (let file of files) {
-                callback(file);
+function parseDroppedFiles(event) {
+    return new Promise(resolve => {
+        let files = filterFiles(event);
+        if (files.length) {
+            let { items } = event.dataTransfer;
+            if (items && items.length && items[0].webkitGetAsEntry != null) {
+                // The browser supports dropping of folders, so handle items instead of files
+                _addFilesFromItems(items).then(files => {
+                    resolve(files);
+                });
+            } else {
+                resolve(files);
             }
         }
-    }
+    });
 }
 
 /**
@@ -70,69 +74,93 @@ function parseDroppedFiles(event, callback) {
  * instead of files.
  *
  * @param {DataTransferItemList} items
- * @param {Function} callback
  * @see https://github.com/dropzone/dropzone/blob/f50d1828ab5df79a76be00d1306cc320e39a27f4/src/dropzone.js#L661
+ * @returns {Promise<File[]>}
  * @private
  */
-function _addFilesFromItems(items, callback) {
-    for (let item of items) {
-        let entry;
-        if (item.webkitGetAsEntry != null && (entry = item.webkitGetAsEntry())) {
-            if (entry.isFile) {
-                callback(item.getAsFile());
-            } else if (entry.isDirectory) {
-                // Append all files from that directory to files
-                _addFilesFromDirectory(entry, entry.name, callback);
-            }
-        } else if (item.getAsFile != null) {
-            if (item.kind == null || item.kind === "file") {
-                callback(item.getAsFile());
+function _addFilesFromItems(items) {
+    return new Promise(resolve => {
+        const files = [];
+        const promises = [];
+
+        for (let item of items) {
+            let entry;
+            if (item.webkitGetAsEntry != null && (entry = item.webkitGetAsEntry())) {
+                if (entry.isFile) {
+                    files.push(item.getAsFile());
+                } else if (entry.isDirectory) {
+                    // Append all files from that directory to files
+                    promises.push(_addFilesFromDirectory(entry, entry.name));
+                }
+            } else if (item.getAsFile != null) {
+                if (item.kind == null || item.kind === "file") {
+                    files.push(item.getAsFile());
+                }
             }
         }
-    }
+
+        Promise.all(promises).then(results => {
+            for (let result of results) {
+                files.push(...result);
+            }
+
+            resolve(files);
+        });
+    });
 }
 
 /**
  * Goes through the directory, and adds each file it finds recursively.
  *
- * @param {FileSystemEntry} directory
+ * @param {FileSystemDirectoryEntry} directory
  * @param {string} path
- * @param {Function} callback
  * @see https://github.com/dropzone/dropzone/blob/f50d1828ab5df79a76be00d1306cc320e39a27f4/src/dropzone.js#L693
+ * @returns {Promise<File[]>}
  * @private
  */
-function _addFilesFromDirectory(directory, path, callback) {
-    let dirReader = directory.createReader();
-    let errorHandler = error => __guardMethod__(console, "log", o => o.log(error));
+function _addFilesFromDirectory(directory, path) {
+    const reader = directory.createReader();
+    const errorHandler = error => __guardMethod__(console, "log", o => o.log(error));
 
-    let readEntries = () => {
-        return dirReader.readEntries(entries => {
-            if (entries.length > 0) {
-                for (let entry of entries) {
-                    if (entry.isFile) {
-                        entry.file(file => {
-                            if (file.name.substring(0, 1) === ".") {
-                                return;
-                            }
+    return new Promise(resolve => {
+        const promises = [];
+        const readEntries = () => {
+            reader.readEntries(entries => {
+                if (entries.length > 0) {
+                    promises.push(
+                        Promise.all(
+                            entries.map(entry => {
+                                if (entry.isFile) {
+                                    return new Promise(resolve => {
+                                        entry.file(file => {
+                                            if (file.name.substring(0, 1) === ".") {
+                                                return;
+                                            }
 
-                            file.fullPath = `${path}/${file.name}`;
-                            callback(file);
-                        });
-                    } else if (entry.isDirectory) {
-                        _addFilesFromDirectory(entry, `${path}/${entry.name}`, callback);
-                    }
+                                            file.fullPath = `${path}/${file.name}`;
+                                            resolve([file]);
+                                        });
+                                    });
+                                } else if (entry.isDirectory) {
+                                    return _addFilesFromDirectory(entry, `${path}/${entry.name}`);
+                                }
+                            })
+                        ).then(values => {
+                            return values.reduce((a, b) => a.concat(b), []);
+                        })
+                    );
+
+                    readEntries();
+                } else {
+                    resolve(Promise.all(promises).then(values => {
+                        return values.reduce((a, b) => a.concat(b), []);
+                    }));
                 }
+            }, errorHandler);
+        };
 
-                // Recursively call readEntries() again, since browser only handle
-                // the first 100 entries.
-                // See: https://developer.mozilla.org/en-US/docs/Web/API/DirectoryReader#readEntries
-                readEntries();
-            }
-            return null;
-        }, errorHandler);
-    };
-
-    readEntries();
+        readEntries();
+    });
 }
 
 const dragUtils = {
