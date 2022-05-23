@@ -5,8 +5,8 @@
     </div>
     <input type="search" name="{{ search_var }}" value="{{ cl.query }}"
            class="form-control"
-           size="24" placeholder="{{ _("Search") }}"
-           id="searchbar" aria-label="{{ _("Search") }}">
+           size="24" placeholder="{{ cl.search_help_text|default:_("Search") }}"
+           id="searchbar" aria-label="{{ cl.search_help_text|default:_("Search") }}">
   </div>
 
   {% for pair in cl.params.items %}
