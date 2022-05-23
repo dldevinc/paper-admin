@@ -1,4 +1,4 @@
-import ManagementForm from "./_management-form";
+import ManagementForm from "./_management-form.js";
 
 /**
  * Базовый класс для Django-формсетов.

@@ -1,7 +1,7 @@
-import formUtils from "js/utilities/form_utils";
+import formUtils from "js/utilities/form_utils.js";
 import { Select2Widget } from "components/select2";
-import { InlineFormset } from "bem/paper-formset/paper-formset";
-import "bem/scroll-top-button/scroll-top-button";
+import { InlineFormset } from "bem/paper-formset/paper-formset.js";
+import "bem/scroll-top-button/scroll-top-button.js";
 
 // Select2 для выпадающих списков
 const select2_changeform = new Select2Widget({

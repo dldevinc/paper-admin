@@ -1,4 +1,4 @@
-import Widget from "js/utilities/widget";
+import Widget from "js/utilities/widget.js";
 import "./paper-sidebar.scss";
 
 class SidebarWidget extends Widget {

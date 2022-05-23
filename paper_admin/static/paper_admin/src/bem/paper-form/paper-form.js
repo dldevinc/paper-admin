@@ -1,4 +1,4 @@
-import { hookUnload } from "js/utilities/hook_unload";
+import { hookUnload } from "js/utilities/hook_unload.js";
 
 import "./paper-form.scss";
 

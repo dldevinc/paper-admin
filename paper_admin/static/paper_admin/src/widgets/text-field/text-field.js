@@ -1,5 +1,5 @@
 import autosize from "autosize";
-import Widget from "js/utilities/widget";
+import Widget from "js/utilities/widget.js";
 
 import "./text-field.scss";
 

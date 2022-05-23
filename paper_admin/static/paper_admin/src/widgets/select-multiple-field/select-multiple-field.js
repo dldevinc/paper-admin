@@ -1,5 +1,5 @@
 import multi from "multi.js/dist/multi-es6.min.js";
-import Widget from "js/utilities/widget";
+import Widget from "js/utilities/widget.js";
 
 // CSS
 import "multi.js/src/multi.css";

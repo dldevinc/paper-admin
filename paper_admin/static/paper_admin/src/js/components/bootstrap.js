@@ -1,5 +1,5 @@
 import "bootstrap";
-import Widget from "js/utilities/widget";
+import Widget from "js/utilities/widget.js";
 
 class DropdownWidget extends Widget {
     constructor(options) {

@@ -1,6 +1,6 @@
-import Widget from "js/utilities/widget";
-import "select2/dist/js/select2.full";
-import "./patches";
+import Widget from "js/utilities/widget.js";
+import "select2/dist/js/select2.full.js";
+import "./patches.js";
 
 // CSS
 import "select2/dist/css/select2.css";

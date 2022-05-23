@@ -1,5 +1,5 @@
 import "clockpicker/src/clockpicker";
-import Widget from "js/utilities/widget";
+import Widget from "js/utilities/widget.js";
 
 import "clockpicker/src/clockpicker.css";
 import "./time-field.scss";

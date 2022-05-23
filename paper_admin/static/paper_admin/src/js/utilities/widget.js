@@ -1,4 +1,4 @@
-import emitters from "js/utilities/emitters";
+import emitters from "js/utilities/emitters.js";
 
 /**
  * Базовый класс для создания виджетов.

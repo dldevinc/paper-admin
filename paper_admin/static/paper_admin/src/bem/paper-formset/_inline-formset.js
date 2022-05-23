@@ -1,7 +1,7 @@
-import emitters from "js/utilities/emitters";
-import { gsap, TimelineLite } from "gsap";
+import emitters from "js/utilities/emitters.js";
+import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import Formset from "./_formset";
+import Formset from "./_formset.js";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -201,9 +201,10 @@ class InlineFormset extends Formset {
             animationOptions.duration = 0.5;
         }
 
-        const tl = new TimelineLite({
-            onComplete: onSwapCallback
-        })
+        const tl = gsap
+            .timeline({
+                onComplete: onSwapCallback
+            })
             .to(form1, animationOptions)
             .to(form2, animationOptions, 0);
 

@@ -1,6 +1,6 @@
 import { dateFormats, flatpickr } from "components/flatpickr";
-import getPossibleLocales from "js/utilities/locale";
-import Widget from "js/utilities/widget";
+import getPossibleLocales from "js/utilities/locale.js";
+import Widget from "js/utilities/widget.js";
 
 class DateRangeFilter extends Widget {
     constructor(options) {

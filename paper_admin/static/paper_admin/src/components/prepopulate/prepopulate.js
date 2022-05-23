@@ -5,8 +5,8 @@
     одно из полей, из которых заполняется поле.
  */
 
-import emitters from "js/utilities/emitters";
-import urlify from "./urlify";
+import emitters from "js/utilities/emitters.js";
+import urlify from "./urlify.js";
 
 function initPrepopulation(root = document.body) {
     root.querySelectorAll(".prepopulated-field").forEach(function (widget) {

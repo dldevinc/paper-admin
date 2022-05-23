@@ -14,7 +14,7 @@
  */
 
 import Sortable from "sortablejs";
-import ListTree from "js/components/sortable_table/ListTree";
+import ListTree from "js/components/sortable_table/ListTree.js";
 
 /**
  * Конструктор объектов SortableTable.
