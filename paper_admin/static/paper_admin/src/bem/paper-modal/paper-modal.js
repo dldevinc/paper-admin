@@ -5,26 +5,24 @@ import Modal from "bootstrap/js/src/modal";
 import Util from "bootstrap/js/src/util";
 import "./paper-modal.scss";
 
-const EVENT_KEY = '.bs.modal'
-const ESCAPE_KEYCODE = 27
+const EVENT_KEY = ".bs.modal";
+const ESCAPE_KEYCODE = 27;
 
-const EVENT_HIDE = `hide${EVENT_KEY}`
-const EVENT_HIDDEN = `hidden${EVENT_KEY}`
-const EVENT_SHOW = `show${EVENT_KEY}`
-const EVENT_SHOWN = `shown${EVENT_KEY}`
-const EVENT_CLICK_DESTROY = `click.destroy.${EVENT_KEY}`
-const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`
-const EVENT_AUTOFOCUS = `autofocus${EVENT_KEY}`
+const EVENT_HIDE = `hide${EVENT_KEY}`;
+const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+const EVENT_SHOW = `show${EVENT_KEY}`;
+const EVENT_SHOWN = `shown${EVENT_KEY}`;
+const EVENT_CLICK_DESTROY = `click.destroy.${EVENT_KEY}`;
+const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`;
+const EVENT_AUTOFOCUS = `autofocus${EVENT_KEY}`;
 
+const CLASS_NAME_SCROLLABLE = "modal-dialog-scrollable";
+const CLASS_NAME_SUSPENDED = "modal-suspended";
+const CLASS_NAME_FADE = "fade";
+const CLASS_NAME_SHOW = "show";
 
-const CLASS_NAME_SCROLLABLE = 'modal-dialog-scrollable'
-const CLASS_NAME_SUSPENDED = 'modal-suspended'
-const CLASS_NAME_FADE = 'fade'
-const CLASS_NAME_SHOW = 'show'
-
-const SELECTOR_MODAL_BODY = '.modal-body'
-const SELECTOR_DATA_DESTROY = '[data-destroy="modal"]'
-
+const SELECTOR_MODAL_BODY = ".modal-body";
+const SELECTOR_DATA_DESTROY = '[data-destroy="modal"]';
 
 const _stack = [];
 const Default = {
@@ -37,8 +35,7 @@ const Default = {
     buttons: [],
 
     templates: {
-        modal:
-            `<div class="paper-modal modal" tabindex="-1">
+        modal: `<div class="paper-modal modal" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -49,12 +46,10 @@ const Default = {
                 </div>
               </div>
             </div>`,
-        closeButton:
-            `<button type="button" class="close" aria-label="Close">
+        closeButton: `<button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>  
             </button>`,
-        button:
-            `<button type="button" class="btn"></button>`
+        button: `<button type="button" class="btn"></button>`
     },
 
     options: {
@@ -63,11 +58,10 @@ const Default = {
 
     onInit: null,
     onDestroy: null,
-    onClose: function() {
+    onClose: function () {
         this.destroy();
     }
-}
-
+};
 
 /**
  * Модальное окно.
@@ -114,7 +108,7 @@ class PaperModal extends Modal {
         config.templates = {
             ...Default.templates,
             ...(options.templates || {})
-        }
+        };
 
         document.body.insertAdjacentHTML("beforeend", config.templates.modal);
         const root = document.body.lastElementChild;
@@ -134,7 +128,7 @@ class PaperModal extends Modal {
     }
 
     static getClosestModal() {
-        return _stack[_stack.length - 1] || null
+        return _stack[_stack.length - 1] || null;
     }
 
     get suspended() {
@@ -166,15 +160,19 @@ class PaperModal extends Modal {
             this._header.insertAdjacentHTML("beforeend", this.config.templates.closeButton);
 
             const closeButton = this._header.querySelector(".close");
-            closeButton && closeButton.addEventListener("click", function() {
-                if (typeof this.config.onClose === "function") {
-                    this.config.onClose.call(this);
-                }
-            }.bind(this));
+            closeButton &&
+                closeButton.addEventListener(
+                    "click",
+                    function () {
+                        if (typeof this.config.onClose === "function") {
+                            this.config.onClose.call(this);
+                        }
+                    }.bind(this)
+                );
         }
 
         if (this.config.buttons && this.config.buttons.length) {
-            this.config.buttons.forEach((options) => {
+            this.config.buttons.forEach(options => {
                 let button;
                 if (this._footer) {
                     this._footer.insertAdjacentHTML("beforeend", this.config.templates.button);
@@ -193,15 +191,18 @@ class PaperModal extends Modal {
                 }
 
                 if (options.autofocus) {
-                    $(this._element).one(EVENT_AUTOFOCUS, function() {
+                    $(this._element).one(EVENT_AUTOFOCUS, function () {
                         button.focus();
                     });
                 }
 
-                if (options.onClick && (typeof options.onClick === "function")) {
-                    button.addEventListener("click", function(event) {
-                        options.onClick.call(button, event, this);
-                    }.bind(this));
+                if (options.onClick && typeof options.onClick === "function") {
+                    button.addEventListener(
+                        "click",
+                        function (event) {
+                            options.onClick.call(button, event, this);
+                        }.bind(this)
+                    );
                 }
             });
         }
@@ -220,7 +221,7 @@ class PaperModal extends Modal {
      * @returns {Promise}
      */
     destroy() {
-        const transitionComplete = function() {
+        const transitionComplete = function () {
             if (typeof this.config.onDestroy === "function") {
                 this.config.onDestroy.call(this);
             }
@@ -244,39 +245,45 @@ class PaperModal extends Modal {
                 // Окно в процессе открытия. Ждем завершения открытия,
                 // затем вызываем функцию закрытия, по окончании которой
                 // окно будет удалено.
-                return new Promise(function(resolve) {
-                    $(this._element).one(EVENT_SHOWN, () => {
-                        if (this._isShown) {
-                            this.hide().then(function() {
+                return new Promise(
+                    function (resolve) {
+                        $(this._element).one(EVENT_SHOWN, () => {
+                            if (this._isShown) {
+                                this.hide().then(function () {
+                                    transitionComplete();
+                                    resolve();
+                                });
+                            } else {
+                                // Ситуация, когда окно было заморожено (suspended)
+                                // во время открытия.
                                 transitionComplete();
                                 resolve();
-                            });
-                        } else {
-                            // Ситуация, когда окно было заморожено (suspended)
-                            // во время открытия.
-                            transitionComplete();
-                            resolve();
-                        }
-                    });
-                }.bind(this));
+                            }
+                        });
+                    }.bind(this)
+                );
             } else {
                 // Окно открыто. Сначала скрываем его, потом удаляем.
-                return new Promise(function(resolve) {
-                    this.hide().then(function() {
-                        transitionComplete();
-                        resolve();
-                    });
-                }.bind(this));
+                return new Promise(
+                    function (resolve) {
+                        this.hide().then(function () {
+                            transitionComplete();
+                            resolve();
+                        });
+                    }.bind(this)
+                );
             }
         } else {
             if (this._isTransitioning) {
                 // Окно в процессе скрытия. Ждем завершения анимации и удаляем его.
-                return new Promise(function(resolve) {
-                    $(this._element).one(EVENT_HIDDEN, function() {
-                        transitionComplete();
-                        resolve();
-                    });
-                }.bind(this));
+                return new Promise(
+                    function (resolve) {
+                        $(this._element).one(EVENT_HIDDEN, function () {
+                            transitionComplete();
+                            resolve();
+                        });
+                    }.bind(this)
+                );
             } else {
                 // Окно уже скрыто. Удаляем его сразу
                 transitionComplete();
@@ -306,12 +313,11 @@ class PaperModal extends Modal {
                         this._triggerBackdropTransition();
                     }
                 }
-            })
+            });
         } else {
             $(this._element).off(EVENT_KEYDOWN_DISMISS);
         }
     }
-
 
     /**
      * Мгновенно скрывает модальное окно, независимо от того,
@@ -353,7 +359,7 @@ class PaperModal extends Modal {
 
     _resume() {
         if (!this.suspended) {
-            return
+            return;
         }
 
         $(this._element).trigger(EVENT_SHOW);
@@ -392,13 +398,9 @@ class PaperModal extends Modal {
 
         this.suspended = false;
 
-        $(this._element).on(
-            EVENT_CLICK_DESTROY,
-            SELECTOR_DATA_DESTROY,
-            () => {
-                this.destroy();
-            }
-        );
+        $(this._element).on(EVENT_CLICK_DESTROY, SELECTOR_DATA_DESTROY, () => {
+            this.destroy();
+        });
 
         const stackIndex = _stack.indexOf(this);
         if (stackIndex >= 0) {
@@ -407,7 +409,7 @@ class PaperModal extends Modal {
 
         // скрытие всех текущих окон
         let hasVisibleModals = false;
-        _stack.forEach(function(modal) {
+        _stack.forEach(function (modal) {
             if (modal._isShown && !modal.suspended) {
                 modal._suspend();
                 hasVisibleModals = true;
@@ -428,19 +430,18 @@ class PaperModal extends Modal {
 
             return Promise.resolve();
         } else {
-            return new Promise(function(resolve) {
-                $(this._element).one(
-                    EVENT_SHOWN,
-                    () => resolve()
-                )
-                superCall(relatedTarget);
-            }.bind(this));
+            return new Promise(
+                function (resolve) {
+                    $(this._element).one(EVENT_SHOWN, () => resolve());
+                    superCall(relatedTarget);
+                }.bind(this)
+            );
         }
     }
 
     hide(event) {
         if (event) {
-            event.preventDefault()
+            event.preventDefault();
         }
 
         if (!this._isShown) {
@@ -461,7 +462,7 @@ class PaperModal extends Modal {
         }
 
         const superCall = super.hide.bind(this);
-        if ((stackIndex === _stack.length) && (stackIndex > 0)) {
+        if (stackIndex === _stack.length && stackIndex > 0) {
             const previousModal = _stack[_stack.length - 1];
             if (previousModal.suspended) {
                 this._removeBackdrop();
@@ -469,22 +470,20 @@ class PaperModal extends Modal {
                 previousModal._resume();
                 return Promise.resolve();
             } else {
-                return new Promise(function(resolve) {
-                    $(this._element).one(
-                        EVENT_HIDDEN,
-                        () => resolve()
-                    )
-                    superCall(event);
-                }.bind(this));
+                return new Promise(
+                    function (resolve) {
+                        $(this._element).one(EVENT_HIDDEN, () => resolve());
+                        superCall(event);
+                    }.bind(this)
+                );
             }
         } else {
-            return new Promise(function(resolve) {
-                $(this._element).one(
-                    EVENT_HIDDEN,
-                    () => resolve()
-                )
-                superCall(event);
-            }.bind(this));
+            return new Promise(
+                function (resolve) {
+                    $(this._element).one(EVENT_HIDDEN, () => resolve());
+                    superCall(event);
+                }.bind(this)
+            );
         }
     }
 
@@ -498,66 +497,62 @@ class PaperModal extends Modal {
         до тех пор, пока окно не стало видимым.
      */
     _showElement(relatedTarget) {
-        const transition = $(this._element).hasClass(CLASS_NAME_FADE)
-        const modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null
+        const transition = $(this._element).hasClass(CLASS_NAME_FADE);
+        const modalBody = this._dialog ? this._dialog.querySelector(SELECTOR_MODAL_BODY) : null;
 
-        if (!this._element.parentNode ||
-            this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+        if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
             // Don't move modal's DOM position
-            document.body.appendChild(this._element)
+            document.body.appendChild(this._element);
         }
 
-        this._element.style.display = 'block'
-        this._element.removeAttribute('aria-hidden')
-        this._element.setAttribute('aria-modal', true)
-        this._element.setAttribute('role', 'dialog')
+        this._element.style.display = "block";
+        this._element.removeAttribute("aria-hidden");
+        this._element.setAttribute("aria-modal", true);
+        this._element.setAttribute("role", "dialog");
 
         if ($(this._dialog).hasClass(CLASS_NAME_SCROLLABLE) && modalBody) {
-            modalBody.scrollTop = 0
+            modalBody.scrollTop = 0;
         } else {
-            this._element.scrollTop = 0
+            this._element.scrollTop = 0;
         }
 
         if (transition) {
-            Util.reflow(this._element)
+            Util.reflow(this._element);
         }
 
-        $(this._element).addClass(CLASS_NAME_SHOW)
+        $(this._element).addClass(CLASS_NAME_SHOW);
 
         if (this._config.focus) {
-            this._enforceFocus()
+            this._enforceFocus();
         }
 
         const shownEvent = $.Event(EVENT_SHOWN, {
             relatedTarget
-        })
+        });
 
         // autofocus event
-        $(this._element).trigger($.Event(EVENT_AUTOFOCUS))
+        $(this._element).trigger($.Event(EVENT_AUTOFOCUS));
 
         const transitionComplete = () => {
             if (this._config.focus) {
                 if (document.activeElement && !this._element.contains(document.activeElement)) {
-                    this._element.focus()
+                    this._element.focus();
                 }
             }
 
-            this._isTransitioning = false
-            $(this._element).trigger(shownEvent)
-        }
+            this._isTransitioning = false;
+            $(this._element).trigger(shownEvent);
+        };
 
         if (transition) {
-            const transitionDuration = Util.getTransitionDurationFromElement(this._dialog)
+            const transitionDuration = Util.getTransitionDurationFromElement(this._dialog);
 
-            $(this._dialog)
-            .one(Util.TRANSITION_END, transitionComplete)
-            .emulateTransitionEnd(transitionDuration)
+            $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
         } else {
-            transitionComplete()
+            transitionComplete();
         }
     }
 }
-
 
 /**
  * Обертка над PaperModal для создания окна.
@@ -567,7 +562,6 @@ class PaperModal extends Modal {
 function createModal(options) {
     return new PaperModal(options);
 }
-
 
 /**
  * Специализированное окно для показа ошибок формы.
@@ -581,12 +575,12 @@ function showErrors(errors, options) {
 
     if (Array.isArray(errors)) {
         if (errors.length === 1) {
-            message = errors[0]
+            message = errors[0];
         } else {
             title = gettext("Please correct the following errors");
 
             const output = [`<ul class="px-4 mb-0">`];
-            for (let i=0, l=errors.length; i<l; i++) {
+            for (let i = 0, l = errors.length; i < l; i++) {
                 output.push(`<li>${errors[i]}</li>`);
             }
             output.push(`</ul>`);
@@ -596,25 +590,31 @@ function showErrors(errors, options) {
         message = errors;
     }
 
-    const modal = createModal(Object.assign({
-        modalClass: "paper-modal--danger fade",
-        title: title,
-        body: message,
-        buttons: [{
-            autofocus: true,
-            label: gettext("OK"),
-            buttonClass: "btn-success",
-            onClick: function(event, popup) {
-                popup.destroy();
-            }
-        }]
-    }, options));
+    const modal = createModal(
+        Object.assign(
+            {
+                modalClass: "paper-modal--danger fade",
+                title: title,
+                body: message,
+                buttons: [
+                    {
+                        autofocus: true,
+                        label: gettext("OK"),
+                        buttonClass: "btn-success",
+                        onClick: function (event, popup) {
+                            popup.destroy();
+                        }
+                    }
+                ]
+            },
+            options
+        )
+    );
 
     modal.show();
 
     return modal;
 }
-
 
 /**
  * Специализированное окно для показа прелоадера.
@@ -624,33 +624,30 @@ function showErrors(errors, options) {
 function showPreloader(options) {
     const config = {
         ...{
-            body:
-                `<div class="paper-preloader">
+            body: `<div class="paper-preloader">
                   <div class="paper-preloader__text">Loading</div>
                 </div>`,
             modalClass: "paper-modal--preloader fade-in",
             modalDialogClass: "modal-sm",
             closeButton: false,
             templates: {
-                modal:
-                    `<div class="paper-modal modal" tabindex="-1">
+                modal: `<div class="paper-modal modal" tabindex="-1">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-body"></div>
                         </div>
                       </div>
-                    </div>`,
+                    </div>`
             },
             onClose: null
         },
         ...options
-    }
+    };
 
     const modal = new PaperModal(config);
     modal.show();
     return modal;
 }
-
 
 /**
  * Показывает прелоадер для указанного промиса.
@@ -676,12 +673,12 @@ function showSmartPreloader(promise, options) {
 
     return Promise.race([
         promise,
-        new Promise((resolve) => {
+        new Promise(resolve => {
             setTimeout(() => {
                 resolve(WAITING_TIME_PASSED);
             }, WAITING_TIME);
-        }),
-    ]).then(function(result) {
+        })
+    ]).then(function (result) {
         if (result !== WAITING_TIME_PASSED) {
             return result;
         }
@@ -689,12 +686,12 @@ function showSmartPreloader(promise, options) {
         const preloader = showPreloader(options);
         return allSettled([
             promise,
-            new Promise((resolve) => {
+            new Promise(resolve => {
                 setTimeout(() => {
                     resolve();
                 }, PRELOADER_MIN_SHOWING_TIME);
             })
-        ]).then(function(results) {
+        ]).then(function (results) {
             preloader.destroy();
 
             const promiseResult = results[0];
@@ -710,7 +707,6 @@ function showSmartPreloader(promise, options) {
         });
     });
 }
-
 
 const modals = {
     createModal,

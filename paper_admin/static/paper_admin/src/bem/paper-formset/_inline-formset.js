@@ -1,10 +1,9 @@
-import emitters from "js/utilities/emitters";
-import {gsap, TimelineLite} from "gsap";
-import {ScrollToPlugin} from "gsap/ScrollToPlugin";
-import Formset from "./_formset";
+import emitters from "js/utilities/emitters.js";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import Formset from "./_formset.js";
 
 gsap.registerPlugin(ScrollToPlugin);
-
 
 class InlineFormset extends Formset {
     constructor(root) {
@@ -42,7 +41,7 @@ class InlineFormset extends Formset {
         emitters.inlines.trigger("add", [form, this.prefix]);
 
         // Animation
-        const onAddCallback = function() {
+        const onAddCallback = function () {
             this._isTransitioning = false;
             this.updateButtonsState();
 
@@ -93,7 +92,7 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onDeleteCallback = function() {
+        const onDeleteCallback = function () {
             emitters.dom.trigger("release", [form]);
 
             form.remove();
@@ -171,7 +170,7 @@ class InlineFormset extends Formset {
         this.updateFormOrder();
 
         // Имитация начального расположения форм с помощью CSS-трансформаций.
-        this.formContainer.style.transformStyle = 'preserve-3d';
+        this.formContainer.style.transformStyle = "preserve-3d";
         if (direction === "up") {
             form1.style.transform = `translate3d(0, ${initialRect1.top - swappedRect1.top}px, 0)`;
             form2.style.transform = `translate3d(0, ${initialRect2.top - swappedRect2.top}px, 1px)`;
@@ -184,16 +183,16 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onSwapCallback = function() {
+        const onSwapCallback = function () {
             this._isTransitioning = false;
             this.updateButtonsState();
 
-            this.formContainer.style.transformStyle = '';
+            this.formContainer.style.transformStyle = "";
         }.bind(this);
 
         const animationOptions = {
             y: 0,
-            clearProps: "transform",
+            clearProps: "transform"
         };
 
         if (this.root.classList.contains("paper-formset--tabular")) {
@@ -202,36 +201,35 @@ class InlineFormset extends Formset {
             animationOptions.duration = 0.5;
         }
 
-        const tl = new TimelineLite({
-            onComplete: onSwapCallback
-        })
-        .to(form1, animationOptions)
-        .to(form2, animationOptions, 0);
+        const tl = gsap
+            .timeline({
+                onComplete: onSwapCallback
+            })
+            .to(form1, animationOptions)
+            .to(form2, animationOptions, 0);
 
         // Перемещение окна вместе с формой.
         let finalPageOffset;
         let preventScroll;
         if (direction === "up") {
             finalPageOffset = currentPageOffset + (swappedRect2.top - initialRect2.top);
-            preventScroll = (
-                (initialRect2.top > (0.5 * window.innerHeight))
-                && (swappedRect2.top > (0.5 * window.innerHeight))
-            )
+            preventScroll = initialRect2.top > 0.5 * window.innerHeight && swappedRect2.top > 0.5 * window.innerHeight;
         } else {
             finalPageOffset = currentPageOffset + (swappedRect1.top - initialRect1.top);
-            preventScroll = (
-                (initialRect1.top < (0.5 * window.innerHeight))
-                && (swappedRect1.top < (0.5 * window.innerHeight))
-            )
+            preventScroll = initialRect1.top < 0.5 * window.innerHeight && swappedRect1.top < 0.5 * window.innerHeight;
         }
 
         if (!preventScroll) {
-            tl.to(window, {
-                duration: animationOptions.duration,
-                scrollTo: {
-                    y: Math.max(0, finalPageOffset)
-                }
-            }, 0)
+            tl.to(
+                window,
+                {
+                    duration: animationOptions.duration,
+                    scrollTo: {
+                        y: Math.max(0, finalPageOffset)
+                    }
+                },
+                0
+            );
         }
     }
 
@@ -254,7 +252,7 @@ class InlineFormset extends Formset {
         }
 
         // Обновление кнопки удаления
-        const deleteFormButton = form.querySelector("[data-formset-toggle=\"delete\"]");
+        const deleteFormButton = form.querySelector('[data-formset-toggle="delete"]');
         if (deleteFormButton && deleteFormButton.dataset.formsetForm) {
             const regex = new RegExp("(" + this.prefix + "-(\\d+|__prefix__))");
             const replacement = this.prefix + "-" + index;

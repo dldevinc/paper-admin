@@ -11,24 +11,23 @@ const ALL_CLASS = "paper-actions__all";
 const CLEAR_CLASS = "paper-actions__clear";
 const ACROSS_INPUT = ".paper-actions__select_across input.select-across";
 
-
 function initActions(inputs) {
     let lastChecked = null;
     const table = document.getElementById("result_list");
     const allToggleInput = document.getElementById(TOGGLE_ALL_ID);
 
     // клик на чекбокс "выбрать все"
-    allToggleInput.addEventListener("change", function() {
+    allToggleInput.addEventListener("change", function () {
         const rows = inputs.map(input => input.closest("tr"));
         toggleRows(rows, this.checked);
         updateCounter(inputs);
     });
 
     // пользовательское событие выделения ряда таблицы
-    table.addEventListener("select", function(event) {
+    table.addEventListener("select", function (event) {
         const target = event.target;
-        if ((target.tagName !== "TR") || (target.closest("table") !== table)) {
-            return
+        if (target.tagName !== "TR" || target.closest("table") !== table) {
+            return;
         }
 
         const state = Boolean(event.detail.state);
@@ -40,13 +39,13 @@ function initActions(inputs) {
         allToggleInput.checked = inputs.find(input => !input.checked) == null;
     });
 
-    table.addEventListener("click", function(event) {
+    table.addEventListener("click", function (event) {
         const target = event.target;
 
         // клик вне строк таблицы
         const row = target.closest("tr");
         if (!row) {
-            return
+            return;
         }
 
         const checkbox_clicked = target.closest(CHECKBOX_LABEL_SELECTOR);
@@ -71,26 +70,26 @@ function initActions(inputs) {
     });
 
     // отмена выделения текста при клике с удержанным Shift
-    table.addEventListener("mousedown", function(event) {
+    table.addEventListener("mousedown", function (event) {
         const target = event.target;
-        if (event.shiftKey && ((target.tagName === "TD") || (target.tagName === "TH"))) {
+        if (event.shiftKey && (target.tagName === "TD" || target.tagName === "TH")) {
             event.preventDefault();
         }
     });
 
     // выбор всех записей таблицы
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const target = event.target;
-        if ((target.tagName === "A") && target.closest(`.${QUESTION_CLASS}`)) {
+        if (target.tagName === "A" && target.closest(`.${QUESTION_CLASS}`)) {
             event.preventDefault();
             selectAcross();
         }
     });
 
     // очистка выбора
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const target = event.target;
-        if ((target.tagName === "A") && target.closest(`.${CLEAR_CLASS}`)) {
+        if (target.tagName === "A" && target.closest(`.${CLEAR_CLASS}`)) {
             event.preventDefault();
             allToggleInput.checked = false;
             const rows = inputs.map(input => input.closest("tr"));
@@ -110,10 +109,10 @@ function protectEditForm() {
     let list_editable_changed = false;
     const form = document.getElementById("changelist-form");
 
-    form.addEventListener("change", function(event) {
+    form.addEventListener("change", function (event) {
         const target = event.target;
         if (target.tagName === "INPUT") {
-            if (target.closest(`.${CHECKBOX_CLASS}`) || (target.id === TOGGLE_ALL_ID)) {
+            if (target.closest(`.${CHECKBOX_CLASS}`) || target.id === TOGGLE_ALL_ID) {
                 // nothing
             } else {
                 list_editable_changed = true;
@@ -129,32 +128,44 @@ function protectEditForm() {
         }
     });
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const target = event.target;
-        const action_button = target.closest("[name=\"index\"]");
+        const action_button = target.closest('[name="index"]');
         if (action_button && list_editable_changed) {
-            const agree = confirm(gettext("You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost."));
+            const agree = confirm(
+                gettext(
+                    "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost."
+                )
+            );
             if (!agree) {
                 event.preventDefault();
             }
         }
     });
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const target = event.target;
-        const save_button = target.closest("[name=\"_save\"]");
+        const save_button = target.closest('[name="_save"]');
 
-        const action_selects = document.querySelectorAll(".actions select[name=\"action\"]");
-        const action_changed = !Array.prototype.every.call(action_selects, function(select) {
-            return !select.value
+        const action_selects = document.querySelectorAll('.actions select[name="action"]');
+        const action_changed = !Array.prototype.every.call(action_selects, function (select) {
+            return !select.value;
         });
 
         if (save_button && action_changed) {
             let apply;
             if (list_editable_changed) {
-                apply = confirm(gettext("You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action."));
+                apply = confirm(
+                    gettext(
+                        "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action."
+                    )
+                );
             } else {
-                apply = confirm(gettext("You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button."));
+                apply = confirm(
+                    gettext(
+                        "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button."
+                    )
+                );
             }
             if (!apply) {
                 event.preventDefault();
@@ -169,15 +180,17 @@ function protectEditForm() {
  * @param {Boolean} checked
  */
 function toggleRows(rows, checked) {
-    rows.forEach(function(row) {
+    rows.forEach(function (row) {
         if (row && row.tagName === "TR") {
-            row.dispatchEvent(new CustomEvent("select", {
-                bubbles: true,
-                cancelable: true,
-                detail: {
-                    state: checked
-                }
-            }));
+            row.dispatchEvent(
+                new CustomEvent("select", {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: {
+                        state: checked
+                    }
+                })
+            );
         }
     });
 }
@@ -185,7 +198,7 @@ function toggleRows(rows, checked) {
 function updateCounter(inputs) {
     const selected = inputs.reduce((sum, input) => sum + (input.checked ? 1 : 0), 0);
     const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
-    counters.forEach(function(counter) {
+    counters.forEach(function (counter) {
         counter.innerHTML = interpolate(
             ngettext("%(sel)s of %(cnt)s selected", "%(sel)s of %(cnt)s selected", selected),
             {
@@ -208,8 +221,8 @@ function updateCounter(inputs) {
  */
 function showQuestion() {
     const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
-    questions.forEach(function(question) {
-        question.hidden = false
+    questions.forEach(function (question) {
+        question.hidden = false;
     });
 }
 
@@ -219,7 +232,7 @@ function showQuestion() {
  */
 function setAcrossInput(value) {
     const acrossInput = document.querySelectorAll(ACROSS_INPUT);
-    acrossInput.forEach(function(input) {
+    acrossInput.forEach(function (input) {
         input.value = Number(value);
     });
 }
@@ -228,23 +241,23 @@ function selectAcross() {
     setAcrossInput(true);
 
     const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
-    counters.forEach(function(counter) {
-        counter.hidden = true
+    counters.forEach(function (counter) {
+        counter.hidden = true;
     });
 
     const allContainers = document.querySelectorAll(`.${ALL_CLASS}`);
-    allContainers.forEach(function(container) {
-        container.hidden = false
+    allContainers.forEach(function (container) {
+        container.hidden = false;
     });
 
     const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
-    questions.forEach(function(question) {
-        question.hidden = true
+    questions.forEach(function (question) {
+        question.hidden = true;
     });
 
     const clear_buttons = document.querySelectorAll(`.${CLEAR_CLASS}`);
-    clear_buttons.forEach(function(clear_button) {
-        clear_button.hidden = false
+    clear_buttons.forEach(function (clear_button) {
+        clear_button.hidden = false;
     });
 }
 
@@ -252,27 +265,26 @@ function clearAcross(inputs) {
     setAcrossInput(false);
 
     const counters = document.querySelectorAll(`.${COUNTER_CLASS}`);
-    counters.forEach(function(counter) {
-        counter.hidden = false
+    counters.forEach(function (counter) {
+        counter.hidden = false;
     });
 
     const allContainers = document.querySelectorAll(`.${ALL_CLASS}`);
-    allContainers.forEach(function(container) {
-        container.hidden = true
+    allContainers.forEach(function (container) {
+        container.hidden = true;
     });
 
     const selected = inputs.reduce((sum, input) => sum + (input.checked ? 1 : 0), 0);
     const questions = document.querySelectorAll(`.${QUESTION_CLASS}`);
-    questions.forEach(function(question) {
-        question.hidden = selected !== inputs.length
+    questions.forEach(function (question) {
+        question.hidden = selected !== inputs.length;
     });
 
     const clear_buttons = document.querySelectorAll(`.${CLEAR_CLASS}`);
-    clear_buttons.forEach(function(clear_button) {
-        clear_button.hidden = true
+    clear_buttons.forEach(function (clear_button) {
+        clear_button.hidden = true;
     });
 }
-
 
 const checkboxes = document.querySelectorAll(`.${CHECKBOX_CLASS}`);
 if (checkboxes.length) {

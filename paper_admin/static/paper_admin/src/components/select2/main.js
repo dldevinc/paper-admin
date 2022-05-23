@@ -1,12 +1,11 @@
-import Widget from "js/utilities/widget";
-import "select2/dist/js/select2.full";
-import "./patches";
+import Widget from "js/utilities/widget.js";
+import "select2/dist/js/select2.full.js";
+import "./patches.js";
 
 // CSS
 import "select2/dist/css/select2.css";
 import "./patches.scss";
 import "./small.scss";
-
 
 class Select2Widget extends Widget {
     constructor(options) {
@@ -16,9 +15,9 @@ class Select2Widget extends Widget {
 
     _init(element) {
         const options = Object.assign({}, this.opts);
-        if (options.allowClear && (typeof options.placeholder == "undefined")) {
+        if (options.allowClear && typeof options.placeholder == "undefined") {
             // Использование allowClear требует указать placeholder.
-            const emptyOption = element.querySelector("option[value=\"\"]");
+            const emptyOption = element.querySelector('option[value=""]');
             if (emptyOption) {
                 options.placeholder = emptyOption.textContent;
             } else {
@@ -29,12 +28,12 @@ class Select2Widget extends Widget {
         $(element).select2(options);
 
         // вызов события change для поддержки hookUnload
-        $(element).on("select2:select select2:clear", function() {
+        $(element).on("select2:select select2:clear", function () {
             const event = new CustomEvent("change", {
                 bubbles: true,
                 cancelable: true
             });
-            element.dispatchEvent(event)
+            element.dispatchEvent(event);
         });
 
         /*
@@ -44,7 +43,7 @@ class Select2Widget extends Widget {
          *
          * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
          */
-        $(element).on("select2:open", function() {
+        $(element).on("select2:open", function () {
             const instance = $(this).data("select2");
             const searchField = instance.$dropdown.get(0).querySelector(".select2-search__field");
             searchField && searchField.focus();
@@ -52,8 +51,8 @@ class Select2Widget extends Widget {
     }
 
     _destroy(element) {
-        $(element).select2("destroy")
+        $(element).select2("destroy");
     }
 }
 
-export {Select2Widget};
+export { Select2Widget };

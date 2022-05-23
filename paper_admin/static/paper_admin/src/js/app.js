@@ -1,10 +1,11 @@
 import * as bootstrap from "bootstrap";
-import emitters from "js/utilities/emitters";
-import formUtils from "js/utilities/form_utils";
 import Sortable from "sortablejs";
-import Widget from "js/utilities/widget";
-import "js/components/bootstrap";
-import "js/components/filedrag";
+import emitters from "js/utilities/emitters.js";
+import dragUtils from "js/utilities/drag_utils.js";
+import formUtils from "js/utilities/form_utils.js";
+import Widget from "js/utilities/widget.js";
+import "js/components/bootstrap.js";
+import "js/components/filedrag.js";
 
 // -----------------
 //  CSS vendors
@@ -35,7 +36,7 @@ import "widgets/number-field";
 import "widgets/password-field";
 import "widgets/related-widget-wrapper";
 import "widgets/select-field";
-import "widgets/select-date-field";  // must be below select-field
+import "widgets/select-date-field"; // must be below select-field
 import "widgets/select-multiple-field";
 import "widgets/split-datetime-field";
 import "widgets/text-field";
@@ -46,28 +47,28 @@ import "widgets/uuid-field";
 // -----------------
 //  BEM
 // -----------------
-import "bem/btn-square/btn-square";
-import "bem/btn-square-group/btn-square-group";
-import "bem/delete-inline/delete-inline";
-import "bem/dotted-underline/dotted-underline";
-import "bem/paper-breadcrumbs/paper-breadcrumbs";
-import "bem/paper-card/paper-card";
-import "bem/paper-environment/paper-environment";
-import "bem/paper-error-list/paper-error-list";
-import "bem/paper-form/paper-form";
-import "bem/paper-header/paper-header";
-import "bem/paper-input-group/paper-input-group";
-import "bem/paper-messages/paper-messages";
-import modals from "bem/paper-modal/paper-modal";
-import "bem/paper-object-list/paper-object-list";
-import "bem/paper-page/paper-page";
-import "bem/paper-preloader/paper-preloader";
-import "bem/paper-sidebar/paper-sidebar";
-import "bem/paper-table/paper-table";
-import "bem/paper-tabs/paper-tabs";
-import "bem/paper-toolbar/paper-toolbar";
-import "bem/paper-widget/paper-widget";
-
+import "bem/btn-square/btn-square.js";
+import "bem/btn-square-group/btn-square-group.js";
+import "bem/delete-inline/delete-inline.js";
+import "bem/dotted-underline/dotted-underline.js";
+import "bem/paper-breadcrumbs/paper-breadcrumbs.js";
+import "bem/paper-card/paper-card.js";
+import "bem/paper-dropzone/paper-dropzone.js";
+import "bem/paper-environment/paper-environment.js";
+import "bem/paper-error-list/paper-error-list.js";
+import "bem/paper-form/paper-form.js";
+import "bem/paper-header/paper-header.js";
+import "bem/paper-input-group/paper-input-group.js";
+import "bem/paper-messages/paper-messages.js";
+import modals from "bem/paper-modal/paper-modal.js";
+import "bem/paper-object-list/paper-object-list.js";
+import "bem/paper-page/paper-page.js";
+import "bem/paper-preloader/paper-preloader.js";
+import "bem/paper-sidebar/paper-sidebar.js";
+import "bem/paper-table/paper-table.js";
+import "bem/paper-tabs/paper-tabs.js";
+import "bem/paper-toolbar/paper-toolbar.js";
+import "bem/paper-widget/paper-widget.js";
 
 // -----------------
 //  CSS for pages
@@ -79,24 +80,23 @@ import "css/login.scss";
 // -----------------
 import "img/default_favicon.png";
 
-
 // -----------------
 //  Import & Export
 // -----------------
 
 // changelist page
 if (document.body.classList.contains("change-list")) {
-    import(/* webpackChunkName: "changelist" */ "js/changelist");
+    import(/* webpackChunkName: "changelist" */ "js/changelist.js");
 }
 
 // changeform page
 if (document.body.classList.contains("change-form")) {
-    import(/* webpackChunkName: "changeform" */ "js/changeform");
+    import(/* webpackChunkName: "changeform" */ "js/changeform.js");
 }
 
 // popup page
 if (window.location.search.indexOf("&_popup=1") !== -1) {
-    import(/* webpackChunkName: "popup" */ "js/popup");
+    import(/* webpackChunkName: "popup" */ "js/popup.js");
 }
 
 window.django = window.django || {};
@@ -105,8 +105,9 @@ window.django.jQuery = jQuery;
 export const paperAdmin = {
     bootstrap,
     emitters,
+    dragUtils,
     formUtils,
     modals,
     Sortable,
     Widget
-}
+};

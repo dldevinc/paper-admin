@@ -1,6 +1,5 @@
 import "bootstrap";
-import Widget from "js/utilities/widget";
-
+import Widget from "js/utilities/widget.js";
 
 class DropdownWidget extends Widget {
     constructor(options) {
@@ -12,7 +11,6 @@ class DropdownWidget extends Widget {
         $(element).dropdown(this.opts);
     }
 }
-
 
 class PopoverWidget extends Widget {
     constructor(options) {
@@ -29,7 +27,6 @@ class PopoverWidget extends Widget {
     }
 }
 
-
 class TooltipWidget extends Widget {
     constructor(options) {
         super();
@@ -37,17 +34,19 @@ class TooltipWidget extends Widget {
     }
 
     _init(element) {
-        $(element).tooltip(this.opts).filter("[data-trigger=\"hover\"]").on("click", function() {
-            // FIX: при клике на кнопках сортировки, подсказки остаются висеть на прежнем месте
-            $(this).tooltip("hide");
-        });
+        $(element)
+            .tooltip(this.opts)
+            .filter('[data-trigger="hover"]')
+            .on("click", function () {
+                // FIX: при клике на кнопках сортировки, подсказки остаются висеть на прежнем месте
+                $(this).tooltip("hide");
+            });
     }
 
     _destroy(element) {
         $(element).tooltip("hide");
     }
 }
-
 
 class CollapseWidget extends Widget {
     constructor(options) {
@@ -60,11 +59,9 @@ class CollapseWidget extends Widget {
     }
 }
 
-
 const bs_dropdown = new DropdownWidget();
 bs_dropdown.observe(".dropdown-toggle");
 bs_dropdown.initAll(".dropdown-toggle");
-
 
 const bs_popover = new PopoverWidget({
     delay: {
@@ -72,9 +69,8 @@ const bs_popover = new PopoverWidget({
         hide: 100
     }
 });
-bs_popover.observe("[data-toggle=\"popover\"]");
-bs_popover.initAll("[data-toggle=\"popover\"]");
-
+bs_popover.observe('[data-toggle="popover"]');
+bs_popover.initAll('[data-toggle="popover"]');
 
 const bs_collapse = new CollapseWidget({
     toggle: false
@@ -82,12 +78,11 @@ const bs_collapse = new CollapseWidget({
 bs_collapse.observe(".collapse");
 bs_collapse.initAll(".collapse");
 
-
 const bs_tooltip = new TooltipWidget({
     delay: {
         show: 600,
         hide: 100
     }
 });
-bs_tooltip.observe("[data-toggle=\"tooltip\"]");
-bs_tooltip.initAll("[data-toggle=\"tooltip\"]");
+bs_tooltip.observe('[data-toggle="tooltip"]');
+bs_tooltip.initAll('[data-toggle="tooltip"]');

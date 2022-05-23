@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.1.0](https://github.com/dldevinc/paper-admin/tree/v4.0.4) - 2022-05-23
+### ⚠ BREAKING CHANGES
+- Renamed `ondrag` CSS class to `on-drag-file`.
+### Features
+- Added `paperAdmin.dragUtils`.
+
 ## [4.0.3](https://github.com/dldevinc/paper-admin/tree/v4.0.3) - 2022-05-13
 ### Features
 - `post_office` patch package is now deprecated and will be removed in a future release.

@@ -1,17 +1,19 @@
-import {dateFormats, flatpickr} from "components/flatpickr";
-import getPossibleLocales from "js/utilities/locale";
-import Widget from "js/utilities/widget";
-
+import { dateFormats, flatpickr } from "components/flatpickr";
+import getPossibleLocales from "js/utilities/locale.js";
+import Widget from "js/utilities/widget.js";
 
 class DateRangeFilter extends Widget {
     constructor(options) {
         super();
 
-        this.opts = Object.assign({
-            altInput: true,
-            locale: this._getLocale(),
-            dateFormat: this._getDateFormat()
-        }, options);
+        this.opts = Object.assign(
+            {
+                altInput: true,
+                locale: this._getLocale(),
+                dateFormat: this._getDateFormat()
+            },
+            options
+        );
     }
 
     _init(element) {
@@ -23,7 +25,7 @@ class DateRangeFilter extends Widget {
         const dateEndConfig = Object.assign({}, this.opts);
         flatpickr(dateEnd, dateEndConfig);
 
-        element.addEventListener("click", function(event) {
+        element.addEventListener("click", function (event) {
             const button = event.target.closest("[data-today]");
             if (button) {
                 const inputGroup = button.closest(".input-group");
@@ -38,34 +40,33 @@ class DateRangeFilter extends Widget {
     _destroy(element) {
         const dateStart = element.querySelector("[data-range-start]");
         if (dateStart._flatpickr) {
-            dateStart._flatpickr.destroy()
+            dateStart._flatpickr.destroy();
         }
 
         const dateEnd = element.querySelector("[data-range-end]");
         if (dateEnd._flatpickr) {
-            dateEnd._flatpickr.destroy()
+            dateEnd._flatpickr.destroy();
         }
     }
 
     _getLocale() {
-        for(const locale of getPossibleLocales()) {
+        for (const locale of getPossibleLocales()) {
             if (flatpickr.l10ns[locale]) {
-                return locale
+                return locale;
             }
         }
-        return "default"
+        return "default";
     }
 
     _getDateFormat() {
-        for(const locale of getPossibleLocales()) {
+        for (const locale of getPossibleLocales()) {
             if (dateFormats[locale]) {
-                return dateFormats[locale]
+                return dateFormats[locale];
             }
         }
         return "Y-m-d";
     }
 }
-
 
 const widget = new DateRangeFilter();
 widget.observe(".paper-date-range-filter");

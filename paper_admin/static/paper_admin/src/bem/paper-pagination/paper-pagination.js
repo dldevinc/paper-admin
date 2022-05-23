@@ -1,5 +1,5 @@
 // Ctrl + Arrows navigation
-window.addEventListener("keydown", function(event) {
+window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
         return; // Do nothing if the event was already processed
     }
@@ -7,17 +7,17 @@ window.addEventListener("keydown", function(event) {
     if (event.ctrlKey) {
         const pagination = document.querySelector(".paper-pagination");
         if (!pagination) {
-            return
+            return;
         }
 
         switch (event.key) {
             case "Left":
             case "ArrowLeft":
-                pagination.querySelector(".page-link[aria-label=\"Previous\"]").click();
+                pagination.querySelector('.page-link[aria-label="Previous"]').click();
                 break;
             case "Right":
             case "ArrowRight":
-                pagination.querySelector(".page-link[aria-label=\"Next\"]").click();
+                pagination.querySelector('.page-link[aria-label="Next"]').click();
                 break;
             default:
                 // Quit when this doesn't handle the key event.
