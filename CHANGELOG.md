@@ -1,6 +1,10 @@
 # Change Log
 
-## [4.1.0](https://github.com/dldevinc/paper-admin/tree/v4.0.4) - 2022-05-23
+## [4.1.1](https://github.com/dldevinc/paper-admin/tree/v4.0.4) - 2022-05-23
+### Features
+- Added support for [search_help_text](https://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_help_text).
+
+## [4.1.0](https://github.com/dldevinc/paper-admin/tree/v4.1.0) - 2022-05-23
 ### ⚠ BREAKING CHANGES
 - Renamed `ondrag` CSS class to `on-drag-file`.
 ### Features
