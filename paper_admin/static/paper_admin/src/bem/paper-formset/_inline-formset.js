@@ -11,6 +11,10 @@ class InlineFormset extends Formset {
         this._isTransitioning = false;
     }
 
+    get isTabular() {
+        return this.root.classList.contains("paper-formset--tabular");
+    }
+
     setAddFormButtonState(button, state) {
         // отключение кнопок во время анимации
         const finalState = !this._isTransitioning && state;
@@ -56,7 +60,7 @@ class InlineFormset extends Formset {
             onComplete: onAddCallback
         };
 
-        if (this.root.classList.contains("paper-formset--tabular")) {
+        if (this.isTabular) {
             animationOptions.duration = 0.2;
             animationOptions.opacity = 0;
             animationOptions.clearProps = "opacity";
@@ -111,7 +115,7 @@ class InlineFormset extends Formset {
             onComplete: onDeleteCallback
         };
 
-        if (this.root.classList.contains("paper-formset--tabular")) {
+        if (this.isTabular) {
             animationOptions.duration = 0.2;
             animationOptions.opacity = 0;
         } else {
@@ -195,7 +199,7 @@ class InlineFormset extends Formset {
             clearProps: "transform"
         };
 
-        if (this.root.classList.contains("paper-formset--tabular")) {
+        if (this.isTabular) {
             animationOptions.duration = 0.25;
         } else {
             animationOptions.duration = 0.5;
