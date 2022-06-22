@@ -82,8 +82,7 @@ INSTALLED_APPS = [
    class MyModel(models.Model):
        position = models.IntegerField(
            "position", 
-           default=0,
-           editable=False  # опционально
+           default=0
        )
    ```
 

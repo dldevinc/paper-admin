@@ -32,7 +32,7 @@ class Staff(models.Model):
     company = models.ForeignKey(Company, related_name="staff", on_delete=models.CASCADE)
     person = models.ForeignKey(Person, related_name="companies", on_delete=models.CASCADE)
     position = models.CharField(_("position"), max_length=255)
-    order = models.IntegerField(_("order"), default=0, editable=False)
+    order = models.IntegerField(_("order"), default=0)
 
     def __str__(self):
         return str(self.person)
@@ -48,7 +48,7 @@ class Industry(models.Model):
 class CompanyIndustry(models.Model):
     company = models.ForeignKey(Company, related_name="industry", on_delete=models.CASCADE)
     industry = models.ForeignKey(Industry, related_name="companies", on_delete=models.CASCADE)
-    order = models.IntegerField(_("order"), default=0, editable=False)
+    order = models.IntegerField(_("order"), default=0)
 
     def __str__(self):
         return str(self.industry)

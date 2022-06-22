@@ -30,6 +30,11 @@ class PatchInlineModelAdmin(InlineModelAdmin, metaclass=ModelAdminMonkeyPatchMet
             })
         return get_original(InlineModelAdmin)(self, db_field, request, **kwargs)
 
+    def get_ordering(self, request):
+        if self.sortable:
+            return [self.sortable] + list(get_original(InlineModelAdmin)(self, request))
+        return get_original(InlineModelAdmin)(self, request)
+
 
 class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     def __init__(self, model, admin_site):
