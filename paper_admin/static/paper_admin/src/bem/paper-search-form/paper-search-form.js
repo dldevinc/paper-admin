@@ -4,6 +4,6 @@ import "./paper-search-form.scss";
 const form = document.querySelector(".paper-search-form");
 const input = form && form.querySelector(".form-control");
 input &&
-    input.addEventListener("focus", function () {
-        this.select();
+    input.addEventListener("focus", () => {
+        input.select();
     });

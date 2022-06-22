@@ -13,16 +13,13 @@ class SidebarWidget extends Widget {
             options
         );
 
-        document.addEventListener(
-            "click",
-            function (event) {
-                const trigger = event.target.closest(this.opts.triggerSelector);
-                if (trigger) {
-                    event.preventDefault();
-                    this.toggle();
-                }
-            }.bind(this)
-        );
+        document.addEventListener("click", event => {
+            const trigger = event.target.closest(this.opts.triggerSelector);
+            if (trigger) {
+                event.preventDefault();
+                this.toggle();
+            }
+        });
     }
 
     get hidden() {
@@ -43,9 +40,9 @@ class SidebarWidget extends Widget {
         }
 
         setTimeout(
-            function () {
+            () => {
                 document.documentElement.classList.add(this.opts.openClass);
-            }.bind(this),
+            },
             0
         );
     }
@@ -75,7 +72,7 @@ sidebar.initAll(".paper-sidebar");
  * Изменение иконки папки в соответсвии с состоянием пункта меню.
  */
 $(document)
-    .on("show.bs.collapse", ".paper-sidebar", function (event) {
+    .on("show.bs.collapse", ".paper-sidebar", event => {
         const navList = event.target;
         const parentNavItem = navList && navList.closest(".paper-sidebar__item");
         const icon = parentNavItem && parentNavItem.querySelector(":scope > a > .paper-icon-default");
@@ -84,7 +81,7 @@ $(document)
             icon.classList.add("fa-folder-open-o");
         }
     })
-    .on("hide.bs.collapse", ".paper-sidebar", function (event) {
+    .on("hide.bs.collapse", ".paper-sidebar", event => {
         const navList = event.target;
         const parentNavItem = navList && navList.closest(".paper-sidebar__item");
         const icon = parentNavItem && parentNavItem.querySelector(":scope > a > .paper-icon-default");

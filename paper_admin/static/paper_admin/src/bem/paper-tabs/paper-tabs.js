@@ -20,7 +20,7 @@ function scrollTo(element) {
     const minOffset = (ERROR_VISIBILITY_CROP_PERCENT / 100) * document.documentElement.clientHeight;
     const isVisible = topOffset > minOffset && topOffset < document.documentElement.clientHeight - minOffset;
     if (!isVisible) {
-        setTimeout(function () {
+        setTimeout(() => {
             gsap.to(window, {
                 duration: 0.5,
                 scrollTo: {
@@ -61,7 +61,7 @@ if (invalidElement) {
 }
 
 // Установка якоря при смене вкладки
-$(document).on("shown.bs.tab", function (event) {
+$(document).on("shown.bs.tab", event => {
     const tab_name = event.target.getAttribute("aria-controls");
     if (tab_name) {
         history.replaceState(null, "", `#${tab_name}`);

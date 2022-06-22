@@ -135,15 +135,13 @@ class Formset {
     getAddFormButtons() {
         const buttons = [];
 
-        document.querySelectorAll('[data-formset-toggle="add"]').forEach(
-            function (button) {
-                if (this.root.id && button.dataset.formset === this.root.id) {
-                    buttons.push(button);
-                } else if (this.root.contains(button) && !button.dataset.formset) {
-                    buttons.push(button);
-                }
-            }.bind(this)
-        );
+        document.querySelectorAll('[data-formset-toggle="add"]').forEach(button => {
+            if (this.root.id && button.dataset.formset === this.root.id) {
+                buttons.push(button);
+            } else if (this.root.contains(button) && !button.dataset.formset) {
+                buttons.push(button);
+            }
+        });
 
         return buttons;
     }
@@ -155,14 +153,12 @@ class Formset {
     getDeleteFormButtons() {
         let buttons = [];
 
-        this.getForms().forEach(
-            function (form) {
-                const deleteFormButtons = form.querySelectorAll('[data-formset-toggle="delete"]');
-                if (deleteFormButtons.length) {
-                    buttons = buttons.concat(Array.from(deleteFormButtons));
-                }
-            }.bind(this)
-        );
+        this.getForms().forEach(form => {
+            const deleteFormButtons = form.querySelectorAll('[data-formset-toggle="delete"]');
+            if (deleteFormButtons.length) {
+                buttons = buttons.concat(Array.from(deleteFormButtons));
+            }
+        });
 
         return buttons;
     }
@@ -174,19 +170,17 @@ class Formset {
     getSortFormButtons() {
         let buttons = [];
 
-        this.getForms().forEach(
-            function (form) {
-                const moveUpButtons = form.querySelectorAll('[data-formset-toggle="up"]');
-                if (moveUpButtons.length) {
-                    buttons = buttons.concat(Array.from(moveUpButtons));
-                }
+        this.getForms().forEach(form => {
+            const moveUpButtons = form.querySelectorAll('[data-formset-toggle="up"]');
+            if (moveUpButtons.length) {
+                buttons = buttons.concat(Array.from(moveUpButtons));
+            }
 
-                const moveDownButtons = form.querySelectorAll('[data-formset-toggle="down"]');
-                if (moveDownButtons.length) {
-                    buttons = buttons.concat(Array.from(moveDownButtons));
-                }
-            }.bind(this)
-        );
+            const moveDownButtons = form.querySelectorAll('[data-formset-toggle="down"]');
+            if (moveDownButtons.length) {
+                buttons = buttons.concat(Array.from(moveDownButtons));
+            }
+        });
 
         return buttons;
     }
@@ -219,56 +213,47 @@ class Formset {
     }
 
     _initAddFormButtons() {
-        document.addEventListener(
-            "click",
-            function (event) {
-                const button = event.target.closest('[data-formset-toggle="add"]');
-                if (button) {
-                    if (this.root.id && button.dataset.formset === this.root.id) {
-                        this.addForm();
-                    } else if (this.root.contains(button) && !button.dataset.formset) {
-                        this.addForm();
-                    }
+        document.addEventListener("click", event => {
+            const button = event.target.closest('[data-formset-toggle="add"]');
+            if (button) {
+                if (this.root.id && button.dataset.formset === this.root.id) {
+                    this.addForm();
+                } else if (this.root.contains(button) && !button.dataset.formset) {
+                    this.addForm();
                 }
-            }.bind(this)
-        );
+            }
+        });
     }
 
     _initDeleteFormButtons() {
-        document.addEventListener(
-            "click",
-            function (event) {
-                const button = event.target.closest('[data-formset-toggle="delete"]');
-                if (button && this.root.contains(button)) {
-                    const form = button.closest(this.formSelector);
-                    if (form) {
-                        this.deleteForm(form);
-                    }
+        document.addEventListener("click", event => {
+            const button = event.target.closest('[data-formset-toggle="delete"]');
+            if (button && this.root.contains(button)) {
+                const form = button.closest(this.formSelector);
+                if (form) {
+                    this.deleteForm(form);
                 }
-            }.bind(this)
-        );
+            }
+        });
     }
 
     _initSortFormButtons() {
-        document.addEventListener(
-            "click",
-            function (event) {
-                const moveUpButton = event.target.closest('[data-formset-toggle="up"]');
-                const moveDownButton = event.target.closest('[data-formset-toggle="down"]');
+        document.addEventListener("click", event => {
+            const moveUpButton = event.target.closest('[data-formset-toggle="up"]');
+            const moveDownButton = event.target.closest('[data-formset-toggle="down"]');
 
-                if (moveUpButton && this.root.contains(moveUpButton)) {
-                    const form = moveUpButton.closest(this.formSelector);
-                    if (form) {
-                        this.moveFormUp(form);
-                    }
-                } else if (moveDownButton && this.root.contains(moveDownButton)) {
-                    const form = moveDownButton.closest(this.formSelector);
-                    if (form) {
-                        this.moveFormDown(form);
-                    }
+            if (moveUpButton && this.root.contains(moveUpButton)) {
+                const form = moveUpButton.closest(this.formSelector);
+                if (form) {
+                    this.moveFormUp(form);
                 }
-            }.bind(this)
-        );
+            } else if (moveDownButton && this.root.contains(moveDownButton)) {
+                const form = moveDownButton.closest(this.formSelector);
+                if (form) {
+                    this.moveFormDown(form);
+                }
+            }
+        });
     }
 
     addForm() {
@@ -342,13 +327,11 @@ class Formset {
      */
     updateFormIndexes(skip = null) {
         let index = 0;
-        this.getForms().forEach(
-            function (form) {
-                if (form !== skip) {
-                    this.setFormIndex(form, index++);
-                }
-            }.bind(this)
-        );
+        this.getForms().forEach(form => {
+            if (form !== skip) {
+                this.setFormIndex(form, index++);
+            }
+        });
     }
 
     /**
@@ -358,11 +341,9 @@ class Formset {
      */
     setFormIndex(form, index) {
         this._setElementIndex(form, index);
-        form.querySelectorAll("*").forEach(
-            function (element) {
-                this._setElementIndex(element, index);
-            }.bind(this)
-        );
+        form.querySelectorAll("*").forEach(element => {
+            this._setElementIndex(element, index);
+        });
     }
 
     /**
@@ -397,13 +378,11 @@ class Formset {
      */
     updateFormOrder(skip = null) {
         let index = 0;
-        this.getForms().forEach(
-            function (form) {
-                if (form !== skip) {
-                    this.setFormOrder(form, index++);
-                }
-            }.bind(this)
-        );
+        this.getForms().forEach(form => {
+            if (form !== skip) {
+                this.setFormOrder(form, index++);
+            }
+        });
     }
 
     /**
@@ -418,38 +397,32 @@ class Formset {
      */
     updateButtonsState() {
         const disableAdd = this.management_form.totalForms >= this.management_form.maxForms;
-        this.getAddFormButtons().forEach(
-            function (button) {
-                this.setAddFormButtonState(button, !disableAdd);
-            }.bind(this)
-        );
+        this.getAddFormButtons().forEach(button => {
+            this.setAddFormButtonState(button, !disableAdd);
+        });
 
         const disableDelete = this.management_form.totalForms <= this.management_form.minForms;
-        this.getDeleteFormButtons().forEach(
-            function (button) {
-                this.setDeleteFormButtonState(button, !disableDelete);
-            }.bind(this)
-        );
+        this.getDeleteFormButtons().forEach(button => {
+            this.setDeleteFormButtonState(button, !disableDelete);
+        });
 
         const formCount = this.getForms().length;
-        this.getSortFormButtons().forEach(
-            function (button) {
-                const form = button.closest(this.formSelector);
-                const formIndex = this.getFormIndex(form);
-                const direction = button.dataset.formsetToggle;
-                let state = true;
+        this.getSortFormButtons().forEach(button => {
+            const form = button.closest(this.formSelector);
+            const formIndex = this.getFormIndex(form);
+            const direction = button.dataset.formsetToggle;
+            let state = true;
 
-                if (formIndex === 0 && direction === "up") {
-                    state = false;
-                }
+            if (formIndex === 0 && direction === "up") {
+                state = false;
+            }
 
-                if (formIndex === formCount - 1 && direction === "down") {
-                    state = false;
-                }
+            if (formIndex === formCount - 1 && direction === "down") {
+                state = false;
+            }
 
-                this.setSortFormButtonState(button, state);
-            }.bind(this)
-        );
+            this.setSortFormButtonState(button, state);
+        });
     }
 }
 
