@@ -20,6 +20,4 @@
         sortable = "order"
 
 """
-from . import changelist
-from . import helpers
-from . import options
+from . import changelist, helpers, options

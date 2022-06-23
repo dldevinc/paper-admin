@@ -22,7 +22,7 @@ class PatchAdminSite(AdminSite, metaclass=MonkeyPatchMeta):
     def password_change(self, request, extra_context=None):
         # Добавляем шаблонную переменную opts, как в changeform
         from django.contrib.auth import get_user_model
-        UserModel = get_user_model()
+        UserModel = get_user_model()  # noqa: N806
         extra_context = extra_context or {}
         extra_context.setdefault("opts", UserModel._meta)
         return get_original(AdminSite)(self, request, extra_context)

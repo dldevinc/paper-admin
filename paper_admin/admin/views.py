@@ -10,7 +10,7 @@ class AdminViewMixin:
         data = super().get_context_data(**kwargs)
         data.update(site.each_context(self.request))
 
-        UserModel = get_user_model()
+        UserModel = get_user_model()  # noqa: N806
         data.setdefault("opts", UserModel._meta)
 
         return data

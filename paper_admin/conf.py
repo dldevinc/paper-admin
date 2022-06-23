@@ -1,8 +1,8 @@
 from platform import python_version
 
 from django import get_version
-from django.db import connection
 from django.conf import settings
+from django.db import connection
 from django.utils.translation import gettext_lazy as _
 
 DJANGO_VERSION = get_version()

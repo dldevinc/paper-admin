@@ -1,2 +1,1 @@
-from .widgets import *
-from . import options
+from . import options, widgets
