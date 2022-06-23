@@ -20,6 +20,6 @@ document.addEventListener("click", event => {
 window.addEventListener("scroll", () => {
     const button = document.querySelector(".scroll-top-button");
     if (button) {
-        button.classList.toggle("show", window.pageYOffset >= document.documentElement.clientHeight * 0.75);
+        button.classList.toggle("show", window.scrollY >= document.documentElement.clientHeight * 0.75);
     }
 });

@@ -163,7 +163,7 @@ class InlineFormset extends Formset {
         // TIP: при изменении форм местами может проскроллиться страница
         // (возможно из-за фокуса). Это внесет ошибку в дальнейшие рассчеты.
         // Поэтому фиксируем вертикальное расположение окна браузера.
-        const currentPageOffset = window.pageYOffset || document.documentElement.scrollTop;
+        const currentPageOffset = window.scrollY;
         form2.after(form1);
         window.scrollTo(0, currentPageOffset);
 
