@@ -1,5 +1,7 @@
 *.css
 *.scss
 *.yml
+*.yaml
 *.html
 package.json
+package-lock.json
