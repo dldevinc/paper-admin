@@ -1,2 +1,2 @@
 # paper-admin 2.x compat
-from .admin.renderers import PaperFormRenderer
+from .admin.renderers import PaperFormRenderer  # noqa: F401

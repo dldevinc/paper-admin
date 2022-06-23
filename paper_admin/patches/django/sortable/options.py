@@ -42,7 +42,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
 
         if self.sortable:
             # remove sortable field from `list_editable` list
-            self.list_editable = self.list_editable or []
+            self.list_editable = self.list_editable or []  # type: list
             if self.sortable in self.list_editable:
                 self.list_editable = [
                     field
@@ -51,7 +51,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
                 ]
 
             # add sortable field to `exclude` list
-            self.exclude = self.exclude or []
+            self.exclude = self.exclude or []  # type: list
             if self.sortable not in self.exclude:
                 self.exclude = list(self.exclude) + [self.sortable]
 
