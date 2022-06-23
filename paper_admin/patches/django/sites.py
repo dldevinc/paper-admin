@@ -14,7 +14,7 @@ class PatchAdminSite(AdminSite, metaclass=MonkeyPatchMeta):
         for index, url in enumerate(urlpatterns):
             if url.name == "jsi18n":
                 urlpatterns.pop(index)
-                urlpatterns.insert(index, path('jsi18n/', self.i18n_javascript, name='jsi18n'))
+                urlpatterns.insert(index, path("jsi18n/", self.i18n_javascript, name="jsi18n"))
                 break
 
         return urlpatterns
