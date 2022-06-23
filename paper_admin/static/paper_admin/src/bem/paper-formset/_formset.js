@@ -58,6 +58,10 @@ class Formset {
         this._initAddFormButtons();
         this._initDeleteFormButtons();
         this._initSortFormButtons();
+
+        // Обновление начальных индексов, т.к. формы могут быть изначально перемешаны
+        // при первоначальном отображении страницы из-за ошибки валидации.
+        this.updateFormIndexes();
     }
 
     /**
@@ -198,6 +202,15 @@ class Formset {
         });
 
         return buttons;
+    }
+
+    /**
+     * Возвращает True, если с формой связан существующий экземпляр модели.
+     * @param {HTMLElement} form
+     * @returns {boolean}
+     */
+    hasOriginal(form) {
+        return form.classList.contains("has_original");
     }
 
     /**
@@ -350,7 +363,8 @@ class Formset {
     }
 
     /**
-     * Установка Django-индекса для всех форм в соответствии с их порядком в DOM.
+     * Установка Django-индекса для всех форм с учётом наличия связи с экземпляром
+     * модели и порядком в DOM.
      * Можно указать форму, которую следует пропустить при обходе. Это позволит
      * указать корректные Django-индексы при удалении, не дожидаясь физического
      * удаления формы из DOM.
@@ -358,8 +372,17 @@ class Formset {
      */
     updateFormIndexes(skip = null) {
         let index = 0;
+
+        // Формы, связанные с экземплярами, индексируем в первую очередь,
+        // чтобы на бэкенде всё работало корректно.
         this.getForms().forEach(form => {
-            if (form !== skip) {
+            if ((form !== skip) && this.hasOriginal(form)) {
+                this.setFormIndex(form, index++);
+            }
+        });
+
+        this.getForms().forEach(form => {
+            if ((form !== skip) && !this.hasOriginal(form)) {
                 this.setFormIndex(form, index++);
             }
         });
