@@ -60,6 +60,9 @@ class Formset {
         this._initSortFormButtons();
     }
 
+    /**
+     * @return {string}
+     */
     get prefix() {
         const prefix = this.root.dataset.formsetPrefix;
         if (!prefix) {
@@ -69,6 +72,9 @@ class Formset {
         return prefix;
     }
 
+    /**
+     * @return {HTMLElement}
+     */
     get formContainer() {
         const selector = this.root.dataset.formsetFormContainer;
         if (!selector) {
@@ -83,6 +89,9 @@ class Formset {
         return container;
     }
 
+    /**
+     * @return {string}
+     */
     get formSelector() {
         const formSelector = this.root.dataset.formsetFormSelector;
         if (!formSelector) {
@@ -92,6 +101,9 @@ class Formset {
         return formSelector;
     }
 
+    /**
+     * @return {string}
+     */
     get templateId() {
         const templateId = this.root.dataset.formsetFormTemplate;
         if (!templateId) {
@@ -101,6 +113,9 @@ class Formset {
         return templateId;
     }
 
+    /**
+     * @return {HTMLElement}
+     */
     get formTemplate() {
         const templateElement = document.getElementById(this.templateId);
         if (!templateElement) {
@@ -256,6 +271,10 @@ class Formset {
         });
     }
 
+    /**
+     * Добавление новой формы из шаблона.
+     * @return {HTMLElement}
+     */
     addForm() {
         if (this.management_form.totalForms >= this.management_form.maxForms) {
             throw new Error("Maximum number of forms is reached");
@@ -275,6 +294,10 @@ class Formset {
         return form;
     }
 
+    /**
+     * Удаление формы из формсета.
+     * @param {HTMLElement} form
+     */
     deleteForm(form) {
         if (this.management_form.totalForms <= this.management_form.minForms) {
             throw new Error("Minimum number of forms is reached");
@@ -289,6 +312,10 @@ class Formset {
         this.updateButtonsState();
     }
 
+    /**
+     * Перемещение формы на одну позицию выше в списке форм.
+     * @param {HTMLElement} form
+     */
     moveFormUp(form) {
         const formIndex = this.getFormIndex(form);
         if (formIndex === 0) {
@@ -303,6 +330,10 @@ class Formset {
         this.updateButtonsState();
     }
 
+    /**
+     * Перемещение формы на одну позицию ниже в списке форм.
+     * @param {HTMLElement} form
+     */
     moveFormDown(form) {
         const formCount = this.getForms().length;
         const formIndex = this.getFormIndex(form);
