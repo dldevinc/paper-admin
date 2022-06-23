@@ -39,12 +39,9 @@ class SidebarWidget extends Widget {
             document.body.appendChild(shadow);
         }
 
-        setTimeout(
-            () => {
-                document.documentElement.classList.add(this.opts.openClass);
-            },
-            0
-        );
+        setTimeout(() => {
+            document.documentElement.classList.add(this.opts.openClass);
+        }, 0);
     }
 
     hide() {
