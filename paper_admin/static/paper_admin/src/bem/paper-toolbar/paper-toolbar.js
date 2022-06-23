@@ -7,7 +7,7 @@ const updateTopOffset = function () {
     const header = document.querySelector(".paper-header");
     const stickyToolbars = document.querySelectorAll(".paper-toolbar.sticky-top");
     if (header && stickyToolbars.length) {
-        stickyToolbars.forEach(function (toolbar) {
+        stickyToolbars.forEach(toolbar => {
             toolbar.style.top = header.offsetHeight + rem + "px";
         });
     }

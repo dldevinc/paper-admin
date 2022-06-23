@@ -1,7 +1,6 @@
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget, ManyToManyRawIdWidget
 from django.forms import widgets
 
-
 __all__ = ["AdminIPInput", "AdminUUIDInput", "AdminSwitchInput", "AdminTextarea",
            "AdminForeignKeyRawIdWidget", "AdminManyToManyRawIdWidget", "AdminCheckboxInput",
            "AdminRadioSelect", "AdminCheckboxSelectMultiple", "FilteredSelectMultiple"]

@@ -1,8 +1,7 @@
 import json
 
 import django
-from django.contrib.admin.widgets import AutocompleteMixin
-from django.contrib.admin.widgets import ManyToManyRawIdWidget
+from django.contrib.admin.widgets import AutocompleteMixin, ManyToManyRawIdWidget
 from django.forms import widgets
 
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original

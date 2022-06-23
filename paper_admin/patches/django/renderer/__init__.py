@@ -1,3 +1,1 @@
-from . import options
-from . import widgets
-from . import auth
+from . import auth, options, widgets

@@ -31,7 +31,7 @@ class PatchSelect2WidgetMixin(Select2WidgetMixin, metaclass=WidgetMonkeyPatchMet
 
         return widgets.Media(
             js=(
-                   "autocomplete_light/autocomplete_light%s.js" % extra,
-                   "autocomplete_light/select2%s.js" % extra,
-               ) + i18n_file,
+                "autocomplete_light/autocomplete_light%s.js" % extra,
+                "autocomplete_light/select2%s.js" % extra,
+            ) + i18n_file,
         )

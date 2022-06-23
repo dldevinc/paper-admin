@@ -1,5 +1,5 @@
 // Ctrl + Arrows navigation
-window.addEventListener("keydown", function (event) {
+window.addEventListener("keydown", event => {
     if (event.defaultPrevented) {
         return; // Do nothing if the event was already processed
     }

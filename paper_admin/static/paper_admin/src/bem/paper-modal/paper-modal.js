@@ -161,14 +161,11 @@ class PaperModal extends Modal {
 
             const closeButton = this._header.querySelector(".close");
             closeButton &&
-                closeButton.addEventListener(
-                    "click",
-                    function () {
-                        if (typeof this.config.onClose === "function") {
-                            this.config.onClose.call(this);
-                        }
-                    }.bind(this)
-                );
+                closeButton.addEventListener("click", () => {
+                    if (typeof this.config.onClose === "function") {
+                        this.config.onClose.call(this);
+                    }
+                });
         }
 
         if (this.config.buttons && this.config.buttons.length) {
@@ -191,18 +188,15 @@ class PaperModal extends Modal {
                 }
 
                 if (options.autofocus) {
-                    $(this._element).one(EVENT_AUTOFOCUS, function () {
+                    $(this._element).one(EVENT_AUTOFOCUS, () => {
                         button.focus();
                     });
                 }
 
                 if (options.onClick && typeof options.onClick === "function") {
-                    button.addEventListener(
-                        "click",
-                        function (event) {
-                            options.onClick.call(button, event, this);
-                        }.bind(this)
-                    );
+                    button.addEventListener("click", event => {
+                        options.onClick.call(button, event, this);
+                    });
                 }
             });
         }
@@ -245,45 +239,39 @@ class PaperModal extends Modal {
                 // Окно в процессе открытия. Ждем завершения открытия,
                 // затем вызываем функцию закрытия, по окончании которой
                 // окно будет удалено.
-                return new Promise(
-                    function (resolve) {
-                        $(this._element).one(EVENT_SHOWN, () => {
-                            if (this._isShown) {
-                                this.hide().then(function () {
-                                    transitionComplete();
-                                    resolve();
-                                });
-                            } else {
-                                // Ситуация, когда окно было заморожено (suspended)
-                                // во время открытия.
+                return new Promise(resolve => {
+                    $(this._element).one(EVENT_SHOWN, () => {
+                        if (this._isShown) {
+                            this.hide().then(() => {
                                 transitionComplete();
                                 resolve();
-                            }
-                        });
-                    }.bind(this)
-                );
-            } else {
-                // Окно открыто. Сначала скрываем его, потом удаляем.
-                return new Promise(
-                    function (resolve) {
-                        this.hide().then(function () {
+                            });
+                        } else {
+                            // Ситуация, когда окно было заморожено (suspended)
+                            // во время открытия.
                             transitionComplete();
                             resolve();
-                        });
-                    }.bind(this)
-                );
+                        }
+                    });
+                });
+            } else {
+                // Окно открыто. Сначала скрываем его, потом удаляем.
+                return new Promise(resolve => {
+                    this.hide().then(() => {
+                        transitionComplete();
+                        resolve();
+                    });
+                });
             }
         } else {
             if (this._isTransitioning) {
                 // Окно в процессе скрытия. Ждем завершения анимации и удаляем его.
-                return new Promise(
-                    function (resolve) {
-                        $(this._element).one(EVENT_HIDDEN, function () {
-                            transitionComplete();
-                            resolve();
-                        });
-                    }.bind(this)
-                );
+                return new Promise(resolve => {
+                    $(this._element).one(EVENT_HIDDEN, () => {
+                        transitionComplete();
+                        resolve();
+                    });
+                });
             } else {
                 // Окно уже скрыто. Удаляем его сразу
                 transitionComplete();
@@ -409,7 +397,7 @@ class PaperModal extends Modal {
 
         // скрытие всех текущих окон
         let hasVisibleModals = false;
-        _stack.forEach(function (modal) {
+        _stack.forEach(modal => {
             if (modal._isShown && !modal.suspended) {
                 modal._suspend();
                 hasVisibleModals = true;
@@ -430,12 +418,10 @@ class PaperModal extends Modal {
 
             return Promise.resolve();
         } else {
-            return new Promise(
-                function (resolve) {
-                    $(this._element).one(EVENT_SHOWN, () => resolve());
-                    superCall(relatedTarget);
-                }.bind(this)
-            );
+            return new Promise(resolve => {
+                $(this._element).one(EVENT_SHOWN, () => resolve());
+                superCall(relatedTarget);
+            });
         }
     }
 
@@ -470,20 +456,16 @@ class PaperModal extends Modal {
                 previousModal._resume();
                 return Promise.resolve();
             } else {
-                return new Promise(
-                    function (resolve) {
-                        $(this._element).one(EVENT_HIDDEN, () => resolve());
-                        superCall(event);
-                    }.bind(this)
-                );
-            }
-        } else {
-            return new Promise(
-                function (resolve) {
+                return new Promise(resolve => {
                     $(this._element).one(EVENT_HIDDEN, () => resolve());
                     superCall(event);
-                }.bind(this)
-            );
+                });
+            }
+        } else {
+            return new Promise(resolve => {
+                $(this._element).one(EVENT_HIDDEN, () => resolve());
+                superCall(event);
+            });
         }
     }
 
@@ -678,7 +660,7 @@ function showSmartPreloader(promise, options) {
                 resolve(WAITING_TIME_PASSED);
             }, WAITING_TIME);
         })
-    ]).then(function (result) {
+    ]).then(result => {
         if (result !== WAITING_TIME_PASSED) {
             return result;
         }
@@ -691,7 +673,7 @@ function showSmartPreloader(promise, options) {
                     resolve();
                 }, PRELOADER_MIN_SHOWING_TIME);
             })
-        ]).then(function (results) {
+        ]).then(results => {
             preloader.destroy();
 
             const promiseResult = results[0];

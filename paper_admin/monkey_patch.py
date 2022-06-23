@@ -1,5 +1,5 @@
-import sys
 import inspect
+import sys
 
 # Pattern for the ids of the original attributes stored.
 ORIGINAL_ID = "_monkey_{}__{}"
@@ -52,7 +52,7 @@ class MonkeyPatchMeta(type):
                 get_original()(*args, **kwargs)
 
     """
-    def __new__(mcs, name, bases, attrs):
+    def __new__(mcs, name, bases, attrs):  # noqa: N804
         if len(bases) != 1:
             raise TypeError("Monkey patch can only inherit from one base class")
 

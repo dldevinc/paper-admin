@@ -152,9 +152,11 @@ function _addFilesFromDirectory(directory, path) {
 
                     readEntries();
                 } else {
-                    resolve(Promise.all(promises).then(values => {
-                        return values.reduce((a, b) => a.concat(b), []);
-                    }));
+                    resolve(
+                        Promise.all(promises).then(values => {
+                            return values.reduce((a, b) => a.concat(b), []);
+                        })
+                    );
                 }
             }, errorHandler);
         };

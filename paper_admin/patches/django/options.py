@@ -59,7 +59,7 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         )
         log_model_registered = self.admin_site.is_registered(LogEntry)
 
-        UserModel = get_user_model()
+        UserModel = get_user_model()  # noqa: N806
         user_opts = UserModel._meta
         codename = get_permission_codename("view", user_opts)
         has_user_change_permission = request.user.has_perm(

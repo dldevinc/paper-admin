@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.1.3](https://github.com/dldevinc/paper-admin/tree/v4.1.3) - 2022-06-23
+### Bug Fixes
+- Fixed an issue with the wrong order of inline forms.
+
 ## [4.1.2](https://github.com/dldevinc/paper-admin/tree/v4.1.2) - 2022-06-21
 ### Bug Fixes
 - Fixed an issue where inline forms were not sortable.
