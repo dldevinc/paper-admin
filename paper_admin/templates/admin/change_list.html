@@ -121,9 +121,9 @@
 
   {% if cl.result_count %}
     {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
-      <div class="row mb-3">
+      <div class="row">
         {% if action_form and actions_on_top and cl.show_admin_actions %}
-          <div class="col-lg order-1 order-lg-0">
+          <div class="col-lg order-1 order-lg-0 mb-3">
             {% include "admin/actions.html" with index=0 %}
           </div>
         {% else %}
@@ -131,7 +131,7 @@
         {% endif %}
 
         {% if cl.search_fields %}
-          <div class="col-auto">
+          <div class="col-auto mb-3">
             {% block search %}
               {% include "admin/search_form.html" %}
             {% endblock %}
