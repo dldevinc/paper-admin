@@ -56,14 +56,12 @@
       color: $paper-table-sort-handler-disabled-color;
     }
 
-    @at-root
-    tr.disabled &,
-    &.disabled {
+    @at-root tr.disabled &,
+      &.disabled {
       cursor: default;
     }
 
-    @at-root
-    tr:not(.disabled) &:not(.disabled):hover {
+    @at-root tr:not(.disabled) &:not(.disabled):hover {
       color: $paper-table-sort-handler-hover-color;
     }
   }
@@ -113,13 +111,15 @@
 
     tr {
       &.selected {
-        th, td {
+        th,
+        td {
           background-color: $paper-table-row-selected-bg;
         }
       }
 
       &:not(:last-child) {
-        th, td {
+        th,
+        td {
           border-bottom: $table-border-width solid $table-border-color;
         }
       }
@@ -139,20 +139,21 @@
       }
 
       tbody tr.table-#{$name} {
-        th, td {
+        th,
+        td {
           background-color: $bg;
           border-color: $border;
         }
 
         &:hover {
-          th, td {
+          th,
+          td {
             background-color: darken($bg, 3%);
           }
         }
       }
     }
   }
-
 
   &--sortable {
     tbody tr {

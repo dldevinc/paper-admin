@@ -31,17 +31,18 @@
 .custom-switch {
   .custom-control-label {
     &::after {
-      top: sum(math.div($font-size-lg * $line-height-lg - $custom-control-indicator-size, 2), $custom-control-indicator-border-width * 2);
+      top: sum(
+        math.div($font-size-lg * $line-height-lg - $custom-control-indicator-size, 2),
+        $custom-control-indicator-border-width * 2
+      );
     }
   }
 }
-
 
 // enlarge label font-size
 .custom-control-label {
   font-size: $input-font-size-lg;
 }
-
 
 // remove unnecessary right padding when label is empty
 .custom-control {
@@ -76,7 +77,6 @@
     }
   }
 }
-
 
 .custom-control {
   // fix focus outline

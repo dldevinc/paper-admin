@@ -3,15 +3,13 @@
 @import "./variables";
 
 .paper-page {
-
   // Анимация выполняется при загрузке страницы.
   // Отменяем это поведение привязкой к динамически добавляемому классу.
   &.js {
     transition: margin-left $paper-sidebar-transition-duration;
   }
 
-  @at-root
-  body:not(.popup) & {
+  @at-root body:not(.popup) & {
     @include media-breakpoint-up(xl) {
       margin-left: $paper-sidebar-width;
     }
@@ -25,7 +23,6 @@
   }
 
   &__content {
-
   }
 
   &__toolbar {
