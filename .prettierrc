@@ -9,5 +9,19 @@
     "singleQuote": false,
     "tabWidth": 4,
     "trailingComma": "none",
-    "useTabs": false
+    "useTabs": false,
+    "overrides": [
+        {
+            "files": "*.css",
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": "*.scss",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }

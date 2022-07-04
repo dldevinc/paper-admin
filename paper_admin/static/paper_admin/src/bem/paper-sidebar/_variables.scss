@@ -27,7 +27,7 @@ $paper-sidebar-link-padding-y: 0.5rem !default;
 $paper-sidebar-link-padding-x: 0.75rem !default;
 $paper-sidebar-link-font-size: $font-size-base !default;
 $paper-sidebar-link-line-height: $line-height-base !default;
-$paper-sidebar-link-color: rgba(#fff, 0.80) !default;
+$paper-sidebar-link-color: rgba(#fff, 0.8) !default;
 $paper-sidebar-link-bg: null !default;
 $paper-sidebar-link-hover-color: #fff !default;
 $paper-sidebar-link-hover-bg: rgba(#fff, 0.1) !default;
@@ -39,20 +39,22 @@ $paper-sidebar-link-arrow-size: 0.625rem !default;
 $paper-sidebar-icon-width: 20px !default;
 $paper-sidebar-icon-margin-right: 0.375rem !default;
 
-
 // =================
 //  Specific styles
 // =================
 $paper-sidebar-first-link-color: null !default;
 $paper-sidebar-first-link-bg: null !default;
 $paper-sidebar-first-link-hover-color: null !default;
-$paper-sidebar-first-link-hover-bg: rgba(#fff, 0.10) !default;
+$paper-sidebar-first-link-hover-bg: rgba(#fff, 0.1) !default;
 $paper-sidebar-first-link-active-color: null !default;
 $paper-sidebar-first-link-active-bg: null !default;
 
 // смещение слева, добавляемое на соответствующем уровне
 $paper-sidebar-link-padding-left-level1: 0 !default;
-$paper-sidebar-link-padding-left-level2: sum($paper-sidebar-link-padding-x, math.div($paper-sidebar-icon-width, 2)) !default;
+$paper-sidebar-link-padding-left-level2: sum(
+  $paper-sidebar-link-padding-x,
+  math.div($paper-sidebar-icon-width, 2)
+) !default;
 $paper-sidebar-link-padding-left-level3: 0.75rem !default;
 $paper-sidebar-link-padding-left-level4: 0.75rem !default;
 

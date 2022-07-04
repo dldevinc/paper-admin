@@ -376,13 +376,13 @@ class Formset {
         // Формы, связанные с экземплярами, индексируем в первую очередь,
         // чтобы на бэкенде всё работало корректно.
         this.getForms().forEach(form => {
-            if ((form !== skip) && this.hasOriginal(form)) {
+            if (form !== skip && this.hasOriginal(form)) {
                 this.setFormIndex(form, index++);
             }
         });
 
         this.getForms().forEach(form => {
-            if ((form !== skip) && !this.hasOriginal(form)) {
+            if (form !== skip && !this.hasOriginal(form)) {
                 this.setFormIndex(form, index++);
             }
         });

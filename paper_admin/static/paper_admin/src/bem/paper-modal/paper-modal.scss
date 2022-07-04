@@ -7,7 +7,6 @@
   opacity: 0;
 }
 
-
 .paper-modal {
   .modal-header {
     padding: $paper-modal-header-padding-y $paper-modal-header-padding-x;
@@ -27,6 +26,7 @@
   }
 
   .modal-footer {
+    // prettier-ignore
     padding: #{$paper-modal-footer-padding-y - math.div($modal-footer-margin-between, 2)}
              #{$paper-modal-footer-padding-x - math.div($modal-footer-margin-between, 2)};
 
@@ -47,7 +47,6 @@
       margin: 10px auto 20px;
     }
   }
-
 
   @each $name, $value in $paper-bg-colors {
     @if map-has-key($paper-bg-colors, $name) {

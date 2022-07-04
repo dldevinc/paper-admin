@@ -7,7 +7,7 @@
   box-shadow: $paper-header-box-shadow;
   background: $paper-header-bg;
   z-index: $paper-header-zindex;
-  backface-visibility: hidden;  // force layer to prevent repaint
+  backface-visibility: hidden; // force layer to prevent repaint
 
   .navbar {
     min-height: sum($btn-line-height-sm * $btn-font-size-sm, $btn-padding-y-sm * 2, $btn-border-width * 2);

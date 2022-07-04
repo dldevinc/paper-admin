@@ -1,19 +1,19 @@
 @use "sass:color";
 
 $paper-bg-colors: (
-  "danger":     #f4caca,
-  "warning":    #fafad0,
-  "info":       #d0e0f0,
-  "success":    #caf0ca,
-  "primary":    #b6e4fb,
-  "secondary":  #eaeaea,
+  "danger": #f4caca,
+  "warning": #fafad0,
+  "info": #d0e0f0,
+  "success": #caf0ca,
+  "primary": #b6e4fb,
+  "secondary": #eaeaea
 );
 
 $paper-border-colors: (
-  "danger":     color.adjust(#f4caca, $lightness: -15%),
-  "warning":    color.adjust(#fafad0, $lightness: -35%),
-  "info":       color.adjust(#d0e0f0, $lightness: -15%),
-  "success":    color.adjust(#caf0ca, $lightness: -15%),
-  "primary":    color.adjust(#b6e4fb, $lightness: -15%),
-  "secondary":  color.adjust(#eaeaea, $lightness: -15%),
+  "danger": color.adjust(#f4caca, $lightness: -15%),
+  "warning": color.adjust(#fafad0, $lightness: -35%),
+  "info": color.adjust(#d0e0f0, $lightness: -15%),
+  "success": color.adjust(#caf0ca, $lightness: -15%),
+  "primary": color.adjust(#b6e4fb, $lightness: -15%),
+  "secondary": color.adjust(#eaeaea, $lightness: -15%)
 );

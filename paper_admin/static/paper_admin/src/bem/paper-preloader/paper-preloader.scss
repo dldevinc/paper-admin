@@ -34,14 +34,14 @@
   height: 70px;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 200%;
     border-radius: 50%;
     border: 8px solid transparent;
     border-left-color: $primary;
-    animation: load .9s ease-in-out alternate infinite;
+    animation: load 0.9s ease-in-out alternate infinite;
   }
 
   &__text {
@@ -52,6 +52,6 @@
     font-size: 18px;
     text-align: center;
     text-transform: uppercase;
-    animation: pulse .75s linear alternate infinite;
+    animation: pulse 0.75s linear alternate infinite;
   }
 }
