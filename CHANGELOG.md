@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.1.4](https://github.com/dldevinc/paper-admin/tree/v4.1.4) - 2022-07-04
+
+### Bug Fixes
+
+- Added a space between the search block and the actions selectbox on mobile devices.
+
 ## [4.1.3](https://github.com/dldevinc/paper-admin/tree/v4.1.3) - 2022-06-23
 
 ### Bug Fixes
