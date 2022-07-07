@@ -5,10 +5,23 @@
             {
                 "exclude": ["transform-async-to-generator", "transform-regenerator"],
                 "loose": true,
-                "modules": false,
-                "targets": { "node": 6 }
+                "modules": false
             }
         ]
     ],
-    "plugins": ["@babel/plugin-syntax-dynamic-import", ["module:fast-async", { "spec": true }]]
+    "plugins": [
+        "lodash",
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-syntax-dynamic-import",
+        ["module:fast-async", { "spec": true }],
+        [
+            "transform-imports",
+            {
+                "lodash": {
+                    "transform": "lodash/${member}",
+                    "preventFullImport": true
+                }
+            }
+        ]
+    ]
 }
