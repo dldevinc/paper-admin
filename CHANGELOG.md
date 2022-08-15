@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.1.5](https://github.com/dldevinc/paper-admin/tree/v4.1.5) - 2022-08-15
+
+### Features
+
+- Updated dependencies.
+
 ## [4.1.4](https://github.com/dldevinc/paper-admin/tree/v4.1.4) - 2022-07-04
 
 ### Bug Fixes
