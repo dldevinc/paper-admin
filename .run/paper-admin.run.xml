@@ -5,10 +5,10 @@
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
-      <env name="DJANGO_SETTINGS_MODULE" value="settings" />
+      <env name="DJANGO_SETTINGS_MODULE" value="tests.settings" />
     </envs>
     <option name="SDK_HOME" value="" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="IS_MODULE_SDK" value="true" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -24,7 +24,7 @@
     </EXTENSION>
     <option name="launchJavascriptDebuger" value="false" />
     <option name="port" value="8000" />
-    <option name="host" value="" />
+    <option name="host" value="0.0.0.0" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />
