@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.1.6](https://github.com/dldevinc/paper-admin/tree/v4.1.6) - 2022-08-15
+
+### Bug Fixes
+
+- Fixed admin user form.
+
 ## [4.1.5](https://github.com/dldevinc/paper-admin/tree/v4.1.5) - 2022-08-15
 
 ### Features
