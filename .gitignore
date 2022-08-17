@@ -65,5 +65,6 @@ venv/
 /cache
 
 # app
+/tests/db.sqlite3
 /tests/static/
 /tests/media/
