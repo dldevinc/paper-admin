@@ -1,5 +1,5 @@
-// Autofocus for "add" page
-if (/add\/?$/.test(window.location.pathname)) {
+// Autofocus for "add" or "change" popups
+if (/(add|change)\/?$/.test(window.location.pathname)) {
     const form = document.querySelector(".paper-form");
     if (form) {
         const field = form.querySelector("input:not([type=hidden]), select, textarea");

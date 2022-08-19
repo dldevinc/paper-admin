@@ -10,7 +10,9 @@ WidgetMonkeyPatchMeta = type("WidgetMonkeyPatchMeta", (MonkeyPatchMeta, widgets.
 class PatchRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper, metaclass=WidgetMonkeyPatchMeta):
     def get_context(self, name, value, attrs, renderer=None):
         # Реализация метода взята из Django 4.1.0
-        # Добавлен аргумент renderer и проброшен во внутренний виджет
+        # Добавлен аргумент renderer и проброшен во внутренний виджет.
+        # Добавлен `model_ref` для обновления выпадающих списков, связанных
+        # с одной и той же моделью.
         from django.contrib.admin.views.main import IS_POPUP_VAR, TO_FIELD_VAR
         rel_opts = self.rel.model._meta
         info = (rel_opts.app_label, rel_opts.model_name)
@@ -30,6 +32,7 @@ class PatchRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper, metaclass=Widget
             "can_change_related": self.can_change_related,
             "can_delete_related": self.can_delete_related,
             "can_view_related": self.can_view_related,
+            "model_ref": ".".join(info),
             "model_has_limit_choices_to": self.rel.limit_choices_to,
         }
         if self.can_add_related:

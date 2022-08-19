@@ -1,5 +1,16 @@
 # Change Log
 
+## [4.1.7](https://github.com/dldevinc/paper-admin/tree/v4.1.7) - 2022-08-19
+
+### Features
+
+- Allowed multiple popups for self-related fields in admin.
+- Allowed admin select widgets to display new related objects.
+
+### Bug Fixes
+
+- Fixed issue when deletion popup is not closing.
+
 ## [4.1.6](https://github.com/dldevinc/paper-admin/tree/v4.1.6) - 2022-08-15
 
 ### Bug Fixes

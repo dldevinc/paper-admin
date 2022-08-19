@@ -74,74 +74,135 @@ document.addEventListener("click", function(event) {
     }
 });
 
+function getRelatedSelects(win) {
+    let app, model;
+    const path = win.location.pathname;
+
+    // Extract the model from the popup url '.../<model>/add/' or
+    // '.../<model>/<id>/change/' depending the action (add or change).
+    const addMatch = path.match(/\/([^\/]+)\/([^\/]+)\/add/);
+    const changeDeleteMatch = path.match(/\/([^\/]+)\/([^\/]+)\/[^\/]+\/(?:change|delete)\//);
+    if (addMatch) {
+        [app, model] = [addMatch[1], addMatch[2]];
+    } else if (changeDeleteMatch) {
+        [app, model] = [changeDeleteMatch[1], changeDeleteMatch[2]];
+    } else {
+        return [];
+    }
+
+    const modelRef = `${app}.${model}`;
+    return document.querySelectorAll(`[data-model-ref="${modelRef}"] select`);
+}
+
+function _addSelectOption(select, newId, newRepr, selected) {
+    select.options[select.options.length] = new Option(newRepr, newId, !!selected, !!selected);
+
+    // Trigger a change event to update related links if required.
+    select.dispatchEvent(
+        new Event("change", {
+            bubbles: true,
+            cancelable: true
+        })
+    );
+}
+
 function dismissAddRelatedObjectPopup(win, newId, newRepr) {
     const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        element.options[element.options.length] = new Option(newRepr, newId, true, true);
+        _addSelectOption(element, newId, newRepr, true);
 
-        // Trigger a change event to update related links if required.
-        element.dispatchEvent(
-            new Event("change", {
-                bubbles: true,
-                cancelable: true
-            })
-        );
+        getRelatedSelects(win).forEach(select => {
+            if (select === element) {
+                return;
+            }
+
+            _addSelectOption(select, newId, newRepr);
+        });
     }
 
     removeRelatedWindow(win);
     win.close();
+}
+
+function _updateSelectOption(select, objId, newRepr, newId) {
+    const isOptionSelected = Array.from(select.selectedOptions).some(
+        option => option.value === objId
+    );
+
+    Array.from(select.options).forEach(option => {
+        if (option.value === objId) {
+            option.textContent = newRepr;
+            option.value = newId;
+        }
+    });
+
+    // Trigger a change event to update related links if required.
+    select.dispatchEvent(
+        new Event("change", {
+            bubbles: true,
+            cancelable: true
+        })
+    );
+
+    if (isOptionSelected) {
+        // Update select2 widget text
+        const select2Widget = select.nextElementSibling.querySelector(".select2-selection__rendered");
+        if (select2Widget) {
+            select2Widget.lastChild.textContent = newRepr;
+            select2Widget.title = newRepr;
+        }
+    }
 }
 
 function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
     const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        Array.from(element.options).forEach(function(option) {
-            if (option.value === objId) {
-                option.textContent = newRepr;
-                option.value = newId;
+        _updateSelectOption(element, objId, newRepr, newId);
+
+        getRelatedSelects(win).forEach(select => {
+            if (select === element) {
+                return;
             }
+
+            _updateSelectOption(select, objId, newRepr, newId);
         });
-
-        // Trigger a change event to update related links if required.
-        element.dispatchEvent(
-            new Event("change", {
-                bubbles: true,
-                cancelable: true
-            })
-        );
-    }
-
-    const select2Widget = element.nextElementSibling.querySelector(".select2-selection__rendered");
-    if (select2Widget) {
-        // The element can have a clear button as a child.
-        // Use the lastChild to modify only the displayed value.
-        select2Widget.lastChild.textContent = newRepr;
-        select2Widget.title = newRepr;
     }
 
     removeRelatedWindow(win);
     win.close();
 }
 
+function _deleteSelectOption(select, objId) {
+    Array.from(select.options).forEach(option => {
+        if (option.value === objId) {
+            option.remove();
+        }
+    });
+
+    // Trigger a change event to update related links if required.
+    select.dispatchEvent(
+        new Event("change", {
+            bubbles: true,
+            cancelable: true
+        })
+    );
+}
+
 function dismissDeleteRelatedObjectPopup(win, objId) {
     const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        Array.from(element.options).forEach(function(option) {
-            if (option.value === objId) {
-                option.remove();
-            }
-        });
+        _deleteSelectOption(element, objId);
 
-        // Trigger a change event to update related links if required.
-        element.dispatchEvent(
-            new Event("change", {
-                bubbles: true,
-                cancelable: true
-            })
-        );
+        getRelatedSelects(win).forEach(select => {
+            if (select === element) {
+                return;
+            }
+
+            _deleteSelectOption(select, objId);
+        });
     }
 
     removeRelatedWindow(win);
