@@ -1,3 +1,4 @@
+/* global gettext */
 import formUtils from "js/utilities/form_utils.js";
 import { Select2Widget } from "components/select2";
 import { InlineFormset } from "bem/paper-formset/paper-formset.js";
@@ -17,6 +18,21 @@ document.querySelectorAll(".paper-formset").forEach(element => {
     const formset = new InlineFormset(element);
     formset.updateButtonsState();
     formsets.push(formset);
+});
+
+// Предотвращение повторного сохранения
+let submitted = false;
+const form = document.querySelector(".paper-form");
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    if (submitted) {
+        const answer = window.confirm(gettext("You have already submitted this form. Are you sure you want to submit it again?"));
+        if (!answer) {
+            return;
+        }
+    }
+    event.target.submit();
+    submitted = true;
 });
 
 // Установка значения поля сортировки перед сохранением.

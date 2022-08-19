@@ -6,6 +6,7 @@
 
 - Allowed multiple popups for self-related fields in admin.
 - Allowed admin select widgets to display new related objects.
+- Prevented double submission of admin forms.
 
 ### Bug Fixes
 
