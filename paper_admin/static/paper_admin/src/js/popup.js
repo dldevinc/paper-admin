@@ -1,5 +1,3 @@
-/* global gettext */
-
 // Autofocus for "add" page
 if (/add\/?$/.test(window.location.pathname)) {
     const form = document.querySelector(".paper-form");
