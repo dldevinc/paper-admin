@@ -48,7 +48,7 @@ function dismissRelatedLookupPopup(win, chosenId) {
     if (elem.classList.contains("vManyToManyRawIdAdminField") && elem.value) {
         elem.value += "," + chosenId;
     } else {
-        document.getElementById(name).value = chosenId;
+        elem.value = chosenId;
     }
     win.close();
 }
