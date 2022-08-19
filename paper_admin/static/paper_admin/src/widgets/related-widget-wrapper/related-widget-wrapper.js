@@ -1,4 +1,4 @@
-import { showAdminPopup } from "components/related-object-lookups";
+import {showAdminPopup, removePopupIndex, removeRelatedWindow} from "components/related-object-lookups";
 
 import "./related-widget-wrapper.scss";
 
@@ -14,19 +14,19 @@ function setRelatedObjectLinks(widget, objId) {
     }
 
     if (objId) {
-        links.forEach(function (link) {
+        links.forEach(function(link) {
             link.classList.remove("disabled");
             link.href = link.dataset.hrefTemplate.replace("__fk__", objId);
         });
     } else {
-        links.forEach(function (link) {
+        links.forEach(function(link) {
             link.classList.add("disabled");
             link.href = "";
         });
     }
 }
 
-document.addEventListener("change", function (event) {
+document.addEventListener("change", function(event) {
     const widget = event.target.closest(".related-widget-wrapper");
     const triggeringSelect = widget && widget.querySelector("select");
     if (triggeringSelect) {
@@ -38,7 +38,7 @@ document.addEventListener("change", function (event) {
     }
 });
 
-document.querySelectorAll(".related-widget-wrapper").forEach(function (widget) {
+document.querySelectorAll(".related-widget-wrapper").forEach(function(widget) {
     const triggeringSelect = widget.querySelector("select");
     if (triggeringSelect) {
         setRelatedObjectLinks(widget, triggeringSelect.value);
@@ -46,7 +46,7 @@ document.querySelectorAll(".related-widget-wrapper").forEach(function (widget) {
 });
 
 // для обратной совместимости
-window.updateRelatedObjectLinks = function (triggeringSelect) {
+window.updateRelatedObjectLinks = function(triggeringSelect) {
     const widget = triggeringSelect.closest(".related-widget-wrapper");
     setRelatedObjectLinks(widget, triggeringSelect.value);
 };
@@ -60,12 +60,12 @@ function showRelatedObjectPopup(triggeringLink) {
     return showAdminPopup(triggeringLink, /^(change|add|delete)_/, false);
 }
 
-document.addEventListener("click", function (event) {
+document.addEventListener("click", function(event) {
     const triggeringLink = event.target.closest(".related-widget-wrapper__link");
     if (triggeringLink) {
         event.preventDefault();
         if (triggeringLink.href) {
-            const jQueryEvent = $.Event("django:show-related", { href: triggeringLink.href });
+            const jQueryEvent = $.Event("django:show-related", {href: triggeringLink.href});
             $(triggeringLink).trigger(jQueryEvent);
             if (!jQueryEvent.isDefaultPrevented()) {
                 showRelatedObjectPopup(triggeringLink);
@@ -75,7 +75,7 @@ document.addEventListener("click", function (event) {
 });
 
 function dismissAddRelatedObjectPopup(win, newId, newRepr) {
-    const name = win.name;
+    const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
         element.options[element.options.length] = new Option(newRepr, newId, true, true);
@@ -89,37 +89,47 @@ function dismissAddRelatedObjectPopup(win, newId, newRepr) {
         );
     }
 
+    removeRelatedWindow(win);
     win.close();
 }
 
 function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
-    const name = win.name;
+    const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        Array.from(element.options).forEach(function (option) {
+        Array.from(element.options).forEach(function(option) {
             if (option.value === objId) {
                 option.textContent = newRepr;
                 option.value = newId;
             }
         });
+
+        // Trigger a change event to update related links if required.
+        element.dispatchEvent(
+            new Event("change", {
+                bubbles: true,
+                cancelable: true
+            })
+        );
     }
 
-    const select2Text = element.nextElementSibling.querySelector(".select2-selection__rendered");
-    if (select2Text) {
+    const select2Widget = element.nextElementSibling.querySelector(".select2-selection__rendered");
+    if (select2Widget) {
         // The element can have a clear button as a child.
         // Use the lastChild to modify only the displayed value.
-        select2Text.lastChild.textContent = newRepr;
-        select2Text.title = newRepr;
+        select2Widget.lastChild.textContent = newRepr;
+        select2Widget.title = newRepr;
     }
 
+    removeRelatedWindow(win);
     win.close();
 }
 
 function dismissDeleteRelatedObjectPopup(win, objId) {
-    const name = win.name;
+    const name = removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        Array.from(element.options).forEach(function (option) {
+        Array.from(element.options).forEach(function(option) {
             if (option.value === objId) {
                 option.remove();
             }
@@ -134,6 +144,7 @@ function dismissDeleteRelatedObjectPopup(win, objId) {
         );
     }
 
+    removeRelatedWindow(win);
     win.close();
 }
 

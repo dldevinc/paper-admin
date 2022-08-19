@@ -3,8 +3,47 @@
 // raw_id_fields.
 // -------------------------------------------
 
+let popupIndex = 0;
+const relatedWindows = [];
+
+
+function dismissChildPopups() {
+    relatedWindows.forEach(function(win) {
+        if (!win.closed) {
+            win.dismissChildPopups();
+            win.close();
+        }
+    });
+}
+
+function setPopupIndex() {
+    if (document.getElementsByName("_popup").length > 0) {
+        const index = window.name.lastIndexOf("__") + 2;
+        popupIndex = parseInt(window.name.substring(index));
+    } else {
+        popupIndex = 0;
+    }
+}
+
+function addPopupIndex(name) {
+    name = name + "__" + (popupIndex + 1);
+    return name;
+}
+
+function removePopupIndex(name) {
+    name = name.replace(new RegExp("__" + (popupIndex + 1) + "$"), "");
+    return name;
+}
+
+function removeRelatedWindow(win) {
+    const index = relatedWindows.indexOf(win);
+    if (index > -1) {
+        relatedWindows.splice(index, 1);
+    }
+}
+
 function showAdminPopup(triggeringLink, name_regexp, add_popup) {
-    const name = triggeringLink.id.replace(name_regexp, "");
+    const name = addPopupIndex(triggeringLink.id.replace(name_regexp, ''));
     const href = new URL(triggeringLink.href);
     if (add_popup) {
         href.searchParams.set("_popup", "1");
@@ -21,19 +60,16 @@ function showAdminPopup(triggeringLink, name_regexp, add_popup) {
         left_position = browser_left + Math.round((browser_width - popup_width) / 2);
 
     const win = window.open(
-        href,
+        href.toString(),
         name,
-        "width=" +
-            popup_width +
-            ",height=" +
-            popup_height +
-            ",top=" +
-            top_position +
-            ",left=" +
-            left_position +
-            ",resizable=yes,scrollbars=yes"
+        "width=" + popup_width +
+        ",height=" + popup_height +
+        ",top=" + top_position +
+        ",left=" + left_position +
+        ",resizable=yes,scrollbars=yes"
     );
 
+    relatedWindows.push(win);
     win.focus();
     return false;
 }
@@ -43,17 +79,20 @@ function showRelatedObjectLookupPopup(triggeringLink) {
 }
 
 function dismissRelatedLookupPopup(win, chosenId) {
-    const name = win.name;
+    const name = removePopupIndex(win.name);
     const elem = document.getElementById(name);
+
     if (elem.classList.contains("vManyToManyRawIdAdminField") && elem.value) {
         elem.value += "," + chosenId;
     } else {
         elem.value = chosenId;
     }
+
+    removeRelatedWindow(win);
     win.close();
 }
 
-document.addEventListener("click", function (event) {
+document.addEventListener("click", function(event) {
     const triggeringLink = event.target.closest(".related-lookup");
     if (triggeringLink) {
         event.preventDefault();
@@ -73,5 +112,17 @@ document.addEventListener("click", function (event) {
 
 window.showRelatedObjectLookupPopup = showRelatedObjectLookupPopup;
 window.dismissRelatedLookupPopup = dismissRelatedLookupPopup;
+window.dismissChildPopups = dismissChildPopups;
 
-export { showAdminPopup };
+window.addEventListener("unload", function() {
+    window.dismissChildPopups();
+});
+
+
+setPopupIndex();
+
+export {
+    showAdminPopup,
+    removePopupIndex,
+    removeRelatedWindow
+};
