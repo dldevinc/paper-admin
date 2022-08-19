@@ -5,13 +5,9 @@
 
 function showAdminPopup(triggeringLink, name_regexp, add_popup) {
     const name = triggeringLink.id.replace(name_regexp, "");
-    let href = triggeringLink.href;
+    const href = new URL(triggeringLink.href);
     if (add_popup) {
-        if (href.includes("?")) {
-            href += "?_popup=1";
-        } else {
-            href += "&_popup=1";
-        }
+        href.searchParams.set("_popup", "1");
     }
 
     // Центрирование popup
