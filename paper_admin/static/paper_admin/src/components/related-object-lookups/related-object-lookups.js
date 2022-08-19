@@ -7,7 +7,7 @@ function showAdminPopup(triggeringLink, name_regexp, add_popup) {
     const name = triggeringLink.id.replace(name_regexp, "");
     let href = triggeringLink.href;
     if (add_popup) {
-        if (href.indexOf("?") === -1) {
+        if (href.includes("?")) {
             href += "?_popup=1";
         } else {
             href += "&_popup=1";

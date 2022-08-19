@@ -238,7 +238,7 @@ SortableTable.prototype._normalizeTable = function (evt, moved) {
             // то сосед должен быть в списке нормализации.
             const isPrevSibling = parseInt(prev.dataset.parent) === node.parent;
             const isNextChild = parseInt(next.dataset.parent) === parseInt(prev.dataset.id);
-            if (isPrevSibling && isNextChild && parents.indexOf(prev) < 0) {
+            if (isPrevSibling && isNextChild && !parents.includes(prev)) {
                 parents.unshift(prev);
             }
         }

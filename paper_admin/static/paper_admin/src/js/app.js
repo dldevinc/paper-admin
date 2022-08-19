@@ -95,7 +95,7 @@ if (document.body.classList.contains("change-form")) {
 }
 
 // popup page
-if (window.location.search.indexOf("&_popup=1") !== -1) {
+if (window.location.search.includes("&_popup=1")) {
     import(/* webpackChunkName: "popup" */ "js/popup.js");
 }
 
