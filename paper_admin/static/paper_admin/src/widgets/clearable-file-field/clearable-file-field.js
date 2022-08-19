@@ -1,7 +1,7 @@
 import "./clearable-file-field.scss";
 
 // Вставка имени файла в название кнопки
-document.addEventListener("change", function (event) {
+document.addEventListener("change", event => {
     const widget = event.target.closest(".clearable-file-field");
     if (widget && event.target.type === "file") {
         const fileName = event.target.value.split("\\").pop();

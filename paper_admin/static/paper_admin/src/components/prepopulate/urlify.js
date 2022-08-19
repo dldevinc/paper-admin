@@ -510,7 +510,7 @@ const Downcoder = {
 
 function downcode(slug) {
     Downcoder.Initialize();
-    return slug.replace(Downcoder.regex, function (m) {
+    return slug.replace(Downcoder.regex, m => {
         return Downcoder.map[m];
     });
 }

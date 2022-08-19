@@ -1,4 +1,4 @@
-document.addEventListener("click", function (event) {
+document.addEventListener("click", event => {
     const link = event.target.closest(".back-button");
     if (link) {
         event.preventDefault();

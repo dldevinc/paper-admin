@@ -214,7 +214,7 @@ class PaperModal extends Modal {
      * @returns {Promise}
      */
     destroy() {
-        const transitionComplete = function () {
+        const transitionComplete = () => {
             if (typeof this.config.onDestroy === "function") {
                 this.config.onDestroy.call(this);
             }
@@ -231,7 +231,7 @@ class PaperModal extends Modal {
             this._removeBackdrop();
 
             this.dispose();
-        }.bind(this);
+        };
 
         if (this._isShown) {
             if (this._isTransitioning) {

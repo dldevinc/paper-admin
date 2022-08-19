@@ -117,11 +117,9 @@ SortableTable.prototype._onMove = function (evt) {
 SortableTable.prototype._onEnd = function (evt) {
     // снимаем блокировку со всех узлов
     const rows = this.tbody.querySelectorAll("tr");
-    rows.forEach(
-        function (row) {
-            row.classList.remove(this.opts.disabledClass);
-        }.bind(this)
-    );
+    rows.forEach(row => {
+        row.classList.remove(this.opts.disabledClass);
+    });
 
     const moved = this._getMovedRows(evt);
     if (!moved.length || moved.length === 1) {
@@ -134,23 +132,17 @@ SortableTable.prototype._onEnd = function (evt) {
 
     // блокировка областей сортировки на время выполнения запроса
     const handlers = this.tbody.querySelectorAll(this.opts.handler);
-    handlers.forEach(
-        function (handler) {
-            handler.classList.add(this.opts.disabledClass);
-        }.bind(this)
-    );
+    handlers.forEach(handler => {
+        handler.classList.add(this.opts.disabledClass);
+    });
 
     // отправка запроса на сервер
-    this._sendRequest(map).then(
-        function () {
-            // снятие блокировки
-            handlers.forEach(
-                function (handler) {
-                    handler.classList.remove(this.opts.disabledClass);
-                }.bind(this)
-            );
-        }.bind(this)
-    );
+    this._sendRequest(map).then(() => {
+        // снятие блокировки
+        handlers.forEach(handler => {
+            handler.classList.remove(this.opts.disabledClass);
+        });
+    });
 };
 
 /**
@@ -168,7 +160,7 @@ SortableTable.prototype._getMovedRows = function (evt) {
         // пропускаем узлы, не являющиеся соседними
         const pk = parseInt(evt.item.dataset.id);
         const node = this.tree.getNode(pk);
-        slice = slice.filter(function (row) {
+        slice = slice.filter(row => {
             return parseInt(row.dataset.parent) === node.parent;
         });
     }
@@ -185,15 +177,13 @@ SortableTable.prototype._getMovedRows = function (evt) {
 SortableTable.prototype._createOrderMap = function (evt, rows) {
     const pk_array = [];
     const order_array = [];
-    rows.forEach(
-        function (row) {
-            const handle = row.querySelector(this.opts.handler);
-            if (handle) {
-                pk_array.push(parseInt(row.dataset.id));
-                order_array.push(parseInt(row.dataset.orderValue));
-            }
-        }.bind(this)
-    );
+    rows.forEach(row => {
+        const handle = row.querySelector(this.opts.handler);
+        if (handle) {
+            pk_array.push(parseInt(row.dataset.id));
+            order_array.push(parseInt(row.dataset.orderValue));
+        }
+    });
 
     // циклический сдвиг значений сортировки
     const movedDown = evt.oldIndex < evt.newIndex;
@@ -204,7 +194,7 @@ SortableTable.prototype._createOrderMap = function (evt, rows) {
     }
 
     return pk_array.reduce(
-        function (result, pk, i) {
+        (result, pk, i) => {
             result[pk] = order_array[i];
 
             // обновляем атрибут data-order-value
@@ -212,7 +202,7 @@ SortableTable.prototype._createOrderMap = function (evt, rows) {
             row.setAttribute("data-order-value", order_array[i]);
 
             return result;
-        }.bind(this),
+        },
         {}
     );
 };
@@ -244,13 +234,11 @@ SortableTable.prototype._normalizeTable = function (evt, moved) {
         }
 
         // перенос детей под родителя
-        parents.forEach(
-            function (parent) {
-                const pk = parseInt(parent.dataset.id);
-                const childs = this.tree.getDescendants(pk);
-                Element.prototype.after.apply(parent, childs);
-            }.bind(this)
-        );
+        parents.forEach(parent => {
+            const pk = parseInt(parent.dataset.id);
+            const childs = this.tree.getDescendants(pk);
+            Element.prototype.after.apply(parent, childs);
+        });
     }
 };
 
@@ -268,7 +256,7 @@ SortableTable.prototype._sendRequest = function (data) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-    }).then(function (response) {
+    }).then(response => {
         if (!response.ok) {
             const error = new Error(`${response.status} ${response.statusText}`);
             error.response = response;

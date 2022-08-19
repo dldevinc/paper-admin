@@ -28,7 +28,7 @@ class Select2Widget extends Widget {
         $(element).select2(options);
 
         // вызов события change для поддержки hookUnload
-        $(element).on("select2:select select2:clear", function () {
+        $(element).on("select2:select select2:clear", () => {
             const event = new CustomEvent("change", {
                 bubbles: true,
                 cancelable: true

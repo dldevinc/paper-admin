@@ -16,7 +16,7 @@ function isChangedField(field) {
             return false;
         case "select-one":
         case "select-multiple":
-            return Array.from(field.options).some(function (option) {
+            return Array.from(field.options).some(option => {
                 return option.selected !== option.defaultSelected;
             });
         default:
@@ -67,7 +67,7 @@ function setWidgetErrors(widget, errors) {
     if (errors && errors.length) {
         widget.classList.add("paper-widget--invalid");
 
-        errors.forEach(function (error) {
+        errors.forEach(error => {
             const errorListItem = document.createElement("li");
             errorListItem.innerText = error;
             errorList.append(errorListItem);
@@ -133,7 +133,7 @@ function setFormErrors(root, errors) {
     }
 
     if (errors && errors.length) {
-        errors.forEach(function (error) {
+        errors.forEach(error => {
             const errorListItem = document.createElement("li");
             errorListItem.classList.add("paper-message", "paper-message--error");
             errorListItem.innerText = error;
@@ -148,7 +148,7 @@ function setFormErrors(root, errors) {
  */
 function cleanAllErrors(root = document.body) {
     setFormErrors(root, []);
-    root.querySelectorAll(".paper-widget").forEach(function (widget) {
+    root.querySelectorAll(".paper-widget").forEach(widget => {
         setWidgetErrors(widget, []);
     });
 }

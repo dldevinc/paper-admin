@@ -11,7 +11,7 @@ $.fn.select2.amd.require(
 
             const containerCssClass = this.options.get("containerCssClass");
             if (containerCssClass) {
-                containerCssClass.split(/\s+/).map(function (className) {
+                containerCssClass.split(/\s+/).map(className => {
                     className && self.$container[0].classList.add(className);
                 });
             }
@@ -38,7 +38,7 @@ $.fn.select2.amd.require(
             originalHideLoading.apply(this, arguments);
 
             const $options = this.$results.find(".select2-results__option");
-            $options.each(function (index, option) {
+            $options.each((index, option) => {
                 const isSelectable = option.dataset._stateSelectable === "1";
                 if (isSelectable) {
                     option.classList.add("select2-results__option--selectable");
@@ -60,7 +60,7 @@ $.fn.select2.amd.require(
                 // показываем сообщение "Searching...", если список пуст
                 originalShowLoading.apply(this, arguments);
             } else {
-                $options.each(function (index, option) {
+                $options.each((index, option) => {
                     const isSelectable = option.classList.contains("select2-results__option--selectable");
                     const isDisabled = option.classList.contains("select2-results__option--disabled");
 
@@ -90,12 +90,12 @@ $.fn.select2.amd.require(
 
             this.listeners["query"].pop();
 
-            this.on("query", function (params) {
+            this.on("query", params => {
                 if (!self.isOpen()) {
                     self.trigger("open", {});
                 }
 
-                this.dataAdapter.query(params, function (data) {
+                this.dataAdapter.query(params, data => {
                     self.trigger("results:all", {
                         data: data,
                         query: params,
@@ -235,7 +235,7 @@ $.fn.select2.amd.require(
                 cacheRecord.timestamp = Date.now();
                 callback(cacheRecord.data);
             } else {
-                originalQuery.call(this, params, function (results) {
+                originalQuery.call(this, params, results => {
                     if (Object.keys(self.__cache).length >= ajaxCacheOptions.size) {
                         removeOldestRecord(self.__cache);
                     }
@@ -254,7 +254,7 @@ $.fn.select2.amd.require(
             let minimalTimestamp = null;
 
             // search oldest record
-            Object.entries(cache).forEach(function ([key, value]) {
+            Object.entries(cache).forEach(([key, value]) => {
                 if (minimalTimestamp === null || value.timestamp < minimalTimestamp) {
                     targetKey = key;
                     minimalTimestamp = value.timestamp;

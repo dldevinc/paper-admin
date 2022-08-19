@@ -45,7 +45,7 @@ class InlineFormset extends Formset {
         emitters.inlines.trigger("add", [form, this.prefix]);
 
         // Animation
-        const onAddCallback = function () {
+        const onAddCallback = () => {
             this._isTransitioning = false;
             this.updateButtonsState();
 
@@ -54,7 +54,7 @@ class InlineFormset extends Formset {
 
             // Django compatible
             $(document).trigger("formset:added", [$(form), this.prefix]);
-        }.bind(this);
+        };
 
         const animationOptions = {
             onComplete: onAddCallback
@@ -96,7 +96,7 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onDeleteCallback = function () {
+        const onDeleteCallback = () => {
             emitters.dom.trigger("release", [form]);
 
             form.remove();
@@ -109,7 +109,7 @@ class InlineFormset extends Formset {
 
             // Django compatible
             $(document).trigger("formset:removed", [$(form), this.prefix]);
-        }.bind(this);
+        };
 
         const animationOptions = {
             onComplete: onDeleteCallback
@@ -187,12 +187,12 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onSwapCallback = function () {
+        const onSwapCallback = () => {
             this._isTransitioning = false;
             this.updateButtonsState();
 
             this.formContainer.style.transformStyle = "";
-        }.bind(this);
+        };
 
         const animationOptions = {
             y: 0,

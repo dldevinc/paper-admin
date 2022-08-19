@@ -8,7 +8,7 @@ if (/(add|change)\/?$/.test(window.location.pathname)) {
 }
 
 // Close popup on Esc
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", event => {
     if (event.code === "Escape") {
         window.close();
     }

@@ -11,12 +11,12 @@ export function hookUnload(form) {
     let submit = false;
     let formHasChanged = false;
 
-    form.addEventListener("submit", function () {
+    form.addEventListener("submit", () => {
         submit = true;
     });
 
     const message = gettext("You have unsaved changes");
-    window.addEventListener("beforeunload", function (evt) {
+    window.addEventListener("beforeunload", evt => {
         if (!submit && formHasChanged) {
             evt.preventDefault();
             evt.returnValue = message;

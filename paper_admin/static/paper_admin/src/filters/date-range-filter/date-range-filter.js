@@ -25,7 +25,7 @@ class DateRangeFilter extends Widget {
         const dateEndConfig = Object.assign({}, this.opts);
         flatpickr(dateEnd, dateEndConfig);
 
-        element.addEventListener("click", function (event) {
+        element.addEventListener("click", event => {
             const button = event.target.closest("[data-today]");
             if (button) {
                 const inputGroup = button.closest(".input-group");

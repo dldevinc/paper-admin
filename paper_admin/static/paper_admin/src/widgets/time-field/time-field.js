@@ -8,7 +8,7 @@ class TimeWidget extends Widget {
     constructor() {
         super();
 
-        document.addEventListener("click", function (event) {
+        document.addEventListener("click", event => {
             const button = event.target.closest(".time-field__button");
             if (button) {
                 const widget = button.closest(".time-field");

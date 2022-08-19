@@ -13,7 +13,7 @@ select2_changeform.initAll(".select-field select");
 
 // Инициализация inline-форм
 let formsets = [];
-document.querySelectorAll(".paper-formset").forEach(function (element) {
+document.querySelectorAll(".paper-formset").forEach(element => {
     const formset = new InlineFormset(element);
     formset.updateButtonsState();
     formsets.push(formset);
@@ -21,15 +21,13 @@ document.querySelectorAll(".paper-formset").forEach(function (element) {
 
 // Установка значения поля сортировки перед сохранением.
 // Назначить сортировку сразу нельзя из-за того, что extra-формы не должны меняться.
-document.addEventListener("submit", function () {
-    formsets.forEach(function (formset) {
+document.addEventListener("submit", () => {
+    formsets.forEach(formset => {
         let index = 0;
-        formset.getForms().forEach(
-            function (form) {
-                if (form.classList.contains("has_original") || formUtils.containsChangedField(form)) {
-                    this.setFormOrder(form, index++);
-                }
-            }.bind(formset)
-        );
+        formset.getForms().forEach(form => {
+            if (form.classList.contains("has_original") || formUtils.containsChangedField(form)) {
+                formset.setFormOrder(form, index++);
+            }
+        });
     });
 });

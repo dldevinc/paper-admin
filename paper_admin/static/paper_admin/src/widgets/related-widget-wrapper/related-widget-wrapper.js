@@ -14,19 +14,19 @@ function setRelatedObjectLinks(widget, objId) {
     }
 
     if (objId) {
-        links.forEach(function(link) {
+        links.forEach(link => {
             link.classList.remove("disabled");
             link.href = link.dataset.hrefTemplate.replace("__fk__", objId);
         });
     } else {
-        links.forEach(function(link) {
+        links.forEach(link => {
             link.classList.add("disabled");
             link.href = "";
         });
     }
 }
 
-document.addEventListener("change", function(event) {
+document.addEventListener("change", event => {
     const widget = event.target.closest(".related-widget-wrapper");
     const triggeringSelect = widget && widget.querySelector("select");
     if (triggeringSelect) {
@@ -38,7 +38,7 @@ document.addEventListener("change", function(event) {
     }
 });
 
-document.querySelectorAll(".related-widget-wrapper").forEach(function(widget) {
+document.querySelectorAll(".related-widget-wrapper").forEach(widget => {
     const triggeringSelect = widget.querySelector("select");
     if (triggeringSelect) {
         setRelatedObjectLinks(widget, triggeringSelect.value);
@@ -46,7 +46,7 @@ document.querySelectorAll(".related-widget-wrapper").forEach(function(widget) {
 });
 
 // для обратной совместимости
-window.updateRelatedObjectLinks = function(triggeringSelect) {
+window.updateRelatedObjectLinks = triggeringSelect => {
     const widget = triggeringSelect.closest(".related-widget-wrapper");
     setRelatedObjectLinks(widget, triggeringSelect.value);
 };
@@ -60,7 +60,7 @@ function showRelatedObjectPopup(triggeringLink) {
     return showAdminPopup(triggeringLink, /^(change|add|delete)_/, false);
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", event => {
     const triggeringLink = event.target.closest(".related-widget-wrapper__link");
     if (triggeringLink) {
         event.preventDefault();

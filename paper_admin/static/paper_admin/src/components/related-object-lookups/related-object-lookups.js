@@ -8,7 +8,7 @@ const relatedWindows = [];
 
 
 function dismissChildPopups() {
-    relatedWindows.forEach(function(win) {
+    relatedWindows.forEach(win => {
         if (!win.closed) {
             win.dismissChildPopups();
             win.close();
@@ -92,7 +92,7 @@ function dismissRelatedLookupPopup(win, chosenId) {
     win.close();
 }
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", event => {
     const triggeringLink = event.target.closest(".related-lookup");
     if (triggeringLink) {
         event.preventDefault();
@@ -114,7 +114,7 @@ window.showRelatedObjectLookupPopup = showRelatedObjectLookupPopup;
 window.dismissRelatedLookupPopup = dismissRelatedLookupPopup;
 window.dismissChildPopups = dismissChildPopups;
 
-window.addEventListener("unload", function() {
+window.addEventListener("unload", () => {
     window.dismissChildPopups();
 });
 
