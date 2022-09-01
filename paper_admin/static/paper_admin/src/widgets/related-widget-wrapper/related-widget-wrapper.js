@@ -1,4 +1,4 @@
-import {showAdminPopup, removePopupIndex, removeRelatedWindow} from "components/related-object-lookups";
+import popupUtils from "js/utilities/popup_utils";
 
 import "./related-widget-wrapper.scss";
 
@@ -57,7 +57,7 @@ window.updateRelatedObjectLinks = triggeringSelect => {
 // -------------------------------------------
 
 function showRelatedObjectPopup(triggeringLink) {
-    return showAdminPopup(triggeringLink, /^(change|add|delete)_/, false);
+    return popupUtils.showAdminPopup(triggeringLink, /^(change|add|delete)_/, false);
 }
 
 document.addEventListener("click", event => {
@@ -107,7 +107,7 @@ function _addSelectOption(select, newId, newRepr, selected) {
 }
 
 function dismissAddRelatedObjectPopup(win, newId, newRepr) {
-    const name = removePopupIndex(win.name);
+    const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
         _addSelectOption(element, newId, newRepr, true);
@@ -121,7 +121,7 @@ function dismissAddRelatedObjectPopup(win, newId, newRepr) {
         });
     }
 
-    removeRelatedWindow(win);
+    popupUtils.removeRelatedWindow(win);
     win.close();
 }
 
@@ -156,7 +156,7 @@ function _updateSelectOption(select, objId, newRepr, newId) {
 }
 
 function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
-    const name = removePopupIndex(win.name);
+    const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
         _updateSelectOption(element, objId, newRepr, newId);
@@ -170,7 +170,7 @@ function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
         });
     }
 
-    removeRelatedWindow(win);
+    popupUtils.removeRelatedWindow(win);
     win.close();
 }
 
@@ -191,7 +191,7 @@ function _deleteSelectOption(select, objId) {
 }
 
 function dismissDeleteRelatedObjectPopup(win, objId) {
-    const name = removePopupIndex(win.name);
+    const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
         _deleteSelectOption(element, objId);
@@ -205,7 +205,7 @@ function dismissDeleteRelatedObjectPopup(win, objId) {
         });
     }
 
-    removeRelatedWindow(win);
+    popupUtils.removeRelatedWindow(win);
     win.close();
 }
 
