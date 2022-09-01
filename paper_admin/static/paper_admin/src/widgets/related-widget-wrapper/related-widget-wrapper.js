@@ -2,12 +2,13 @@ import popupUtils from "js/utilities/popup_utils";
 
 import "./related-widget-wrapper.scss";
 
-// -------------------------------------------
-// Обновление ссылок на кнопках при изменении
-// значения <select>.
-// -------------------------------------------
 
-function setRelatedObjectLinks(widget, objId) {
+/**
+ * Обновление состояния кнопок "view", "change" и "delete".
+ * @param {HTMLElement} widget
+ * @param {Number|String} objId
+ */
+function updateRelatedObjectButtons(widget, objId) {
     const links = widget && widget.querySelectorAll(".view-related, .change-related, .delete-related");
     if (!links || !links.length) {
         return;
@@ -26,6 +27,8 @@ function setRelatedObjectLinks(widget, objId) {
     }
 }
 
+// Обновление состояния кнопок "view", "change" и "delete"
+// при изменении значения выпадающего списка.
 document.addEventListener("change", event => {
     const widget = event.target.closest(".related-widget-wrapper");
     const triggeringSelect = widget && widget.querySelector("select");
@@ -33,47 +36,54 @@ document.addEventListener("change", event => {
         const jQueryEvent = $.Event("django:update-related");
         $(triggeringSelect).trigger(jQueryEvent);
         if (!jQueryEvent.isDefaultPrevented()) {
-            setRelatedObjectLinks(widget, triggeringSelect.value);
+            updateRelatedObjectButtons(widget, triggeringSelect.value);
         }
     }
 });
 
+// Инициализация кнопок "view", "change" и "delete"
+// для выпадающих списков.
 document.querySelectorAll(".related-widget-wrapper").forEach(widget => {
     const triggeringSelect = widget.querySelector("select");
     if (triggeringSelect) {
-        setRelatedObjectLinks(widget, triggeringSelect.value);
+        updateRelatedObjectButtons(widget, triggeringSelect.value);
     }
 });
 
-// для обратной совместимости
+// Для обратной совместимости.
 window.updateRelatedObjectLinks = triggeringSelect => {
     const widget = triggeringSelect.closest(".related-widget-wrapper");
-    setRelatedObjectLinks(widget, triggeringSelect.value);
+    updateRelatedObjectButtons(widget, triggeringSelect.value);
 };
 
-// -------------------------------------------
-// Всплывающие окна для добавлений, изменения
-// и удаления значений из FK и M2M-виджетов.
-// -------------------------------------------
+// -------------------------------------------------------------------------------------
 
+/**
+ * @param {HTMLElement} triggeringLink
+ */
 function showRelatedObjectPopup(triggeringLink) {
-    return popupUtils.showAdminPopup(triggeringLink, /^(change|add|delete)_/, false);
+    return popupUtils.showAdminPopup(triggeringLink, /^(change|add|delete)_/, true);
 }
 
+// Окрытие всплывающего окна при клике на кнопки "add", "change" и "delete".
 document.addEventListener("click", event => {
     const triggeringLink = event.target.closest(".related-widget-wrapper__link");
     if (triggeringLink) {
         event.preventDefault();
-        if (triggeringLink.href) {
-            const jQueryEvent = $.Event("django:show-related", {href: triggeringLink.href});
-            $(triggeringLink).trigger(jQueryEvent);
-            if (!jQueryEvent.isDefaultPrevented()) {
-                showRelatedObjectPopup(triggeringLink);
-            }
+        const jQueryEvent = $.Event("django:show-related", {href: triggeringLink.href});
+        $(triggeringLink).trigger(jQueryEvent);
+        if (!jQueryEvent.isDefaultPrevented()) {
+            showRelatedObjectPopup(triggeringLink);
         }
     }
 });
 
+/**
+ * Возвращает выпадающие списки, связанные с той же моделью,
+ * для которой был открыто окно.
+ * @param {Window} win
+ * @returns {HTMLElement[]}
+ */
 function getRelatedSelects(win) {
     let app, model;
     const path = win.location.pathname;
@@ -91,10 +101,18 @@ function getRelatedSelects(win) {
     }
 
     const modelRef = `${app}.${model}`;
-    return document.querySelectorAll(`[data-model-ref="${modelRef}"] select`);
+    return Array.from(document.querySelectorAll(`[data-model-ref="${modelRef}"] select`));
 }
 
-function _addSelectOption(select, newId, newRepr, selected) {
+/**
+ * Добавление нового элемента в выпадающий список.
+ * @param {HTMLSelectElement} select
+ * @param {String} newId
+ * @param {String} newRepr
+ * @param {boolean} selected
+ * @private
+ */
+function _addOption(select, newId, newRepr, selected) {
     select.options[select.options.length] = new Option(newRepr, newId, !!selected, !!selected);
 
     // Trigger a change event to update related links if required.
@@ -106,18 +124,24 @@ function _addSelectOption(select, newId, newRepr, selected) {
     );
 }
 
+/**
+ * Функция, вызываемая после успешного добавления объекта.
+ * @param {Window} win
+ * @param {String} newId
+ * @param {String} newRepr
+ */
 function dismissAddRelatedObjectPopup(win, newId, newRepr) {
     const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        _addSelectOption(element, newId, newRepr, true);
+        _addOption(element, newId, newRepr, true);
 
         getRelatedSelects(win).forEach(select => {
             if (select === element) {
                 return;
             }
 
-            _addSelectOption(select, newId, newRepr);
+            _addOption(select, newId, newRepr);
         });
     }
 
@@ -125,7 +149,15 @@ function dismissAddRelatedObjectPopup(win, newId, newRepr) {
     win.close();
 }
 
-function _updateSelectOption(select, objId, newRepr, newId) {
+/**
+ * Обновление элемента выпадающего списка.
+ * @param {HTMLSelectElement} select
+ * @param {String} objId
+ * @param {String} newRepr
+ * @param {String} newId
+ * @private
+ */
+function _updateOption(select, objId, newRepr, newId) {
     const isOptionSelected = Array.from(select.selectedOptions).some(
         option => option.value === objId
     );
@@ -155,18 +187,25 @@ function _updateSelectOption(select, objId, newRepr, newId) {
     }
 }
 
+/**
+ * Функция, вызываемая после успешного изменения объекта.
+ * @param {Window} win
+ * @param {String} objId
+ * @param {String} newRepr
+ * @param {String} newId
+ */
 function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
     const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        _updateSelectOption(element, objId, newRepr, newId);
+        _updateOption(element, objId, newRepr, newId);
 
         getRelatedSelects(win).forEach(select => {
             if (select === element) {
                 return;
             }
 
-            _updateSelectOption(select, objId, newRepr, newId);
+            _updateOption(select, objId, newRepr, newId);
         });
     }
 
@@ -174,7 +213,13 @@ function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {
     win.close();
 }
 
-function _deleteSelectOption(select, objId) {
+/**
+ * Удаление элемента из выпадающего списка.
+ * @param {HTMLSelectElement} select
+ * @param {String} objId
+ * @private
+ */
+function _deleteOption(select, objId) {
     Array.from(select.options).forEach(option => {
         if (option.value === objId) {
             option.remove();
@@ -190,18 +235,23 @@ function _deleteSelectOption(select, objId) {
     );
 }
 
+/**
+ * Функция, вызываемая после успешного удаления объекта.
+ * @param {Window} win
+ * @param {String} objId
+ */
 function dismissDeleteRelatedObjectPopup(win, objId) {
     const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
     if (element && element.tagName === "SELECT") {
-        _deleteSelectOption(element, objId);
+        _deleteOption(element, objId);
 
         getRelatedSelects(win).forEach(select => {
             if (select === element) {
                 return;
             }
 
-            _deleteSelectOption(select, objId);
+            _deleteOption(select, objId);
         });
     }
 

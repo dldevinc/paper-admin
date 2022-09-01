@@ -21,17 +21,28 @@ function setPopupIndex() {
     }
 }
 
+/**
+ * @param {String} name
+ * @returns {String}
+ */
 function addPopupIndex(name) {
     name = name + "__" + (popupIndex + 1);
     return name;
 }
 
+/**
+ * @param {String} name
+ * @returns {String}
+ */
 function removePopupIndex(name) {
     name = name.replace(new RegExp("__" + (popupIndex + 1) + "$"), "");
     return name;
 }
 
 
+/**
+ * @param {Window} win
+ */
 function removeRelatedWindow(win) {
     const index = relatedWindows.indexOf(win);
     if (index > -1) {
@@ -40,6 +51,11 @@ function removeRelatedWindow(win) {
 }
 
 
+/**
+ * @param {HTMLElement} triggeringLink
+ * @param {RegExp} name_regexp
+ * @param {boolean} add_popup
+ */
 function showAdminPopup(triggeringLink, name_regexp, add_popup) {
     const name = addPopupIndex(triggeringLink.id.replace(name_regexp, ""));
     const href = new URL(triggeringLink.href);

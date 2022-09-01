@@ -25,6 +25,7 @@ function dismissRelatedLookupPopup(win, chosenId) {
 }
 
 document.addEventListener("click", event => {
+    // Клик на кнопку поиска объекта
     const triggeringLink = event.target.closest(".related-lookup");
     if (triggeringLink) {
         event.preventDefault();
@@ -35,6 +36,7 @@ document.addEventListener("click", event => {
         }
     }
 
+    // Клик на объект из списка
     const dissmissLink = event.target.closest("a[data-popup-opener]");
     if (dissmissLink) {
         event.preventDefault();
