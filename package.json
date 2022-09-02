@@ -1,6 +1,6 @@
 {
   "name": "paper-admin",
-  "version": "4.0.2",
+  "version": "4.2.0",
   "description": "",
   "main": "src/js/app.js",
   "scripts": {

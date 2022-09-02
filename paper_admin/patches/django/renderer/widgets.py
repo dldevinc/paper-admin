@@ -13,14 +13,16 @@ class PatchRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper, metaclass=Widget
         # Добавлен аргумент renderer и проброшен во внутренний виджет.
         # Добавлен `model_ref` для обновления выпадающих списков, связанных
         # с одной и той же моделью.
-        from django.contrib.admin.views.main import IS_POPUP_VAR, TO_FIELD_VAR
+        # Удален параметр IS_POPUP_VAR из url_params. Наличие этого параметра
+        # теперь находится под контролем JS.
+        from django.contrib.admin.views.main import TO_FIELD_VAR
         rel_opts = self.rel.model._meta
         info = (rel_opts.app_label, rel_opts.model_name)
         self.widget.choices = self.choices
         related_field_name = self.rel.get_related_field().name
         url_params = "&".join("%s=%s" % param for param in [
             (TO_FIELD_VAR, related_field_name),
-            (IS_POPUP_VAR, 1),
+            # (IS_POPUP_VAR, 1),
         ])
         context = {
             "rendered_widget": self.widget.render(name, value, attrs, renderer),
