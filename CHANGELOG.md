@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.3.0](https://github.com/dldevinc/paper-admin/tree/v4.3.0) - 2022-09-06
+
+### Features
+
+- Added ability to change default django admin widgets via changing
+  `FORMFIELD_FOR_DBFIELD_DEFAULTS`.
+
 ## [4.2.0](https://github.com/dldevinc/paper-admin/tree/v4.2.0) - 2022-09-06
 
 ### Features
