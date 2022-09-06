@@ -40,6 +40,7 @@
 
   &__sort-handler {
     position: absolute;
+    padding: 5px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,6 +51,9 @@
     cursor: move;
     color: $paper-table-sort-handler-color;
     border-right: $paper-table-border-width solid $paper-table-border-color;
+    background: url(img/sortable.svg) repeat-y top center;
+    background-size: contain;
+    background-clip: content-box;
     transition: color 0.3s;
 
     &.disabled {
