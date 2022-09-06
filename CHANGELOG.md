@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.2.0](https://github.com/dldevinc/paper-admin/tree/v4.2.0) - 2022-08-19
+## [4.2.0](https://github.com/dldevinc/paper-admin/tree/v4.2.0) - 2022-09-06
 
 ### Features
 
@@ -10,8 +10,8 @@
 
 ### Bug Fixes
 
-- Fixed issue with password change form widgets in admin interface.
-- Fixed issue when deletion popup is not closing.
+- Fixed an issue with password change form widgets in admin interface.
+- Fixed an issue when deletion popup is not closing.
 
 ## [4.1.6](https://github.com/dldevinc/paper-admin/tree/v4.1.6) - 2022-08-15
 
