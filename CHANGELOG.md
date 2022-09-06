@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.3.1](https://github.com/dldevinc/paper-admin/tree/v4.3.1) - 2022-09-06
+
+### Bug Fixes
+
+- Fixed "Save and continue" buttons.
+
 ## [4.3.0](https://github.com/dldevinc/paper-admin/tree/v4.3.0) - 2022-09-06
 
 ### Features
