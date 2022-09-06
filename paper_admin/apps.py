@@ -7,9 +7,12 @@ class Config(AppConfig):
     verbose_name = _("Paper Admin")
 
     def ready(self):
+        # Патч django обязательно должен быть импортирован раньше, чем
+        # приложение auth. Иначе формы приложения auth будут использовать.
+        # виджеты по умолчанию.
+        from .patches import django  # isort: skip
         from django.contrib.auth.views import PasswordResetView
 
-        from .patches import django
 
         PasswordResetView.html_email_template_name = (
             "registration/password_reset_email_alt.html"
