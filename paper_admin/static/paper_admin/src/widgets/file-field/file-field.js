@@ -5,7 +5,7 @@ import "./file-field.scss";
 bsCustomFileInput.init('.file-field input[type="file"]');
 
 // Вставка имени файла в название кнопки
-document.addEventListener("change", function (event) {
+document.addEventListener("change", event => {
     const widget = event.target.closest(".file-field");
     if (widget && event.target.type === "file") {
         const fileName = event.target.value.split("\\").pop();

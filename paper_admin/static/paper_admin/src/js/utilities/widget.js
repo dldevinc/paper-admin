@@ -172,7 +172,7 @@ class Widget {
             _this.init(root);
         }
 
-        root.querySelectorAll(selector).forEach(function (element) {
+        root.querySelectorAll(selector).forEach(element => {
             _this.init(element);
         });
     }
@@ -190,7 +190,7 @@ class Widget {
             _this.destroy(root);
         }
 
-        root.querySelectorAll(selector).forEach(function (element) {
+        root.querySelectorAll(selector).forEach(element => {
             _this.destroy(element);
         });
     }
@@ -204,18 +204,18 @@ class Widget {
         const onmutate = this.addEventHandler(
             "dom_mutate",
             selector,
-            function (root) {
+            root => {
                 this.initAll(selector, root);
-            }.bind(this)
+            }
         );
         emitters.dom.on("mutate", onmutate);
 
         const onrelease = this.addEventHandler(
             "dom_release",
             selector,
-            function (root) {
+            root => {
                 this.destroyAll(selector, root);
-            }.bind(this)
+            }
         );
         emitters.dom.on("release", onrelease);
     }

@@ -17,14 +17,12 @@
 
     {% if related_url %}
       <div class="input-group-append">
-        {% if related_url %}
-          <a href="{{ related_url }}" class="related-lookup input-group-text"
-             id="lookup_id_{{ widget.name }}" tabindex="-1"
-             data-toggle="tooltip" data-placement="top" data-trigger="hover"
-             data-html="true" title="{{ link_title }}">
-            <i class="fa fa-search"></i>
-          </a>
-        {% endif %}
+        <a href="{{ related_url }}" class="related-lookup input-group-text"
+           id="lookup_id_{{ widget.name }}" tabindex="-1"
+           data-toggle="tooltip" data-placement="top" data-trigger="hover"
+           data-html="true" title="{{ link_title }}">
+          <i class="fa fa-search"></i>
+        </a>
       </div>
     {% endif %}
   </div>

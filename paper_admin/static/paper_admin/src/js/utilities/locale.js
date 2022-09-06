@@ -12,13 +12,13 @@ export default function getPossibleLocales() {
         locale = locale.toLowerCase();
         locales.push(locale);
 
-        if (locale.indexOf("-") !== -1) {
+        if (locale.includes("-")) {
             // версия, где дефис заменен на нижнее подчеркивание
             locale = locale.replace("-", "_");
             locales.push(locale);
         }
 
-        if (locale.indexOf("_") !== -1) {
+        if (locale.includes("_")) {
             // версия без диалекта
             locale = locale.replace(/_.*$/, "");
             locales.push(locale);

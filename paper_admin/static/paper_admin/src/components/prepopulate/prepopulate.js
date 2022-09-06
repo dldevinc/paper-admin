@@ -9,7 +9,7 @@ import emitters from "js/utilities/emitters.js";
 import urlify from "./urlify.js";
 
 function initPrepopulation(root = document.body) {
-    root.querySelectorAll(".prepopulated-field").forEach(function (widget) {
+    root.querySelectorAll(".prepopulated-field").forEach(widget => {
         let config;
         const formset = widget.closest(".paper-formset");
         if (formset) {
@@ -37,7 +37,7 @@ function initPrepopulation(root = document.body) {
 
         // поиск полей, от которых зависит текущее поле
         const dependencies = fieldConfig.dependencies
-            .map(function (name) {
+            .map(name => {
                 const dependencyFieldName = prepopulatedField.name.replace(new RegExp(fieldName + "$"), name);
                 return document.querySelector("[name=" + dependencyFieldName + "]");
             })
@@ -55,7 +55,7 @@ function initPrepopulation(root = document.body) {
             }
 
             const values = dependencies
-                .map(function (dependency) {
+                .map(dependency => {
                     return dependency.value;
                 })
                 .filter(Boolean);
@@ -63,7 +63,7 @@ function initPrepopulation(root = document.body) {
             prepopulatedField.value = urlify(values.join(" "), fieldConfig.maxLength, fieldConfig.allowUnicode);
         };
 
-        const toggleAutocomplete = function () {
+        const toggleAutocomplete = () => {
             if (prepopulatedField.value) {
                 prepopulatedField.dataset._changed = "1";
             } else {
@@ -74,7 +74,7 @@ function initPrepopulation(root = document.body) {
         prepopulatedField.addEventListener("change", toggleAutocomplete);
         toggleAutocomplete();
 
-        dependencies.forEach(function (dependencyField) {
+        dependencies.forEach(dependencyField => {
             dependencyField.addEventListener("keyup", populate);
             dependencyField.addEventListener("change", populate);
             dependencyField.addEventListener("focus", populate);
@@ -83,6 +83,6 @@ function initPrepopulation(root = document.body) {
 }
 
 initPrepopulation();
-emitters.inlines.on("added", function (form, prefix) {
+emitters.inlines.on("added", (form, prefix) => {
     initPrepopulation(form);
 });

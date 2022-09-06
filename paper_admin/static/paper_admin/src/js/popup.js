@@ -1,7 +1,5 @@
-/* global gettext */
-
-// Autofocus for "add" page
-if (/add\/?$/.test(window.location.pathname)) {
+// Autofocus for "add" or "change" popups
+if (/(add|change)\/?$/.test(window.location.pathname)) {
     const form = document.querySelector(".paper-form");
     if (form) {
         const field = form.querySelector("input:not([type=hidden]), select, textarea");
@@ -10,17 +8,8 @@ if (/add\/?$/.test(window.location.pathname)) {
 }
 
 // Close popup on Esc
-document.addEventListener("keydown", function (event) {
-    if (event.which === 27) {
-        window.close();
-    }
-});
-
-// "Close popup" button
-document.addEventListener("click", function (event) {
-    const link = event.target.closest(".cancel-link");
-    if (link) {
-        event.preventDefault();
+document.addEventListener("keydown", event => {
+    if (event.code === "Escape") {
         window.close();
     }
 });

@@ -6,7 +6,6 @@ import Util from "bootstrap/js/src/util";
 import "./paper-modal.scss";
 
 const EVENT_KEY = ".bs.modal";
-const ESCAPE_KEYCODE = 27;
 
 const EVENT_HIDE = `hide${EVENT_KEY}`;
 const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
@@ -215,7 +214,7 @@ class PaperModal extends Modal {
      * @returns {Promise}
      */
     destroy() {
-        const transitionComplete = function () {
+        const transitionComplete = () => {
             if (typeof this.config.onDestroy === "function") {
                 this.config.onDestroy.call(this);
             }
@@ -232,7 +231,7 @@ class PaperModal extends Modal {
             this._removeBackdrop();
 
             this.dispose();
-        }.bind(this);
+        };
 
         if (this._isShown) {
             if (this._isTransitioning) {
@@ -291,7 +290,7 @@ class PaperModal extends Modal {
     _setEscapeEvent() {
         if (this._isShown) {
             $(this._element).on(EVENT_KEYDOWN_DISMISS, event => {
-                if (event.which === ESCAPE_KEYCODE) {
+                if (event.code === "Escape") {
                     if (this._config.keyboard) {
                         event.preventDefault();
                         if (typeof this.config.onClose === "function") {

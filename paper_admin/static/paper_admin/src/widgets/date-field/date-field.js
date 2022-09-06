@@ -17,7 +17,7 @@ class DateWidget extends Widget {
             options
         );
 
-        document.addEventListener("click", function (event) {
+        document.addEventListener("click", event => {
             const button = event.target.closest(".date-field__button");
             if (button) {
                 const widget = button.closest(".date-field");

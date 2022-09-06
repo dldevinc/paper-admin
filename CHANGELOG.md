@@ -1,5 +1,18 @@
 # Change Log
 
+## [4.2.0](https://github.com/dldevinc/paper-admin/tree/v4.2.0) - 2022-09-06
+
+### Features
+
+- Allowed multiple popups for self-related fields in admin.
+- Allowed admin select widgets to display new related objects.
+- Prevented double submission of admin forms.
+
+### Bug Fixes
+
+- Fixed an issue with password change form widgets in admin interface.
+- Fixed an issue when deletion popup is not closing.
+
 ## [4.1.6](https://github.com/dldevinc/paper-admin/tree/v4.1.6) - 2022-08-15
 
 ### Bug Fixes

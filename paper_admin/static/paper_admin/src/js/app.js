@@ -3,6 +3,7 @@ import Sortable from "sortablejs";
 import emitters from "js/utilities/emitters.js";
 import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
+import popupUtils from "js/utilities/popup_utils.js";
 import Widget from "js/utilities/widget.js";
 import "js/components/bootstrap.js";
 import "js/components/filedrag.js";
@@ -95,7 +96,8 @@ if (document.body.classList.contains("change-form")) {
 }
 
 // popup page
-if (window.location.search.indexOf("&_popup=1") !== -1) {
+const params = new URLSearchParams(window.location.search);
+if (params.has('_popup')) {
     import(/* webpackChunkName: "popup" */ "js/popup.js");
 }
 
@@ -107,6 +109,7 @@ export const paperAdmin = {
     emitters,
     dragUtils,
     formUtils,
+    popupUtils,
     modals,
     Sortable,
     Widget
