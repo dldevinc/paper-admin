@@ -1,41 +1,18 @@
-import copy
-
 import django
 from django import forms
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.widgets import AutocompleteSelect, AutocompleteSelectMultiple
-from django.db import models
 from django.utils.translation import gettext as _
 
 from paper_admin.admin import widgets
 from paper_admin.monkey_patch import MonkeyPatchMeta
 
-FORMFIELD_FOR_DBFIELD_DEFAULTS = {
-    models.DateTimeField: {
-        "form_class": forms.SplitDateTimeField,
-        "widget": forms.SplitDateTimeWidget,
-    },
-    models.TextField: {"widget": widgets.AdminTextarea},
-    models.GenericIPAddressField: {"widget": widgets.AdminIPInput},
-    models.UUIDField: {"widget": widgets.AdminUUIDInput},
-    models.BooleanField: {"widget": widgets.AdminCheckboxInput},
-    models.FileField: {"widget": forms.ClearableFileInput},
-    models.ImageField: {"widget": forms.ClearableFileInput},
-}
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
 class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
-    def __init__(self):
-        # Merge FORMFIELD_FOR_DBFIELD_DEFAULTS with the formfield_overrides
-        # rather than simply overwriting.
-        overrides = copy.deepcopy(FORMFIELD_FOR_DBFIELD_DEFAULTS)
-        for k, v in self.formfield_overrides.items():
-            overrides.setdefault(k, {}).update(v)
-        self.formfield_overrides = overrides
-
     def formfield_for_choice_field(self, db_field, request, **kwargs):
         if db_field.name in self.radio_fields:
             if "widget" not in kwargs:
