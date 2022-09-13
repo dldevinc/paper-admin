@@ -11,6 +11,14 @@
     @include border-bottom-radius($dropdown-inner-border-radius);
   }
 
+  @at-root .dropdown-menu > &:first-child {
+    @include border-top-radius($dropdown-inner-border-radius);
+  }
+
+  @at-root .dropdown-menu > &:last-child {
+    @include border-bottom-radius($dropdown-inner-border-radius);
+  }
+
   &:focus {
     z-index: 1;
     outline: 0;
