@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.3.2](https://github.com/dldevinc/paper-admin/tree/v4.3.2) - 2022-09-
+
+### Bug Fixes
+
+- Fix creation and deletion objects with `ForeignKeyRawIdWidget`.
+
+
 ## [4.3.1](https://github.com/dldevinc/paper-admin/tree/v4.3.1) - 2022-09-06
 
 ### Bug Fixes
