@@ -5,10 +5,10 @@
     <script>
       const initData = {{ popup_response_data|safe }};
       switch(initData.action) {
-          case 'change':
+          case "change":
               opener.dismissChangeRelatedObjectPopup(window, initData.value, initData.obj, initData.new_value);
               break;
-          case 'delete':
+          case "delete":
               opener.dismissDeleteRelatedObjectPopup(window, initData.value);
               break;
           default:

@@ -133,16 +133,20 @@ function _addOption(select, newId, newRepr, selected) {
 function dismissAddRelatedObjectPopup(win, newId, newRepr) {
     const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
-    if (element && element.tagName === "SELECT") {
-        _addOption(element, newId, newRepr, true);
+    if (element) {
+        if (element.tagName === "SELECT") {
+            _addOption(element, newId, newRepr, true);
 
-        getRelatedSelects(win).forEach(select => {
-            if (select === element) {
-                return;
-            }
+            getRelatedSelects(win).forEach(select => {
+                if (select === element) {
+                    return;
+                }
 
-            _addOption(select, newId, newRepr);
-        });
+                _addOption(select, newId, newRepr);
+            });
+        } else if (element.tagName === "INPUT") {
+            element.value = newId;
+        }
     }
 
     popupUtils.removeRelatedWindow(win);
