@@ -247,16 +247,20 @@ function _deleteOption(select, objId) {
 function dismissDeleteRelatedObjectPopup(win, objId) {
     const name = popupUtils.removePopupIndex(win.name);
     const element = document.getElementById(name);
-    if (element && element.tagName === "SELECT") {
-        _deleteOption(element, objId);
+    if (element) {
+        if (element.tagName === "SELECT") {
+            _deleteOption(element, objId);
 
-        getRelatedSelects(win).forEach(select => {
-            if (select === element) {
-                return;
-            }
+            getRelatedSelects(win).forEach(select => {
+                if (select === element) {
+                    return;
+                }
 
-            _deleteOption(select, objId);
-        });
+                _deleteOption(select, objId);
+            });
+        } else if (element.tagName === "INPUT") {
+            element.value = "";
+        }
     }
 
     popupUtils.removeRelatedWindow(win);

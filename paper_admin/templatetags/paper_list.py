@@ -1,4 +1,5 @@
 import django
+from django.contrib.admin.options import IS_POPUP_VAR
 from django.contrib.admin.templatetags import admin_list
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
@@ -222,4 +223,5 @@ def paper_result_list(context, cl):
 
     table = ResultTable(request, cl)
     context = result_list_context(table)
+    context["is_popup_var"] = IS_POPUP_VAR
     return loader.render_to_string("admin/change_list_results.html", context, request=request)
