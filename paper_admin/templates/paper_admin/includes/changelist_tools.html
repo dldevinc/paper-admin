@@ -25,7 +25,7 @@
 
     {% if result.has_delete_permission %}
       {% url cl.opts|admin_urlname:'delete' result.obj.pk|admin_urlquote as delete_url %}
-      <a href="{{ delete_url }}" class="btn btn-square btn-sm btn-square--danger"
+      <a href="{% add_preserved_filters delete_url cl.is_popup cl.to_field %}" class="btn btn-square btn-sm btn-square--danger"
          data-toggle="tooltip" data-placement="top" data-trigger="hover"
          data-html="true" title="{{ _("Delete") }}">
         <i class="fa fa-trash"></i>
