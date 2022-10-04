@@ -16,208 +16,210 @@
 import Sortable from "sortablejs";
 import ListTree from "js/components/sortable_table/ListTree.js";
 
-/**
- * Конструктор объектов SortableTable.
- * @param {Element} table
- * @param {module:SortableTable.SortableTableOptions} [options]
- * @constructor
- */
-function SortableTable(table, options) {
-    /** @type {module:SortableTable.SortableTableOptions} */
-    this.opts = Object.assign(
-        {
+
+export default class SortableTable {
+    /**
+     * @param {Element} table
+     * @param {module:SortableTable.SortableTableOptions} [options]
+     */
+    constructor(table, options) {
+        /** @type {module:SortableTable.SortableTableOptions} */
+        this.opts = Object.assign({
             url: null,
             tree: false,
             handler: ".handler",
             disabledClass: "disabled"
-        },
-        options
-    );
+        }, options);
 
-    /** @type {Element} */
-    this.table = table;
+        /** @type {Element} */
+        this.table = table;
 
-    /** @type {Element} */
-    this.tbody = table.querySelector("tbody");
-    if (!this.tbody) {
-        throw new Error("table body not found");
+        /** @type {Element} */
+        this.tbody = table.querySelector("tbody");
+        if (!this.tbody) {
+            throw new Error("table body not found");
+        }
+
+        /** @type {?ListTree} */
+        this.tree = null;
+
+        this._createSortable();
     }
 
-    /** @type {?ListTree} */
-    this.tree = null;
+    /**
+     * Инициализация плагина сортировки.
+     * @returns {Sortable}
+     * @private
+     */
+    _createSortable() {
+        return Sortable.create(this.tbody, {
+            animation: 0,
+            draggable: "tr",
+            handle: this.opts.handler,
+            filter: (event, row, instance) => {
+                if (row.classList.contains(this.opts.disabledClass)) {
+                    return true;
+                }
 
-    this._createSortable();
-}
-
-/**
- * Инициализация плагина сортировки.
- * @private
- */
-SortableTable.prototype._createSortable = function () {
-    return Sortable.create(this.tbody, {
-        animation: 0,
-        draggable: "tr",
-        handle: this.opts.handler,
-        filter: function (event, row, instance) {
-            if (row.classList.contains(this.opts.disabledClass)) {
-                return true;
-            }
-
-            const handler = row.querySelector(this.opts.handler);
-            if (handler && handler.classList.contains(this.opts.disabledClass)) {
-                return true;
-            }
-        }.bind(this),
-        ghostClass: "sortable-ghost",
-        onStart: this._onStart.bind(this),
-        onMove: this._onMove.bind(this),
-        onEnd: this._onEnd.bind(this)
-    });
-};
-
-/**
- * Обработчик события начала перетаскивания.
- * @param evt
- * @private
- */
-SortableTable.prototype._onStart = function (evt) {
-    const rows = this.tbody.querySelectorAll("tr");
-
-    if (this.opts.tree) {
-        this.tree = new ListTree(rows);
+                const handler = row.querySelector(this.opts.handler);
+                if (handler && handler.classList.contains(this.opts.disabledClass)) {
+                    return true;
+                }
+            },
+            ghostClass: "sortable-ghost",
+            onStart: this._onStart.bind(this),
+            onMove: this._onMove.bind(this),
+            onEnd: this._onEnd.bind(this)
+        });
     }
 
-    // блокируем все узлы, кроме соседних
-    const item_parentId = parseInt(evt.item.dataset.parent);
-    rows.forEach(
-        function (row) {
+    /**
+     * Обработчик события начала перетаскивания.
+     * @param evt
+     * @private
+     */
+    _onStart(evt) {
+        const rows = this.tbody.querySelectorAll("tr");
+
+        if (this.opts.tree) {
+            this.tree = new ListTree(rows);
+        }
+
+        // Блокируем все узлы, кроме соседних.
+        const currentParentId = parseInt(evt.item.dataset.parent);
+        if (isNaN(currentParentId)) {
+            throw new Error("invalid parent ID");
+        }
+
+        rows.forEach(row => {
             const parentId = parseInt(row.dataset.parent);
-            if ((!isNaN(parentId) || !isNaN(item_parentId)) && parentId !== item_parentId) {
+            if (!isNaN(parentId) && parentId !== currentParentId) {
                 row.classList.add(this.opts.disabledClass);
             }
-        }.bind(this)
-    );
-};
-
-/**
- * Обработчик события перетаскивания.
- * @param evt
- * @returns {Boolean}
- * @private
- */
-SortableTable.prototype._onMove = function (evt) {
-    return !evt.related.classList.contains(this.opts.disabledClass);
-};
-
-/**
- * Обработчик события завершения перетаскивания.
- * @param evt
- * @private
- */
-SortableTable.prototype._onEnd = function (evt) {
-    // снимаем блокировку со всех узлов
-    const rows = this.tbody.querySelectorAll("tr");
-    rows.forEach(row => {
-        row.classList.remove(this.opts.disabledClass);
-    });
-
-    const moved = this._getMovedRows(evt);
-    if (!moved.length || moved.length === 1) {
-        return;
-    }
-
-    this._normalizeTable(evt, moved);
-
-    const map = this._createOrderMap(evt, moved);
-
-    // блокировка областей сортировки на время выполнения запроса
-    const handlers = this.tbody.querySelectorAll(this.opts.handler);
-    handlers.forEach(handler => {
-        handler.classList.add(this.opts.disabledClass);
-    });
-
-    // отправка запроса на сервер
-    this._sendRequest(map).then(() => {
-        // снятие блокировки
-        handlers.forEach(handler => {
-            handler.classList.remove(this.opts.disabledClass);
-        });
-    });
-};
-
-/**
- * Получение строк, чей порядок изменился.
- * @param evt
- * @returns {Element[]}
- * @private
- */
-SortableTable.prototype._getMovedRows = function (evt) {
-    const sliceStart = Math.min(evt.oldIndex, evt.newIndex);
-    const sliceEnd = Math.max(evt.oldIndex, evt.newIndex);
-    const rows = this.tbody.querySelectorAll("tr");
-    let slice = Array.prototype.slice.call(rows, sliceStart, sliceEnd + 1);
-    if (this.tree) {
-        // пропускаем узлы, не являющиеся соседними
-        const pk = parseInt(evt.item.dataset.id);
-        const node = this.tree.getNode(pk);
-        slice = slice.filter(row => {
-            return parseInt(row.dataset.parent) === node.parent;
         });
     }
-    return slice;
-};
 
-/**
- * Создание карты новых значений сортировки строк.
- * @param evt
- * @param {Element[]} rows
- * @returns {Object}
- * @private
- */
-SortableTable.prototype._createOrderMap = function (evt, rows) {
-    const pk_array = [];
-    const order_array = [];
-    rows.forEach(row => {
-        const handle = row.querySelector(this.opts.handler);
-        if (handle) {
-            pk_array.push(parseInt(row.dataset.id));
-            order_array.push(parseInt(row.dataset.orderValue));
+    /**
+     * Обработчик события перетаскивания.
+     * @param evt
+     * @returns {boolean}
+     * @private
+     */
+    _onMove(evt) {
+        return !evt.related.classList.contains(this.opts.disabledClass);
+    }
+
+    /**
+     * Обработчик события завершения перетаскивания.
+     * @param evt
+     * @private
+     */
+    _onEnd(evt) {
+        // Снимаем блокировку со всех узлов.
+        const rows = this.tbody.querySelectorAll("tr");
+        rows.forEach(row => {
+            row.classList.remove(this.opts.disabledClass);
+        });
+
+        const moved = this._getMovedRows(evt);
+        if (!moved.length || moved.length === 1) {
+            return;
         }
-    });
 
-    // циклический сдвиг значений сортировки
-    const movedDown = evt.oldIndex < evt.newIndex;
-    if (movedDown) {
-        order_array.unshift(order_array.pop());
-    } else {
-        order_array.push(order_array.shift());
+        this._normalizeTable(evt, moved);
+
+        const map = this._createOrderMap(evt, moved);
+
+        // блокировка областей сортировки на время выполнения запроса
+        const handlers = this.tbody.querySelectorAll(this.opts.handler);
+        handlers.forEach(handler => {
+            handler.classList.add(this.opts.disabledClass);
+        });
+
+        // отправка запроса на сервер
+        this._sendRequest(map).then(() => {
+            // снятие блокировки
+            handlers.forEach(handler => {
+                handler.classList.remove(this.opts.disabledClass);
+            });
+        });
     }
 
-    return pk_array.reduce(
-        (result, pk, i) => {
-            result[pk] = order_array[i];
+    /**
+     * Получение строк, чей порядок изменился после перетаскивания.
+     * @param evt
+     * @returns {HTMLElement[]}
+     * @private
+     */
+    _getMovedRows(evt) {
+        const sliceStart = Math.min(evt.oldIndex, evt.newIndex);
+        const sliceEnd = Math.max(evt.oldIndex, evt.newIndex);
+        const rows = this.tbody.querySelectorAll("tr");
+        let slice = Array.prototype.slice.call(rows, sliceStart, sliceEnd + 1);
+        if (this.tree) {
+            // пропускаем узлы, не являющиеся соседними
+            const pk = parseInt(evt.item.dataset.id);
+            const node = this.tree.getNode(pk);
+            slice = slice.filter(row => {
+                return parseInt(row.dataset.parent) === node.parent;
+            });
+        }
+        return slice;
+    }
+
+    /**
+     * Создание карты новых значений сортировки элементов.
+     * @param evt
+     * @param {HTMLElement[]} rows
+     * @returns {Object}
+     * @private
+     */
+    _createOrderMap(evt, rows) {
+        const pkArray = [];
+        const orderArray = [];
+
+        // заполнение массивов ID и сортировки
+        rows.forEach(row => {
+            const handle = row.querySelector(this.opts.handler);
+            if (handle) {
+                pkArray.push(parseInt(row.dataset.id));
+                orderArray.push(parseInt(row.dataset.orderValue));
+            }
+        });
+
+        // циклический сдвиг значений сортировки
+        const movedDown = evt.oldIndex < evt.newIndex;
+        if (movedDown) {
+            orderArray.unshift(orderArray.pop());
+        } else {
+            orderArray.push(orderArray.shift());
+        }
+
+        return pkArray.reduce((result, pk, i) => {
+            result[pk] = orderArray[i];
 
             // обновляем атрибут data-order-value
-            const row = this.tbody.querySelector("tr[data-id='" + pk + "']");
-            row.setAttribute("data-order-value", order_array[i]);
+            const row = this.tbody.querySelector(`tr[data-id="${pk}"]`);
+            row.setAttribute("data-order-value", orderArray[i]);
 
             return result;
-        },
-        {}
-    );
-};
+        }, {});
+    }
 
-/**
- * Нормализация таблицы.
- * Все дочерние строки перемещаются под своего родителя.
- * Без этого метода может случиться ситуация, когда элемент
- * был перемещен между своим соседом и его детьми.
- * @param evt
- * @param {Element[]} moved
- * @private
- */
-SortableTable.prototype._normalizeTable = function (evt, moved) {
-    if (this.tree) {
+    /**
+     * Нормализация таблицы.
+     * Все дочерние строки перемещаются под своего родителя.
+     * Без этого метода может случиться ситуация, когда элемент
+     * был перемещен между своим соседом и его детьми.
+     * @param evt
+     * @param {Element[]} moved
+     * @private
+     */
+    _normalizeTable(evt, moved) {
+        if (!this.tree) {
+            return
+        }
+
         const pk = parseInt(evt.item.dataset.id);
         const node = this.tree.getNode(pk);
         const prev = evt.item.previousElementSibling;
@@ -240,29 +242,27 @@ SortableTable.prototype._normalizeTable = function (evt, moved) {
             Element.prototype.after.apply(parent, childs);
         });
     }
-};
 
-/**
- * Отправка новых значений сортировки на сервер.
- * @param {Object} data
- * @returns {Promise<Response>}
- * @private
- */
-SortableTable.prototype._sendRequest = function (data) {
-    return fetch(this.opts.url, {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }).then(response => {
-        if (!response.ok) {
-            const error = new Error(`${response.status} ${response.statusText}`);
-            error.response = response;
-            throw error;
-        }
-    });
-};
-
-export default SortableTable;
+    /**
+     * Отправка новых значений сортировки на сервер.
+     * @param {Object} data
+     * @returns {Promise<Response>}
+     * @private
+     */
+    _sendRequest(data) {
+        return fetch(this.opts.url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (!response.ok) {
+                const error = new Error(`${response.status} ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        });
+    }
+}

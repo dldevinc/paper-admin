@@ -1,7 +1,4 @@
 /**
- * Представление списка DOM-элементов в виде дерева.
- * Каждый DOM-элемент должен иметь data-атрибуты: id, parent.
- * Каждый дочерний узел должен идти после родителя.
  * @module ListTree
  */
 
@@ -14,81 +11,66 @@
  */
 
 /**
- * Конструктор объектов ListTree.
- * @param {NodeList|Element[]} elements
- * @constructor
+ * Представление списка DOM-элементов в виде дерева.
+ * Каждый DOM-элемент должен иметь data-атрибуты "id" и "parent".
+ * Каждый дочерний узел должен идти после родителя.
  */
-function ListTree(elements) {
-    this._buildTree(elements);
-}
+export default class ListTree {
+    /**
+     * @param {NodeList|Element[]} elements
+     */
+    constructor(elements) {
+        this._buildTree(elements);
+    }
 
-/**
- * Создание узла дерева.
- * @param {HTMLElement} child
- * @returns {module:ListTree.ListTreeNode}
- * @private
- */
-ListTree.prototype._createNode = function (child) {
-    const dataset = child.dataset;
-    return {
-        pk: parseInt(dataset.id),
-        parent: parseInt(dataset.parent),
-        element: child,
-        childs: []
-    };
-};
+    /**
+     * Создание структуры узла дерева.
+     * @param {HTMLElement} child
+     * @returns {module:ListTree.ListTreeNode}
+     * @private
+     */
+    _createNode(child) {
+        const dataset = child.dataset;
+        return {
+            pk: parseInt(dataset.id),
+            parent: parseInt(dataset.parent),
+            element: child,
+            childs: []
+        };
+    }
 
-/**
- * Добавление узла дерева в карту, для быстрого поиска по ID.
- * @param {module:ListTree.ListTreeNode} node
- * @returns {Boolean}
- * @private
- */
-ListTree.prototype._addNode = function (node) {
-    if (node && typeof node.pk === "number") {
-        this._nodes[node.pk] = node;
-        if (isNaN(node.parent)) {
-            this._roots.push(node);
+    /**
+     * Добавление узла дерева в карту, для быстрого поиска по ID.
+     * @param {module:ListTree.ListTreeNode} node
+     * @private
+     */
+    _addNode(node) {
+        if (node && typeof node.pk === "number") {
+            this._nodes[node.pk] = node;
+            if (isNaN(node.parent)) {
+                this._roots.push(node);
+            }
         }
-        return true;
     }
-    return false;
-};
 
-/**
- * Получение узла по ID.
- * @param {Number} pk
- * @returns {module:ListTree.ListTreeNode}
- */
-ListTree.prototype.getNode = function (pk) {
-    if (this._nodes === null) {
-        throw new Error("tree is empty");
-    }
-    if (!(pk in this._nodes)) {
-        throw new Error(`node ${pk} not found`);
-    }
-    return this._nodes[pk];
-};
+    /**
+     * Построение дерева из DOM-элементов.
+     * @param {NodeList|Element[]} elements
+     * @private
+     */
+    _buildTree(elements) {
+        const stack = [];
 
-/**
- * Построение дерева из элементов.
- * @param {Element[]} elements
- * @private
- */
-ListTree.prototype._buildTree = function (elements) {
-    const stack = [];
-
-    this._nodes = {};
-    this._roots = [];
-    elements.forEach(
-        function (elem) {
+        this._nodes = {};
+        this._roots = [];
+        elements.forEach(elem => {
             const node = this._createNode(elem);
             this._addNode(node);
 
             while (stack.length) {
-                const stack_node = stack[0];
-                if (node.parent === stack_node.pk) {
-                    stack_node.childs.push(node.pk);
+                const stackNode = stack[0];
+                if (node.parent === stackNode.pk) {
+                    stackNode.childs.push(node.pk);
                     stack.unshift(node);
                     return;
                 }
@@ -96,43 +78,46 @@ ListTree.prototype._buildTree = function (elements) {
             }
 
             stack.unshift(node);
-        }.bind(this)
-    );
-};
-
-/**
- * Получение корневых элементов.
- * @returns {Element[]}
- */
-ListTree.prototype.getRoots = function () {
-    if (this._roots === null) {
-        throw new Error("tree is empty");
+        });
     }
-    return this._roots.map(
-        function (root_node) {
-            return root_node.element;
-        }.bind(this)
-    );
-};
 
-/**
- * Получение всех потомков узла.
- * @param {Number} pk
- * @returns {Element[]}
- */
-ListTree.prototype.getDescendants = function (pk) {
-    const node = this.getNode(pk);
-    return node.childs.reduce(
-        function (result, child_pk) {
-            const child_node = this.getNode(child_pk);
-            if (child_node) {
-                result.push(child_node.element);
-                result = result.concat(this.getDescendants(child_pk));
+    /**
+     * Получение узла по ID.
+     * @param {Number} pk
+     * @returns {module:ListTree.ListTreeNode}
+     */
+    getNode(pk) {
+        if (!(pk in this._nodes)) {
+            throw new Error(`node ${pk} not found`);
+        }
+
+        return this._nodes[pk];
+    }
+
+    /**
+     * Получение корневых элементов.
+     * @returns {Element[]}
+     */
+    getRoots() {
+        return this._roots.map(rootNode => {
+            return rootNode.element;
+        });
+    }
+
+    /**
+     * Получение всех потомков узла.
+     * @param {Number} pk
+     * @returns {Element[]}
+     */
+    getDescendants(pk) {
+        const node = this.getNode(pk);
+        return node.childs.reduce((result, childId) => {
+            const childNode = this.getNode(childId);
+            if (childNode) {
+                result.push(childNode.element);
+                result = result.concat(this.getDescendants(childId));
             }
             return result;
-        }.bind(this),
-        []
-    );
-};
-
-export default ListTree;
+        }, []);
+    }
+}
