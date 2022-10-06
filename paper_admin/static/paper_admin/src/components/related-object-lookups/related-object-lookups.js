@@ -5,7 +5,6 @@
 
 import popupUtils from "js/utilities/popup_utils.js";
 
-
 function showRelatedObjectLookupPopup(triggeringLink) {
     return popupUtils.showAdminPopup(triggeringLink, /^lookup_/, true);
 }

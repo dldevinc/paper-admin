@@ -1,7 +1,6 @@
 let popupIndex = 0;
 const relatedWindows = [];
 
-
 function dismissChildPopups() {
     relatedWindows.forEach(win => {
         if (!win.closed) {
@@ -10,7 +9,6 @@ function dismissChildPopups() {
         }
     });
 }
-
 
 function setPopupIndex() {
     if (document.getElementsByName("_popup").length > 0) {
@@ -39,7 +37,6 @@ function removePopupIndex(name) {
     return name;
 }
 
-
 /**
  * @param {Window} win
  */
@@ -49,7 +46,6 @@ function removeRelatedWindow(win) {
         relatedWindows.splice(index, 1);
     }
 }
-
 
 /**
  * @param {HTMLElement} triggeringLink
@@ -76,17 +72,20 @@ function showAdminPopup(triggeringLink, name_regexp, add_popup) {
     const win = window.open(
         href.toString(),
         name,
-        "width=" + popup_width +
-        ",height=" + popup_height +
-        ",top=" + top_position +
-        ",left=" + left_position +
-        ",resizable=yes,scrollbars=yes"
+        "width=" +
+            popup_width +
+            ",height=" +
+            popup_height +
+            ",top=" +
+            top_position +
+            ",left=" +
+            left_position +
+            ",resizable=yes,scrollbars=yes"
     );
 
     relatedWindows.push(win);
     win.focus();
 }
-
 
 window.dismissChildPopups = dismissChildPopups;
 
@@ -95,7 +94,6 @@ window.addEventListener("unload", () => {
 });
 
 setPopupIndex();
-
 
 const popupUtils = {
     showAdminPopup,

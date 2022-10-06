@@ -16,7 +16,6 @@
 import Sortable from "sortablejs";
 import ListTree from "js/components/sortable_table/ListTree.js";
 
-
 export default class SortableTable {
     /**
      * @param {Element} table
@@ -24,12 +23,15 @@ export default class SortableTable {
      */
     constructor(table, options) {
         /** @type {module:SortableTable.SortableTableOptions} */
-        this.opts = Object.assign({
-            url: null,
-            tree: false,
-            handler: ".handler",
-            disabledClass: "disabled"
-        }, options);
+        this.opts = Object.assign(
+            {
+                url: null,
+                tree: false,
+                handler: ".handler",
+                disabledClass: "disabled"
+            },
+            options
+        );
 
         /** @type {Element} */
         this.table = table;
@@ -217,7 +219,7 @@ export default class SortableTable {
      */
     _normalizeTable(evt, moved) {
         if (!this.tree) {
-            return
+            return;
         }
 
         const pk = parseInt(evt.item.dataset.id);
