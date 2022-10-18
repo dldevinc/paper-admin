@@ -22,6 +22,23 @@
     pip install -r ./requirements.txt
     pip install -e .
     ```
+   
+    ```shell
+    npm i
+    npm run build
+    ```
+1. Run test project
+	```shell
+	python3 manage.py migrate
+	python3 manage.py loaddata tests/fixtures.json
+	```
+
+	```shell
+	python3 manage.py runserver
+	```
+
+	> Django admin credentials: `admin` / `admin`
+
 
 #### Pre-Commit Hooks
 
@@ -36,14 +53,3 @@ pre-commit install
 
 Commiting will now automatically run the local hooks and ensure that
 your commit passes all lint checks.
-
-## Testing
-
-```shell
-cd ./tests
-python3 manage.py migrate
-python3 manage.py loaddata fixtures.json
-python3 manage.py runserver
-```
-
-Django admin credentials: `admin` / `admin`
