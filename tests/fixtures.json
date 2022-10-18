@@ -62,17 +62,6 @@
   }
 },
 {
-  "model": "post_office.log",
-  "pk": 1,
-  "fields": {
-    "email": 1,
-    "date": "2022-01-18T09:31:40.006Z",
-    "status": 0,
-    "exception_type": "",
-    "message": ""
-  }
-},
-{
   "model": "app.tag",
   "pk": 1,
   "fields": {
@@ -1607,31 +1596,6 @@
     "parent": 11,
     "title": "T-shirts",
     "position": 11
-  }
-},
-{
-  "model": "post_office.email",
-  "pk": 1,
-  "fields": {
-    "from_email": "webmaster@localhost",
-    "to": "['x896321475@gmail.com', 'pix666@ya.ru']",
-    "cc": "[]",
-    "bcc": "[]",
-    "subject": "Test email",
-    "message": "Hello",
-    "html_message": "",
-    "status": 0,
-    "priority": 1,
-    "created": "2022-01-18T09:30:47.526Z",
-    "last_updated": "2022-01-18T09:30:47.526Z",
-    "scheduled_time": null,
-    "expires_at": null,
-    "message_id": null,
-    "number_of_retries": null,
-    "headers": null,
-    "template": null,
-    "context": null,
-    "backend_alias": ""
   }
 }
 ]
