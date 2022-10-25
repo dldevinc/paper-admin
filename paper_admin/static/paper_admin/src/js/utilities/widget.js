@@ -201,22 +201,14 @@ class Widget {
      * @param {String} selector
      */
     observe(selector) {
-        const onmutate = this.addEventHandler(
-            "dom_mutate",
-            selector,
-            root => {
-                this.initAll(selector, root);
-            }
-        );
+        const onmutate = this.addEventHandler("dom_mutate", selector, root => {
+            this.initAll(selector, root);
+        });
         emitters.dom.on("mutate", onmutate);
 
-        const onrelease = this.addEventHandler(
-            "dom_release",
-            selector,
-            root => {
-                this.destroyAll(selector, root);
-            }
-        );
+        const onrelease = this.addEventHandler("dom_release", selector, root => {
+            this.destroyAll(selector, root);
+        });
         emitters.dom.on("release", onrelease);
     }
 

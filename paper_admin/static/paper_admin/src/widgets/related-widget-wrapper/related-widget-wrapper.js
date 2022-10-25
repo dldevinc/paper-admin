@@ -2,7 +2,6 @@ import popupUtils from "js/utilities/popup_utils";
 
 import "./related-widget-wrapper.scss";
 
-
 /**
  * Обновление состояния кнопок "view", "change" и "delete".
  * @param {HTMLElement} widget
@@ -70,7 +69,7 @@ document.addEventListener("click", event => {
     const triggeringLink = event.target.closest(".related-widget-wrapper__link");
     if (triggeringLink) {
         event.preventDefault();
-        const jQueryEvent = $.Event("django:show-related", {href: triggeringLink.href});
+        const jQueryEvent = $.Event("django:show-related", { href: triggeringLink.href });
         $(triggeringLink).trigger(jQueryEvent);
         if (!jQueryEvent.isDefaultPrevented()) {
             showRelatedObjectPopup(triggeringLink);
@@ -162,9 +161,7 @@ function dismissAddRelatedObjectPopup(win, newId, newRepr) {
  * @private
  */
 function _updateOption(select, objId, newRepr, newId) {
-    const isOptionSelected = Array.from(select.selectedOptions).some(
-        option => option.value === objId
-    );
+    const isOptionSelected = Array.from(select.selectedOptions).some(option => option.value === objId);
 
     Array.from(select.options).forEach(option => {
         if (option.value === objId) {

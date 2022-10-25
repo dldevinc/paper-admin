@@ -1,11 +1,9 @@
 include LICENSE
-include README.md
-include CHANGELOG.md
+include *.md
+include package.json
 
-recursive-include paper_admin *.html
-recursive-include paper_admin/locale/ *.po *.mo
-recursive-include paper_admin/static/admin *
-recursive-include paper_admin/static/paper_admin/dist *
-recursive-exclude tests *
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
+graft paper_admin
+prune paper_admin/static/paper_admin/src
+global-exclude .git*
+global-exclude __pycache__
+global-exclude *.py[co]

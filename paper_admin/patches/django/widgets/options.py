@@ -7,7 +7,6 @@ from django.utils.translation import gettext as _
 from paper_admin.admin import widgets
 from paper_admin.monkey_patch import MonkeyPatchMeta
 
-
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 

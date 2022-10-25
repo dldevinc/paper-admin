@@ -97,7 +97,7 @@ if (document.body.classList.contains("change-form")) {
 
 // popup page
 const params = new URLSearchParams(window.location.search);
-if (params.has('_popup')) {
+if (params.has("_popup")) {
     import(/* webpackChunkName: "popup" */ "js/popup.js");
 }
 

@@ -23,19 +23,22 @@ document.querySelectorAll(".paper-formset").forEach(element => {
 // Предотвращение повторного сохранения
 let submitted = false;
 const form = document.querySelector(".paper-form");
-form && form.addEventListener("submit", event => {
-    if (!submitted) {
-        submitted = true;
-        return;
-    }
+form &&
+    form.addEventListener("submit", event => {
+        if (!submitted) {
+            submitted = true;
+            return;
+        }
 
-    event.preventDefault();
-    const answer = window.confirm(gettext("You have already submitted this form. Are you sure you want to submit it again?"));
-    if (!answer) {
-        return;
-    }
-    event.target.submit();
-});
+        event.preventDefault();
+        const answer = window.confirm(
+            gettext("You have already submitted this form. Are you sure you want to submit it again?")
+        );
+        if (!answer) {
+            return;
+        }
+        event.target.submit();
+    });
 
 // Установка значения поля сортировки перед сохранением.
 // Назначить сортировку сразу нельзя из-за того, что extra-формы не должны меняться.

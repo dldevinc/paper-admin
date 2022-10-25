@@ -4,53 +4,52 @@
 
 ### Bug Fixes
 
-- Fix creation and deletion objects with `ForeignKeyRawIdWidget`.
-
+-   Fix creation and deletion objects with `ForeignKeyRawIdWidget`.
 
 ## [4.3.1](https://github.com/dldevinc/paper-admin/tree/v4.3.1) - 2022-09-06
 
 ### Bug Fixes
 
-- Fixed "Save and continue" buttons.
+-   Fixed "Save and continue" buttons.
 
 ## [4.3.0](https://github.com/dldevinc/paper-admin/tree/v4.3.0) - 2022-09-06
 
 ### Features
 
-- Added ability to change default django admin widgets via changing
-  `FORMFIELD_FOR_DBFIELD_DEFAULTS`.
+-   Added ability to change default django admin widgets via changing
+    `FORMFIELD_FOR_DBFIELD_DEFAULTS`.
 
 ## [4.2.0](https://github.com/dldevinc/paper-admin/tree/v4.2.0) - 2022-09-06
 
 ### Features
 
-- Allowed multiple popups for self-related fields in admin.
-- Allowed admin select widgets to display new related objects.
-- Prevented double submission of admin forms.
-- Changed sorting icon.
+-   Allowed multiple popups for self-related fields in admin.
+-   Allowed admin select widgets to display new related objects.
+-   Prevented double submission of admin forms.
+-   Changed sorting icon.
 
 ### Bug Fixes
 
-- Fixed an issue with password change form widgets in admin interface.
-- Fixed an issue when deletion popup is not closing.
+-   Fixed an issue with password change form widgets in admin interface.
+-   Fixed an issue when deletion popup is not closing.
 
 ## [4.1.6](https://github.com/dldevinc/paper-admin/tree/v4.1.6) - 2022-08-15
 
 ### Bug Fixes
 
-- Fixed admin user form.
+-   Fixed admin user form.
 
 ## [4.1.5](https://github.com/dldevinc/paper-admin/tree/v4.1.5) - 2022-08-15
 
 ### Features
 
-- Updated dependencies.
+-   Updated dependencies.
 
 ## [4.1.4](https://github.com/dldevinc/paper-admin/tree/v4.1.4) - 2022-07-04
 
 ### Bug Fixes
 
-- Added a space between the search block and the actions selectbox on mobile devices.
+-   Added a space between the search block and the actions selectbox on mobile devices.
 
 ## [4.1.3](https://github.com/dldevinc/paper-admin/tree/v4.1.3) - 2022-06-23
 
