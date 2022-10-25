@@ -11,11 +11,11 @@
 1. Create a virtualenv
     ```shell
     cd paper-admin
-    virtualenv env
+    virtualenv .venv
     ```
 1. Activate virtualenv
     ```shell
-    source env/bin/activate
+    source .venv/bin/activate
     ```
 1. Install dependencies as well as a local editable copy of the library
 
