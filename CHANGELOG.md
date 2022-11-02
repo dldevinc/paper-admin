@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.3.3](https://github.com/dldevinc/paper-admin/tree/v4.3.3) - 2022-11-02
+
+### Features
+
+-   Migrate to ES6 classes.
+-   Remove runtime chunk.
+
 ## [4.3.2](https://github.com/dldevinc/paper-admin/tree/v4.3.2) - 2022-09-19
 
 ### Bug Fixes

@@ -85,20 +85,18 @@ export default class SortableTable {
 
         if (this.opts.tree) {
             this.tree = new ListTree(rows);
-        }
 
-        // Блокируем все узлы, кроме соседних.
-        const currentParentId = parseInt(evt.item.dataset.parent);
-        if (isNaN(currentParentId)) {
-            throw new Error("invalid parent ID");
-        }
-
-        rows.forEach(row => {
-            const parentId = parseInt(row.dataset.parent);
-            if (!isNaN(parentId) && parentId !== currentParentId) {
-                row.classList.add(this.opts.disabledClass);
+            // Блокируем все узлы, кроме соседних.
+            const currentParentId = parseInt(evt.item.dataset.parent);
+            if (!isNaN(currentParentId)) {
+                rows.forEach(row => {
+                    const parentId = parseInt(row.dataset.parent);
+                    if (!isNaN(parentId) && parentId !== currentParentId) {
+                        row.classList.add(this.opts.disabledClass);
+                    }
+                });
             }
-        });
+        }
     }
 
     /**
