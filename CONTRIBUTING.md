@@ -18,17 +18,15 @@
     source .venv/bin/activate
     ```
 1. Install dependencies as well as a local editable copy of the library
-
     ```shell
     pip install -r ./requirements.txt
     pip install -e .
+    npm ci
     ```
-
+1. Compile static files
     ```shell
-    npm i
     npm run build
     ```
-
 1. Run test project
 
     ```shell
