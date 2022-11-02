@@ -124,7 +124,6 @@ let config = {
     ],
     optimization: {
         moduleIds: "deterministic",
-        runtimeChunk: "single",
         splitChunks: {
             chunks: "all",
             maxInitialRequests: Infinity,
