@@ -1,3 +1,5 @@
+@import "css/env";
+
 @import "fonts/RobotoLight/font";
 @import "fonts/Roboto/font";
 @import "fonts/RobotoMedium/font";
@@ -6,6 +8,12 @@
 @import "fonts/RobotoItalic/font";
 @import "fonts/RobotoMediumItalic/font";
 @import "fonts/RobotoBoldItalic/font";
+
+:root {
+  --spacer: $spacer;
+  --border-radius: $border-radius;
+  --border-radius-lg: $border-radius-lg;
+}
 
 body {
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
