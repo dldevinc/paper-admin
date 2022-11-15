@@ -73,7 +73,7 @@
     {% else %}
       <h1 class="card-header h3">
         {% url opts|admin_urlname:'change' object.pk|admin_urlquote as object_url %}
-        {% blocktrans with escaped_object=object %}Are you sure you want to delete the {{ object_name }} "<a href="{{ object_url }}" target="_blank">{{ escaped_object }}</a>"?{% endblocktrans %}
+        {% blocktrans with escaped_object=object %}Are you sure you want to delete the {{ object_name }} "<a href="{{ object_url }}" target="_blank" rel="noopener">{{ escaped_object }}</a>"?{% endblocktrans %}
       </h1>
       <div class="card-body">
         <p>

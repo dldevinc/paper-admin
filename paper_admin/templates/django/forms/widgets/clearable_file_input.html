@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center mb-1">
       <div class="clearable-file-field__state">
         {{ widget.initial_text }}:
-        <a href="{{ widget.value.url }}" target="_blank">{{ widget.value }}</a>
+        <a href="{{ widget.value.url }}" target="_blank" rel="noopener">{{ widget.value }}</a>
       </div>
 
       {% if not widget.required %}
