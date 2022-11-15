@@ -6,6 +6,7 @@
 
 -   Add `--spacer`, `--border-radius` and `--border-radius-lg` CSS variables
     for use in plugins.
+-   Update `ru` locale.
 
 ## [4.3.3](https://github.com/dldevinc/paper-admin/tree/v4.3.3) - 2022-11-02
 

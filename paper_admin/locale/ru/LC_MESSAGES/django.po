@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-17 15:12+0000\n"
+"POT-Creation-Date: 2022-11-15 15:28+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,12 +14,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin/filters.py:38 admin/filters.py:99 admin/filters.py:237
-#: admin/filters.py:271
+#: admin/filters.py:38 admin/filters.py:99 admin/filters.py:231
+#: admin/filters.py:265
 msgid "All"
 msgstr "Все"
 
@@ -31,13 +31,12 @@ msgstr "Да"
 msgid "No"
 msgstr "Нет"
 
-#: admin/filters.py:113 admin/filters.py:131 admin/filters.py:249
-#: admin/filters.py:288 patches/django/widgets/options.py:46
-#: patches/django/widgets/options.py:67
+#: admin/filters.py:125 admin/filters.py:243 admin/filters.py:282
+#: patches/django/widgets/options.py:22 patches/django/widgets/options.py:43
 msgid "None"
 msgstr "Нет"
 
-#: apps.py:7
+#: apps.py:10
 msgid "Paper Admin"
 msgstr ""
 
@@ -45,9 +44,14 @@ msgstr ""
 msgid "General"
 msgstr "Основные"
 
-#: patches/django/options.py:27 templates/admin/object_history.html:38
+#: patches/django/options.py:39 templates/admin/object_history.html:38
 msgid "Action"
 msgstr "Действие"
+
+#: patches/django/options.py:98
+#, python-format
+msgid "The %(name)s “%(obj)s” was deleted successfully."
+msgstr "%(name)s “%(obj)s“ был успешно удален."
 
 #: patches/django_solo/templates/admin/solo/change_form.html:12
 #: templates/admin/change_form.html:41 templates/admin/change_form.html:63
@@ -68,6 +72,10 @@ msgstr "История"
 #: patches/logentry_admin/admin.py:14 templates/admin/app_index.html:29
 msgid "content type"
 msgstr "тип содержимого"
+
+#: patches/tree_queries/admin.py:27
+msgid "title"
+msgstr "название"
 
 #: templates/admin/actions.html:19
 msgid "Run the selected action"
@@ -142,19 +150,19 @@ msgstr ""
 msgid "View site"
 msgstr "Открыть сайт"
 
-#: templates/admin/base_site.html:95
+#: templates/admin/base_site.html:95 templates/admin/base_site.html:106
 msgid "Stop impersonation"
-msgstr ""
+msgstr "Прекратить имперсонацию"
 
-#: templates/admin/base_site.html:106
+#: templates/admin/base_site.html:118
 msgid "Documentation"
 msgstr "Документация"
 
-#: templates/admin/base_site.html:115
+#: templates/admin/base_site.html:127
 msgid "Log out"
 msgstr "Выйти"
 
-#: templates/admin/base_site.html:143
+#: templates/admin/base_site.html:155
 msgid "Home"
 msgstr "Начало"
 
@@ -247,13 +255,13 @@ msgstr "Сортировать в другом направлении"
 msgid "Remove from sorting"
 msgstr "Удалить из сортировки"
 
-#: templates/admin/change_list_results.html:124
+#: templates/admin/change_list_results.html:122
 #, python-format
 msgid "%(full_result_count)s total"
 msgstr "Всего %(full_result_count)s объектов"
 
-#: templates/admin/change_list_results.html:124
-#: templates/admin/change_list_results.html:135
+#: templates/admin/change_list_results.html:122
+#: templates/admin/change_list_results.html:133
 msgid "Show all"
 msgstr "Показать все"
 
@@ -280,11 +288,13 @@ msgstr ""
 #: templates/admin/delete_confirmation.html:76
 #, python-format
 msgid ""
-"Are you sure you want to delete the %(object_name)s \"<a href="
-"\"%(object_url)s\" target=\"_blank\">%(escaped_object)s</a>\"?"
+"Are you sure you want to delete the %(object_name)s \"<a "
+"href=\"%(object_url)s\" target=\"_blank\" "
+"rel=\"noopener\">%(escaped_object)s</a>\"?"
 msgstr ""
-"Вы уверены, что хотите удалить %(object_name)s \"<a href=\"%(object_url)s\" "
-"target=\"_blank\">%(escaped_object)s</a>\"?"
+"Вы уверены, что хотите удалить %(object_name)s \"<a "
+"href=\"%(object_url)s\" target=\"_blank\" "
+"rel=\"noopener\">%(escaped_object)s</a>\"?"
 
 #: templates/admin/delete_confirmation.html:80
 msgid "All of the following related items will be deleted:"
@@ -404,7 +414,7 @@ msgstr ""
 
 #: templates/admin/pagination.html:4
 msgid "Search results pages"
-msgstr ""
+msgstr "Страницы результатов поиска"
 
 #: templates/admin/pagination.html:9 templates/admin/pagination.html:11
 #: templates/admin/pagination.html:16 templates/admin/pagination.html:18
@@ -503,7 +513,7 @@ msgstr "Закрыть"
 
 #: templates/registration/logged_out.html:6
 msgid "You are now logged out"
-msgstr ""
+msgstr "Вы вышли из системы"
 
 #: templates/registration/logged_out.html:13
 msgid "Thanks for spending some quality time with the Web site today."
@@ -557,7 +567,7 @@ msgstr ""
 #: templates/registration/password_reset_confirm.html:43
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
+"used. Please request a new password reset."
 msgstr ""
 "Неверная ссылка для восстановления пароля. Возможно, ей уже воспользовались. "
 "Пожалуйста, попробуйте восстановить пароль еще раз."
