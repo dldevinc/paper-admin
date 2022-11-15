@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.4.0](https://github.com/dldevinc/paper-admin/tree/v4.4.0) - 2022-11-15
+
+### Features
+
+-   Add `--spacer`, `--border-radius` and `--border-radius-lg` CSS variables
+    for use in plugins.
+
 ## [4.3.3](https://github.com/dldevinc/paper-admin/tree/v4.3.3) - 2022-11-02
 
 ### Features
