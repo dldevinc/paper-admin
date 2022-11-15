@@ -10,9 +10,9 @@
 @import "fonts/RobotoBoldItalic/font";
 
 :root {
-  --spacer: $spacer;
-  --border-radius: $border-radius;
-  --border-radius-lg: $border-radius-lg;
+  --spacer: #{$spacer};
+  --border-radius: #{$border-radius};
+  --border-radius-lg: #{$border-radius-lg};
 }
 
 body {
