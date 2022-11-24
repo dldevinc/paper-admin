@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.4.1](https://github.com/dldevinc/paper-admin/tree/v4.4.1) - 2022-11-24
+
+### Features
+
+-   Add Python 3.11 support (no code changes were needed, but now we test this release).
+
 ## [4.4.0](https://github.com/dldevinc/paper-admin/tree/v4.4.0) - 2022-11-15
 
 ### Features
