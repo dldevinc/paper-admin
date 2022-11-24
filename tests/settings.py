@@ -193,7 +193,6 @@ PAPER_MENU = [
                     "DjangoTreeQueriesNode",
                 ]
             ),
-            "Category"
         ]
     ),
     "-",
