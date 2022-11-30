@@ -221,6 +221,23 @@ class Widget {
             });
         }
     }
+
+    /**
+     * @deprecated
+     * @param selector
+     */
+    initAll(selector) {
+        this.bind(selector);
+        this.attach();
+    }
+
+    /**
+     * @deprecated
+     * @param selector
+     */
+    observe(selector) {
+
+    }
 }
 
 export default Widget;
