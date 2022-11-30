@@ -24,6 +24,8 @@ Custom Django admin interface based on Bootstrap 4.
     -   [Fieldset](#Fieldset)
     -   [Table rows](#Table-rows)
     -   [Inline forms](#Inline-forms)
+-   [Settings](#Settings)
+-   [Additional References](#Additional-References)
 
 ## Installation
 
@@ -530,3 +532,8 @@ Default: `_("General")`
 Список модулей, из которых должны загружаться переводы
 для `JavaScriptCatalog` интерфейса администратора.<br>
 Default: `["paper_admin", "django.contrib.admin"]`
+
+## Additional References
+
+-   [Modals](docs/modals.md)
+-   [Widgets](docs/widgets.md)
