@@ -25,17 +25,25 @@ class TimeWidget extends Widget {
     }
 
     _init(element) {
-        $(element).clockpicker({
+        const input = element.querySelector("input");
+        if (!input) {
+            return false;
+        }
+
+        $(input).clockpicker({
             default: "now",
             autoclose: true
         });
     }
 
     _destroy(element) {
-        $(element).clockpicker("remove");
+        const input = element.querySelector("input");
+        if (input) {
+            $(input).clockpicker("remove");
+        }
     }
 }
 
 const widget = new TimeWidget();
-widget.observe(".time-field input");
-widget.initAll(".time-field input");
+widget.bind(".time-field");
+widget.attach();

@@ -7,14 +7,17 @@ import "./select-multiple-field.scss";
 
 class MutliSelectWidget extends Widget {
     _init(element) {
-        multi(element, {
+        const select = element.querySelector("select");
+        if (!select) {
+            return false;
+        }
+
+        multi(select, {
             hide_empty_groups: true
         });
     }
-
-    _destroy(element) {}
 }
 
 const widget = new MutliSelectWidget();
-widget.observe(".select-multiple-field select");
-widget.initAll(".select-multiple-field select");
+widget.bind(".select-multiple-field");
+widget.attach();

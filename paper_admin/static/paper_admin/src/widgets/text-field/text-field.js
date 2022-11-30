@@ -5,10 +5,13 @@ import "./text-field.scss";
 
 class AutosizeWidget extends Widget {
     _init(element) {
-        autosize(element);
-    }
+        const textarea = element.querySelector("textarea");
+        if (!textarea) {
+            return false;
+        }
 
-    _destroy(element) {}
+        autosize(textarea);
+    }
 }
 
 // FIX bootstrap tabs
@@ -21,5 +24,5 @@ $(document).on("shown.bs.tab", event => {
 });
 
 const widget = new AutosizeWidget();
-widget.observe(".text-field textarea");
-widget.initAll(".text-field textarea");
+widget.bind(".text-field");
+widget.attach();
