@@ -41,7 +41,6 @@ class InlineFormset extends Formset {
         const form = super.addForm();
 
         // Events
-        emitters.dom.trigger("mutate", [form]);
         emitters.inlines.trigger("add", [form, this.prefix]);
 
         // Animation
@@ -97,8 +96,6 @@ class InlineFormset extends Formset {
         this.updateButtonsState();
 
         const onDeleteCallback = () => {
-            emitters.dom.trigger("release", [form]);
-
             form.remove();
 
             this._isTransitioning = false;

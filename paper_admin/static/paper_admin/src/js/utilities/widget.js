@@ -1,224 +1,225 @@
-import emitters from "js/utilities/emitters.js";
+const defaultID = Symbol("widget");
 
 /**
  * Базовый класс для создания виджетов.
- * По умолчанию слушает события `mutate` и `release` из EventEmitter
- * и вызывает для каждого DOM-элемента, удовлетворяющего селектору,
- * метод `init` или `destroy` соответственно.
- *
- * Для метода `destroy` используется тот же селектор, что и для инициализации.
- * Поэтому, для корректного освобождения ресурсов виджета, исходный элемент
- * должен остаться в DOM-дереве и продолжать удовлетворять исходному селектору.
  *
  * @example
+ *  clickHandler = event => {
+ *      console.log("element clicked!");
+ *  };
+ *
  *  class MyWidget extends Widget {
- *      ...
+ *      _init(element) {
+ *          element.addEventListener("click", clickHandler);
+ *      }
+ *
+ *      _destroy(element) {
+ *          element.removeEventListener("click", clickHandler);
+ *      }
  *  }
  *
  *  const myWidget = new MyWidget();
- *  myWidget.observe("div[data-my-widget]");
- *  myWidget.initAll("div[data-my-widget]");
+ *  myWidget.bind("div[data-my-widget]");
+ *  myWidget.attach();
  */
 class Widget {
     constructor() {
-        this._event_handlers = {};
+        this._selectors = [];
+
+        this._observer = new MutationObserver(mutationList => {
+            for (const mutation of mutationList) {
+                this.onMutate(mutation);
+            }
+        });
+
+        this._observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        })
     }
 
     /**
-     * Добавление нового обработчика события в реестр.
-     * Обработчик события сохраняется в реестре, что позволяет позже удалить
-     * его с помощью removeListener() или подобной функции.
-     *
-     * Для формирования ключа реестра используется два значения: имя события
-     * и CSS-селектор элементов, для которых он предназначен. Это позволяет
-     * реализовать разную реакцию виджета на одно событие.
-     *
-     * @param {String} name
-     * @param {String|Function} selector
-     * @param {Function=} handler
-     * @returns {Function}
+     * Идентификатор, который используется виджетом для привязки к DOM-элементу.
+     * Это препятствует повторной инициализации виджетов на данном элементе.
+     * Если в каком-либо подклассе поле `widgetID` вернёт что-то отличное от значения
+     * по умолчанию, то этот подкласс сможет применяться параллельно со всеми
+     * другими виджетами.
+     * @returns {symbol}
      */
-    addEventHandler(name, selector, handler) {
-        let event_name;
-
-        if (typeof selector === "function") {
-            handler = selector;
-            event_name = name;
-        } else {
-            event_name = `${name}(${selector})`;
-        }
-
-        if (typeof this._event_handlers[event_name] !== "undefined") {
-            throw new Error(`Event "${event_name}" already registered`);
-        }
-
-        return (this._event_handlers[event_name] = handler);
+    static get widgetID() {
+        return defaultID;
     }
 
     /**
-     * Получение функции-обработчика события из реестра по имени и селектору.
-     * @param {String} name
-     * @param {String=} selector
-     * @returns {Function}
-     */
-    getEventHandler(name, selector) {
-        let event_name;
-
-        if (typeof selector === "undefined") {
-            event_name = name;
-        } else {
-            event_name = `${name}(${selector})`;
-        }
-
-        if (typeof this._event_handlers[event_name] === "undefined") {
-            throw new Error(`Event "${selector}" is not registered`);
-        }
-
-        return this._event_handlers[event_name];
-    }
-
-    /**
-     * Сохранение в DOM-элементе ссылки на объект виджета
-     * для предотвращения повторной инициализации.
+     * Получение экземпляра виджета, связанного с DOM-элементом.
      * @param {HTMLElement} element
-     * @private
-     */
-    _setWidget(element) {
-        if (typeof element._widgets === "undefined") {
-            element._widgets = {};
-        }
-        element._widgets[this.constructor.name] = this;
-    }
-
-    /**
-     * Получение объекта виджета из DOM-элемента.
-     * @param {HTMLElement} element
+     * @param {symbol?} widgetID
      * @returns {*}
      */
-    getWidget(element) {
-        if (typeof element._widgets === "object") {
-            return element._widgets[this.constructor.name];
-        }
+    static getInstance(element, widgetID) {
+        widgetID = typeof widgetID === "symbol" ? widgetID : this.widgetID;
+        return element[widgetID];
     }
 
     /**
-     * Удаление ссылки на объект виджета из DOM-элемента.
+     * Сохранение ссылки на экземпляр виджета в DOM-элементе.
      * @param {HTMLElement} element
      * @private
      */
-    _removeWidget(element) {
-        if (typeof element._widgets === "object") {
-            delete element._widgets[this.constructor.name];
-        }
+    _setInstance(element) {
+        element[this.constructor.widgetID] = this;
     }
 
     /**
-     * Инициализация виджета на указанном DOM-элементе.
-     * НЕ СЛЕДУЕТ ПЕРЕОПРЕДЕЛЯТЬ ЭТОТ МЕТОД!
-     * Для создания собственной функции инициализации виджета
-     * переопределите метод "_init".
+     * Удаление ссылки на экземпляр виджета из DOM-элемента.
      * @param {HTMLElement} element
+     * @private
      */
-    init(element) {
-        if (this.getWidget(element)) {
-            console.debug(`The widget is already inialized on this element`);
-            return;
-        }
-        this._setWidget(element);
-        this._init(element);
+    _removeInstance(element) {
+        delete element[this.constructor.widgetID];
     }
 
     /**
      * Метод инициализации виджета.
-     * Виджет защищает DOM-элемент от повторной инициализации.
+     *
+     * (!) Чтобы не нарушать логику класса Widget, при назначении поведения исходный
+     * DOM-элемент должен оставаться на странице и продолжать соответствовать
+     * селектору, по которому он был найден.
+     *
      * @param {HTMLElement} element
      * @private
      */
     _init(element) {}
 
     /**
-     * Освобождение ресурсов виджета для указанного DOM-элемента.
-     * НЕ СЛЕДУЕТ ПЕРЕОПРЕДЕЛЯТЬ ЭТОТ МЕТОД!
-     * Для создания собственной функции освобождения ресурсов виджета
-     * переопределите метод "_destroy".
-     * @param {HTMLElement} element
-     */
-    destroy(element) {
-        if (!this.getWidget(element)) {
-            return;
-        }
-        this._removeWidget(element);
-        this._destroy(element);
-    }
-
-    /**
      * Метод освобождения ресурсов виджета.
-     * Виджет защищает DOM-элемент от повторного вызова.
      * @param {HTMLElement} element
      * @private
      */
     _destroy(element) {}
 
     /**
-     * Вызывает функцию инициализации для каждого DOM-элемента,
-     * удовлетворяющего селектору `selector` в пределах элемента `root`.
-     * @param {String} selector
-     * @param {HTMLElement} root
+     * Добавление новых записей в список CSS-селекторов, которые должен обрабатывать
+     * текущий класс.
+     * @param {String} selectors
      */
-    initAll(selector, root = document.body) {
-        const _this = this;
+    bind(...selectors) {
+        this._selectors = this._selectors.concat(selectors);
+    }
 
-        if (root.matches(selector)) {
-            _this.init(root);
+    /**
+     * Удаление записей из списка CSS-селекторов, которые должен обрабатывать текущий
+     * класс. Значение каждого аргумента должно точно соответствовать значению,
+     * находящемуся в списке.
+     * @param {String} selectors
+     */
+    unbind(...selectors) {
+        this._selectors = this._selectors.filter(selector => {
+            return !selectors.includes(selector);
+        });
+    }
+
+    /**
+     * Событие изменения DOM-дерева.
+     * @param {MutationRecord} mutation
+     */
+    onMutate(mutation) {
+        if (mutation.type === "childList") {
+            for (const addedNode of mutation.addedNodes) {
+                if (addedNode instanceof HTMLElement) {
+                    this.attach(addedNode);
+                }
+            }
+
+            for (const removedNode of mutation.removedNodes) {
+                if (removedNode instanceof HTMLElement) {
+                    this.detach(removedNode);
+                }
+            }
+        }
+    }
+
+    /**
+     * Привязка поведения, заданного текущим классом, к указанному DOM-элементу.
+     * @param {HTMLElement} element
+     */
+    _attach(element) {
+        const instance = this.constructor.getInstance(element);
+        if (typeof instance !== "undefined") {
+            console.debug(`${this.constructor.name} already initialized on this element`);
+            return
         }
 
-        root.querySelectorAll(selector).forEach(element => {
-            _this.init(element);
-        });
-    }
+        let result;
 
-    /**
-     * Вызывает функцию освобождения ресурсов для каждого DOM-элемента,
-     * удовлетворяющего селектору `selector` в пределах элемента `root`.
-     * @param {String} selector
-     * @param {HTMLElement} root
-     */
-    destroyAll(selector, root = document.body) {
-        const _this = this;
-
-        if (root.matches(selector)) {
-            _this.destroy(root);
+        try {
+            result = this._init(element);
+        } catch (e) {
+            console.debug(e);
+            return;
         }
 
-        root.querySelectorAll(selector).forEach(element => {
-            _this.destroy(element);
-        });
+        if (result !== false) {
+            this._setInstance(element);
+        }
     }
 
     /**
-     * Отслеживание событий изменения DOM-дерева.
-     * На каждое изменение вызывается функция инициализации виджета.
-     * @param {String} selector
+     * Отмена привязки поведения к указанному DOM-элементу.
+     * @param {HTMLElement} element
      */
-    observe(selector) {
-        const onmutate = this.addEventHandler("dom_mutate", selector, root => {
-            this.initAll(selector, root);
-        });
-        emitters.dom.on("mutate", onmutate);
+    _detach(element) {
+        if (!this.constructor.getInstance(element)) {
+            console.debug(`${this.constructor.name} has not been initialized on this element`);
+            return;
+        }
 
-        const onrelease = this.addEventHandler("dom_release", selector, root => {
-            this.destroyAll(selector, root);
-        });
-        emitters.dom.on("release", onrelease);
+        let result;
+
+        try {
+            result = this._destroy(element);
+        } catch (e) {
+            console.debug(e);
+            return;
+        }
+
+        if (result !== false) {
+            this._removeInstance(element);
+        }
     }
 
     /**
-     * Отключение всех привязанных событий для указанного селектора.
-     * @param {String} selector
+     * Поиск и привязка поведения к каждому элементу поддерева элемента `root`,
+     * который соответствует хотя бы одному селектору.
+     * @param {HTMLElement} root
      */
-    unobserve(selector) {
-        emitters.dom.off("mutate", this.getEventHandler("dom_mutate", selector));
-        emitters.dom.off("release", this.getEventHandler("dom_release", selector));
+    attach(root = document.documentElement) {
+        for (const selector of this._selectors) {
+            if (root.matches(selector)) {
+                this._attach(root);
+            }
+
+            root.querySelectorAll(selector).forEach(element => {
+                this._attach(element);
+            });
+        }
+    }
+
+    /**
+     * Поиск и отмена привязки поведения от каждого элемента поддерева элемента `root`,
+     * который соответствует хотя бы одному селектору.
+     * @param {HTMLElement} root
+     */
+    detach(root = document.documentElement) {
+        for (const selector of this._selectors) {
+            if (root.matches(selector)) {
+                this._detach(root);
+            }
+
+            root.querySelectorAll(selector).forEach(element => {
+                this._detach(element);
+            });
+        }
     }
 }
 

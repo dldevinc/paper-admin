@@ -1,6 +1,11 @@
 # Change Log
 
-## [4.4.1](https://github.com/dldevinc/paper-admin/tree/v4.4.1) - 2022-11-24
+## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
+
+### ⚠ BREAKING CHANGES
+
+-   The `Widget` JavaScript class has been completely rewritten and now uses 
+    `MutationObserver`.
 
 ### Features
 
