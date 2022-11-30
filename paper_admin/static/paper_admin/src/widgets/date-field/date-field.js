@@ -30,12 +30,18 @@ class DateWidget extends Widget {
     }
 
     _init(element) {
-        flatpickr(element, this.opts);
+        const input = element.querySelector("input");
+        if (!input) {
+            return false;
+        }
+
+        flatpickr(input, this.opts);
     }
 
     _destroy(element) {
-        if (element._flatpickr) {
-            element._flatpickr.destroy();
+        const input = element.querySelector("input[type=hidden]");
+        if (input && input._flatpickr) {
+            input._flatpickr.destroy();
         }
     }
 
@@ -59,5 +65,5 @@ class DateWidget extends Widget {
 }
 
 const widget = new DateWidget();
-widget.observe(".date-field input");
-widget.initAll(".date-field input");
+widget.bind(".date-field");
+widget.attach();

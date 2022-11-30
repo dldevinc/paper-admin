@@ -62,8 +62,8 @@ class SidebarWidget extends Widget {
 }
 
 const sidebar = new SidebarWidget();
-sidebar.observe(".paper-sidebar");
-sidebar.initAll(".paper-sidebar");
+sidebar.bind(".paper-sidebar");
+sidebar.attach();
 
 /**
  * Изменение иконки папки в соответсвии с состоянием пункта меню.

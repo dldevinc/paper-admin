@@ -22,16 +22,16 @@ const select2_changelist = new Select2Widget({
     allowClear: true,
     containerCssClass: "select2-container--small"
 });
-select2_changelist.observe(".paper-table .select-field select");
-select2_changelist.initAll(".paper-table .select-field select");
+select2_changelist.bind(".paper-table .select-field select");
+select2_changelist.attach();
 
 const select2_action = new Select2Widget({
     allowClear: true,
     containerCssClass: "select2-container--small",
     minimumResultsForSearch: Infinity
 });
-select2_action.observe(".paper-actions select");
-select2_action.initAll(".paper-actions select");
+select2_action.bind(".paper-actions__action select");
+select2_action.attach();
 
 // Сортируемые таблицы
 const table = document.getElementById("result_list");

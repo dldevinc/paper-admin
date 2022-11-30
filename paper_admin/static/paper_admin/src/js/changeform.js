@@ -9,8 +9,8 @@ const select2_changeform = new Select2Widget({
     width: "",
     allowClear: true
 });
-select2_changeform.observe(".select-field select");
-select2_changeform.initAll(".select-field select");
+select2_changeform.bind(".select-field select");
+select2_changeform.attach();
 
 // Инициализация inline-форм
 let formsets = [];

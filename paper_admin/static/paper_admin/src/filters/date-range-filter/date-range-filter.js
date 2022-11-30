@@ -69,5 +69,5 @@ class DateRangeFilter extends Widget {
 }
 
 const widget = new DateRangeFilter();
-widget.observe(".paper-date-range-filter");
-widget.initAll(".paper-date-range-filter");
+widget.bind(".paper-date-range-filter");
+widget.attach();

@@ -60,8 +60,8 @@ class CollapseWidget extends Widget {
 }
 
 const bs_dropdown = new DropdownWidget();
-bs_dropdown.observe(".dropdown-toggle");
-bs_dropdown.initAll(".dropdown-toggle");
+bs_dropdown.bind(".dropdown-toggle");
+bs_dropdown.attach();
 
 const bs_popover = new PopoverWidget({
     delay: {
@@ -69,14 +69,14 @@ const bs_popover = new PopoverWidget({
         hide: 100
     }
 });
-bs_popover.observe('[data-toggle="popover"]');
-bs_popover.initAll('[data-toggle="popover"]');
+bs_popover.bind('[data-toggle="popover"]');
+bs_popover.attach();
 
 const bs_collapse = new CollapseWidget({
     toggle: false
 });
-bs_collapse.observe(".collapse");
-bs_collapse.initAll(".collapse");
+bs_collapse.bind(".collapse");
+bs_collapse.attach();
 
 const bs_tooltip = new TooltipWidget({
     delay: {
@@ -84,5 +84,5 @@ const bs_tooltip = new TooltipWidget({
         hide: 100
     }
 });
-bs_tooltip.observe('[data-toggle="tooltip"]');
-bs_tooltip.initAll('[data-toggle="tooltip"]');
+bs_tooltip.bind('[data-toggle="tooltip"]');
+bs_tooltip.attach();

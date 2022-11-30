@@ -5,5 +5,5 @@ const widget = new Select2Widget({
     allowClear: true,
     containerCssClass: "select2-container--small"
 });
-widget.observe(".paper-select2-filter select");
-widget.initAll(".paper-select2-filter select");
+widget.bind(".paper-select2-filter select");
+widget.attach();
