@@ -1,6 +1,12 @@
 {% for item in items %}
   {% if item.divider %}
-    <li class="paper-sidebar__item paper-sidebar__item--divider"></li>
+    <li class="paper-sidebar__item paper-sidebar__item--level-{{ level }}">
+      <div class="paper-sidebar__divider">
+        {% if item.caption %}
+          <div class="paper-sidebar__divider-caption">{{ item.caption }}</div>
+        {% endif %}
+      </div>
+    </li>
   {% elif item.childs %}
     <li class="paper-sidebar__item paper-sidebar__item--level-{{ level }} nav-item {{ item.classes }}{{ item.is_active|yesno:" open," }}">
       <a href="#submenu-{{ item.uid }}"

@@ -221,10 +221,10 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
     :type parent_app: str
     :rtype: MenuItemBase
     """
-    if conf_item == conf.MENU_DIVIDER:
-        return MenuDivider()
-
     if isinstance(conf_item, str):
+        if conf_item == conf.MENU_DIVIDER:
+            return MenuDivider()
+
         conf_item = conf_item.lower()
         if "." in conf_item:
             # absolute path to model

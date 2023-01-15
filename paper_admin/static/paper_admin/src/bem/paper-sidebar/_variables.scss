@@ -17,12 +17,14 @@ $paper-sidebar-brand-min-height: 2.875rem !default;
 $paper-sidebar-brand-color: #fff !default;
 $paper-sidebar-brand-font-size: 1.125rem !default;
 $paper-sidebar-brand-border-width: 1px !default;
-$paper-sidebar-brand-border-color: $gray-700 !default;
+$paper-sidebar-brand-border-color: $gray-800 !default;
 
 $paper-sidebar-item-list-bg: darken($dark, 5%) !default;
 
-$paper-sidebar-item-divider-bg: $gray-700 !default;
+// divider
+$paper-sidebar-item-divider-border-color: $gray-800 !default;
 
+// link
 $paper-sidebar-link-padding-y: 0.5rem !default;
 $paper-sidebar-link-padding-x: 0.75rem !default;
 $paper-sidebar-link-font-size: $font-size-base !default;
@@ -33,9 +35,9 @@ $paper-sidebar-link-hover-color: #fff !default;
 $paper-sidebar-link-hover-bg: rgba(#fff, 0.1) !default;
 $paper-sidebar-link-active-color: #fff !default;
 $paper-sidebar-link-active-bg: rgba(theme-color-level("primary", -6), 0.7) !default;
-
 $paper-sidebar-link-arrow-size: 0.625rem !default;
 
+// icon
 $paper-sidebar-icon-width: 20px !default;
 $paper-sidebar-icon-margin-right: 0.375rem !default;
 
@@ -59,7 +61,7 @@ $paper-sidebar-link-padding-left-level3: 0.75rem !default;
 $paper-sidebar-link-padding-left-level4: 0.75rem !default;
 
 // вертикальная черта в категории первого уровня
-$paper-sidebar-category-line-color: $paper-sidebar-item-divider-bg !default;
+$paper-sidebar-category-line-color: $paper-sidebar-item-divider-border-color !default;
 
 // точки на вертикальной черте первого уровня
 $paper-sidebar-dot-size: 7px !default;

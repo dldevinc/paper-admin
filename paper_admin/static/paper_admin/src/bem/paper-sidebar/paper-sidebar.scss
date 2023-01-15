@@ -62,6 +62,7 @@
   }
 
   &__menu {
+    margin-top: 10px;
     overflow-y: auto;
   }
 
@@ -75,7 +76,7 @@
 
     &--level-2 {
       position: relative;
-      border-bottom: 1px solid $paper-sidebar-item-divider-bg;
+      border-bottom: 1px solid $paper-sidebar-category-line-color;
 
       // вертикальная черта
       &:before {
@@ -87,10 +88,6 @@
         height: 100%;
         z-index: 1;
         background: $paper-sidebar-category-line-color;
-      }
-
-      .paper-sidebar__item--divider {
-        margin-left: sum($paper-sidebar-link-padding-left-level1, math.div($paper-sidebar-icon-width, 2));
       }
     }
   }
@@ -149,11 +146,6 @@
   }
 
   &__item {
-    &--divider {
-      height: 1px;
-      background: $paper-sidebar-item-divider-bg;
-    }
-
     &--level-1 {
       padding-left: $paper-sidebar-link-padding-left-level1;
 
@@ -191,7 +183,7 @@
           height: $paper-sidebar-dot-size;
           z-index: 1;
           border-radius: 50%;
-          border: 1px solid $paper-sidebar-item-divider-bg;
+          border: 1px solid $paper-sidebar-category-line-color;
           background: $paper-sidebar-dot-bg;
           transform: translate(math.div(-$paper-sidebar-dot-size + 1, 2), math.div(-$paper-sidebar-dot-size - 1, 2));
           @include transition();
@@ -220,15 +212,22 @@
     }
 
     &--level-3 {
-      > .paper-sidebar__link {
+      > .paper-sidebar__link,
+      > .paper-sidebar__divider {
         padding-left: sum($paper-sidebar-link-padding-x, $paper-sidebar-link-padding-left-level3);
       }
     }
 
     &--level-4 {
-      > .paper-sidebar__link {
+      > .paper-sidebar__link,
+      > .paper-sidebar__divider {
         padding-left: sum($paper-sidebar-link-padding-left-level3, $paper-sidebar-link-padding-left-level4);
       }
     }
+  }
+
+  &__divider {
+    padding: 0 $paper-sidebar-link-padding-x;
+    border-bottom: 1px solid $paper-sidebar-item-divider-border-color;
   }
 }
