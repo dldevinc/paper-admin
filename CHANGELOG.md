@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.0) - 2023-03-13
+
+### ⚠ BREAKING CHANGES
+
+-   Drop Python 3.6 support.
+
 ## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
 
 ### ⚠ BREAKING CHANGES
