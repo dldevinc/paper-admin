@@ -8,8 +8,8 @@ import "bem/paper-search-form/paper-search-form.js";
 // -----------------
 //  Filters
 // -----------------
-import "filters/date-range-filter";
-import "filters/select2-filter";
+import "components/date-range-filter";
+import "components/select2-filter";
 
 // -----------------
 //  CSS

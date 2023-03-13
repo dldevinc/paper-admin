@@ -1,7 +1,7 @@
 import flatpickr from "flatpickr";
 import FlatpickrLanguages from "flatpickr/dist/l10n";
 
-import "./flatpickr.scss";
+import "./index.scss";
 
 /*
     Карта соответствия формата даты и языка.
