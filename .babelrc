@@ -3,15 +3,12 @@
         [
             "@babel/preset-env",
             {
-                "exclude": ["transform-async-to-generator", "transform-regenerator"],
                 "loose": true,
                 "modules": false
             }
         ]
     ],
     "plugins": [
-        "@babel/plugin-transform-runtime",
-        "@babel/plugin-syntax-dynamic-import",
-        ["module:fast-async", { "spec": true }]
+        "@babel/plugin-syntax-dynamic-import"
     ]
 }
