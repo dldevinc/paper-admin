@@ -35,7 +35,7 @@ class Widget {
         this._observer.observe(document.documentElement, {
             childList: true,
             subtree: true
-        })
+        });
     }
 
     /**
@@ -147,7 +147,7 @@ class Widget {
         const instance = this.constructor.getInstance(element);
         if (typeof instance !== "undefined") {
             console.debug(`${this.constructor.name} already initialized on this element`);
-            return
+            return;
         }
 
         let result;
@@ -235,9 +235,7 @@ class Widget {
      * @deprecated
      * @param selector
      */
-    observe(selector) {
-
-    }
+    observe(selector) {}
 }
 
 export default Widget;

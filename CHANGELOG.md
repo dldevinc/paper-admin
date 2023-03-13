@@ -10,7 +10,7 @@
 
 ### ⚠ BREAKING CHANGES
 
--   The `Widget` JavaScript class has been completely rewritten and now uses 
+-   The `Widget` JavaScript class has been completely rewritten and now uses
     `MutationObserver`.
 
 ### Features
