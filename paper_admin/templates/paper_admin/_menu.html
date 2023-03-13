@@ -26,7 +26,7 @@
       </a>
 
       <ul class="paper-sidebar__item-list paper-sidebar__item-list--level-{{ level|add:1 }} collapse list-unstyled {{ item.is_active|yesno:"show," }}"
-          id="submenu-{{ item.uid }}">
+          id="submenu-{{ item.uid }}" data-xclass="bs-collapse">
         {% with uid=item.uid|stringformat:"s" %}
           {% include 'paper_admin/_menu.html' with items=item.childs parent="#submenu-"|add:uid level=level|add:1 %}
         {% endwith %}

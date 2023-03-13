@@ -1,4 +1,4 @@
-import "./password-field.scss";
+import "./index.scss";
 
 document.addEventListener("click", event => {
     const button = event.target.closest(".password-field__button");

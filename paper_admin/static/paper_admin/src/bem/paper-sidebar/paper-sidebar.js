@@ -1,20 +1,25 @@
-import Widget from "js/utilities/widget.js";
+import { BaseComponent } from "js/components/baseComponent.js";
+
 import "./paper-sidebar.scss";
 
-class SidebarWidget extends Widget {
-    constructor(options) {
-        super();
-        this.opts = Object.assign(
-            {
-                openClass: "sidebar-open",
-                shadowClass: "sidebar-shadow",
-                triggerSelector: "[data-toggle='sidebar']"
-            },
-            options
-        );
+export class Sidebar extends BaseComponent {
+    get Defaults() {
+        return {
+            openClass: "sidebar-open",
+            shadowClass: "sidebar-shadow",
+            triggerSelector: "[data-toggle='sidebar']"
+        };
+    }
 
-        document.addEventListener("click", event => {
-            const trigger = event.target.closest(this.opts.triggerSelector);
+    get hidden() {
+        return !document.documentElement.classList.contains(this.options.openClass);
+    }
+
+    constructor(options) {
+        super(options);
+
+        this.on(document, "click", event => {
+            const trigger = event.target.closest(this.options.triggerSelector);
             if (trigger) {
                 event.preventDefault();
                 this.toggle();
@@ -22,25 +27,21 @@ class SidebarWidget extends Widget {
         });
     }
 
-    get hidden() {
-        return !document.documentElement.classList.contains(this.opts.openClass);
-    }
-
     show() {
         if (!this.hidden) {
             return;
         }
 
-        let shadow = document.body.querySelector(`.${this.opts.shadowClass}`);
+        let shadow = document.body.querySelector(`.${this.options.shadowClass}`);
         if (!shadow) {
             shadow = document.createElement("div");
-            shadow.classList.add(this.opts.shadowClass);
+            shadow.classList.add(this.options.shadowClass);
             shadow.dataset["toggle"] = "sidebar";
             document.body.appendChild(shadow);
         }
 
         setTimeout(() => {
-            document.documentElement.classList.add(this.opts.openClass);
+            document.documentElement.classList.add(this.options.openClass);
         }, 0);
     }
 
@@ -49,7 +50,7 @@ class SidebarWidget extends Widget {
             return;
         }
 
-        document.documentElement.classList.remove(this.opts.openClass);
+        document.documentElement.classList.remove(this.options.openClass);
     }
 
     toggle() {
@@ -61,13 +62,7 @@ class SidebarWidget extends Widget {
     }
 }
 
-const sidebar = new SidebarWidget();
-sidebar.bind(".paper-sidebar");
-sidebar.attach();
-
-/**
- * Изменение иконки папки в соответсвии с состоянием пункта меню.
- */
+// Изменение иконки папки в соответствии с состоянием пункта меню.
 $(document)
     .on("show.bs.collapse", ".paper-sidebar", event => {
         const navList = event.target;
@@ -87,3 +82,6 @@ $(document)
             icon.classList.add("fa-folder-o");
         }
     });
+
+const sidebar = new Sidebar();
+export { sidebar };

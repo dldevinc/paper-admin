@@ -1,9 +1,18 @@
-import { Select2Widget } from "components/select2";
+import XClass from "data-xclass";
+import { Select2Component } from "components/select2";
 
-const widget = new Select2Widget({
-    width: "100%",
-    allowClear: true,
-    containerCssClass: "select2-container--small"
+XClass.register("paper-select2-filter", {
+    init: function (element) {
+        element._select2Instance = new Select2Component(element, {
+            width: "100%",
+            allowClear: true,
+            containerCssClass: "select2-container--small"
+        });
+    },
+    destroy: function (element) {
+        if (element._select2Instance) {
+            element._select2Instance.destroy();
+            delete element._select2Instance;
+        }
+    }
 });
-widget.bind(".paper-select2-filter select");
-widget.attach();

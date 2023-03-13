@@ -1,10 +1,11 @@
 import * as bootstrap from "bootstrap";
 import Sortable from "sortablejs";
+import XClass from "data-xclass";
 import emitters from "js/utilities/emitters.js";
 import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import popupUtils from "js/utilities/popup_utils.js";
-import Widget from "js/utilities/widget.js";
+import Widget from "js/utilities/widget.js"; // TODO: deprecated
 import "js/components/bootstrap.js";
 import "js/components/filedrag.js";
 
@@ -87,22 +88,35 @@ import "img/default_favicon.png";
 
 // changelist page
 if (document.body.classList.contains("change-list")) {
-    import(/* webpackChunkName: "changelist" */ "js/changelist.js");
+    import(/* webpackChunkName: "changelist" */ "js/changelist.js").then(() => {
+        XClass.initTree();
+    });
 }
 
 // changeform page
 if (document.body.classList.contains("change-form")) {
-    import(/* webpackChunkName: "changeform" */ "js/changeform.js");
+    import(/* webpackChunkName: "changeform" */ "js/changeform.js").then(() => {
+        XClass.initTree();
+    });
 }
 
 // popup page
 const params = new URLSearchParams(window.location.search);
 if (params.has("_popup")) {
-    import(/* webpackChunkName: "popup" */ "js/popup.js");
+    import(/* webpackChunkName: "popup" */ "js/popup.js").then(() => {
+        XClass.initTree();
+    });
 }
 
+// Django compability
 window.django = window.django || {};
 window.django.jQuery = jQuery;
+
+// XClass initialization
+window.XClass = XClass;
+document.addEventListener("DOMContentLoaded", () => {
+    XClass.start();
+});
 
 export const paperAdmin = {
     bootstrap,
@@ -112,5 +126,5 @@ export const paperAdmin = {
     popupUtils,
     modals,
     Sortable,
-    Widget
+    Widget // TODO: deprecated
 };

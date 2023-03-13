@@ -1,4 +1,4 @@
-import "./clearable-file-field.scss";
+import "./index.scss";
 
 // Вставка имени файла в название кнопки
 document.addEventListener("change", event => {

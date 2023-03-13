@@ -1,31 +1,28 @@
+/* global flatpickr */
+import XClass from "data-xclass";
 import { dateFormats, flatpickr } from "components/flatpickr";
+import { BaseComponent } from "js/components/baseComponent.js";
 import getPossibleLocales from "js/utilities/locale.js";
-import Widget from "js/utilities/widget.js";
 
-class DateRangeFilter extends Widget {
-    constructor(options) {
-        super();
-
-        this.opts = Object.assign(
-            {
-                altInput: true,
-                locale: this._getLocale(),
-                dateFormat: this._getDateFormat()
-            },
-            options
-        );
+export class DateRangeFilter extends BaseComponent {
+    get Defaults() {
+        return {
+            altInput: true,
+            locale: this._getLocale(),
+            dateFormat: this._getDateFormat()
+        };
     }
 
-    _init(element) {
-        const dateStart = element.querySelector("[data-range-start]");
-        const dateStartConfig = Object.assign({}, this.opts);
-        flatpickr(dateStart, dateStartConfig);
+    constructor(element, options) {
+        super(options);
 
-        const dateEnd = element.querySelector("[data-range-end]");
-        const dateEndConfig = Object.assign({}, this.opts);
-        flatpickr(dateEnd, dateEndConfig);
+        this.startElement = element.querySelector("[data-range-start]");
+        flatpickr(this.startElement, this.options);
 
-        element.addEventListener("click", event => {
+        this.endElement = element.querySelector("[data-range-end]");
+        flatpickr(this.endElement, this.options);
+
+        this.on(element, "click", event => {
             const button = event.target.closest("[data-today]");
             if (button) {
                 const inputGroup = button.closest(".input-group");
@@ -37,15 +34,15 @@ class DateRangeFilter extends Widget {
         });
     }
 
-    _destroy(element) {
-        const dateStart = element.querySelector("[data-range-start]");
-        if (dateStart._flatpickr) {
-            dateStart._flatpickr.destroy();
+    destroy() {
+        super.destroy();
+
+        if (this.startElement._flatpickr) {
+            this.startElement._flatpickr.destroy();
         }
 
-        const dateEnd = element.querySelector("[data-range-end]");
-        if (dateEnd._flatpickr) {
-            dateEnd._flatpickr.destroy();
+        if (this.endElement._flatpickr) {
+            this.endElement._flatpickr.destroy();
         }
     }
 
@@ -68,6 +65,14 @@ class DateRangeFilter extends Widget {
     }
 }
 
-const widget = new DateRangeFilter();
-widget.bind(".paper-date-range-filter");
-widget.attach();
+XClass.register("paper-date-range-filter", {
+    init: function (element) {
+        element._dateRangeFilter = new DateRangeFilter(element);
+    },
+    destroy: function (element) {
+        if (element._dateRangeFilter) {
+            element._dateRangeFilter.destroy();
+            delete element._dateRangeFilter;
+        }
+    }
+});

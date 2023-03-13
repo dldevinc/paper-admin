@@ -1,18 +1,18 @@
 import autosize from "autosize";
-import Widget from "js/utilities/widget.js";
+import XClass from "data-xclass";
 
-import "./text-field.scss";
+import "./index.scss";
 
-class AutosizeWidget extends Widget {
-    _init(element) {
+XClass.register("text-field", {
+    init: function (element) {
         const textarea = element.querySelector("textarea");
-        if (!textarea) {
-            return false;
-        }
-
-        autosize(textarea);
+        textarea && autosize(textarea);
+    },
+    destroy: function (element) {
+        const textarea = element.querySelector("textarea");
+        textarea && autosize.destroy(textarea);
     }
-}
+});
 
 // FIX bootstrap tabs
 $(document).on("shown.bs.tab", event => {
@@ -22,7 +22,3 @@ $(document).on("shown.bs.tab", event => {
         autosize.update(tab_pane.querySelectorAll(".text-field textarea"));
     }
 });
-
-const widget = new AutosizeWidget();
-widget.bind(".text-field");
-widget.attach();

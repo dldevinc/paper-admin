@@ -1,5 +1,6 @@
+import XClass from "data-xclass";
 import SortableTable from "js/components/sortable_table/SortableTable.js";
-import { Select2Widget } from "components/select2";
+import { Select2Component } from "components/select2";
 import "bem/paper-actions/paper-actions.js";
 import "bem/paper-filter/paper-filter.js";
 import "bem/paper-pagination/paper-pagination.js";
@@ -16,22 +17,22 @@ import "components/select2-filter";
 // -----------------
 import "css/changelist.scss";
 
-// Select2 для выпадающих списков
-const select2_changelist = new Select2Widget({
-    width: "",
-    allowClear: true,
-    containerCssClass: "select2-container--small"
+// Select2 для выпадающего списка действий над списком
+XClass.register("paper-actions", {
+    init: function (element) {
+        element._paperActions = new Select2Component(element, {
+            allowClear: true,
+            containerCssClass: "select2-container--small",
+            minimumResultsForSearch: Infinity
+        });
+    },
+    destroy: function (element) {
+        if (element._paperActions) {
+            element._paperActions.destroy();
+            delete element._paperActions;
+        }
+    }
 });
-select2_changelist.bind(".paper-table .select-field select");
-select2_changelist.attach();
-
-const select2_action = new Select2Widget({
-    allowClear: true,
-    containerCssClass: "select2-container--small",
-    minimumResultsForSearch: Infinity
-});
-select2_action.bind(".paper-actions__action select");
-select2_action.attach();
 
 // Сортируемые таблицы
 const table = document.getElementById("result_list");

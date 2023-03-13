@@ -24,6 +24,7 @@ const defaultID = Symbol("widget");
  */
 class Widget {
     constructor() {
+        console.warn("Widget class is deprecated. Please use data-xclass package instead.");
         this._selectors = [];
 
         this._observer = new MutationObserver(mutationList => {

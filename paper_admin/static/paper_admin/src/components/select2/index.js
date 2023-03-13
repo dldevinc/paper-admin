@@ -1,4 +1,4 @@
-import Widget from "js/utilities/widget.js";
+import { BaseComponent } from "js/components/baseComponent.js";
 import "select2/dist/js/select2.full.js";
 import "./patches.js";
 
@@ -7,33 +7,47 @@ import "select2/dist/css/select2.css";
 import "./patches.scss";
 import "./small.scss";
 
-class Select2Widget extends Widget {
-    constructor(options) {
-        super();
-        this.opts = Object.assign({}, options);
+export class Select2Component extends BaseComponent {
+    constructor(element, options) {
+        super(options);
+
+        if (element.tagName !== "SELECT") {
+            this.selectElement = element.querySelector("select");
+            if (!this.selectElement) {
+                throw new Error("select tag not found");
+            }
+        } else {
+            this.selectElement = element;
+        }
+
+        this._initSelect2();
     }
 
-    _init(element) {
-        const options = Object.assign({}, this.opts);
-        if (options.allowClear && typeof options.placeholder == "undefined") {
+    destroy() {
+        super.destroy();
+        this._destroySelect2();
+    }
+
+    _initSelect2() {
+        if (this.options.allowClear && typeof this.options.placeholder == "undefined") {
             // Использование allowClear требует указать placeholder.
-            const emptyOption = element.querySelector('option[value=""]');
+            const emptyOption = this.selectElement.querySelector('option[value=""]');
             if (emptyOption) {
-                options.placeholder = emptyOption.textContent;
+                this.options.placeholder = emptyOption.textContent;
             } else {
-                options.placeholder = "";
+                this.options.placeholder = "";
             }
         }
 
-        $(element).select2(options);
+        $(this.selectElement).select2(this.options);
 
         // вызов события change для поддержки hookUnload
-        $(element).on("select2:select select2:clear", () => {
+        $(this.selectElement).on("select2:select select2:clear", () => {
             const event = new CustomEvent("change", {
                 bubbles: true,
                 cancelable: true
             });
-            element.dispatchEvent(event);
+            this.selectElement.dispatchEvent(event);
         });
 
         /*
@@ -43,16 +57,14 @@ class Select2Widget extends Widget {
          *
          * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
          */
-        $(element).on("select2:open", function () {
+        $(this.selectElement).on("select2:open", function () {
             const instance = $(this).data("select2");
             const searchField = instance.$dropdown.get(0).querySelector(".select2-search__field");
             searchField && searchField.focus();
         });
     }
 
-    _destroy(element) {
-        $(element).select2("destroy");
+    _destroySelect2() {
+        $(this.selectElement).select2("destroy");
     }
 }
-
-export { Select2Widget };

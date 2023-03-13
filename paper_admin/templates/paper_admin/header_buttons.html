@@ -11,7 +11,7 @@
 
       {% if show_save_and_continue or show_save_and_add_another or show_save_as_new %}
         <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                data-toggle="dropdown" data-xclass="bs-dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="sr-only">{{ _("Toggle dropdown") }}</span>
         </button>
 
@@ -51,7 +51,7 @@
     {% if has_absolute_url %}
       <li class="nav-item d-lg-none">
         <a href="{{ absolute_url }}" class="nav-link"
-           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
            data-html="true" title="{{ _("View on site") }}">
           <i class="fa fa-eye text-info"></i>
         </a>
@@ -62,7 +62,7 @@
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
         <a href="{% add_preserved_filters history_url %}" class="nav-link"
-           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
            data-html="true" title="{{ _("History") }}">
           <i class="fa fa-history text-info"></i>
         </a>
@@ -73,7 +73,7 @@
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
         <a href="{% add_preserved_filters delete_url %}" class="nav-link"
-           data-toggle="tooltip" data-placement="bottom" data-trigger="hover"
+           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
            data-html="true" title="{{ _("Delete") }}">
           <i class="fa fa-trash text-danger"></i>
         </a>

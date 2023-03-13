@@ -1,6 +1,6 @@
 import popupUtils from "js/utilities/popup_utils";
 
-import "./related-widget-wrapper.scss";
+import "./index.scss";
 
 /**
  * Обновление состояния кнопок "view", "change" и "delete".

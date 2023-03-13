@@ -1,8 +1,8 @@
 import bsCustomFileInput from "bs-custom-file-input";
 
-import "./file-field.scss";
+import "./index.scss";
 
-bsCustomFileInput.init('.file-field input[type="file"]');
+bsCustomFileInput.init(".file-field input[type='file']");
 
 // Вставка имени файла в название кнопки
 document.addEventListener("change", event => {

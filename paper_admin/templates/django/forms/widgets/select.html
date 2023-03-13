@@ -1,4 +1,4 @@
-<div class="select-field">
+<div class="select-field" data-xclass="select-field">
   <select name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
       {% if group_name %}
