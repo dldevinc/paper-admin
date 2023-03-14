@@ -535,4 +535,3 @@ Default: `["paper_admin", "django.contrib.admin"]`
 ## Additional References
 
 -   [Modals](docs/modals.md)
--   [Widgets](docs/widgets.md)
