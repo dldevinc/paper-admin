@@ -1,6 +1,6 @@
 {
   "name": "paper-admin",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "",
   "main": "src/js/app.js",
   "scripts": {
@@ -12,10 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.21.3",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.20.2",
-    "autoprefixer": "^10.4.14",
     "autosize": "^6.0.1",
     "babel-loader": "^9.1.2",
     "bootstrap": "^4.6.2",
@@ -40,10 +39,10 @@
     "mini-css-extract-plugin": "^2.7.3",
     "multi.js": "github:dldevinc/multi.js#f8c3e53",
     "multiselect": "^0.9.12",
-    "pixrem": "^5.0.0",
     "popper.js": "^1.16.1",
     "postcss": "^8.4.21",
     "postcss-loader": "^7.0.2",
+    "postcss-preset-env": "^8.0.1",
     "promise.allsettled": "^1.0.6",
     "sass": "^1.59.2",
     "sass-loader": "^13.2.0",

@@ -1,7 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const pixrem = require("pixrem");
-const autoprefixer = require("autoprefixer");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -31,14 +29,10 @@ let config = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /[\\/]node_modules[\\/]/,
-                use: [
-                    {
-                        loader: "babel-loader",
-                        options: {
-                            cacheDirectory: path.resolve(__dirname, "cache")
-                        }
-                    }
-                ]
+                loader: "babel-loader",
+                options: {
+                    cacheDirectory: path.resolve(__dirname, "cache")
+                }
             },
 
             {
@@ -56,7 +50,13 @@ let config = {
                         loader: MiniCssExtractPlugin.loader
                     },
                     {
-                        loader: "fast-css-loader"
+                        loader: "fast-css-loader",
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    {
+                        loader: "postcss-loader"
                     }
                 ]
             },
@@ -74,12 +74,7 @@ let config = {
                         }
                     },
                     {
-                        loader: "postcss-loader",
-                        options: {
-                            postcssOptions: {
-                                plugins: [pixrem(), autoprefixer()]
-                            }
-                        }
+                        loader: "postcss-loader"
                     },
                     {
                         loader: "sass-loader",
@@ -95,6 +90,12 @@ let config = {
             {
                 test: /\.(jpe?g|png|gif|woff2?|ttf|eot|svg)$/i,
                 type: "asset/resource"
+            },
+
+            // https://webpack.js.org/guides/asset-modules/#replacing-inline-loader-syntax
+            {
+                resourceQuery: /raw/,
+                type: "asset/source"
             }
         ]
     },
@@ -124,6 +125,7 @@ let config = {
     ],
     optimization: {
         moduleIds: "deterministic",
+        runtimeChunk: "single",
         splitChunks: {
             chunks: "all",
             maxInitialRequests: Infinity,
