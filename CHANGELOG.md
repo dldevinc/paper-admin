@@ -6,6 +6,10 @@
 
 -   Drop Python 3.6 support.
 
+### Features
+
+-   Added `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.
+
 ## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
 
 ### ⚠ BREAKING CHANGES

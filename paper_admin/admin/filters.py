@@ -1,6 +1,3 @@
-import operator
-from itertools import zip_longest
-
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
@@ -45,44 +42,33 @@ class SimpleListFilter(filters.SimpleListFilter):
             }
 
 
-class FieldListFilter(filters.ListFilter):
+class FieldListFilter(filters.FieldListFilter):
     def __init__(self, field, request, params, model, model_admin, field_path):
-        self.field = field
-        self.field_path = field_path
-        self.title = getattr(field, "verbose_name", field_path)
-        super().__init__(request, params, model, model_admin)
-        params.pop(self.parameter_name, None)
-        values_list = request.GET.getlist(self.parameter_name)
-        self.value = list(filter(lambda x: x != "", values_list))
+        super().__init__(field, request, params, model, model_admin, field_path)
+        # Use `self.value` instead of `self.used_parameters` to support "%s__in" search.
+        self.value = [
+            v for v in request.GET.getlist(self.parameter_name)
+            if v != ""
+        ]
 
     @property
     def parameter_name(self):
         return self.field_path
 
-    def has_output(self):
-        return True
+    def expected_parameters(self):
+        return [self.parameter_name]
 
     def get_query(self, value):
         if not value:
-            return
-
-        value = [
-            None if item == "None" else item
-            for item in value
-        ]
-
-        if len(value) == 1:
+            return models.Q()
+        elif len(value) == 1:
             return models.Q((self.field_path, value[0]))
         else:
             return models.Q(("%s__in" % self.field_path, value))
 
     def queryset(self, request, queryset):
-        query = self.get_query(self.value)
-        if query is None:
-            return queryset
-
         try:
-            return queryset.filter(query)
+            return queryset.filter(self.get_query(self.value))
         except (ValueError, ValidationError) as e:
             # Fields may raise a ValueError or ValidationError when converting
             # the parameters to the correct type.
@@ -133,18 +119,13 @@ class DateFieldListFilter(FieldListFilter):
         self.field = field
         self.field_path = field_path
         self.title = getattr(field, "verbose_name", field_path)
-        super(FieldListFilter, self).__init__(request, params, model, model_admin)
-
+        super(filters.FieldListFilter, self).__init__(request, params, model, model_admin)
         params.pop(self.start_parameter_name, None)
         params.pop(self.end_parameter_name, None)
-
-        start_values_list = request.GET.getlist(self.start_parameter_name)
-        start_values_list = list(filter(lambda x: x != "", start_values_list))
-
-        end_values_list = request.GET.getlist(self.end_parameter_name)
-        end_values_list = list(filter(lambda x: x != "", end_values_list))
-
-        self.value = tuple(zip_longest(start_values_list, end_values_list))
+        self.value = (
+            request.GET.get(self.start_parameter_name),
+            request.GET.get(self.end_parameter_name),
+        )
 
     @property
     def start_parameter_name(self):
@@ -159,25 +140,23 @@ class DateFieldListFilter(FieldListFilter):
 
     def get_query(self, value):
         if not value:
-            return
-        elif len(value) == 1:
-            start, end = value[0]
-
+            return models.Q()
+        else:
             lookup_since = "%s__gte" % self.field_path
             lookup_until = "%s__lt" % self.field_path
 
-            query = models.Q()
-            if start:
-                query &= models.Q((lookup_since, parse_date(start)))
-            if end:
-                query &= models.Q((lookup_until, parse_date(end)))
-
-            return query
-
-        raise ValueError(value)
+            lookup_conditions = []
+            since, until = value
+            if since:
+                lookup_conditions.append((lookup_since, parse_date(since)))
+            if until:
+                lookup_conditions.append((lookup_until, parse_date(until)))
+            return models.Q(*lookup_conditions)
 
 
 class RelatedFieldListFilter(FieldListFilter):
+    include_blank = False
+    blank_choice = [("None", "---------")]
     template = "paper_admin/filters/select.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
@@ -189,14 +168,17 @@ class RelatedFieldListFilter(FieldListFilter):
         else:
             self.lookup_title = other_model._meta.verbose_name
         self.title = self.lookup_title
+        self.empty_value_display = model_admin.get_empty_value_display()
 
     @property
     def include_empty_choice(self):
-        """
-        Return True if a "(None)" choice should be included, which filters
-        out everything except empty relationships.
-        """
-        return self.field.null or (self.field.is_relation and self.field.many_to_many)
+        return self.include_blank and (
+            self.field.null or (self.field.is_relation and self.field.many_to_many)
+        )
+
+    @property
+    def get_empty_value_display(self):
+        return
 
     def has_output(self):
         if self.include_empty_choice:
@@ -205,24 +187,19 @@ class RelatedFieldListFilter(FieldListFilter):
             extra = 0
         return len(self.lookup_choices) + extra > 1
 
-    def field_choices(self, field, request, model_admin):
-        rel_model = field.remote_field.model
-        choice_func = operator.attrgetter(
-            field.remote_field.get_related_field().attname
-            if hasattr(field.remote_field, "get_related_field")
-            else "pk"
-        )
+    def field_admin_ordering(self, field, request, model_admin):
+        related_admin = model_admin.admin_site._registry.get(field.remote_field.model)
+        if related_admin is not None:
+            return related_admin.get_ordering(request)
+        return ()
 
-        queryset = rel_model._default_manager.all()
-        is_ordered = bool(queryset.query.order_by or rel_model._meta.ordering)
-        if not is_ordered:
-            related_admin = model_admin.admin_site._registry.get(
-                field.remote_field.model
-            )
-            if related_admin is not None:
-                admin_ordering = related_admin.get_ordering(request)
-                queryset = queryset.order_by(*admin_ordering)
-        return [(choice_func(x), str(x)) for x in queryset]
+    def field_choices(self, field, request, model_admin):
+        ordering = self.field_admin_ordering(field, request, model_admin)
+        return field.get_choices(
+            include_blank=self.include_empty_choice,
+            blank_choice=self.blank_choice,
+            ordering=ordering
+        )
 
     def choices(self, changelist):
         yield {
@@ -236,12 +213,27 @@ class RelatedFieldListFilter(FieldListFilter):
                 "value": str(pk),
                 "display": title,
             }
-        if self.include_empty_choice:
-            yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
-            }
+
+    def get_query(self, value):
+        if not value:
+            return models.Q()
+
+        blank_choices = set(choice[0] for choice in self.blank_choice)
+        selected_blank_choices = bool(blank_choices.intersection(self.value))
+        selected_choices = set(self.value).difference(blank_choices)
+
+        lookup_choice = self.field_path
+        lookup_choices = "%s__in" % self.field_path
+        lookup_blank = "%s__isnull" % self.field_path
+
+        lookup_conditions = []
+        if len(selected_choices) == 1:
+            lookup_conditions.append((lookup_choice, selected_choices.pop()))
+        else:
+            lookup_conditions.append((lookup_choices, selected_choices))
+        if selected_blank_choices:
+            lookup_conditions.append((lookup_blank, True))
+        return models.Q(*lookup_conditions, _connector=models.Q.OR)
 
 
 class AllValuesFieldListFilter(FieldListFilter):
@@ -281,3 +273,58 @@ class AllValuesFieldListFilter(FieldListFilter):
                 "value": "None",
                 "display": _("None"),
             }
+
+
+class RelatedOnlyFieldListFilter(RelatedFieldListFilter):
+    def field_choices(self, field, request, model_admin):
+        pk_qs = (
+            model_admin.get_queryset(request)
+            .distinct()
+            .values_list("%s__pk" % self.field_path, flat=True)
+        )
+        ordering = self.field_admin_ordering(field, request, model_admin)
+        return field.get_choices(
+            include_blank=False, limit_choices_to={"pk__in": pk_qs}, ordering=ordering
+        )
+
+
+class EmptyFieldListFilter(FieldListFilter):
+    template = "paper_admin/filters/select.html"
+
+    def choices(self, changelist):
+        yield {
+            "selected": not self.value,
+            "value": "",
+            "display": _("All")
+        }
+        for lookup, title in (
+            ("1", _("Empty")),
+            ("0", _("Not empty"))
+        ):
+            yield {
+                "selected": lookup in self.value,
+                "value": lookup,
+                "display": title,
+            }
+
+    def get_query(self, value):
+        if not value:
+            return models.Q()
+
+        lookup_conditions = []
+        if self.field.empty_strings_allowed:
+            lookup_conditions.append((self.field_path, ""))
+        if self.field.null:
+            lookup_conditions.append((f"{self.field_path}__isnull", True))
+        return models.Q(*lookup_conditions, _connector=models.Q.OR)
+
+    def queryset(self, request, queryset):
+        try:
+            if self.value == "1":
+                return queryset.filter(self.get_query(self.value))
+            else:
+                return queryset.exclude(self.get_query(self.value))
+        except (ValueError, ValidationError) as e:
+            # Fields may raise a ValueError or ValidationError when converting
+            # the parameters to the correct type.
+            raise IncorrectLookupParameters(e)

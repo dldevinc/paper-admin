@@ -7,7 +7,7 @@
              class="form-control"
              id="filter-{{ spec.parameter_name }}-start"
              name="{{ spec.parameter_name }}-start"
-             value="{{ spec.value.0.0|default:"" }}"
+             value="{{ spec.value.0|default:"" }}"
              placeholder="{{ _("Start date") }}"
              data-range-start>
 
@@ -27,7 +27,7 @@
              class="form-control"
              id="filter-{{ spec.parameter_name }}-end"
              name="{{ spec.parameter_name }}-end"
-             value="{{ spec.value.0.1|default:"" }}"
+             value="{{ spec.value.1|default:"" }}"
              placeholder="{{ _("End date") }}"
              data-range-end>
 
