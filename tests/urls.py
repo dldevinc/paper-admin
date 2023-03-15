@@ -4,7 +4,6 @@ from django.urls import include, path
 from paper_admin.admin import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path(
         'admin/password_reset/',
         auth_views.AdminPasswordResetView.as_view(),
@@ -25,5 +24,6 @@ urlpatterns = [
         auth_views.AdminPasswordResetCompleteView.as_view(),
         name='password_reset_complete',
     ),
+    path('admin/', admin.site.urls),
     path('', include('app.urls')),
 ]
