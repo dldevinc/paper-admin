@@ -159,6 +159,13 @@ class Category(models.Model):
 
 
 class Item(models.Model):
+    STATUS_SUCCESS = "success"
+    STATUS_FAILURE = "failure"
+    STATUS_CHOICES = (
+        (STATUS_SUCCESS, _("Success")),
+        (STATUS_FAILURE, _("Failure")),
+    )
+
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.CASCADE)
     hidden = models.IntegerField(_("hidden"), default=1)
     readonly = models.CharField(_("readonly"), max_length=128, blank=True, default="Do not edit me")
@@ -168,6 +175,12 @@ class Item(models.Model):
     url = models.URLField(_("url"), blank=True, help_text=HELP_TEXT)
     text = models.TextField(_("text"), blank=True)
     visible = models.BooleanField(_("visible"), default=True)
+    status = models.CharField(
+        verbose_name=_("status"),
+        max_length=32,
+        choices=STATUS_CHOICES,
+        blank=True
+    )
     created_at = models.DateTimeField(_("date"), null=True, blank=True, help_text=HELP_TEXT)
 
     class Meta:

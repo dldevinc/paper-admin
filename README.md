@@ -458,25 +458,25 @@ from django.contrib import admin
 
 class StackedInline(admin.StackedInline):
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == "success":
             return ["paper-card--success"]
-        elif obj.name.startswith("M"):
-            return ["paper-card--info"]
+        elif obj.status == "failed":
+            return ["paper-card--danger"]
         return []
 
 class TablularInlines(admin.TabularInline):
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == "success":
             return ["table-success"]
-        elif obj.name.startswith("M"):
-            return ["table-info"]
+        elif obj.status == "failed":
+            return ["table-danger"]
         return []
 ```
 
 Результат:
 
-![](https://user-images.githubusercontent.com/6928240/125339687-9b7ea300-e362-11eb-85c7-1f875a506cc1.png)
-![](https://user-images.githubusercontent.com/6928240/125339691-9c173980-e362-11eb-8941-04ccfdaae914.png)
+![image](https://user-images.githubusercontent.com/6928240/225713947-34e29927-b629-4b9a-bf6e-56ec8948de7e.png)
+![image](https://user-images.githubusercontent.com/6928240/225714321-87a33c52-65d8-4175-a118-cb751b92ebb8.png)
 
 ## Settings
 

@@ -43,8 +43,8 @@ class ItemStackedInlines(admin.StackedInline):
     fieldsets = (
         (None, {
             "fields": (
-                ("name", "age"), "slug", "url", "text", "visible", "created_at", "readonly",
-                "hidden"
+                ("name", "age"), "slug", "url", "text", "visible", "created_at",
+                "status", "readonly", "hidden"
             )
         }),
     )
@@ -62,8 +62,10 @@ class ItemStackedInlines(admin.StackedInline):
     }
 
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == Item.STATUS_SUCCESS:
             return ["paper-card--success"]
+        elif obj.status == Item.STATUS_FAILURE:
+            return ["paper-card--danger"]
         return []
 
 
@@ -72,7 +74,7 @@ class ItemTablularInlines(admin.TabularInline):
     model = Item
     tab = "tab4"
     extra = 1
-    fields = ("readonly", "hidden", "name", "age", "slug", "url", "visible")
+    fields = ("readonly", "hidden", "name", "age", "slug", "status", "visible")
     readonly_fields = ("readonly",)
     verbose_name_plural = _("Tabular Items")
     classes = ("dummy-inline",)
@@ -81,8 +83,10 @@ class ItemTablularInlines(admin.TabularInline):
     }
 
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == Item.STATUS_SUCCESS:
             return ["table-success"]
+        elif obj.status == Item.STATUS_FAILURE:
+            return ["table-danger"]
         return []
 
 
