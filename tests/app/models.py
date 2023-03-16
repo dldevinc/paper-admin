@@ -30,6 +30,12 @@ class Category(models.Model):
         (3, _("Three")),
         (4, _("Four")),
     )
+    STATUS_SUCCESS = "success"
+    STATUS_FAILURE = "failure"
+    STATUS_CHOICES = (
+        (STATUS_SUCCESS, _("Success")),
+        (STATUS_FAILURE, _("Failure")),
+    )
 
     f_fk = models.ForeignKey(
         Tag,
@@ -133,6 +139,12 @@ class Category(models.Model):
         verbose_name=_("M2M"),
         related_name="+",
         help_text=HELP_TEXT
+    )
+    status = models.CharField(
+        verbose_name=_("status"),
+        max_length=32,
+        choices=STATUS_CHOICES,
+        blank=True
     )
 
     class Meta:

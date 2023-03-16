@@ -437,16 +437,16 @@ from .models import Page
 class PageAdmin(admin.ModelAdmin):
 
     def get_row_classes(self, request, obj):
-        if obj.name.startswith("M"):
+        if obj.status == "success":
             return ["table-success"]
-        elif obj.name.startswith("P"):
-            return ["table-info"]
+        elif obj.status == "failed":
+            return ["table-danger"]
         return []
 ```
 
 Результат:
 
-![](https://user-images.githubusercontent.com/6928240/125338431-3aa29b00-e361-11eb-91ae-01d482b80fad.png)
+![image](https://user-images.githubusercontent.com/6928240/225705910-4f1309e1-93e3-456a-b9d0-f01748faec7b.png)
 
 ### Inline forms
 
