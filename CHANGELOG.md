@@ -8,6 +8,7 @@
 
 ### Features
 
+-   Improved form tab user experience in admin interface.
 -   Animations has been migrated to AnimeJS from GSAP.
 -   Added `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.
 

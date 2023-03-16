@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const merge = require("webpack-merge").default;
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -10,21 +11,8 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const SOURCE_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/src");
 const DIST_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/dist");
 
-let config = {
-    entry: {
-        app: path.resolve(SOURCE_DIR, "js/app.js")
-    },
-    output: {
-        clean: true,
-        path: path.resolve(DIST_DIR),
-        publicPath: "/static/paper_admin/dist/",
-        filename: "[name].[contenthash].js",
-        assetModuleFilename: "assets/[name][ext][query]",
-        library: {
-            type: "window",
-            export: "default",
-        }
-    },
+// Базовый объект, чьи свойства наследуют все конфигурации.
+let baseConfig = {
     module: {
         rules: [
             {
@@ -109,68 +97,9 @@ let config = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.styles.html"),
-            inject: false,
-            scriptLoading: "blocking",
-            chunks: ["app"]
-        }),
-        new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.scripts.html"),
-            inject: false,
-            scriptLoading: "blocking",
-            chunks: ["app"]
-        })
     ],
     optimization: {
         moduleIds: "deterministic",
-        runtimeChunk: "single",
-        splitChunks: {
-            chunks: "all",
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-                defaultVendors: {
-                    priority: 20,
-                    test: /[\\/]node_modules[\\/]/,
-                    name: function (module) {
-                        let modulePath = module.nameForCondition();
-                        let match = modulePath.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/);
-                        if (match) {
-                            let packageName = match[1].replace("@", "");
-                            return `npm.${packageName}`;
-                        } else {
-                            throw new Error(`Invalid module path: ${modulePath}`);
-                        }
-                    }
-                },
-                innerVendors: {
-                    priority: 10,
-                    test: /[\\/]css[\\/]vendors[\\/].*\.s?css$/,
-                    name: function (module) {
-                        let modulePath = module.nameForCondition();
-                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
-                        if (verdorMatch) {
-                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
-                        }
-                    }
-                },
-                styles: {
-                    test: /\.s?css$/,
-                    name: function (module) {
-                        let modulePath = module.nameForCondition();
-                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
-                        if (verdorMatch) {
-                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
-                        } else {
-                            return "vendors.app";
-                        }
-                    }
-                }
-            }
-        },
         minimizer: [
             new ImageMinimizerPlugin({
                 minimizer: {
@@ -225,35 +154,142 @@ let config = {
         assets: false,
         chunks: true
     }
-};
+}
+
+// Конфигурация для критических ресурсов, которые будут загружены в блокирующем
+// режиме в тэге <head>.
+let criticalConfig = merge(baseConfig, {
+    entry: {
+        critical: path.resolve(SOURCE_DIR, "js/critical.js"),
+    },
+    output: {
+        path: path.resolve(DIST_DIR),
+        publicPath: "/static/paper_admin/dist/",
+        filename: "[name].[contenthash].js",
+        assetModuleFilename: "assets/[name][ext][query]",
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            templateContent: ({ htmlWebpackPlugin }) => (
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}` +
+                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`
+            ),
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.critical.html"),
+            inject: false,
+            scriptLoading: "blocking",
+            chunks: ["critical"]
+        }),
+    ]
+});
+
+// Конфигурация общих ресурсов, которые будут загружены в defer-режиме.
+let commonConfig = merge(baseConfig, {
+    entry: {
+        app: path.resolve(SOURCE_DIR, "js/app.js"),
+    },
+    output: {
+        path: path.resolve(DIST_DIR),
+        publicPath: "/static/paper_admin/dist/",
+        filename: "[name].[contenthash].js",
+        assetModuleFilename: "assets/[name][ext][query]",
+        library: {
+            type: "window",
+            export: "default",
+        }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.styles.html"),
+            inject: false,
+            scriptLoading: "blocking",
+            chunks: ["app"]
+        }),
+        new HtmlWebpackPlugin({
+            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.scripts.html"),
+            inject: false,
+            scriptLoading: "blocking",
+            chunks: ["app"]
+        }),
+    ],
+    optimization: {
+        runtimeChunk: "single",
+        splitChunks: {
+            chunks: "all",
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                defaultVendors: {
+                    priority: 20,
+                    test: /[\\/]node_modules[\\/]/,
+                    name: function (module) {
+                        let modulePath = module.nameForCondition();
+                        let match = modulePath.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/);
+                        if (match) {
+                            let packageName = match[1].replace("@", "");
+                            return `npm.${packageName}`;
+                        } else {
+                            throw new Error(`Invalid module path: ${modulePath}`);
+                        }
+                    }
+                },
+                innerVendors: {
+                    priority: 10,
+                    test: /[\\/]css[\\/]vendors[\\/].*\.s?css$/,
+                    name: function (module) {
+                        let modulePath = module.nameForCondition();
+                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
+                        if (verdorMatch) {
+                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
+                        }
+                    }
+                },
+                styles: {
+                    test: /\.s?css$/,
+                    name: function (module) {
+                        let modulePath = module.nameForCondition();
+                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
+                        if (verdorMatch) {
+                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
+                        } else {
+                            return "vendors.app";
+                        }
+                    }
+                }
+            }
+        },
+    },
+});
 
 module.exports = (env, argv) => {
-    config.mode = argv.mode === "production" ? "production" : "development";
+    const mode = argv.mode === "production" ? "production" : "development";
+    commonConfig.mode = criticalConfig.mode = mode;
 
-    if (config.mode === "production") {
-        config.devtool = "source-map";
+    if (mode === "production") {
+        commonConfig.devtool = criticalConfig.devtool = "source-map";
     } else {
-        config.devtool = "eval";
+        commonConfig.devtool = criticalConfig.devtool = "eval";
     }
 
-    if (config.mode === "development") {
-        config.cache = {
+    if (mode === "development") {
+        commonConfig.cache = criticalConfig.cache = {
             type: "filesystem",
             cacheDirectory: path.resolve(__dirname, "cache"),
             buildDependencies: {
                 config: [__filename]
             }
-        };
+        }
     }
 
-    if (config.mode === "production") {
-        config.optimization.minimizer = [
+    if (mode === "production") {
+        commonConfig.optimization.minimizer = criticalConfig.optimization.minimizer = [
             new TerserPlugin({
                 parallel: true
             }),
             new CssMinimizerPlugin({})
-        ];
+        ]
     }
 
-    return config;
+    return [criticalConfig, commonConfig];
 };

@@ -69,7 +69,6 @@ import "bem/paper-page/paper-page.js";
 import "bem/paper-preloader/paper-preloader.js";
 import "bem/paper-sidebar/paper-sidebar.js";
 import "bem/paper-table/paper-table.js";
-import "bem/paper-tabs/paper-tabs.js";
 import "bem/paper-toolbar/paper-toolbar.js";
 import "bem/paper-widget/paper-widget.js";
 

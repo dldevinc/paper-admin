@@ -73,10 +73,11 @@
 
   {% if tabs %}
     <div class="paper-tabs mb-3">
-      <ul class="nav nav-pills " role="tablist">
+      <div class="paper-tabs__underline"></div>
+      <ul class="nav" role="tablist">
         {% for tab in tabs %}
           <li class="nav-item">
-            <a class="btn nav-link{% if tab.invalid %} btn-outline-danger{% else %} btn-outline-primary{% endif %}{% if tab.active %} active{% endif %}"
+            <a class="nav-link{% if tab.invalid %} text-danger{% endif %}{% if tab.active %} active{% endif %}"
                id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
                aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
               {{ tab.title }}
@@ -168,4 +169,8 @@
 
     {% block after_related_objects %}{% endblock %}
   </form>
+
+  <script>
+      window._paperTabs.init();
+  </script>
 {% endblock %}
