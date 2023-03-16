@@ -8,7 +8,7 @@ from django.contrib.admin.helpers import (
 )
 from django.contrib.admin.utils import flatten_fieldsets
 from django.forms.forms import DeclarativeFieldsMetaclass
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, lazy
 
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
@@ -25,9 +25,14 @@ class PatchActionForm(ActionForm, metaclass=FormMonkeyPatchMeta):
 
 
 class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
-    def __init__(self, *args, **kwargs):
-        get_original(AdminReadonlyField)(self, *args, **kwargs)
-        self.field["contents"] = self.contents()
+    def __init__(self, form, field, is_first, model_admin=None):
+        get_original(AdminReadonlyField)(self, form, field, is_first, model_admin)
+        # Переносим контент во внутренний словарь `field` и добавляем `html_name`,
+        # чтобы сделать поля внутреннего словаря "self.field" похожими на свойства
+        # редактируемого поля. Благодаря этому мы сможем использовать единый шаблон
+        # для обоих типов полей.
+        self.field["html_name"] = form.add_prefix(self.field["name"])
+        self.field["contents"] = lazy(self.contents, str)
 
 
 class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
