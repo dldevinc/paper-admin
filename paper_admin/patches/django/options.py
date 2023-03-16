@@ -9,10 +9,8 @@ from django.contrib.admin.options import (
     csrf_protect_m,
 )
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
-from django.contrib.admin.utils import model_format_dict
 from django.contrib.admin.views.main import SEARCH_VAR
 from django.contrib.auth import get_permission_codename, get_user_model
-from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -34,16 +32,16 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     def media(self):
         return forms.Media()
 
-    def get_action_choices(self, request, default_choices=BLANK_CHOICE_DASH):
+    def get_action_choices(self, request, default_choices=None):
         # Изменение placeholder у выпадающего списка
-        choices = [("", _("Action"))]
-        for func, name, description in self.get_actions(request).values():
-            choice = (name, description % model_format_dict(self.opts))
-            choices.append(choice)
-        return choices
+        if default_choices is None:
+            default_choices = [("", _("Action"))]
+        return get_original(ModelAdmin)(self, request, default_choices)
 
     @csrf_protect_m
     def changelist_view(self, request, extra_context=None):
+        # Перенос переменной из `admin_list.search_form()` в связи с удалением
+        # шаблонного тэга `{% search_form %}`.
         extra_context = extra_context or {}
         extra_context["search_var"] = SEARCH_VAR
         return get_original(ModelAdmin)(self, request, extra_context=extra_context)
@@ -77,7 +75,6 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         return get_original(ModelAdmin)(self, request, object_id, default_extra)
 
     def response_delete(self, request, obj_display, obj_id):
-        # Добавление редиректа на список при наличии прав на чтение
         opts = self.model._meta
 
         if IS_POPUP_VAR in request.POST:
@@ -102,6 +99,9 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
             messages.SUCCESS,
         )
 
+        # Редирект на список при наличии прав на чтение, а не на изменение
+        # для удобства пользователя в тех случаях, когда есть права на чтение
+        # и удаление записей, но нет прав на их изменение.
         if self.has_view_permission(request, None):
             post_url = reverse(
                 "admin:%s_%s_changelist" % (opts.app_label, opts.model_name),

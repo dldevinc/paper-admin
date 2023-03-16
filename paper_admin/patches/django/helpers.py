@@ -38,6 +38,8 @@ class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
 class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
     def __init__(self, *args, **kwargs):
         get_original(Fieldset)(self, *args, **kwargs)
+        # Перенос свойства `has_visible_field` в Fieldset,
+        # чтобы не рендерить пустые блоки.
         self.has_visible_field = not all(
             field in self.form.fields and self.form.fields[field].widget.is_hidden
             for line in self
@@ -64,16 +66,15 @@ class PatchFieldset(Fieldset, metaclass=MonkeyPatchMeta):
 
 
 class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
-    # Шаблон формы перенесен из итератора в отдельное поле empty_form.
     def __iter__(self):
         if self.has_change_permission:
             readonly_fields_for_editing = self.readonly_fields
         else:
             readonly_fields_for_editing = self.readonly_fields + flatten_fieldsets(self.fieldsets)
 
-        # При отправке формсета порядок форм мог быть изменён. Формы, связанные
-        # с экземплярами в БД (имеющие `original`) могли оказаться ниже,
-        # чем дополнительные (extra_forms) формы. Поэтому для случая связанного
+        # При отправке формсета порядок форм мог быть изменён (из-за свойства sortable).
+        # Формы, связанные с экземплярами в БД (имеющие `original`), могли оказаться ниже,
+        # чем дополнительные (extra_forms). Поэтому для случая связанного (`is_bound`)
         # формсета мы сопоставляем формы с экземплярами на основании значений
         # поля pk.
         if self.formset.is_bound:
@@ -113,6 +114,9 @@ class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
                     None, self.readonly_fields, model_admin=self.opts,
                 )
 
+            # Рендеринг пустой формы перенесён в отдельное свойство empty_form,
+            # чтобы рендерить его в любой месте на странице.
+
     @property
     def empty_form(self):
         return InlineAdminForm(
@@ -127,6 +131,7 @@ class PatchInlineAdminFormSet(InlineAdminFormSet, metaclass=MonkeyPatchMeta):
 
     @property
     def non_field_errors(self):
+        # Свойство для стилизации ошибочных инлайн-форм
         return [
             error
             for form in self.formset.forms
