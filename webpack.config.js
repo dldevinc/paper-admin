@@ -22,7 +22,7 @@ let config = {
         assetModuleFilename: "assets/[name][ext][query]",
         library: {
             type: "window",
-            export: 'default',
+            export: "default",
         }
     },
     module: {
@@ -111,14 +111,14 @@ let config = {
         }),
         new HtmlWebpackPlugin({
             templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.styles.html"),
             inject: false,
             scriptLoading: "blocking",
             chunks: ["app"]
         }),
         new HtmlWebpackPlugin({
             templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.body.html"),
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.scripts.html"),
             inject: false,
             scriptLoading: "blocking",
             chunks: ["app"]

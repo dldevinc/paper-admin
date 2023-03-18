@@ -106,20 +106,20 @@
 
 
 {% block content %}
-  {% if cl.result_count and cl.date_hierarchy %}
-    <div class="paper-card card mb-3">
-      <h5 class="card-header">
-        {{ _("Filter by date") }}
-      </h5>
-      <div class="card-body">
-        {% block date_hierarchy %}
-          {% date_hierarchy cl %}
-        {% endblock %}
-      </div>
-    </div>
-  {% endif %}
-
   {% if cl.result_count %}
+    {% if cl.date_hierarchy %}
+      <div class="paper-card card mb-3">
+        <h5 class="card-header">
+          {{ _("Filter by date") }}
+        </h5>
+        <div class="card-body">
+          {% block date_hierarchy %}
+            {% date_hierarchy cl %}
+          {% endblock %}
+        </div>
+      </div>
+    {% endif %}
+
     {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
       <div class="row">
         {% if action_form and actions_on_top and cl.show_admin_actions %}
