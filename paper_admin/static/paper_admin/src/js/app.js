@@ -1,4 +1,5 @@
 import * as bootstrap from "bootstrap";
+import anime from "animejs";
 import Sortable from "sortablejs";
 import XClass from "data-xclass";
 import emitters from "js/utilities/emitters.js";
@@ -113,18 +114,21 @@ window.django = window.django || {};
 window.django.jQuery = jQuery;
 
 // XClass initialization
-window.XClass = XClass;
 document.addEventListener("DOMContentLoaded", () => {
     XClass.start();
 });
 
-export const paperAdmin = {
-    bootstrap,
-    emitters,
-    dragUtils,
-    formUtils,
-    popupUtils,
-    modals,
+export default {
+    anime,
     Sortable,
-    Widget // TODO: deprecated
-};
+    XClass,
+    paperAdmin: {
+        bootstrap,
+        emitters,
+        dragUtils,
+        formUtils,
+        popupUtils,
+        modals,
+        Widget // TODO: deprecated
+    }
+}

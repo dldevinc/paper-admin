@@ -1,9 +1,6 @@
+import anime from "animejs";
 import emitters from "js/utilities/emitters.js";
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Formset from "./_formset.js";
-
-gsap.registerPlugin(ScrollToPlugin);
 
 class InlineFormset extends Formset {
     constructor(root) {
@@ -56,21 +53,30 @@ class InlineFormset extends Formset {
         };
 
         const animationOptions = {
-            onComplete: onAddCallback
+            targets: form,
+            direction: "reverse",
+            easing: "easeInOutSine"
         };
 
         if (this.isTabular) {
-            animationOptions.duration = 0.2;
+            form.style.willChange = "opacity";
+            animationOptions.duration = 200;
             animationOptions.opacity = 0;
-            animationOptions.clearProps = "opacity";
+            animationOptions.complete = () => {
+                form.style.opacity = "";
+                onAddCallback();
+            };
         } else {
-            animationOptions.duration = 0.3;
+            form.style.willChange = "height";
+            animationOptions.duration = 300;
             animationOptions.height = 0;
-            animationOptions.clearProps = "height";
+            animationOptions.complete = () => {
+                form.style.height = "";
+                onAddCallback();
+            };
         }
 
-        gsap.from(form, animationOptions);
-
+        anime(animationOptions);
         return form;
     }
 
@@ -95,32 +101,34 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onDeleteCallback = () => {
-            form.remove();
-
-            this._isTransitioning = false;
-            this.updateButtonsState();
-
-            // Events
-            emitters.inlines.trigger("removed", [form, this.prefix]);
-
-            // Django compatible
-            $(document).trigger("formset:removed", [$(form), this.prefix]);
-        };
-
         const animationOptions = {
-            onComplete: onDeleteCallback
+            targets: form,
+            easing: "easeInOutSine",
+            complete: () => {
+                form.remove();
+
+                this._isTransitioning = false;
+                this.updateButtonsState();
+
+                // Events
+                emitters.inlines.trigger("removed", [form, this.prefix]);
+
+                // Django compatible
+                $(document).trigger("formset:removed", [$(form), this.prefix]);
+            }
         };
 
         if (this.isTabular) {
-            animationOptions.duration = 0.2;
+            form.style.willChange = "opacity";
+            animationOptions.duration = 200;
             animationOptions.opacity = 0;
         } else {
-            animationOptions.duration = 0.3;
+            form.style.willChange = "height";
+            animationOptions.duration = 300;
             animationOptions.height = 0;
         }
 
-        gsap.to(form, animationOptions);
+        anime(animationOptions);
     }
 
     moveFormUp(form) {
@@ -172,42 +180,43 @@ class InlineFormset extends Formset {
 
         // Имитация начального расположения форм с помощью CSS-трансформаций.
         this.formContainer.style.transformStyle = "preserve-3d";
+        form1.style.willChange = "transform";
+        form2.style.willChange = "transform";
         if (direction === "up") {
-            form1.style.transform = `translate3d(0, ${initialRect1.top - swappedRect1.top}px, 0)`;
-            form2.style.transform = `translate3d(0, ${initialRect2.top - swappedRect2.top}px, 1px)`;
+            form1.style.transform = `translateY(${initialRect1.top - swappedRect1.top}px)`;
+            form2.style.transform = `translateY(${initialRect2.top - swappedRect2.top}px) translateZ(1px)`;
         } else {
-            form1.style.transform = `translate3d(0, ${initialRect1.top - swappedRect1.top}px, 1px)`;
-            form2.style.transform = `translate3d(0, ${initialRect2.top - swappedRect2.top}px, 0)`;
+            form1.style.transform = `translateY(${initialRect1.top - swappedRect1.top}px) translateZ(1px)`;
+            form2.style.transform = `translateY(${initialRect2.top - swappedRect2.top}px)`;
         }
 
         // Animation
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const onSwapCallback = () => {
-            this._isTransitioning = false;
-            this.updateButtonsState();
-
-            this.formContainer.style.transformStyle = "";
-        };
-
-        const animationOptions = {
-            y: 0,
-            clearProps: "transform"
-        };
-
-        if (this.isTabular) {
-            animationOptions.duration = 0.25;
-        } else {
-            animationOptions.duration = 0.5;
-        }
-
-        const tl = gsap
-            .timeline({
-                onComplete: onSwapCallback
-            })
-            .to(form1, animationOptions)
-            .to(form2, animationOptions, 0);
+        const tl = anime.timeline({
+            duration: this.isTabular ? 250 : 500,
+            easing: "easeOutQuad",
+            complete: () => {
+                this._isTransitioning = false;
+                this.updateButtonsState();
+                this.formContainer.style.transformStyle = "";
+            }
+        })
+        .add({
+            targets: form1,
+            translateY: 0,
+            complete: () => {
+                form1.style.transform = "";
+            }
+        })
+        .add({
+            targets: form2,
+            translateY: 0,
+            complete: () => {
+                form2.style.transform = "";
+            }
+        }, 0);
 
         // Перемещение окна вместе с формой.
         let finalPageOffset;
@@ -221,16 +230,10 @@ class InlineFormset extends Formset {
         }
 
         if (!preventScroll) {
-            tl.to(
-                window,
-                {
-                    duration: animationOptions.duration,
-                    scrollTo: {
-                        y: Math.max(0, finalPageOffset)
-                    }
-                },
-                0
-            );
+            tl.add({
+                targets: document.documentElement,
+                scrollTop: Math.max(0, finalPageOffset),
+            }, 0);
         }
     }
 

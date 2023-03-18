@@ -21,7 +21,8 @@ let config = {
         filename: "[name].[contenthash].js",
         assetModuleFilename: "assets/[name][ext][query]",
         library: {
-            type: "window"
+            type: "window",
+            export: 'default',
         }
     },
     module: {

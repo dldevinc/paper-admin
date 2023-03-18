@@ -1,35 +1,5 @@
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import {scrollTo} from "js/utilities/scrollTo.js";
 import "./paper-tabs.scss";
-
-gsap.registerPlugin(ScrollToPlugin);
-
-// Ошибка должна находиться в центральной части экрана, чтобы считаться видимой.
-const ERROR_VISIBILITY_CROP_PERCENT = 30;
-
-// При скролле показываем ошибку в позиции 33% от верха экрана.
-const ERROR_SCROLL_POSITION = 33;
-
-/**
- * Плавный скролл к указанной Y-координате.
- * @param {Element} element
- */
-function scrollTo(element) {
-    const rect = element.getBoundingClientRect();
-    const topOffset = rect.top;
-    const minOffset = (ERROR_VISIBILITY_CROP_PERCENT / 100) * document.documentElement.clientHeight;
-    const isVisible = topOffset > minOffset && topOffset < document.documentElement.clientHeight - minOffset;
-    if (!isVisible) {
-        setTimeout(() => {
-            gsap.to(window, {
-                duration: 0.5,
-                scrollTo: {
-                    y: topOffset - Math.floor((document.documentElement.clientHeight * ERROR_SCROLL_POSITION) / 100)
-                }
-            });
-        });
-    }
-}
 
 /**
  * Поиск первой ошибки на форме для последующего скролла к ней.

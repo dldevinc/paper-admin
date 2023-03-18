@@ -1,19 +1,16 @@
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import anime from "animejs";
 
 import "./scroll-top-button.scss";
-
-gsap.registerPlugin(ScrollToPlugin);
 
 document.addEventListener("click", event => {
     const button = event.target.closest(".scroll-top-button");
     if (button) {
-        gsap.to(window, {
-            duration: 0.3,
-            scrollTo: {
-                y: 0
-            }
-        });
+        anime({
+            targets: document.documentElement,
+            scrollTop: 0,
+            easing: "easeOutExpo",
+            duration: 300
+        })
     }
 });
 

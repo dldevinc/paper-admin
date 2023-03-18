@@ -8,6 +8,7 @@
 
 ### Features
 
+-   Animations has been migrated to AnimeJS from GSAP.
 -   Added `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.
 
 ## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
