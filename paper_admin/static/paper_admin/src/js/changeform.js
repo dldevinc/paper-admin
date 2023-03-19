@@ -8,6 +8,11 @@ import { InlineFormset } from "bem/paper-formset/paper-formset.js";
 import "bem/paper-tabs/paper-tabs.js";
 import "bem/scroll-top-button/scroll-top-button.js";
 
+// -----------------
+//  Styles
+// -----------------
+import "css/changeform.scss";
+
 // Инициализация inline-форм
 let formsets = [];
 document.querySelectorAll(".paper-formset").forEach(element => {
