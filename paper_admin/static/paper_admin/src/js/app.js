@@ -130,4 +130,4 @@ export default {
         modals,
         Widget // TODO: deprecated
     }
-}
+};

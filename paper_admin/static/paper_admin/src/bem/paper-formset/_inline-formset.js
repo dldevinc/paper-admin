@@ -194,29 +194,33 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         this.updateButtonsState();
 
-        const tl = anime.timeline({
-            duration: this.isTabular ? 250 : 500,
-            easing: "easeOutQuad",
-            complete: () => {
-                this._isTransitioning = false;
-                this.updateButtonsState();
-                this.formContainer.style.transformStyle = "";
-            }
-        })
-        .add({
-            targets: form1,
-            translateY: 0,
-            complete: () => {
-                form1.style.transform = "";
-            }
-        })
-        .add({
-            targets: form2,
-            translateY: 0,
-            complete: () => {
-                form2.style.transform = "";
-            }
-        }, 0);
+        const tl = anime
+            .timeline({
+                duration: this.isTabular ? 250 : 500,
+                easing: "easeOutQuad",
+                complete: () => {
+                    this._isTransitioning = false;
+                    this.updateButtonsState();
+                    this.formContainer.style.transformStyle = "";
+                }
+            })
+            .add({
+                targets: form1,
+                translateY: 0,
+                complete: () => {
+                    form1.style.transform = "";
+                }
+            })
+            .add(
+                {
+                    targets: form2,
+                    translateY: 0,
+                    complete: () => {
+                        form2.style.transform = "";
+                    }
+                },
+                0
+            );
 
         // Перемещение окна вместе с формой.
         let finalPageOffset;
@@ -230,10 +234,13 @@ class InlineFormset extends Formset {
         }
 
         if (!preventScroll) {
-            tl.add({
-                targets: document.documentElement,
-                scrollTop: Math.max(0, finalPageOffset),
-            }, 0);
+            tl.add(
+                {
+                    targets: document.documentElement,
+                    scrollTop: Math.max(0, finalPageOffset)
+                },
+                0
+            );
         }
     }
 

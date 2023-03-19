@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {scrollTo} from "js/utilities/scrollTo.js";
+import { scrollTo } from "js/utilities/scrollTo.js";
 import "./paper-tabs.scss";
 
 /**
@@ -41,9 +41,12 @@ $(document).on("shown.bs.tab", event => {
 });
 
 // Обновление положения линии под вкладкой при ресайзе.
-window.addEventListener("resize", _.throttle(() => {
-    window._paperTabs.updateUnderlines();
-}, 50));
+window.addEventListener(
+    "resize",
+    _.throttle(() => {
+        window._paperTabs.updateUnderlines();
+    }, 50)
+);
 
 // Скролл к первой ошибке
 const invalidElement = getFirstError();

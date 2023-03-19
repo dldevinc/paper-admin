@@ -1,11 +1,11 @@
 window._paperTabs = {
-    getTabFromHash: function() {
+    getTabFromHash: function () {
         return document.getElementById(window.location.hash.substring(1));
     },
-    getPanelFor: function(tab) {
+    getPanelFor: function (tab) {
         return document.getElementById(tab.hash.substring(1));
     },
-    setUnderline: function(tab) {
+    setUnderline: function (tab) {
         const tabRoot = tab.closest(".paper-tabs");
         const underline = tabRoot.querySelector(".paper-tabs__underline");
         const computedStyle = getComputedStyle(tab);
@@ -16,14 +16,14 @@ window._paperTabs = {
         underline.style.left = `${lineLeft}px`;
         underline.style.top = `${lineTop}px`;
     },
-    updateUnderlines: function() {
+    updateUnderlines: function () {
         const paperTabRoots = document.querySelectorAll(".paper-tabs");
         Array.from(paperTabRoots).forEach(tabRoot => {
             const activeTab = tabRoot.querySelector(".nav-link.active");
             this.setUnderline(activeTab);
-        })
+        });
     },
-    init: function() {
+    init: function () {
         const paperTabRoots = document.querySelectorAll(".paper-tabs");
         Array.from(paperTabRoots).forEach(tabRoot => {
             let activeTab = this.getTabFromHash();
@@ -37,11 +37,11 @@ window._paperTabs = {
 
                 const panel = this.getPanelFor(tab);
                 panel.classList.toggle("active", tab === activeTab);
-            })
+            });
 
             document.addEventListener("DOMContentLoaded", () => {
                 this.setUnderline(activeTab);
-            })
+            });
         });
     }
-}
+};

@@ -10,7 +10,7 @@ document.addEventListener("click", event => {
             scrollTop: 0,
             easing: "easeOutExpo",
             duration: 300
-        })
+        });
     }
 });
 

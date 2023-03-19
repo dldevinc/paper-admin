@@ -8,8 +8,5 @@
             }
         ]
     ],
-    "plugins": [
-        "lodash",
-        "@babel/plugin-syntax-dynamic-import"
-    ]
+    "plugins": ["lodash", "@babel/plugin-syntax-dynamic-import"]
 }

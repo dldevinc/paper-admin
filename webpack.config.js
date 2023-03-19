@@ -96,7 +96,7 @@ let baseConfig = {
         new webpack.ProgressPlugin(),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
-        }),
+        })
     ],
     optimization: {
         moduleIds: "deterministic",
@@ -154,19 +154,19 @@ let baseConfig = {
         assets: false,
         chunks: true
     }
-}
+};
 
 // Конфигурация для критических ресурсов, которые будут загружены в блокирующем
 // режиме в тэге <head>.
 let criticalConfig = merge(baseConfig, {
     entry: {
-        critical: path.resolve(SOURCE_DIR, "js/critical.js"),
+        critical: path.resolve(SOURCE_DIR, "js/critical.js")
     },
     output: {
         path: path.resolve(DIST_DIR),
         publicPath: "/static/paper_admin/dist/",
         filename: "[name].[contenthash].js",
-        assetModuleFilename: "assets/[name][ext][query]",
+        assetModuleFilename: "assets/[name][ext][query]"
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -178,14 +178,14 @@ let criticalConfig = merge(baseConfig, {
             inject: false,
             scriptLoading: "blocking",
             chunks: ["critical"]
-        }),
+        })
     ]
 });
 
 // Конфигурация общих ресурсов, которые будут загружены в defer-режиме.
 let commonConfig = merge(baseConfig, {
     entry: {
-        app: path.resolve(SOURCE_DIR, "js/app.js"),
+        app: path.resolve(SOURCE_DIR, "js/app.js")
     },
     output: {
         path: path.resolve(DIST_DIR),
@@ -194,7 +194,7 @@ let commonConfig = merge(baseConfig, {
         assetModuleFilename: "assets/[name][ext][query]",
         library: {
             type: "window",
-            export: "default",
+            export: "default"
         }
     },
     plugins: [
@@ -258,8 +258,8 @@ let commonConfig = merge(baseConfig, {
                     }
                 }
             }
-        },
-    },
+        }
+    }
 });
 
 module.exports = (env, argv) => {
@@ -279,7 +279,7 @@ module.exports = (env, argv) => {
             buildDependencies: {
                 config: [__filename]
             }
-        }
+        };
     }
 
     if (mode === "production") {
@@ -288,7 +288,7 @@ module.exports = (env, argv) => {
                 parallel: true
             }),
             new CssMinimizerPlugin({})
-        ]
+        ];
     }
 
     return [criticalConfig, commonConfig];

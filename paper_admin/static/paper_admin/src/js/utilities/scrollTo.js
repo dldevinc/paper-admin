@@ -12,12 +12,17 @@ export function scrollTo(element, viewportPosition = 0.3, options = {}) {
     const offset = viewportPosition * document.documentElement.clientHeight;
     const isVisible = elementTop > offset && elementTop < document.documentElement.clientHeight - offset;
     if (!isVisible) {
-        anime(Object.assign({
-            targets: document.documentElement,
-            scrollTop: Math.max(0, elementTop - offset),
-            easing: "easeOutExpo",
-            delay: 50,
-            duration: 500
-        }, options))
+        anime(
+            Object.assign(
+                {
+                    targets: document.documentElement,
+                    scrollTop: Math.max(0, elementTop - offset),
+                    easing: "easeOutExpo",
+                    delay: 50,
+                    duration: 500
+                },
+                options
+            )
+        );
     }
 }
