@@ -2,7 +2,7 @@
  * Добавление CSS-класса на элемент <html> при перемещении файла в окно браузера.
  */
 
-import dragUtils from "../utilities/drag_utils.js";
+import dragUtils from "js/utilities/drag_utils.js";
 
 const CSS_CLASS = "on-drag-file";
 let drag_event_counter = 0;

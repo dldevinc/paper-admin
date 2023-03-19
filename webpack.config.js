@@ -170,10 +170,8 @@ let criticalConfig = merge(baseConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => (
-                `${htmlWebpackPlugin.tags.headTags.join("\n")}` +
-                `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`
-            ),
+            templateContent: ({ htmlWebpackPlugin }) =>
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}` + `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
             filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.critical.html"),
             inject: false,
             scriptLoading: "blocking",
@@ -199,19 +197,12 @@ let commonConfig = merge(baseConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.headTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.styles.html"),
+            templateContent: ({ htmlWebpackPlugin }) =>
+                `${htmlWebpackPlugin.tags.headTags.join("\n")}\n` + `${htmlWebpackPlugin.tags.bodyTags.join("\n")}\n`,
+            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
             inject: false,
-            scriptLoading: "blocking",
             chunks: ["app"]
-        }),
-        new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
-            filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.scripts.html"),
-            inject: false,
-            scriptLoading: "blocking",
-            chunks: ["app"]
-        }),
+        })
     ],
     optimization: {
         runtimeChunk: "single",
@@ -234,24 +225,14 @@ let commonConfig = merge(baseConfig, {
                         }
                     }
                 },
-                innerVendors: {
-                    priority: 10,
-                    test: /[\\/]css[\\/]vendors[\\/].*\.s?css$/,
-                    name: function (module) {
-                        let modulePath = module.nameForCondition();
-                        let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
-                        if (verdorMatch) {
-                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
-                        }
-                    }
-                },
                 styles: {
                     test: /\.s?css$/,
                     name: function (module) {
                         let modulePath = module.nameForCondition();
                         let verdorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
                         if (verdorMatch) {
-                            return `vendors.${path.basename(verdorMatch[1], ".scss")}`;
+                            const filename = path.basename(verdorMatch[1], path.extname(verdorMatch[1]));
+                            return `vendors.${filename}`;
                         } else {
                             return "vendors.app";
                         }

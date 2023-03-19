@@ -1,6 +1,10 @@
 /* global gettext */
 import formUtils from "js/utilities/form_utils.js";
 import { InlineFormset } from "bem/paper-formset/paper-formset.js";
+
+// -----------------
+//  BEM
+// -----------------
 import "bem/paper-tabs/paper-tabs.js";
 import "bem/scroll-top-button/scroll-top-button.js";
 

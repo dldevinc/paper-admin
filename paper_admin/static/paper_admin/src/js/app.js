@@ -7,11 +7,9 @@ import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import popupUtils from "js/utilities/popup_utils.js";
 import Widget from "js/utilities/widget.js"; // TODO: deprecated
-import "js/components/bootstrap.js";
-import "js/components/filedrag.js";
 
 // -----------------
-//  CSS vendors
+//  Common Styles
 // -----------------
 import "css/vendors/bootstrap.scss";
 import "css/vendors/font-awesome.scss";
@@ -21,6 +19,8 @@ import "css/common.scss";
 //  JS Components
 // -----------------
 import "components/back-button";
+import "components/bootstrap";
+import "components/filedrag";
 import "components/flatpickr";
 import "components/prepopulate";
 import "components/related-object-lookups";
@@ -73,7 +73,7 @@ import "bem/paper-toolbar/paper-toolbar.js";
 import "bem/paper-widget/paper-widget.js";
 
 // -----------------
-//  CSS for pages
+//  Page Styles
 // -----------------
 import "css/login.scss";
 
@@ -81,10 +81,6 @@ import "css/login.scss";
 //  Images
 // -----------------
 import "img/default_favicon.png";
-
-// -----------------
-//  Import & Export
-// -----------------
 
 // changelist page
 if (document.body.classList.contains("change-list")) {

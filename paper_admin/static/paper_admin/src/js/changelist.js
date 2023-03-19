@@ -1,19 +1,23 @@
 import XClass from "data-xclass";
 import SortableTable from "js/components/sortable_table/SortableTable.js";
 import { Select2Component } from "components/select2";
+
+// -----------------
+//  JS Components
+// -----------------
+import "components/date-range-filter";
+import "components/select2-filter";
+
+// -----------------
+//  BEM
+// -----------------
 import "bem/paper-actions/paper-actions.js";
 import "bem/paper-filter/paper-filter.js";
 import "bem/paper-pagination/paper-pagination.js";
 import "bem/paper-search-form/paper-search-form.js";
 
 // -----------------
-//  Filters
-// -----------------
-import "components/date-range-filter";
-import "components/select2-filter";
-
-// -----------------
-//  CSS
+//  Styles
 // -----------------
 import "css/changelist.scss";
 
