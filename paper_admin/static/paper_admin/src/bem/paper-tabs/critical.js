@@ -1,6 +1,7 @@
 window._paperTabs = {
     getTabFromHash: function () {
-        return document.getElementById(window.location.hash.substring(1));
+        const tabName = window.location.hash.substring(1);
+        return document.getElementById(`${tabName}-tab`);
     },
     getPanelFor: function (tab) {
         return document.getElementById(tab.hash.substring(1));

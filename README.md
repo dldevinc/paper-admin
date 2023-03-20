@@ -323,56 +323,62 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 
-class TablularInlines(admin.TabularInline):
-    # имя вкладки, на которой должен быть отображен формсет
-    tab = 'inlines-tab'
+class TablularInline(admin.TabularInline):
+    tab = 'inlines'
 
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('First Section'), {
-            'tab': 'common-tab',
+        (None, {
+            'tab': 'related-fields',
             'fields': (
                 # ...
             ),
         }),
-        (_('Second Section'), {
-            'tab': 'common-tab',
+        (None, {
+            'tab': 'standard-fields',
             'fields': (
                 # ...
             )
         }),
-        (_('Links'), {
-            'tab': 'links-tab',
+        (None, {
+            'tab': 'file-fields',
             'fields': (
                 # ...
             )
         }),
     )
     tabs = [
-        ('common-tab', _('General')),
-        ('links-tab', _('Links')),
-        ('inlines-tab', _('Inlines')),
+        ('related-fields', _('Related fields')),
+        ('standard-fields', _('Standard Fields')),
+        ('file-fields', _('File Fields')),
+        ('inlines', _('Inlines')),
     ]
-    inlines = (TablularInlines, )
+    inlines = (TablularInline, )
 ```
 
 Результат:
 
-https://user-images.githubusercontent.com/6928240/125336032-4e003700-e35e-11eb-8399-9cff90ea7aca.mp4
+https://user-images.githubusercontent.com/6928240/226703428-c9413de1-42c1-4178-b75f-37412925f18f.mp4
 
+<br>
 Вкладки можно добавлять динамически, с помощью метода `get_tabs`:
 
 ```python
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
 from .models import Page
+
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     def get_tabs(self, request, obj=None):
         return [
-            # ...
+            ('general', _('General')),
+            ('content', _('Content')),
+            ('seo', _('SEO')),
         ]
 ```
 

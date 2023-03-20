@@ -24,18 +24,19 @@ function showTab(name) {
 $(document).on("shown.bs.tab", event => {
     const activeTab = event.target;
     const activeTabName = activeTab.id;
+    const pageHash = activeTabName.replace(/-tab$/, "");
 
     // перенос линии под активной вкладкой
     window._paperTabs.setUnderline(activeTab);
 
     // установка якоря в URL
-    history.replaceState(null, "", `#${activeTabName}`);
+    history.replaceState(null, "", `#${pageHash}`);
 
     // обновление URL формы
     const form = activeTab.closest(".paper-form");
     if (form) {
         const action = new URL(form.action);
-        action.hash = activeTabName;
+        action.hash = pageHash;
         form.action = action.toString();
     }
 });
