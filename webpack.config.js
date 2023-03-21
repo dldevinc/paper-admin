@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const SOURCE_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/src");
 const DIST_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/dist");
@@ -16,22 +16,26 @@ function getCommonConfig(devMode) {
     return {
         mode: devMode ? "development" : "production",
         devtool: devMode ? "eval" : "source-map",
-        cache: devMode ? {
-            type: "filesystem",
-            cacheDirectory: path.resolve(__dirname, "cache"),
-            buildDependencies: {
-                config: [__filename]
-            }
-        } : false,
+        cache: devMode
+            ? {
+                  type: "filesystem",
+                  cacheDirectory: path.resolve(__dirname, "cache"),
+                  buildDependencies: {
+                      config: [__filename]
+                  }
+              }
+            : false,
         module: {
             rules: [
                 {
                     test: /\.(js|jsx)$/,
                     exclude: /[\\/]node_modules[\\/]/,
                     loader: "babel-loader",
-                    options: devMode ? {
-                        cacheDirectory: path.resolve(__dirname, "cache")
-                    } : {}
+                    options: devMode
+                        ? {
+                              cacheDirectory: path.resolve(__dirname, "cache")
+                          }
+                        : {}
                 },
 
                 {
@@ -79,7 +83,10 @@ function getCommonConfig(devMode) {
                             loader: "sass-loader",
                             options: {
                                 sassOptions: {
-                                    includePaths: [path.resolve(SOURCE_DIR, "css"), path.resolve(__dirname, "node_modules")]
+                                    includePaths: [
+                                        path.resolve(SOURCE_DIR, "css"),
+                                        path.resolve(__dirname, "node_modules")
+                                    ]
                                 }
                             }
                         }
@@ -155,12 +162,14 @@ function getCommonConfig(devMode) {
                     }
                 })
             ].concat(
-                devMode ? [] : [
-                    new TerserPlugin({
-                        parallel: true
-                    }),
-                    new CssMinimizerPlugin({})
-                ]
+                devMode
+                    ? []
+                    : [
+                          new TerserPlugin({
+                              parallel: true
+                          }),
+                          new CssMinimizerPlugin({})
+                      ]
             )
         },
         watchOptions: {
@@ -171,7 +180,7 @@ function getCommonConfig(devMode) {
             assets: false,
             chunks: true
         }
-    }
+    };
 }
 
 // Конфигурация для критических ресурсов, которые будут загружены в блокирующем
@@ -189,7 +198,7 @@ function getCriticalConfig(devMode) {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                templateContent: ({htmlWebpackPlugin}) =>
+                templateContent: ({ htmlWebpackPlugin }) =>
                     `${htmlWebpackPlugin.tags.headTags.join("\n")}` + `${htmlWebpackPlugin.tags.bodyTags.join("\n")}`,
                 filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.critical.html"),
                 inject: false,
@@ -197,7 +206,7 @@ function getCriticalConfig(devMode) {
                 chunks: ["critical"]
             })
         ]
-    })
+    });
 }
 
 // Конфигурация общих ресурсов, которые будут загружены в defer-режиме.
@@ -218,7 +227,7 @@ function getAppConfig(devMode) {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                templateContent: ({htmlWebpackPlugin}) =>
+                templateContent: ({ htmlWebpackPlugin }) =>
                     `${htmlWebpackPlugin.tags.headTags.join("\n")}\n` +
                     `${htmlWebpackPlugin.tags.bodyTags.join("\n")}\n`,
                 filename: path.resolve(__dirname, "paper_admin/templates/paper_admin/app.head.html"),
@@ -234,7 +243,7 @@ function getAppConfig(devMode) {
                     defaultVendors: {
                         priority: 20,
                         test: /[\\/]node_modules[\\/]/,
-                        name: function(module) {
+                        name: function (module) {
                             let modulePath = module.nameForCondition();
                             let match = modulePath.match(/[\\/]node_modules[\\/](.*?)(?:[\\/]|$)/);
                             if (match) {
@@ -248,7 +257,7 @@ function getAppConfig(devMode) {
                     vendorStyles: {
                         priority: 10,
                         test: /[\\/]css[\\/]vendors[\\/].*\.s?css$/,
-                        name: function(module) {
+                        name: function (module) {
                             let modulePath = module.nameForCondition();
                             let vendorMatch = modulePath.match(/[\\/]css[\\/]vendors[\\/](.*?)(?:[\\/]|$)/);
                             if (vendorMatch) {
@@ -269,8 +278,5 @@ function getAppConfig(devMode) {
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== "production";
-    return [
-        getCriticalConfig(devMode),
-        getAppConfig(devMode)
-    ]
+    return [getCriticalConfig(devMode), getAppConfig(devMode)];
 };
