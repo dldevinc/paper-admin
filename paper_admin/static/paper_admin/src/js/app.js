@@ -1,3 +1,4 @@
+import $ from "expose-loader?exposes=$,jQuery!jquery";  // noqa: expose jQuery
 import * as bootstrap from "bootstrap";
 import anime from "animejs";
 import Sortable from "sortablejs";
@@ -18,34 +19,34 @@ import "css/common.scss";
 // -----------------
 //  JS Components
 // -----------------
-import "components/back-button";
-import "components/bootstrap";
-import "components/filedrag";
-import "components/flatpickr";
-import "components/prepopulate";
-import "components/related-object-lookups";
-import "components/select2";
+import "components/back-button/index.js";
+import "components/bootstrap/index.js";
+import "components/filedrag/index.js";
+import "components/flatpickr/index.js";
+import "components/prepopulate/index.js";
+import "components/related-object-lookups/index.js";
+import "components/select2/index.js";
 
 // -----------------
 //  Django Widgets
 // -----------------
-import "widgets/clearable-file-field";
-import "widgets/date-field";
-import "widgets/email-field";
-import "widgets/file-field";
-import "widgets/fk-raw-field";
-import "widgets/ip-field";
-import "widgets/number-field";
-import "widgets/password-field";
-import "widgets/related-widget-wrapper";
-import "widgets/select-field";
-import "widgets/select-date-field"; // must be below select-field
-import "widgets/select-multiple-field";
-import "widgets/split-datetime-field";
-import "widgets/text-field";
-import "widgets/time-field";
-import "widgets/url-field";
-import "widgets/uuid-field";
+import "widgets/clearable-file-field/index.js";
+import "widgets/date-field/index.js";
+import "widgets/email-field/index.js";
+import "widgets/file-field/index.js";
+import "widgets/fk-raw-field/index.js";
+import "widgets/ip-field/index.js";
+import "widgets/number-field/index.js";
+import "widgets/password-field/index.js";
+import "widgets/related-widget-wrapper/index.js";
+import "widgets/select-field/index.js";
+import "widgets/select-date-field/index.js"; // must be below select-field
+import "widgets/select-multiple-field/index.js";
+import "widgets/split-datetime-field/index.js";
+import "widgets/text-field/index.js";
+import "widgets/time-field/index.js";
+import "widgets/url-field/index.js";
+import "widgets/uuid-field/index.js";
 
 // -----------------
 //  BEM

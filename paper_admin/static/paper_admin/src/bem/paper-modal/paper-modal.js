@@ -1,8 +1,8 @@
 /* global gettext */
 
 import allSettled from "promise.allsettled";
-import Modal from "bootstrap/js/src/modal";
-import Util from "bootstrap/js/src/util";
+import Modal from "bootstrap/js/src/modal.js";
+import Util from "bootstrap/js/src/util.js";
 import "./paper-modal.scss";
 
 const EVENT_KEY = ".bs.modal";

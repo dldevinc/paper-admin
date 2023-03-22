@@ -1,12 +1,16 @@
-const path = require("path");
-const webpack = require("webpack");
-const merge = require("webpack-merge").default;
-const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+import path from "path";
+import webpack from "webpack";
+import { fileURLToPath } from "url";
+import { merge } from "webpack-merge";
+import TerserPlugin from "terser-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const SOURCE_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/src");
 const DIST_DIR = path.resolve(__dirname, "paper_admin/static/paper_admin/dist");
@@ -36,14 +40,6 @@ function getCommonConfig(devMode) {
                               cacheDirectory: path.resolve(__dirname, "cache")
                           }
                         : {}
-                },
-
-                {
-                    test: require.resolve("jquery"),
-                    loader: "expose-loader",
-                    options: {
-                        exposes: ["$", "jQuery"]
-                    }
                 },
 
                 {
@@ -276,7 +272,7 @@ function getAppConfig(devMode) {
     });
 }
 
-module.exports = (env, argv) => {
+export default (env, argv) => {
     const devMode = argv.mode !== "production";
     return [getCriticalConfig(devMode), getAppConfig(devMode)];
 };

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { throttle } from "lodash";
 import { scrollTo } from "js/utilities/scrollTo.js";
 import "./paper-tabs.scss";
 
@@ -44,7 +44,7 @@ $(document).on("shown.bs.tab", event => {
 // Обновление положения линии под вкладкой при ресайзе.
 window.addEventListener(
     "resize",
-    _.throttle(() => {
+    throttle(() => {
         window._paperTabs.updateUnderlines();
     }, 50)
 );

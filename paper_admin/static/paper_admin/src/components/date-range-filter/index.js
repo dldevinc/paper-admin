@@ -1,6 +1,6 @@
 /* global flatpickr */
 import XClass from "data-xclass";
-import { dateFormats, flatpickr } from "components/flatpickr";
+import { dateFormats, flatpickr } from "components/flatpickr/index.js";
 import { BaseComponent } from "js/components/baseComponent.js";
 import getPossibleLocales from "js/utilities/locale.js";
 

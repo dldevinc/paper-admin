@@ -1,4 +1,4 @@
-import popupUtils from "js/utilities/popup_utils";
+import popupUtils from "js/utilities/popup_utils.js";
 
 import "./index.scss";
 

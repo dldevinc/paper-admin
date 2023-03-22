@@ -1,6 +1,6 @@
 import XClass from "data-xclass";
 import { BaseComponent } from "js/components/baseComponent.js";
-import "clockpicker/src/clockpicker";
+import "clockpicker/src/clockpicker.js";
 
 import "clockpicker/src/clockpicker.css";
 import "./index.scss";

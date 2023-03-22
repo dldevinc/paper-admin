@@ -1,5 +1,5 @@
 import XClass from "data-xclass";
-import { Select2Component } from "components/select2";
+import { Select2Component } from "components/select2/index.js";
 
 XClass.register("paper-select2-filter", {
     init: function (element) {

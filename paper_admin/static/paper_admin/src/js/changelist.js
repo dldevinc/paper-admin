@@ -1,12 +1,12 @@
 import XClass from "data-xclass";
 import SortableTable from "js/components/sortable_table/SortableTable.js";
-import { Select2Component } from "components/select2";
+import { Select2Component } from "components/select2/index.js";
 
 // -----------------
 //  JS Components
 // -----------------
-import "components/date-range-filter";
-import "components/select2-filter";
+import "components/date-range-filter/index.js";
+import "components/select2-filter/index.js";
 
 // -----------------
 //  BEM

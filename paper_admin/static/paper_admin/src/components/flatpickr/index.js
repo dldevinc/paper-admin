@@ -1,5 +1,5 @@
 import flatpickr from "flatpickr";
-import FlatpickrLanguages from "flatpickr/dist/l10n";
+import FlatpickrLanguages from "flatpickr/dist/l10n/index.js";
 
 import "./index.scss";
 

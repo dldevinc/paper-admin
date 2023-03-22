@@ -1,12 +1,17 @@
 {
     "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "loose": true,
-                "modules": false
-            }
-        ]
+        ["@babel/preset-env", {
+            "loose": true,
+            "modules": false
+        }]
     ],
-    "plugins": ["lodash", "@babel/plugin-syntax-dynamic-import"]
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        ["transform-imports", {
+            "lodash": {
+                "transform": "lodash/${member}.js",
+                "preventFullImport": true
+            }
+        }]
+    ]
 }
