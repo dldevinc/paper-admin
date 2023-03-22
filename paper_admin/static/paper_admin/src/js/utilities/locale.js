@@ -26,7 +26,9 @@ export default function getPossibleLocales() {
     }
 
     // версия по-умолчанию
-    locales.push("en");
+    if (!locales.includes("en")) {
+        locales.push("en");
+    }
 
     return locales;
 }
