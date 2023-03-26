@@ -36,14 +36,38 @@ export class BaseComponent {
     /**
      * Добавление обработчика события на DOM-элемент.
      * Обработчики событий, добавленные с помощью этого метода,
-     * удаляются при уничтожении текущего компонента.
+     * удаляются при уничтожении экземпляра компонента.
      * @param {HTMLElement|Document} element - DOM-элемент
-     * @param {string|Symbol} event - имя события
+     * @param {string|Symbol|Array.<string|Symbol>} event - имя событий
      * @param {Function} handler - обработчик события
      * @param {Object} [options] - параметры обработчика события
      * @returns {BaseComponent}
      */
     on(element, event, handler, options) {
+        if (typeof event === "symbol") {
+            this._bindEvent(element, event, handler, options);
+            return this;
+        }
+
+        if (typeof event === "string") {
+            event = event.split(/[,\s]+/);
+        }
+
+        event.forEach(eventName => {
+            this._bindEvent(element, eventName, handler, options);
+        });
+
+        return this;
+    }
+
+    /**
+     * @param {HTMLElement|Document} element - DOM-элемент
+     * @param {string|Symbol} event - имя события
+     * @param {Function} handler - обработчик события
+     * @param {Object} [options] - параметры обработчика события
+     * @private
+     */
+    _bindEvent(element, event, handler, options) {
         const handleObj = {
             event: event,
             handler: handler,
@@ -59,8 +83,6 @@ export class BaseComponent {
             this._events.set(element, handleObjects);
         }
         handleObjects.push(handleObj);
-
-        return this;
     }
 
     /**
@@ -68,11 +90,35 @@ export class BaseComponent {
      * Обработчики с модификаторами (capture / passive / once) удаляются только
      * если передать в метод точно такие же модификаторы.
      * @param {HTMLElement|Document} element - DOM-элемент
-     * @param {string|Symbol} event - имя события
+     * @param {string|Symbol|Array.<string|Symbol>} event - имя событий
      * @param {Function} [handler] - обработчик события
      * @param {Object} [options] - параметры обработчика события
      */
     off(element, event, handler, options) {
+        if (typeof event === "symbol") {
+            this._unbindEvent(element, event, handler, options);
+            return this;
+        }
+
+        if (typeof event === "string") {
+            event = event.split(/[,\s]+/);
+        }
+
+        event.forEach(eventName => {
+            this._unbindEvent(element, eventName, handler, options);
+        });
+
+        return this;
+    }
+
+    /**
+     * @param {HTMLElement|Document} element - DOM-элемент
+     * @param {string|Symbol} event - имя события
+     * @param {Function} [handler] - обработчик события
+     * @param {Object} [options] - параметры обработчика события
+     * @private
+     */
+    _unbindEvent(element, event, handler, options) {
         const handlerObjects = this._events.get(element);
         if (!Array.isArray(handlerObjects)) {
             return;
@@ -96,7 +142,5 @@ export class BaseComponent {
                 handlerObjects.splice(index, 1);
             }
         }
-
-        return this;
     }
 }
