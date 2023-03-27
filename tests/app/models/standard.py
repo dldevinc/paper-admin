@@ -3,9 +3,6 @@ import os
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from mptt.models import MPTTModel, TreeForeignKey
-from solo.models import SingletonModel
-from tree_queries.models import TreeNode
 
 HELP_TEXT = "Lorem ipsum <b>dolor</b> sit amet, consetetur sadipscing elitr, " \
             "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna " \
@@ -192,37 +189,3 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return "/"
-
-
-class SigletonExample(SingletonModel):
-    title = models.CharField(_("title"), max_length=255)
-
-    class Meta:
-        verbose_name = _("singleton")
-        verbose_name_plural = _("singletons")
-
-    def __str__(self):
-        return self.title
-
-
-class MPTTTree(MPTTModel):
-    parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
-    name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
-
-    class Meta:
-        verbose_name = _("MPTT")
-        verbose_name_plural = _("MPTT")
-
-    def __str__(self):
-        return self.name
-
-
-class DjangoTreeQueriesNode(TreeNode):
-    name = models.CharField(_("name"), max_length=128, help_text=HELP_TEXT)
-
-    class Meta:
-        verbose_name = _("Django Tree Queries")
-        verbose_name_plural = _("Django Tree Queries")
-
-    def __str__(self):
-        return self.name

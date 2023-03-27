@@ -2,13 +2,10 @@ from dal import autocomplete
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from mptt.admin import MPTTModelAdmin
-from solo.admin import SingletonModelAdmin
 
 from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
-from paper_admin.patches.tree_queries.admin import TreeNodeModelAdmin
 
-from .models import Category, DjangoTreeQueriesNode, Item, MPTTTree, SigletonExample, Tag
+from ..models import Category, Item, Tag
 
 
 @admin.register(Tag)
@@ -225,36 +222,3 @@ class CategoryAdmin(admin.ModelAdmin):
         elif obj.status == Category.STATUS_FAILURE:
             return ["table-danger"]
         return []
-
-
-@admin.register(SigletonExample)
-class SigletonExampleAdmin(SingletonModelAdmin):
-    fieldsets = (
-        (None, {
-            "fields": (
-                "title",
-            ),
-        }),
-    )
-
-
-@admin.register(MPTTTree)
-class MPTTTreeAdmin(MPTTModelAdmin):
-    fieldsets = (
-        (None, {
-            "fields": (
-                "parent", "name",
-            ),
-        }),
-    )
-
-
-@admin.register(DjangoTreeQueriesNode)
-class DjangoTreeQueriesNodeAdmin(TreeNodeModelAdmin):
-    fieldsets = (
-        (None, {
-            "fields": (
-                "parent", "name",
-            ),
-        }),
-    )
