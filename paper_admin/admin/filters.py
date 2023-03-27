@@ -10,8 +10,8 @@ from django.utils.translation import gettext_lazy as _
 class SimpleListFilter(filters.SimpleListFilter):
     """
     Отличия от стандартного `SimpleListFilter`:
-    1) Используется `request.GET.getlist()` вместо `request.GET.get()`, что позволяет
-       указывать несколько значений.
+    1) Используется `request.GET.getlist()` вместо `request.GET.get()`,
+       что позволяет указывать несколько значений.
     2) Более универсальный формат `choice`-объекта.
     """
     def __init__(self, request, params, model, model_admin):
