@@ -88,9 +88,12 @@ class BooleanFieldListFilter(FieldListFilter):
             "value": "",
             "display": _("All")
         }
+
+        field_choices = dict(self.field.flatchoices)
         for lookup, title in (
-                ("1", _("Yes")),
-                ("0", _("No"))):
+            ("1", field_choices.get(True, _("Yes"))),
+            ("0", field_choices.get(False, _("No")))
+        ):
             yield {
                 "selected": lookup in self.value,
                 "value": lookup,
@@ -297,7 +300,10 @@ class RelatedOnlyFieldListFilter(RelatedFieldListFilter):
         )
         ordering = self.field_admin_ordering(field, request, model_admin)
         return field.get_choices(
-            include_blank=False, limit_choices_to={"pk__in": pk_qs}, ordering=ordering
+            include_blank=self.include_empty_choice,
+            blank_choice=self.blank_choice,
+            limit_choices_to={"pk__in": pk_qs},
+            ordering=ordering
         )
 
 
@@ -332,6 +338,12 @@ class EmptyFieldListFilter(FieldListFilter):
         return models.Q(*lookup_conditions, _connector=models.Q.OR)
 
     def queryset(self, request, queryset):
+        if not self.value:
+            return queryset
+
+        if self.value not in {"0", "1"}:
+            raise IncorrectLookupParameters
+
         try:
             if self.value == "1":
                 return queryset.filter(self.get_query(self.value))
