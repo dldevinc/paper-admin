@@ -169,8 +169,8 @@ PAPER_MENU = [
                     "app_label": "app"
                 })
             ),
-            "SigletonExample",
-            "Tag",
+            "Widgets",
+            "Sigleton",
             dict(
                 label=_("Category"),
                 url="admin:app_category_changelist",

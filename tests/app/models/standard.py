@@ -4,20 +4,11 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .tag import Tag
+
 HELP_TEXT = "Lorem ipsum <b>dolor</b> sit amet, consetetur sadipscing elitr, " \
             "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna " \
             "aliquyam erat, sed diam voluptua"
-
-
-class Tag(models.Model):
-    name = models.CharField(_("name"), max_length=128)
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Tag")
-
-    def __str__(self):
-        return self.name
 
 
 class Category(models.Model):
@@ -38,8 +29,7 @@ class Category(models.Model):
         Tag,
         verbose_name=_("FK"),
         related_name="+",
-        null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         help_text=HELP_TEXT
     )
     f_o2o = models.OneToOneField(
@@ -89,7 +79,7 @@ class Category(models.Model):
     f_bool2 = models.BooleanField(_("bool 2"), default=False, help_text=HELP_TEXT)
     f_small_int = models.PositiveSmallIntegerField(_("small int"), default=0, help_text=HELP_TEXT)
     f_int_choices = models.PositiveSmallIntegerField(_("int choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)
-    f_int_choices2 = models.PositiveSmallIntegerField(_("radio choices"), choices=CHOICES, default=1, help_text=HELP_TEXT)
+    f_int_choices2 = models.PositiveSmallIntegerField(_("radio choices"), null=True, blank=True, choices=CHOICES, help_text=HELP_TEXT)
     f_int = models.IntegerField(_("int"), default=0, help_text=HELP_TEXT)
     f_bigint = models.BigIntegerField(_("bigint"), default=0, help_text=HELP_TEXT)
     f_float = models.FloatField(_("float"), default=0, help_text=HELP_TEXT)

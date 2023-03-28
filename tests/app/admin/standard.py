@@ -3,21 +3,13 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from paper_admin.admin.filters import (
+    EmptyFieldListFilter,
+    RelatedOnlyFieldListFilter, ChoicesFieldListFilter,
+)
 from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
 
-from ..models import Category, Item, Tag
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (None, {
-            "fields": (
-                "name",
-            ),
-        }),
-    )
-    search_fields = ["name"]
+from ..models import Category, Item
 
 
 class ItemForm(forms.ModelForm):
@@ -133,6 +125,10 @@ set_bool_action.short_description = _("Set bool for selected %(verbose_name_plur
 unset_bool_action.short_description = _("Unset bool for selected %(verbose_name_plural)s")
 
 
+class SelectFilter(ChoicesFieldListFilter):
+    template = "paper_admin/filters/select.html"
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -197,7 +193,11 @@ class CategoryAdmin(admin.ModelAdmin):
     autocomplete_fields = ["f_fk1", "f_tags5"]
     list_display = ["f_char", "f_fk", "f_int", "status", "f_date", "f_bool"]
     list_editable = ["f_int", "f_bool"]
-    list_filter = ["status", "f_bool", "f_int_choices2", "f_date", "f_fk", "f_tags"]
+    list_filter = [
+        ("status", SelectFilter), "f_bool", "f_int_choices2", "f_date", "f_fk", "f_tags",
+        ("f_fk1", RelatedOnlyFieldListFilter),
+        ("f_o2o", EmptyFieldListFilter)
+    ]
     list_select_related = ["f_fk"]
     date_hierarchy = "f_date"
     search_fields = ["f_char"]

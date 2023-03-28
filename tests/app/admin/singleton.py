@@ -1,11 +1,11 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
 
-from ..models import SigletonExample
+from ..models import Sigleton
 
 
-@admin.register(SigletonExample)
-class SigletonExampleAdmin(SingletonModelAdmin):
+@admin.register(Sigleton)
+class SigletonAdmin(SingletonModelAdmin):
     fieldsets = (
         (None, {
             "fields": (
