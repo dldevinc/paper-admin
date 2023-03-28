@@ -538,6 +538,10 @@ Default: `_("General")`
 для `JavaScriptCatalog` интерфейса администратора.<br>
 Default: `["paper_admin", "django.contrib.admin"]`
 
+`PAPER_NONE_PLACEHOLDER`<br>
+Значение, представляющее `None` в фильтрах интерфейса администратора.<br>
+Default: `␀`
+
 ## Additional References
 
 -   [Modals](docs/modals.md)

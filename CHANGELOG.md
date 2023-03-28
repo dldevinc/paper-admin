@@ -8,6 +8,7 @@
 
 ### Features
 
+-   Added `PAPER_NONE_PLACEHOLDER` constant for representing `None` value in admin filters.
 -   Improved form tab user experience in admin interface.
 -   Animations has been migrated to AnimeJS from GSAP.
 -   Added `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.

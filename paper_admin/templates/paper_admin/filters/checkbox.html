@@ -6,12 +6,12 @@
       <li>
         <div class="custom-control custom-checkbox user-select-none">
           <input type="checkbox"
-                 id="id_{{ spec.parameter_name }}-{{ choice.value }}"
-                 value="{{ choice.value }}"
+                 id="id_{{ spec.parameter_name }}-{{ forloop.counter }}"
+                 value="{{ choice.value|default_if_none:NONE_PLACEHOLDER }}"
                  name="{{ spec.parameter_name }}"
                  class="custom-control-input"
                  {{ choice.selected|yesno:"checked," }}>
-          <label class="custom-control-label" for="id_{{ spec.parameter_name }}-{{ choice.value }}">
+          <label class="custom-control-label" for="id_{{ spec.parameter_name }}-{{ forloop.counter }}">
             {{ choice.display }}
           </label>
         </div>

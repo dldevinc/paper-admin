@@ -2,6 +2,8 @@ from django.contrib.admin.views.main import ALL_VAR, ORDER_VAR, SEARCH_VAR
 from django.template import Library
 from django.template.loader import get_template
 
+from paper_admin.conf import NONE_PLACEHOLDER
+
 FILTER_KEEP_PARAMS = {ALL_VAR, ORDER_VAR, SEARCH_VAR}
 register = Library()
 
@@ -13,6 +15,7 @@ def paper_list_filter(cl, spec):
         "title": spec.title,
         "choices": list(spec.choices(cl)),
         "spec": spec,
+        "NONE_PLACEHOLDER": NONE_PLACEHOLDER
     })
 
 

@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.dateparse import parse_date
 from django.utils.translation import gettext_lazy as _
 
+from paper_admin.conf import NONE_PLACEHOLDER
+
 
 class SimpleListFilter(filters.SimpleListFilter):
     """
@@ -14,6 +16,7 @@ class SimpleListFilter(filters.SimpleListFilter):
        что позволяет указывать несколько значений.
     2) Более универсальный формат `choice`-объекта.
     """
+
     def __init__(self, request, params, model, model_admin):
         has_value = self.parameter_name in params
         if has_value:
@@ -47,7 +50,8 @@ class FieldListFilter(filters.FieldListFilter):
         super().__init__(field, request, params, model, model_admin, field_path)
         # Use `self.value` instead of `self.used_parameters` to support "%s__in" search.
         self.value = [
-            v for v in request.GET.getlist(self.parameter_name)
+            v if v != NONE_PLACEHOLDER else None
+            for v in request.GET.getlist(self.parameter_name)
             if v != ""
         ]
 
@@ -92,6 +96,12 @@ class BooleanFieldListFilter(FieldListFilter):
                 "value": lookup,
                 "display": title,
             }
+        if self.field.null:
+            yield {
+                "selected": None in self.value,
+                "value": None,
+                "display": field_choices.get(None, _("Unknown")),
+            }
 
 
 class ChoicesFieldListFilter(FieldListFilter):
@@ -106,9 +116,9 @@ class ChoicesFieldListFilter(FieldListFilter):
             }
         if self.field.null:
             yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
+                "selected": None in self.value,
+                "value": NONE_PLACEHOLDER,
+                "display": _("Unknown"),
             }
 
 
@@ -155,8 +165,8 @@ class DateFieldListFilter(FieldListFilter):
 
 
 class RelatedFieldListFilter(FieldListFilter):
-    include_blank = False
-    blank_choice = [("None", "---------")]
+    include_blank = True
+    blank_choice = [(NONE_PLACEHOLDER, _("Unknown"))]
     template = "paper_admin/filters/select.html"
 
     def __init__(self, field, request, params, model, model_admin, field_path):
@@ -207,10 +217,11 @@ class RelatedFieldListFilter(FieldListFilter):
             "value": "",
             "display": _("All")
         }
-        for pk, title in self.lookup_choices:
+        for lookup, title in self.lookup_choices:
+            lookup = str(lookup) if lookup != NONE_PLACEHOLDER else None
             yield {
-                "selected": str(pk) in self.value,
-                "value": str(pk),
+                "selected": lookup in self.value,
+                "value": lookup,
                 "display": title,
             }
 
@@ -218,9 +229,11 @@ class RelatedFieldListFilter(FieldListFilter):
         if not value:
             return models.Q()
 
-        blank_choices = set(choice[0] for choice in self.blank_choice)
-        selected_blank_choices = bool(blank_choices.intersection(self.value))
-        selected_choices = set(self.value).difference(blank_choices)
+        blank_choice_lookups = set(
+            lookup if lookup != NONE_PLACEHOLDER else None
+            for lookup, title in self.blank_choice
+        )
+        selected_choices = set(self.value).difference(blank_choice_lookups)
 
         lookup_choice = self.field_path
         lookup_choices = "%s__in" % self.field_path
@@ -229,9 +242,9 @@ class RelatedFieldListFilter(FieldListFilter):
         lookup_conditions = []
         if len(selected_choices) == 1:
             lookup_conditions.append((lookup_choice, selected_choices.pop()))
-        else:
+        elif selected_choices:
             lookup_conditions.append((lookup_choices, selected_choices))
-        if selected_blank_choices:
+        else:
             lookup_conditions.append((lookup_blank, True))
         return models.Q(*lookup_conditions, _connector=models.Q.OR)
 
@@ -269,9 +282,9 @@ class AllValuesFieldListFilter(FieldListFilter):
             }
         if include_none:
             yield {
-                "selected": "None" in self.value,
-                "value": "None",
-                "display": _("None"),
+                "selected": None in self.value,
+                "value": NONE_PLACEHOLDER,
+                "display": _("Unknown"),
             }
 
 

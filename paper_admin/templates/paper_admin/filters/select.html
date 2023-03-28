@@ -3,7 +3,7 @@
 
   <select name="{{ spec.parameter_name }}" id="filter-{{ spec.parameter_name }}" class="custom-select">
     {% for choice in choices %}
-      <option value="{{ choice.value }}" {{ choice.selected|yesno:' selected="selected",' }}>{{ choice.display }}</option>
+      <option value="{{ choice.value|default_if_none:NONE_PLACEHOLDER }}" {{ choice.selected|yesno:' selected="selected",' }}>{{ choice.display }}</option>
     {% endfor %}
   </select>
 </div>

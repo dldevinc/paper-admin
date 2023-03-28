@@ -19,6 +19,9 @@ elif connection.vendor == "sqlite":
 else:
     DB_VERSION = ""
 
+# Текстовое представление значения None в фильтрах.
+NONE_PLACEHOLDER = getattr(settings, "PAPER_NONE_PLACEHOLDER", "␀")
+
 FAVICON = getattr(settings, "PAPER_FAVICON", "paper_admin/dist/assets/default_favicon.png")
 
 ENVIRONMENT_NAME = getattr(settings, "PAPER_ENVIRONMENT_NAME", "")
