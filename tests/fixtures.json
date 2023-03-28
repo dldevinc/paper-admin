@@ -3,8 +3,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$260000$13FKdILRjsgoHJOYeqewXe$Zzg7yfHlBDOaJNx9hHMdK0kJlhWDs29ckiodzeR3zKI=",
-    "last_login": "2022-01-18T09:28:55.172Z",
+    "password": "pbkdf2_sha256$390000$VLp9WvVqw5fxTscEtAx6sK$qIubwbY673ysjUgVPbNfcEbY9pI+4NukBhG1aEmNmDs=",
+    "last_login": "2023-03-16T16:09:58.106Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -59,6 +59,157 @@
         "user"
       ]
     ]
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 6,
+  "fields": {
+    "parent": null,
+    "name": "Animalia",
+    "lft": 1,
+    "rght": 24,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 7,
+  "fields": {
+    "parent": 6,
+    "name": "Chordate",
+    "lft": 2,
+    "rght": 15,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 8,
+  "fields": {
+    "parent": 6,
+    "name": "Arthropoda",
+    "lft": 16,
+    "rght": 23,
+    "tree_id": 1,
+    "level": 1
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 9,
+  "fields": {
+    "parent": 7,
+    "name": "Mammal",
+    "lft": 3,
+    "rght": 14,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 10,
+  "fields": {
+    "parent": 8,
+    "name": "Insect",
+    "lft": 17,
+    "rght": 22,
+    "tree_id": 1,
+    "level": 2
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 11,
+  "fields": {
+    "parent": 9,
+    "name": "Primate",
+    "lft": 4,
+    "rght": 9,
+    "tree_id": 1,
+    "level": 3
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 12,
+  "fields": {
+    "parent": 9,
+    "name": "Carnivora",
+    "lft": 10,
+    "rght": 13,
+    "tree_id": 1,
+    "level": 3
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 13,
+  "fields": {
+    "parent": 10,
+    "name": "Diptera",
+    "lft": 18,
+    "rght": 21,
+    "tree_id": 1,
+    "level": 3
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 14,
+  "fields": {
+    "parent": 11,
+    "name": "Homonidae",
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 1,
+    "level": 4
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 15,
+  "fields": {
+    "parent": 11,
+    "name": "Pongidae",
+    "lft": 7,
+    "rght": 8,
+    "tree_id": 1,
+    "level": 4
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 16,
+  "fields": {
+    "parent": 12,
+    "name": "Felidae",
+    "lft": 11,
+    "rght": 12,
+    "tree_id": 1,
+    "level": 4
+  }
+},
+{
+  "model": "app.mptttree",
+  "pk": 17,
+  "fields": {
+    "parent": 13,
+    "name": "Muscidae",
+    "lft": 19,
+    "rght": 20,
+    "tree_id": 1,
+    "level": 4
+  }
+},
+{
+  "model": "app.sigleton",
+  "pk": 1,
+  "fields": {
+    "title": "Test"
   }
 },
 {
@@ -305,6 +456,7 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": 9,
+    "status": "",
     "f_tags": [
       3
     ],
@@ -371,6 +523,7 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
+    "status": "",
     "f_tags": [
       3
     ],
@@ -415,7 +568,7 @@
     "f_decimal": "5.50",
     "f_duration": "00:03:20",
     "f_date": "2020-09-15",
-    "f_date2": "2022-03-18",
+    "f_date2": "2023-03-18",
     "f_time": "10:10:00",
     "f_datetime": "2020-09-09T15:30:00Z",
     "f_hidden1": "",
@@ -436,6 +589,7 @@
     "f_int_ro": 0,
     "f_text_ro": "Readonly content",
     "dal_fk": 31,
+    "status": "failure",
     "f_tags": [
       8,
       1,
@@ -512,6 +666,7 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
+    "status": "",
     "f_tags": [
       1
     ],
@@ -553,7 +708,7 @@
     "f_decimal": "0.00",
     "f_duration": null,
     "f_date": "2021-07-07",
-    "f_date2": "2021-01-01",
+    "f_date2": "2023-01-01",
     "f_time": "11:53:00",
     "f_datetime": "2021-07-07T11:53:00Z",
     "f_hidden1": "",
@@ -574,6 +729,7 @@
     "f_int_ro": 0,
     "f_text_ro": "",
     "dal_fk": null,
+    "status": "success",
     "f_tags": [
       31,
       10
@@ -614,6 +770,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -630,6 +787,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -646,6 +804,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -662,6 +821,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -678,6 +838,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -694,6 +855,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -710,6 +872,7 @@
     "url": "",
     "text": "",
     "visible": true,
+    "status": "",
     "created_at": null
   }
 },
@@ -720,80 +883,31 @@
     "category": 5,
     "hidden": 1,
     "readonly": "Do not edit me",
-    "name": "Propeller",
-    "age": 18,
+    "name": "Kevin Bow",
+    "age": 25,
     "slug": "propeller-18",
     "url": "",
     "text": "",
     "visible": true,
+    "status": "success",
     "created_at": null
   }
 },
 {
-  "model": "app.sigletonexample",
-  "pk": 1,
+  "model": "app.item",
+  "pk": 12,
   "fields": {
-    "title": "Test"
-  }
-},
-{
-  "model": "app.mptttree",
-  "pk": 1,
-  "fields": {
-    "parent": null,
-    "name": "Adam",
-    "lft": 1,
-    "rght": 2,
-    "tree_id": 2,
-    "level": 0
-  }
-},
-{
-  "model": "app.mptttree",
-  "pk": 2,
-  "fields": {
-    "parent": null,
-    "name": "Eve",
-    "lft": 1,
-    "rght": 8,
-    "tree_id": 1,
-    "level": 0
-  }
-},
-{
-  "model": "app.mptttree",
-  "pk": 3,
-  "fields": {
-    "parent": 2,
-    "name": "Isaak",
-    "lft": 2,
-    "rght": 5,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "app.mptttree",
-  "pk": 4,
-  "fields": {
-    "parent": 3,
-    "name": "Yakov",
-    "lft": 3,
-    "rght": 4,
-    "tree_id": 1,
-    "level": 2
-  }
-},
-{
-  "model": "app.mptttree",
-  "pk": 5,
-  "fields": {
-    "parent": 2,
-    "name": "Ilia",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 1,
-    "level": 1
+    "category": 5,
+    "hidden": 1,
+    "readonly": "Do not edit me",
+    "name": "Sarah James",
+    "age": 22,
+    "slug": "sarah-james-22",
+    "url": "",
+    "text": "",
+    "visible": true,
+    "status": "failure",
+    "created_at": null
   }
 },
 {
@@ -834,6 +948,74 @@
   "fields": {
     "parent": null,
     "name": "Adam"
+  }
+},
+{
+  "model": "app.widgets",
+  "pk": 1,
+  "fields": {
+    "f_boolean": true,
+    "f_switch": true,
+    "f_small_int": 42,
+    "f_int": -145645,
+    "f_bigint": 1234562113153,
+    "f_float": 25.456218,
+    "f_decimal": "7.50",
+    "f_choices": 1,
+    "f_radio_choices": 2,
+    "f_date": "2023-03-28",
+    "f_select_date": "2023-06-15",
+    "f_time": "23:54:00",
+    "f_datetime": "2023-03-28T23:54:00Z",
+    "f_duration": "00:00:30",
+    "f_char": "Ant",
+    "f_slug": "ant-145645",
+    "f_email": "user@mail.com",
+    "f_password": "123456789",
+    "f_ip": "127.0.0.1",
+    "f_text": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Cras dapibus. Vivamus euismod mauris. Donec vitae sapien ut libero venenatis faucibus. Vivamus quis mi.\r\n\r\nCurabitur ullamcorper ultricies nisi. Ut a nisl id ante tempus hendrerit. Vivamus quis mi. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros.",
+    "f_url": "https://www.npmjs.com/package/uuid",
+    "f_uuid": "cca790ed-263f-497b-9cd3-6ca8271189e5",
+    "f_filepath": "/home/jon/Python/www/paper-admin/tests/app/apps.py",
+    "f_file": "widgets/big_doc.pdf",
+    "f_file_input": "widgets/doc.pdf",
+    "f_image": "widgets/Blizzard_Traces.jpg",
+    "f_char_ro": "Default value",
+    "f_int_ro": 42,
+    "f_text_ro": "In hac habitasse platea dictumst. Curabitur nisi. Phasellus accumsan cursus velit. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.",
+    "f_hidden": "",
+    "f_fk": 17,
+    "f_o2o": 19,
+    "f_radio_fk": 24,
+    "f_raw_id_fk": 23,
+    "f_ac_fk": 27,
+    "f_ac_o2o": 12,
+    "dal_fk": 21,
+    "f_m2m": [
+      8,
+      9,
+      10
+    ],
+    "f_checkbox_m2m": [
+      11,
+      14
+    ],
+    "f_radio_m2m": [
+      22
+    ],
+    "f_horizontal_m2m": [
+      28,
+      31,
+      27
+    ],
+    "f_ac_m2m": [
+      29,
+      26
+    ],
+    "dal_m2m": [
+      13,
+      30
+    ]
   }
 },
 {
