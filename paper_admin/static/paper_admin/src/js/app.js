@@ -1,4 +1,4 @@
-import $ from "expose-loader?exposes=$,jQuery!jquery";  // noqa: expose jQuery
+import $ from "expose-loader?exposes=$,jQuery!jquery"; // noqa: expose jQuery
 import * as bootstrap from "bootstrap";
 import anime from "animejs";
 import Sortable from "sortablejs";
