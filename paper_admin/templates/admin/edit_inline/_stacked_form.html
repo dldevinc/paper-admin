@@ -2,8 +2,8 @@
 
 <fieldset class="paper-formset__form paper-card card mb-3 {% paper_form_classes inline_form %}{% if inline_form.form.errors %} paper-formset__form--invalid{% endif %}{% if inline_admin_formset.sortable_allowed %} sortable-item{% endif %}{% if inline_form.original or inline_form.show_url %} has_original{% endif %}">
   <div class="card-header py-2">
-    <div class="d-flex align-items-center justify-content-between flex-wrap">
-      <h4 class="paper-formset__form-caption card-title inline-label pr-4 mb-0">
+    <div class="d-flex justify-content-between">
+      <h4 class="paper-formset__form-caption card-title inline-label align-self-center pr-4 mb-0 text-secondary">
         {% if inline_form.original %}
           {{ inline_form.original }}
         {% else %}
@@ -11,7 +11,7 @@
         {% endif %}
       </h4>
 
-      <div class="btn-square-group">
+      <div class="align-self-stretch btn-square-group btn-square-group--table-valign">
         {% if inline_form.show_url %}
           <a href="{{ inline_form.absolute_url }}"
              class="btn btn-square btn-sm btn-square--info"
