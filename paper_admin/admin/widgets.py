@@ -26,7 +26,7 @@ class AdminSwitchInput(widgets.CheckboxInput):
 class AdminTextarea(widgets.Textarea):
     def __init__(self, attrs=None):
         default_attrs = {
-            "rows": "3",
+            "rows": "2",
         }
         if attrs:
             default_attrs.update(attrs)
