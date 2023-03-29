@@ -1,3 +1,4 @@
+from .inlines import Author, Book, BookAuthor, Review
 from .mptt import MPTTTree
 from .singleton import Sigleton
 from .standard import Category, Item

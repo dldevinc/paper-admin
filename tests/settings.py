@@ -170,6 +170,10 @@ PAPER_MENU = [
                 })
             ),
             "Widgets",
+            dict(
+                label=_("Inlines"),
+                url="admin:app_book_changelist"
+            ),
             "Sigleton",
             dict(
                 label=_("Category"),

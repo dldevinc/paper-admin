@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$390000$VLp9WvVqw5fxTscEtAx6sK$qIubwbY673ysjUgVPbNfcEbY9pI+4NukBhG1aEmNmDs=",
-    "last_login": "2023-03-16T16:09:58.106Z",
+    "last_login": "2023-03-29T05:03:52.051Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -59,6 +59,267 @@
         "user"
       ]
     ]
+  }
+},
+{
+  "model": "app.author",
+  "pk": 1,
+  "fields": {
+    "name": "J.K. Rowling"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 2,
+  "fields": {
+    "name": "Stephen King"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 3,
+  "fields": {
+    "name": "Agatha Christie"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 4,
+  "fields": {
+    "name": "Leo Tolstoy"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 5,
+  "fields": {
+    "name": "Jane Austen"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 6,
+  "fields": {
+    "name": "Clayton M. Christensen"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 7,
+  "fields": {
+    "name": "Michael E. Raynor"
+  }
+},
+{
+  "model": "app.author",
+  "pk": 8,
+  "fields": {
+    "name": "Rory McDonald"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 1,
+  "fields": {
+    "title": "Harry Potter and the Philosopher's Stone"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 2,
+  "fields": {
+    "title": "The Shining"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 3,
+  "fields": {
+    "title": "Murder on the Orient Express"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 4,
+  "fields": {
+    "title": "War and Peace"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 5,
+  "fields": {
+    "title": "Pride and Prejudice"
+  }
+},
+{
+  "model": "app.book",
+  "pk": 6,
+  "fields": {
+    "title": "The Innovator's Dilemma"
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 1,
+  "fields": {
+    "book": 1,
+    "author": 1
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 2,
+  "fields": {
+    "book": 2,
+    "author": 2
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 3,
+  "fields": {
+    "book": 3,
+    "author": 3
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 4,
+  "fields": {
+    "book": 4,
+    "author": 4
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 5,
+  "fields": {
+    "book": 5,
+    "author": 5
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 6,
+  "fields": {
+    "book": 6,
+    "author": 6
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 7,
+  "fields": {
+    "book": 6,
+    "author": 7
+  }
+},
+{
+  "model": "app.bookauthor",
+  "pk": 8,
+  "fields": {
+    "book": 6,
+    "author": 8
+  }
+},
+{
+  "model": "app.review",
+  "pk": 1,
+  "fields": {
+    "rating": 5,
+    "book": 1,
+    "text": "Great book!"
+  }
+},
+{
+  "model": "app.review",
+  "pk": 2,
+  "fields": {
+    "rating": 5,
+    "book": 2,
+    "text": "Scary but amazing!"
+  }
+},
+{
+  "model": "app.review",
+  "pk": 3,
+  "fields": {
+    "rating": 5,
+    "book": 3,
+    "text": "A classic whodunit!"
+  }
+},
+{
+  "model": "app.review",
+  "pk": 4,
+  "fields": {
+    "rating": 4,
+    "book": 4,
+    "text": "Epic novel!"
+  }
+},
+{
+  "model": "app.review",
+  "pk": 5,
+  "fields": {
+    "rating": 5,
+    "book": 5,
+    "text": "A timeless love story!"
+  }
+},
+{
+  "model": "app.review",
+  "pk": 6,
+  "fields": {
+    "rating": 5,
+    "book": 6,
+    "text": "This book is a must-read for anyone interested in innovation and disruption. The authors provide a clear \r\nframework for understanding why successful companies often fail to adapt to new technologies and markets, and offer \r\npractical advice for how to avoid this fate."
+  }
+},
+{
+  "model": "app.review",
+  "pk": 7,
+  "fields": {
+    "rating": 4,
+    "book": 6,
+    "text": "While the ideas in this book are certainly thought-provoking, I found the writing style to be a bit dry and \r\nacademic. It's definitely not a page-turner, but it's worth the effort for the insights it provides."
+  }
+},
+{
+  "model": "app.review",
+  "pk": 8,
+  "fields": {
+    "rating": 2,
+    "book": 6,
+    "text": "I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \r\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \r\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \r\nlooking for practical advice on innovation and disruption."
+  }
+},
+{
+  "model": "app.review",
+  "pk": 9,
+  "fields": {
+    "rating": 2,
+    "book": 4,
+    "text": "I recently read War and Peace by Leo Tolstoy and unfortunately, I was not impressed. While the historical context and \r\ncharacters were interesting, the book was far too long and often felt tedious to read. The numerous philosophical \r\ntangents and lengthy descriptions of battle scenes made it difficult to stay engaged with the story. Additionally, the \r\ncharacters lacked depth and were often one-dimensional. Overall, I would give this book a 2 out of 5. While it may be \r\nconsidered a classic, it did not live up to my expectations and I would not recommend it to others."
+  }
+},
+{
+  "model": "app.review",
+  "pk": 10,
+  "fields": {
+    "rating": 4,
+    "book": 2,
+    "text": "I recently read The Shining by Stephen King and overall, I found it to be a thrilling and suspenseful read. The \r\ncharacters were well-developed and the setting of the isolated hotel added to the eerie atmosphere of the story. The \r\nplot was engaging and kept me on the edge of my seat, but at times it felt a bit slow and repetitive. Additionally, some\r\nof the supernatural elements felt a bit far-fetched and took away from the realism of the story. However, despite these \r\nminor flaws, I would still highly recommend The Shining to fans of horror and suspense."
+  }
+},
+{
+  "model": "app.review",
+  "pk": 11,
+  "fields": {
+    "rating": 1,
+    "book": 3,
+    "text": "I found Murder on the Orient Express to be a tedious and uninteresting read. The plot was predictable and the characters\r\nwere one-dimensional. The writing style was dry and lacked any real depth or emotion. Overall, I was extremely \r\ndisappointed with this book and would not recommend it to anyone looking for a thrilling mystery."
   }
 },
 {
@@ -1778,6 +2039,294 @@
     "parent": 11,
     "title": "T-shirts",
     "position": 11
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2023-03-29T05:04:43.906Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "widgets"
+    ],
+    "object_id": "1",
+    "object_repr": "#1",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2023-03-29T07:14:21.509Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "author"
+    ],
+    "object_id": "6",
+    "object_repr": "Clayton M. Christensen",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2023-03-29T07:14:28.023Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "author"
+    ],
+    "object_id": "7",
+    "object_repr": "Michael E. Raynor",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2023-03-29T07:14:35.473Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "author"
+    ],
+    "object_id": "8",
+    "object_repr": "Rory McDonald",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2023-03-29T07:14:45.938Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "The Innovator's Dilemma",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (6)\"}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (7)\"}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (8)\"}}, {\"added\": {\"name\": \"review\", \"object\": \"This book is a must-read for anyone interested in innovation and disruption. The authors provide a clear \\r\\nframework for understanding why successful companies often fail to adapt to new technologies and markets, and offer \\r\\npractical advice for how to avoid this fate.\"}}, {\"added\": {\"name\": \"review\", \"object\": \"While the ideas in this book are certainly thought-provoking, I found the writing style to be a bit dry and \\r\\nacademic. It's definitely not a page-turner, but it's worth the effort for the insights it provides.\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2023-03-29T08:58:02.161Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "The Innovator's Dilemma",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"This book is a must-read for anyone interested in innovation and disruption. The authors provide a clear \\r\\nframework for understanding why successful companies often fail to adapt to new technologies and markets, and offer \\r\\npractical advice for how to avoid this fate.\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2023-03-29T08:58:58.314Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "The Innovator's Dilemma",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2023-03-29T09:03:10.051Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "The Innovator's Dilemma",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2023-03-29T09:03:14.048Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "6",
+    "object_repr": "The Innovator's Dilemma",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2023-03-29T09:14:25.774Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "5",
+    "object_repr": "Pride and Prejudice",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"A timeless love story!\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2023-03-29T09:15:37.534Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "4",
+    "object_repr": "War and Peace",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I recently read War and Peace by Leo Tolstoy and unfortunately, I was not impressed. While the historical context and \\r\\ncharacters were interesting, the book was far too long and often felt tedious to read. The numerous philosophical \\r\\ntangents and lengthy descriptions of battle scenes made it difficult to stay engaged with the story. Additionally, the \\r\\ncharacters lacked depth and were often one-dimensional. Overall, I would give this book a 2 out of 5. While it may be \\r\\nconsidered a classic, it did not live up to my expectations and I would not recommend it to others.\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2023-03-29T09:16:54.679Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Murder on the Orient Express",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"A classic whodunit!\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2023-03-29T09:17:02.405Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "The Shining",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"Scary but amazing!\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2023-03-29T09:18:34.967Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "2",
+    "object_repr": "The Shining",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I recently read The Shining by Stephen King and overall, I found it to be a thrilling and suspenseful read.\\u2026\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2023-03-29T09:18:42.782Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "1",
+    "object_repr": "Harry Potter and the Philosopher's Stone",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"Great book!\", \"fields\": [\"Rating\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2023-03-29T09:30:33.772Z",
+    "user": [
+      "admin"
+    ],
+    "content_type": [
+      "app",
+      "book"
+    ],
+    "object_id": "3",
+    "object_repr": "Murder on the Orient Express",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I found Murder on the Orient Express to be a tedious and uninteresting read. The plot was predictable and the\\u2026\"}}]"
   }
 }
 ]
