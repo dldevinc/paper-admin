@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$390000$VLp9WvVqw5fxTscEtAx6sK$qIubwbY673ysjUgVPbNfcEbY9pI+4NukBhG1aEmNmDs=",
-    "last_login": "2023-03-29T05:03:52.051Z",
+    "last_login": "2023-03-29T19:02:45.788Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -59,6 +59,235 @@
         "user"
       ]
     ]
+  }
+},
+{
+  "model": "app.user",
+  "pk": 1,
+  "fields": {
+    "name": "Sam"
+  }
+},
+{
+  "model": "app.user",
+  "pk": 2,
+  "fields": {
+    "name": "John"
+  }
+},
+{
+  "model": "app.user",
+  "pk": 3,
+  "fields": {
+    "name": "Patrick"
+  }
+},
+{
+  "model": "app.user",
+  "pk": 4,
+  "fields": {
+    "name": "Kevin"
+  }
+},
+{
+  "model": "app.group",
+  "pk": 1,
+  "fields": {
+    "name": "Animals",
+    "members": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "app.group",
+  "pk": 2,
+  "fields": {
+    "name": "Music",
+    "members": [
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "app.group",
+  "pk": 3,
+  "fields": {
+    "name": "Humor",
+    "members": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "app.group",
+  "pk": 4,
+  "fields": {
+    "name": "Stamps",
+    "members": [
+      3
+    ]
+  }
+},
+{
+  "model": "app.message",
+  "pk": 1,
+  "fields": {
+    "sender": 4,
+    "group": 2,
+    "type": "text",
+    "text": "Hey guys, what do you think of this new album?",
+    "created_at": "2022-01-01T12:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 2,
+  "fields": {
+    "sender": 2,
+    "group": 2,
+    "type": "text",
+    "text": "I love this song!",
+    "created_at": "2022-01-02T13:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 3,
+  "fields": {
+    "sender": 3,
+    "group": 2,
+    "type": "text",
+    "text": "I prefer their old stuff",
+    "created_at": "2022-01-03T14:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 4,
+  "fields": {
+    "sender": 1,
+    "group": 3,
+    "type": "text",
+    "text": "This meme is hilarious",
+    "created_at": "2022-01-04T15:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 5,
+  "fields": {
+    "sender": 2,
+    "group": 3,
+    "type": "text",
+    "text": "I can't stop laughing",
+    "created_at": "2022-01-05T16:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 6,
+  "fields": {
+    "sender": 3,
+    "group": 3,
+    "type": "text",
+    "text": "This is so relatable",
+    "created_at": "2022-01-06T17:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 7,
+  "fields": {
+    "sender": 1,
+    "group": 1,
+    "type": "text",
+    "text": "Look at this cute puppy!",
+    "created_at": "2022-01-07T18:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 8,
+  "fields": {
+    "sender": 2,
+    "group": 1,
+    "type": "text",
+    "text": "I want one!",
+    "created_at": "2022-01-08T19:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 9,
+  "fields": {
+    "sender": 3,
+    "group": 1,
+    "type": "text",
+    "text": "I already have three",
+    "created_at": "2022-01-09T20:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 10,
+  "fields": {
+    "sender": 3,
+    "group": 4,
+    "type": "text",
+    "text": "Check out my new stamp collection",
+    "created_at": "2022-01-10T21:00:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 11,
+  "fields": {
+    "sender": 3,
+    "group": 4,
+    "type": "image",
+    "text": "https://cdn.aarp.net/content/dam/aarp/money/budgeting_savings/2021/06/1140-postage-stamp-hero.jpg",
+    "created_at": "2023-03-29T18:31:21.891Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 12,
+  "fields": {
+    "sender": 3,
+    "group": 4,
+    "type": "text",
+    "text": "Anyone?",
+    "created_at": "2023-03-29T18:31:38.946Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 13,
+  "fields": {
+    "sender": 1,
+    "group": 3,
+    "type": "text",
+    "text": "https://img.delicious.com.au/WqbvXLhs/del/2016/06/more-the-merrier-31380-2.jpg",
+    "created_at": "2022-01-04T15:05:00Z"
+  }
+},
+{
+  "model": "app.message",
+  "pk": 14,
+  "fields": {
+    "sender": 4,
+    "group": 2,
+    "type": "video",
+    "text": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ&ab_channel=QueenOfficial",
+    "created_at": "2022-01-01T12:05:00Z"
   }
 },
 {
@@ -674,501 +903,6 @@
   "pk": 32,
   "fields": {
     "name": "Velvet"
-  }
-},
-{
-  "model": "app.category",
-  "pk": 1,
-  "fields": {
-    "f_fk": 5,
-    "f_o2o": null,
-    "f_fk1": 4,
-    "f_fk2": 1,
-    "f_fk3": 4,
-    "f_bool": true,
-    "f_bool2": true,
-    "f_small_int": 9,
-    "f_int_choices": 1,
-    "f_int_choices2": 1,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": "2021-04-21",
-    "f_date2": "2021-01-01",
-    "f_time": "11:50:00",
-    "f_datetime": "2021-05-21T11:50:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "MongoDB",
-    "f_slug": "mongodb-0",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "dal_fk": 9,
-    "status": "",
-    "f_tags": [
-      3
-    ],
-    "f_tags1": [],
-    "f_tags2": [
-      1,
-      3
-    ],
-    "f_tags3": [
-      3,
-      4
-    ],
-    "f_tags4": [
-      5,
-      3
-    ],
-    "f_tags5": [
-      3
-    ],
-    "dal_m2m": [
-      3,
-      9
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 2,
-  "fields": {
-    "f_fk": 1,
-    "f_o2o": null,
-    "f_fk1": null,
-    "f_fk2": null,
-    "f_fk3": null,
-    "f_bool": false,
-    "f_bool2": true,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 4,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": "2021-05-21",
-    "f_date2": "2021-01-01",
-    "f_time": "11:51:00",
-    "f_datetime": "2021-05-21T11:51:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "Excel",
-    "f_slug": "excel-0",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "dal_fk": null,
-    "status": "",
-    "f_tags": [
-      3
-    ],
-    "f_tags1": [],
-    "f_tags2": [
-      4
-    ],
-    "f_tags3": [
-      3,
-      4
-    ],
-    "f_tags4": [
-      3
-    ],
-    "f_tags5": [
-      5,
-      4
-    ],
-    "dal_m2m": [
-      29,
-      25
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 3,
-  "fields": {
-    "f_fk": 12,
-    "f_o2o": 1,
-    "f_fk1": 9,
-    "f_fk2": 5,
-    "f_fk3": 3,
-    "f_bool": false,
-    "f_bool2": true,
-    "f_small_int": 1237,
-    "f_int_choices": 3,
-    "f_int_choices2": 4,
-    "f_int": 3897,
-    "f_bigint": 124564564,
-    "f_float": 14.5,
-    "f_decimal": "5.50",
-    "f_duration": "00:03:20",
-    "f_date": "2020-09-15",
-    "f_date2": "2023-03-18",
-    "f_time": "10:10:00",
-    "f_datetime": "2020-09-09T15:30:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "Redis",
-    "f_slug": "redis-0",
-    "f_email": "mail@box.com",
-    "f_pass": "",
-    "f_ip": "127.0.0.1",
-    "f_text": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr",
-    "f_url": "https://www.uuidgenerator.net/",
-    "f_uuid": "bbe94b62-9e84-4667-829c-80d5cc6fcfba",
-    "f_filepath": "/home/jon/Python/www/paper-admin/tests/app/admin.py",
-    "f_file": "category/submit_VTI1oAi.py",
-    "f_image": "category/700x487.jpg",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "Readonly content",
-    "dal_fk": 31,
-    "status": "failure",
-    "f_tags": [
-      8,
-      1,
-      7
-    ],
-    "f_tags1": [
-      8,
-      5,
-      9,
-      7
-    ],
-    "f_tags2": [
-      8,
-      5,
-      24
-    ],
-    "f_tags3": [
-      1,
-      3
-    ],
-    "f_tags4": [
-      1,
-      4,
-      7
-    ],
-    "f_tags5": [
-      5,
-      4
-    ],
-    "dal_m2m": [
-      5,
-      4
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 4,
-  "fields": {
-    "f_fk": 5,
-    "f_o2o": null,
-    "f_fk1": null,
-    "f_fk2": null,
-    "f_fk3": null,
-    "f_bool": true,
-    "f_bool2": true,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 2,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": "2021-05-22",
-    "f_date2": "2021-01-01",
-    "f_time": "11:49:00",
-    "f_datetime": "2021-05-21T11:49:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "PostgreSQL",
-    "f_slug": "valve-0",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "dal_fk": null,
-    "status": "",
-    "f_tags": [
-      1
-    ],
-    "f_tags1": [],
-    "f_tags2": [
-      9
-    ],
-    "f_tags3": [
-      1
-    ],
-    "f_tags4": [
-      7
-    ],
-    "f_tags5": [
-      4
-    ],
-    "dal_m2m": [
-      20
-    ]
-  }
-},
-{
-  "model": "app.category",
-  "pk": 5,
-  "fields": {
-    "f_fk": 32,
-    "f_o2o": 12,
-    "f_fk1": 20,
-    "f_fk2": null,
-    "f_fk3": 29,
-    "f_bool": false,
-    "f_bool2": true,
-    "f_small_int": 0,
-    "f_int_choices": 1,
-    "f_int_choices2": 3,
-    "f_int": 0,
-    "f_bigint": 0,
-    "f_float": 0.0,
-    "f_decimal": "0.00",
-    "f_duration": null,
-    "f_date": "2021-07-07",
-    "f_date2": "2023-01-01",
-    "f_time": "11:53:00",
-    "f_datetime": "2021-07-07T11:53:00Z",
-    "f_hidden1": "",
-    "f_hidden2": "",
-    "f_hidden3": "",
-    "f_char": "MySQL",
-    "f_slug": "mysql-0",
-    "f_email": "",
-    "f_pass": "",
-    "f_ip": null,
-    "f_text": "",
-    "f_url": "",
-    "f_uuid": null,
-    "f_filepath": "",
-    "f_file": "",
-    "f_image": "",
-    "f_char_ro": "",
-    "f_int_ro": 0,
-    "f_text_ro": "",
-    "dal_fk": null,
-    "status": "success",
-    "f_tags": [
-      31,
-      10
-    ],
-    "f_tags1": [
-      5,
-      9
-    ],
-    "f_tags2": [
-      26
-    ],
-    "f_tags3": [
-      29,
-      9
-    ],
-    "f_tags4": [
-      12,
-      23
-    ],
-    "f_tags5": [
-      21
-    ],
-    "dal_m2m": [
-      8
-    ]
-  }
-},
-{
-  "model": "app.item",
-  "pk": 1,
-  "fields": {
-    "category": 1,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Billy",
-    "age": 18,
-    "slug": "billy",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 2,
-  "fields": {
-    "category": 1,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Jonny",
-    "age": 18,
-    "slug": "jonny",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 3,
-  "fields": {
-    "category": 2,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "one",
-    "age": 18,
-    "slug": "one",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 4,
-  "fields": {
-    "category": 3,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Sunny",
-    "age": 18,
-    "slug": "sunny",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 5,
-  "fields": {
-    "category": 4,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "One",
-    "age": 18,
-    "slug": "one",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 9,
-  "fields": {
-    "category": 3,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Funny",
-    "age": 18,
-    "slug": "error",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 10,
-  "fields": {
-    "category": 3,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Banny",
-    "age": 18,
-    "slug": "banny",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 11,
-  "fields": {
-    "category": 5,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Kevin Bow",
-    "age": 25,
-    "slug": "propeller-18",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "success",
-    "created_at": null
-  }
-},
-{
-  "model": "app.item",
-  "pk": 12,
-  "fields": {
-    "category": 5,
-    "hidden": 1,
-    "readonly": "Do not edit me",
-    "name": "Sarah James",
-    "age": 22,
-    "slug": "sarah-james-22",
-    "url": "",
-    "text": "",
-    "visible": true,
-    "status": "failure",
-    "created_at": null
   }
 },
 {
@@ -2039,294 +1773,6 @@
     "parent": 11,
     "title": "T-shirts",
     "position": 11
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 1,
-  "fields": {
-    "action_time": "2023-03-29T05:04:43.906Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "widgets"
-    ],
-    "object_id": "1",
-    "object_repr": "#1",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2023-03-29T07:14:21.509Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "author"
-    ],
-    "object_id": "6",
-    "object_repr": "Clayton M. Christensen",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2023-03-29T07:14:28.023Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "author"
-    ],
-    "object_id": "7",
-    "object_repr": "Michael E. Raynor",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 4,
-  "fields": {
-    "action_time": "2023-03-29T07:14:35.473Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "author"
-    ],
-    "object_id": "8",
-    "object_repr": "Rory McDonald",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 5,
-  "fields": {
-    "action_time": "2023-03-29T07:14:45.938Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "6",
-    "object_repr": "The Innovator's Dilemma",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (6)\"}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (7)\"}}, {\"added\": {\"name\": \"Author\", \"object\": \"BookAuthor object (8)\"}}, {\"added\": {\"name\": \"review\", \"object\": \"This book is a must-read for anyone interested in innovation and disruption. The authors provide a clear \\r\\nframework for understanding why successful companies often fail to adapt to new technologies and markets, and offer \\r\\npractical advice for how to avoid this fate.\"}}, {\"added\": {\"name\": \"review\", \"object\": \"While the ideas in this book are certainly thought-provoking, I found the writing style to be a bit dry and \\r\\nacademic. It's definitely not a page-turner, but it's worth the effort for the insights it provides.\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 6,
-  "fields": {
-    "action_time": "2023-03-29T08:58:02.161Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "6",
-    "object_repr": "The Innovator's Dilemma",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"This book is a must-read for anyone interested in innovation and disruption. The authors provide a clear \\r\\nframework for understanding why successful companies often fail to adapt to new technologies and markets, and offer \\r\\npractical advice for how to avoid this fate.\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 7,
-  "fields": {
-    "action_time": "2023-03-29T08:58:58.314Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "6",
-    "object_repr": "The Innovator's Dilemma",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 8,
-  "fields": {
-    "action_time": "2023-03-29T09:03:10.051Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "6",
-    "object_repr": "The Innovator's Dilemma",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 9,
-  "fields": {
-    "action_time": "2023-03-29T09:03:14.048Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "6",
-    "object_repr": "The Innovator's Dilemma",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"I found The Innovator's Dilemma to be a tedious and unenlightening read. The author's arguments were convoluted and \\r\\nlacked any real substance. The case studies presented were outdated and failed to provide any relevant insights into \\r\\nmodern business practices. Overall, I was thoroughly disappointed with this book and would not recommend it to anyone \\r\\nlooking for practical advice on innovation and disruption.\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 10,
-  "fields": {
-    "action_time": "2023-03-29T09:14:25.774Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "5",
-    "object_repr": "Pride and Prejudice",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"A timeless love story!\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 11,
-  "fields": {
-    "action_time": "2023-03-29T09:15:37.534Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "4",
-    "object_repr": "War and Peace",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I recently read War and Peace by Leo Tolstoy and unfortunately, I was not impressed. While the historical context and \\r\\ncharacters were interesting, the book was far too long and often felt tedious to read. The numerous philosophical \\r\\ntangents and lengthy descriptions of battle scenes made it difficult to stay engaged with the story. Additionally, the \\r\\ncharacters lacked depth and were often one-dimensional. Overall, I would give this book a 2 out of 5. While it may be \\r\\nconsidered a classic, it did not live up to my expectations and I would not recommend it to others.\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 12,
-  "fields": {
-    "action_time": "2023-03-29T09:16:54.679Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "3",
-    "object_repr": "Murder on the Orient Express",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"A classic whodunit!\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 13,
-  "fields": {
-    "action_time": "2023-03-29T09:17:02.405Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "2",
-    "object_repr": "The Shining",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"Scary but amazing!\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 14,
-  "fields": {
-    "action_time": "2023-03-29T09:18:34.967Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "2",
-    "object_repr": "The Shining",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I recently read The Shining by Stephen King and overall, I found it to be a thrilling and suspenseful read.\\u2026\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 15,
-  "fields": {
-    "action_time": "2023-03-29T09:18:42.782Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "1",
-    "object_repr": "Harry Potter and the Philosopher's Stone",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"name\": \"review\", \"object\": \"Great book!\", \"fields\": [\"Rating\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 16,
-  "fields": {
-    "action_time": "2023-03-29T09:30:33.772Z",
-    "user": [
-      "admin"
-    ],
-    "content_type": [
-      "app",
-      "book"
-    ],
-    "object_id": "3",
-    "object_repr": "Murder on the Orient Express",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"review\", \"object\": \"I found Murder on the Orient Express to be a tedious and uninteresting read. The plot was predictable and the\\u2026\"}}]"
   }
 }
 ]
