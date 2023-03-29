@@ -103,7 +103,8 @@ class WidgetsAdmin(admin.ModelAdmin):
         ("standard-fields", _("Standard Fields")),
         ("related-fields", _("Related Fields")),
     ]
-    list_display = ["__str__"]
+    list_display = ["__str__", "f_int", "f_boolean", "f_choices"]
+    list_editable = ["f_int", "f_boolean", "f_choices"]
     readonly_fields = ["f_char_ro", "f_int_ro", "f_text_ro"]
     autocomplete_fields = ["f_ac_fk", "f_ac_o2o", "f_ac_m2m"]
     raw_id_fields = ["f_raw_id_fk", "f_radio_m2m"]
