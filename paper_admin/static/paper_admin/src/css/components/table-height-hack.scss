@@ -1,0 +1,8 @@
+// https://stackoverflow.com/questions/3215553/make-a-div-fill-an-entire-table-cell
+.table-height-hack {
+  height: 1px;
+
+  &__cell {
+    height: inherit;
+  }
+}
