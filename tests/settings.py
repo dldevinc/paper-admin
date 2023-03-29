@@ -171,6 +171,10 @@ PAPER_MENU = [
             ),
             "Widgets",
             dict(
+                label=_("Filters"),
+                url="admin:app_message_changelist"
+            ),
+            dict(
                 label=_("Inlines"),
                 url="admin:app_book_changelist"
             ),
