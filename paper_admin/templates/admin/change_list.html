@@ -79,7 +79,9 @@
         {% block filters %}
           <form action="" method="get">
             {% for spec in cl.filter_specs %}
-              {% paper_list_filter cl spec %}
+              {% if spec.placement != "top" %}
+                {% paper_list_filter cl spec %}
+              {% endif %}
             {% endfor %}
 
             {% get_filter_keep_params as filter_keep_params %}
@@ -119,6 +121,12 @@
         </div>
       </div>
     {% endif %}
+
+    {% for spec in cl.filter_specs %}
+      {% if spec.placement == "top" %}
+        {% paper_list_filter cl spec %}
+      {% endif %}
+    {% endfor %}
 
     {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
       <div class="row">

@@ -1,7 +1,7 @@
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.db import models
 from django.utils.dateparse import parse_date
 from django.utils.translation import gettext_lazy as _
@@ -34,12 +34,16 @@ class SimpleListFilter(filters.SimpleListFilter):
     def choices(self, changelist):
         yield {
             "selected": not self.value(),
+            "query_string": changelist.get_query_string(remove=[self.parameter_name]),
             "value": "",
             "display": _("All"),
         }
         for lookup, title in self.lookup_choices:
             yield {
                 "selected": str(lookup) in self.value(),
+                "query_string": changelist.get_query_string(
+                    {self.parameter_name: lookup}
+                ),
                 "value": lookup,
                 "display": title,
             }
@@ -353,3 +357,56 @@ class EmptyFieldListFilter(FieldListFilter):
             # Fields may raise a ValueError or ValidationError when converting
             # the parameters to the correct type.
             raise IncorrectLookupParameters(e)
+
+
+class HierarchyFilter(filters.ListFilter):
+    placement = "top"
+    parameter_name = None
+    template = "paper_admin/filters/hierarchy.html"
+
+    def __init__(self, request, params, model, model_admin):
+        has_value = self.parameter_name in params
+        if has_value:
+            params.pop(self.parameter_name, None)
+
+        super().__init__(request, params, model, model_admin)
+        if self.parameter_name is None:
+            raise ImproperlyConfigured(
+                "The list filter '%s' does not specify a 'parameter_name'."
+                % self.__class__.__name__
+            )
+
+        if has_value:
+            values_list = request.GET.getlist(self.parameter_name)
+            self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
+
+    def has_output(self):
+        return True
+
+    def value(self):
+        return self.used_parameters.get(self.parameter_name, [])
+
+    def lookups(self, changelist):
+        raise NotImplementedError(
+            "The HierarchyFilter.lookups() method must be overridden to "
+            "return a list of tuples (value, verbose value)."
+        )
+
+    def expected_parameters(self):
+        return [self.parameter_name]
+
+    def choices(self, changelist):
+        yield {
+            "selected": not self.value(),
+            "query_string": changelist.get_query_string(remove=[self.parameter_name]),
+            "display": _("All"),
+        }
+
+        for lookup, title in self.lookups(changelist):
+            yield {
+                "selected": str(lookup) in self.value(),
+                "query_string": changelist.get_query_string(
+                    {self.parameter_name: lookup}
+                ),
+                "display": title,
+            }
