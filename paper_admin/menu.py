@@ -13,7 +13,7 @@ item_counter = itertools.count()
 logger = logging.getLogger("paper_admin.menu")
 
 
-class MenuItemBase:
+class ItemBase:
     __slots__ = [
         "_uid",
         "_parent",
@@ -38,21 +38,21 @@ class MenuItemBase:
         return tuple(self._childs)
 
     def append(self, *args):
-        for item in filter(bool, args):
-            if not isinstance(item, MenuItemBase):
+        for item in args:
+            if not isinstance(item, ItemBase):
                 continue
 
             self._childs.append(item)
             item._parent = self
 
 
-class MenuDivider(MenuItemBase):
+class Divider(ItemBase):
     @property
     def divider(self):
         return True
 
 
-class MenuItem(MenuItemBase):
+class Item(ItemBase):
     __slots__ = [
         "_app",
         "_label",
@@ -78,7 +78,7 @@ class MenuItem(MenuItemBase):
     def child_items(self):
         return tuple(
             item for item in self._childs
-            if isinstance(item, MenuItem)
+            if isinstance(item, Item)
         )
 
     @property
@@ -172,12 +172,12 @@ class MenuItem(MenuItemBase):
         if app is None:
             return
 
-        item = MenuItem(
+        item = Item(
             label=app["name"],
             url=app["app_url"],
         )
         for model in app["models"]:
-            item.append(MenuItem.from_site_model(model))
+            item.append(Item.from_site_model(model))
         return item
 
 
@@ -219,25 +219,25 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
     :type app_dict: dict[str, dict]
     :type conf_item: str | dict[str, Any]
     :type parent_app: str
-    :rtype: MenuItemBase
+    :rtype: ItemBase
     """
     if isinstance(conf_item, str):
         if conf_item == conf.MENU_DIVIDER:
-            return MenuDivider()
+            return Divider()
 
         conf_item = conf_item.lower()
         if "." in conf_item:
             # absolute path to model
             app_label, model_name = conf_item.rsplit(".", 1)
-            item = MenuItem.from_site_app_model(app_dict, app_label, model_name)
+            item = Item.from_site_app_model(app_dict, app_label, model_name)
         elif parent_app:
             # model
-            item = MenuItem.from_site_app_model(app_dict, parent_app, conf_item)
+            item = Item.from_site_app_model(app_dict, parent_app, conf_item)
         else:
             # app
-            item = MenuItem.from_site_app(app_dict, conf_item)
+            item = Item.from_site_app(app_dict, conf_item)
     elif isinstance(conf_item, dict):
-        item = MenuItem()
+        item = Item()
 
         # проверка прав
         perms = conf_item.get("perms")
@@ -263,7 +263,7 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
                 item.append(subitem)
         elif site_app:
             for site_model in site_app["models"]:
-                subitem = MenuItem.from_site_model(site_model)
+                subitem = Item.from_site_model(site_model)
                 item.append(subitem)
     else:
         raise TypeError("unsupported type:\n{}".format(conf_item))
@@ -277,7 +277,7 @@ def _create_menu_item(request, app_dict, conf_item, parent_app=""):
             item.clean_childs()
 
     # Возвращаем только пункты с URL или дочерними пунктами
-    if item.url or (isinstance(item, MenuItem) and item.child_items):
+    if item.url or (isinstance(item, Item) and item.child_items):
         return item
 
 
@@ -286,7 +286,7 @@ def get_menu(request):
     Построение дерева меню.
 
     :type request: django.core.handlers.wsgi.WSGIRequest
-    :rtype: list[MenuItemBase]
+    :rtype: list[ItemBase]
     """
     app_list = site.get_app_list(request)
     app_dict = {
@@ -301,7 +301,7 @@ def get_menu(request):
         )
     else:
         items = (
-            MenuItem.from_site_app(app_dict, app["app_label"])
+            Item.from_site_app(app_dict, app["app_label"])
             for app in app_list
         )
 
@@ -337,11 +337,11 @@ def _compare_menu_urls(request, menu):
 
     :type request: django.core.handlers.wsgi.WSGIRequest
     :type menu: list[MenuItemBase] | tuple(MenuItemBase)
-    :rtype: list[(float, MenuItemBase)]
+    :rtype: list[(float, ItemBase)]
     """
     result = []
     for item in menu:
-        if not isinstance(item, MenuItem):
+        if not isinstance(item, Item):
             continue
 
         if item.childs:
@@ -358,14 +358,14 @@ def activate_menu(request, menu):
     Поиск и активация самого подходящего пункта меню.
 
     :type request: django.core.handlers.wsgi.WSGIRequest
-    :type menu: list of MenuItemBase
+    :type menu: list of ItemBase
     """
     equality_list = _compare_menu_urls(request, menu)
     max_equality = max(pair[0] for pair in equality_list)
     best_items = tuple(
         item
         for equality, item in equality_list
-        if equality == max_equality and isinstance(item, MenuItem)
+        if equality == max_equality and isinstance(item, Item)
     )
 
     if len(best_items) == 1:
