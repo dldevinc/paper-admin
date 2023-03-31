@@ -109,6 +109,12 @@
 
 {% block content %}
   {% if cl.result_count %}
+    {% for spec in cl.filter_specs %}
+      {% if spec.placement == "top" %}
+        {% paper_list_filter cl spec %}
+      {% endif %}
+    {% endfor %}
+
     {% if cl.date_hierarchy %}
       <div class="paper-card card mb-3">
         <h5 class="card-header">
@@ -121,12 +127,6 @@
         </div>
       </div>
     {% endif %}
-
-    {% for spec in cl.filter_specs %}
-      {% if spec.placement == "top" %}
-        {% paper_list_filter cl spec %}
-      {% endif %}
-    {% endfor %}
 
     {% if action_form and actions_on_top and cl.show_admin_actions or cl.search_fields %}
       <div class="row">
