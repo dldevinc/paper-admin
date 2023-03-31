@@ -4,10 +4,11 @@
 
 ### ⚠ BREAKING CHANGES
 
--   Drop Python 3.6 support.
+-   Dropped Python 3.6 support.
 
 ### Features
 
+-   Added `HierarchyFilter` base class.
 -   The value of the `rows` attribute for the `AdminTextarea` widget has been reduced to `2`.
 -   Added a button to generate a new UUID value in the UUIDField widget.
 -   Added `PAPER_NONE_PLACEHOLDER` constant for representing `None` value in admin filters.

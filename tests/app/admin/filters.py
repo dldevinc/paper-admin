@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 from paper_admin.admin.filters import HierarchyFilter
 
@@ -37,7 +38,11 @@ class GroupFilter(HierarchyFilter):
 class MessageAdmin(admin.ModelAdmin):
     search_fields = ["text"]
     actions_on_bottom = True
-    list_display = ("sender", "group", "type", "text", "created_at")
+    list_display = ("sender", "group", "type", "text_display", "created_at")
     list_filter = (GroupFilter, "type", "sender", "created_at")
     date_hierarchy = "created_at"
     ordering = ("created_at",)
+
+    def text_display(self, obj):
+        return Truncator(obj.text).chars(40)
+    text_display.short_description = _("Text")
