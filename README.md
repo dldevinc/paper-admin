@@ -17,7 +17,6 @@ Custom Django admin interface based on Bootstrap 4.
 -   [Patches](#Patches)
 -   [Badge](#Badge)
 -   [Admin menu](#Admin-menu)
-    -   [Menu item permissions](#Menu-item-permissions)
 -   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
 -   [Form tabs](#Form-tabs)
 -   [HierarchyFilter](#HierarchyFilter) 
@@ -118,140 +117,93 @@ PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 ```python
 from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Divider
 
 PAPER_MENU = [
-    dict(       # Пункт меню для главной страницы
+    # Пункт меню для главной страницы
+    Item(
         label=_("Dashboard"),
         url="admin:index",
         icon="fa fa-fw fa-lg fa-area-chart",
     ),
-    dict(       # Приложение app с перечнем его моделей
+
+    # Приложение app с явно заданным списком моделей
+    Item(
         app="app",
         icon="fa fa-fw fa-lg fa-home",
-        models=[
+        children=[
             "Tag",
             "Category",
             "SubCategory",
         ]
     ),
-    "-",        # Разделитель
-    "auth",     # Приложение auth
-    dict(       # Модель LogEntry из приложения admin
+
+    # Линия-разделитель
+    Divider(),
+
+    # Приложение auth. Перечень моделей создаётся автоматически.
+    Item(app="auth"),
+
+    # Модель LogEntry из приложения admin
+    Item(
         label=_("Logs"),
         icon="fa fa-fw fa-lg fa-history",
         perms="admin.view_logentry",
-        models=[
+        children=[
+            # Модель с явно указанным приложением
             "admin.LogEntry"
-        ]
-    ),
-]
-```
-
-Пункт меню может быть задан одним из четырех способов:
-
--   Имя приложения.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "app",
-        # ...
-    ]
-    ```
-
-    Все модели выбранного приложения образуют подменю. Порядок моделей Django
-    определяет автоматически.
-
--   Путь к модели.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "app.Tag",
-        # ...
-    ]
-    ```
-
-    Создаст пункт меню с заголовком, соответствующим названию модели и
-    ссылающийся на страницу changelist.
-
--   Строка-разделитель.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "-",
-        # ...
-    ]
-    ```
-
-    Добавляет горизонтальную линию. С помощью разделителей можно визуально группировать пункты меню.
-
--   Словарь.<br>
-
-    ```python
-    from django.urls import reverse_lazy
-    from django.utils.translation import gettext_lazy as _
-
-    PAPER_MENU = [
-        # ...
-        dict(
-          app="app",
-          icon="fa fa-fw fa-lg fa-home",
-          models=[
-              "Tag",        # Модель app.Tag
-              "Category",   # Модель app.Category
-              dict(         # Произвольный вложенный пункт
-                  label=_("Index"),
-                  url=reverse_lazy("admin:app_list", kwargs={
-                      "app_label": "app"
-                  })
-              ),
-          ]
-        ),
-        # ...
-    ]
-    ```
-
-    Самый гибкий способ создания пункта меню. В словаре можно явным образом
-    указать название пункта меню, его URL, иконку, CSS-классы и вложенные
-    пункты. Вложенные пункты тоже могут быть заданы с помощью словаря.
-
-При использовании словаря можно указать следующие ключи:
-
--   `label`: `str` - заголовок пункта меню.
--   `url`: `str` - URL или имя URL-шаблона (например, `app:index`).
--   `icon`: `str` - CSS-классы иконки (используется FontAwesome v4).
--   `classes`: `str` - CSS-классы пункта меню.
--   `perms`: `str/list/callable` - права, необходимые для отображения пункта.
-    Для определения суперюзера и сотрудников, можно использовать специальные
-    значения `superuser` и `staff` соответственно.
--   `app`: `str` - имя приложения. Неявно добавляется к именам моделей,
-    указанным в пункте `models`.
--   `models`: `list/dict` - дочерние пункты меню. Содержит список имен моделей
-    приложения или вложенных пунктов, которые можно задать в виде словаря.
-
-### Menu item permissions
-
-С помощью параметра `perms` можно указать названия прав (Django permissions),
-которые должен иметь пользователь, чтобы увидеть соответствующий пункт меню.
-
-> На доступность страниц параметр `perms` никак не влияет! Если пользователь знает
-> адрес страницы или ссылка на неё имеется где-то ещё, то пользователь сможет
-> на неё зайти!
-
-```python
-PAPER_MENU = [
-    # Пункт меню приложения app увидят только сотрудники (staff),
-    # имеющие право на изменение модели `app.Tag`.
-    dict(
-        app="app",
-        perms=["staff", "app.change_tag"],
-        models=[
-            "Tag",
         ]
     )
 ]
+```
+
+Каждый пункт меню определяется с помощью экземпляра класса `Item`.
+
+Для пунктов меню доступны следующие параметры:
+* `app` - Приложение, для которого будет создан пункт меню. Определяет имя пункта меню
+  если `label` не задан. Неявно добавляется к именам моделей, указанным в дочерних пунктах.
+* `model` - Модель, для которой будет создан пункт меню в формате `app_label.model_name`,
+  либо просто `model_name`, если `app` был указан в пункте меню-родителе. Определяет имя 
+  и URL пункта меню если `label` и `url` не заданы.
+* `label` - Название пункта меню.
+* `url` - URL пункта меню. Если не указан, автоматически определяется по `app` или `model`.
+* `icon` - CSS-классы иконки пункта меню.
+* `perms` - Права доступа, необходимые для показа пункта меню.
+* `classes` - CSS-классы для пункта меню.
+* `target` - Атрибут `target` для ссылки. Допустимые значения: `_blank`, `_self`.
+* `children` - Список дочерних пунктов меню.
+
+Не допускается одновременное задание параметров `app` и `model`. 
+Однако, необходимо указать хотя бы один из параметров `app`, `model` или `label`.
+
+В качестве значения для параметра `children` можно передать список строк с именами 
+моделей, или список экземпляров класса `Item`. Если `children` не указан, а параметр 
+`app` задан, то дочерние пункты будут автоматически созданы из всех моделей приложения.
+
+В качестве значения для параметра `perms` можно передать строку или список строк с
+именами прав доступа, функцию или значение `PAPER_MENU_SUPERUSER_PERMISSION`
+(по умолчанию `superuser`) или `PAPER_MENU_STAFF_PERMISSION` (по умолчанию `staff`).
+
+Пример:
+
+```python
+Item(
+    label="My item",
+    url="https://example.com/",
+    icon="fa fa-fw fa-lg fa-rocket",
+    classes="text-warning",
+    target="_blank",
+    perms=["app.view_model1", "app.view_model2"],
+    children=[
+        "Model1",
+        "Model2",
+        Item(
+            label="Subitem",
+            url="https://example.com/",
+            icon="fa fa-fw fa-lg fa-cog"
+        )
+    ]
+)
 ```
 
 ## Reorderable drag-and-drop lists
@@ -543,19 +495,19 @@ Default: `None`
 на её место будут вставлен горизонтальный разделитель.<br>
 Default: `"-"`
 
-`PAPER_MENU_PERM_STAFF`<br>
+`PAPER_MENU_STAFF_PERMISSION`<br>
 Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
 которое указывает, что текущий пункт меню должен быть показан
 только при условии, что у пользователя установлен флаг `is_staff`.<br>
 Default: `"staff"`
 
-`PAPER_MENU_PERM_SUPERUSER`<br>
+`PAPER_MENU_SUPERUSER_PERMISSION`<br>
 Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
 которое указывает, что текущий пункт меню должен быть показан
 только при условии, что у пользователя установлен флаг `is_superuser`.<br>
 Default: `"superuser"`
 
-`PAPER_MENU_HIDE_SINGLE_CHILD`<br>
+`PAPER_MENU_COLLAPSE_SINGLE_CHILDS`<br>
 При значении `True`, те пункты меню, которые содержат единственный
 подпункт, не будут отображаться как выпадающие списки. Вместо этого
 они сразу будут вести на страницу, указанную в подпункте.<br>

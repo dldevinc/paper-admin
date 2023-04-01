@@ -1,0 +1,26 @@
+{% load paper_menu %}
+
+<li class="paper-sidebar__item paper-sidebar__item--level-{{ item.depth }} nav-item {{ item.classes|default:"" }}{{ item.is_active|yesno:" open," }}">
+  <a href="#submenu-{{ item.uid }}"
+     class="paper-sidebar__link paper-sidebar__link--trigger"
+     data-toggle="collapse"
+     data-parent="{% if item.parent.uid %}#submenu-{{ item.parent.uid }}{% else %}#sidebar-menu{% endif %}"
+     aria-expanded="{{ item.is_active|yesno:"true,false" }}"
+     aria-controls="submenu-{{ item.uid }}">
+    {% if item.icon %}
+      <i class="{{ item.icon }}"></i>
+    {% else %}
+      {% if item.depth == 1 %}
+        <i class="fa fa-fw fa-lg {{ item.is_active|yesno:"fa-folder-open-o,fa-folder-o" }} paper-icon-default"></i>
+      {% endif %}
+    {% endif %}
+    <span>{{ item.label|default:"&nbsp;"|capfirst }}</span>
+  </a>
+
+  <ul class="paper-sidebar__item-list paper-sidebar__item-list--level-{{ item.depth|add:1 }} collapse list-unstyled {{ item.is_active|yesno:"show," }}"
+      id="submenu-{{ item.uid }}" data-xclass="bs-collapse">
+    {% for subitem in item.children %}
+      {% paper_menu_item subitem %}
+    {% endfor %}
+  </ul>
+</li>

@@ -5,6 +5,8 @@ from pathlib import Path
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+from paper_admin.menu import Divider, Item
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -154,61 +156,63 @@ PAPER_ENVIRONMENT_NAME = "development"
 PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 PAPER_MENU = [
-    dict(
+    Item(
         label=_("Dashboard"),
         url="admin:index",
         icon="fa fa-fw fa-lg fa-area-chart",
     ),
-    dict(
+    Item(
         app="app",
         icon="fa fa-fw fa-lg fa-home",
-        models=[
-            dict(
+        children=[
+            Item(
                 label=_("Index"),
                 url=reverse_lazy("admin:app_list", kwargs={
                     "app_label": "app"
                 })
             ),
             "Widgets",
-            dict(
+            Item(
+                model="Message",
                 label=_("Filters"),
-                url="admin:app_message_changelist"
             ),
-            dict(
+            Item(
+                model="Book",
                 label=_("Inlines"),
-                url="admin:app_book_changelist"
             ),
             "Sigleton",
-            dict(
+            Item(
                 label=_("Trees"),
-                models=[
+                children=[
                     "MPTTTree",
-                    "DjangoTreeQueriesNode",
+                    "DjangoTreeQueriesNode"
                 ]
-            ),
+            )
         ]
     ),
-    dict(
+    Item(
         app="sortables",
-        models=[
+        children=[
             "Company",
-            dict(
+            Item(
                 label=_("Trees"),
-                models=[
+                children=[
                     "MPTTTree",
-                    "DjangoTreeQueriesNode",
+                    "DjangoTreeQueriesNode"
                 ]
-            ),
+            )
         ]
     ),
-    "-",
-    "auth",
-    dict(
+    Divider(),
+    Item(
+        app="auth"
+    ),
+    Item(
         label=_("Logs"),
         icon="fa fa-fw fa-lg fa-history",
         perms="admin.view_logentry",
-        models=[
+        children=[
             "admin.LogEntry"
         ]
-    ),
+    )
 ]

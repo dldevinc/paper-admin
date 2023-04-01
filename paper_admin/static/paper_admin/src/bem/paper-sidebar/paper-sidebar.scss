@@ -96,7 +96,7 @@
     display: flex;
     align-items: baseline;
     padding: $paper-sidebar-link-padding-y $paper-sidebar-link-padding-x;
-    color: $paper-sidebar-link-color;
+    color: inherit;
     font-size: $paper-sidebar-link-font-size;
     line-height: $paper-sidebar-link-line-height;
     background: $paper-sidebar-link-bg;
@@ -146,6 +146,8 @@
   }
 
   &__item {
+    color: $paper-sidebar-link-color;
+
     &--level-1 {
       padding-left: $paper-sidebar-link-padding-left-level1;
 

@@ -1,0 +1,12 @@
+<li class="paper-sidebar__item paper-sidebar__item--level-{{ item.depth }} nav-item {{ item.classes|default:"" }} {{ item.is_active|yesno:"active," }}">
+  <a href="{{ item.url }}" class="paper-sidebar__link"{% if item.target == "_blank" %} target="_blank" rel="noopener"{% endif %}>
+    {% if item.icon %}
+      <i class="{{ item.icon }}"></i>
+    {% else %}
+      {% if item.depth == 1 %}
+        <i class="fa fa-fw fa-lg fa-file-o"></i>
+      {% endif %}
+    {% endif %}
+    <span>{{ item.label|default:"&nbsp;"|capfirst }}</span>
+  </a>
+</li>
