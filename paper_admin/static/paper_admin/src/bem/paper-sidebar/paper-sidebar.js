@@ -69,8 +69,8 @@ $(document)
         const parentNavItem = navList && navList.closest(".paper-sidebar__item");
         const icon = parentNavItem && parentNavItem.querySelector(":scope > a > .paper-icon-default");
         if (icon) {
-            icon.classList.remove("fa-folder-o");
-            icon.classList.add("fa-folder-open-o");
+            icon.classList.remove("bi-folder2");
+            icon.classList.add("bi-folder2-open");
         }
     })
     .on("hide.bs.collapse", ".paper-sidebar", event => {
@@ -78,8 +78,8 @@ $(document)
         const parentNavItem = navList && navList.closest(".paper-sidebar__item");
         const icon = parentNavItem && parentNavItem.querySelector(":scope > a > .paper-icon-default");
         if (icon) {
-            icon.classList.remove("fa-folder-open-o");
-            icon.classList.add("fa-folder-o");
+            icon.classList.remove("bi-folder2-open");
+            icon.classList.add("bi-folder2");
         }
     });
 

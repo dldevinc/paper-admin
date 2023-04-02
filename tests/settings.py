@@ -159,11 +159,11 @@ PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="fa fa-fw fa-lg fa-area-chart",
+        icon="bi-lg bi-mb bi-speedometer2",
     ),
     Item(
         app="app",
-        icon="fa fa-fw fa-lg fa-home",
+        icon="bi-lg bi-mb bi-house-fill",
         children=[
             Item(
                 label=_("Index"),
@@ -209,7 +209,7 @@ PAPER_MENU = [
     ),
     Item(
         label=_("Logs"),
-        icon="fa fa-fw fa-lg fa-history",
+        icon="bi-lg bi-mb bi-clock-history",
         perms="admin.view_logentry",
         children=[
             "admin.LogEntry"

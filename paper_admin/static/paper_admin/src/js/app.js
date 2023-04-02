@@ -13,7 +13,7 @@ import Widget from "js/utilities/widget.js"; // TODO: deprecated
 //  Common Styles
 // -----------------
 import "css/vendors/bootstrap.scss";
-import "css/vendors/font-awesome.scss";
+import "css/vendors/bootstrap-icons.scss";
 import "css/common.scss";
 
 // -----------------

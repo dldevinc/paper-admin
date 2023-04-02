@@ -20,7 +20,7 @@
     <li class="list-inline-item d-lg-none">
       {% url cl.opts|admin_urlname:'add' as add_url %}
       <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
-        <i class="fa fa-plus"></i>
+        <i class="bi-plus-lg"></i>
         <span>{{ _("Add") }}</span>
       </a>
     </li>
@@ -95,7 +95,7 @@
 
             {% if cl.has_active_filters %}
               <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
-                <i class="fa fa-remove"></i>
+                <i class="bi-x-lg"></i>
                 <span>{{ _("Clear all filters") }}</span>
               </a>
             {% endif %}
@@ -173,7 +173,7 @@
         {% if cl.formset %}
           <div class="col-auto mt-3">
             <button type="submit" form="changelist-form" name="_save" class="btn btn-sm btn-success">
-              <i class="fa fa-save"></i><span>{{ _("Save") }}</span>
+              <i class="bi-save"></i><span>{{ _("Save") }}</span>
             </button>
           </div>
         {% else %}

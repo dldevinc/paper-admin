@@ -10,7 +10,7 @@ PAPER_MENU = [
     ...
     dict(
         label=_("Logs"),
-        icon="fa fa-fw fa-lg fa-history",
+        icon="bi-lg bi-clock-history",
         perms="admin.view_logentry",
         models=[
             "admin.LogEntry"

@@ -11,8 +11,8 @@ document.addEventListener("click", event => {
                 const index = (input_types.indexOf(input.type) + 1) % 2;
                 input.type = input_types[index];
 
-                const icon = widget.querySelector("i.fa");
-                const icon_classes = ["fa-eye-slash", "fa-eye"];
+                const icon = widget.querySelector("i");
+                const icon_classes = ["bi-eye-slash", "bi-eye"];
                 if (icon) {
                     icon.classList.add(icon_classes[index]);
                     icon.classList.remove(icon_classes[(index + 1) % 2]);

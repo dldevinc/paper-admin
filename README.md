@@ -124,13 +124,13 @@ PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="fa fa-fw fa-lg fa-area-chart",
+        icon="bi-lg bi-mb bi-speedometer2",
     ),
 
     # Приложение app с явно заданным списком моделей
     Item(
         app="app",
-        icon="fa fa-fw fa-lg fa-home",
+        icon="bi-lg bi-mb bi-house-fill",
         children=[
             "Tag",
             "Category",
@@ -147,7 +147,7 @@ PAPER_MENU = [
     # Модель LogEntry из приложения admin
     Item(
         label=_("Logs"),
-        icon="fa fa-fw fa-lg fa-history",
+        icon="bi-lg bi-mb bi-clock-history",
         perms="admin.view_logentry",
         children=[
             # Модель с явно указанным приложением
@@ -167,7 +167,7 @@ PAPER_MENU = [
   и URL пункта меню если `label` и `url` не заданы.
 * `label` - Название пункта меню.
 * `url` - URL пункта меню. Если не указан, автоматически определяется по `app` или `model`.
-* `icon` - CSS-классы иконки пункта меню.
+* `icon` - CSS-классы иконки пункта меню из [Bootstrap Icons](https://icons.getbootstrap.com/).
 * `perms` - Права доступа, необходимые для показа пункта меню.
 * `classes` - CSS-классы для пункта меню.
 * `target` - Атрибут `target` для ссылки. Допустимые значения: `_blank`, `_self`.
@@ -190,7 +190,7 @@ PAPER_MENU = [
 Item(
     label="My item",
     url="https://example.com/",
-    icon="fa fa-fw fa-lg fa-rocket",
+    icon="bi-lg bi-rocket-takeoff",
     classes="text-warning",
     target="_blank",
     perms=["app.view_model1", "app.view_model2"],
@@ -200,7 +200,7 @@ Item(
         Item(
             label="Subitem",
             url="https://example.com/",
-            icon="fa fa-fw fa-lg fa-cog"
+            icon="bi-lg bi-gear-fill"
         )
     ]
 )

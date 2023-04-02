@@ -60,7 +60,7 @@
                        data-trigger="hover"
                        data-html="true"
                        title="{{ _("View site") }}">
-                      <i class="fa fa-eye"></i>
+                      <i class="bi-eye-fill"></i>
                       <span class="d-none d-sm-inline">{{ _("View site") }}</span>
                     </a>
                   </li>
@@ -73,7 +73,7 @@
                        data-xclass="bs-dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="fa fa-user"></i>
+                        <i class="bi-person-fill"></i>
                         <span class="d-none d-sm-inline">{% firstof user.get_short_name user.get_username %}</span>
                     </a>
 
@@ -82,7 +82,7 @@
                       {% if user.has_usable_password %}
                         <li role="presentation">
                           <a href="{% url 'admin:password_change' %}" class="dropdown-item" role="menuitem">
-                            <i class="fa fa-fw fa-key"></i>
+                            <i class="bi-key-fill"></i>
                             <span>{{ _("Change password") }}</span>
                           </a>
                         </li>
@@ -92,7 +92,7 @@
                         <!-- django-impersonate support -->
                         <li role="presentation">
                           <a href="{% url 'impersonate-stop' %}" class="dropdown-item" role="menuitem">
-                            <i class="fa fa-fw fa-sign-out"></i>
+                            <i class="bi-box-arrow-right"></i>
                             <span>{{ _("Stop impersonation") }}</span>
                           </a>
                         </li>
@@ -103,7 +103,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <button type="submit" class="dropdown-item" role="menuitem">
-                              <i class="fa fa-fw fa-sign-out"></i>
+                              <i class="bi-box-arrow-right"></i>
                               <span>{{ _("Stop impersonation") }}</span>
                             </button>
                           </form>
@@ -115,7 +115,7 @@
                         {% if docsroot %}
                           <li role="presentation">
                             <a href="{{ docsroot }}" class="dropdown-item" role="menuitem">
-                              <i class="fa fa-fw fa-book"></i>
+                              <i class="bi-book"></i>
                               <span>{{ _("Documentation") }}</span>
                             </a>
                           </li>
@@ -124,7 +124,7 @@
 
                       <li role="presentation">
                         <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
-                          <i class="fa fa-fw fa-sign-out"></i>
+                          <i class="bi-box-arrow-right"></i>
                           <span>{{ _("Log out") }}</span>
                         </a>
                       </li>
@@ -133,7 +133,7 @@
 
                   <li class="nav-item d-xl-none">
                     <a href="#" class="paper-header__burger nav-link" data-toggle="sidebar">
-                      <i class="fa fa-bars"></i>
+                      <i class="bi-list"></i>
                     </a>
                   </li>
                 {% endif %}
@@ -152,7 +152,7 @@
     <ol class="paper-breadcrumbs__list breadcrumb">
       <li class="breadcrumb-item">
         <a href="{% url 'admin:index' %}">
-          <i class="fa fa-home mr-1"></i>
+          <i class="bi-house mr-1"></i>
           <span>{{ _("Home") }}</span>
         </a>
       </li>

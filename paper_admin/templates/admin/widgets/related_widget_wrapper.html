@@ -17,7 +17,7 @@
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-                <i class="fa fa-plus"></i>
+                <i class="bi-mb bi-plus-lg"></i>
             </a>
           {% endif %}
 
@@ -34,7 +34,7 @@
                {% else %}
                 title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
                {% endif %}
-                <i class="fa {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %}"></i>
+                <i class="bi-mb{% if can_change_related %} bi-pencil-square{% else %} bi-eye{% endif %}"></i>
             </a>
           {% endif %}
 
@@ -47,7 +47,7 @@
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
-                <i class="fa fa-trash"></i>
+                <i class="bi-mb bi-trash"></i>
             </a>
           {% endif %}
 

@@ -46,7 +46,7 @@
                 {% if header.sort_priority > 0 %}
                   <span class="paper-table__sort-button btn btn-outline-light{% if num_sorted_fields > 1 %} paper-table__sort-button--has-prior{% endif %}"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa {% if header.ascending %}fa-sort-asc{% else %}fa-sort-desc{% endif %}"></i>
+                    <i class="{% if header.ascending %}bi-sort-down-alt{% else %}bi-sort-up{% endif %}"></i>
                     {% if num_sorted_fields > 1 %}
                       <span title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
                     {% endif %}
@@ -54,13 +54,13 @@
                   <ul class="dropdown-menu">
                     <li role="presentation">
                       <a href="{{ header.url_toggle }}" class="dropdown-item" role="menuitem">
-                        <i class="fa fa-fw {% if header.ascending %}fa-sort-amount-desc{% else %}fa-sort-amount-asc{% endif %}"></i>
+                        <i class="{% if header.ascending %}bi-sort-up{% else %}bi-sort-down-alt{% endif %}"></i>
                         {{ _("Toggle sorting") }}
                       </a>
                     </li>
                     <li role="presentation">
                       <a href="{{ header.url_remove }}" class="dropdown-item" role="menuitem">
-                        <i class="fa fa-fw fa-remove"></i>
+                        <i class="bi-x-lg"></i>
                         {{ _("Remove from sorting") }}
                       </a>
                     </li>

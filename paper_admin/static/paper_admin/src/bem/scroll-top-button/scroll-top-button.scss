@@ -18,14 +18,16 @@
 .scroll-top-button {
   position: fixed;
   display: none;
+  align-items: center;
+  justify-content: center;
   right: 1rem;
   bottom: 2rem;
   width: 3rem;
   height: 3rem;
+  font-size: 1rem;
   cursor: pointer;
   opacity: 0.75;
   z-index: $zindex-sticky;
-  font-size: 1rem;
   transform: scale(0);
   will-change: transform;
   border-radius: 50%;
@@ -33,15 +35,12 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   @include transition();
   @include media-breakpoint-up(lg) {
-    display: block !important;
+    display: flex !important;
     right: 2rem;
     bottom: 2.75rem;
   }
 
   i {
-    position: absolute;
-    left: 1rem;
-    top: 0.875rem;
     color: #fff;
     will-change: top;
     backface-visibility: hidden;

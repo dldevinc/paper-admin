@@ -4,7 +4,7 @@
   {% if show_save %}
     <li>
       <button type="submit" name="_save" form="{{ opts.model_name }}_form" class="btn btn-lg btn-block btn-success">
-        <i class="fa fa-save"></i>
+        <i class="bi-save"></i>
         <span>{{ _("Save") }}</span>
       </button>
     </li>
@@ -42,7 +42,7 @@
     {% if has_absolute_url %}
       <li>
         <a href="{{ absolute_url }}" class="btn btn-block btn-outline-info" target="_blank" rel="noopener">
-          <i class="fa fa-eye"></i>
+          <i class="bi-eye"></i>
           <span>{{ _("View on site") }}</span>
         </a>
       </li>
@@ -52,7 +52,7 @@
       <li>
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
         <a href="{% add_preserved_filters history_url %}" class="btn btn-block btn-outline-info">
-          <i class="fa fa-history"></i>
+          <i class="bi-clock-history"></i>
           <span>{{ _("History") }}</span>
         </a>
       </li>
@@ -63,7 +63,7 @@
     <li>
       {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
       <a href="{% add_preserved_filters delete_url %}" class="btn btn-block btn-outline-danger">
-        <i class="fa fa-trash"></i>
+        <i class="bi-trash"></i>
         <span>{{ _("Delete") }}</span>
       </a>
     </li>

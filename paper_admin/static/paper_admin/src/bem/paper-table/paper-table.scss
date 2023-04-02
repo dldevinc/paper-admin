@@ -16,9 +16,8 @@
   }
 
   &__sort-button {
-    position: relative;
     padding: 0.125rem 0.375rem;
-    margin: -0.125rem 0 -0.125rem 0.125rem;
+    margin: 0 0 0 0.125rem;
     color: $paper-table-sort-btn-color;
     font-size: inherit;
     vertical-align: baseline;
@@ -29,6 +28,7 @@
     }
 
     span {
+      font-size: 75%;
       margin-left: 0.125rem !important;
     }
   }
