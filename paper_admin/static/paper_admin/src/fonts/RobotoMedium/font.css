@@ -1,9 +1,8 @@
 @font-face {
-  font-family: "Roboto";
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-  src: url("fonts/RobotoMedium/RobotoMedium.woff2") format("woff2"),
-    url("fonts/RobotoMedium/RobotoMedium.woff") format("woff"),
-    url("fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
+	font-family: 'Roboto';
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+	src: url('fonts/RobotoMedium/RobotoMedium.woff2') format('woff2'),
+		url('fonts/RobotoMedium/RobotoMedium.woff') format('woff');
 }
