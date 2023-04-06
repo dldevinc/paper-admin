@@ -19,7 +19,7 @@ class TreeNodeModelAdminMixin:
 
     def indented_title(self, obj):
         return format_html(
-            '<div style="text-indent:{}px">{}</div>',
+            '<span style="display:inline-block; text-indent:{}px">{}</span>',
             obj.tree_depth * self.tree_queries_level_indent,
             obj
         )
