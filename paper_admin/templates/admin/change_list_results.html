@@ -10,7 +10,7 @@
 
 {% if results %}
   <table id="result_list"
-         class="{% block table_classes %}paper-table table table-hover table-responsive-md mb-0{% if cl.sortable_allowed %} paper-table--sortable{% endif %}{% endblock %}"
+         class="{% block table_classes %}paper-table table table-hover table-responsive mb-0{% if cl.sortable_allowed %} paper-table--sortable{% endif %}{% endblock %}"
          {% if cl.sortable_allowed %}data-order-url="{% url cl.opts|admin_urlname:'order' %}"{% endif %}>
     <colgroup>
       {% if cl.sortable_allowed %}
