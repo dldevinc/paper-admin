@@ -70,11 +70,31 @@
     }
   }
 
+
+
   th,
   td {
     padding: $paper-table-cell-padding-y $paper-table-cell-padding-x;
     vertical-align: middle;
     border-top: none;
+  }
+
+  .action-checkbox-column {
+    padding-right: 0.25rem;
+  }
+
+  .action-checkbox {
+    padding-right: 0.25rem;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 0.75rem;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 0.75rem;
   }
 
   thead th {
