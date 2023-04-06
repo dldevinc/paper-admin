@@ -11,7 +11,11 @@
 
   @at-root body:not(.popup) & {
     @include media-breakpoint-up(xl) {
-      margin-left: $paper-sidebar-width;
+      @each $breakpoint in map-keys($paper-sidebar-width) {
+        @media (min-width: $breakpoint) {
+          margin-left: map-get($paper-sidebar-width, $breakpoint);
+        }
+      }
     }
   }
 
@@ -27,9 +31,14 @@
 
   &__toolbar {
     display: none;
-    width: $paper-page-toolbar-width;
     @include media-breakpoint-up(lg) {
       display: block;
+    }
+
+    @each $breakpoint in map-keys($paper-page-toolbar-width) {
+      @media (min-width: $breakpoint) {
+        width: map-get($paper-page-toolbar-width, $breakpoint);
+      }
     }
 
     &:empty {

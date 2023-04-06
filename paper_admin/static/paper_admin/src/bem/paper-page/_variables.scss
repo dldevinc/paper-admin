@@ -1,4 +1,7 @@
 @import "css/abstracts/bootstrap";
 
 $paper-page-header-font-size: $h2-font-size;
-$paper-page-toolbar-width: 15rem;
+$paper-page-toolbar-width: (
+  0: 14rem,
+  1280px: 15rem
+);

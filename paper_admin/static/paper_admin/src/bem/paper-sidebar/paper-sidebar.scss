@@ -28,7 +28,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: $paper-sidebar-width;
   height: 100vh;
   will-change: transform;
   z-index: $paper-sidebar-zindex;
@@ -38,6 +37,12 @@
   transition: transform $paper-sidebar-transition-duration;
   @include media-breakpoint-up(xl) {
     transform: translate(0, 0);
+  }
+
+  @each $breakpoint in map-keys($paper-sidebar-width) {
+    @media (min-width: $breakpoint) {
+      width: map-get($paper-sidebar-width, $breakpoint);
+    }
   }
 
   @at-root .sidebar-open & {
