@@ -22,57 +22,67 @@
 
 
 {% block content %}
-  {% for app in app_list %}
-    <table class="paper-table table table-hover">
-      <thead>
-      <tr>
-        <th scope="col">{{ _("content type")|capfirst }}</th>
-        <th scope="col">{{ _("Add") }}</th>
-        <th scope="col">{{ _("Change") }}</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      {% for model in app.models %}
+  {% if app_list %}
+    {% for app in app_list %}
+      <table class="paper-table table table-hover">
+        <thead>
         <tr>
-          {% if model.admin_url %}
-            <td>
-              <a href="{{ model.admin_url }}">
-                {{ model.name }}
-              </a>
-            </td>
-          {% else %}
-            <td>
-              {{ model.name }}
-            </td>
-          {% endif %}
-
-          {% if model.add_url %}
-            <td>
-              <a href="{{ model.add_url }}" class="btn btn-sm btn-success">
-                {{ _("Add") }}
-              </a>
-            </td>
-          {% else %}
-            <td>
-              <small class="text-muted">{{ _("None available") }}</small>
-            </td>
-          {% endif %}
-
-          {% if model.admin_url %}
-            <td>
-              <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
-                {{ _("Change") }}
-              </a>
-            </td>
-          {% else %}
-            <td>
-              <small class="text-muted">{{ _("None available") }}</small>
-            </td>
-          {% endif %}
+          <th scope="col">{{ _("content type")|capfirst }}</th>
+          <th scope="col">{{ _("Add") }}</th>
+          <th scope="col">{{ _("Change") }}</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  {% endfor %}
+        </thead>
+
+        <tbody>
+        {% for model in app.models %}
+          <tr>
+            {% if model.admin_url %}
+              <td>
+                <a href="{{ model.admin_url }}">
+                  {{ model.name }}
+                </a>
+              </td>
+            {% else %}
+              <td>
+                {{ model.name }}
+              </td>
+            {% endif %}
+
+            {% if model.add_url %}
+              <td>
+                <a href="{{ model.add_url }}" class="btn btn-sm btn-success">
+                  {{ _("Add") }}
+                </a>
+              </td>
+            {% else %}
+              <td>
+                <small class="text-muted">{{ _("Not available") }}</small>
+              </td>
+            {% endif %}
+
+            {% if model.admin_url %}
+              <td>
+                <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
+                  {% if model.view_only %}
+                    {{ _("View") }}
+                  {% else %}
+                    {{ _("Change") }}
+                  {% endif %}
+                </a>
+              </td>
+            {% else %}
+              <td>
+                <small class="text-muted">{{ _("Not available") }}</small>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  {% else %}
+    <p class="paper-message paper-message--warning">
+      {{ _("You don’t have permission to view or edit anything.") }}
+    </p>
+  {% endif %}
 {% endblock %}

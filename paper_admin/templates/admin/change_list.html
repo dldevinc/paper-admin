@@ -53,21 +53,17 @@
 
 
 {% block content_title %}
-  <div class="row">
-    <div class="col">
-      {% firstof cl.opts.verbose_name_plural title as page_title %}
-      <h1>{{ page_title|capfirst }}</h1>
-    </div>
-    <div class="col-auto d-none d-lg-block">
-      {% block object-tools %}
-        <ul class="list-inline list-default">
-          {% block object-tools-items %}
-            {% include "admin/change_list_object_tools.html" %}
-          {% endblock %}
-        </ul>
-      {% endblock %}
-    </div>
-  </div>
+  {% firstof cl.opts.verbose_name_plural title as page_title %}
+  <h1>{{ page_title|capfirst }}</h1>
+{% endblock %}
+
+
+{% block object-tools %}
+  <ul class="list-inline list-default">
+    {% block object-tools-items %}
+      {% include "admin/change_list_object_tools.html" %}
+    {% endblock %}
+  </ul>
 {% endblock %}
 
 

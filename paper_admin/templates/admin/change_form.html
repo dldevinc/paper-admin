@@ -58,12 +58,9 @@
 
 
 {% block content_title %}
+  {% firstof subtitle original as page_subtitle %}
   <h1>
-    {% if add %}
-      {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
-    {% else %}
-      {{ opts.verbose_name|capfirst }}: <span class="text-secondary">{{ original|truncatewords:"18" }}</span>
-    {% endif %}
+    {{ title|capfirst }}{% if page_subtitle %}: <span class="text-secondary">{{ page_subtitle|truncatewords:"18" }}</span>{% endif %}
   </h1>
 {% endblock %}
 

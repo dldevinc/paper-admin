@@ -3,7 +3,9 @@
 
 {% block result_hidden_fields %}
   {% if result_hidden_fields %}
-    {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    <div hidden>{# DIV for HTML validation #}
+      {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
   {% endif %}
 {% endblock %}
 
