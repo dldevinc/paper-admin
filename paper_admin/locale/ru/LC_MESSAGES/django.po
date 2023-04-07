@@ -18,24 +18,6 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin/filters.py:38 admin/filters.py:99 admin/filters.py:231
-#: admin/filters.py:265
-msgid "All"
-msgstr "Все"
-
-#: admin/filters.py:102
-msgid "Yes"
-msgstr "Да"
-
-#: admin/filters.py:103
-msgid "No"
-msgstr "Нет"
-
-#: admin/filters.py:125 admin/filters.py:243 admin/filters.py:282
-#: patches/django/widgets/options.py:22 patches/django/widgets/options.py:43
-msgid "None"
-msgstr "Нет"
-
 #: apps.py:10
 msgid "Paper Admin"
 msgstr ""
@@ -44,91 +26,13 @@ msgstr ""
 msgid "General"
 msgstr "Основные"
 
-#: patches/django/options.py:39 templates/admin/object_history.html:38
-msgid "Action"
-msgstr "Действие"
-
-#: patches/django/options.py:98
-#, python-format
-msgid "The %(name)s “%(obj)s” was deleted successfully."
-msgstr "%(name)s “%(obj)s“ был успешно удален."
-
-#: patches/django_solo/templates/admin/solo/change_form.html:12
-#: templates/admin/change_form.html:41 templates/admin/change_form.html:63
-#: templates/admin/change_list_object_tools.html:9
-#, python-format
-msgid "Add %(name)s"
-msgstr "Добавить %(name)s"
-
-#: patches/django_solo/templates/admin/solo/object_history.html:15
-#: templates/admin/change_form_object_tools.html:56
-#: templates/admin/object_history.html:19
-#: templates/admin/object_history.html:26
-#: templates/paper_admin/header_buttons.html:66
-#: templates/paper_admin/includes/changelist_tools.html:21
-msgid "History"
-msgstr "История"
-
-#: patches/logentry_admin/admin.py:14 templates/admin/app_index.html:29
-msgid "content type"
-msgstr "тип содержимого"
-
 #: patches/tree_queries/admin.py:27
 msgid "title"
 msgstr "название"
 
-#: templates/admin/actions.html:19
-msgid "Run the selected action"
-msgstr "Выполнить выбранное действие"
-
-#: templates/admin/actions.html:20
-msgid "Go"
-msgstr "Выполнить"
-
-#: templates/admin/actions.html:38
-msgid "Click here to select the objects across all pages"
-msgstr "Нажмите здесь, чтобы выбрать объекты на всех страницах"
-
-#: templates/admin/actions.html:39
-#, python-format
-msgid "Select all %(total_count)s %(module_name)s"
-msgstr "Выбрать все %(module_name)s (%(total_count)s)"
-
-#: templates/admin/actions.html:44
-msgid "Clear selection"
-msgstr "Снять выделение"
-
-#: templates/admin/app_index.html:30 templates/admin/app_index.html:53
-#: templates/admin/change_list.html:24
-msgid "Add"
-msgstr "Добавить"
-
-#: templates/admin/app_index.html:31 templates/admin/app_index.html:65
-msgid "Change"
-msgstr "Изменить"
-
-#: templates/admin/app_index.html:58 templates/admin/app_index.html:70
-msgid "None available"
+#: templates/admin/app_index.html:59
+msgid "Not available"
 msgstr "Недоступно"
-
-#: templates/admin/auth/user/add_form.html:5
-msgid ""
-"First, enter a username and password. Then, you'll be able to edit more user "
-"options."
-msgstr ""
-"Сначала введите имя пользователя и пароль. Затем вы сможете ввести больше "
-"информации о пользователе."
-
-#: templates/admin/auth/user/add_form.html:7
-msgid "Enter a username and password."
-msgstr "Введите имя пользователя и пароль."
-
-#: templates/admin/auth/user/change_password.html:24
-#: templates/admin/auth/user/change_password.html:42
-#: templates/admin/base_site.html:85
-#: templates/auth/widgets/read_only_password_hash.html:3
-msgid "Change password"
-msgstr "Изменить пароль"
 
 #: templates/admin/auth/user/change_password.html:61
 msgid "It's a good idea to use a strong password that you don't use elsewhere."
@@ -136,82 +40,17 @@ msgstr ""
 "Рекомендуем установить надежный пароль, который вы больше нигде не "
 "используете."
 
-#: templates/admin/auth/user/change_password.html:70
-#: templates/registration/password_change_form.html:55
-#: templates/registration/password_reset_confirm.html:38
-msgid "Change my password"
-msgstr "Изменить мой пароль"
-
 #: templates/admin/base_site.html:9
 msgid "Django site admin"
 msgstr ""
-
-#: templates/admin/base_site.html:62 templates/admin/base_site.html:64
-msgid "View site"
-msgstr "Открыть сайт"
 
 #: templates/admin/base_site.html:95 templates/admin/base_site.html:106
 msgid "Stop impersonation"
 msgstr "Прекратить имперсонацию"
 
-#: templates/admin/base_site.html:118
-msgid "Documentation"
-msgstr "Документация"
-
-#: templates/admin/base_site.html:127
-msgid "Log out"
-msgstr "Выйти"
-
-#: templates/admin/base_site.html:155
-msgid "Home"
-msgstr "Начало"
-
 #: templates/admin/change_form.html:95
 msgid "Toolbar"
 msgstr "Панель инструментов"
-
-#: templates/admin/change_form_object_tools.html:8
-#: templates/admin/change_list.html:168
-#: templates/paper_admin/header_buttons.html:9
-msgid "Save"
-msgstr "Сохранить"
-
-#: templates/admin/change_form_object_tools.html:17
-#: templates/paper_admin/header_buttons.html:23
-msgid "Save and continue editing"
-msgstr "Сохранить и продолжить редактирование"
-
-#: templates/admin/change_form_object_tools.html:19
-#: templates/paper_admin/header_buttons.html:25
-msgid "Save and view"
-msgstr "Сохранить и просмотреть"
-
-#: templates/admin/change_form_object_tools.html:28
-#: templates/paper_admin/header_buttons.html:33
-msgid "Save and add another"
-msgstr "Сохранить и добавить другой объект"
-
-#: templates/admin/change_form_object_tools.html:36
-#: templates/paper_admin/header_buttons.html:40
-msgid "Save as new"
-msgstr "Сохранить как новый объект"
-
-#: templates/admin/change_form_object_tools.html:46
-#: templates/admin/edit_inline/_stacked_form.html:22
-#: templates/admin/edit_inline/_tabular_form.html:57
-#: templates/paper_admin/header_buttons.html:55
-#: templates/paper_admin/includes/changelist_tools.html:10
-msgid "View on site"
-msgstr "Смотреть на сайте"
-
-#: templates/admin/change_form_object_tools.html:67
-#: templates/admin/delete_confirmation.html:39
-#: templates/admin/edit_inline/_stacked_form.html:77
-#: templates/admin/edit_inline/_tabular_form.html:112
-#: templates/paper_admin/header_buttons.html:77
-#: templates/paper_admin/includes/changelist_tools.html:30
-msgid "Delete"
-msgstr "Удалить"
 
 #: templates/admin/change_list.html:77
 msgid "Filters"
@@ -220,10 +59,6 @@ msgstr "Фильтры"
 #: templates/admin/change_list.html:91
 msgid "Apply"
 msgstr "Применить"
-
-#: templates/admin/change_list.html:97
-msgid "Clear all filters"
-msgstr "Сбросить все фильтры"
 
 #: templates/admin/change_list.html:112
 msgid "Filter by date"
@@ -235,55 +70,12 @@ msgstr "Нет результатов"
 
 #: templates/admin/change_list.html:181
 msgid "Reset search and filters"
-msgstr "Сбросить настройки поиска и фильтров"
+msgstr "Сбросить все фильтры"
 
 #: templates/admin/change_list.html:186
 #, python-format
 msgid "%(name_plural)s are not created yet"
 msgstr "%(name_plural)s еще не созданы"
-
-#: templates/admin/change_list_results.html:51
-#, python-format
-msgid "Sorting priority: %(priority_number)s"
-msgstr "Приоритет сортировки: %(priority_number)s"
-
-#: templates/admin/change_list_results.html:58
-msgid "Toggle sorting"
-msgstr "Сортировать в другом направлении"
-
-#: templates/admin/change_list_results.html:64
-msgid "Remove from sorting"
-msgstr "Удалить из сортировки"
-
-#: templates/admin/change_list_results.html:122
-#, python-format
-msgid "%(full_result_count)s total"
-msgstr "Всего %(full_result_count)s объектов"
-
-#: templates/admin/change_list_results.html:122
-#: templates/admin/change_list_results.html:133
-msgid "Show all"
-msgstr "Показать все"
-
-#: templates/admin/delete_confirmation.html:52
-#, python-format
-msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
-"related objects, but your account doesn't have permission to delete the "
-"following types of objects:"
-msgstr ""
-"Удаление %(object_name)s '%(escaped_object)s' приведет к удалению связанных "
-"объектов, но ваша учетная запись не имеет прав для удаления следующих типов "
-"объектов:"
-
-#: templates/admin/delete_confirmation.html:64
-#, python-format
-msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
-"following protected related objects:"
-msgstr ""
-"Удаление %(object_name)s '%(escaped_object)s' потребует удаления следующих "
-"связанных защищенных объектов:"
 
 #: templates/admin/delete_confirmation.html:76
 #, python-format
@@ -299,44 +91,6 @@ msgstr ""
 #: templates/admin/delete_confirmation.html:80
 msgid "All of the following related items will be deleted:"
 msgstr "Все следующие связанные объекты также будут удалены:"
-
-#: templates/admin/delete_confirmation.html:86
-#: templates/admin/delete_selected_confirmation.html:74
-msgid "Objects"
-msgstr "Объекты"
-
-#: templates/admin/delete_confirmation.html:106
-#: templates/admin/delete_selected_confirmation.html:94
-msgid "Yes, I'm sure"
-msgstr "Да, я уверен"
-
-#: templates/admin/delete_confirmation.html:110
-#: templates/admin/delete_selected_confirmation.html:98
-msgid "No, take me back"
-msgstr "Нет, отменить и вернуться"
-
-#: templates/admin/delete_selected_confirmation.html:28
-msgid "Delete multiple objects"
-msgstr "Удалить несколько объектов"
-
-#: templates/admin/delete_selected_confirmation.html:41
-#, python-format
-msgid ""
-"Deleting the selected %(objects_name)s would result in deleting related "
-"objects, but your account doesn't have permission to delete the following "
-"types of objects:"
-msgstr ""
-"Удаление выбранной %(objects_name)s приведет к удалению связанных объектов, "
-"но ваша учетная запись не имеет прав на удаление следующих типов объектов:"
-
-#: templates/admin/delete_selected_confirmation.html:53
-#, python-format
-msgid ""
-"Deleting the selected %(objects_name)s would require deleting the following "
-"protected related objects:"
-msgstr ""
-"Удаление %(objects_name)s потребует удаления следующих связанных защищенных "
-"объектов:"
 
 #: templates/admin/delete_selected_confirmation.html:64
 #, python-format
@@ -356,61 +110,6 @@ msgstr "Переместить вверх"
 #: templates/admin/edit_inline/_tabular_form.html:83
 msgid "Move down"
 msgstr "Переместить вниз"
-
-#: templates/admin/edit_inline/stacked.html:36
-#: templates/admin/edit_inline/tabular.html:65
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr "Добавить еще один %(verbose_name)s"
-
-#: templates/admin/includes/object_delete_summary.html:1
-msgid "Summary"
-msgstr "Краткая статистика"
-
-#: templates/admin/invalid_setup.html:8
-msgid ""
-"Something's wrong with your database installation. Make sure the appropriate "
-"database tables have been created, and make sure the database is readable by "
-"the appropriate user."
-msgstr ""
-"Ваша база данных неправильно настроена. Убедитесь, что соответствующие "
-"таблицы были созданы, и что соответствующему пользователю разрешен к ним "
-"доступ."
-
-#: templates/admin/login.html:34
-#, python-format
-msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
-msgstr ""
-"Вы вошли в систему как %(username)s, однако у вас недостаточно прав для "
-"просмотра данной страницы. Возможно, вы хотели бы войти в систему, используя "
-"другую учётную запись?"
-
-#: templates/admin/login.html:49 templates/admin/login.html:80
-#: templates/registration/password_reset_complete.html:24
-msgid "Log in"
-msgstr "Войти"
-
-#: templates/admin/login.html:90
-msgid "Forgotten your password or username?"
-msgstr "Забыли свой пароль или имя пользователя?"
-
-#: templates/admin/object_history.html:36
-msgid "Date/time"
-msgstr "Дата и время"
-
-#: templates/admin/object_history.html:37
-msgid "User"
-msgstr "Пользователь"
-
-#: templates/admin/object_history.html:71
-msgid ""
-"This object doesn't have a change history. It probably wasn't added via this "
-"admin site."
-msgstr ""
-"Данный объект не имеет истории изменений. Возможно, он был добавлен не через "
-"данный административный сайт."
 
 #: templates/admin/pagination.html:4
 msgid "Search results pages"
@@ -440,40 +139,6 @@ msgstr "Следующая страница"
 msgid "Last"
 msgstr "В конец"
 
-#: templates/admin/popup_response.html:3
-msgid "Popup closing..."
-msgstr "Всплывающее окно закрывается..."
-
-#: templates/admin/search_form.html:8 templates/admin/search_form.html:9
-msgid "Search"
-msgstr "Найти"
-
-#: templates/admin/widgets/related_widget_wrapper.html:19
-#, python-format
-msgid "Add another %(model)s"
-msgstr "Добавить ещё один объект %(model)s"
-
-#: templates/admin/widgets/related_widget_wrapper.html:33
-#, python-format
-msgid "Change selected %(model)s"
-msgstr "Изменить выбранный объект %(model)s"
-
-#: templates/admin/widgets/related_widget_wrapper.html:35
-#, python-format
-msgid "View selected %(model)s"
-msgstr "Просмотреть выбранный объект %(model)s"
-
-#: templates/admin/widgets/related_widget_wrapper.html:49
-#, python-format
-msgid "Delete selected %(model)s"
-msgstr "Удалить выбранный объект %(model)s"
-
-#: templates/django/forms/widgets/date.html:10
-#: templates/paper_admin/filters/daterange.html:17
-#: templates/paper_admin/filters/daterange.html:37
-msgid "Today"
-msgstr "Сегодня"
-
 #: templates/django/forms/widgets/email.html:12
 msgid "Send mail"
 msgstr "Написать письмо"
@@ -487,13 +152,13 @@ msgstr "Выбрать файл"
 msgid "Show / hide password"
 msgstr "Показать / скрыть пароль"
 
-#: templates/django/forms/widgets/time.html:10
-msgid "Now"
-msgstr "Сейчас"
-
 #: templates/django/forms/widgets/url.html:12
 msgid "Visit URL"
 msgstr "Открыть страницу"
+
+#: templates/django/forms/widgets/uuid.html:10
+msgid "Generate new UUID"
+msgstr "Сгенерировать новый UUID"
 
 #: templates/paper_admin/filters/daterange.html:11
 msgid "Start date"
@@ -507,121 +172,13 @@ msgstr "До"
 msgid "Toggle dropdown"
 msgstr "Открыть/спрятать выпадающий список"
 
-#: templates/paper_admin/header_buttons.html:86
-msgid "Close"
-msgstr "Закрыть"
-
-#: templates/registration/logged_out.html:6
-msgid "You are now logged out"
-msgstr "Вы вышли из системы"
-
-#: templates/registration/logged_out.html:13
-msgid "Thanks for spending some quality time with the Web site today."
-msgstr "Благодарим вас за время, проведенное на этом сайте."
-
-#: templates/registration/logged_out.html:18
-msgid "Log in again"
-msgstr "Войти снова"
-
-#: templates/registration/password_change_done.html:6
-#: templates/registration/password_change_form.html:8
-#: templates/registration/password_change_form.html:26
-msgid "Password change"
-msgstr "Изменение пароля"
-
-#: templates/registration/password_change_done.html:20
-#: templates/registration/password_reset_complete.html:20
-msgid "Your password has been set. You may go ahead and log in now."
-msgstr "Ваш пароль был сохранен. Теперь вы можете войти."
-
 #: templates/registration/password_change_done.html:24
 msgid "Go to dashboard"
 msgstr "Перейти на главную страницу"
 
-#: templates/registration/password_change_form.html:45
-msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
-msgstr ""
-"В целях безопасности, пожалуйста, введите свой старый пароль, затем введите "
-"новый пароль дважды, чтобы мы могли убедиться в правильности написания."
-
-#: templates/registration/password_reset_complete.html:6
-#: templates/registration/password_reset_done.html:6
-#: templates/registration/password_reset_form.html:8
-msgid "Password reset"
-msgstr "Восстановление пароля"
-
-#: templates/registration/password_reset_confirm.html:8
-msgid "Password reset confirmation"
-msgstr "Подтверждение восстановления пароля"
-
-#: templates/registration/password_reset_confirm.html:29
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr ""
-"Пожалуйста, введите новый пароль дважды, чтобы мы могли убедиться в "
-"правильности написания."
-
-#: templates/registration/password_reset_confirm.html:43
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used. Please request a new password reset."
-msgstr ""
-"Неверная ссылка для восстановления пароля. Возможно, ей уже воспользовались. "
-"Пожалуйста, попробуйте восстановить пароль еще раз."
-
-#: templates/registration/password_reset_done.html:20
-msgid ""
-"We've emailed you instructions for setting your password, if an account "
-"exists with the email you entered. You should receive them shortly."
-msgstr ""
-"Мы отправили вам инструкцию по установке нового пароля на указанный адрес "
-"электронной почты (если в нашей базе данных есть такой адрес). Вы должны "
-"получить ее в ближайшее время."
-
-#: templates/registration/password_reset_done.html:22
-msgid ""
-"If you don't receive an email, please make sure you've entered the address "
-"you registered with, and check your spam folder."
-msgstr ""
-"Если вы не получили письмо, пожалуйста, убедитесь, что вы ввели адрес с "
-"которым Вы зарегистрировались, и проверьте папку со спамом."
-
 #: templates/registration/password_reset_done.html:26
 msgid "Go back"
 msgstr "Вернуться назад"
-
-#: templates/registration/password_reset_email.html:4
-#, python-format
-msgid ""
-"You're receiving this email because you requested a password reset for your "
-"user account at %(site_name)s."
-msgstr ""
-"Вы получили это письмо, потому что вы (или кто-то другой) запросили "
-"восстановление пароля от учётной записи на сайте %(site_name)s, которая "
-"связана с этим адресом электронной почты."
-
-#: templates/registration/password_reset_email.html:5
-msgid "Please go to the following page and choose a new password:"
-msgstr "Пожалуйста, перейдите на эту страницу и введите новый пароль:"
-
-#: templates/registration/password_reset_email.html:9
-#: templates/registration/password_reset_email_alt.html:20
-msgid "Your username, in case you've forgotten:"
-msgstr "Ваше имя пользователя (на случай, если вы его забыли):"
-
-#: templates/registration/password_reset_email.html:10
-#: templates/registration/password_reset_email_alt.html:21
-msgid "Thanks for using our site!"
-msgstr "Спасибо, что используете наш сайт!"
-
-#: templates/registration/password_reset_email.html:11
-#: templates/registration/password_reset_email_alt.html:22
-#, python-format
-msgid "The %(site_name)s team"
-msgstr "Команда сайта %(site_name)s"
 
 #: templates/registration/password_reset_email_alt.html:4
 #, python-format
@@ -641,15 +198,3 @@ msgstr "Если вы не запрашивали сброс пароля, пр�
 #: templates/registration/password_reset_email_alt.html:15
 msgid "Set new password"
 msgstr "Установить новый пароль"
-
-#: templates/registration/password_reset_form.html:28
-msgid ""
-"Forgotten your password? Enter your email address below, and we'll email "
-"instructions for setting a new one."
-msgstr ""
-"Забыли пароль? Введите свой адрес электронной почты ниже, и мы вышлем вам "
-"инструкцию, как установить новый пароль."
-
-#: templates/registration/password_reset_form.html:36
-msgid "Reset my password"
-msgstr "Восстановить мой пароль"
