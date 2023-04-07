@@ -12,72 +12,74 @@
       </h4>
 
       <div class="align-self-stretch btn-square-group btn-square-group--table-valign">
-        {% if inline_form.show_url %}
-          <a href="{{ inline_form.absolute_url }}"
-             class="btn btn-square btn-sm btn-square--info"
-             data-xclass="bs-tooltip"
-             data-placement="top"
-             data-trigger="hover"
-             data-html="true"
-             title="{{ _("View on site") }}"
-             target="_blank"
-             rel="noopener">
-            <i class="bi-eye"></i>
-          </a>
-        {% endif %}
-
-        {% if inline_admin_formset.sortable_allowed %}
-          <button type="button"
-                  class="sortable-move-up btn btn-square btn-sm btn-square--info"
-                  data-formset-toggle="up"
-                  data-xclass="bs-tooltip"
-                  data-placement="top"
-                  data-trigger="hover"
-                  data-html="true"
-                  title="{{ _("Move up") }}">
-            <i class="bi-chevron-up"></i>
-          </button>
-
-          <button type="button"
-                  class="sortable-move-down btn btn-square btn-sm btn-square--info"
-                  data-formset-toggle="down"
-                  data-xclass="bs-tooltip"
-                  data-placement="top"
-                  data-trigger="hover"
-                  data-html="true"
-                  title="{{ _("Move down") }}">
-            <i class="bi-chevron-down"></i>
-          </button>
-        {% endif %}
-
-        {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
-          <div class="delete-inline btn btn-square btn-sm btn-square--danger"
+        {% block inline-tools-items %}
+          {% if inline_form.show_url %}
+            <a href="{{ inline_form.absolute_url }}"
+               class="btn btn-square btn-sm btn-square--info"
                data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
-               title="{{ inline_form.deletion_field.field.label }}">
-            <div class="custom-control custom-checkbox user-select-none">
-              {{ inline_form.deletion_field.field }}
-              <label for="{{ inline_form.deletion_field.field.id_for_label }}"
-                     class="custom-control-label"></label>
-              <i class="delete-inline__icon bi-trash"></i>
-            </div>
-          </div>
-        {% endif %}
+               title="{{ _("View on site") }}"
+               target="_blank"
+               rel="noopener">
+              <i class="bi-eye"></i>
+            </a>
+          {% endif %}
 
-        {% if not inline_form.original and not inline_form.show_url %}
-          <button type="button"
-                  class="btn btn-square btn-sm btn-square--danger"
-                  data-formset-toggle="delete"
-                  data-xclass="bs-tooltip"
-                  data-placement="top"
-                  data-trigger="hover"
-                  data-html="true"
-                  title="{{ _("Delete") }}">
-            <i class="bi-trash"></i>
-          </button>
-        {% endif %}
+          {% if inline_admin_formset.sortable_allowed %}
+            <button type="button"
+                    class="sortable-move-up btn btn-square btn-sm btn-square--info"
+                    data-formset-toggle="up"
+                    data-xclass="bs-tooltip"
+                    data-placement="top"
+                    data-trigger="hover"
+                    data-html="true"
+                    title="{{ _("Move up") }}">
+              <i class="bi-chevron-up"></i>
+            </button>
+
+            <button type="button"
+                    class="sortable-move-down btn btn-square btn-sm btn-square--info"
+                    data-formset-toggle="down"
+                    data-xclass="bs-tooltip"
+                    data-placement="top"
+                    data-trigger="hover"
+                    data-html="true"
+                    title="{{ _("Move down") }}">
+              <i class="bi-chevron-down"></i>
+            </button>
+          {% endif %}
+
+          {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_form.original %}
+            <div class="delete-inline btn btn-square btn-sm btn-square--danger"
+                 data-xclass="bs-tooltip"
+                 data-placement="top"
+                 data-trigger="hover"
+                 data-html="true"
+                 title="{{ inline_form.deletion_field.field.label }}">
+              <div class="custom-control custom-checkbox user-select-none">
+                {{ inline_form.deletion_field.field }}
+                <label for="{{ inline_form.deletion_field.field.id_for_label }}"
+                       class="custom-control-label"></label>
+                <i class="delete-inline__icon bi-trash"></i>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if not inline_form.original and not inline_form.show_url %}
+            <button type="button"
+                    class="btn btn-square btn-sm btn-square--danger"
+                    data-formset-toggle="delete"
+                    data-xclass="bs-tooltip"
+                    data-placement="top"
+                    data-trigger="hover"
+                    data-html="true"
+                    title="{{ _("Delete") }}">
+              <i class="bi-trash"></i>
+            </button>
+          {% endif %}
+        {% endblock %}
       </div>
     </div>
   </div>
