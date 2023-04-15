@@ -53,29 +53,27 @@ INSTALLED_APPS = [
 
 ## Patches
 
-Некоторые сторонние библиотеки переопределяют стандартные
-шаблоны Django и в рамках интерфейса `paper_admin`
-выглядят инородно. По этой причине (а также для внедрения
-дополнительного функционала) применяются патчи.
+Some third-party libraries override the standard Django templates and within the `paper_admin`
+interface look disfigured. To fix these, you can use the patches included in this package.
 
-В состав `paper_admin` включены следующие патчи:
+The following patches are available:
 
 -   `paper_admin.patches.dal`<br>
-    Исправляет стили виджетов [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light)
+    Fixes the style of the [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light) widgets.
 
 -   `paper_admin.patches.django_solo`<br>
-    Исправляет хлебные крошки в [django-solo](https://github.com/lazybird/django-solo).
+    Fixes the breadcrumbs in [django-solo](https://github.com/lazybird/django-solo).
 
 -   `paper_admin.patches.mptt`<br>
-    Адаптация [django-mptt](https://github.com/django-mptt/django-mptt).
-    Добавляет возможность сортировки узлов дерева (при указании свойства `sortable`).
+    Adaptation of [django-mptt](https://github.com/django-mptt/django-mptt).
+    Adds the ability to sort tree nodes (when the `sortable` property is specified).
 
 -   `paper_admin.patches.logentry_admin`<br>
-    Исправление фильтров и скрытие ненужных кнопок в [django-logentry-admin](https://github.com/yprez/django-logentry-admin).
+    Fixes the filters and hides unwanted buttons in [django-logentry-admin](https://github.com/yprez/django-logentry-admin).
 
 -   `paper_admin.patches.tree_queries`<br>
-    Добавление возможности сортировки узлов дерева для [django-tree-queries](https://github.com/matthiask/django-tree-queries).
-    **Необходимо** использовать специальный класс `TreeNodeModelAdmin` вместо `ModelAdmin`:
+    Adds the ability to sort tree nodes for [django-tree-queries](https://github.com/matthiask/django-tree-queries).
+    **It is necessary** to use the special `TreeNodeModelAdmin` class instead of the standard `ModelAdmin`:
 
     ```python
     # admin.py
@@ -89,19 +87,17 @@ INSTALLED_APPS = [
         sortable = "position"
     ```
 
-**Note**: как правило, патчи должны быть указаны в `INSTALLED_APPS` **до** библиотек,
-которые они исправляют.
+To use a patch, you need to add it to the `INSTALLED_APPS` setting.
+**Note**: as a rule, patches should be added **before** the libraries they fix.
 
 ## Badge
 
-Полоса с текстом в сайдбаре.
+Badge is a text description of the environment to prevent confusion between the 
+development and production servers.
 
 ![](https://user-images.githubusercontent.com/6928240/125350052-4a28e080-e36f-11eb-8772-4d797d64863a.png)
 
-Её основное предназначение - визуально обозначить окружение, в котором работает
-административный интерфейс. Так вы не перепутаете сервер разработки с продашеном.
-
-Цвет полосы и текст устанавливаются в `settings.py`:
+The color and text of the badge can be changed in the `settings.py` file:
 
 ```python
 PAPER_ENVIRONMENT_NAME = "development"

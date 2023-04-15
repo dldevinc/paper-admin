@@ -4,9 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TreeNodeModelAdminMixin:
-    """
-    Некоторые аспекты взяты из MPTTModelAdmin.
-    """
+    # Некоторые аспекты взяты из MPTTModelAdmin.
     change_list_template = "admin/tree_queries_change_list.html"
     list_per_page = 2000  # This will take a really long time to load.
     list_display = ["indented_title"]  # Sane defaults.
