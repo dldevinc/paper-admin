@@ -7,7 +7,7 @@
         <div class="custom-control custom-radio user-select-none">
           <input type="radio"
                  id="id_{{ spec.parameter_name }}-{{ choice.value }}"
-                 value="{{ choice.value }}"
+                 value="{{ choice.value|default_if_none:NONE_PLACEHOLDER }}"
                  name="{{ spec.parameter_name }}"
                  class="custom-control-input"
                  {{ choice.selected|yesno:"checked," }}>

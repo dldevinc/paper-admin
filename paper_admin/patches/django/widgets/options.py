@@ -13,6 +13,7 @@ ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, 
 
 class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
     def formfield_for_choice_field(self, db_field, request, **kwargs):
+        # Использование виджета AdminRadioSelect по умолчанию
         if db_field.name in self.radio_fields:
             if "widget" not in kwargs:
                 kwargs["widget"] = widgets.AdminRadioSelect()
@@ -55,23 +56,24 @@ class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
 
         db = kwargs.get("using")
 
-        autocomplete_fields = self.get_autocomplete_fields(request)
-        if db_field.name in autocomplete_fields:
-            kwargs['widget'] = AutocompleteSelectMultiple(
-                db_field if django.VERSION >= (3, 2) else db_field.remote_field,
-                self.admin_site,
-                using=db
-            )
-        elif db_field.name in self.raw_id_fields:
-            kwargs["widget"] = widgets.AdminManyToManyRawIdWidget(
-                db_field.remote_field,
-                self.admin_site,
-                using=db
-            )
-        elif db_field.name in list(self.filter_vertical) + list(self.filter_horizontal):
-            kwargs["widget"] = widgets.FilteredSelectMultiple()
-        else:
-            kwargs.setdefault("widget", forms.SelectMultiple)
+        if "widget" not in kwargs:
+            autocomplete_fields = self.get_autocomplete_fields(request)
+            if db_field.name in autocomplete_fields:
+                kwargs['widget'] = AutocompleteSelectMultiple(
+                    db_field if django.VERSION >= (3, 2) else db_field.remote_field,
+                    self.admin_site,
+                    using=db
+                )
+            elif db_field.name in self.raw_id_fields:
+                kwargs["widget"] = widgets.AdminManyToManyRawIdWidget(
+                    db_field.remote_field,
+                    self.admin_site,
+                    using=db
+                )
+            elif db_field.name in [*self.filter_vertical, *self.filter_horizontal]:
+                kwargs["widget"] = widgets.FilteredSelectMultiple()
+            else:
+                kwargs["widget"] = forms.SelectMultiple
 
         if "queryset" not in kwargs:
             queryset = self.get_field_queryset(db, db_field, request)

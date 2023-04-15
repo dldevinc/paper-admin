@@ -1,43 +1,39 @@
-<div class="paper-date-range-filter paper-filter">
+<div class="paper-date-range-filter paper-filter" data-xclass="paper-date-range-filter">
   <p class="paper-filter__title mb-1">{{ title|capfirst }}</p>
 
-  <div class="paper-filter__row">
-    <div class="paper-input-group input-group">
-      <input type="text"
-             class="form-control"
-             id="filter-{{ spec.parameter_name }}-start"
-             name="{{ spec.parameter_name }}-start"
-             value="{{ spec.value.0.0|default:"" }}"
-             placeholder="{{ _("Start date") }}"
-             data-range-start>
+  <div class="paper-input-group input-group">
+    <input type="text"
+           class="form-control"
+           id="filter-{{ spec.parameter_name }}-start"
+           name="{{ spec.parameter_name }}-start"
+           value="{{ spec.value.0|default:"" }}"
+           placeholder="{{ _("Start date") }}"
+           data-range-start>
 
-      <div class="input-group-append">
-        <button type="button" class="input-group-text" tabindex="-1" data-today
-                data-toggle="tooltip" data-placement="top" data-trigger="hover"
-                data-html="true" title="{{ _('Today') }}">
-          <i class="fa fa-calendar-check-o"></i>
-        </button>
-      </div>
+    <div class="input-group-append">
+      <button type="button" class="input-group-text" tabindex="-1" data-today
+              data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
+              data-html="true" title="{{ _('Today') }}">
+        <i class="bi-calendar-check"></i>
+      </button>
     </div>
   </div>
 
-  <div class="paper-filter__row">
-    <div class="paper-input-group input-group">
-      <input type="text"
-             class="form-control"
-             id="filter-{{ spec.parameter_name }}-end"
-             name="{{ spec.parameter_name }}-end"
-             value="{{ spec.value.0.1|default:"" }}"
-             placeholder="{{ _("End date") }}"
-             data-range-end>
+  <div class="paper-input-group input-group mt-1">
+    <input type="text"
+           class="form-control"
+           id="filter-{{ spec.parameter_name }}-end"
+           name="{{ spec.parameter_name }}-end"
+           value="{{ spec.value.1|default:"" }}"
+           placeholder="{{ _("End date") }}"
+           data-range-end>
 
-      <div class="input-group-append">
-        <button type="button" class="input-group-text" tabindex="-1" data-today
-                data-toggle="tooltip" data-placement="top" data-trigger="hover"
-                data-html="true" title="{{ _('Today') }}">
-          <i class="fa fa-calendar-check-o"></i>
-        </button>
-      </div>
+    <div class="input-group-append">
+      <button type="button" class="input-group-text" tabindex="-1" data-today
+              data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
+              data-html="true" title="{{ _('Today') }}">
+        <i class="bi-calendar-check"></i>
+      </button>
     </div>
   </div>
 </div>

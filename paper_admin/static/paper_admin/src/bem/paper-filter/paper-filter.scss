@@ -12,8 +12,4 @@
     font-size: $paper-filter-title-font-size;
     font-weight: $paper-filter-title-font-weight;
   }
-
-  &__row:not(:first-of-type) {
-    margin-top: $paper-filter-row-space;
-  }
 }

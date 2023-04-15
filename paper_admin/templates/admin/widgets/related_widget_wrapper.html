@@ -12,12 +12,12 @@
             <a id="add_id_{{ name }}"
                class="related-widget-wrapper__link add-related btn btn-square btn-sm btn-square--success"
                href="{{ add_related_url }}?{{ url_params }}"
-               data-toggle="tooltip"
+               data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-                <i class="fa fa-plus"></i>
+                <i class="bi-mb bi-plus-lg"></i>
             </a>
           {% endif %}
 
@@ -25,7 +25,7 @@
             <a id="change_id_{{ name }}"
                class="related-widget-wrapper__link change-related btn btn-square btn-sm btn-square--info"
                data-href-template="{{ change_related_template_url }}?{{ url_params }}"
-               data-toggle="tooltip"
+               data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
@@ -34,7 +34,7 @@
                {% else %}
                 title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
                {% endif %}
-                <i class="fa {% if can_change_related %}fa-pencil{% else %}fa-eye{% endif %}"></i>
+                <i class="bi-mb{% if can_change_related %} bi-pencil-square{% else %} bi-eye{% endif %}"></i>
             </a>
           {% endif %}
 
@@ -42,12 +42,12 @@
             <a id="delete_id_{{ name }}"
                class="related-widget-wrapper__link delete-related btn btn-square btn-sm btn-square--danger"
                data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
-               data-toggle="tooltip"
+               data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
-                <i class="fa fa-trash"></i>
+                <i class="bi-mb bi-trash"></i>
             </a>
           {% endif %}
 

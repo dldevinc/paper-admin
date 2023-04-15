@@ -8,7 +8,7 @@ Custom Django admin interface based on Bootstrap 4.
 
 ## Requirements
 
--   Python >= 3.6
+-   Python >= 3.7
 -   Django >= 2.2
 
 ## Table of Contents
@@ -17,9 +17,9 @@ Custom Django admin interface based on Bootstrap 4.
 -   [Patches](#Patches)
 -   [Badge](#Badge)
 -   [Admin menu](#Admin-menu)
-    -   [Menu item permissions](#Menu-item-permissions)
 -   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
 -   [Form tabs](#Form-tabs)
+-   [HierarchyFilter](#HierarchyFilter)
 -   [Stylization](#Stylization)
     -   [Fieldset](#Fieldset)
     -   [Table rows](#Table-rows)
@@ -110,148 +110,185 @@ PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 ## Admin menu
 
-![image](https://user-images.githubusercontent.com/6928240/203797839-c2040aa0-e400-4e10-98c4-57fe8c062a9e.png)
+Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU` в `settings.py`.
 
-Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU`
-в `settings.py`:
+Каждый пункт меню создаётся экземпляром класса `Item`, в который можно
+передать следующие параметры:
+
+-   `app` - Приложение, для которого будет создан пункт меню. Определяет имя пункта меню
+    если `label` не задан. Неявно добавляется к именам моделей, указанным в дочерних пунктах.
+-   `model` - Модель, для которой будет создан пункт меню в формате `app_label.model_name`,
+    либо просто `model_name`, если `app` был указан в родительском пункте. Определяет имя
+    и URL пункта меню если `label` и `url` не заданы.
+-   `label` - Название пункта меню.
+-   `url` - URL пункта меню. Если не указан явно, то автоматически определяется
+    по значению `app` или `model`.
+-   `icon` - CSS-классы иконки пункта меню из [Bootstrap Icons](https://icons.getbootstrap.com/).
+-   `perms` - Права доступа, необходимые для показа пункта меню.
+-   `classes` - CSS-классы для пункта меню.
+-   `target` - Атрибут `target` для ссылки. Допустимые значения:
+    `_blank`, `_self` (значение по умолчанию).
+-   `children` - Список дочерних пунктов меню.
+
+Примеры:
 
 ```python
 from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item
 
 PAPER_MENU = [
-    dict(       # Пункт меню для главной страницы
+    # Пункт меню с явно заданным именем и URL
+    Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="fa fa-fw fa-lg fa-area-chart",
+        icon="bi-lg bi-mb bi-speedometer2",
     ),
-    dict(       # Приложение app с перечнем его моделей
+
+    # Меню для приложения auth. Дочерние пункты будут сформированы
+    # автоматически из моделей приложения.
+    Item(
+        app="auth"
+    ),
+
+    # Приложение app с явно заданным списком моделей.
+    # Имя приложения неявно добавляется к именам моделей.
+    Item(
         app="app",
-        icon="fa fa-fw fa-lg fa-home",
-        models=[
-            "Tag",
-            "Category",
-            "SubCategory",
+        icon="bi-lg bi-mb bi-house-fill",
+        children=[
+            "Widgets",
+            "Message",
+            "Book",
         ]
     ),
-    "-",        # Разделитель
-    "auth",     # Приложение auth
-    dict(       # Модель LogEntry из приложения admin
+
+    # Указание модели определённого приложения в качестве дочернего пункта
+    Item(
         label=_("Logs"),
-        icon="fa fa-fw fa-lg fa-history",
+        icon="bi-lg bi-mb bi-clock-history",
         perms="admin.view_logentry",
-        models=[
+        children=[
             "admin.LogEntry"
         ]
     ),
-]
-```
 
-Пункт меню может быть задан одним из четырех способов:
-
--   Имя приложения.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "app",
-        # ...
-    ]
-    ```
-
-    Все модели выбранного приложения образуют подменю. Порядок моделей Django
-    определяет автоматически.
-
--   Путь к модели.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "app.Tag",
-        # ...
-    ]
-    ```
-
-    Создаст пункт меню с заголовком, соответствующим названию модели и
-    ссылающийся на страницу changelist.
-
--   Строка-разделитель.<br>
-
-    ```python
-    PAPER_MENU = [
-        # ...
-        "-",
-        # ...
-    ]
-    ```
-
-    Добавляет горизонтальную линию. С помощью разделителей можно визуально группировать пункты меню.
-
--   Словарь.<br>
-
-    ```python
-    from django.urls import reverse_lazy
-    from django.utils.translation import gettext_lazy as _
-
-    PAPER_MENU = [
-        # ...
-        dict(
-          app="app",
-          icon="fa fa-fw fa-lg fa-home",
-          models=[
-              "Tag",        # Модель app.Tag
-              "Category",   # Модель app.Category
-              dict(         # Произвольный вложенный пункт
-                  label=_("Index"),
-                  url=reverse_lazy("admin:app_list", kwargs={
-                      "app_label": "app"
-                  })
-              ),
-          ]
-        ),
-        # ...
-    ]
-    ```
-
-    Самый гибкий способ создания пункта меню. В словаре можно явным образом
-    указать название пункта меню, его URL, иконку, CSS-классы и вложенные
-    пункты. Вложенные пункты тоже могут быть заданы с помощью словаря.
-
-При использовании словаря можно указать следующие ключи:
-
--   `label`: `str` - заголовок пункта меню.
--   `url`: `str` - URL или имя URL-шаблона (например, `app:index`).
--   `icon`: `str` - CSS-классы иконки (используется FontAwesome v4).
--   `classes`: `str` - CSS-классы пункта меню.
--   `perms`: `str/list/callable` - права, необходимые для отображения пункта.
-    Для определения суперюзера и сотрудников, можно использовать специальные
-    значения `superuser` и `staff` соответственно.
--   `app`: `str` - имя приложения. Неявно добавляется к именам моделей,
-    указанным в пункте `models`.
--   `models`: `list/dict` - дочерние пункты меню. Содержит список имен моделей
-    приложения или вложенных пунктов, которые можно задать в виде словаря.
-
-### Menu item permissions
-
-С помощью параметра `perms` можно указать названия прав (Django permissions),
-которые должен иметь пользователь, чтобы увидеть соответствующий пункт меню.
-
-> На доступность страниц параметр `perms` никак не влияет! Если пользователь знает
-адрес страницы или ссылка на неё имеется где-то ещё, то пользователь сможет
-на неё зайти!
-
-```python
-PAPER_MENU = [
-    # Пункт меню приложения app увидят только сотрудники (staff),
-    # имеющие право на изменение модели `app.Tag`.
-    dict(
-        app="app",
-        perms=["staff", "app.change_tag"],
-        models=[
-            "Tag",
-        ]
+    # Добавление CSS-классов и атрибута target для ссылки.
+    Item(
+        label="Google",
+        url="https://google.com/",
+        icon="bi-lg bi-google",
+        classes="text-warning",
+        target="_blank",
     )
 ]
 ```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/232227638-cc952405-051e-40a2-96ac-e1df84079d40.png)
+
+Не допускается одновременное задание параметров `app` и `model`.
+Однако, необходимо указать хотя бы один из параметров: `app`, `model` или `label`.
+
+В качестве значения для параметра `perms` можно передать строку или список строк с
+именами прав доступа, функцию или значение `PAPER_MENU_SUPERUSER_PERMISSION`
+(по умолчанию `superuser`) или `PAPER_MENU_STAFF_PERMISSION` (по умолчанию `staff`).
+
+Пример:
+
+```python
+Item(
+    app="faq",
+    icon="bi-lg bi-mb bi-house-fill",
+    perms=["app.view_question", "app.view_answer"],
+    children=[
+        "Question",
+        "Answer",
+    ]
+),
+```
+
+### Divider
+
+Специальный класс, добавляющий горизонтальную линию для визуального
+отделения пунктов меню:
+
+```python
+from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Divider
+
+PAPER_MENU = [
+    Item(
+        label=_("Dashboard"),
+        url="#",
+    ),
+    Item(
+        label=_("Blog"),
+        url="#",
+    ),
+    Item(
+        label=_("About Us"),
+        url="#",
+    ),
+    Item(
+        label=_("Contacts"),
+        url="#",
+    ),
+    Divider(),
+    Item(
+        label=_("Logs"),
+        url="#",
+    ),
+]
+```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/232228606-5fc4cbd2-21c2-4cde-9b9e-740fc03e4f81.png)
+
+### Group
+
+Класс, предназначенный для группировки пунктов меню. С его помощью можно не только
+визуально выделить определённый набор пунктов меню, но и централизованно проверить
+права на него.
+
+```python
+from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Group
+
+PAPER_MENU = [
+    Item(
+        label=_("Dashboard"),
+        url="#",
+    ),
+    Item(
+        label=_("About Us"),
+        url="#",
+    ),
+    Item(
+        label=_("Blog"),
+        url="#",
+    ),
+    Group(
+        label=_("Admin Area"),
+        perms="superuser",
+        children=[
+            Item(
+                label=_("Backups"),
+                url="#",
+            ),
+            Item(
+                label=_("Logs"),
+                url="#",
+            ),
+        ]
+    ),
+]
+```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/232230259-dbfe0483-5910-40d4-abbd-2a8adef89d46.png)
 
 ## Reorderable drag-and-drop lists
 
@@ -323,58 +360,98 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 
-class TablularInlines(admin.TabularInline):
-    # имя вкладки, на которой должен быть отображен формсет
-    tab = 'inlines-tab'
+class TablularInline(admin.TabularInline):
+    tab = 'inlines'
 
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('First Section'), {
-            'tab': 'common-tab',
+        (None, {
+            'tab': 'related-fields',
             'fields': (
                 # ...
             ),
         }),
-        (_('Second Section'), {
-            'tab': 'common-tab',
+        (None, {
+            'tab': 'standard-fields',
             'fields': (
                 # ...
             )
         }),
-        (_('Links'), {
-            'tab': 'links-tab',
+        (None, {
+            'tab': 'file-fields',
             'fields': (
                 # ...
             )
         }),
     )
     tabs = [
-        ('common-tab', _('General')),
-        ('links-tab', _('Links')),
-        ('inlines-tab', _('Inlines')),
+        ('related-fields', _('Related fields')),
+        ('standard-fields', _('Standard Fields')),
+        ('file-fields', _('File Fields')),
+        ('inlines', _('Inlines')),
     ]
-    inlines = (TablularInlines, )
+    inlines = (TablularInline, )
 ```
 
 Результат:
 
-https://user-images.githubusercontent.com/6928240/125336032-4e003700-e35e-11eb-8399-9cff90ea7aca.mp4
+https://user-images.githubusercontent.com/6928240/226703428-c9413de1-42c1-4178-b75f-37412925f18f.mp4
 
+<br>
 Вкладки можно добавлять динамически, с помощью метода `get_tabs`:
 
 ```python
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
 from .models import Page
+
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     def get_tabs(self, request, obj=None):
         return [
-            # ...
+            ('general', _('General')),
+            ('content', _('Content')),
+            ('seo', _('SEO')),
         ]
 ```
+
+## HierarchyFilter
+
+`HierarchyFilter` - это базовый класс для построения фильтров, подобных тому,
+что создаётся с помощью свойства `ModelAdmin.date_hierarcy`.
+
+Пример:
+
+```python
+from paper_admin.admin.filters import HierarchyFilter
+from django.utils.translation import gettext_lazy as _
+
+
+class GroupFilter(HierarchyFilter):
+    title = _("Filter by group")
+    parameter_name = "group"
+
+    def lookups(self, changelist):
+        return (
+            (pk, name)
+            for pk, name in Group.objects.values_list("pk", "name")
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if not value:
+            return queryset
+
+        return queryset.filter(group__in=value)
+```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/229168174-a9c32ec8-f87a-4ec9-a875-105eeae61f06.png)
 
 ## Stylization
 
@@ -437,16 +514,16 @@ from .models import Page
 class PageAdmin(admin.ModelAdmin):
 
     def get_row_classes(self, request, obj):
-        if obj.name.startswith("M"):
+        if obj.status == "success":
             return ["table-success"]
-        elif obj.name.startswith("P"):
-            return ["table-info"]
+        elif obj.status == "failed":
+            return ["table-danger"]
         return []
 ```
 
 Результат:
 
-![](https://user-images.githubusercontent.com/6928240/125338431-3aa29b00-e361-11eb-91ae-01d482b80fad.png)
+![image](https://user-images.githubusercontent.com/6928240/225705910-4f1309e1-93e3-456a-b9d0-f01748faec7b.png)
 
 ### Inline forms
 
@@ -458,25 +535,25 @@ from django.contrib import admin
 
 class StackedInline(admin.StackedInline):
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == "success":
             return ["paper-card--success"]
-        elif obj.name.startswith("M"):
-            return ["paper-card--info"]
+        elif obj.status == "failed":
+            return ["paper-card--danger"]
         return []
 
 class TablularInlines(admin.TabularInline):
     def get_form_classes(self, request, obj):
-        if obj.name.startswith("P"):
+        if obj.status == "success":
             return ["table-success"]
-        elif obj.name.startswith("M"):
-            return ["table-info"]
+        elif obj.status == "failed":
+            return ["table-danger"]
         return []
 ```
 
 Результат:
 
-![](https://user-images.githubusercontent.com/6928240/125339687-9b7ea300-e362-11eb-85c7-1f875a506cc1.png)
-![](https://user-images.githubusercontent.com/6928240/125339691-9c173980-e362-11eb-8941-04ccfdaae914.png)
+![image](https://user-images.githubusercontent.com/6928240/225713947-34e29927-b629-4b9a-bf6e-56ec8948de7e.png)
+![image](https://user-images.githubusercontent.com/6928240/225714321-87a33c52-65d8-4175-a118-cb751b92ebb8.png)
 
 ## Settings
 
@@ -501,19 +578,19 @@ Default: `None`
 на её место будут вставлен горизонтальный разделитель.<br>
 Default: `"-"`
 
-`PAPER_MENU_PERM_STAFF`<br>
+`PAPER_MENU_STAFF_PERMISSION`<br>
 Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
 которое указывает, что текущий пункт меню должен быть показан
 только при условии, что у пользователя установлен флаг `is_staff`.<br>
 Default: `"staff"`
 
-`PAPER_MENU_PERM_SUPERUSER`<br>
+`PAPER_MENU_SUPERUSER_PERMISSION`<br>
 Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
 которое указывает, что текущий пункт меню должен быть показан
 только при условии, что у пользователя установлен флаг `is_superuser`.<br>
 Default: `"superuser"`
 
-`PAPER_MENU_HIDE_SINGLE_CHILD`<br>
+`PAPER_MENU_COLLAPSE_SINGLE_CHILDS`<br>
 При значении `True`, те пункты меню, которые содержат единственный
 подпункт, не будут отображаться как выпадающие списки. Вместо этого
 они сразу будут вести на страницу, указанную в подпункте.<br>
@@ -532,7 +609,10 @@ Default: `_("General")`
 для `JavaScriptCatalog` интерфейса администратора.<br>
 Default: `["paper_admin", "django.contrib.admin"]`
 
+`PAPER_NONE_PLACEHOLDER`<br>
+Значение, представляющее `None` в фильтрах интерфейса администратора.<br>
+Default: `␀`
+
 ## Additional References
 
 -   [Modals](docs/modals.md)
--   [Widgets](docs/widgets.md)

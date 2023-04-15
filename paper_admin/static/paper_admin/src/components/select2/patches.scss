@@ -32,7 +32,7 @@
   }
 
   .select2-selection--single {
-    height: auto;
+    height: 100%;
 
     .select2-selection__placeholder {
       color: $select2-placeholder-color;
@@ -50,9 +50,9 @@
     .select2-selection__arrow {
       width: $select2-arrow-width;
       height: 100%;
+      top: 0;
 
       b {
-        margin-top: -3px;
         border-color: $select2-arrow-color transparent transparent transparent;
       }
     }

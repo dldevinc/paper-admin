@@ -1,8 +1,8 @@
 /* global gettext */
 
 import allSettled from "promise.allsettled";
-import Modal from "bootstrap/js/src/modal";
-import Util from "bootstrap/js/src/util";
+import Modal from "bootstrap/js/src/modal.js";
+import Util from "bootstrap/js/src/util.js";
 import "./paper-modal.scss";
 
 const EVENT_KEY = ".bs.modal";
@@ -210,29 +210,34 @@ class PaperModal extends Modal {
     }
 
     /**
+     * Уничтожение модального окна без учёта состояния и анимаций.
+     * Note: не вызывает событие `hidden`.
+     * @private
+     */
+    _destroyModal() {
+        if (typeof this.config.onDestroy === "function") {
+            this.config.onDestroy.call(this);
+        }
+
+        const stackIndex = _stack.indexOf(this);
+        if (stackIndex >= 0) {
+            _stack.splice(stackIndex, 1);
+        }
+
+        if (this._element) {
+            this._element.remove();
+        }
+
+        this._removeBackdrop();
+
+        this.dispose();
+    }
+
+    /**
      * Скрытие и уничтожение окна с учетом анимаций.
      * @returns {Promise}
      */
     destroy() {
-        const transitionComplete = () => {
-            if (typeof this.config.onDestroy === "function") {
-                this.config.onDestroy.call(this);
-            }
-
-            const stackIndex = _stack.indexOf(this);
-            if (stackIndex >= 0) {
-                _stack.splice(stackIndex, 1);
-            }
-
-            if (this._element) {
-                this._element.remove();
-            }
-
-            this._removeBackdrop();
-
-            this.dispose();
-        };
-
         if (this._isShown) {
             if (this._isTransitioning) {
                 // Окно в процессе открытия. Ждем завершения открытия,
@@ -242,13 +247,13 @@ class PaperModal extends Modal {
                     $(this._element).one(EVENT_SHOWN, () => {
                         if (this._isShown) {
                             this.hide().then(() => {
-                                transitionComplete();
+                                this._destroyModal();
                                 resolve();
                             });
                         } else {
                             // Ситуация, когда окно было заморожено (suspended)
                             // во время открытия.
-                            transitionComplete();
+                            this._destroyModal();
                             resolve();
                         }
                     });
@@ -257,7 +262,7 @@ class PaperModal extends Modal {
                 // Окно открыто. Сначала скрываем его, потом удаляем.
                 return new Promise(resolve => {
                     this.hide().then(() => {
-                        transitionComplete();
+                        this._destroyModal();
                         resolve();
                     });
                 });
@@ -267,13 +272,13 @@ class PaperModal extends Modal {
                 // Окно в процессе скрытия. Ждем завершения анимации и удаляем его.
                 return new Promise(resolve => {
                     $(this._element).one(EVENT_HIDDEN, () => {
-                        transitionComplete();
+                        this._destroyModal();
                         resolve();
                     });
                 });
             } else {
                 // Окно уже скрыто. Удаляем его сразу
-                transitionComplete();
+                this._destroyModal();
                 return Promise.resolve();
             }
         }

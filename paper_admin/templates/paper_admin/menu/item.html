@@ -1,0 +1,13 @@
+<li class="paper-sidebar__item paper-sidebar__item--level-{{ item.level }} nav-item {{ item.classes|default:"" }} {{ item.is_active|yesno:"active," }}">
+  <a href="{{ item.url }}" class="paper-sidebar__link"{% if item.target == "_blank" %} target="_blank" rel="noopener"{% endif %}
+     {% if item.url in request.path|urlencode %} aria-current="page"{% endif %}>
+    {% if item.icon %}
+      <i class="{{ item.icon }}"></i>
+    {% else %}
+      {% if item.level == 1 %}
+        <i class="bi-lg bi-mb bi-file-earmark"></i>
+      {% endif %}
+    {% endif %}
+    <span>{{ item.label|default:"&nbsp;"|capfirst }}</span>
+  </a>
+</li>

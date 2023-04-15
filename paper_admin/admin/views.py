@@ -7,6 +7,8 @@ from .forms import AdminPasswordResetForm, AdminSetPasswordForm
 
 class AdminViewMixin:
     def get_context_data(self, **kwargs):
+        # Добавление контекстных переменных для отображения шапки и боковой панели.
+        # интерфейса администратора
         data = super().get_context_data(**kwargs)
         data.update(site.each_context(self.request))
 

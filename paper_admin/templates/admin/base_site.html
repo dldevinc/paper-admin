@@ -6,7 +6,7 @@
   {{ block.super }}
 {% endblock %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block sidebar %}
   <aside class="paper-sidebar bg-dark">
@@ -27,7 +27,7 @@
       {% block menu %}
         <div class="paper-sidebar__menu">
           <ul id="sidebar-menu" class="paper-sidebar__item-list paper-sidebar__item-list--level-1 navbar-nav">
-            {% paper_menu "#sidebar-menu" %}
+            {% paper_menu %}
           </ul>
         </div>
       {% endblock %}
@@ -55,12 +55,12 @@
                   <li class="nav-item">
                     <a href="{{ site_url }}"
                        class="nav-link"
-                       data-toggle="tooltip"
+                       data-xclass="bs-tooltip"
                        data-placement="bottom"
                        data-trigger="hover"
                        data-html="true"
                        title="{{ _("View site") }}">
-                      <i class="fa fa-eye"></i>
+                      <i class="bi-eye-fill"></i>
                       <span class="d-none d-sm-inline">{{ _("View site") }}</span>
                     </a>
                   </li>
@@ -70,9 +70,10 @@
                        class="nav-link dropdown-toggle"
                        role="button"
                        data-toggle="dropdown"
+                       data-xclass="bs-dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="fa fa-user"></i>
+                        <i class="bi-person-fill"></i>
                         <span class="d-none d-sm-inline">{% firstof user.get_short_name user.get_username %}</span>
                     </a>
 
@@ -81,7 +82,7 @@
                       {% if user.has_usable_password %}
                         <li role="presentation">
                           <a href="{% url 'admin:password_change' %}" class="dropdown-item" role="menuitem">
-                            <i class="fa fa-fw fa-key"></i>
+                            <i class="bi-key-fill"></i>
                             <span>{{ _("Change password") }}</span>
                           </a>
                         </li>
@@ -91,7 +92,7 @@
                         <!-- django-impersonate support -->
                         <li role="presentation">
                           <a href="{% url 'impersonate-stop' %}" class="dropdown-item" role="menuitem">
-                            <i class="fa fa-fw fa-sign-out"></i>
+                            <i class="bi-box-arrow-right"></i>
                             <span>{{ _("Stop impersonation") }}</span>
                           </a>
                         </li>
@@ -102,7 +103,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <button type="submit" class="dropdown-item" role="menuitem">
-                              <i class="fa fa-fw fa-sign-out"></i>
+                              <i class="bi-box-arrow-right"></i>
                               <span>{{ _("Stop impersonation") }}</span>
                             </button>
                           </form>
@@ -114,7 +115,7 @@
                         {% if docsroot %}
                           <li role="presentation">
                             <a href="{{ docsroot }}" class="dropdown-item" role="menuitem">
-                              <i class="fa fa-fw fa-book"></i>
+                              <i class="bi-book"></i>
                               <span>{{ _("Documentation") }}</span>
                             </a>
                           </li>
@@ -122,17 +123,20 @@
                       {% endif %}
 
                       <li role="presentation">
-                        <a href="{% url 'admin:logout' %}?next={% url 'admin:index' %}" class="dropdown-item" role="menuitem">
-                          <i class="fa fa-fw fa-sign-out"></i>
-                          <span>{{ _("Log out") }}</span>
-                        </a>
+                        <form id="logout-form" method="post" action="{% url 'admin:logout' %}?next={% url 'admin:index' %}">
+                          {% csrf_token %}
+                          <button type="submit" class="dropdown-item" role="menuitem">
+                            <i class="bi-box-arrow-right"></i>
+                            <span>{{ _("Log out") }}</span>
+                          </button>
+                        </form>
                       </li>
                     </ul>
                   </li>
 
                   <li class="nav-item d-xl-none">
-                    <a href="#" class="paper-header__burger nav-link" data-toggle="sidebar">
-                      <i class="fa fa-bars"></i>
+                    <a href="#" class="paper-header__burger nav-link" data-toggle="sidebar" aria-label="{{ _("Toggle navigation") }}">
+                      <i class="bi-list"></i>
                     </a>
                   </li>
                 {% endif %}
@@ -151,7 +155,7 @@
     <ol class="paper-breadcrumbs__list breadcrumb">
       <li class="breadcrumb-item">
         <a href="{% url 'admin:index' %}">
-          <i class="fa fa-home mr-1"></i>
+          <i class="bi-house mr-1"></i>
           <span>{{ _("Home") }}</span>
         </a>
       </li>
@@ -185,16 +189,23 @@
     {% block before_content %}
       <div class="paper-page__header mb-3">
         {% block pretitle %}{% endblock %}
-        {% block content_title %}
-          {% firstof cl.opts.verbose_name_plural title as page_title %}
-          <h1>{{ page_title|capfirst }}</h1>
-        {% endblock %}
+
+        <div class="row">
+          <div class="col">
+            {% block content_title %}
+              <h1>{{ title|capfirst }}</h1>
+            {% endblock %}
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            {% block object-tools %}{% endblock %}
+          </div>
+        </div>
       </div>
     {% endblock %}
 
     {% block layout %}
-      <div class="row">
-        <div class="paper-page__content col">
+      <div class="row flex-lg-nowrap">
+        <div class="paper-page__content col overflow-auto">
           {% block content %}{% endblock %}
         </div>
 

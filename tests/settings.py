@@ -5,6 +5,8 @@ from pathlib import Path
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+from paper_admin.menu import Divider, Item, Group
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -69,13 +71,16 @@ TEMPLATES = [
         "DIRS": [
             str(BASE_DIR / "templates"),
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+            ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
             ],
         },
     },
@@ -151,58 +156,67 @@ PAPER_ENVIRONMENT_NAME = "development"
 PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 PAPER_MENU = [
-    dict(
+    Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="fa fa-fw fa-lg fa-area-chart",
+        icon="bi-lg bi-mb bi-speedometer2",
     ),
-    dict(
+    Item(
         app="app",
-        icon="fa fa-fw fa-lg fa-home",
-        models=[
-            dict(
+        icon="bi-lg bi-mb bi-house-fill",
+        children=[
+            Item(
                 label=_("Index"),
                 url=reverse_lazy("admin:app_list", kwargs={
                     "app_label": "app"
                 })
             ),
-            "SigletonExample",
-            "Tag",
-            dict(
-                label=_("Category"),
-                url="admin:app_category_changelist",
-                perms="app.category_add"
+            "Widgets",
+            Item(
+                model="Message",
+                label=_("Filters"),
             ),
-            dict(
+            Item(
+                model="Book",
+                label=_("Inlines"),
+            ),
+            "Sigleton",
+            Item(
                 label=_("Trees"),
-                models=[
+                children=[
                     "MPTTTree",
-                    "DjangoTreeQueriesNode",
+                    "DjangoTreeQueriesNode"
                 ]
-            ),
+            )
         ]
     ),
-    dict(
+    Item(
         app="sortables",
-        models=[
+        children=[
             "Company",
-            dict(
+            Item(
                 label=_("Trees"),
-                models=[
+                children=[
                     "MPTTTree",
-                    "DjangoTreeQueriesNode",
+                    "DjangoTreeQueriesNode"
                 ]
+            )
+        ]
+    ),
+    Group(
+        label=_("Admin Area"),
+        perms="superuser",
+        children=[
+            Item(
+                app="auth",
             ),
+            Item(
+                label=_("Logs"),
+                icon="bi-lg bi-mb bi-clock-history",
+                children=[
+                    "admin.LogEntry"
+                ]
+            )
         ]
-    ),
-    "-",
-    "auth",
-    dict(
-        label=_("Logs"),
-        icon="fa fa-fw fa-lg fa-history",
-        perms="admin.view_logentry",
-        models=[
-            "admin.LogEntry"
-        ]
-    ),
+    )
 ]

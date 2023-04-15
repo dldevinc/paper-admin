@@ -1,14 +1,14 @@
 {% if widget.is_hidden %}
   {% include "django/forms/widgets/hidden.html" %}
 {% else %}
-  <div class="date-field paper-input-group input-group">
+  <div class="date-field paper-input-group input-group" data-xclass="date-field">
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
       <button type="button" class="date-field__button input-group-text" tabindex="-1"
-              data-toggle="tooltip" data-placement="top" data-trigger="hover"
+              data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
               data-html="true" title="{{ _('Today') }}">
-        <i class="fa fa-calendar-check-o"></i>
+        <i class="bi-calendar-check"></i>
       </button>
     </div>
   </div>

@@ -26,15 +26,16 @@
   {% endblock %}
 
   {# CSS #}
-  {% block styles %}
-    {% include "paper_admin/app.head.html" %}
-  {% endblock %}
+  {% block styles %}{% endblock %}
   {% block extrastyle %}{% endblock %}
 
   {# Critical JS #}
   <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');
   </script>
+
+  {% include "paper_admin/app.critical.html" %}
+  {% include "paper_admin/app.head.html" %}
 
   {% block extrahead %}{% endblock %}
 </head>
@@ -60,12 +61,10 @@
 
   {% block scroll_top_button %}
     <div class="scroll-top-button" hidden>
-      <i class="fa fa-chevron-up"></i>
+      <i class="bi-lg bi-chevron-up"></i>
     </div>
   {% endblock %}
 
-  {% block scripts %}
-    {% include "paper_admin/app.body.html" %}
-  {% endblock %}
+  {% block scripts %}{% endblock %}
 </body>
 </html>

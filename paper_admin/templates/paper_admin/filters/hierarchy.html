@@ -1,0 +1,23 @@
+<div class="paper-card card mb-3">
+  {% if title %}
+    <h5 class="card-header">{{ title|capfirst }}</h5>
+  {% endif %}
+
+  <div class="card-body">
+    <ul class="d-flex flex-wrap list-unstyled mb-0">
+      {% for choice in choices %}
+        <li class="mr-3">
+          {% if choice.selected %}
+            <span class="text-secondary">
+              {{ choice.display }}
+            </span>
+          {% else %}
+            <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
+              {{ choice.display }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

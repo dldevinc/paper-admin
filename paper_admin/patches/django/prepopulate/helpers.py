@@ -23,7 +23,6 @@ class PatchAdminReadonlyField(AdminReadonlyField, metaclass=MonkeyPatchMeta):
     def __init__(self, *args, **kwargs):
         get_original(AdminReadonlyField)(self, *args, **kwargs)
         self.is_prepopulated = False
-        self.field["contents"] = self.contents()
 
 
 class PatchFieldline(Fieldline, metaclass=MonkeyPatchMeta):

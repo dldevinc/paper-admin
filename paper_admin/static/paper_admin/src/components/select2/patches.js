@@ -269,3 +269,22 @@ $.fn.select2.amd.require(
     null,
     true
 );
+
+// Исправление ситуации, когда выпадающий список прыгает вверх-вниз
+// и сдвигается вбок, т.к. то создаёт скроллбар, то нет.
+$.fn.select2.amd.require(
+    ["select2/dropdown/attachBody"],
+    function (AttachBody) {
+        const oldPositionDropdown = AttachBody.prototype._positionDropdown;
+
+        AttachBody.prototype._positionDropdown = function () {
+            this.$dropdownContainer.css({
+                position: "absolute",
+                top: -999999
+            });
+            oldPositionDropdown.apply(this, arguments);
+        };
+    },
+    null,
+    true
+);

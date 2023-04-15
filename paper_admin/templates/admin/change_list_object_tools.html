@@ -5,8 +5,7 @@
     <li class="list-inline-item">
       {% url cl.opts|admin_urlname:'add' as add_url %}
       <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-sm btn-success">
-        <i class="fa fa-plus"></i>
-        <span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
+        <i class="bi-plus-lg"></i><span>{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</span>
       </a>
     </li>
   {% endif %}

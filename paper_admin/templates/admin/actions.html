@@ -4,7 +4,7 @@
   {% block actions %}
     {% block actions-form %}
       {% for field in action_form %}
-        <div class="paper-actions__{{ field.name }}">
+        <div class="paper-actions__{{ field.name }}"{% if field.name == "action" %} data-xclass="paper-actions"{% endif %}>
           {{ field }}
         </div>
       {% endfor %}

@@ -1,49 +1,52 @@
+import $ from "expose-loader?exposes=$,jQuery!jquery"; // noqa: expose jQuery
 import * as bootstrap from "bootstrap";
+import anime from "animejs";
 import Sortable from "sortablejs";
+import XClass from "data-xclass";
 import emitters from "js/utilities/emitters.js";
 import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import popupUtils from "js/utilities/popup_utils.js";
-import Widget from "js/utilities/widget.js";
-import "js/components/bootstrap.js";
-import "js/components/filedrag.js";
+import Widget from "js/utilities/widget.js"; // TODO: deprecated
 
 // -----------------
-//  CSS vendors
+//  Common Styles
 // -----------------
 import "css/vendors/bootstrap.scss";
-import "css/vendors/font-awesome.scss";
+import "css/vendors/bootstrap-icons.scss";
 import "css/common.scss";
 
 // -----------------
 //  JS Components
 // -----------------
-import "components/back-button";
-import "components/flatpickr";
-import "components/prepopulate";
-import "components/related-object-lookups";
-import "components/select2";
+import "components/back-button/index.js";
+import "components/bootstrap/index.js";
+import "components/filedrag/index.js";
+import "components/flatpickr/index.js";
+import "components/prepopulate/index.js";
+import "components/related-object-lookups/index.js";
+import "components/select2/index.js";
 
 // -----------------
 //  Django Widgets
 // -----------------
-import "widgets/clearable-file-field";
-import "widgets/date-field";
-import "widgets/email-field";
-import "widgets/file-field";
-import "widgets/fk-raw-field";
-import "widgets/ip-field";
-import "widgets/number-field";
-import "widgets/password-field";
-import "widgets/related-widget-wrapper";
-import "widgets/select-field";
-import "widgets/select-date-field"; // must be below select-field
-import "widgets/select-multiple-field";
-import "widgets/split-datetime-field";
-import "widgets/text-field";
-import "widgets/time-field";
-import "widgets/url-field";
-import "widgets/uuid-field";
+import "widgets/clearable-file-field/index.js";
+import "widgets/date-field/index.js";
+import "widgets/email-field/index.js";
+import "widgets/file-field/index.js";
+import "widgets/fk-raw-field/index.js";
+import "widgets/ip-field/index.js";
+import "widgets/number-field/index.js";
+import "widgets/password-field/index.js";
+import "widgets/related-widget-wrapper/index.js";
+import "widgets/select-field/index.js";
+import "widgets/select-date-field/index.js"; // must be below select-field
+import "widgets/select-multiple-field/index.js";
+import "widgets/split-datetime-field/index.js";
+import "widgets/text-field/index.js";
+import "widgets/time-field/index.js";
+import "widgets/url-field/index.js";
+import "widgets/uuid-field/index.js";
 
 // -----------------
 //  BEM
@@ -67,12 +70,11 @@ import "bem/paper-page/paper-page.js";
 import "bem/paper-preloader/paper-preloader.js";
 import "bem/paper-sidebar/paper-sidebar.js";
 import "bem/paper-table/paper-table.js";
-import "bem/paper-tabs/paper-tabs.js";
 import "bem/paper-toolbar/paper-toolbar.js";
 import "bem/paper-widget/paper-widget.js";
 
 // -----------------
-//  CSS for pages
+//  Page Styles
 // -----------------
 import "css/login.scss";
 
@@ -81,36 +83,48 @@ import "css/login.scss";
 // -----------------
 import "img/default_favicon.png";
 
-// -----------------
-//  Import & Export
-// -----------------
-
 // changelist page
 if (document.body.classList.contains("change-list")) {
-    import(/* webpackChunkName: "changelist" */ "js/changelist.js");
+    import(/* webpackChunkName: "changelist" */ "js/changelist.js").then(() => {
+        XClass.initTree();
+    });
 }
 
 // changeform page
 if (document.body.classList.contains("change-form")) {
-    import(/* webpackChunkName: "changeform" */ "js/changeform.js");
+    import(/* webpackChunkName: "changeform" */ "js/changeform.js").then(() => {
+        XClass.initTree();
+    });
 }
 
 // popup page
 const params = new URLSearchParams(window.location.search);
 if (params.has("_popup")) {
-    import(/* webpackChunkName: "popup" */ "js/popup.js");
+    import(/* webpackChunkName: "popup" */ "js/popup.js").then(() => {
+        XClass.initTree();
+    });
 }
 
+// Django compability
 window.django = window.django || {};
 window.django.jQuery = jQuery;
 
-export const paperAdmin = {
-    bootstrap,
-    emitters,
-    dragUtils,
-    formUtils,
-    popupUtils,
-    modals,
+// XClass initialization
+document.addEventListener("DOMContentLoaded", () => {
+    XClass.start();
+});
+
+export default {
+    anime,
     Sortable,
-    Widget
+    XClass,
+    paperAdmin: {
+        bootstrap,
+        emitters,
+        dragUtils,
+        formUtils,
+        popupUtils,
+        modals,
+        Widget // TODO: deprecated
+    }
 };

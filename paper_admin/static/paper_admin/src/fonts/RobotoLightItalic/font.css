@@ -4,6 +4,5 @@
   font-style: italic;
   font-display: swap;
   src: url("fonts/RobotoLightItalic/RobotoLightItalic.woff2") format("woff2"),
-    url("fonts/RobotoLightItalic/RobotoLightItalic.woff") format("woff"),
-    url("fonts/RobotoLightItalic/RobotoLightItalic.ttf") format("truetype");
+    url("fonts/RobotoLightItalic/RobotoLightItalic.woff") format("woff");
 }

@@ -1,10 +1,32 @@
 # Change Log
 
+## [6.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.0) - 2023-03-13
+
+### ⚠ BREAKING CHANGES
+
+-   Migrated from Font Awesome to Bootstrap Icons.
+-   `paper_admin.menu` module has been completely rewritten. The new `Item` class is used
+    to create menu items. See [documentation](https://github.com/dldevinc/paper-admin/blob/master/README.md#Admin-menu)
+    for details.
+-   Dropped Python 3.6 support.
+
+### Features
+
+-   `PAPER_MENU_PERM_STAFF` setting was renamed to `PAPER_MENU_STAFF_PERMISSION`.
+-   `PAPER_MENU_PERM_SUPERUSER` setting was renamed to `PAPER_MENU_SUPERUSER_PERMISSION`.
+-   `PAPER_MENU_HIDE_SINGLE_CHILD` setting was renamed to `PAPER_MENU_COLLAPSE_SINGLE_CHILDS`.
+-   Added `PAPER_NONE_PLACEHOLDER` constant for representing `None` value in admin filters.
+-   Animations has been migrated from GSAP to AnimeJS.
+-   Improved form tab user experience in admin interface.
+-   Added `HierarchyFilter`, `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.
+-   Added a button to generate a new UUID value in the `UUIDField` widget.
+-   The value of the `rows` attribute for the `AdminTextarea` widget has been reduced to `2`.
+
 ## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
 
 ### ⚠ BREAKING CHANGES
 
--   The `Widget` JavaScript class has been completely rewritten and now uses 
+-   The `Widget` JavaScript class has been completely rewritten and now uses
     `MutationObserver`.
 
 ### Features

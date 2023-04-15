@@ -1,3 +1,15 @@
-<div class="uuid-field">
-  {% include "django/forms/widgets/input.html" %}
-</div>
+{% if widget.is_hidden %}
+  {% include "django/forms/widgets/hidden.html" %}
+{% else %}
+  <div class="uuid-field paper-input-group input-group">
+    {% include "django/forms/widgets/input.html" %}
+
+    <div class="input-group-append">
+      <button type="button" class="uuid-field__link input-group-text"
+         tabindex="-1" data-xclass="bs-tooltip" data-placement="top"
+         data-trigger="hover" data-html="true" title="{{ _('Generate new UUID') }}">
+        <i class="bi-plus-circle"></i>
+      </button>
+    </div>
+  </div>
+{% endif %}

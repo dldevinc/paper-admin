@@ -9,7 +9,7 @@ ROOT = Path(__file__).parent.parent
 
 
 class PaperFormRenderer(EngineMixin, BaseRenderer):
-    backend = DjangoTemplates  # TODO: support for Jinja2
+    backend = DjangoTemplates
 
     @cached_property
     def engine(self):

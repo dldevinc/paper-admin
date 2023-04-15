@@ -24,6 +24,7 @@ const defaultID = Symbol("widget");
  */
 class Widget {
     constructor() {
+        console.warn("Widget class is deprecated. Please use data-xclass package instead.");
         this._selectors = [];
 
         this._observer = new MutationObserver(mutationList => {
@@ -35,7 +36,7 @@ class Widget {
         this._observer.observe(document.documentElement, {
             childList: true,
             subtree: true
-        })
+        });
     }
 
     /**
@@ -147,7 +148,7 @@ class Widget {
         const instance = this.constructor.getInstance(element);
         if (typeof instance !== "undefined") {
             console.debug(`${this.constructor.name} already initialized on this element`);
-            return
+            return;
         }
 
         let result;
@@ -190,7 +191,7 @@ class Widget {
 
     /**
      * Поиск и привязка поведения к каждому элементу поддерева элемента `root`,
-     * который соответствует хотя бы одному селектору.
+     * который соответствует хотя бы одному из подключенных селекторов.
      * @param {HTMLElement} root
      */
     attach(root = document.documentElement) {
@@ -207,7 +208,7 @@ class Widget {
 
     /**
      * Поиск и отмена привязки поведения от каждого элемента поддерева элемента `root`,
-     * который соответствует хотя бы одному селектору.
+     * который соответствует хотя бы одному из подключенных селекторов.
      * @param {HTMLElement} root
      */
     detach(root = document.documentElement) {
@@ -235,9 +236,7 @@ class Widget {
      * @deprecated
      * @param selector
      */
-    observe(selector) {
-
-    }
+    observe(selector) {}
 }
 
 export default Widget;

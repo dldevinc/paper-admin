@@ -1,21 +1,22 @@
-from django.template import library, loader
+from django.template import library
+from django.utils.safestring import mark_safe
 
-from ..menu import activate_menu, get_menu
+from ..menu import Menu
 
 register = library.Library()
 
 
 @register.simple_tag(takes_context=True)
-def paper_menu(context, parent_id):
+def paper_menu(context):
     request = context.get("request")
-    menu = get_menu(request)
-    activate_menu(request, menu)
-    return loader.render_to_string(
-        "paper_admin/_menu.html",
-        {
-            "level": 1,
-            "items": menu,
-            "parent": parent_id,
-        },
-        request=request
-    )
+    menu = Menu(request)
+    menu.build_tree()
+    menu.resolve_tree(request)
+    menu.activate_tree(request)
+    return mark_safe(menu.render(request))
+
+
+@register.simple_tag(takes_context=True)
+def paper_menu_item(context, item):
+    request = context.get("request")
+    return mark_safe(item.render(request))

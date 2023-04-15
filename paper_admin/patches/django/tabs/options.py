@@ -1,9 +1,15 @@
+import logging
+
 from django import forms
 from django.contrib.admin.options import ModelAdmin
 from django.utils.functional import cached_property
 
 from paper_admin import conf
 from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
+
+from .utils import check_tab_name
+
+logger = logging.getLogger("paper_admin.tabs")
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
@@ -52,18 +58,47 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         else:
             raise RuntimeError("at least one tab required")
 
+        known_tab_names = set(t[0] for t in tabs_config)
+        fieldsets = [
+            (default_tab_name if fieldset.tab is None else fieldset.tab, fieldset)
+            for fieldset in context.get("adminform")
+        ]
+        inline_formsets = [
+            (default_tab_name if formset.tab is None else formset.tab, formset)
+            for formset in context.get("inline_admin_formsets")
+        ]
+
+        # Warn about fieldsets and formsets with unknown tab names
+        for tab_name, _ in fieldsets:
+            if tab_name not in known_tab_names:
+                logger.warning(
+                    f"{self.__module__}.{self.__class__.__name__} "
+                    f"has fieldset with unknown tab name: '{tab_name}'"
+                )
+
+        for tab_name, inline_formset in inline_formsets:
+            if tab_name not in known_tab_names:
+                logger.warning(
+                    f"{self.__module__}.{self.__class__.__name__} "
+                    f"has inline formset with unknown tab name: '{tab_name}'"
+                )
+
         tabs = []
-        adminform = context.get("adminform")
-        inline_formsets = context.get("inline_admin_formsets")
-        for tab_name, tab_title in self.get_tabs(request, obj):
-            tab_obj = AdminTab(request, tab_name, tab_title)
-            for fieldset in adminform:
-                if fieldset.tab == tab_name or (fieldset.tab is None and tab_name == default_tab_name):
-                    tab_obj.fieldsets.append(fieldset)
-            for inline_formset in inline_formsets:
-                if inline_formset.tab == tab_name or (inline_formset.tab is None and tab_name == default_tab_name):
-                    tab_obj.inline_formsets.append(inline_formset)
-            tabs.append(tab_obj)
+        for tab_name, tab_title in tabs_config:
+            check_tab_name(tab_name)
+
+            admin_tab = AdminTab(request, tab_name, tab_title)
+            admin_tab.fieldsets = [
+                fieldset
+                for fieldset_tab_name, fieldset in fieldsets
+                if fieldset_tab_name == tab_name
+            ]
+            admin_tab.inline_formsets = [
+                inline_formset
+                for inline_formset_tab_name, inline_formset in inline_formsets
+                if inline_formset_tab_name == tab_name
+            ]
+            tabs.append(admin_tab)
 
         if len(tabs) > 1:
             for tab in tabs:
