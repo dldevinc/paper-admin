@@ -19,7 +19,7 @@ Custom Django admin interface based on Bootstrap 4.
 -   [Admin menu](#Admin-menu)
 -   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
 -   [Form tabs](#Form-tabs)
--   [HierarchyFilter](#HierarchyFilter) 
+-   [HierarchyFilter](#HierarchyFilter)
 -   [Stylization](#Stylization)
     -   [Fieldset](#Fieldset)
     -   [Table rows](#Table-rows)
@@ -340,8 +340,8 @@ class PageAdmin(admin.ModelAdmin):
 `HierarchyFilter` - это базовый класс для построения фильтров, подобных тому,
 что создаётся с помощью свойства `ModelAdmin.date_hierarcy`.
 
-
 Пример:
+
 ```python
 from paper_admin.admin.filters import HierarchyFilter
 from django.utils.translation import gettext_lazy as _
@@ -368,7 +368,6 @@ class GroupFilter(HierarchyFilter):
 Результат:
 
 ![image](https://user-images.githubusercontent.com/6928240/229168174-a9c32ec8-f87a-4ec9-a875-105eeae61f06.png)
-
 
 ## Stylization
 

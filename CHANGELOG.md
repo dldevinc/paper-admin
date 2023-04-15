@@ -6,7 +6,7 @@
 
 -   Migrated from Font Awesome to Bootstrap Icons.
 -   `paper_admin.menu` module has been completely rewritten. The new `Item` class is used
-    to create menu items. See [documentation](https://github.com/dldevinc/paper-admin/blob/master/README.md#Admin-menu) 
+    to create menu items. See [documentation](https://github.com/dldevinc/paper-admin/blob/master/README.md#Admin-menu)
     for details.
 -   Dropped Python 3.6 support.
 

@@ -7,7 +7,7 @@
   flex: 1 1 auto;
 
   &__action {
-    padding: 1px 0;  // fix box-shadow cropping
+    padding: 1px 0; // fix box-shadow cropping
 
     select {
       padding-left: $input-padding-y;
