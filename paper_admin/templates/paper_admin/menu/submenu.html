@@ -1,6 +1,6 @@
 {% load paper_menu %}
 
-<li class="paper-sidebar__item paper-sidebar__item--level-{{ item.depth }} nav-item {{ item.classes|default:"" }}{{ item.is_active|yesno:" open," }}">
+<li class="paper-sidebar__item paper-sidebar__item--level-{{ item.level }} nav-item {{ item.classes|default:"" }}{{ item.is_active|yesno:" open," }}">
   <a href="#submenu-{{ item.uid }}"
      class="paper-sidebar__link paper-sidebar__link--trigger"
      data-toggle="collapse"
@@ -10,14 +10,14 @@
     {% if item.icon %}
       <i class="{{ item.icon }}"></i>
     {% else %}
-      {% if item.depth == 1 %}
+      {% if item.level == 1 %}
         <i class="bi-lg{{ item.is_active|yesno:" bi-folder2-open, bi-folder2" }} paper-icon-default"></i>
       {% endif %}
     {% endif %}
     <span>{{ item.label|default:"&nbsp;"|capfirst }}</span>
   </a>
 
-  <ul class="paper-sidebar__item-list paper-sidebar__item-list--level-{{ item.depth|add:1 }} collapse list-unstyled {{ item.is_active|yesno:"show," }}"
+  <ul class="paper-sidebar__item-list paper-sidebar__item-list--level-{{ item.level|add:1 }} collapse list-unstyled {{ item.is_active|yesno:"show," }}"
       id="submenu-{{ item.uid }}" data-xclass="bs-collapse">
     {% for subitem in item.children %}
       {% paper_menu_item subitem %}

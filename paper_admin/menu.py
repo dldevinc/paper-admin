@@ -22,39 +22,153 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import resolve_url
 from django.template import loader
 
-__all__ = ["Menu", "Item", "Divider"]
+__all__ = ["Menu", "Item", "Group", "Divider"]
 
 PermissionType = Union[str, Callable[[WSGIRequest], bool]]
 
 
 class ExcludeItemError(Exception):
+    """
+    Exception raised when an item should be excluded from the menu tree.
+    """
     pass
 
 
 class ItemBase(NodeMixin):
+    """
+    Base class for all menu items.
+    """
     counter = itertools.count()
 
-    def resolve(self) -> Optional[Literal[False]]:
-        """
-        Форматирование пункта меню.
-        Если метод вернёт False, то этот элемент и все его дочерние элементы
-        будут удалены из дерева.
-        """
-        pass
+    def __init__(self):
+        self._uid = next(self.counter)
+        self._resolved = False
 
-    def is_allowed(self, request: WSGIRequest) -> bool:
+    @property
+    def uid(self) -> int:
         """
-        Проверка прав на отображение пункта меню.
-        Если метод вернёт False, то этот элемент и все его дочерние элементы
-        будут удалены из дерева.
+        Unique identifier of the item.
         """
-        return True
+        return self._uid
+
+    @property
+    def level(self) -> int:
+        """
+        Level of the item in the menu tree.
+        """
+        return self._level
+
+    @property
+    def resolved(self) -> bool:
+        """
+        Whether the item has been resolved or not.
+        """
+        return self._resolved
+
+    def resolve(self, request: WSGIRequest):
+        """
+        Formats the menu item.
+        If the method raises an ExcludeItemError exception, this item
+        and all its child items will be removed from the tree.
+        """
+        self._resolved = True
+        self._resolve_parent(request)
+        self._resolve_level(request)
+    resolve.alters_data = True
+
+    def _resolve_parent(self, request: WSGIRequest):
+        if not self.parent:
+            raise RuntimeError("parent required")
+
+    def _resolve_level(self, request: WSGIRequest):
+        if isinstance(self.parent, ItemBase):
+            self._level = self.parent.level + 1
 
     def render(self, request: WSGIRequest = None) -> str:
+        """
+        Renders the menu item.
+        """
         raise NotImplementedError
 
 
+class PermissionsMixin:
+    def __init__(
+        self,
+        *,
+        perms: Union[PermissionType, List[PermissionType]] = None,
+        **kwargs
+    ):
+        super().__init__(**kwargs)
+        self.perms = perms
+
+    def resolve(self, request: WSGIRequest):
+        super().resolve(request)
+        self._resolve_permissions(request)
+    resolve.alters_data = True
+
+    def _resolve_permissions(self, request: WSGIRequest):
+        from . import conf
+
+        if not self.perms:
+            return
+
+        if isinstance(self.perms, str) or callable(self.perms):
+            permissions = (self.perms,)
+        else:
+            permissions = tuple(self.perms)
+
+        for permission in permissions:
+            if permission == conf.MENU_SUPERUSER_PERMISSION:
+                if not request.user.is_superuser:
+                    raise ExcludeItemError
+            elif permission == conf.MENU_STAFF_PERMISSION:
+                if not request.user.is_staff:
+                    raise ExcludeItemError
+            elif isinstance(permission, str):
+                if not request.user.has_perm(permission):
+                    raise ExcludeItemError
+            else:
+                if not permission(request):
+                    raise ExcludeItemError
+
+
+class SubitemMixin:
+    def __init__(
+        self,
+        *,
+        children: Iterable[Union[str, ItemBase]] = (),
+        **kwargs
+    ):
+        super().__init__(**kwargs)
+        self._children = children
+
+    def resolve(self, request: WSGIRequest):
+        super().resolve(request)
+        self._resolve_children(request)
+    resolve.alters_data = True
+
+    def _resolve_children(self, request: WSGIRequest):
+        if self._children:
+            for child in self._children:
+                if isinstance(child, str):
+                    subitem = Item(model=child)
+                elif isinstance(child, ItemBase):
+                    subitem = copy.copy(child)
+                else:
+                    raise TypeError("unsupported item type: %s" % type(child))
+
+                subitem.parent = self
+
+
 class Divider(ItemBase):
+    def __init__(
+        self,
+        *,
+        classes: str = None,
+    ):
+        super().__init__()
+        self.classes = classes
+
     def __repr__(self):
         classname = self.__class__.__name__
         return f"{classname}()"
@@ -65,7 +179,54 @@ class Divider(ItemBase):
         }, request=request)
 
 
-class Item(ItemBase):
+class Group(PermissionsMixin, SubitemMixin, ItemBase):
+    """
+    A menu item group that can contain other menu items as its children.
+
+    Args:
+        label: The label of the group.
+        perms: The permissions required to display the group.
+        children: The child items of the group.
+    """
+    def __init__(
+        self,
+        *,
+        label: str = None,
+        perms: Union[PermissionType, List[PermissionType]] = None,
+        children: Iterable[Union[str, ItemBase]] = (),
+    ):
+        super().__init__(perms=perms, children=children)
+        self.label = label
+
+    def __repr__(self):
+        classname = self.__class__.__name__
+        return f"{classname}({self.label})"
+
+    def _resolve_level(self, request: WSGIRequest):
+        if isinstance(self.parent, ItemBase):
+            self._level = self.parent.level
+
+    def render(self, request: WSGIRequest = None) -> str:
+        return loader.render_to_string("paper_admin/menu/group.html", {
+            "item": self
+        }, request=request)
+
+
+class Item(PermissionsMixin, SubitemMixin, ItemBase):
+    """
+    A menu item that represents either an app, a model or a custom link.
+
+    Args:
+        app: The name of the Django app the item represents.
+        model: The name of the Django model the item represents.
+        label: The label of the item.
+        url: The URL of the item.
+        icon: The icon of the item.
+        classes: The CSS classes of the item.
+        target: The target of the item link.
+        perms: The permissions required to display the item.
+        children: The child items of the item.
+    """
     def __init__(
         self,
         *,
@@ -74,15 +235,13 @@ class Item(ItemBase):
         label: str = None,
         url: str = None,
         icon: str = None,
-        perms: Union[PermissionType, List[PermissionType]] = None,
         classes: str = None,
         target: Literal["_blank", "_self"] = "_self",
+        perms: Union[PermissionType, List[PermissionType]] = None,
         children: Iterable[Union[str, ItemBase]] = (),
     ):
-        """
-        Единственным обязательным параметром является `label`, но он может быть указан
-        неявно - через `app` или `model`.
-        """
+        super().__init__(perms=perms, children=children)
+
         if app and model:
             raise ImproperlyConfigured(
                 "You can only specify one of `app` or `model`, not both"
@@ -93,17 +252,13 @@ class Item(ItemBase):
                 "You must specify either `app`, `model` or `label`"
             )
 
-        self._uid = next(self.counter)
         self.app = app
         self.model = model
         self.label = label
         self.url = url
         self.icon = icon
-        self.perms = perms
         self.classes = classes
         self.target = target
-        self._children = children
-        self._resolved = False
         self._active = False
 
     def __repr__(self):
@@ -112,26 +267,23 @@ class Item(ItemBase):
         return f"{classname}({name})"
 
     @property
-    def uid(self) -> int:
-        return self._uid
-
-    @property
     def is_active(self):
         return self._active
 
-    def resolve(self):
-        if self._resolved:
-            return
-
-        self._resolve_app()
-        self._resolve_model()
-        self._resolve_children()
-        self._resolve_url()
-
-        self._resolved = True
+    def resolve(self, request: WSGIRequest):
+        super().resolve(request)
+        self._resolve_app(request)
+        self._resolve_model(request)
+        self._resolve_url(request)
     resolve.alters_data = True
 
-    def _resolve_app(self):
+    def _resolve_children(self, request: WSGIRequest):
+        super()._resolve_children(request)
+        if not self._children and self.app:
+            for subitem in self.root.get_default_app_models(self.app):
+                subitem.parent = self
+
+    def _resolve_app(self, request: WSGIRequest):
         if not self.app:
             return
 
@@ -142,7 +294,7 @@ class Item(ItemBase):
         self.label = self.label or app_config["name"]
         self.url = self.url or app_config.get("app_url")
 
-    def _resolve_model(self):
+    def _resolve_model(self, request: WSGIRequest):
         if not self.model:
             return
 
@@ -167,51 +319,9 @@ class Item(ItemBase):
         self.label = self.label or model_config["name"]
         self.url = self.url or model_config.get("admin_url") or model_config.get("add_url")
 
-    def _resolve_children(self):
-        if self._children:
-            for child in self._children:
-                if isinstance(child, str):
-                    subitem = Item(model=child)
-                elif isinstance(child, ItemBase):
-                    subitem = copy.copy(child)
-                else:
-                    raise TypeError("unsupported item type: %s" % type(child))
-
-                subitem.parent = self
-        elif self.app:
-            for subitem in self.root.get_default_app_models(self.app):
-                subitem.parent = self
-
-    def _resolve_url(self):
+    def _resolve_url(self, request: WSGIRequest):
         if self.url and not self.url.startswith(("http", "#", "?")):
             self.url = resolve_url(self.url)
-
-    def is_allowed(self, request: WSGIRequest) -> bool:
-        from . import conf
-
-        if not self.perms:
-            return True
-
-        if isinstance(self.perms, str) or callable(self.perms):
-            permissions = (self.perms,)
-        else:
-            permissions = tuple(self.perms)
-
-        for permission in permissions:
-            if permission == conf.MENU_SUPERUSER_PERMISSION:
-                if not request.user.is_superuser:
-                    return False
-            elif permission == conf.MENU_STAFF_PERMISSION:
-                if not request.user.is_staff:
-                    return False
-            elif isinstance(permission, str):
-                if not request.user.has_perm(permission):
-                    return False
-            else:
-                if not permission(request):
-                    return False
-
-        return True
 
     def render(self, request: WSGIRequest = None) -> str:
         if self.children:
@@ -235,12 +345,20 @@ class Item(ItemBase):
 
 class Menu(ItemBase):
     def __init__(self, request: WSGIRequest):
+        super().__init__()
+        self._level = 0  # default level
         self.request = request
         self.app_list = site.get_app_list(request)
 
     def get_app_config(self, app_label: str) -> Optional[Dict[str, Any]]:
         """
-        Получение конфигурации приложения по его имени.
+        Returns the configuration dictionary for the specified app.
+
+        Args:
+            app_label: The label of the app.
+
+        Returns:
+            The configuration dictionary for the app, or None if the app is not found.
         """
         for app_conf in self.app_list:
             if app_conf["app_label"] == app_label.lower():
@@ -248,7 +366,14 @@ class Menu(ItemBase):
 
     def get_model_config(self, app_label: str, model_name: str) -> Optional[Dict[str, Any]]:
         """
-        Получение конфигурации модели по имени приложения и модели.
+        Returns the configuration dictionary for the specified model.
+
+        Args:
+            app_label: The label of the app that contains the model.
+            model_name: The name of the model.
+
+        Returns:
+            The configuration dictionary for the model, or None if the model is not found.
         """
         app_conf = self.get_app_config(app_label)
         if app_conf is None:
@@ -260,15 +385,13 @@ class Menu(ItemBase):
 
     def get_default_app_models(self, app_label: str) -> Generator[Item, Any, None]:
         app_config = self.get_app_config(app_label)
-        for model in app_config["models"]:
-            yield Item(
-                model=model["object_name"]
-            )
+        if app_config:
+            for model in app_config["models"]:
+                yield Item(
+                    model=model["object_name"]
+                )
 
     def build_tree(self):
-        """
-        Построение дерева меню.
-        """
         from . import conf
 
         if conf.MENU:
@@ -297,9 +420,6 @@ class Menu(ItemBase):
         value: Union[str, Dict, ItemBase],
         parent_app: str = None
     ) -> Optional[ItemBase]:
-        """
-        Создание узла дерева по его представлению в PAPER_MENU.
-        """
         from . import conf
 
         if isinstance(value, ItemBase):
@@ -454,16 +574,14 @@ def calculate_url_equality(url1: str, url2: str) -> float:
 def resolve_tree(request: WSGIRequest, root: ItemBase = None):
     """
     Форматирование элементов дерева.
-    Проверка прав на пункты меню.
     """
     for item in root.children:
-        try:
-            item.resolve()
-        except ExcludeItemError:
-            item.parent = None
+        if item.resolved:
             continue
 
-        if item.is_allowed(request) is False:
+        try:
+            item.resolve(request)
+        except ExcludeItemError:
             item.parent = None
             continue
 

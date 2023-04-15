@@ -5,7 +5,7 @@ from pathlib import Path
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from paper_admin.menu import Divider, Item
+from paper_admin.menu import Divider, Item, Group
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
@@ -203,16 +203,20 @@ PAPER_MENU = [
             )
         ]
     ),
-    Divider(),
-    Item(
-        app="auth"
-    ),
-    Item(
-        label=_("Logs"),
-        icon="bi-lg bi-mb bi-clock-history",
-        perms="admin.view_logentry",
+    Group(
+        label=_("Admin Area"),
+        perms="superuser",
         children=[
-            "admin.LogEntry"
+            Item(
+                app="auth",
+            ),
+            Item(
+                label=_("Logs"),
+                icon="bi-lg bi-mb bi-clock-history",
+                children=[
+                    "admin.LogEntry"
+                ]
+            )
         ]
     )
 ]

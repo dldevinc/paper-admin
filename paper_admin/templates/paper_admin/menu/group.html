@@ -1,0 +1,11 @@
+{% load paper_menu %}
+
+{% if item.children %}
+  <li class="paper-sidebar__item paper-sidebar__item--level-{{ item.level|add:1 }}">
+    <div class="paper-sidebar__group">{{ item.label|default:"&nbsp;"|capfirst }}</div>
+  </li>
+
+  {% for subitem in item.children %}
+    {% paper_menu_item subitem %}
+  {% endfor %}
+{% endif %}

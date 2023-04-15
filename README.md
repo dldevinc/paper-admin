@@ -110,75 +110,85 @@ PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 ## Admin menu
 
-![image](https://user-images.githubusercontent.com/6928240/203797839-c2040aa0-e400-4e10-98c4-57fe8c062a9e.png)
+Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU` в `settings.py`.
 
-Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU`
-в `settings.py`:
+Каждый пункт меню создаётся экземпляром класса `Item`, в который можно
+передать следующие параметры:
+
+-   `app` - Приложение, для которого будет создан пункт меню. Определяет имя пункта меню
+    если `label` не задан. Неявно добавляется к именам моделей, указанным в дочерних пунктах.
+-   `model` - Модель, для которой будет создан пункт меню в формате `app_label.model_name`,
+    либо просто `model_name`, если `app` был указан в родительском пункте. Определяет имя
+    и URL пункта меню если `label` и `url` не заданы.
+-   `label` - Название пункта меню.
+-   `url` - URL пункта меню. Если не указан явно, то автоматически определяется 
+     по значению `app` или `model`.
+-   `icon` - CSS-классы иконки пункта меню из [Bootstrap Icons](https://icons.getbootstrap.com/).
+-   `perms` - Права доступа, необходимые для показа пункта меню.
+-   `classes` - CSS-классы для пункта меню.
+-   `target` - Атрибут `target` для ссылки. Допустимые значения: 
+    `_blank`, `_self` (значение по умолчанию).
+-   `children` - Список дочерних пунктов меню.
+
+Примеры:
 
 ```python
 from django.utils.translation import gettext_lazy as _
-from paper_admin.menu import Item, Divider
+from paper_admin.menu import Item
 
 PAPER_MENU = [
-    # Пункт меню для главной страницы
+    # Пункт меню с явно заданным именем и URL
     Item(
         label=_("Dashboard"),
         url="admin:index",
         icon="bi-lg bi-mb bi-speedometer2",
     ),
+    
+    # Меню для приложения auth. Дочерние пункты будут сформированы 
+    # автоматически из моделей приложения.
+    Item(
+        app="auth"
+    ),
 
-    # Приложение app с явно заданным списком моделей
+    # Приложение app с явно заданным списком моделей.
+    # Имя приложения неявно добавляется к именам моделей.
     Item(
         app="app",
         icon="bi-lg bi-mb bi-house-fill",
         children=[
-            "Tag",
-            "Category",
-            "SubCategory",
+            "Widgets",
+            "Message",
+            "Book",
         ]
     ),
 
-    # Линия-разделитель
-    Divider(),
-
-    # Приложение auth. Перечень моделей создаётся автоматически.
-    Item(app="auth"),
-
-    # Модель LogEntry из приложения admin
+    # Указание модели определённого приложения в качестве дочернего пункта
     Item(
         label=_("Logs"),
         icon="bi-lg bi-mb bi-clock-history",
         perms="admin.view_logentry",
         children=[
-            # Модель с явно указанным приложением
             "admin.LogEntry"
         ]
+    ),
+
+    # Добавление CSS-классов и атрибута target для ссылки.
+    Item(
+        label="Google",
+        url="https://google.com/",
+        icon="bi-lg bi-google",
+        classes="text-warning",
+        target="_blank",
     )
 ]
 ```
 
-Каждый пункт меню определяется с помощью экземпляра класса `Item`.
+Результат:
 
-Для пунктов меню доступны следующие параметры:
-* `app` - Приложение, для которого будет создан пункт меню. Определяет имя пункта меню
-  если `label` не задан. Неявно добавляется к именам моделей, указанным в дочерних пунктах.
-* `model` - Модель, для которой будет создан пункт меню в формате `app_label.model_name`,
-  либо просто `model_name`, если `app` был указан в пункте меню-родителе. Определяет имя 
-  и URL пункта меню если `label` и `url` не заданы.
-* `label` - Название пункта меню.
-* `url` - URL пункта меню. Если не указан, автоматически определяется по `app` или `model`.
-* `icon` - CSS-классы иконки пункта меню из [Bootstrap Icons](https://icons.getbootstrap.com/).
-* `perms` - Права доступа, необходимые для показа пункта меню.
-* `classes` - CSS-классы для пункта меню.
-* `target` - Атрибут `target` для ссылки. Допустимые значения: `_blank`, `_self`.
-* `children` - Список дочерних пунктов меню.
+![image](https://user-images.githubusercontent.com/6928240/232227638-cc952405-051e-40a2-96ac-e1df84079d40.png)
 
-Не допускается одновременное задание параметров `app` и `model`. 
-Однако, необходимо указать хотя бы один из параметров `app`, `model` или `label`.
-
-В качестве значения для параметра `children` можно передать список строк с именами 
-моделей, или список экземпляров класса `Item`. Если `children` не указан, а параметр 
-`app` задан, то дочерние пункты будут автоматически созданы из всех моделей приложения.
+Не допускается одновременное задание параметров `app` и `model`.
+Однако, необходимо указать хотя бы один из параметров: `app`, `model` или `label`.
 
 В качестве значения для параметра `perms` можно передать строку или список строк с
 именами прав доступа, функцию или значение `PAPER_MENU_SUPERUSER_PERMISSION`
@@ -188,23 +198,98 @@ PAPER_MENU = [
 
 ```python
 Item(
-    label="My item",
-    url="https://example.com/",
-    icon="bi-lg bi-rocket-takeoff",
-    classes="text-warning",
-    target="_blank",
-    perms=["app.view_model1", "app.view_model2"],
+    app="faq",
+    icon="bi-lg bi-mb bi-house-fill",
+    perms=["app.view_question", "app.view_answer"],
     children=[
-        "Model1",
-        "Model2",
-        Item(
-            label="Subitem",
-            url="https://example.com/",
-            icon="bi-lg bi-gear-fill"
-        )
+        "Question",
+        "Answer",
     ]
-)
+),
 ```
+
+### Divider
+
+Специальный класс, добавляющий горизонтальную линию для визуального
+отделения пунктов меню:
+
+```python
+from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Divider
+
+PAPER_MENU = [
+    Item(
+        label=_("Dashboard"),
+        url="#",
+    ),
+    Item(
+        label=_("Blog"),
+        url="#",
+    ),
+    Item(
+        label=_("About Us"),
+        url="#",
+    ),
+    Item(
+        label=_("Contacts"),
+        url="#",
+    ),
+    Divider(),
+    Item(
+        label=_("Logs"),
+        url="#",
+    ),
+]
+```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/232228606-5fc4cbd2-21c2-4cde-9b9e-740fc03e4f81.png)
+
+
+### Group
+
+Класс, предназначенный для группировки пунктов меню. С его помощью можно не только 
+визуально выделить определённый набор пунктов меню, но и централизованно проверить
+права на него.
+
+```python
+from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Group
+
+PAPER_MENU = [
+    Item(
+        label=_("Dashboard"),
+        url="#",
+    ),
+    Item(
+        label=_("About Us"),
+        url="#",
+    ),
+    Item(
+        label=_("Blog"),
+        url="#",
+    ),
+    Group(
+        label=_("Admin Area"),
+        perms="superuser",
+        children=[
+            Item(
+                label=_("Backups"),
+                url="#",
+            ),
+            Item(
+                label=_("Logs"),
+                url="#",
+            ),
+        ]
+    ),
+]
+```
+
+Результат:
+
+![image](https://user-images.githubusercontent.com/6928240/232230259-dbfe0483-5910-40d4-abbd-2a8adef89d46.png)
 
 ## Reorderable drag-and-drop lists
 

@@ -234,6 +234,16 @@
 
   &__divider {
     padding: 0 $paper-sidebar-link-padding-x;
-    border-bottom: 1px solid $paper-sidebar-item-divider-border-color;
+    height: 1px;
+    background-color: $paper-sidebar-divider-color;
+  }
+
+  &__group {
+    padding: 0 $paper-sidebar-link-padding-x;
+    margin: 1.25em 0 0;
+    color: $paper-sidebar-group-caption-color;
+    font-size: $paper-sidebar-group-caption-font-size;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 }
