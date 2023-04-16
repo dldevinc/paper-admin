@@ -386,6 +386,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 https://user-images.githubusercontent.com/6928240/125331456-0f1bb280-e359-11eb-8b17-b04be4b1e62c.mp4
 
+<br>
 The sorting is performed using AJAX and is saved to the database automatically.
 
 ### Reorderable inline forms
@@ -409,6 +410,7 @@ class IndustryInline(admin.TabularInline):
 
 https://user-images.githubusercontent.com/6928240/125331956-b6004e80-e359-11eb-8422-832dfe37bb6c.mp4
 
+<br>
 The sorting is compatible with [django-mptt](https://github.com/django-mptt/django-mptt)
 (if the `paper_admin.patches.mptt` patch is added to `INSTALLED_APPS`).
 You can only change the order of elements that have the same parent and are at the same
@@ -521,6 +523,8 @@ class MessageAdmin(admin.ModelAdmin):
     # ...
     list_filters = [GroupFilter]
 ```
+
+Result:
 
 ![image](https://user-images.githubusercontent.com/6928240/229168174-a9c32ec8-f87a-4ec9-a875-105eeae61f06.png)
 
