@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 
 ## Patches
 
-Some third-party libraries override the standard Django templates and within the `paper_admin`
+Some third-party libraries override the standard Django templates and within the `paper-admin`
 interface look disfigured. To fix these, you can use the patches included in this package.
 
 The following patches are available:
@@ -81,18 +81,19 @@ The following patches are available:
     from paper_admin.patches.tree_queries.admin import TreeNodeModelAdmin  # <--
     from .models import MyTreeNode
 
+
     @admin.register(MyTreeNode)
     class MyTreeNodeAdmin(TreeNodeModelAdmin):
         ...
         sortable = "position"
     ```
 
-To use a patch, you need to add it to the `INSTALLED_APPS` setting.
+To use a patch, you need to add it to the `INSTALLED_APPS` setting.<br>
 **Note**: as a rule, patches should be added **before** the libraries they fix.
 
 ## Badge
 
-Badge is a text description of the environment to prevent confusion between the 
+Badge is a text description of the environment to prevent confusion between the
 development and production servers.
 
 ![](https://user-images.githubusercontent.com/6928240/125350052-4a28e080-e36f-11eb-8772-4d797d64863a.png)
@@ -106,48 +107,102 @@ PAPER_ENVIRONMENT_COLOR = "#FFFF00"
 
 ## Admin menu
 
-Меню в сайдбаре настраивается путем заполнения списка `PAPER_MENU` в `settings.py`.
+The `paper-admin` provides a way to create menus in the Django admin interface.
+It allows you to define a menu tree with items that represent apps, models or custom links.
+You can also define groups of items and dividers to separate them.
 
-Каждый пункт меню создаётся экземпляром класса `Item`, в который можно
-передать следующие параметры:
+### Usage
 
--   `app` - Приложение, для которого будет создан пункт меню. Определяет имя пункта меню
-    если `label` не задан. Неявно добавляется к именам моделей, указанным в дочерних пунктах.
--   `model` - Модель, для которой будет создан пункт меню в формате `app_label.model_name`,
-    либо просто `model_name`, если `app` был указан в родительском пункте. Определяет имя
-    и URL пункта меню если `label` и `url` не заданы.
--   `label` - Название пункта меню.
--   `url` - URL пункта меню. Если не указан явно, то автоматически определяется
-    по значению `app` или `model`.
--   `icon` - CSS-классы иконки пункта меню из [Bootstrap Icons](https://icons.getbootstrap.com/).
--   `perms` - Права доступа, необходимые для показа пункта меню.
--   `classes` - CSS-классы для пункта меню.
--   `target` - Атрибут `target` для ссылки. Допустимые значения:
-    `_blank`, `_self` (значение по умолчанию).
--   `children` - Список дочерних пунктов меню.
+To use the menu system, you need to define a menu tree in your Django project's
+settings file. The menu tree is defined as a list of items, where each item can be
+either a string, a dictionary or an instance of a menu item class.
 
-Примеры:
+The following types of menu items are available:
+
+-   `Item`: Represents a link to a specific URL.
+-   `Divider`: Represents a divider that separates items in the menu.
+-   `Group`: Represents a group of items in the menu.
+
+Here's an example of a simple menu tree:
+
+```python
+from django.utils.translation import gettext_lazy as _
+from paper_admin.menu import Item, Divider
+
+
+PAPER_MENU = [
+    Item(
+        label=_("Dashboard"),
+        url="admin:index",
+        icon="bi-lg bi-mb bi-speedometer2",
+    ),
+    Divider(),
+    Item(
+        label=_("Authentication and Authorization"),
+        icon="bi bi-lg bi-person-circle",
+        children=[
+            Item(
+                model="User",
+                icon="bi bi-lg bi-people",
+            ),
+            Item(
+                model="Group",
+                icon="bi bi-lg bi-people-fill",
+            ),
+        ]
+    )
+]
+```
+
+### `Item`
+
+The `Item` class represents a link to a specific URL. You can use it to create links
+to Django admin pages, external websites or any other URL.
+
+Properties:
+
+-   `app`: A string representing the name of the Django app that the menu item
+    will point to. If this is provided, the URL of the menu item will point to the app
+    index page.
+-   `model`: A string representing the name of the Django model that the menu
+    item will point to. If this is provided, the URL of the menu item will point
+    to the model list page.
+-   `label`: A string representing the text that will be displayed in the menu item.
+-   `url`: A string representing the URL that the menu item will point to.
+-   `icon`: The CSS classes to use for the icon of the menu item.
+-   `perms`: A list of permission strings that are required for the user to see this
+    item in the menu. If this property is not provided, the item will be visible
+    to all users.
+-   `classes`: A string of additional CSS classes to add to the menu item.
+-   `target`: The target attribute to use for the link.
+-   `children`: An optional list of Item or Group instances representing sub-items of the menu item.
+
+The `app` and `model` parameters cannot be set simultaneously. However, you must
+specify at least one of the following parameters: `app`, `model`, or `label`.
+
+Example usage:
 
 ```python
 from django.utils.translation import gettext_lazy as _
 from paper_admin.menu import Item
 
+
 PAPER_MENU = [
-    # Пункт меню с явно заданным именем и URL
+    # Menu item with a specified label and URL
     Item(
         label=_("Dashboard"),
         url="admin:index",
         icon="bi-lg bi-mb bi-speedometer2",
     ),
 
-    # Меню для приложения auth. Дочерние пункты будут сформированы
-    # автоматически из моделей приложения.
+    # Menu for the 'auth' app. Child items will be automatically generated
+    # from the app's models.
     Item(
         app="auth"
     ),
 
-    # Приложение app с явно заданным списком моделей.
-    # Имя приложения неявно добавляется к именам моделей.
+    # App 'app' with a specified list of models.
+    # The app's name is implicitly added to the model names.
     Item(
         app="app",
         icon="bi-lg bi-mb bi-house-fill",
@@ -158,7 +213,7 @@ PAPER_MENU = [
         ]
     ),
 
-    # Указание модели определённого приложения в качестве дочернего пункта
+    # Specify a model from a specific app as a child item
     Item(
         label=_("Logs"),
         icon="bi-lg bi-mb bi-clock-history",
@@ -168,7 +223,7 @@ PAPER_MENU = [
         ]
     ),
 
-    # Добавление CSS-классов и атрибута target для ссылки.
+    # Add CSS classes and a target attribute to a link
     Item(
         label="Google",
         url="https://google.com/",
@@ -179,51 +234,60 @@ PAPER_MENU = [
 ]
 ```
 
-Результат:
-
 ![image](https://user-images.githubusercontent.com/6928240/232227638-cc952405-051e-40a2-96ac-e1df84079d40.png)
 
-Не допускается одновременное задание параметров `app` и `model`.
-Однако, необходимо указать хотя бы один из параметров: `app`, `model` или `label`.
+When defining permissions for menu items using the `perms` parameter, you can use
+the special values `PAPER_MENU_SUPERUSER_PERMISSION` (default is `superuser`)
+and `PAPER_MENU_STAFF_PERMISSION` (default is `staff`) to restrict access to
+superusers and staff members respectively.
 
-В качестве значения для параметра `perms` можно передать строку или список строк с
-именами прав доступа, функцию или значение `PAPER_MENU_SUPERUSER_PERMISSION`
-(по умолчанию `superuser`) или `PAPER_MENU_STAFF_PERMISSION` (по умолчанию `staff`).
-
-Пример:
+Example:
 
 ```python
-Item(
-    app="faq",
-    icon="bi-lg bi-mb bi-house-fill",
-    perms=["app.view_question", "app.view_answer"],
-    children=[
-        "Question",
-        "Answer",
-    ]
-),
+from paper_admin.menu import Item
+
+
+PAPER_MENU = [
+    Item(
+        app="payments",
+        icon="bi-lg bi-mb bi-money",
+        perms=["staff"],
+        children=[
+            Item(
+                model="Payment",
+                perms=["superuser"],
+            ),
+            Item(
+                model="Invoice",
+            ),
+        ]
+    ),
+]
 ```
 
 ### Divider
 
-Специальный класс, добавляющий горизонтальную линию для визуального
-отделения пунктов меню:
+The `Divider` class is used to add a horizontal line to separate items in the menu
+tree. It doesn't have any properties or methods, it's simply used to visually group
+items together.
 
 ```python
 from django.utils.translation import gettext_lazy as _
 from paper_admin.menu import Item, Divider
+
 
 PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="#",
     ),
+    Divider(),
     Item(
-        label=_("Blog"),
+        label=_("About Us"),
         url="#",
     ),
     Item(
-        label=_("About Us"),
+        label=_("Blog"),
         url="#",
     ),
     Item(
@@ -232,42 +296,49 @@ PAPER_MENU = [
     ),
     Divider(),
     Item(
+        label=_("Users"),
+        url="#",
+    ),
+    Item(
         label=_("Logs"),
         url="#",
     ),
 ]
 ```
 
-Результат:
-
-![image](https://user-images.githubusercontent.com/6928240/232228606-5fc4cbd2-21c2-4cde-9b9e-740fc03e4f81.png)
+![image](https://user-images.githubusercontent.com/6928240/232309685-d6315de8-a39a-4c30-9862-26d139ae8008.png)
 
 ### Group
 
-Класс, предназначенный для группировки пунктов меню. С его помощью можно не только
-визуально выделить определённый набор пунктов меню, но и централизованно проверить
-права на него.
+The `Group` class represents a group of menu items. It can be used to group related
+items together under a common heading.
 
 ```python
 from django.utils.translation import gettext_lazy as _
 from paper_admin.menu import Item, Group
+
 
 PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="#",
     ),
-    Item(
-        label=_("About Us"),
-        url="#",
-    ),
-    Item(
-        label=_("Blog"),
-        url="#",
+    Group(
+        label=_("Content"),
+        children=[
+            Item(
+                label=_("About Us"),
+                url="#",
+            ),
+            Item(
+                label=_("Blog"),
+                url="#",
+            ),
+        ]
     ),
     Group(
         label=_("Admin Area"),
-        perms="superuser",
+        perms=["superuser"],
         children=[
             Item(
                 label=_("Backups"),
@@ -282,74 +353,76 @@ PAPER_MENU = [
 ]
 ```
 
-Результат:
-
-![image](https://user-images.githubusercontent.com/6928240/232230259-dbfe0483-5910-40d4-abbd-2a8adef89d46.png)
+![image](https://user-images.githubusercontent.com/6928240/232309872-3502acbf-68ef-4e38-a7b3-9507597466e6.png)
 
 ## Reorderable drag-and-drop lists
 
-Для того, чтобы экземпляры модели можно было сортировать в интерфейсе администратора,
-необходимо выполнить два условия.
+The `paper-admin` package provides the ability to reorder items in lists using
+drag-and-drop. To enable this feature, you need to set the `sortable` property of
+the model's `ModelAdmin` to the name of the field that stores the order.
 
-1. Добавить в модель _числовое_ поле, которое будет хранить порядковый номер.
+```python
+# models.py
+from django.db import models
 
-    ```python
-    # models.py
 
-    from django.db import models
+class Company(models.Model):
+    # ...
+    position = models.IntegerField(
+        "position",
+        default=0
+    )
+```
 
-    class MyModel(models.Model):
-        position = models.IntegerField(
-            "position",
-            default=0
-        )
-    ```
+```python
+# admin.py
+from django.contrib import admin
 
-2. Указать название этого поля в свойстве `sortable` соответствующего
-   подкласса `ModelAdmin`:
 
-    ```python
-    # admin.py
-
-    from django.contrib import admin
-
-    class MyModelAdmin(admin.ModelAdmin):
-        sortable = "position"
-        # ...
-    ```
-
-Результат:
+class CompanyAdmin(admin.ModelAdmin):
+    # ...
+    sortable = "position"
+```
 
 https://user-images.githubusercontent.com/6928240/125331456-0f1bb280-e359-11eb-8b17-b04be4b1e62c.mp4
 
-Сохранение сортировки происходит через AJAX-запрос.
+The sorting is performed using AJAX and is saved to the database automatically.
 
-Таким же путём можно включить сортировку инлайн-форм, но в этом случае сортировка происходит
-с помощью кнопок и сохраняется вместе со всей страницей при нажатии кнопки "Save":
+### Reorderable inline forms
+
+The `paper-admin` package also provides the ability to reorder inline forms in
+the same way. But in this case, the sorting is not saved to the database automatically.
 
 ```python
 from django.contrib import admin
 
-class TablularInline(admin.TabularInline):
-    sortable = "position"
-    # ...
-```
 
-Результат:
+class StaffInline(admin.StackedInline):
+    # ...
+    sortable = "position"
+
+
+class IndustryInline(admin.TabularInline):
+    # ...
+    sortable = "position"
+```
 
 https://user-images.githubusercontent.com/6928240/125331956-b6004e80-e359-11eb-8422-832dfe37bb6c.mp4
 
-Сортировка `paper-admin` совместима с [django-mptt](https://github.com/django-mptt/django-mptt)
-(если в `INSTALLED_APPS` добавлен патч `paper_admin.patches.mptt`).
-Менять местами можно только те элементы, которые имеют общего родителя и находятся на одном уровне
-вложенности:
+The sorting is compatible with [django-mptt](https://github.com/django-mptt/django-mptt)
+(if the `paper_admin.patches.mptt` patch is added to `INSTALLED_APPS`).
+You can only change the order of elements that have the same parent and are at the same
+level of nesting:
 
 https://user-images.githubusercontent.com/6928240/125340277-55760f00-e363-11eb-94d4-49a978cb7ae4.mp4
 
 ## Form tabs
 
-Форму добавления/редактирования объекта можно разделить на вкладки.
-Список вкладок указывается в атрибуте `tabs`:
+The `paper-admin` provides a way to divide forms into sections. Sections are
+represented as tabs, which makes it easier to navigate between them.
+
+To use this feature, you need to set the `tabs` property of the model's
+`ModelAdmin` to a list of tab definitions.
 
 ```python
 from django.contrib import admin
@@ -391,17 +464,14 @@ class PageAdmin(admin.ModelAdmin):
     inlines = (TablularInline, )
 ```
 
-Результат:
-
 https://user-images.githubusercontent.com/6928240/226703428-c9413de1-42c1-4178-b75f-37412925f18f.mp4
 
 <br>
-Вкладки можно добавлять динамически, с помощью метода `get_tabs`:
+Tabs can also be dynamically generated by the `get_tabs()` method:
 
 ```python
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-
 from .models import Page
 
 
@@ -417,14 +487,15 @@ class PageAdmin(admin.ModelAdmin):
 
 ## HierarchyFilter
 
-`HierarchyFilter` - это базовый класс для построения фильтров, подобных тому,
-что создаётся с помощью свойства `ModelAdmin.date_hierarcy`.
-
-Пример:
+`HierarchyFilter` is a special type of filter that can be used to filter objects by a
+hierarchical model field. It is similar to the `date_hierarchy` filter, but it works
+with any hierarchical model field.
 
 ```python
-from paper_admin.admin.filters import HierarchyFilter
+from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from paper_admin.admin.filters import HierarchyFilter
+from .models import Group, Message
 
 
 class GroupFilter(HierarchyFilter):
@@ -443,9 +514,13 @@ class GroupFilter(HierarchyFilter):
             return queryset
 
         return queryset.filter(group__in=value)
-```
 
-Результат:
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    # ...
+    list_filters = [GroupFilter]
+```
 
 ![image](https://user-images.githubusercontent.com/6928240/229168174-a9c32ec8-f87a-4ec9-a875-105eeae61f06.png)
 
@@ -453,23 +528,20 @@ class GroupFilter(HierarchyFilter):
 
 ### Fieldset
 
-Django [даёт возможность](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets)
-указать произвольные CSS-классы и описание для любого fieldset.
-`paper-admin` предоставляет набор готовых CSS-классов для стилизации fieldset:
+Django [provides](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets)
+a way to add a custom CSS classes to the fieldsets in the admin interface.
 
--   `paper-card--primary`
--   `paper-card--secondary`
--   `paper-card--info`
--   `paper-card--danger`
--   `paper-card--success`
--   `paper-card--warning`
+To use this feature, specify the `classes` parameter in the `ModelAdmin.fieldsets`
+attribute:
 
 ```python
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from .models import Category
 
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (_("Info Section"), {
             "classes": ("paper-card--info", ),
@@ -493,21 +565,20 @@ class PageAdmin(admin.ModelAdmin):
     )
 ```
 
-Результат:
-
 ![](https://user-images.githubusercontent.com/6928240/125337870-8f91e180-e360-11eb-9b19-7f903ab30464.png)
 
 ### Table rows
 
-Для каждого ряда таблицы вызывается метод `get_row_classes`, который должен вернуть
-список CSS-классов, которые будут добавлены к тэгу `<tr>`.
+You can use the `get_row_classes` method of the `ModelAdmin`
+class to add custom classes to the rows in the list view.
 
 ```python
 from django.contrib import admin
-from .models import Page
+from .models import Category
 
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
 
     def get_row_classes(self, request, obj):
         if obj.status == "success":
@@ -517,17 +588,16 @@ class PageAdmin(admin.ModelAdmin):
         return []
 ```
 
-Результат:
-
 ![image](https://user-images.githubusercontent.com/6928240/225705910-4f1309e1-93e3-456a-b9d0-f01748faec7b.png)
 
 ### Inline forms
 
-Inline-формам тоже можно назначить произвольные CSS-классы с помощью метода
-`get_form_classes`:
+You can use the `get_form_classes` method of the `ModelAdmin` class
+to add custom classes to the inline forms:
 
 ```python
 from django.contrib import admin
+
 
 class StackedInline(admin.StackedInline):
     def get_form_classes(self, request, obj):
@@ -536,6 +606,7 @@ class StackedInline(admin.StackedInline):
         elif obj.status == "failed":
             return ["paper-card--danger"]
         return []
+
 
 class TablularInlines(admin.TabularInline):
     def get_form_classes(self, request, obj):
@@ -546,67 +617,57 @@ class TablularInlines(admin.TabularInline):
         return []
 ```
 
-Результат:
-
 ![image](https://user-images.githubusercontent.com/6928240/225713947-34e29927-b629-4b9a-bf6e-56ec8948de7e.png)
 ![image](https://user-images.githubusercontent.com/6928240/225714321-87a33c52-65d8-4175-a118-cb751b92ebb8.png)
 
 ## Settings
 
 `PAPER_FAVICON`<br>
-Путь к favicon-файлу, который будет использоваться в интерфейсе админиcтратора.<br>
+The path to the favicon for the admin interface.<br>
 Default: `"paper_admin/dist/assets/default_favicon.png"`
 
 `PAPER_ENVIRONMENT_NAME`<br>
-Текст на бейжде в сайдбаре.<br>
+The text of the environment badge.<br>
 Default: `""`
 
 `PAPER_ENVIRONMENT_COLOR`<br>
-Цвет фона бейджа.<br>
+The color of the environment badge.<br>
 Default: `""`
 
 `PAPER_MENU`<br>
-Меню.<br>
+A list of menu items. See [Admin menu](#Admin-menu) for details.<br>
 Default: `None`
 
 `PAPER_MENU_DIVIDER`<br>
-При встрече указанной строки в списке пунктов `PAPER_MENU`,
-на её место будут вставлен горизонтальный разделитель.<br>
+A string representing the menu item divider.<br>
 Default: `"-"`
 
 `PAPER_MENU_STAFF_PERMISSION`<br>
-Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
-которое указывает, что текущий пункт меню должен быть показан
-только при условии, что у пользователя установлен флаг `is_staff`.<br>
+The special permission string that allows access to the menu item for staff users.<br>
 Default: `"staff"`
 
 `PAPER_MENU_SUPERUSER_PERMISSION`<br>
-Ключевое слово в параметре `perms` пункта меню `PAPER_MENU`,
-которое указывает, что текущий пункт меню должен быть показан
-только при условии, что у пользователя установлен флаг `is_superuser`.<br>
+The special permission string that allows access to the menu item for superusers.<br>
 Default: `"superuser"`
 
 `PAPER_MENU_COLLAPSE_SINGLE_CHILDS`<br>
-При значении `True`, те пункты меню, которые содержат единственный
-подпункт, не будут отображаться как выпадающие списки. Вместо этого
-они сразу будут вести на страницу, указанную в подпункте.<br>
+Whether to collapse a menu item if it has only one child.<br>
 Default: `True`
 
 `PAPER_DEFAULT_TAB_NAME`<br>
-Алиас вкладки по-умолчанию.<br>
+The name of the tab to activate in the form by default.<br>
 Default: `"general"`
 
 `PAPER_DEFAULT_TAB_TITLE`<br>
-Заголовок вкладки по-умолчанию.<br>
+The title of the tab to activate in the form by default.<br>
 Default: `_("General")`
 
 `PAPER_LOCALE_PACKAGES`<br>
-Список модулей, из которых должны загружаться переводы
-для `JavaScriptCatalog` интерфейса администратора.<br>
+The list of packages to search for translation strings.<br>
 Default: `["paper_admin", "django.contrib.admin"]`
 
 `PAPER_NONE_PLACEHOLDER`<br>
-Значение, представляющее `None` в фильтрах интерфейса администратора.<br>
+The placeholder text for the "None" option in the filters.<br>
 Default: `␀`
 
 ## Additional References
