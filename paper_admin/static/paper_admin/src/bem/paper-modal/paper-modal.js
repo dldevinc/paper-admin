@@ -46,7 +46,7 @@ const Default = {
               </div>
             </div>`,
         closeButton: `<button type="button" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>  
+              <span class="bi-x-circle" aria-hidden="true"></span>  
             </button>`,
         button: `<button type="button" class="btn"></button>`
     },
