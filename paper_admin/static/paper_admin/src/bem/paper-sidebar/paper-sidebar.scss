@@ -119,6 +119,7 @@
       margin-right: $paper-sidebar-icon-margin-right;
       flex: 0 0 $paper-sidebar-icon-width;
       text-align: left;
+      line-height: 1;
     }
 
     @at-root .active > & {
@@ -159,6 +160,10 @@
         color: $paper-sidebar-first-link-color;
         background-color: $paper-sidebar-first-link-bg;
 
+        > i {
+          line-height: inherit;
+        }
+
         &:hover {
           color: $paper-sidebar-first-link-hover-color;
           background: $paper-sidebar-first-link-hover-bg;
@@ -191,7 +196,7 @@
           border-radius: 50%;
           border: 1px solid $paper-sidebar-category-line-color;
           background: $paper-sidebar-dot-bg;
-          transform: translate(math.div(-$paper-sidebar-dot-size + 1, 2), math.div(-$paper-sidebar-dot-size - 1, 2));
+          transform: translate(math.div(-$paper-sidebar-dot-size + 1, 2), -50%);
           @include transition();
         }
 
