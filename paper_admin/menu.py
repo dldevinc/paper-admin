@@ -8,7 +8,6 @@ from typing import (
     Generator,
     Iterable,
     List,
-    Literal,
     Optional,
     Union,
 )
@@ -21,6 +20,11 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import resolve_url
 from django.template import loader
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 __all__ = ["Menu", "Item", "Group", "Divider"]
 
