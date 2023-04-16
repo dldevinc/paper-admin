@@ -4,6 +4,7 @@
 from . import (  # isort: skip
     changelist,
     filters,
+    forms,
     helpers,
     options,
     prepopulate,
