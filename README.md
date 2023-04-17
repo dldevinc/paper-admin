@@ -134,20 +134,20 @@ PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="bi-lg bi-mb bi-speedometer2",
+        icon="bi-speedometer2",
     ),
     Divider(),
     Item(
         label=_("Authentication and Authorization"),
-        icon="bi bi-lg bi-person-circle",
+        icon="bi-person-circle",
         children=[
             Item(
                 model="User",
-                icon="bi bi-lg bi-people",
+                icon="bi-lg bi-people",
             ),
             Item(
                 model="Group",
-                icon="bi bi-lg bi-people-fill",
+                icon="bi-lg bi-people-fill",
             ),
         ]
     )
@@ -192,7 +192,7 @@ PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="bi-lg bi-mb bi-speedometer2",
+        icon="bi-speedometer2",
     ),
 
     # Menu for the 'auth' app. Child items will be automatically generated
@@ -205,7 +205,7 @@ PAPER_MENU = [
     # The app's name is implicitly added to the model names.
     Item(
         app="app",
-        icon="bi-lg bi-mb bi-house-fill",
+        icon="bi-house-fill",
         children=[
             "Widgets",
             "Message",
@@ -216,7 +216,7 @@ PAPER_MENU = [
     # Specify a model from a specific app as a child item
     Item(
         label=_("Logs"),
-        icon="bi-lg bi-mb bi-clock-history",
+        icon="bi-clock-history",
         perms="admin.view_logentry",
         children=[
             "admin.LogEntry"
@@ -227,7 +227,7 @@ PAPER_MENU = [
     Item(
         label="Google",
         url="https://google.com/",
-        icon="bi-lg bi-google",
+        icon="bi-google",
         classes="text-warning",
         target="_blank",
     )
@@ -250,7 +250,7 @@ from paper_admin.menu import Item
 PAPER_MENU = [
     Item(
         app="payments",
-        icon="bi-lg bi-mb bi-money",
+        icon="bi-money",
         perms=["staff"],
         children=[
             Item(

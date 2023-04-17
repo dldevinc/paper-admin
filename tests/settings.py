@@ -159,11 +159,11 @@ PAPER_MENU = [
     Item(
         label=_("Dashboard"),
         url="admin:index",
-        icon="bi-lg bi-mb bi-speedometer2",
+        icon="bi-speedometer",
     ),
     Item(
         app="app",
-        icon="bi-lg bi-mb bi-house-fill",
+        icon="bi-house",
         children=[
             Item(
                 label=_("Index"),
@@ -212,7 +212,7 @@ PAPER_MENU = [
             ),
             Item(
                 label=_("Logs"),
-                icon="bi-lg bi-mb bi-clock-history",
+                icon="bi-clock-history",
                 children=[
                     "admin.LogEntry"
                 ]
