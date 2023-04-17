@@ -161,7 +161,8 @@
         background-color: $paper-sidebar-first-link-bg;
 
         > i {
-          line-height: inherit;
+          line-height: #{$paper-sidebar-link-font-size * $paper-sidebar-link-line-height};
+          line-height: 1lh;
         }
 
         &:hover {
@@ -245,7 +246,7 @@
 
   &__group {
     padding: 0 $paper-sidebar-link-padding-x;
-    margin: 1.25em 0 0;
+    margin: 1.25em 0 0.5em;
     color: $paper-sidebar-group-caption-color;
     font-size: $paper-sidebar-group-caption-font-size;
     letter-spacing: 1px;
