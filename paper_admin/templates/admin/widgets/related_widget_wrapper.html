@@ -3,27 +3,26 @@
 <div class="related-widget-wrapper" {% if not model_has_limit_choices_to %}data-model-ref="{{ model_ref }}"{% endif %}>
   {{ rendered_widget }}
 
-  {% block links %}{% spaceless %}
+  {% block links %}
     {% if not is_hidden %}
       {% if can_view_related or can_add_related or can_change_related or can_delete_related %}
         <div class="related-widget-wrapper__buttons btn-square-group">
 
           {% if can_add_related %}
             <a id="add_id_{{ name }}"
-               class="related-widget-wrapper__link add-related btn btn-square btn-sm btn-square--success"
+               class="related-widget-wrapper__link add-related btn btn-square btn-sm btn-square--success bi-plus-lg"
                href="{{ add_related_url }}?{{ url_params }}"
                data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Add another {{ model }}{% endblocktrans %}">
-                <i class="bi-mb bi-plus-lg"></i>
             </a>
           {% endif %}
 
           {% if can_view_related or can_change_related %}
             <a id="change_id_{{ name }}"
-               class="related-widget-wrapper__link change-related btn btn-square btn-sm btn-square--info"
+               class="related-widget-wrapper__link change-related btn btn-square btn-sm btn-square--info{% if can_change_related %} bi-pencil-square{% else %} bi-eye{% endif %}"
                data-href-template="{{ change_related_template_url }}?{{ url_params }}"
                data-xclass="bs-tooltip"
                data-placement="top"
@@ -34,25 +33,23 @@
                {% else %}
                 title="{% blocktrans %}View selected {{ model }}{% endblocktrans %}">
                {% endif %}
-                <i class="bi-mb{% if can_change_related %} bi-pencil-square{% else %} bi-eye{% endif %}"></i>
             </a>
           {% endif %}
 
           {% if can_delete_related %}
             <a id="delete_id_{{ name }}"
-               class="related-widget-wrapper__link delete-related btn btn-square btn-sm btn-square--danger"
+               class="related-widget-wrapper__link delete-related btn btn-square btn-sm btn-square--danger bi-trash"
                data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
                data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
                data-html="true"
                title="{% blocktrans %}Delete selected {{ model }}{% endblocktrans %}">
-                <i class="bi-mb bi-trash"></i>
             </a>
           {% endif %}
 
         </div>
       {% endif %}
     {% endif %}
-  {% endspaceless %}{% endblock %}
+  {% endblock %}
 </div>

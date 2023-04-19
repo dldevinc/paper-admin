@@ -5,10 +5,14 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
-      <button type="button" class="uuid-field__link input-group-text"
-         tabindex="-1" data-xclass="bs-tooltip" data-placement="top"
-         data-trigger="hover" data-html="true" title="{{ _('Generate new UUID') }}">
-        <i class="bi-plus-circle"></i>
+      <button type="button"
+              class="uuid-field__link input-group-text bi-plus-circle"
+              tabindex="-1"
+              data-xclass="bs-tooltip"
+              data-placement="top"
+              data-trigger="hover"
+              data-html="true"
+              title="{{ _('Generate new UUID') }}">
       </button>
     </div>
   </div>

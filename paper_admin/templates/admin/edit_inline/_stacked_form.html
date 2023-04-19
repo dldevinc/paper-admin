@@ -15,7 +15,7 @@
         {% block inline-tools-items %}
           {% if inline_form.show_url %}
             <a href="{{ inline_form.absolute_url }}"
-               class="btn btn-square btn-sm btn-square--info"
+               class="btn btn-square btn-sm btn-square--info bi-eye"
                data-xclass="bs-tooltip"
                data-placement="top"
                data-trigger="hover"
@@ -23,31 +23,28 @@
                title="{{ _("View on site") }}"
                target="_blank"
                rel="noopener">
-              <i class="bi-eye"></i>
             </a>
           {% endif %}
 
           {% if inline_admin_formset.sortable_allowed %}
             <button type="button"
-                    class="sortable-move-up btn btn-square btn-sm btn-square--info"
+                    class="sortable-move-up btn btn-square btn-sm btn-square--info bi-chevron-up"
                     data-formset-toggle="up"
                     data-xclass="bs-tooltip"
                     data-placement="top"
                     data-trigger="hover"
                     data-html="true"
                     title="{{ _("Move up") }}">
-              <i class="bi-chevron-up"></i>
             </button>
 
             <button type="button"
-                    class="sortable-move-down btn btn-square btn-sm btn-square--info"
+                    class="sortable-move-down btn btn-square btn-sm btn-square--info bi-chevron-down"
                     data-formset-toggle="down"
                     data-xclass="bs-tooltip"
                     data-placement="top"
                     data-trigger="hover"
                     data-html="true"
                     title="{{ _("Move down") }}">
-              <i class="bi-chevron-down"></i>
             </button>
           {% endif %}
 
@@ -69,14 +66,13 @@
 
           {% if not inline_form.original and not inline_form.show_url %}
             <button type="button"
-                    class="btn btn-square btn-sm btn-square--danger"
+                    class="btn btn-square btn-sm btn-square--danger bi-trash"
                     data-formset-toggle="delete"
                     data-xclass="bs-tooltip"
                     data-placement="top"
                     data-trigger="hover"
                     data-html="true"
                     title="{{ _("Delete") }}">
-              <i class="bi-trash"></i>
             </button>
           {% endif %}
         {% endblock %}

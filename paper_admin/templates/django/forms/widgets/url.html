@@ -5,12 +5,16 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
-      <a class="url-field__link input-group-text"
+      <a class="url-field__link input-group-text bi-globe-americas"
          {% if widget.value %}href="{{ widget.value }}"{% endif %}
-         target="_blank" rel="noopener" tabindex="-1"
-         data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
-         data-html="true" title="{{ _('Visit URL') }}">
-        <i class="bi-globe-americas"></i>
+         target="_blank"
+         rel="noopener"
+         tabindex="-1"
+         data-xclass="bs-tooltip"
+         data-placement="top"
+         data-trigger="hover"
+         data-html="true"
+         title="{{ _('Visit URL') }}">
       </a>
     </div>
   </div>

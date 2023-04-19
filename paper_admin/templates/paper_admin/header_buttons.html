@@ -50,10 +50,13 @@
   {% block tools %}
     {% if has_absolute_url %}
       <li class="nav-item d-lg-none">
-        <a href="{{ absolute_url }}" class="nav-link"
-           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{{ _("View on site") }}">
-          <i class="bi-eye text-info"></i>
+        <a href="{{ absolute_url }}"
+           class="nav-link bi-eye text-info"
+           data-xclass="bs-tooltip"
+           data-placement="bottom"
+           data-trigger="hover"
+           data-html="true"
+           title="{{ _("View on site") }}">
         </a>
       </li>
     {% endif %}
@@ -61,10 +64,13 @@
     {% if change and show_history %}
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
-        <a href="{% add_preserved_filters history_url %}" class="nav-link"
-           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{{ _("History") }}">
-          <i class="bi-clock-history text-info"></i>
+        <a href="{% add_preserved_filters history_url %}"
+           class="nav-link bi-clock-history text-info"
+           data-xclass="bs-tooltip"
+           data-placement="bottom"
+           data-trigger="hover"
+           data-html="true"
+           title="{{ _("History") }}">
         </a>
       </li>
     {% endif %}
@@ -72,10 +78,13 @@
     {% if show_delete_link and original %}
       <li class="nav-item d-lg-none">
         {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-        <a href="{% add_preserved_filters delete_url %}" class="nav-link"
-           data-xclass="bs-tooltip" data-placement="bottom" data-trigger="hover"
-           data-html="true" title="{{ _("Delete") }}">
-          <i class="bi-trash text-danger"></i>
+        <a href="{% add_preserved_filters delete_url %}"
+           class="nav-link bi-trash text-danger"
+           data-xclass="bs-tooltip"
+           data-placement="bottom"
+           data-trigger="hover"
+           data-html="true"
+           title="{{ _("Delete") }}">
         </a>
       </li>
     {% endif %}

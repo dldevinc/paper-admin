@@ -5,12 +5,16 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
-      <a class="email-field__link input-group-text"
+      <a class="email-field__link input-group-text bi-envelope-at"
          {% if widget.value %}href="mailto:{{ widget.value }}"{% endif %}
-         target="_blank" rel="noopener" tabindex="-1"
-         data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
-         data-html="true" title="{{ _('Send mail') }}">
-        <i class="bi-envelope-at"></i>
+         target="_blank"
+         rel="noopener"
+         tabindex="-1"
+         data-xclass="bs-tooltip"
+         data-placement="top"
+         data-trigger="hover"
+         data-html="true"
+         title="{{ _('Send mail') }}">
       </a>
     </div>
   </div>

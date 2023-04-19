@@ -5,10 +5,14 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
-      <button type="button" class="time-field__button input-group-text" tabindex="-1"
-              data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
-              data-html="true" title="{{ _('Now') }}">
-        <i class="bi-clock"></i>
+      <button type="button"
+              class="time-field__button input-group-text bi-clock"
+              tabindex="-1"
+              data-xclass="bs-tooltip"
+              data-placement="top"
+              data-trigger="hover"
+              data-html="true"
+              title="{{ _('Now') }}">
       </button>
     </div>
   </div>

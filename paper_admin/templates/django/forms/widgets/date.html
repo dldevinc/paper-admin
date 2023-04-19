@@ -5,10 +5,14 @@
     {% include "django/forms/widgets/input.html" %}
 
     <div class="input-group-append">
-      <button type="button" class="date-field__button input-group-text" tabindex="-1"
-              data-xclass="bs-tooltip" data-placement="top" data-trigger="hover"
-              data-html="true" title="{{ _('Today') }}">
-        <i class="bi-calendar-check"></i>
+      <button type="button"
+              class="date-field__button input-group-text bi-calendar-check"
+              tabindex="-1"
+              data-xclass="bs-tooltip"
+              data-placement="top"
+              data-trigger="hover"
+              data-html="true"
+              title="{{ _('Today') }}">
       </button>
     </div>
   </div>

@@ -1,0 +1,6 @@
+.btn > i + span,
+.dropdown-item > i + span,
+.nav-link > i + span {
+  // Расстояние между иконкой и текстом
+  margin-left: 0.25em;
+}
