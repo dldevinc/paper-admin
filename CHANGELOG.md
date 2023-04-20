@@ -21,6 +21,7 @@
 -   Added `HierarchyFilter`, `RelatedOnlyFieldListFilter` and `EmptyFieldListFilter`.
 -   Added a button to generate a new UUID value in the `UUIDField` widget.
 -   The value of the `rows` attribute for the `AdminTextarea` widget has been reduced to `2`.
+-   Allow the user to enter a date directly into the [flatpickr](https://flatpickr.js.org/) input field.
 
 ## [5.0.0](https://github.com/dldevinc/paper-admin/tree/v5.0.0) - 2022-11-30
 
