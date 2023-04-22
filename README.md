@@ -21,7 +21,7 @@ Custom Django admin interface based on Bootstrap 4.
 -   [Form tabs](#Form-tabs)
 -   [HierarchyFilter](#HierarchyFilter)
 -   [Stylization](#Stylization)
-    -   [Fieldset](#Fieldset)
+    -   [Fieldsets](#Fieldsets)
     -   [Table rows](#Table-rows)
     -   [Inline forms](#Inline-forms)
 -   [Settings](#Settings)
@@ -530,7 +530,31 @@ Result:
 
 ## Stylization
 
-### Fieldset
+### Table rows
+
+You can use the `get_row_classes` method of the `ModelAdmin`
+class to add custom classes to the rows in the list view.
+
+```python
+from django.contrib import admin
+from .models import Category
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+
+    def get_row_classes(self, request, obj):
+        if obj.status == "success":
+            return ["table-success"]
+        elif obj.status == "failed":
+            return ["table-danger"]
+        return []
+```
+
+![image](https://user-images.githubusercontent.com/6928240/233795075-d0f85cc2-d34a-43a9-b393-20cd81f96d99.png)
+
+
+### Fieldsets
 
 Django [provides](https://docs.djangoproject.com/en/4.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets)
 a way to add a custom CSS classes to the fieldsets in the admin interface.
@@ -569,30 +593,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 ```
 
-![](https://user-images.githubusercontent.com/6928240/125337870-8f91e180-e360-11eb-9b19-7f903ab30464.png)
-
-### Table rows
-
-You can use the `get_row_classes` method of the `ModelAdmin`
-class to add custom classes to the rows in the list view.
-
-```python
-from django.contrib import admin
-from .models import Category
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-
-    def get_row_classes(self, request, obj):
-        if obj.status == "success":
-            return ["table-success"]
-        elif obj.status == "failed":
-            return ["table-danger"]
-        return []
-```
-
-![image](https://user-images.githubusercontent.com/6928240/225705910-4f1309e1-93e3-456a-b9d0-f01748faec7b.png)
+![image](https://user-images.githubusercontent.com/6928240/233795448-17d2fa5c-739a-4751-8266-b4b4e879b1c8.png)
 
 ### Inline forms
 
@@ -621,8 +622,8 @@ class TablularInlines(admin.TabularInline):
         return []
 ```
 
-![image](https://user-images.githubusercontent.com/6928240/225713947-34e29927-b629-4b9a-bf6e-56ec8948de7e.png)
-![image](https://user-images.githubusercontent.com/6928240/225714321-87a33c52-65d8-4175-a118-cb751b92ebb8.png)
+![image](https://user-images.githubusercontent.com/6928240/233794982-1ca7248a-dc54-48c4-aea2-44d0d973d083.png)
+![image](https://user-images.githubusercontent.com/6928240/233795183-c056b82e-8b01-4f7d-9c09-65c0becbdc33.png)
 
 ## Settings
 

@@ -6,6 +6,7 @@
   box-shadow: $paper-card-box-shadow;
 
   .card-header {
+    color: $gray-700;
     border-top-left-radius: $card-border-radius;
     border-top-right-radius: $card-border-radius;
     @include media-breakpoint-down(sm) {
@@ -55,7 +56,7 @@
         border-color: $border;
 
         .card-header {
-          color: color-yiq($bg);
+          color: lighten(color-yiq($bg), 25%);
           border-color: $border;
           background-color: $bg;
         }
