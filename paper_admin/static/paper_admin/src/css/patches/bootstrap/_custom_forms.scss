@@ -87,11 +87,11 @@
   }
 
   // fix cursor
-  .custom-control-input:not(.disabled):not([disabled]) {
+  .custom-control-input:not(.disabled):not([disabled]) ~ .custom-control-label {
     cursor: pointer;
 
-    ~ .custom-control-label {
-      cursor: pointer;
+    &:before {
+      pointer-events: auto;
     }
   }
 
@@ -111,6 +111,33 @@
 
     &:after {
       content: none;
+    }
+  }
+
+  .custom-control-input {
+    &[disabled]:not(:checked),
+    &:disabled:not(:checked) {
+      ~ .custom-control-label::before {
+        padding: 0;
+      }
+    }
+  }
+}
+
+// fix border on disabled checked state
+.custom-radio {
+  .custom-control-input {
+    &:disabled:checked ~ .custom-control-label:before {
+      border-color: $custom-control-indicator-checked-disabled-bg;
+    }
+  }
+}
+
+.custom-checkbox,
+.custom-switch {
+  .custom-control-input {
+    &:disabled:checked ~ .custom-control-label:before {
+      border-color: transparent;
     }
   }
 }

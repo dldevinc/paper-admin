@@ -28,6 +28,8 @@
   &:disabled {
     opacity: 1;
 
+    &[class^="bi-"]:before,
+    &[class*=" bi-"]:before,
     i {
       opacity: 0.25;
     }

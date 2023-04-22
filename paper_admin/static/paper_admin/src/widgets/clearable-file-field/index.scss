@@ -29,27 +29,19 @@
   }
 
   &__button {
-    position: relative;
     max-width: 100%;
 
     .no-js & {
       display: none;
     }
 
-    i {
-      position: absolute;
-      top: 0.675rem;
-      left: $btn-padding-x-lg;
-
-      ~ span {
-        display: inline-block;
-        overflow: hidden;
-        margin-left: 1.25rem;
-        max-width: calc(100% - 1.25rem);
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        vertical-align: top;
-      }
+    span {
+      display: inline-block;
+      overflow: hidden;
+      max-width: calc(100% - 1.25rem);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      vertical-align: top;
     }
   }
 }

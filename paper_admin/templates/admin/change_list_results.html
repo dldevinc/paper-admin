@@ -40,15 +40,14 @@
       {% for header in result_headers %}
         {% block result_header %}
           <th scope="col" {{ header.class_attrib }}>
-            {% if header.sortable %}{% spaceless %}
+            {% if header.sortable %}
               <div class="dropdown text-nowrap">
                 <a href="{{ header.url_primary }}" class="d-inline-block text-wrap">
                   {{ header.text|capfirst }}
                 </a>
                 {% if header.sort_priority > 0 %}
-                  <span class="paper-table__sort-button btn btn-outline-light{% if num_sorted_fields > 1 %} paper-table__sort-button--has-prior{% endif %}"
+                  <span class="paper-table__sort-button btn btn-outline-light{% if num_sorted_fields > 1 %} paper-table__sort-button--has-prior{% endif %}{% if header.ascending %} bi-sort-down-alt{% else %} bi-sort-up{% endif %}"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="{% if header.ascending %}bi-sort-down-alt{% else %}bi-sort-up{% endif %}"></i>
                     {% if num_sorted_fields > 1 %}
                       <span title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>
                     {% endif %}
@@ -57,19 +56,19 @@
                     <li role="presentation">
                       <a href="{{ header.url_toggle }}" class="dropdown-item" role="menuitem">
                         <i class="{% if header.ascending %}bi-sort-up{% else %}bi-sort-down-alt{% endif %}"></i>
-                        {{ _("Toggle sorting") }}
+                        <span>{{ _("Toggle sorting") }}</span>
                       </a>
                     </li>
                     <li role="presentation">
                       <a href="{{ header.url_remove }}" class="dropdown-item" role="menuitem">
                         <i class="bi-x-lg"></i>
-                        {{ _("Remove from sorting") }}
+                        <span>{{ _("Remove from sorting") }}</span>
                       </a>
                     </li>
                   </ul>
                 {% endif %}
               </div>
-            {% endspaceless %}{% else %}
+            {% else %}
               {{ header.text|capfirst }}
             {% endif %}
           </th>
@@ -104,9 +103,9 @@
           {% endfor %}
 
           {% if cl.model_admin.changelist_tools %}
-            <td class="text-right">{% spaceless %}
+            <td class="text-right">
               {% include cl.model_admin.changelist_tools_template %}
-            {% endspaceless %}</td>
+            </td>
           {% endif %}
         </tr>
       {% endfor %}

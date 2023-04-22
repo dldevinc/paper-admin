@@ -11,7 +11,7 @@
       <i class="{{ item.icon }}"></i>
     {% else %}
       {% if item.level == 1 %}
-        <i class="bi-lg{{ item.is_active|yesno:" bi-folder2-open, bi-folder2" }} paper-icon-default"></i>
+        <i class="{{ item.is_active|yesno:"bi-folder2-open,bi-folder2" }} paper-icon-default"></i>
       {% endif %}
     {% endif %}
     <span>{{ item.label|default:"&nbsp;"|capfirst }}</span>

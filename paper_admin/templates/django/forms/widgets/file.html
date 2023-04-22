@@ -10,11 +10,14 @@
              data-initial-text="{{ _('Choose file') }}">{{ _('Choose file') }}</label>
 
       <div class="input-group-append">
-        <label class="file-field__addon input-group-text"
-               for="{{ widget.attrs.id }}" tabindex="-1"
-               data-xclass="bs-tooltip" data-placement="top"
-               data-trigger="hover" data-html="true" title="{{ _('Choose file') }}">
-          <i class="bi-folder2-open"></i>
+        <label class="file-field__addon input-group-text bi-folder2-open"
+               for="{{ widget.attrs.id }}"
+               tabindex="-1"
+               data-xclass="bs-tooltip"
+               data-placement="top"
+               data-trigger="hover"
+               data-html="true"
+               title="{{ _('Choose file') }}">
         </label>
       </div>
     </div>

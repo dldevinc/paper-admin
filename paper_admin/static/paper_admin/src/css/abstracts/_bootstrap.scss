@@ -50,7 +50,7 @@ $input-focus-box-shadow: 0 0 0 1px $input-focus-border-color;
 $input-btn-padding-x: 0.625rem;
 $input-btn-padding-x-lg: 0.75rem;
 $input-group-addon-color: $gray-600;
-$input-disabled-bg: #eaf2f2;
+$input-disabled-bg: #f2f2f2;
 
 // custom controls
 $custom-control-indicator-size: 1.375rem;
@@ -110,6 +110,7 @@ $custom-control-indicator-checked-bg: #009be9;
 $custom-control-indicator-checked-border-color: #009be9;
 $custom-control-indicator-active-bg: none; // invalid value to disable style
 $custom-control-indicator-active-border-color: #009be9;
+$custom-control-indicator-checked-disabled-bg: rgba(#009be9, .35);
 $custom-control-label-disabled-color: $text-muted;
 $custom-checkbox-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22'><path d='M4.5 12l5 5L17 6' fill='none' stroke='#fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 

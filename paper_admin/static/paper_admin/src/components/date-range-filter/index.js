@@ -7,9 +7,13 @@ import getPossibleLocales from "js/utilities/locale.js";
 export class DateRangeFilter extends BaseComponent {
     get Defaults() {
         return {
+            allowInput: true,
             altInput: true,
             locale: this._getLocale(),
-            dateFormat: this._getDateFormat()
+            dateFormat: this._getDateFormat(),
+            parseDate: function(value) {
+                return new Date(value);
+            }
         };
     }
 

@@ -1,16 +1,7 @@
 import copy
 import itertools
 import operator
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    List,
-    Optional,
-    Union,
-)
+from typing import Any, Callable, Dict, Generator, Iterable, List, Optional, Union
 from urllib import parse
 
 import anytree

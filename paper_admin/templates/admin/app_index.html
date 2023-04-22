@@ -51,7 +51,7 @@
             {% if model.add_url %}
               <td>
                 <a href="{{ model.add_url }}" class="btn btn-sm btn-success">
-                  {{ _("Add") }}
+                  <i class="bi-plus-lg"></i><span>{{ _("Add") }}</span>
                 </a>
               </td>
             {% else %}
@@ -64,9 +64,9 @@
               <td>
                 <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
                   {% if model.view_only %}
-                    {{ _("View") }}
+                    <i class="bi-list-ul"></i><span>{{ _("View") }}</span>
                   {% else %}
-                    {{ _("Change") }}
+                    <i class="bi-list-ul"></i><span>{{ _("Change") }}</span>
                   {% endif %}
                 </a>
               </td>

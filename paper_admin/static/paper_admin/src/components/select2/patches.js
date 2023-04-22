@@ -1,3 +1,39 @@
+// Отмена использования `element.id` при генерации внутреннего ID.
+// В противном случае, при сортировке форм (и изменении атрибута ID
+// тэга select) виджет ломается.
+$.fn.select2.amd.require(
+    ["select2/utils"],
+    function (Utils) {
+        let id = 0;
+        Utils.GetUniqueElementId = function (element) {
+            // Get a unique element Id. If element has no id,
+            // creates a new unique number, stores it in the id
+            // attribute and returns the new id with a prefix.
+            // If an id already exists, it simply returns it with a prefix.
+
+            let select2Id = element.getAttribute('data-select2-id');
+
+            if (select2Id != null) {
+                return select2Id;
+            }
+
+            // If element has id, use it.
+            // if (element.id) {
+            //     select2Id = 'select2-data-' + element.id;
+            // } else {
+                select2Id = 'select2-data-' + (++id).toString() +
+                    '-' + Utils.generateChars(4);
+            // }
+
+            element.setAttribute('data-select2-id', select2Id);
+
+            return select2Id;
+        };
+    },
+    null,
+    true
+);
+
 // Добавлена опция containerCssClass, в которой можно указать дополнительные CSS-классы,
 // которые будут добавлены к контейнеру и выпадающему списку, подобно "theme".
 $.fn.select2.amd.require(
