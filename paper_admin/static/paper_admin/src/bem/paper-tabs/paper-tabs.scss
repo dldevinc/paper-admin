@@ -3,6 +3,13 @@
 .paper-tabs {
   position: relative;
 
+  @at-root .paper-page__header + & {
+    margin-top: -0.5rem;
+    @include media-breakpoint-up(lg) {
+      margin-top: 0;
+    }
+  }
+
   &__underline {
     position: absolute;
     height: 2px;
