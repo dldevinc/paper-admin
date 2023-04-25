@@ -2,6 +2,11 @@
 @import "css/abstracts/bootstrap";
 @import "css/abstracts/functions/sum";
 
+// fix focus state
+.custom-control-input:focus ~ .custom-control-label:before {
+  border-color: $input-focus-border-color;
+}
+
 // add theme colors
 .custom-control {
   @each $color, $value in $theme-colors {
@@ -79,13 +84,6 @@
 }
 
 .custom-control {
-  // fix focus outline
-  .custom-control-input:focus ~ .custom-control-label {
-    &:before {
-      border-color: $input-focus-border-color !important;
-    }
-  }
-
   // fix cursor
   .custom-control-input:not(.disabled):not([disabled]) ~ .custom-control-label {
     cursor: pointer;
@@ -106,7 +104,6 @@
   .custom-control-input ~ .custom-control-label {
     &:before {
       padding: 0.1875rem;
-      background-clip: content-box;
     }
 
     &:after {
@@ -119,6 +116,19 @@
     &:disabled:not(:checked) {
       ~ .custom-control-label::before {
         padding: 0;
+      }
+    }
+
+    &:checked {
+      ~ .custom-control-label::before {
+        background-clip: content-box;
+        box-shadow: inset 0 0 0 0.1875rem $input-bg;
+      }
+    }
+
+    &:checked:focus {
+      ~ .custom-control-label::before {
+        box-shadow: $input-focus-box-shadow, inset 0 0 0 0.1875rem $input-bg;
       }
     }
   }
