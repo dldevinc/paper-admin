@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "css/abstracts/bootstrap";
+@import "css/env";
 
 $select2-font-size: $input-font-size-lg;
 $select2-line-height: $input-line-height-lg;
@@ -16,6 +16,11 @@ $select2-hover-box-shadow: none;
 
 $select2-focus-border-color: $input-focus-border-color;
 $select2-focus-box-shadow: $input-focus-box-shadow;
+
+$select2-invalid-bg: $input-invalid-bg;
+$select2-invalid-color: $input-invalid-color;
+$select2-invalid-border-color: $input-invalid-border-color;
+$select2-invalid-box-shadow: $input-invalid-box-shadow;
 
 $select2-opened-border-color: $input-focus-border-color;
 $select2-opened-box-shadow: $input-focus-box-shadow;

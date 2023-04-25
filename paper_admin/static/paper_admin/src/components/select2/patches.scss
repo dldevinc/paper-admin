@@ -244,6 +244,16 @@
     }
   }
 
+  @at-root .paper-widget--invalid & {
+    .select2-selection--single,
+    .select2-selection--multiple {
+      color: $select2-invalid-color;
+      background-color: $select2-invalid-bg;
+      border-color: $select2-invalid-border-color;
+      box-shadow: $select2-invalid-box-shadow;
+    }
+  }
+
   &.select2-container--open {
     .select2-selection--single,
     .select2-selection--multiple {
