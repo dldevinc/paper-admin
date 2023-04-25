@@ -239,6 +239,8 @@
   &.select2-container--focus {
     .select2-selection--single,
     .select2-selection--multiple {
+      color: $select2-focus-color;
+      background-color: $select2-focus-bg;
       border-color: $select2-focus-border-color;
       box-shadow: $select2-focus-box-shadow;
     }
