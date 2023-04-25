@@ -1,5 +1,4 @@
-@import "css/abstracts/bootstrap";
-@import "./variables";
+@import "css/env";
 
 .paper-widget {
   // Показывает второй label на мобиле, справа от виджета.
@@ -18,13 +17,16 @@
       display: block;
     }
 
-    .form-control,
-    .custom-file-label {
-      border-color: $paper-widget-invalid-border-color;
-      box-shadow: $paper-widget-invalid-box-shadow;
+    .form-control {
+      color: $input-invalid-color;
+      background-color: $input-invalid-bg;
+      border-color: $input-invalid-border-color;
+      box-shadow: $input-invalid-box-shadow;
     }
 
     .form-control:focus {
+      color: $input-focus-color;
+      background-color: $input-focus-bg;
       border-color: $input-focus-border-color;
       box-shadow: $input-focus-box-shadow;
     }

@@ -12,7 +12,9 @@
     background-color: $select2-bg;
     border-radius: $select2-border-radius;
     border: $select2-border-width solid $select2-border-color;
-    transition: border-color 0.15s ease-in-out;
+    transition-duration: 0.1s;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: ease-in-out;
   }
 
   .select2-search--dropdown {
@@ -237,14 +239,28 @@
   &.select2-container--focus {
     .select2-selection--single,
     .select2-selection--multiple {
+      color: $select2-focus-color;
+      background-color: $select2-focus-bg;
       border-color: $select2-focus-border-color;
       box-shadow: $select2-focus-box-shadow;
+    }
+  }
+
+  @at-root .paper-widget--invalid & {
+    .select2-selection--single,
+    .select2-selection--multiple {
+      color: $select2-invalid-color;
+      background-color: $select2-invalid-bg;
+      border-color: $select2-invalid-border-color;
+      box-shadow: $select2-invalid-box-shadow;
     }
   }
 
   &.select2-container--open {
     .select2-selection--single,
     .select2-selection--multiple {
+      color: $select2-opened-color;
+      background-color: $select2-opened-bg;
       border-color: $select2-opened-border-color;
       box-shadow: $select2-opened-box-shadow;
     }

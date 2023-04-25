@@ -25,10 +25,6 @@
     <link rel="icon" type="image/png" href="{% static paper.FAVICON %}">
   {% endblock %}
 
-  {# CSS #}
-  {% block styles %}{% endblock %}
-  {% block extrastyle %}{% endblock %}
-
   {# Critical JS #}
   <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');
@@ -36,6 +32,10 @@
 
   {% include "paper_admin/app.critical.html" %}
   {% include "paper_admin/app.head.html" %}
+
+  {# CSS #}
+  {% block styles %}{% endblock %}
+  {% block extrastyle %}{% endblock %}
 
   {% block extrahead %}{% endblock %}
 </head>

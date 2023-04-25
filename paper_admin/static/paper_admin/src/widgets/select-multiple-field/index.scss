@@ -1,5 +1,4 @@
-@import "css/abstracts/bootstrap";
-@import "bem/paper-widget/variables";
+@import "css/env";
 
 .multi-wrapper {
   font-size: $input-font-size;
@@ -11,7 +10,7 @@
     padding: $input-padding-y-lg $input-padding-x-lg;
     font-size: $input-font-size-lg;
     line-height: $input-line-height-lg;
-    border-color: $input-border-color;
+    border-color: inherit;
     border-top-left-radius: $input-border-radius-lg;
     border-top-right-radius: $input-border-radius-lg;
 
@@ -66,7 +65,7 @@
   }
 
   @at-root .paper-widget--invalid & {
-    border-color: $paper-widget-invalid-border-color;
-    box-shadow: $paper-widget-invalid-box-shadow;
+    border-color: $input-invalid-border-color;
+    box-shadow: $input-invalid-box-shadow;
   }
 }

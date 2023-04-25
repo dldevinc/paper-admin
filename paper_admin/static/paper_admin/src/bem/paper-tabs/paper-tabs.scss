@@ -14,7 +14,11 @@
     position: absolute;
     height: 2px;
     background-color: $info;
-    transition: all 0.2s;
+    transition: all 0.3s;
+
+    &.invalid {
+      background-color: $danger;
+    }
   }
 
   .nav {
@@ -30,16 +34,18 @@
 
   .nav-link {
     padding: 0.25rem 0.375rem;
-    color: $gray-600;
+    color: $headings-color;
     font-size: $font-size-lg;
     font-weight: 300;
+    transition: color 0.2s;
 
     &:hover {
-      color: $primary;
+      color: $link-hover-color;
     }
-  }
 
-  .active {
-    color: $primary;
+    &.invalid {
+      color: $danger;
+      font-weight: 400;
+    }
   }
 }

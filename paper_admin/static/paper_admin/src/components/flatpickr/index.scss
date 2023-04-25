@@ -7,9 +7,6 @@ $calendar-bg: theme-color-level("info", 0);
 $calendar-active-day-bg: theme-color-level("primary", -4);
 
 .flatpickr-input + .form-control.input {
-  // FIX: flatpickr добавляет атрибут readonly, который делает фон серым.
-  background-color: $input-bg;
-
   // FIX: из-за altInput в flatpickr, поле не удовлетворяет условию :first-child в Bootstrap
   border-top-left-radius: $input-border-radius;
   border-bottom-left-radius: $input-border-radius;

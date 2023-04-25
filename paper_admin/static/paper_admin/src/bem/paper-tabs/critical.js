@@ -16,6 +16,7 @@ window._paperTabs = {
         underline.style.width = `${lineWidth}px`;
         underline.style.left = `${lineLeft}px`;
         underline.style.top = `${lineTop}px`;
+        underline.classList.toggle("invalid", tab.classList.contains("invalid"));
     },
     updateUnderlines: function () {
         const paperTabRoots = document.querySelectorAll(".paper-tabs");

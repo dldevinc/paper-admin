@@ -1,0 +1,6 @@
+@import "css/abstracts/bootstrap";
+
+$input-invalid-bg: null !default;
+$input-invalid-color: null !default;
+$input-invalid-border-color: theme-color-level("danger", -4) !default;
+$input-invalid-box-shadow: 0 0 0 1px $input-invalid-border-color !default;

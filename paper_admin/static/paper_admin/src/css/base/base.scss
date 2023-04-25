@@ -13,6 +13,19 @@
   --spacer: #{$spacer};
   --border-radius: #{$border-radius};
   --border-radius-lg: #{$border-radius-lg};
+
+  --input-color: #{$input-color};
+  --input-bg: #{$input-bg};
+  --input-border-color: #{$input-border-color};
+  --input-box-shadow: #{$input-box-shadow};
+  --input-focus-color: #{$input-focus-color};
+  --input-focus-bg: #{$input-focus-bg};
+  --input-focus-border-color: #{$input-focus-border-color};
+  --input-focus-box-shadow: #{$input-focus-box-shadow};
+  --input-invalid-color: #{$input-invalid-color};
+  --input-invalid-bg: #{$input-invalid-bg};
+  --input-invalid-border-color: #{$input-invalid-border-color};
+  --input-invalid-box-shadow: #{$input-invalid-box-shadow};
 }
 
 body {
