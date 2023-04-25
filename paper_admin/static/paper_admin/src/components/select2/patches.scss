@@ -12,7 +12,9 @@
     background-color: $select2-bg;
     border-radius: $select2-border-radius;
     border: $select2-border-width solid $select2-border-color;
-    transition: border-color 0.15s ease-in-out;
+    transition-duration: 0.1s;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: ease-in-out;
   }
 
   .select2-search--dropdown {
