@@ -74,7 +74,7 @@
       <ul class="nav" role="tablist">
         {% for tab in tabs %}
           <li class="nav-item">
-            <a class="nav-link{% if tab.invalid %} text-danger{% endif %}{% if tab.active %} active{% endif %}"
+            <a class="nav-link{% if tab.invalid %} invalid{% endif %}{% if tab.active %} active{% endif %}"
                id="{{ tab.name }}-tab" href="#{{ tab.name }}-panel" role="tab" data-toggle="tab"
                aria-controls="{{ tab.name }}-panel" aria-selected="{{ tab.active|yesno:"true,false" }}">
               {{ tab.title }}
