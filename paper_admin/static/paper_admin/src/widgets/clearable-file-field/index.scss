@@ -1,4 +1,4 @@
-@import "css/abstracts/bootstrap";
+@import "css/env";
 
 .clearable-file-field {
   .js & input[type="file"] {
@@ -12,13 +12,7 @@
 
   input[type="file"].focus + label,
   input[type="file"]:focus + label {
-    border-color: $input-focus-border-color;
-    @if $enable-shadows {
-      @include box-shadow($input-box-shadow, $input-focus-box-shadow);
-    } @else {
-      // Avoid using mixin so we can pass custom focus shadow properly
-      box-shadow: $input-focus-box-shadow;
-    }
+    box-shadow: 0 0 0 2px $input-focus-border-color;
   }
 
   &__state {
