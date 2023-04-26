@@ -41,7 +41,8 @@
       }
     }
 
-    &:empty {
+    &:empty,
+    &:not(:has(.card-body > ul > li)) {
       display: none;
     }
   }

@@ -14,8 +14,9 @@
     margin-top: 2px;
   }
 
-  &:empty {
-    display: none !important;
+  &:empty,
+  &:not(:has(li)) {
+    display: none;
   }
 
   li:before {

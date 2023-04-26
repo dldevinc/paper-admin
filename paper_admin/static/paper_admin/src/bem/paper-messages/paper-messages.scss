@@ -10,7 +10,8 @@ $line_height: $paper-message-font-size * $paper-message-line-height;
   padding: 0;
   margin: 0;
 
-  &:empty {
+  &:empty,
+  &:not(:has(.paper-message)) {
     display: none;
   }
 }
