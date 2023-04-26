@@ -25,7 +25,8 @@
   }
 
   &--tabular {
-    .paper-formset__form--invalid {
+    .paper-formset__form--invalid,
+    .paper-formset__form--invalid:hover {
       background-color: $paper-formset-form-invalid-bg;
     }
 

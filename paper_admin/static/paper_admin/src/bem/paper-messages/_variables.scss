@@ -14,7 +14,7 @@ $paper-message-error-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org
 
 $paper-message-warning-border-color: map-get($paper-border-colors, "warning") !default;
 $paper-message-warning-bg: map-get($paper-bg-colors, "warning") !default;
-$paper-message-warning-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225'><path d='M215.17 205.17H9.83L112.5 19.83z' fill='none' stroke='#{$warning}' stroke-width='20' stroke-linejoin='round'/><path d='M110 123v57h5v-57z' fill='#{$warning}' stroke='#{$warning}' stroke-width='20' stroke-linecap='round' stroke-linejoin='round'/><circle cx='112.5' cy='86.36' r='12.5' fill='#{$warning}'/></svg>") !default;
+$paper-message-warning-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='225' height='225' fill='none' stroke='none' stroke-width='20' stroke-linejoin='round'><path d='M215.17 205.17H9.83L112.5 19.83z' stroke='#{$warning}'/><path d='M110 123v57h5v-57z' stroke='#{$warning}'/><circle cx='112.5' cy='86.36' r='12.5' fill='#{$warning}'/></svg>") !default;
 
 $paper-message-info-border-color: map-get($paper-border-colors, "info") !default;
 $paper-message-info-bg: map-get($paper-bg-colors, "info") !default;

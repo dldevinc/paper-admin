@@ -56,7 +56,7 @@
         border-color: $border;
 
         .card-header {
-          color: lighten(color-yiq($bg), 25%);
+          color: lighten(color-yiq($bg), 20%);
           border-color: $border;
           background-color: $bg;
         }

@@ -1,19 +1,19 @@
 @use "sass:color";
 
 $paper-bg-colors: (
-  "danger": hsl(0deg 100% 90%),
-  "warning": hsl(80deg 100% 90%),
-  "success": hsl(120deg 100% 90%),
-  "info": hsl(200deg 100% 90%),
+  "danger": hsl(0deg 100% 88%),
+  "warning": hsl(80deg 100% 88%),
+  "success": hsl(120deg 100% 88%),
+  "info": hsl(200deg 100% 88%),
   "primary": hsl(70deg 100% 82%),
   "secondary": hsl(0deg 0% 92%)
 );
 
 $paper-border-colors: (
-  "danger": color.adjust(map-get($paper-bg-colors, "danger"), $lightness: -5%),
-  "warning": color.adjust(map-get($paper-bg-colors, "warning"), $lightness: -15%),
-  "success": color.adjust(map-get($paper-bg-colors, "success"), $lightness: -10%),
-  "info": color.adjust(map-get($paper-bg-colors, "info"), $lightness: -10%),
+  "danger": color.adjust(map-get($paper-bg-colors, "danger"), $saturation: -20%, $lightness: -10%),
+  "warning": color.adjust(map-get($paper-bg-colors, "warning"), $saturation: -20%, $lightness: -25%),
+  "success": color.adjust(map-get($paper-bg-colors, "success"), $saturation: -20%, $lightness: -10%),
+  "info": color.adjust(map-get($paper-bg-colors, "info"), $saturation: -20%, $lightness: -10%),
   "primary": color.adjust(map-get($paper-bg-colors, "primary"), $lightness: -15%),
   "secondary": color.adjust(map-get($paper-bg-colors, "secondary"), $lightness: -15%)
 );
