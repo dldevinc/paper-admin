@@ -3,8 +3,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$390000$VLp9WvVqw5fxTscEtAx6sK$qIubwbY673ysjUgVPbNfcEbY9pI+4NukBhG1aEmNmDs=",
-    "last_login": "2023-03-29T19:02:45.788Z",
+    "password": "pbkdf2_sha256$260000$0gvCdNlE5hABjMjaec7rRS$k711YmtCNUmuWy1H3E3iteT0teordwR4i9HhOakdjVw=",
+    "last_login": "2023-04-26T05:47:51.939Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -21,8 +21,8 @@
   "model": "auth.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$120000$j9oH3FPhKf89$jo6ij+4U+zKBY37a7pFfqji8UKkGyZHWuF2bpSWeMHo=",
-    "last_login": "2021-05-26T14:52:00.691Z",
+    "password": "pbkdf2_sha256$260000$zs562cA8VaKBp4kbml9Xns$P9i9DKzGEOw/wn91E4eFcQcor1aUmd+eSLhLZjdAkh4=",
+    "last_login": "2023-04-06T10:25:09.738Z",
     "is_superuser": false,
     "username": "test",
     "first_name": "",
@@ -951,7 +951,7 @@
   "fields": {
     "f_boolean": true,
     "f_switch": true,
-    "f_small_int": 42,
+    "f_small_int": 43,
     "f_int": -145645,
     "f_bigint": 1234562113153,
     "f_float": 25.456218,
