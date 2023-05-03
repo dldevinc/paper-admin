@@ -42,7 +42,7 @@
     }
 
     &:empty,
-    &:not(:has(.card-body > ul > li)) {
+    &:not(:has(.card-body :where(a, button))) {
       display: none;
     }
   }
