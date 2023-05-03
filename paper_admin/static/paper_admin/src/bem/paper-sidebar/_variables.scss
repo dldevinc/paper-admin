@@ -25,10 +25,10 @@ $paper-sidebar-brand-border-color: $gray-800 !default;
 $paper-sidebar-item-list-bg: darken($dark, 5%) !default;
 
 // divider
-$paper-sidebar-divider-color: $gray-700 !default;
+$paper-sidebar-divider-color: $gray-600 !default;
 
 // group
-$paper-sidebar-group-caption-color: $gray-600 !default;
+$paper-sidebar-group-caption-color: $gray-500 !default;
 $paper-sidebar-group-caption-font-size: 11px !default;
 
 // link
@@ -36,7 +36,7 @@ $paper-sidebar-link-padding-y: 0.5rem !default;
 $paper-sidebar-link-padding-x: 0.75rem !default;
 $paper-sidebar-link-font-size: $font-size-base !default;
 $paper-sidebar-link-line-height: $line-height-base !default;
-$paper-sidebar-link-color: rgba(#fff, 0.8) !default;
+$paper-sidebar-link-color: rgba(#fff, 0.9) !default;
 $paper-sidebar-link-bg: null !default;
 $paper-sidebar-link-hover-color: #fff !default;
 $paper-sidebar-link-hover-bg: rgba(#fff, 0.1) !default;
