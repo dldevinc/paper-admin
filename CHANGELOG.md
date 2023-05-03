@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.1](https://github.com/dldevinc/paper-admin/tree/v6.0.1) - 2023-05-03
+
+### Bug Fixes
+
+-   Fix toolbar visibility.
+
 ## [6.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.0) - 2023-03-13
 
 ### ⚠ BREAKING CHANGES
