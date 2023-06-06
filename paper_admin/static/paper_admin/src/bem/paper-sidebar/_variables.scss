@@ -55,8 +55,8 @@ $paper-sidebar-first-link-color: null !default;
 $paper-sidebar-first-link-bg: null !default;
 $paper-sidebar-first-link-hover-color: null !default;
 $paper-sidebar-first-link-hover-bg: rgba(#fff, 0.1) !default;
-$paper-sidebar-first-link-active-color: null !default;
-$paper-sidebar-first-link-active-bg: null !default;
+$paper-sidebar-first-link-active-color: $paper-sidebar-link-active-color !default;
+$paper-sidebar-first-link-active-bg: $paper-sidebar-link-active-bg !default;
 
 // смещение слева, добавляемое на соответствующем уровне
 $paper-sidebar-link-padding-left-level1: 0 !default;
