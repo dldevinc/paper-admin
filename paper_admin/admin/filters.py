@@ -360,6 +360,7 @@ class EmptyFieldListFilter(FieldListFilter):
 
 
 class HierarchyFilter(filters.ListFilter):
+    title = ""
     placement = "top"
     parameter_name = None
     template = "paper_admin/filters/hierarchy.html"
