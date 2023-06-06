@@ -207,9 +207,15 @@ PAPER_MENU = [
         app="app",
         icon="bi-house-fill",
         children=[
-            "Widgets",
-            "Message",
-            "Book",
+            Item(
+                model="Widgets",
+            ),
+            Item(
+                model="Message",
+            ),
+            Item(
+                model="Book",
+            ),
         ]
     ),
 
@@ -219,7 +225,9 @@ PAPER_MENU = [
         icon="bi-clock-history",
         perms="admin.view_logentry",
         children=[
-            "admin.LogEntry"
+            Item(
+                model="admin.LogEntry",
+            ),
         ]
     ),
 
@@ -501,7 +509,7 @@ from .models import Group, Message
 
 
 class GroupFilter(HierarchyFilter):
-    title = _("Filter by group")
+    title = _("Group")
     parameter_name = "group"
 
     def lookups(self, changelist):
@@ -526,7 +534,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 Result:
 
-![image](https://user-images.githubusercontent.com/6928240/229168174-a9c32ec8-f87a-4ec9-a875-105eeae61f06.png)
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/fb1c3ad7-9c40-4c63-b69b-dae1566ebefb)
 
 ## Stylization
 

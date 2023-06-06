@@ -1,14 +1,8 @@
 @import "css/abstracts/bootstrap";
+@import "./variables";
 
 .paper-tabs {
   position: relative;
-
-  @at-root .paper-page__header + & {
-    margin-top: -0.5rem;
-    @include media-breakpoint-up(lg) {
-      margin-top: 0;
-    }
-  }
 
   &__underline {
     position: absolute;
@@ -22,24 +16,19 @@
   }
 
   .nav {
-    display: flex;
-    margin-left: #{-$nav-link-padding-x};
-    margin-right: #{-$nav-link-padding-x};
-  }
-
-  .nav-item {
-    margin-right: 0.5rem;
-    margin-bottom: 0.375rem;
+    margin-left: #{-$paper-tabs-link-padding-x};
+    margin-right: #{-$paper-tabs-link-padding-x};
+    gap: 0.375rem 0.5rem;
   }
 
   .nav-link {
-    padding: 0.25rem 0.375rem;
+    padding: $paper-tabs-link-padding-y $paper-tabs-link-padding-x;
     color: $headings-color;
     font-size: $font-size-lg;
     font-weight: 300;
     transition: color 0.2s;
 
-    &:hover {
+    &[href]:hover {
       color: $link-hover-color;
     }
 

@@ -62,6 +62,7 @@ import "bem/paper-environment/paper-environment.js";
 import "bem/paper-error-list/paper-error-list.js";
 import "bem/paper-form/paper-form.js";
 import "bem/paper-header/paper-header.js";
+import "bem/paper-hierarchy-filter/paper-hierarchy-filter.js";
 import "bem/paper-input-group/paper-input-group.js";
 import "bem/paper-messages/paper-messages.js";
 import modals from "bem/paper-modal/paper-modal.js";

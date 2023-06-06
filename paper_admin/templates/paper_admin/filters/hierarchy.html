@@ -1,23 +1,20 @@
-<div class="paper-card card mb-3">
-  {% if title %}
-    <h5 class="card-header">{{ title|capfirst }}</h5>
-  {% endif %}
+<div class="paper-hierarchy-filter mb-3">
+  <ul class="paper-hierarchy-filter__list nav">
+    {% if title %}
+      <li class="paper-hierarchy-filter__item nav-item">
+        <span class="paper-hierarchy-filter__link paper-hierarchy-filter__caption">
+          {{ title }}:
+        </span>
+      </li>
+    {% endif %}
 
-  <div class="card-body">
-    <ul class="d-flex flex-wrap list-unstyled mb-0">
-      {% for choice in choices %}
-        <li class="mr-3">
-          {% if choice.selected %}
-            <span class="text-secondary">
-              {{ choice.display }}
-            </span>
-          {% else %}
-            <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}">
-              {{ choice.display }}
-            </a>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+    {% for choice in choices %}
+      <li class="paper-hierarchy-filter__item nav-item">
+        <a class="paper-hierarchy-filter__link nav-link{% if choice.selected %} paper-hierarchy-filter__link--active{% endif %}"
+           href="{{ choice.query_string|iriencode }}">
+          {{ choice.display }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 </div>
