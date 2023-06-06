@@ -1,5 +1,11 @@
 # Change Log
 
+## [6.0.2](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-06
+
+### Features
+
+-   New styles for `HierarchyFilter`.
+
 ## [6.0.1](https://github.com/dldevinc/paper-admin/tree/v6.0.1) - 2023-05-03
 
 ### Bug Fixes

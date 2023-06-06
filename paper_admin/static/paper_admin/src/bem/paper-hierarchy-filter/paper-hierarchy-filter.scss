@@ -1,0 +1,49 @@
+@import "css/abstracts/bootstrap";
+@import "./variables";
+
+.paper-hierarchy-filter {
+  & + & {
+    margin-top: -0.5rem;
+    padding-top: 0.5rem;
+    border-top: $paper-hierarchy-filter-border-top;
+  }
+
+  &__list {
+    margin-left: #{-$paper-hierarchy-filter-link-padding-x};
+    margin-right: #{-$paper-hierarchy-filter-link-padding-x};
+    gap: 0.375rem 0.5rem;
+  }
+
+  &__item {
+
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+    padding: $paper-hierarchy-filter-link-padding-y $paper-hierarchy-filter-link-padding-x;
+    color: $headings-color;
+    font-size: $font-size-lg;
+    font-weight: 300;
+
+    &[href]:hover {
+      color: $link-hover-color;
+    }
+
+    &--active {
+      &:after {
+        content: "";
+        position: absolute;
+        width: calc(100% - #{2 * $paper-hierarchy-filter-link-padding-x});
+        height: 2px;
+        left: $paper-hierarchy-filter-link-padding-x;
+        bottom: 0;
+        background-color: $info;
+      }
+    }
+  }
+
+  &__caption {
+    font-weight: 400;
+  }
+}

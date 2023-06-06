@@ -487,7 +487,7 @@ class Menu(ItemBase):
                     item.parent = None
 
                 # сворачивание пуктов меню, содержащих единственный подпункт
-                if conf.MENU_COLLAPSE_SINGLE_CHILDS:
+                if isinstance(item, Item) and conf.MENU_COLLAPSE_SINGLE_CHILDS:
                     if len(item.children) == 1:
                         item.url = item.children[0].url
                         item.children = []

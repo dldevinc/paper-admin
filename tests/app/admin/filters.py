@@ -17,7 +17,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 class GroupFilter(HierarchyFilter):
-    title = _("Filter by group")
+    title = _("Group")
     parameter_name = "group"
 
     def lookups(self, changelist):
