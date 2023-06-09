@@ -1,5 +1,9 @@
 # Change Log
 
+## [6.1.0](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-10
+
+-   Dropped support for Dajngo 2.2, 3.0, 3.1.
+
 ## [6.0.2](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-06
 
 ### Features

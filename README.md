@@ -9,7 +9,7 @@ Custom Django admin interface based on Bootstrap 4.
 ## Requirements
 
 -   Python >= 3.7
--   Django >= 2.2
+-   Django >= 3.2
 
 ## Table of Contents
 
