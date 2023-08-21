@@ -1,4 +1,5 @@
 import logging
+from collections import namedtuple
 
 from django import forms
 from django.contrib.admin.options import ModelAdmin
@@ -13,6 +14,12 @@ logger = logging.getLogger("paper_admin.tabs")
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
+
+FormInclude = namedtuple(
+    "FormInclude",
+    ["template", "position", "tab"],
+    defaults=[None, "bottom", None]
+)
 
 
 class AdminTab:
@@ -46,8 +53,15 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
         (conf.DEFAULT_TAB_NAME, conf.DEFAULT_TAB_TITLE)
     ]
 
+    form_includes = [
+
+    ]
+
     def get_tabs(self, request, obj=None):
         return list(self.tabs)
+
+    def get_form_includes(self, request, obj=None):
+        return list(self.form_includes)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         tabs_config = self.get_tabs(request, obj)
@@ -108,5 +122,12 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
             else:
                 tabs[0].active = True
             context["tabs"] = tabs
+
+        form_includes = self.get_form_includes(request, obj)
+        if len(form_includes):
+            context["form_includes"] = tuple(
+                FormInclude(*form_include)
+                for form_include in form_includes
+            )
 
         return get_original(ModelAdmin)(self, request, context, add=add, change=change, form_url=form_url, obj=obj)

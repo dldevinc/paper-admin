@@ -1,8 +1,19 @@
 # Change Log
 
-## [6.1.0](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-10
+## [7.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-10
+
+### ⚠ BREAKING CHANGES
 
 -   Dropped support for Dajngo 2.2, 3.0, 3.1.
+
+### Features
+
+-   Added form includes.
+
+### Bug Fixes
+
+-   Fix toolbar visibility.
+-   Fix menu items duplication issue.
 
 ## [6.0.2](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-06
 

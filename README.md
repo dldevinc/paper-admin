@@ -19,6 +19,7 @@ Custom Django admin interface based on Bootstrap 4.
 -   [Admin menu](#Admin-menu)
 -   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
 -   [Form tabs](#Form-tabs)
+-   [Form includes](#Form-includes)
 -   [HierarchyFilter](#HierarchyFilter)
 -   [Stylization](#Stylization)
     -   [Fieldsets](#Fieldsets)
@@ -492,6 +493,73 @@ class PageAdmin(admin.ModelAdmin):
             ('general', _('General')),
             ('content', _('Content')),
             ('seo', _('SEO')),
+        ]
+```
+
+## Form includes
+
+`paper-admin` provides a convenient way to include custom templates within admin forms 
+at various positions, such as `top`, `middle`, or `bottom`. These positions correspond 
+to different sections of the admin form page.
+
+Just like in Django Suit, custom form includes in `paper-admin` can be used in conjunction 
+with Form tabs. If you are using [Form tabs](#Form-tabs), you can specify the name 
+of the tab where the include should be shown.
+
+Each custom form include definition can include the following parameters:
+
+1. **Path to Template (Required)**: The path to the template you want to include within 
+   the form.
+2. **Position (Optional)**: The desired position for the include. It can be one of 
+   the following:
+   * "top": Above the fieldsets.
+   * "middle": Between the fieldsets and inlines.
+   * "bottom" (Default): After the inlines.
+3. **Tab Name (Optional)**: If you are using Form tabs, you can specify the name of 
+   the tab where the include should be displayed.
+
+```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
+from ..models import Person
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    # ...
+    tabs = [
+        ("general", _("General")),
+        ("pets", _("Pets")),
+    ]
+    form_includes = [
+        ("app/includes/disclaimer.html", "top", "general"),
+        ("app/includes/privacy_notice.html",),
+    ]
+```
+
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/55f172b8-9f6e-4943-9435-f6e74b026c64)
+
+In addition to the standard way of including custom templates in forms using `paper-admin`,
+there's the capability to dynamically create includes using the `get_form_includes` method. 
+This enables you to flexibly determine which templates to include based on the current 
+request or other conditions.
+
+```python
+from django.contrib import admin
+
+from ..models import Person
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    def get_form_includes(self, request, obj=None):
+        if request.user.is_superuser:
+            return []
+
+        return [
+            ("app/includes/disclaimer.html", "top", "general"),
+            ("app/includes/privacy_notice.html",),
         ]
 ```
 
