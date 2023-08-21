@@ -13,20 +13,20 @@ Custom Django admin interface based on Bootstrap 4.
 
 ## Table of Contents
 
--   [Installation](#Installation)
--   [Patches](#Patches)
--   [Badge](#Badge)
--   [Admin menu](#Admin-menu)
--   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
--   [Form tabs](#Form-tabs)
--   [Form includes](#Form-includes)
--   [HierarchyFilter](#HierarchyFilter)
--   [Stylization](#Stylization)
-    -   [Fieldsets](#Fieldsets)
-    -   [Table rows](#Table-rows)
-    -   [Inline forms](#Inline-forms)
--   [Settings](#Settings)
--   [Additional References](#Additional-References)
+-   [Installation](#installation)
+-   [Patches](#patches)
+-   [Badge](#badge)
+-   [Admin menu](#admin-menu)
+-   [Reorderable drag-and-drop lists](#reorderable-drag-and-drop-lists)
+-   [Form tabs](#form-tabs)
+-   [Form includes](#form-includes)
+-   [HierarchyFilter](#hierarchyFilter)
+-   [Stylization](#stylization)
+    -   [Fieldsets](#fieldsets)
+    -   [Table rows](#table-rows)
+    -   [Inline forms](#inline-forms)
+-   [Settings](#settings)
+-   [Additional References](#additional-References)
 
 ## Installation
 
@@ -503,7 +503,7 @@ at various positions, such as `top`, `middle`, or `bottom`. These positions corr
 to different sections of the admin form page.
 
 Just like in Django Suit, custom form includes in `paper-admin` can be used in conjunction 
-with Form tabs. If you are using [Form tabs](#Form-tabs), you can specify the name 
+with Form tabs. If you are using [Form tabs](#form-tabs), you can specify the name 
 of the tab where the include should be shown.
 
 Each custom form include definition can include the following parameters:
@@ -716,7 +716,7 @@ The color of the environment badge.<br>
 Default: `""`
 
 `PAPER_MENU`<br>
-A list of menu items. See [Admin menu](#Admin-menu) for details.<br>
+A list of menu items. See [Admin menu](#admin-menu) for details.<br>
 Default: `None`
 
 `PAPER_MENU_DIVIDER`<br>
