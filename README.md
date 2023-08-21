@@ -534,6 +534,8 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 ```
 
+Result:
+
 ![image](https://github.com/dldevinc/paper-admin/assets/6928240/55f172b8-9f6e-4943-9435-f6e74b026c64)
 
 In addition to the standard way of including custom templates in forms using `paper-admin`,
