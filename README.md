@@ -534,6 +534,21 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 ```
 
+```html
+<!-- app/includes/privacy_notice.html -->
+<div class="paper-card paper-card--info card my-3">
+  <div class="card-header">
+    <h5 class="card-title mb-0">Privacy notice</h5>
+  </div>
+  <div class="card-body">
+    <small class="text-secondary">
+      We use your Personal Data to respond to your enquiries about our services,
+      to send you other useful information and to provide our services to you.
+    </small>
+  </div>
+</div>
+```
+
 Result:
 
 ![image](https://github.com/dldevinc/paper-admin/assets/6928240/55f172b8-9f6e-4943-9435-f6e74b026c64)
