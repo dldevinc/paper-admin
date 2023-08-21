@@ -502,10 +502,6 @@ class PageAdmin(admin.ModelAdmin):
 at various positions, such as `top`, `middle`, or `bottom`. These positions correspond 
 to different sections of the admin form page.
 
-Just like in Django Suit, custom form includes in `paper-admin` can be used in conjunction 
-with Form tabs. If you are using [Form tabs](#form-tabs), you can specify the name 
-of the tab where the include should be shown.
-
 Each custom form include definition can include the following parameters:
 
 1. **Path to Template (Required)**: The path to the template you want to include within 
