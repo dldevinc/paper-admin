@@ -274,7 +274,9 @@ class Item(PermissionsMixin, SubitemMixin, ItemBase):
 
     def _resolve_children(self, request: WSGIRequest):
         super()._resolve_children(request)
-        if not self._children and self.app:
+        # Использование "_children" приводит к появлению дубликатов
+        # при автогенерации списка моделей
+        if not self.children and self.app:
             for subitem in self.root.get_default_app_models(self.app):
                 subitem.parent = self
 
