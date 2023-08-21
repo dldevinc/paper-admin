@@ -1,0 +1,7 @@
+{% for form_include in form_includes %}
+  {% if form_include.position == position %}
+    {% if not form_include.tab or form_include.tab == tab.name %}
+      {% include form_include.template %}
+    {% endif %}
+  {% endif %}
+{% endfor %}

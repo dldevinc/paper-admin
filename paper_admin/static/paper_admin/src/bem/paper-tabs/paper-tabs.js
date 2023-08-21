@@ -41,6 +41,15 @@ $(document).on("shown.bs.tab", event => {
     }
 });
 
+// Обновление положения линии после полной загрузки страницы
+// на случай поздней загрузки шрифтов.
+window.addEventListener(
+    "load",
+    () => {
+        window._paperTabs.updateUnderlines();
+    }
+);
+
 // Обновление положения линии под вкладкой при ресайзе.
 window.addEventListener(
     "resize",

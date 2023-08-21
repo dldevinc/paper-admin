@@ -1,4 +1,3 @@
-import django
 from django.contrib.admin.views.main import PAGE_VAR
 from django.template import library, loader
 
@@ -15,10 +14,6 @@ def paper_pagination(cl):
         return ""
 
     paginator, page_num = cl.paginator, cl.page_num
-
-    # Use 1-indexed page numbers
-    if django.VERSION < (3, 2):
-        page_num += 1
 
     # If there are 5 or fewer pages, display links to every page.
     # Otherwise, do some fancy
@@ -47,8 +42,4 @@ def paper_pagination(cl):
 
 @register.simple_tag
 def page_url(cl, page_num):
-    # Use 1-indexed page numbers
-    if django.VERSION < (3, 2):
-        page_num -= 1
-
     return cl.get_query_string({PAGE_VAR: page_num})

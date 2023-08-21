@@ -1,4 +1,3 @@
-import django
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.contrib.admin.templatetags import admin_list
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
@@ -198,10 +197,7 @@ class ResultTable:
 
 
 def result_list_context(table):
-    if django.VERSION >= (3, 2):
-        current_page = table.cl.paginator.page(table.cl.page_num)
-    else:
-        current_page = table.cl.paginator.page(table.cl.page_num + 1)
+    current_page = table.cl.paginator.page(table.cl.page_num)
 
     return {
         "cl": table.cl,

@@ -1,5 +1,20 @@
 # Change Log
 
+## [7.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-10
+
+### ⚠ BREAKING CHANGES
+
+-   Dropped support for Django 2.2, 3.0, 3.1.
+
+### Features
+
+-   Added [form includes](https://github.com/dldevinc/paper-admin/blob/master/README.md#form-includes).
+
+### Bug Fixes
+
+-   Fix toolbar visibility.
+-   Fix menu items duplication issue.
+
 ## [6.0.2](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-06
 
 ### Features
@@ -18,7 +33,7 @@
 
 -   Migrated from Font Awesome to Bootstrap Icons.
 -   `paper_admin.menu` module has been completely rewritten. The new `Item` class is used
-    to create menu items. See [documentation](https://github.com/dldevinc/paper-admin/blob/master/README.md#Admin-menu)
+    to create menu items. See [documentation](https://github.com/dldevinc/paper-admin/blob/master/README.md#admin-menu)
     for details.
 -   Dropped Python 3.6 support.
 

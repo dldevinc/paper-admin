@@ -9,23 +9,24 @@ Custom Django admin interface based on Bootstrap 4.
 ## Requirements
 
 -   Python >= 3.7
--   Django >= 2.2
+-   Django >= 3.2
 
 ## Table of Contents
 
--   [Installation](#Installation)
--   [Patches](#Patches)
--   [Badge](#Badge)
--   [Admin menu](#Admin-menu)
--   [Reorderable drag-and-drop lists](#Reorderable-drag-and-drop-lists)
--   [Form tabs](#Form-tabs)
--   [HierarchyFilter](#HierarchyFilter)
--   [Stylization](#Stylization)
-    -   [Fieldsets](#Fieldsets)
-    -   [Table rows](#Table-rows)
-    -   [Inline forms](#Inline-forms)
--   [Settings](#Settings)
--   [Additional References](#Additional-References)
+-   [Installation](#installation)
+-   [Patches](#patches)
+-   [Badge](#badge)
+-   [Admin menu](#admin-menu)
+-   [Reorderable drag-and-drop lists](#reorderable-drag-and-drop-lists)
+-   [Form tabs](#form-tabs)
+-   [Form includes](#form-includes)
+-   [HierarchyFilter](#hierarchyFilter)
+-   [Stylization](#stylization)
+    -   [Fieldsets](#fieldsets)
+    -   [Table rows](#table-rows)
+    -   [Inline forms](#inline-forms)
+-   [Settings](#settings)
+-   [Additional References](#additional-References)
 
 ## Installation
 
@@ -495,6 +496,71 @@ class PageAdmin(admin.ModelAdmin):
         ]
 ```
 
+## Form includes
+
+`paper-admin` provides a convenient way to include custom templates within admin forms 
+at various positions, such as `top`, `middle`, or `bottom`. These positions correspond 
+to different sections of the admin form page.
+
+Each custom form include definition can include the following parameters:
+
+1. **Path to Template (Required)**: The path to the template you want to include within 
+   the form.
+2. **Position (Optional)**: The desired position for the include. It can be one of 
+   the following:
+   * "top": Above the fieldsets.
+   * "middle": Between the fieldsets and inlines.
+   * "bottom" (Default): After the inlines.
+3. **Tab Name (Optional)**: If you are using Form tabs, you can specify the name of 
+   the tab where the include should be displayed.
+
+```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+
+from ..models import Person
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    # ...
+    tabs = [
+        ("general", _("General")),
+        ("pets", _("Pets")),
+    ]
+    form_includes = [
+        ("app/includes/disclaimer.html", "top", "general"),
+        ("app/includes/privacy_notice.html",),
+    ]
+```
+
+Result:
+
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/55f172b8-9f6e-4943-9435-f6e74b026c64)
+
+In addition to the standard way of including custom templates in forms using `paper-admin`,
+there's the capability to dynamically create includes using the `get_form_includes` method. 
+This enables you to flexibly determine which templates to include based on the current 
+request or other conditions.
+
+```python
+from django.contrib import admin
+
+from ..models import Person
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    def get_form_includes(self, request, obj=None):
+        if request.user.is_superuser:
+            return []
+
+        return [
+            ("app/includes/disclaimer.html", "top", "general"),
+            ("app/includes/privacy_notice.html",),
+        ]
+```
+
 ## HierarchyFilter
 
 `HierarchyFilter` is a special type of filter that can be used to filter objects by a
@@ -648,7 +714,7 @@ The color of the environment badge.<br>
 Default: `""`
 
 `PAPER_MENU`<br>
-A list of menu items. See [Admin menu](#Admin-menu) for details.<br>
+A list of menu items. See [Admin menu](#admin-menu) for details.<br>
 Default: `None`
 
 `PAPER_MENU_DIVIDER`<br>

@@ -1,6 +1,5 @@
 import json
 
-import django
 from django.contrib.admin.widgets import AutocompleteMixin, ManyToManyRawIdWidget
 from django.forms import widgets
 
@@ -82,14 +81,10 @@ class PatchAutocompleteMixin(AutocompleteMixin, metaclass=MonkeyPatchMeta):
             "data-allow-clear": json.dumps(not self.is_required),
             "data-placeholder": "",  # Allows clearing of the input.
             "class": attrs["class"] + (" " if attrs["class"] else "") + "admin-autocomplete",
+            "data-app-label": self.field.model._meta.app_label,
+            "data-model-name": self.field.model._meta.model_name,
+            "data-field-name": self.field.name,
         })
-
-        if django.VERSION >= (3, 2):
-            attrs.update({
-                "data-app-label": self.field.model._meta.app_label,
-                "data-model-name": self.field.model._meta.model_name,
-                "data-field-name": self.field.name,
-            })
 
         # Django 4.0 support
         if hasattr(self, "lang"):

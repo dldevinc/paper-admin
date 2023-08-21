@@ -127,6 +127,9 @@
           {% for tab in tabs %}
             <div class="tab-pane{% if tab.active %} active{% endif %}" id="{{ tab.name }}-panel"
                  role="tabpanel" aria-labelledby="{{ tab.name }}-tab">
+
+              {% include "paper_admin/form_includes.html" with position="top" %}
+
               {% for fieldset in tab.fieldsets %}
                 {% if fieldset.has_visible_field %}
                   <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
@@ -139,13 +142,19 @@
                 {% endif %}
               {% endfor %}
 
+              {% include "paper_admin/form_includes.html" with position="middle" %}
+
               {% for inline_admin_formset in tab.inline_formsets %}
                 {% include inline_admin_formset.opts.template %}
               {% endfor %}
+
+              {% include "paper_admin/form_includes.html" with position="bottom" %}
             </div>
           {% endfor %}
         </div>
       {% else %}
+        {% include "paper_admin/form_includes.html" with position="top" %}
+
         {% for fieldset in adminform %}
           {% if fieldset.has_visible_field %}
             <fieldset class="paper-card card mb-3 {{ fieldset.classes }}">
@@ -158,9 +167,13 @@
           {% endif %}
         {% endfor %}
 
+        {% include "paper_admin/form_includes.html" with position="middle" %}
+
         {% for inline_admin_formset in inline_admin_formsets %}
           {% include inline_admin_formset.opts.template %}
         {% endfor %}
+
+        {% include "paper_admin/form_includes.html" with position="bottom" %}
       {% endif %}
     {% endblock %}
 

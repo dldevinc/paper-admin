@@ -177,6 +177,10 @@ PAPER_MENU = [
                 label=_("Filters"),
             ),
             Item(
+                model="Person",
+                label=_("Form includes"),
+            ),
+            Item(
                 model="Book",
                 label=_("Inlines"),
             ),
