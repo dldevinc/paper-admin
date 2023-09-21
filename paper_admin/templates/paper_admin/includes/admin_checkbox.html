@@ -1,7 +1,7 @@
 {% extends 'paper_admin/includes/admin_field.html' %}
 
 {% block label %}
-  <div class="col-md-3 col-xxl-2 d-none d-md-block">
+  <div class="paper-form__left-column col-auto d-none d-md-block">
     <label class="paper-form__label{% if field.help_text %} dotted-underline{% endif %}"
            for="{{ field.id_for_label }}"
            {% if field.help_text %}
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block widget %}
-  <div class="col-md-9 col-xxl-10">
+  <div class="paper-form__right-column col">
     <div class="paper-widget paper-widget--checkbox{% if field.errors %} paper-widget--invalid{% endif %}">
       {{ field }}
       <div class="d-inline-block d-md-none ml-1">
