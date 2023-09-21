@@ -1,6 +1,13 @@
 # Change Log
 
-## [7.0.0](https://github.com/dldevinc/paper-admin/tree/v6.0.2) - 2023-06-10
+## [7.1.0](https://github.com/dldevinc/paper-admin/tree/v7.1.0) - 2023-09-21
+
+### Features
+
+-   Improved the responsiveness of the interface by fine-tuning CSS @media queries.
+-   Update `npm` dependencies.
+
+## [7.0.0](https://github.com/dldevinc/paper-admin/tree/v7.0.0) - 2023-06-10
 
 ### ⚠ BREAKING CHANGES
 
