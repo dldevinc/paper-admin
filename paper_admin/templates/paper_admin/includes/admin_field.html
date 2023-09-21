@@ -1,7 +1,7 @@
 <div class="paper-form__row{% if field.errors %} paper-form__row--invalid{% endif %}{% if is_readonly %} paper-form__row--readonly{% endif %}{% if field.field.required %} paper-form__row--required{% endif %}{% if field.name %} field-{{ field.name }}{% endif %}">
   <div class="row">
     {% block label %}
-      <div class="col-md-3 col-xxl-2">
+      <div class="paper-form__left-column col-auto">
         <label class="paper-form__label{% if field.help_text %} dotted-underline{% endif %}"
                for="{{ field.id_for_label }}"
                {% if field.help_text %}
@@ -15,7 +15,7 @@
     {% endblock %}
 
     {% block widget %}
-      <div class="col-md-9 col-xxl-10">
+      <div class="paper-form__right-column col">
         {% if is_readonly %}
           <div class="readonly">{{ field.contents }}</div>
         {% else %}

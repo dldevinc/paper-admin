@@ -25,6 +25,15 @@ $border-color: $gray-200;
 
 $border-radius-sm: 0.25rem;
 
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
 // text
 $font-size-base: 0.875rem;
 $font-size-lg: 1rem;

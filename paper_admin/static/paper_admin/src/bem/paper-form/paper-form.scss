@@ -20,9 +20,6 @@
     line-height: $paper-form-label-line-height;
     cursor: pointer;
     @include transition(color 0.2s);
-    @include media-breakpoint-down(sm) {
-      margin-bottom: 0.375rem;
-    }
 
     &--required:after {
       @extend %mark-required;
@@ -79,5 +76,21 @@
     &--invalid {
       background-color: $paper-form-row-invalid-bg;
     }
+  }
+
+  &__left-column {
+    @include media-breakpoint-down(xl) {
+      margin-bottom: 0.375rem;
+      width: 100%;
+    }
+    @include media-breakpoint-up(xxl) {
+      flex: 0 0 16.66666667%;
+      min-width: 130px;
+      max-width: 16.66666667%;
+    }
+  }
+
+  &__right-column {
+    
   }
 }
