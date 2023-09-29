@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.1.1](https://github.com/dldevinc/paper-admin/tree/v7.1.1) - 2023-09-29
+
+### Bug Fixes
+
+-   Fixed an issue with wrong tooltip position.
+
 ## [7.1.0](https://github.com/dldevinc/paper-admin/tree/v7.1.0) - 2023-09-21
 
 ### Features
