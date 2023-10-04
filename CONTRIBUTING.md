@@ -21,11 +21,11 @@
     ```shell
     pip install -r ./requirements.txt
     pip install -e .
-    npm ci
+    yarn install
     ```
 1. Compile static files
     ```shell
-    npm run build
+    yarn build
     ```
 1. Run test project
 

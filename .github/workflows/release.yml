@@ -21,9 +21,9 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install twine
       - name: Install NPM dependencies
-        run: npm ci
+        run: yarn install
       - name: Run webpack
-        run: npx webpack --mode=production
+        run: yarn build
       - name: Build and publish
         env:
           TWINE_USERNAME: __token__
