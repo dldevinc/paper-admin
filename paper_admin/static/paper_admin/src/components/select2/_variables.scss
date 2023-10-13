@@ -82,13 +82,13 @@ $select2-item-padding-y: $input-padding-y-lg;
 $select2-item-padding-x: $input-padding-x-lg;
 $select2-item-color: $select2-text-color;
 
-$select2-item-highlighted-color: #ffffff;
+$select2-item-highlighted-color: $select2-text-color;
 $select2-item-highlighted-font-wight: normal;
-$select2-item-highlighted-bg: #79aec8;
+$select2-item-highlighted-bg: $gray-200;
 
-$select2-item-selected-color: $select2-text-color;
+$select2-item-selected-color: #ffffff;
 $select2-item-selected-font-wight: normal;
-$select2-item-selected-bg: $gray-200;
+$select2-item-selected-bg: #79aec8;
 
 $select2-item-disabled-color: $text-muted;
 $select2-item-disabled-font-wight: normal;
