@@ -48,8 +48,15 @@ class InlineFormset extends Formset {
             // Events
             emitters.inlines.trigger("added", [form, this.prefix]);
 
-            // Django compatible
+            // For backwards compatibility with Django < 4.1.
             $(document).trigger("formset:added", [$(form), this.prefix]);
+
+            form.dispatchEvent(new CustomEvent("formset:added", {
+                bubbles: true,
+                detail: {
+                    formsetName: this.prefix
+                }
+            }));
         };
 
         const animationOptions = {
@@ -91,7 +98,7 @@ class InlineFormset extends Formset {
         this.setFormIndex(form, this.management_form.totalForms);
         this.updateFormIndexes(form);
 
-        // Устанавливаем коректную сортировку форм, не дожидаясь анимаций.
+        // Устанавливаем корректную сортировку форм, не дожидаясь анимаций.
         this.updateFormOrder(form);
 
         // Events
@@ -113,8 +120,14 @@ class InlineFormset extends Formset {
                 // Events
                 emitters.inlines.trigger("removed", [form, this.prefix]);
 
-                // Django compatible
+                // For backwards compatibility with Django < 4.1.
                 $(document).trigger("formset:removed", [$(form), this.prefix]);
+
+                document.dispatchEvent(new CustomEvent("formset:removed", {
+                    detail: {
+                        formsetName: this.prefix
+                    }
+                }));
             }
         };
 

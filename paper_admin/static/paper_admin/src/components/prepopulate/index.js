@@ -5,7 +5,6 @@
     одно из полей, из которых заполняется поле.
  */
 
-import emitters from "js/utilities/emitters.js";
 import urlify from "./urlify.js";
 
 function initPrepopulation(root = document.body) {
@@ -83,6 +82,6 @@ function initPrepopulation(root = document.body) {
 }
 
 initPrepopulation();
-emitters.inlines.on("added", (form, prefix) => {
-    initPrepopulation(form);
+document.addEventListener("formset:added", event => {
+    initPrepopulation(event.target);
 });

@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.1.2](https://github.com/dldevinc/paper-admin/tree/v7.1.2) - 2023-10-13
+
+### Features
+
+-   Added `formset:added` and `formset:removed` pure JavaScript events for
+    compatibility with Django >= 4.1.
+
 ## [7.1.1](https://github.com/dldevinc/paper-admin/tree/v7.1.1) - 2023-09-29
 
 ### Bug Fixes
