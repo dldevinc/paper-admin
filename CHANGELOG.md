@@ -1,5 +1,15 @@
 # Change Log
 
+## [7.1.3](https://github.com/dldevinc/paper-admin/tree/v7.1.3) - 2023-10-19
+
+### Features
+
+-   `ManyToManyField` widget now spans full available width.
+
+### Bug Fixes
+
+-   Hidden readonly fields are no longer shown on the forms.
+
 ## [7.1.2](https://github.com/dldevinc/paper-admin/tree/v7.1.2) - 2023-10-13
 
 ### Features
