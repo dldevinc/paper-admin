@@ -53,6 +53,7 @@ coverage.xml
 
 # virtualenv
 .venv/
+.venv38/
 venv/
 
 # mypy
