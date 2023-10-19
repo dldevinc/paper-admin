@@ -6,6 +6,10 @@
     max-width: $select-field-max-width;
   }
 
+  &:has([data-select2-id][multiple]) {
+    max-width: none;
+  }
+
   select,
   .select2 {
     width: 100%;
