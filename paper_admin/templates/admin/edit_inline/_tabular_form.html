@@ -40,7 +40,9 @@
       {% for line in fieldset %}
         {% for admin_field in line %}
           {% if admin_field.field.is_hidden %}
-            {{ admin_field.field }}
+            {% if not admin_field.is_readonly %}
+              {{ admin_field.field }}
+            {% endif %}
           {% endif %}
         {% endfor %}
       {% endfor %}
