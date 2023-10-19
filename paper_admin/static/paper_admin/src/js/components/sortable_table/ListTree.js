@@ -4,10 +4,10 @@
 
 /**
  * @typedef {Object} module:ListTree.ListTreeNode
- * @property {Number}       pk
- * @property {Number}       parent
+ * @property {string}       pk
+ * @property {string}       parent
  * @property {HTMLElement}  element
- * @property {Number[]}     childs
+ * @property {string[]}     childs
  */
 
 /**
@@ -32,8 +32,8 @@ export default class ListTree {
     _createNode(child) {
         const dataset = child.dataset;
         return {
-            pk: parseInt(dataset.id),
-            parent: parseInt(dataset.parent),
+            pk: dataset.id,
+            parent: dataset.parent,
             element: child,
             childs: []
         };
@@ -45,9 +45,9 @@ export default class ListTree {
      * @private
      */
     _addNode(node) {
-        if (node && typeof node.pk === "number") {
+        if (node && (typeof node.pk !== "undefined")) {
             this._nodes[node.pk] = node;
-            if (isNaN(node.parent)) {
+            if (node.parent === "") {
                 this._roots.push(node);
             }
         }
@@ -83,7 +83,7 @@ export default class ListTree {
 
     /**
      * Получение узла по ID.
-     * @param {Number} pk
+     * @param {string} pk
      * @returns {module:ListTree.ListTreeNode}
      */
     getNode(pk) {
@@ -106,7 +106,7 @@ export default class ListTree {
 
     /**
      * Получение всех потомков узла.
-     * @param {Number} pk
+     * @param {string} pk
      * @returns {Element[]}
      */
     getDescendants(pk) {

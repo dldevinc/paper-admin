@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.1.4](https://github.com/dldevinc/paper-admin/tree/v7.1.3=4) - 2023-10-19
+
+### Bug Fixes
+
+-   Added support for sorting records with UUID primary keys.
+
 ## [7.1.3](https://github.com/dldevinc/paper-admin/tree/v7.1.3) - 2023-10-19
 
 ### Features

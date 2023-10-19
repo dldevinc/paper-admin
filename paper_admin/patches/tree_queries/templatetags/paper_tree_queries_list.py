@@ -13,7 +13,7 @@ class TreeQueriesResultRow(ResultRow):
     def build_attrs(self):
         attrs = super().build_attrs()
         if self.cl.sortable_allowed:
-            attrs["data-parent"] = getattr(self.obj, "parent_id") or 0
+            attrs["data-parent"] = getattr(self.obj, "parent_id") or ""
         return attrs
 
 
