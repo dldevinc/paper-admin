@@ -87,11 +87,11 @@ export default class SortableTable {
             this.tree = new ListTree(rows);
 
             // Блокируем все узлы, кроме соседних.
-            const currentParentId = parseInt(evt.item.dataset.parent);
-            if (!isNaN(currentParentId)) {
+            const currentParentId = evt.item.dataset.parent;
+            if (typeof currentParentId !== "undefined") {
                 rows.forEach(row => {
-                    const parentId = parseInt(row.dataset.parent);
-                    if (!isNaN(parentId) && parentId !== currentParentId) {
+                    const parentId = row.dataset.parent;
+                    if ((typeof parentId !== "undefined") && (parentId !== currentParentId)) {
                         row.classList.add(this.opts.disabledClass);
                     }
                 });
@@ -158,10 +158,10 @@ export default class SortableTable {
         let slice = Array.prototype.slice.call(rows, sliceStart, sliceEnd + 1);
         if (this.tree) {
             // пропускаем узлы, не являющиеся соседними
-            const pk = parseInt(evt.item.dataset.id);
+            const pk = evt.item.dataset.id;
             const node = this.tree.getNode(pk);
             slice = slice.filter(row => {
-                return parseInt(row.dataset.parent) === node.parent;
+                return row.dataset.parent === node.parent;
             });
         }
         return slice;
@@ -182,7 +182,7 @@ export default class SortableTable {
         rows.forEach(row => {
             const handle = row.querySelector(this.opts.handler);
             if (handle) {
-                pkArray.push(parseInt(row.dataset.id));
+                pkArray.push(row.dataset.id);
                 orderArray.push(parseInt(row.dataset.orderValue));
             }
         });
@@ -220,7 +220,7 @@ export default class SortableTable {
             return;
         }
 
-        const pk = parseInt(evt.item.dataset.id);
+        const pk = evt.item.dataset.id;
         const node = this.tree.getNode(pk);
         const prev = evt.item.previousElementSibling;
         const next = evt.item.nextElementSibling;
@@ -228,8 +228,8 @@ export default class SortableTable {
         if (prev && next) {
             // если предыдущая строка - сосед, а следующая - ребенок соседа,
             // то сосед должен быть в списке нормализации.
-            const isPrevSibling = parseInt(prev.dataset.parent) === node.parent;
-            const isNextChild = parseInt(next.dataset.parent) === parseInt(prev.dataset.id);
+            const isPrevSibling = prev.dataset.parent === node.parent;
+            const isNextChild = next.dataset.parent === prev.dataset.id;
             if (isPrevSibling && isNextChild && !parents.includes(prev)) {
                 parents.unshift(prev);
             }
@@ -237,7 +237,7 @@ export default class SortableTable {
 
         // перенос детей под родителя
         parents.forEach(parent => {
-            const pk = parseInt(parent.dataset.id);
+            const pk = parent.dataset.id;
             const childs = this.tree.getDescendants(pk);
             Element.prototype.after.apply(parent, childs);
         });
