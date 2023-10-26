@@ -1,17 +1,20 @@
-# Патч `renderer` должен вызываться после патча `widgets`, т.к. он ссылается
-# на файл admin.py приложения auth. Вызовы `admin.register()` должны выполняться
-# с уже пропатченным `formfield_overrides`.
-from . import (  # isort: skip
-    changelist,
+import importhook
+
+from . import (
     filters,
     forms,
     helpers,
     options,
     prepopulate,
+    renderer,
     sites,
     sortable,
     styles,
     tabs,
     widgets,
-    renderer,
 )
+
+
+@importhook.on_import("django.contrib.admin.views.main")
+def on_view_import(module):
+    from . import changelist

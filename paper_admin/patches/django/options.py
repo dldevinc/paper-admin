@@ -9,7 +9,6 @@ from django.contrib.admin.options import (
     csrf_protect_m,
 )
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
-from django.contrib.admin.views.main import SEARCH_VAR
 from django.contrib.auth import get_permission_codename, get_user_model
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
@@ -40,6 +39,8 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
 
     @csrf_protect_m
     def changelist_view(self, request, extra_context=None):
+        from django.contrib.admin.views.main import SEARCH_VAR
+
         # Перенос переменной из `admin_list.search_form()` в связи с удалением
         # шаблонного тэга `{% search_form %}`.
         extra_context = extra_context or {}

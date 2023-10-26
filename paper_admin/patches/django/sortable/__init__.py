@@ -20,4 +20,11 @@
         sortable = "order"
 
 """
-from . import changelist, helpers, options
+
+import importhook
+from . import helpers, options
+
+
+@importhook.on_import("django.contrib.admin.views.main")
+def on_view_import(module):
+    from . import changelist

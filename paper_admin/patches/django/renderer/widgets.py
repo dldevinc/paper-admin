@@ -16,6 +16,7 @@ class PatchRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper, metaclass=Widget
         # Удален параметр IS_POPUP_VAR из url_params. Наличие этого параметра
         # теперь находится под контролем JS.
         from django.contrib.admin.views.main import TO_FIELD_VAR
+
         rel_opts = self.rel.model._meta
         info = (rel_opts.app_label, rel_opts.model_name)
         self.widget.choices = self.choices
