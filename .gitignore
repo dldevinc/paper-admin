@@ -53,6 +53,7 @@ coverage.xml
 
 # virtualenv
 .venv/
+.venv37/
 .venv38/
 venv/
 
