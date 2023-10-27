@@ -1,11 +1,12 @@
 django-autocomplete-light==3.9.7
 django-logentry-admin==1.1.0
-django-mptt==0.14.0
+django-mptt==0.14.0; python_version < '3.9'
+django-mptt==0.15.0; python_version >= '3.9'
 django-solo==2.1.0
 django-tree-queries==0.15.0
 Pillow
 
-pytest==7.4.2
+pytest==7.4.3
 pytest-cov==4.1.0
 pytest-django==4.5.2
 pytest-xdist==3.3.1
