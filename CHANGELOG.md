@@ -1,6 +1,12 @@
 # Change Log
 
-## [7.1.4](https://github.com/dldevinc/paper-admin/tree/v7.1.3=4) - 2023-10-19
+## [7.2.0](https://github.com/dldevinc/paper-admin/tree/v7.2.0) - 2023-10-27
+
+### Features
+
+-   Significantly reduced initialization time by optimizing the `get_original` function.
+
+## [7.1.4](https://github.com/dldevinc/paper-admin/tree/v7.1.3) - 2023-10-19
 
 ### Bug Fixes
 
