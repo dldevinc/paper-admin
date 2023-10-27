@@ -2,6 +2,7 @@ import django
 from django import forms
 from django.contrib.admin import helpers
 from django.contrib.admin.options import InlineModelAdmin, ModelAdmin
+from django.utils.functional import lazy
 from django.utils.safestring import mark_safe
 
 from paper_admin.admin.renderers import PaperFormRenderer
@@ -40,13 +41,13 @@ class PatchModelAdmin(ModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
             renderer=PaperFormRenderer(),
         )
 
-    action_checkbox.short_description = mark_safe(
+    action_checkbox.short_description = lazy(lambda: mark_safe(
         checkbox_toggle.render(
             name="action-toggle",
             value="",
             renderer=PaperFormRenderer()
         )
-    )
+    ), str)()
 
 
 class PatchInlineModelAdmin(InlineModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):

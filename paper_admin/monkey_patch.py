@@ -5,34 +5,25 @@ import sys
 ORIGINAL_ID = "_monkey_{}__{}"
 
 
-def get_original(cls=None, attr=None):
+def get_original(cls, attr=None):
     """
     Возвращает оригинальную реализацию атрибута.
-    Подобно вызову "super()", можно не указывать ни класс, ни имя атрибута.
 
         class PatchClass(Class, metaclass=MonkeyPatchMeta):
             def __init__(self, *args, **kwargs):
-                get_original()(*args, **kwargs)
+                get_original(Class)(*args, **kwargs)
     """
     current_frame = inspect.currentframe()
-    caller_frame = inspect.getouterframes(current_frame, 2)
-    caller_info = caller_frame[1]
-
-    if isinstance(cls, str):
-        attr = cls
-        cls = None
+    caller_code = current_frame.f_back.f_code
 
     if attr is None:
-        attr = caller_info.function
-
-    if cls is None:
-        cls = type(caller_info.frame.f_locals["self"])
+        attr = caller_code.co_name
 
     original_id = ORIGINAL_ID.format(cls.__name__, attr)
     original_methods = getattr(cls, original_id)
 
-    caller_filename = caller_info.frame.f_code.co_filename
-    caller_lineno = caller_info.frame.f_code.co_firstlineno
+    caller_filename = caller_code.co_filename
+    caller_lineno = caller_code.co_firstlineno
     for index, method in enumerate(original_methods):
         method_filename = method.__code__.co_filename
         method_lineno = method.__code__.co_firstlineno
