@@ -6,7 +6,6 @@ import XClass from "data-xclass";
 import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import popupUtils from "js/utilities/popup_utils.js";
-import Widget from "js/utilities/widget.js"; // TODO: deprecated
 
 // -----------------
 //  Common Styles
@@ -123,7 +122,6 @@ export default {
         dragUtils,
         formUtils,
         popupUtils,
-        modals,
-        Widget // TODO: deprecated
+        modals
     }
 };
