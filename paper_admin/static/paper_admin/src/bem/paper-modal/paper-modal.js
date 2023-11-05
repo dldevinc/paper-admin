@@ -62,6 +62,13 @@ const Default = {
     }
 };
 
+const ButtonDefault = {
+    label: "",
+    buttonClass: "",
+    autofocus: false,
+    onClick: null
+}
+
 /**
  * Модальное окно.
  *
@@ -99,7 +106,7 @@ const Default = {
  */
 class PaperModal extends Modal {
     constructor(options) {
-        let config = {
+        const config = {
             ...Default,
             ...options
         };
@@ -118,6 +125,8 @@ class PaperModal extends Modal {
         this._header = this._element.querySelector(".modal-header");
         this._body = this._element.querySelector(".modal-body");
         this._footer = this._element.querySelector(".modal-footer");
+        this._suspended = false;
+        this._element._modal = this;
 
         this.init();
 
@@ -131,11 +140,12 @@ class PaperModal extends Modal {
     }
 
     get suspended() {
-        return this._element.classList.contains(CLASS_NAME_SUSPENDED);
+        return this._suspended;
     }
 
     set suspended(value) {
-        return this._element.classList.toggle(CLASS_NAME_SUSPENDED, Boolean(value));
+        this._suspended = Boolean(value);
+        this._element && this._element.classList.toggle(CLASS_NAME_SUSPENDED, this._suspended);
     }
 
     init() {
@@ -169,6 +179,11 @@ class PaperModal extends Modal {
 
         if (this.config.buttons && this.config.buttons.length) {
             this.config.buttons.forEach(options => {
+                const config = {
+                    ...ButtonDefault,
+                    ...options
+                }
+
                 let button;
                 if (this._footer) {
                     this._footer.insertAdjacentHTML("beforeend", this.config.templates.button);
@@ -178,23 +193,23 @@ class PaperModal extends Modal {
                     button = this._body.lastElementChild;
                 }
 
-                if (options.label) {
-                    button.innerText = options.label;
+                if (config.label) {
+                    button.innerText = config.label;
                 }
 
-                if (options.buttonClass) {
-                    button.classList.add.apply(button.classList, options.buttonClass.trim().split(/\s+/));
+                if (config.buttonClass) {
+                    button.classList.add.apply(button.classList, config.buttonClass.trim().split(/\s+/));
                 }
 
-                if (options.autofocus) {
+                if (config.autofocus) {
                     $(this._element).one(EVENT_AUTOFOCUS, () => {
                         button.focus();
                     });
                 }
 
-                if (options.onClick && typeof options.onClick === "function") {
+                if (typeof config.onClick === "function") {
                     button.addEventListener("click", event => {
-                        options.onClick.call(button, event, this);
+                        config.onClick.call(button, event, this);
                     });
                 }
             });
@@ -202,6 +217,11 @@ class PaperModal extends Modal {
     }
 
     dispose() {
+        const stackIndex = _stack.indexOf(this);
+        if (stackIndex >= 0) {
+            _stack.splice(stackIndex, 1);
+        }
+
         super.dispose();
         this._content = null;
         this._header = null;
@@ -217,11 +237,6 @@ class PaperModal extends Modal {
     _destroyModal() {
         if (typeof this.config.onDestroy === "function") {
             this.config.onDestroy.call(this);
-        }
-
-        const stackIndex = _stack.indexOf(this);
-        if (stackIndex >= 0) {
-            _stack.splice(stackIndex, 1);
         }
 
         if (this._element) {
@@ -350,7 +365,7 @@ class PaperModal extends Modal {
     }
 
     _resume() {
-        if (!this.suspended) {
+        if (!this.suspended || !this._element) {
             return;
         }
 
@@ -694,8 +709,18 @@ function showSmartPreloader(promise, options) {
     });
 }
 
+/**
+ * Получение экземпляра модального окна из корневого DOM-элемента.
+ * @param {HTMLElement} element
+ * @returns {PaperModal|null}
+ */
+function getModal(element) {
+    return element._modal || null;
+}
+
 const modals = {
     createModal,
+    getModal,
     showErrors,
     showPreloader,
     showSmartPreloader
