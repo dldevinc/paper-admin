@@ -1,5 +1,12 @@
 # Change Log
 
+## [7.3.0](https://github.com/dldevinc/paper-admin/tree/v7.3.0) - 2023-11-05
+
+### Features
+
+-   Removed deprecated `Widget` class.
+-   Removed deprecated `paperAdmin.emitters` object.
+
 ## [7.2.0](https://github.com/dldevinc/paper-admin/tree/v7.2.0) - 2023-10-27
 
 ### Features

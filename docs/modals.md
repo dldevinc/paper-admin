@@ -1,47 +1,11 @@
 # Modals
 
-Т.к. `paper-admin` основан на полноценном Bootstrap 4, вы можете пользоваться
-его [стандартными возможностями](https://getbootstrap.com/docs/4.6/components/modal/#live-demo):
-
-```html
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
-
-<!-- Modal -->
-<div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    style="display: none;"
-    aria-hidden="true"
->
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Woohoo, you're reading this text in a modal!</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-```
-
-Результат:<br>
-![image](https://user-images.githubusercontent.com/6928240/203966510-324a6624-4de7-45f7-9620-cd296e8c93bb.png)
-
 ## PaperModal
 
 В работе интерфейса администратора зачастую возникает необходимость
 _динамического_ создания окна. Для того, чтобы упростить этот процесс,
-в `paper-admin` используется обёртка над стандартным классом `Modal`.
+в `paper-admin` используется обёртка над стандартным классом Bootstrap 
+`Modal`.
 
 ```javascript
 const modals = window.paperAdmin.modals;
@@ -64,7 +28,6 @@ const popup = modals.createModal({
             label: "OK",
             buttonClass: "btn-info",
             onClick: function (event, popup) {
-                console.log("Success");
                 popup.destroy();
             }
         }

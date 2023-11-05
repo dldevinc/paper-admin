@@ -3,11 +3,9 @@ import * as bootstrap from "bootstrap";
 import anime from "animejs";
 import Sortable from "sortablejs";
 import XClass from "data-xclass";
-import emitters from "js/utilities/emitters.js";
 import dragUtils from "js/utilities/drag_utils.js";
 import formUtils from "js/utilities/form_utils.js";
 import popupUtils from "js/utilities/popup_utils.js";
-import Widget from "js/utilities/widget.js"; // TODO: deprecated
 
 // -----------------
 //  Common Styles
@@ -121,11 +119,9 @@ export default {
     XClass,
     paperAdmin: {
         bootstrap,
-        emitters,
         dragUtils,
         formUtils,
         popupUtils,
-        modals,
-        Widget // TODO: deprecated
+        modals
     }
 };

@@ -1,5 +1,4 @@
 import anime from "animejs";
-import emitters from "js/utilities/emitters.js";
 import Formset from "./_formset.js";
 
 class InlineFormset extends Formset {
@@ -37,16 +36,10 @@ class InlineFormset extends Formset {
         this._isTransitioning = true;
         const form = super.addForm();
 
-        // Events
-        emitters.inlines.trigger("add", [form, this.prefix]);
-
         // Animation
         const onAddCallback = () => {
             this._isTransitioning = false;
             this.updateButtonsState();
-
-            // Events
-            emitters.inlines.trigger("added", [form, this.prefix]);
 
             // For backwards compatibility with Django < 4.1.
             $(document).trigger("formset:added", [$(form), this.prefix]);
@@ -101,9 +94,6 @@ class InlineFormset extends Formset {
         // Устанавливаем корректную сортировку форм, не дожидаясь анимаций.
         this.updateFormOrder(form);
 
-        // Events
-        emitters.inlines.trigger("remove", [form, this.prefix]);
-
         // Animation
         this._isTransitioning = true;
         this.updateButtonsState();
@@ -116,9 +106,6 @@ class InlineFormset extends Formset {
 
                 this._isTransitioning = false;
                 this.updateButtonsState();
-
-                // Events
-                emitters.inlines.trigger("removed", [form, this.prefix]);
 
                 // For backwards compatibility with Django < 4.1.
                 $(document).trigger("formset:removed", [$(form), this.prefix]);
