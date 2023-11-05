@@ -155,7 +155,7 @@ class PaperModal extends Modal {
             this._body.innerHTML = this.config.body;
         }
 
-        if (this.config.closeButton) {
+        if (this.config.closeButton && this._header) {
             this._header.insertAdjacentHTML("beforeend", this.config.templates.closeButton);
 
             const closeButton = this._header.querySelector(".close");
