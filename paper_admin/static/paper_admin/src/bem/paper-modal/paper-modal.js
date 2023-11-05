@@ -24,7 +24,7 @@ const SELECTOR_MODAL_BODY = ".modal-body";
 const SELECTOR_DATA_DESTROY = '[data-destroy="modal"]';
 
 const _stack = [];
-const Default = {
+const Defaults = {
     title: "",
     body: "",
     modalClass: "fade",
@@ -62,7 +62,7 @@ const Default = {
     }
 };
 
-const ButtonDefault = {
+const ButtonDefaults = {
     label: "",
     buttonClass: "",
     autofocus: false,
@@ -107,12 +107,12 @@ const ButtonDefault = {
 class PaperModal extends Modal {
     constructor(options) {
         const config = {
-            ...Default,
+            ...Defaults,
             ...options
         };
 
         config.templates = {
-            ...Default.templates,
+            ...Defaults.templates,
             ...(options.templates || {})
         };
 
@@ -180,7 +180,7 @@ class PaperModal extends Modal {
         if (this.config.buttons && this.config.buttons.length) {
             this.config.buttons.forEach(options => {
                 const config = {
-                    ...ButtonDefault,
+                    ...ButtonDefaults,
                     ...options
                 }
 
