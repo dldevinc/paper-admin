@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.4.0](https://github.com/dldevinc/paper-admin/tree/v7.4.0) - 2023-11-09
+
+### Features
+
+-   Added patch for [django-money](https://github.com/django-money/django-money).
+
 ## [7.3.0](https://github.com/dldevinc/paper-admin/tree/v7.3.0) - 2023-11-05
 
 ### Features
