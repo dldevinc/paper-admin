@@ -42,6 +42,7 @@ Add `paper_admin` to your INSTALLED_APPS setting **before** `django.contrib.admi
 INSTALLED_APPS = [
     "paper_admin",
     "paper_admin.patches.dal",              # optional
+    "paper_admin.patches.django_money",     # optional
     "paper_admin.patches.django_solo",      # optional
     "paper_admin.patches.mptt",             # optional
     "paper_admin.patches.logentry_admin",   # optional
@@ -61,6 +62,9 @@ The following patches are available:
 
 -   `paper_admin.patches.dal`<br>
     Fixes the style of the [django-autocomplete-light](https://github.com/yourlabs/django-autocomplete-light) widgets.
+
+-   `paper_admin.patches.django_money`<br>
+    Fixes the style of the [django-money](https://github.com/django-money/django-money) widget.
 
 -   `paper_admin.patches.django_solo`<br>
     Fixes the breadcrumbs in [django-solo](https://github.com/lazybird/django-solo).

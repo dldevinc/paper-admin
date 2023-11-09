@@ -52,7 +52,7 @@
       {% spaceless %}{% block breadcrumbs %}{% endblock %}{% endspaceless %}
     {% endif %}
 
-    <main class="d-flex flex-column flex-grow-1 pt-3 mb-auto">
+    <main class="d-flex flex-column flex-grow-1 pt-3 mb-auto{% if is_popup %} pb-5{% endif %}">
       {% block main %}{% endblock %}
     </main>
 

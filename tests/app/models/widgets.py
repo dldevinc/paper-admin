@@ -3,6 +3,7 @@ import os
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from djmoney.models.fields import MoneyField
 
 from .tag import Tag
 
@@ -314,6 +315,12 @@ class Widgets(models.Model):
         related_name="+",
         blank=True,
         help_text=_("DAL <code>ManyToManyField</code>")
+    )
+
+    f_money = MoneyField(
+        _("Money"),
+        max_digits=10,
+        null=True,
     )
 
     class Meta:

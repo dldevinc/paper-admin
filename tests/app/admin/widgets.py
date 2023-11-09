@@ -98,6 +98,12 @@ class WidgetsAdmin(admin.ModelAdmin):
                 "dal_fk", "dal_m2m",
             )
         }),
+        (_("Django-money"), {
+            "tab": "related-fields",
+            "fields": (
+                "f_money",
+            )
+        }),
     )
     tabs = [
         ("standard-fields", _("Standard Fields")),

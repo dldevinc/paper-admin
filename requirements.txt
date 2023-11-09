@@ -1,5 +1,6 @@
 django-autocomplete-light==3.9.7
 django-logentry-admin==1.1.0
+django-money==3.4.0
 django-mptt==0.14.0; python_version < '3.9'
 django-mptt==0.15.0; python_version >= '3.9'
 django-solo==2.1.0

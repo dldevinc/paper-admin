@@ -31,6 +31,7 @@ TIME_INPUT_FORMATS = [
 INSTALLED_APPS = [
     "paper_admin",
     "paper_admin.patches.dal",
+    "paper_admin.patches.django_money",
     "paper_admin.patches.django_solo",
     "paper_admin.patches.logentry_admin",
     "paper_admin.patches.mptt",
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 
     "dal",
     "dal_select2",
+    "djmoney",
     "mptt",
     "solo",
     "logentry_admin",
@@ -224,3 +226,7 @@ PAPER_MENU = [
         ]
     )
 ]
+
+
+DEFAULT_CURRENCY = "USD"
+# CURRENCY_CHOICES = [("USD", "USD $"), ("EUR", "EUR €")]
