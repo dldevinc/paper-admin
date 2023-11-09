@@ -2,12 +2,11 @@
 @import "./variables";
 
 .select-field {
+  max-width: 100%;
   @include media-breakpoint-up(sm) {
-    max-width: $select-field-max-width;
-  }
-
-  &:has([data-select2-id][multiple]) {
-    max-width: none;
+    &:not(:has([data-select2-id][multiple])) {
+      max-width: $select-field-max-width;
+    }
   }
 
   select,
