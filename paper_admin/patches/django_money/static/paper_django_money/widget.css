@@ -1,0 +1,31 @@
+.money-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 10px;
+}
+
+.money-field .number-field {
+  flex: 5 0 150px;
+}
+
+@media (min-width: 576px) {
+  .money-field .number-field {
+    max-width: 200px;
+  }
+}
+
+.money-field .select-field {
+  flex: 1 0 auto;
+}
+
+@media (min-width: 576px) {
+  .money-field .select-field {
+    flex: 0 0 auto;
+    max-width: 300px;
+  }
+}
+
+.money-field .select-field .select2-selection--single .select2-selection__rendered {
+  min-width: 78px;
+  margin-right: 58px;
+}
