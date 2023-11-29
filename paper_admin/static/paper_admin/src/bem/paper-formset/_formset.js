@@ -394,6 +394,7 @@ class Formset {
      * @param {Number} index
      */
     setFormIndex(form, index) {
+        form.dataset.formsetIndex = index.toString();
         this._setElementIndex(form, index);
         form.querySelectorAll("*").forEach(element => {
             this._setElementIndex(element, index);

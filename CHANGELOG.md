@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.5.0](https://github.com/dldevinc/paper-admin/tree/v7.5.0) - 2023-11-29
+
+### Features
+
+-   Added new `formset:setindex` event for inline forms.
+
 ## [7.4.0](https://github.com/dldevinc/paper-admin/tree/v7.4.0) - 2023-11-09
 
 ### Features
