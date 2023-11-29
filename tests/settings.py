@@ -229,4 +229,3 @@ PAPER_MENU = [
 
 
 DEFAULT_CURRENCY = "USD"
-# CURRENCY_CHOICES = [("USD", "USD $"), ("EUR", "EUR €")]

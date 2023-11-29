@@ -254,7 +254,18 @@ class InlineFormset extends Formset {
     }
 
     setFormIndex(form, index) {
+        const currentFormIndex = parseInt(form.dataset.formsetIndex);
         super.setFormIndex(form, index);
+
+        if (currentFormIndex !== index) {
+            form.dispatchEvent(new CustomEvent("formset:setindex", {
+                bubbles: true,
+                detail: {
+                    formsetName: this.prefix,
+                    index: index
+                }
+            }));
+        }
 
         // Обновление индекса в заголовке stacked-формы.
         const caption = form.querySelector(".paper-formset__form-caption");
