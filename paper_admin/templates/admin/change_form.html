@@ -68,7 +68,7 @@
 {% block before_content %}
   {{ block.super }}
 
-  {% if tabs %}
+  {% if tabs and tabs|length > 1 %}
     <div class="paper-tabs mb-3">
       <div class="paper-tabs__underline"></div>
       <ul class="nav" role="tablist">

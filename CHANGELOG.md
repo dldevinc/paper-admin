@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.5.1](https://github.com/dldevinc/paper-admin/tree/v7.5.1) - 2023-12-06
+
+### Features
+
+-   Tabs will now not show up if there is only one tab.
+
 ## [7.5.0](https://github.com/dldevinc/paper-admin/tree/v7.5.0) - 2023-11-29
 
 ### Features
