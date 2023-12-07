@@ -11,10 +11,10 @@ from paper_admin.conf import NONE_PLACEHOLDER
 
 class SimpleListFilter(filters.SimpleListFilter):
     """
-    Отличия от стандартного `SimpleListFilter`:
-    1) Используется `request.GET.getlist()` вместо `request.GET.get()`,
-       что позволяет указывать несколько значений.
-    2) В choice-объект добавлено значение `value`.
+    Customized version of `SimpleListFilter` with the following improvements:
+    1) Utilizes `request.GET.getlist()` instead of `request.GET.get()`,
+       allowing for multiple values to be specified.
+    2) Added a 'value' attribute to choice objects.
     """
 
     def __init__(self, request, params, model, model_admin):
@@ -360,6 +360,33 @@ class EmptyFieldListFilter(FieldListFilter):
 
 
 class HierarchyFilter(filters.ListFilter):
+    """
+    Custom list filter for hierarchical models.
+
+    Attributes:
+        title (str): The display title for the filter.
+        placement (str): The placement of the filter in the admin interface.
+        parameter_name (str): The query parameter name for the filter.
+        template (str): The template used to render the filter UI.
+
+    Example:
+        class CategoryFilter(HierarchyFilter):
+            title = _("Category")
+            parameter_name = "category"
+
+            def lookups(self, changelist):
+                return (
+                    (pk, title)
+                    for pk, title in Category.objects.values_list("pk", "title")
+                )
+
+            def queryset(self, request, queryset):
+                value = self.value()
+                if not value:
+                    return queryset
+
+                return queryset.filter(category__in=value)
+    """
     title = ""
     placement = "top"
     parameter_name = None
@@ -388,6 +415,16 @@ class HierarchyFilter(filters.ListFilter):
         return self.used_parameters.get(self.parameter_name, [])
 
     def lookups(self, changelist):
+        """
+        Return a list of tuples representing the available filter options.
+
+        Returns:
+            list: A list of tuples, where each tuple consists of a value
+                  and its display name.
+
+            Example:
+                [(1, 'Category 1'), (2, 'Category 2'), ...]
+        """
         raise NotImplementedError(
             "The HierarchyFilter.lookups() method must be overridden to "
             "return a list of tuples (value, verbose value)."
