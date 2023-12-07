@@ -4,7 +4,7 @@
 
 ### Features
 
--   Test against Python 3.12.
+-   Test against Python 3.12 and Django 5.0.
 -   Improved logic for selecting the active menu item in the admin interface.
 -   Increased menu bottom margin for better visual spacing.
 
