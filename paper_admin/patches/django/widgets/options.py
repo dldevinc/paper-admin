@@ -1,16 +1,22 @@
 from django import forms
+from django.db import models
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.widgets import AutocompleteSelect, AutocompleteSelectMultiple
 from django.utils.translation import gettext as _
 
 from paper_admin.admin import widgets
-from paper_admin.monkey_patch import MonkeyPatchMeta
+from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 
 # Метакласс MonkeyPatch для класса BaseModelAdmin.
 ModelAdminMonkeyPatchMeta = type("ModelAdminMonkeyPatchMeta", (MonkeyPatchMeta, forms.MediaDefiningClass), {})
 
 
 class PatchBaseModelAdmin(BaseModelAdmin, metaclass=ModelAdminMonkeyPatchMeta):
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if isinstance(db_field, models.BooleanField) and db_field.null:
+            return db_field.formfield(**kwargs)
+        return get_original(BaseModelAdmin)(self, db_field, request, **kwargs)
+
     def formfield_for_choice_field(self, db_field, request, **kwargs):
         # Использование виджета AdminRadioSelect по умолчанию
         if db_field.name in self.radio_fields:

@@ -8,6 +8,11 @@
 -   Improved logic for selecting the active menu item in the admin interface.
 -   Increased menu bottom margin for better visual spacing.
 
+### Bug Fixes
+
+-   Fixed an issue where `BooleanField(null=True)` had a checkbox widget
+    instead of `<select>`.
+
 ## [7.5.1](https://github.com/dldevinc/paper-admin/tree/v7.5.1) - 2023-12-06
 
 ### Features
