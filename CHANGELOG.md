@@ -6,6 +6,7 @@
 
 -   Test against Python 3.12.
 -   Improved logic for selecting the active menu item in the admin interface.
+-   Increased menu bottom margin for better visual spacing.
 
 ## [7.5.1](https://github.com/dldevinc/paper-admin/tree/v7.5.1) - 2023-12-06
 
