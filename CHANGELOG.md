@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.0](https://github.com/dldevinc/paper-admin/tree/v7.6.0) - 2023-12-07
+
+### Features
+
+-   Test against Python 3.12.
+
 ## [7.5.1](https://github.com/dldevinc/paper-admin/tree/v7.5.1) - 2023-12-06
 
 ### Features
