@@ -11,6 +11,11 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
+try:
+    from django.contrib.admin.options import IS_FACETS_VAR
+except ImportError:
+    IS_FACETS_VAR = "_facets"
+
 register = Library()
 
 
@@ -220,4 +225,5 @@ def paper_result_list(context, cl):
     table = ResultTable(request, cl)
     context = result_list_context(table)
     context["is_popup_var"] = IS_POPUP_VAR
+    context["is_facets_var"] = IS_FACETS_VAR
     return loader.render_to_string("admin/change_list_results.html", context, request=request)

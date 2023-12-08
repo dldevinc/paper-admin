@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
-from paper_admin.admin.filters import HierarchyFilter
+from paper_admin.admin.filters import HierarchyFilter, SimpleListFilter
 
 from ..models import Group, Message, User
 
@@ -34,12 +34,40 @@ class GroupFilter(HierarchyFilter):
         return queryset.filter(group__in=value)
 
 
+class RatingFilter(SimpleListFilter):
+    title = "Rating"
+    parameter_name = "rating"
+
+    def lookups(self, request, model_admin):
+        return [
+            ("good", _("Good")),
+            ("bad", _("Bad")),
+            ("unknown", _("Unknown")),
+        ]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if "good" in value:
+            return queryset.filter(
+                rating__gte=3
+            )
+        if "bad" in value:
+            return queryset.filter(
+                rating__lt=3,
+                rating__gt=0
+            )
+        if "unknown" in value:
+            return queryset.filter(
+                rating=0
+            )
+
+
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     search_fields = ["text"]
     actions_on_bottom = True
-    list_display = ("sender", "group", "type", "text_display", "created_at")
-    list_filter = (GroupFilter, "type", "sender", "created_at")
+    list_display = ("sender", "group", "type", "rating", "text_display", "created_at")
+    list_filter = (GroupFilter, "type", "sender", RatingFilter, "edited", "created_at")
     date_hierarchy = "created_at"
     ordering = ("created_at",)
 

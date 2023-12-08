@@ -5,6 +5,7 @@
 ### Features
 
 -   Test against Python 3.12 and Django 5.0.
+-   Added support for Django 5.0 facets.
 -   Improved logic for selecting the active menu item in the admin interface.
 -   Increased menu bottom margin for better visual spacing.
 

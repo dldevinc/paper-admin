@@ -1,3 +1,4 @@
+import django
 from django.contrib.admin import filters
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import get_model_from_relation, reverse_field_path
@@ -7,6 +8,12 @@ from django.utils.dateparse import parse_date
 from django.utils.translation import gettext_lazy as _
 
 from paper_admin.conf import NONE_PLACEHOLDER
+
+try:
+    FacetsMixin = getattr(filters, "FacetsMixin")
+except AttributeError:
+    class FacetsMixin:
+        pass
 
 
 class SimpleListFilter(filters.SimpleListFilter):
@@ -27,6 +34,8 @@ class SimpleListFilter(filters.SimpleListFilter):
         if has_value:
             values_list = request.GET.getlist(self.parameter_name)
             self.used_parameters[self.parameter_name] = list(filter(lambda x: x != "", values_list))
+        else:
+            self.used_parameters[self.parameter_name] = []
 
     def value(self):
         return self.used_parameters.get(self.parameter_name, [])
@@ -38,7 +47,22 @@ class SimpleListFilter(filters.SimpleListFilter):
             "value": "",
             "display": _("All"),
         }
-        for lookup, title in self.lookup_choices:
+
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
+        for i, (lookup, title) in enumerate(self.lookup_choices):
+            if add_facets:
+                count = facet_counts.get(f"{i}__c", -1)
+                if count != -1:
+                    title = f"{title} ({count})"
+                else:
+                    title = f"{title} (-)"
+
             yield {
                 "selected": str(lookup) in self.value(),
                 "query_string": changelist.get_query_string(
@@ -70,6 +94,7 @@ class FieldListFilter(filters.FieldListFilter):
         if not value:
             return models.Q()
         elif len(value) == 1:
+            # TODO: Should we use "__isnull" in the case of None?
             return models.Q((self.field_path, value[0]))
         else:
             return models.Q(("%s__in" % self.field_path, value))
@@ -86,7 +111,27 @@ class FieldListFilter(filters.FieldListFilter):
 class BooleanFieldListFilter(FieldListFilter):
     template = "paper_admin/filters/radio.html"
 
+    def get_facet_counts(self, pk_attname, filtered_qs):
+        return {
+            "true__c": models.Count(
+                pk_attname, filter=models.Q((self.field_path, True))
+            ),
+            "false__c": models.Count(
+                pk_attname, filter=models.Q((self.field_path, False))
+            ),
+            "null__c": models.Count(
+                pk_attname, filter=models.Q((f"{self.field_path}__isnull", True))
+            ),
+        }
+
     def choices(self, changelist):
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
         yield {
             "selected": not self.value,
             "value": "",
@@ -94,28 +139,57 @@ class BooleanFieldListFilter(FieldListFilter):
         }
 
         field_choices = dict(self.field.flatchoices)
-        for lookup, title in (
-            ("1", field_choices.get(True, _("Yes"))),
-            ("0", field_choices.get(False, _("No")))
+        for lookup, title, count_field in (
+            ("1", field_choices.get(True, _("Yes")), "true__c"),
+            ("0", field_choices.get(False, _("No")), "false__c")
         ):
+            if add_facets:
+                count = facet_counts[count_field]
+                title = f"{title} ({count})"
+
             yield {
                 "selected": lookup in self.value,
                 "value": lookup,
                 "display": title,
             }
         if self.field.null:
+            display = field_choices.get(None, _("Unknown"))
+            if add_facets:
+                count = facet_counts["null__c"]
+                display = f"{display} ({count})"
+
             yield {
                 "selected": None in self.value,
                 "value": None,
-                "display": field_choices.get(None, _("Unknown")),
+                "display": display,
             }
 
 
 class ChoicesFieldListFilter(FieldListFilter):
     template = "paper_admin/filters/checkbox.html"
 
+    def get_facet_counts(self, pk_attname, filtered_qs):
+        return {
+            f"{i}__c": models.Count(
+                pk_attname,
+                filter=models.Q((self.field_path, value)),
+            )
+            for i, (value, _) in enumerate(self.field.flatchoices)
+        }
+
     def choices(self, changelist):
-        for lookup, title in self.field.flatchoices:
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
+        for i, (lookup, title) in enumerate(self.field.flatchoices):
+            if add_facets:
+                count = facet_counts[f"{i}__c"]
+                title = f"{title} ({count})"
+
             yield {
                 "selected": str(lookup) in self.value,
                 "value": str(lookup),
@@ -218,14 +292,40 @@ class RelatedFieldListFilter(FieldListFilter):
             ordering=ordering
         )
 
+    def get_facet_counts(self, pk_attname, filtered_qs):
+        counts = {
+            f"{pk_val}__c": models.Count(
+                pk_attname, filter=models.Q((self.field_path, pk_val))
+            )
+            for pk_val, _ in self.lookup_choices
+            if pk_val != NONE_PLACEHOLDER
+        }
+        if self.include_empty_choice:
+            counts["__c"] = models.Count(
+                pk_attname, filter=models.Q(("%s__isnull" % self.field_path, True))
+            )
+        return counts
+
     def choices(self, changelist):
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
         yield {
             "selected": not self.value,
             "value": "",
             "display": _("All")
         }
-        for lookup, title in self.lookup_choices:
+        for i, (lookup, title) in enumerate(self.lookup_choices):
             lookup = str(lookup) if lookup != NONE_PLACEHOLDER else None
+
+            if add_facets:
+                count = facet_counts[f"{lookup}__c" if lookup is not None else "__c"]
+                title = f"{title} ({count})"
+
             yield {
                 "selected": lookup in self.value,
                 "value": lookup,
@@ -270,28 +370,48 @@ class AllValuesFieldListFilter(FieldListFilter):
             queryset.distinct().order_by(field.name).values_list(field.name, flat=True)
         )
 
+    def get_facet_counts(self, pk_attname, filtered_qs):
+        return {
+            f"{i}__c": models.Count(
+                pk_attname,
+                filter=models.Q((self.field_path, value))
+            )
+            for i, value in enumerate(self.lookup_choices)
+        }
+
     def choices(self, changelist):
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
         yield {
             "selected": not self.value,
             "value": "",
             "display": _("All")
         }
         include_none = False
-        for val in self.lookup_choices:
+        empty_title = _("Unknown")
+        for i, val in enumerate(self.lookup_choices):
+            if add_facets:
+                count = facet_counts[f"{i}__c"]
             if val is None:
                 include_none = True
+                empty_title = f"{empty_title} ({count})" if add_facets else empty_title
                 continue
             val = str(val)
             yield {
                 "selected": val in self.value,
                 "value": val,
-                "display": val,
+                "display": f"{val} ({count})" if add_facets else val,
             }
         if include_none:
             yield {
                 "selected": None in self.value,
                 "value": NONE_PLACEHOLDER,
-                "display": _("Unknown"),
+                "display": empty_title,
             }
 
 
@@ -314,16 +434,33 @@ class RelatedOnlyFieldListFilter(RelatedFieldListFilter):
 class EmptyFieldListFilter(FieldListFilter):
     template = "paper_admin/filters/select.html"
 
+    def get_facet_counts(self, pk_attname, filtered_qs):
+        lookup_condition = self.get_lookup_condition()
+        return {
+            "empty__c": models.Count(pk_attname, filter=lookup_condition),
+            "not_empty__c": models.Count(pk_attname, filter=~lookup_condition),
+        }
+
     def choices(self, changelist):
+        if django.VERSION >= (5, 0):
+            add_facets = changelist.add_facets
+            facet_counts = self.get_facet_queryset(changelist) if add_facets else None
+        else:
+            add_facets = False
+            facet_counts = None
+
         yield {
             "selected": not self.value,
             "value": "",
             "display": _("All")
         }
-        for lookup, title in (
-            ("1", _("Empty")),
-            ("0", _("Not empty"))
+        for lookup, title, count_field in (
+            ("1", _("Empty"), "empty__c"),
+            ("0", _("Not empty"), "not_empty__c")
         ):
+            if add_facets:
+                count = facet_counts[count_field]
+                title = f"{title} ({count})"
             yield {
                 "selected": lookup in self.value,
                 "value": lookup,
