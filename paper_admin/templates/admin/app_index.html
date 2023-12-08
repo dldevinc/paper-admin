@@ -29,7 +29,7 @@
         <tr>
           <th scope="col">{{ _("content type")|capfirst }}</th>
           <th scope="col">{{ _("Add") }}</th>
-          <th scope="col">{{ _("Change") }}</th>
+          <th scope="col">{{ _("View") }} / {{ _("Change") }}</th>
         </tr>
         </thead>
 
@@ -64,9 +64,9 @@
               <td>
                 <a href="{{ model.admin_url }}" class="btn btn-sm btn-success">
                   {% if model.view_only %}
-                    <i class="bi-list-ul"></i><span>{{ _("View") }}</span>
+                    <i class="bi-eye"></i><span>{{ _("View") }}</span>
                   {% else %}
-                    <i class="bi-list-ul"></i><span>{{ _("Change") }}</span>
+                    <i class="bi-pencil"></i><span>{{ _("Change") }}</span>
                   {% endif %}
                 </a>
               </td>
