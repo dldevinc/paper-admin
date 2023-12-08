@@ -1,5 +1,19 @@
 # Change Log
 
+## [7.6.0](https://github.com/dldevinc/paper-admin/tree/v7.6.0) - 2023-12-07
+
+### Features
+
+-   Test against Python 3.12 and Django 5.0.
+-   Added support for Django 5.0 facets.
+-   Improved logic for selecting the active menu item in the admin interface.
+-   Increased menu bottom margin for better visual spacing.
+
+### Bug Fixes
+
+-   Fixed an issue where `BooleanField(null=True)` had a checkbox widget
+    instead of `<select>`.
+
 ## [7.5.1](https://github.com/dldevinc/paper-admin/tree/v7.5.1) - 2023-12-06
 
 ### Features

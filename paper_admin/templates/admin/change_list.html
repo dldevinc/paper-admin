@@ -85,15 +85,32 @@
               <input type="hidden" name="{{ name }}" value="{{ value }}">
             {% endfor %}
 
-            <button type="submit" class="btn btn-info btn-lg btn-block">
+            <button type="submit" class="btn btn-info btn-lg btn-block mt-3">
               {{ _("Apply") }}
             </button>
 
-            {% if cl.has_active_filters %}
-              <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
-                <i class="bi-x-lg"></i>
-                <span>{{ _("Clear all filters") }}</span>
-              </a>
+            {% if cl.is_facets_optional or cl.has_active_filters %}
+              {% if cl.has_active_filters %}
+                <a href="{{ cl.clear_all_filters_qs }}" class="btn btn-block btn-danger">
+                  <i class="bi-x-lg"></i><span>{{ _("Clear all filters") }}</span>
+                </a>
+              {% endif %}
+
+              {% if cl.is_facets_optional %}
+                <small class="d-block mt-3">
+                  {% if cl.add_facets %}
+                    <a href="{{ cl.remove_facet_link }}">
+                      <i class="bi-eye-slash"></i>
+                      <span class="ml-1">{{ _("Hide counts") }}</span>
+                    </a>
+                  {% else %}
+                    <a href="{{ cl.add_facet_link }}">
+                      <i class="bi-eye"></i>
+                      <span class="ml-1">{{ _("Show counts") }}</span>
+                    </a>
+                  {% endif %}
+                </small>
+              {% endif %}
             {% endif %}
           </form>
         {% endblock %}

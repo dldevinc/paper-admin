@@ -55,6 +55,10 @@ coverage.xml
 .venv/
 .venv37/
 .venv38/
+.venv39/
+.venv310/
+.venv311/
+.venv312/
 venv/
 
 # mypy

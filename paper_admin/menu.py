@@ -523,7 +523,20 @@ class Menu(ItemBase):
             if len(best_items) == 1:
                 best_items[0].activate()
             else:
-                parent = best_items[0].parent
+                # Ищем кратчайший URL, т.к. он скорее всего является
+                # разделом для текущей страницы. Если же все адреса одинаковой
+                # длины, активируем родительский пункт первого пункта.
+                url_lengths = [
+                    len(item.url.strip("/").split("/"))
+                    for item in best_items
+                ]
+                min_url_len = min(url_lengths)
+
+                if min_url_len != max(url_lengths):
+                    parent = best_items[url_lengths.index(min_url_len)]
+                else:
+                    parent = best_items[0].parent
+
                 if parent is not None and isinstance(parent, Item):
                     parent.activate()
 
