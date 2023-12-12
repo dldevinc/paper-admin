@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.1](https://github.com/dldevinc/paper-admin/tree/v7.6.1) - 2023-12-12
+
+### Bug Fixes
+
+-   The issue has been fixed where the dropzone remained in a highlighted state after dropping a file. 
+
 ## [7.6.0](https://github.com/dldevinc/paper-admin/tree/v7.6.0) - 2023-12-07
 
 ### Features
