@@ -1,2 +1,2 @@
-__version__ = "7.6.1"
+__version__ = "7.6.2"
 default_app_config = "paper_admin.apps.Config"

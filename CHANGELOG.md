@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.2](https://github.com/dldevinc/paper-admin/tree/v7.6.2) - 2023-12-13
+
+### Bug Fixes
+
+-   The sidebar with filters now has `overflow: hidden` to prevent overflow.
+
 ## [7.6.1](https://github.com/dldevinc/paper-admin/tree/v7.6.1) - 2023-12-12
 
 ### Bug Fixes
