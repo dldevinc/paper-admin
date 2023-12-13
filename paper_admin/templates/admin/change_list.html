@@ -71,7 +71,7 @@
   {% if cl.has_filters %}
     <div class="paper-card card">
       <h3 class="card-header">{{ _("Filters") }}</h3>
-      <div class="card-body">
+      <div class="card-body overflow-hidden">
         {% block filters %}
           <form action="" method="get">
             {% for spec in cl.filter_specs %}
