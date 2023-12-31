@@ -512,10 +512,7 @@ class HierarchyFilter(filters.ListFilter):
             parameter_name = "category"
 
             def lookups(self, changelist):
-                return (
-                    (pk, title)
-                    for pk, title in Category.objects.values_list("pk", "title")
-                )
+                return Category.objects.values_list("pk", "title")
 
             def queryset(self, request, queryset):
                 value = self.value()

@@ -1,5 +1,3 @@
-import "./index.scss";
-
 const inputTypes = ["text", "password"];
 const iconClasses = ["bi-eye-slash", "bi-eye"];
 

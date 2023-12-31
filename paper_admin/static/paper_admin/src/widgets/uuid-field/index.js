@@ -1,7 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 
-import "./index.scss";
-
 document.addEventListener("click", event => {
     const button = event.target.closest(".uuid-field__link");
     if (button) {

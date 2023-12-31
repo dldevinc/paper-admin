@@ -1,5 +1,3 @@
-import "./index.scss";
-
 function update(event) {
     const widget = event.target.closest(".email-field");
     if (widget) {

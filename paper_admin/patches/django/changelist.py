@@ -6,7 +6,19 @@ from paper_admin.monkey_patch import MonkeyPatchMeta, get_original
 class PatchChangeList(ChangeList, metaclass=MonkeyPatchMeta):
     def __init__(self, request, *args, **kwargs):
         self.request = request
+        self.has_toolbar_filters = False
         get_original(ChangeList)(self, request, *args, **kwargs)
+
+    def get_queryset(self, request, *args, **kwargs):
+        qs = get_original(ChangeList)(self, request, *args, **kwargs)
+
+        for filter_spec in self.filter_specs:
+            placement = getattr(filter_spec, "placement", None)
+            if placement != "top":
+                self.has_toolbar_filters = True
+                break
+
+        return qs
 
     @property
     def has_actions(self):

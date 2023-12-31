@@ -21,10 +21,7 @@ class GroupFilter(HierarchyFilter):
     parameter_name = "group"
 
     def lookups(self, changelist):
-        return (
-            (pk, name)
-            for pk, name in Group.objects.values_list("pk", "name")
-        )
+        return Group.objects.values_list("pk", "name")
 
     def queryset(self, request, queryset):
         value = self.value()

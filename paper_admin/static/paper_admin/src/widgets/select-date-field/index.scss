@@ -1,11 +1,7 @@
-@import "css/abstracts/bootstrap";
 @import "./variables";
 
 .select-date-field {
   display: flex;
-  @include media-breakpoint-up(sm) {
-    max-width: $select-date-field-max-width;
-  }
 
   .select-field {
     max-width: none;

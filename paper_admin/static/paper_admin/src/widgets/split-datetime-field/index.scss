@@ -3,9 +3,6 @@
 
 .split-datetime-field {
   display: flex;
-  @include media-breakpoint-up(sm) {
-    max-width: $split-datetime-field-max-width;
-  }
 
   .date-field {
     margin-right: $split-datetime-field-gutter-width;
