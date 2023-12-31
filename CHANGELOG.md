@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.6.3](https://github.com/dldevinc/paper-admin/tree/v7.6.3) - 2023-12-31
+
+### Features
+
+- The size of the `Apply` button in the filters block has been reduced.
+
 ## [7.6.2](https://github.com/dldevinc/paper-admin/tree/v7.6.2) - 2023-12-13
 
 ### Bug Fixes
