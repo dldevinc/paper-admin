@@ -1,11 +1,11 @@
 @import "css/abstracts/bootstrap";
-@import "./variables";
+@import "css/abstracts/variables/field_size";
 
 .select-field {
   max-width: 100%;
   @include media-breakpoint-up(sm) {
     &:not(:has([data-select2-id][multiple])) {
-      max-width: $select-field-max-width;
+      max-width: $field-medium-size;
     }
   }
 

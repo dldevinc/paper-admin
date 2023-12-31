@@ -1,8 +1,0 @@
-@import "css/abstracts/bootstrap";
-@import "./variables";
-
-.uuid-field {
-  @include media-breakpoint-up(sm) {
-    max-width: $uuid-field-max-width;
-  }
-}

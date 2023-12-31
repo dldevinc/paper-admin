@@ -1,0 +1,9 @@
+@import "css/abstracts/bootstrap";
+@import "css/abstracts/variables/field_size";
+
+
+.field-medium {
+  @include media-breakpoint-up(sm) {
+    max-width: $field-medium-size;
+  }
+}

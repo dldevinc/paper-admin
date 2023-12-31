@@ -68,7 +68,7 @@
 
 
 {% block toolbar %}
-  {% if cl.has_filters %}
+  {% if cl.has_filters and cl.has_toolbar_filters %}
     <div class="paper-card card">
       <h3 class="card-header">{{ _("Filters") }}</h3>
       <div class="card-body overflow-hidden">
@@ -121,13 +121,15 @@
 
 
 {% block content %}
-  {% if cl.result_count %}
+  {% if cl.result_count or cl.full_result_count %}
     {% for spec in cl.filter_specs %}
       {% if spec.placement == "top" %}
         {% paper_list_filter cl spec %}
       {% endif %}
     {% endfor %}
+  {% endif %}
 
+  {% if cl.result_count %}
     {% if cl.date_hierarchy %}
       <div class="paper-card card mb-3">
         <h5 class="card-header">
@@ -195,18 +197,16 @@
         {% endif %}
       </div>
     {% endif %}
+  {% elif cl.full_result_count %}
+    <div class="paper-message paper-message--info">
+      <h4>{{ _("Nothing found") }}!</h4>
+      <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
+        {{ _("Reset search and filters") }}
+      </a>
+    </div>
   {% else %}
-    {% if cl.full_result_count %}
-      <div class="paper-message paper-message--info">
-        <h4>{{ _("Nothing found") }}!</h4>
-        <a href="?{% if cl.is_popup %}{{ POPUP_VAR }}=1{% endif %}">
-          {{ _("Reset search and filters") }}
-        </a>
-      </div>
-    {% else %}
-      <p class="paper-message paper-message--warning">
-        {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}{{ name_plural }} are not created yet{% endblocktrans %}.
-      </p>
-    {% endif %}
+    <p class="paper-message paper-message--warning">
+      {% blocktrans with cl.opts.verbose_name_plural|capfirst as name_plural %}{{ name_plural }} are not created yet{% endblocktrans %}.
+    </p>
   {% endif %}
 {% endblock %}

@@ -4,7 +4,14 @@
 
 ### Features
 
-- The size of the `Apply` button in the filters block has been reduced.
+-   The size of the `Apply` button in the filters block has been reduced.
+-   Added CSS class `field-medium` to facilitate styling of form fields.
+
+### Bug Fixes
+
+-   The `HierarchyFilter` remains on the page if nothing is found as a result 
+    of filtering.
+-   The `Filters` block is no longer displayed if there are no filters within it.
 
 ## [7.6.2](https://github.com/dldevinc/paper-admin/tree/v7.6.2) - 2023-12-13
 
