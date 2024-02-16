@@ -13,9 +13,6 @@ export class DateField extends BaseComponent {
             altInput: true,
             locale: this._getLocale(),
             dateFormat: this._getDateFormat(),
-            parseDate: function(value) {
-                return new Date(value);
-            }
         };
     }
 
