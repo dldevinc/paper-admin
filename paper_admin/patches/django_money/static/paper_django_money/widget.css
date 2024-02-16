@@ -5,12 +5,12 @@
 }
 
 .money-field .number-field {
-  flex: 5 0 150px;
+  flex: 5 0 120px;
 }
 
 @media (min-width: 576px) {
   .money-field .number-field {
-    max-width: 200px;
+    max-width: 160px;
   }
 }
 
@@ -21,7 +21,7 @@
 @media (min-width: 576px) {
   .money-field .select-field {
     flex: 0 0 auto;
-    max-width: 300px;
+    min-width: 190px;
   }
 }
 

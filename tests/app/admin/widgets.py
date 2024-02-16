@@ -99,7 +99,7 @@ class WidgetsAdmin(admin.ModelAdmin):
             )
         }),
         (_("Django-money"), {
-            "tab": "related-fields",
+            "tab": "custom-fields",
             "fields": (
                 "f_money",
             )
@@ -108,6 +108,7 @@ class WidgetsAdmin(admin.ModelAdmin):
     tabs = [
         ("standard-fields", _("Standard Fields")),
         ("related-fields", _("Related Fields")),
+        ("custom-fields", _("Custom Fields")),
     ]
     list_display = ["__str__", "f_int", "f_boolean", "f_choices"]
     list_editable = ["f_int", "f_boolean", "f_choices"]

@@ -2,6 +2,10 @@
 
 ## [7.6.4](https://github.com/dldevinc/paper-admin/tree/v7.6.4) - 2023-12-31
 
+### Features
+
+-   Minor changes in the sizes of the `django-money` field.
+
 ### Bug Fixes
 
 -   Fixed https://github.com/dldevinc/paper-admin/issues/20.
