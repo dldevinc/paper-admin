@@ -2,8 +2,9 @@ django-autocomplete-light==3.9.7
 django-logentry-admin==1.1.0
 django-money==3.4.1
 django-mptt==0.14.0; python_version < '3.9'
-django-mptt==0.15.0; python_version >= '3.9'
-django-solo==2.1.0
+django-mptt==0.16.0; python_version >= '3.9'
+django-solo==2.1.0; python_version < '3.8'
+django-solo==2.2.0; python_version >= '3.8'
 django-tree-queries==0.15.0; python_version < '3.8'
 django-tree-queries==0.16.1; python_version >= '3.8'
 Pillow
