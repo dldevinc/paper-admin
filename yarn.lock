@@ -4449,10 +4449,10 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-paper-checkbox-tree@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/paper-checkbox-tree/-/paper-checkbox-tree-0.1.10.tgz#b0239ed080cc80c070081e3318a1861de305a0d7"
-  integrity sha512-jiCCKqSvQd0Z4Qt1ky61u7wUyl1kN6FVijOpoDN1j9BedaObbYOV23JsiB2+a44Rzo5jKhtDfidCTC+A9KFDaw==
+paper-checkbox-tree@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/paper-checkbox-tree/-/paper-checkbox-tree-0.1.12.tgz#e7dc09a03cd85cd3cf7141bdd026e8b1b613cb04"
+  integrity sha512-W54lIyknem+h3GZdXTgL3SCoWQg/9vqI2Hwx7ShVUdZQuA3OPWFHd5GaNIKIYt0/4ierN+J2SIvI3RUyVRQ4Nw==
 
 param-case@^3.0.4:
   version "3.0.4"

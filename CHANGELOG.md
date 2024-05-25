@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.7.1](https://github.com/dldevinc/paper-admin/tree/v7.7.1) - 2024-05-25
+
+### Features
+
+-   Update `paper-checkbox-tree`.
+
 ## [7.7.0](https://github.com/dldevinc/paper-admin/tree/v7.7.0) - 2024-05-25
 
 ### Features
