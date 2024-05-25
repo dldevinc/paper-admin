@@ -143,6 +143,7 @@ PAPER_MENU = [
     ),
     Divider(),
     Item(
+        app="auth",
         label=_("Authentication and Authorization"),
         icon="bi-person-circle",
         children=[
@@ -249,10 +250,10 @@ PAPER_MENU = [
 
 ![image](https://user-images.githubusercontent.com/6928240/232227638-cc952405-051e-40a2-96ac-e1df84079d40.png)
 
-When defining permissions for menu items using the `perms` parameter, you can use
-the special values `PAPER_MENU_SUPERUSER_PERMISSION` (default is `superuser`)
-and `PAPER_MENU_STAFF_PERMISSION` (default is `staff`) to restrict access to
-superusers and staff members respectively.
+When defining permissions for menu items using the `perms` parameter, you can use 
+the special value `superuser` (changeable with `PAPER_MENU_SUPERUSER_PERMISSION`) 
+to restrict access to superusers, and `staff` (changeable with `PAPER_MENU_STAFF_PERMISSION`) 
+to restrict access to staff members.
 
 Example:
 
@@ -397,7 +398,7 @@ class CompanyAdmin(admin.ModelAdmin):
     sortable = "position"
 ```
 
-https://user-images.githubusercontent.com/6928240/125331456-0f1bb280-e359-11eb-8b17-b04be4b1e62c.mp4
+https://github.com/dldevinc/paper-admin/assets/6928240/8d71f942-d222-44c6-8d4f-6f2e117bfd8d
 
 <br>
 The sorting is performed using AJAX and is saved to the database automatically.
@@ -424,6 +425,7 @@ class IndustryInline(admin.TabularInline):
 https://user-images.githubusercontent.com/6928240/125331956-b6004e80-e359-11eb-8422-832dfe37bb6c.mp4
 
 <br>
+
 The sorting is compatible with [django-mptt](https://github.com/django-mptt/django-mptt)
 (if the `paper_admin.patches.mptt` patch is added to `INSTALLED_APPS`).
 You can only change the order of elements that have the same parent and are at the same
