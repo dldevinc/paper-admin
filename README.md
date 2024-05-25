@@ -788,6 +788,8 @@ admin.site.register(User, CustomUserAdmin)
 
 ![image](https://github.com/dldevinc/paper-admin/assets/6928240/72766127-ccc6-4538-ac4f-5dae14a30e1f)
 
+For permission fields, you can take it a step further and utilize [paper-admin-permission-field](https://github.com/dldevinc/paper-admin-permission-field).
+
 ## Settings
 
 `PAPER_FAVICON`<br>
