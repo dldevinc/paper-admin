@@ -1,9 +1,14 @@
 from dal import autocomplete
 from django import forms
 from django.contrib import admin
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from paper_admin.admin.widgets import AdminCheckboxSelectMultiple, AdminSwitchInput
+from paper_admin.admin.widgets import (
+    AdminCheckboxSelectMultiple,
+    AdminCheckboxTree,
+    AdminSwitchInput,
+)
 
 from ..models import Widgets
 
@@ -19,6 +24,7 @@ class WidgetsForm(forms.ModelForm):
             "f_file_input": forms.FileInput,
             "f_hidden": forms.HiddenInput,
             "f_checkbox_m2m": AdminCheckboxSelectMultiple,
+            "f_checkbox_tree_m2m": AdminCheckboxTree,
             "dal_fk": autocomplete.ModelSelect2(
                 url="app:ac-tag"
             ),
@@ -83,7 +89,7 @@ class WidgetsAdmin(admin.ModelAdmin):
         (_("Many-to-Many"), {
             "tab": "related-fields",
             "fields": (
-                "f_m2m", "f_checkbox_m2m", "f_radio_m2m", "f_horizontal_m2m",
+                "f_m2m", "f_checkbox_m2m", "f_checkbox_tree_m2m", "f_horizontal_m2m", "f_radio_m2m",
             ),
         }),
         (_("Autocomplete"), {

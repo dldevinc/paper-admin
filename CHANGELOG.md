@@ -1,5 +1,13 @@
 # Change Log
 
+## [7.7.0](https://github.com/dldevinc/paper-admin/tree/v7.7.0) - 2024-05-25
+
+### Features
+
+-   Migrate from the `multi.js` plugin for `<select multiple>` to the 
+    [paper-checkbox-tree](https://github.com/dldevinc/paper-checkbox-tree) plugin.
+-   `FilteredSelectMultiple` widget renamed to `AdminCheckboxTree`.
+
 ## [7.6.4](https://github.com/dldevinc/paper-admin/tree/v7.6.4) - 2023-12-31
 
 ### Features

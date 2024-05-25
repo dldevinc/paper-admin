@@ -255,14 +255,14 @@ class Widgets(models.Model):
         verbose_name=_("Checkbox M2M"),
         related_name="+",
         blank=True,
-        help_text=_("<code>ManyToManyField</code> with <code>AdminCheckboxSelectMultiple</code>")
+        help_text=_("<code>ManyToManyField</code> with <code>AdminCheckboxSelectMultiple</code> widget")
     )
-    f_radio_m2m = models.ManyToManyField(
+    f_checkbox_tree_m2m = models.ManyToManyField(
         Tag,
-        verbose_name=_("Radio M2M"),
+        verbose_name=_("Checkbox Tree M2M"),
         related_name="+",
         blank=True,
-        help_text=_("Raw ID <code>ManyToManyField</code>")
+        help_text=_("<code>ManyToManyField</code> with <code>AdminCheckboxTree</code> widget")
     )
     f_horizontal_m2m = models.ManyToManyField(
         Tag,
@@ -270,6 +270,13 @@ class Widgets(models.Model):
         related_name="+",
         blank=True,
         help_text=_("Horizontal <code>ManyToManyField</code>")
+    )
+    f_radio_m2m = models.ManyToManyField(
+        Tag,
+        verbose_name=_("Radio M2M"),
+        related_name="+",
+        blank=True,
+        help_text=_("Raw ID <code>ManyToManyField</code>")
     )
 
     # Autocomplete

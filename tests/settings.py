@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     "logentry_admin",
 
     "app",
-    "sortables"
+    "sortables",
+    "users"
 ]
 
 MIDDLEWARE = [

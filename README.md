@@ -25,6 +25,7 @@ Custom Django admin interface based on Bootstrap 4.
     -   [Fieldsets](#fieldsets)
     -   [Table rows](#table-rows)
     -   [Inline forms](#inline-forms)
+-   [Additional admin widgets](#Additional-admin-widgets)
 -   [Settings](#settings)
 -   [Additional References](#additional-References)
 
@@ -719,6 +720,73 @@ class TablularInlines(admin.TabularInline):
 
 ![image](https://user-images.githubusercontent.com/6928240/233794982-1ca7248a-dc54-48c4-aea2-44d0d973d083.png)
 ![image](https://user-images.githubusercontent.com/6928240/233795183-c056b82e-8b01-4f7d-9c09-65c0becbdc33.png)
+
+## Additional Admin Widgets
+
+You can enhance the Django admin interface with various custom widgets provided 
+by the `paper-admin` package.
+
+### AdminSwitchInput
+
+The `AdminSwitchInput` widget offers a toggle switch input field for boolean fields 
+in the Django admin interface. This provides a more user-friendly alternative 
+to the default checkbox input for handling boolean values.
+
+```python
+from django.contrib import admin
+from django.db import models
+from paper_admin.widgets import AdminSwitchInput
+from .models import MyModel
+
+class MyModelAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.BooleanField: {"widget": AdminSwitchInput},
+    }
+
+admin.site.register(MyModel, MyModelAdmin)
+```
+
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/98a4c4f7-7e63-43a9-9c15-42093f078f4a)
+
+### AdminCheckboxSelectMultiple
+
+The `AdminCheckboxSelectMultiple` widget improves multiple choice selection 
+by displaying options as checkboxes instead of a dropdown list.
+
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/754fc2ad-254d-4685-a3a2-b1f5149387fd)
+
+### AdminCheckboxTree
+
+The `AdminCheckboxTree` widget presents a scrollable list of checkboxes, providing 
+a compact and efficient way to handle multiple selections.
+
+```python
+# custom_users/admin.py
+
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
+
+from paper_admin.admin.widgets import AdminCheckboxTree
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        widgets = {
+            "user_permissions": AdminCheckboxTree,
+        }
+
+
+class CustomUserAdmin(UserAdmin):
+    form = CustomUserChangeForm
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+```
+
+![image](https://github.com/dldevinc/paper-admin/assets/6928240/72766127-ccc6-4538-ac4f-5dae14a30e1f)
 
 ## Settings
 

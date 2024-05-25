@@ -3,7 +3,8 @@ from django.forms import widgets
 
 __all__ = ["AdminIPInput", "AdminUUIDInput", "AdminSwitchInput", "AdminTextarea",
            "AdminForeignKeyRawIdWidget", "AdminManyToManyRawIdWidget", "AdminCheckboxInput",
-           "AdminRadioSelect", "AdminCheckboxSelectMultiple", "FilteredSelectMultiple"]
+           "AdminRadioSelect", "AdminCheckboxSelectMultiple", "FilteredSelectMultiple",
+           "AdminCheckboxTree"]
 
 
 class AdminIPInput(widgets.TextInput):
@@ -71,4 +72,18 @@ class AdminCheckboxSelectMultiple(widgets.CheckboxSelectMultiple):
 
 
 class FilteredSelectMultiple(widgets.SelectMultiple):
-    template_name = "django/forms/widgets/select_multiple.html"
+    template_name = "django/forms/widgets/filtered_select_multiple.html"
+
+
+class AdminCheckboxTree(widgets.SelectMultiple):
+    template_name = "django/forms/widgets/checkbox_tree.html"
+
+    def use_required_attribute(self, initial):
+        # Don't use the 'required' attribute because browser validation would
+        # require all checkboxes to be checked instead of at least one.
+        return False
+
+    def value_omitted_from_data(self, data, files, name):
+        # HTML checkboxes don't appear in POST data if not checked, so it's
+        # never known if the value is actually omitted.
+        return False

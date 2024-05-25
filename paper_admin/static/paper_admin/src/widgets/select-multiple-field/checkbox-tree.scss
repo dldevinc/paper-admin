@@ -1,0 +1,20 @@
+@import "css/env";
+
+.pct-tree {
+  width: 100%;
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+  border-color: $input-border-color;
+  border-radius: $input-border-radius-lg;
+
+  @at-root .paper-widget--invalid & {
+    border-color: $input-invalid-border-color;
+    box-shadow: $input-invalid-box-shadow;
+  }
+}
+
+.pct-group__text {
+  color: $gray-700;
+  font-size: 16px;
+  font-weight: 500;
+}
