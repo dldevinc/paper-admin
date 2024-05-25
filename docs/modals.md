@@ -1,16 +1,13 @@
 # Modals
 
-## PaperModal
-
-В работе интерфейса администратора зачастую возникает необходимость
-_динамического_ создания окна. Для того, чтобы упростить этот процесс,
-в `paper-admin` используется обёртка над стандартным классом Bootstrap 
-`Modal`.
+In the administration interface, there is often a need for dynamic modal creation. 
+To simplify this process, `paper-admin` uses a wrapper around the standard Bootstrap 
+`Modal` class.
 
 ```javascript
 const modals = window.paperAdmin.modals;
 
-// Создание экземпляра всплывающего окна PaperModal
+// Creating an instance of PaperModal popup
 const popup = modals.createModal({
     title: "Warning!",
     body: "<h2>Confirm something</h2>\n<p>... or not.</p>",
@@ -34,76 +31,74 @@ const popup = modals.createModal({
     ]
 });
 
-// Отображение окна
+// Displaying the modal
 popup.show();
 ```
 
-### Опции
+### ОпцOptionsии
 
 -   `title`: `String`<br>
-    Заголовок окна.
+    The title of the modal.
 -   `body`: `String`<br>
-    Содержимое окна. Может включать HTML.
+    The content of the modal. Can include HTML.
 -   `modalClass`: `String`<br>
-    Дополнительные CSS-классы всплывающего окна.
-    Можно указать несколько классов через пробел.
+    Additional CSS classes for the modal. 
+    Multiple classes can be specified separated by spaces.
 -   `modalDialogClass`: `String`<br>
-    Дополнительные CSS-классы элемента `.modal-dialog`.
+    Additional CSS classes for the `.modal-dialog` element.
 -   `backdropClass`: `String`<br>
-    Дополнительные CSS-классы элемента фона всплывающего окна.
+    Additional CSS classes for the backdrop element of the modal.
 -   `closeButton`: `Boolean`<br>
-    Нужно ли добавлять в шапку всплывающего окна кнопку закрытия
-    (крестик).
+    Whether to add a close button to the modal header.
 -   `buttons`: `Object[]`<br>
-    Кнопки, добавляемые в нижнюю часть всплывающего окна.
+    Buttons added to the footer of the modal.
 -   `templates`: `Object`<br>
-    HTML-шаблоны высплывающего окна (`templates.modal`) и его компонентов
-    (`templates.closeButton` и `templates.button`).
+    HTML templates for the modal (`templates.modal`) and its components 
+    (`templates.closeButton` and `templates.button`).
 -   `options`: `Object`<br>
-    [Опции](https://getbootstrap.com/docs/4.6/components/modal/#options)
-    стандартного класса `Modal`.
+    [Options](https://getbootstrap.com/docs/4.6/components/modal/#options)
+    for the standard `Modal` class.
 -   `onInit`: `Function`<br>
-    Функция, вызываемая после создания DOM-элементов всплывающего окна.
+    Function called after the modal's DOM elements are created.
 -   `onDestroy`: `Function`<br>
-    Функция, вызываемая перед уничтожением DOM-элемента всплывающего окна.
+    Function called before the modal's DOM element is destroyed.
 -   `onClose`: `Function`<br>
-    Функция, вызываемая при закрытии всплывающего окна с помощью нажатия
-    на крестик или клавишу `Esc`.
+    Function called when the modal is closed by clicking the close button or pressing 
+    the `Esc` key.
 
-Кнопки для всплывающего окна задаются с помощью массива объектов.
-Каждый объект может включать следующие поля:
+Buttons for the modal are defined using an array of objects. 
+Each object can include the following fields:
 
 -   `label`: `String`<br>
-    Текст кнопки.
+    The text of the button.
 -   `buttonClass`: `String`<br>
-    Дополнительные CSS-классы кнопки.
+    Additional CSS classes for the button.
 -   `autofocus`: `Boolean`<br>
-    Нужно ли ставить фокус на эту кнопку при показе всплывающего окна.
-    Наличие фокуса на кнопке позволит пользователю выполнить связанное
-    действие нажав клавишу `Enter`.
+    Whether to focus on this button when the modal is shown. 
+    Having focus on the button allows the user to trigger the associated action 
+    by pressing the `Enter` key.
 -   `onClick`: `Function(event, popup)`<br>
-    Действие, связанной с нажатием на кнопку.
+    The action associated with clicking the button.
 
-### Методы
+### Methods
 
 -   `show()`<br>
-    Показ всплывающего окна.
+    Shows the modal.
 -   `hide()`<br>
-    Скрытие всплывающего окна. После скрытия окно можно показать снова,
-    вызвав метод `show()`.
+    Hides the modal. The modal can be shown again by calling the `show()` method.
 -   `destroy()`<br>
-    Уничтожение всплывающего окна. Удаляет связанные с ним DOM-элементы.
-    После вызова этого метода экземпляр `PaperModal` становится бесполезным.
+    Destroys the modal. Removes the associated DOM elements. After calling this method, 
+    the `PaperModal` instance becomes useless.
 
-## Специализированные окна
+## Specialized Modals
 
-Помимо функции `createModal`, создающей базовый экземпляр класса `PaperModal`,
-объект `window.paperAdmin.modals` содержит функции для создания и показа
-специальных типов окон.
+In addition to the `createModal` function, which creates a basic `PaperModal` instance, 
+the `window.paperAdmin.modals` object contains functions for creating and displaying 
+specialized types of modals.
 
 ### showErrors(errors: String|String[], options: Object)
 
-Показ ошибок заполнения формы.
+Displays form validation errors.
 
 ```javascript
 const modals = window.paperAdmin.modals;
@@ -115,7 +110,7 @@ modals.showErrors("Please enter you name");
 
 ### showPreloader(options: Object)
 
-Показ модального окна с прелоадером.
+Displays a modal with a preloader.
 
 ```javascript
 const modals = window.paperAdmin.modals;
@@ -127,11 +122,10 @@ modals.showPreloader();
 
 ### showSmartPreloader(promise: Promise, options: Object)
 
-Показ модального окна с прелоадером для указанного промиса.
-Когда промис разрешится, окно с прелоадером автоматически скроется.
+Displays a modal with a preloader for a given promise. 
+When the promise resolves, the preloader modal is automatically hidden.
 
-Функция возвращает экземпляр `Promise`, который разрешается так же,
-как исходный.
+The function returns a `Promise` instance that resolves in the same way as the original.
 
 ```javascript
 const modals = window.paperAdmin.modals;
